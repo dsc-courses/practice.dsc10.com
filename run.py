@@ -34,7 +34,7 @@ def read_html_config(path):
 
 def create_top_info(params):
     return f'''
-### DSC 10 Practice
+[&#8592; return to practice.dsc10.com](../index.html)
 
 ---
 
@@ -107,6 +107,10 @@ def process_page(path):
     out = read_html_config('include-head.html')
     out += create_top_info(params)
     out += stitch(params['questions'])
+
+    # TODO: easily extract all files for a single final exam
+
+    # TODO: handle subparts and their solutions
     
     # String containing a Markdown document, can be written to file then use pandoc on it
     return out
@@ -148,7 +152,7 @@ def write_all_pages(dir='pages'):
 
     # Copy over images/scripts
     os.system(f'mkdir -p {DST_FOLDER}/assets/')
-    os.system(f'cp assets/theme.css {DST_FOLDER}/assets/theme.css')
+    os.system(f'cp -R assets/ {DST_FOLDER}/assets/')
 
 def create_index():
     index_src = open('index.md', 'r').read()
