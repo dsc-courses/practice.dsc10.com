@@ -5,7 +5,7 @@ import os
 import glob
 import re
 
-DST_FOLDER = '_site'
+DST_FOLDER = 'docs'
 
 # Utility functions for creating discussion/exam pages
 
