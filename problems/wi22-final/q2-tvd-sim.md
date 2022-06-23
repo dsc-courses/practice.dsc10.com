@@ -136,6 +136,10 @@ What goes in blank (b)?
 
 # BEGIN SOLUTION
 
+Just proof that we can use images in solutions!
+
+<center><img src='../assets/images/wi22-final/test.png' width=40%></center>
+
 # END SOLUTION
 
 # END SUBPROB
