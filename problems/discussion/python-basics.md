@@ -1,3 +1,5 @@
+# BEGIN PROB
+
 What is the output of the following line of code?
 
 ```py
@@ -18,3 +20,5 @@ Can we use latex like $$f(x) - 1$$ in here?
 What about like $x^2$ this.
 
 # END SOLUTION
+
+# END PROB

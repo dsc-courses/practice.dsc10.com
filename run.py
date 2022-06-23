@@ -1,13 +1,11 @@
-######## ignore: # ! /usr/bin/env python3
-
 import yaml
 import os
 import glob
 import re
+from bs4 import BeautifulSoup
+import lxml
 
 DST_FOLDER = 'docs'
-
-# Utility functions for creating discussion/exam pages
 
 def format_assignment_name(name):
     '''Takes in a string like 'fa21-final' and returns 'Fall 2021 Final Exam
@@ -21,7 +19,7 @@ def format_assignment_name(name):
     return season + ' ' + year + ' ' + type.title() + ' Exam'
 
 def format_md_path(name):
-    path = f'questions/{name}.md'
+    path = f'problems/{name}.md'
     return path
 
 def format_md_paths(names):
@@ -42,45 +40,14 @@ def create_top_info(params):
 
 {params['context']}
 
+{'_Note: Solutions are currently hidden, and will be made visible at a later date._' if not params['show_solution'] else ''}
+
 ---
 
 '''
 
-def reformat_solution(question_str, question_number):
-    '''Correctly adds the HTML formatting for solutions.'''
-
-    if '# BEGIN SOLUTION' not in question_str:
-        print('Warning: No solution was found.')
-        return question_str
-
-    splitted = question_str.split('# BEGIN SOLUTION')
-    question_text = splitted[0]
-    solution_text = splitted[1].strip('# END SOLUTION\n')
-
-    
-
-    solution_formatted = f'''
-<div class="accordion" id="accordionExample">
-  <div class="accordion-item">
-    <h2 class="accordion-header" id="heading{question_number}">
-      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{question_number}" aria-expanded="true" aria-controls="collapse{question_number}">
-        Click to view the solution.
-      </button>
-    </h2>
-    <div id="collapse{question_number}" class="accordion-collapse collapse collapse" aria-labelledby="heading{question_number}" data-bs-parent="#accordionExample">
-      <div class="accordion-body">
-        {solution_text}
-      </div>
-    </div>
-  </div>
-</div>
-    '''
-
-    return question_text + '\n\n' + solution_formatted
-
-
-def stitch(files, heading_weight='##', toc=False):
-    '''Stitches individual .md files into a longer .md string with questions'''
+def stitch(files, show_solution, toc=False):
+    '''Stitches individual .md files into a longer .md string with problems'''
     paths = format_md_paths(files)
     out = '\n\n'
 
@@ -89,30 +56,169 @@ def stitch(files, heading_weight='##', toc=False):
         pass
 
     for i, path in enumerate(paths):
-        q_out = f'{heading_weight} Question {i + 1}\n'
-
         r = open(path, 'r').read()
-        q_out += reformat_solution(question_str=r, question_number=i+1)
+        q_out = process_problem(problem_str=r, problem_num=i+1, show_solution=show_solution)
         q_out += '\n\n\n---\n\n\n'
 
         out += q_out
 
     return out
 
+# ---
+
+def pandoc(s, kind='md', flags=''):
+    '''Take in a string containing Markdown and return its HTML equivalent, via pandoc'''
+    assert kind == 'tex' or kind == 'md', 'kind must be tex or md'
+
+    if not os.path.exists('temp'):
+        os.system('mkdir temp')
+
+    in_file = open(f'temp/temp.{kind}', 'w')
+    in_file.write(s)
+    in_file.close()
+
+    os.system(f'pandoc --standalone --from markdown-markdown_in_html_blocks+raw_html --metadata title=" " -s temp/temp.{kind} {flags} -o temp/temp.html')
+
+    out_file = open(f'temp/temp.html', 'r')
+    out_s = out_file.read()
+    os.system('rm -r temp')
+
+    soup = BeautifulSoup(out_s, features='lxml')
+    return str(soup.find('body')).replace('<body>', '').replace('</body>', '')
+
+def add_solution_box(solution_str, problem_num):
+    '''solution_str must be an HTML containing the solution text.'''
+
+    # Using . in attribute names does not work
+    if isinstance(problem_num, str) and '.' in problem_num:
+        problem_num = problem_num.replace('.', '_')
+
+    out = f'''
+<div class="accordion" id="accordionExample">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading{problem_num}">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{problem_num}" aria-expanded="true" aria-controls="collapse{problem_num}">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse{problem_num}" class="accordion-collapse collapse collapse" aria-labelledby="heading{problem_num}" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+{solution_str}
+</div>
+</div>
+</div>
+</div>
+
+
+'''
+    
+    return out
+
+def process_problem_no_subparts(problem_str, problem_num, show_solution, heading='##'):
+    '''Used for problems with no subparts, and to process individual subparts'''
+    
+    if show_solution:
+        # Extract solution    
+        if '# BEGIN SOLUTION' in problem_str:
+            sep = 'SOLUTION'
+        elif '# BEGIN SOLN' in problem_str:
+            sep = 'SOLN'
+        else:
+            raise AssertionError('Neither # BEGIN SOLUTION nor # BEGIN SOLN were found')
+            
+        exp = f'# BEGIN {sep}([\d\D]*?)# END {sep}'
+            
+        solution_str = re.findall(exp, problem_str)
+        
+        if len(solution_str) != 1:
+            raise AssertionError('This should not happen')
+        
+        # Pass solution_str through pandoc first, then give it the solution box
+        solution_str_html = pandoc(solution_str[0])
+        solution_processed = add_solution_box(solution_str_html, problem_num)
+
+        problem_only = re.sub(exp, '', problem_str)
+
+    else:
+
+        solution_processed = ''
+
+        # If the solution is there, we need to remove it first
+        contains_solution = False
+
+        if '# BEGIN SOLUTION' in problem_str:
+            sep = 'SOLUTION'
+            contains_solution = True
+        elif '# BEGIN SOLN' in problem_str:
+            sep = 'SOLN'
+            contains_solution = True
+        else:
+            # No solution was provided
+            pass
+
+        if contains_solution:
+            exp = f'# BEGIN {sep}([\d\D]*?)# END {sep}'
+            problem_only = re.sub(exp, '', problem_str)
+        else:
+            problem_only = problem_str
+
+    # Get the problem text
+    problem_only = problem_only.replace('# BEGIN PROB', '').replace('# END PROB', '').strip('\n')
+    
+    # Put it all together
+    
+    out = f'''
+{heading} Problem {problem_num}
+
+{problem_only}
+
+{solution_processed}
+    '''
+    
+    return out
+
+def process_problem_with_subparts(problem_str, problem_num, show_solution):
+
+    # Extract any content before the first # BEGIN SUBPROB
+    preamble = problem_str[problem_str.index('# BEGIN PROB')+12:problem_str.index('# BEGIN SUBPROB')]
+    
+    out = f'## Problem {problem_num}\n\n{preamble}<br>\n\n'
+
+    parts = re.findall(r'# BEGIN SUBPROB([\d\D]*?)# END SUBPROB', problem_str)
+
+    for i, part in enumerate(parts):
+        out += process_problem_no_subparts(part, str(problem_num) + f'.{i+1}', show_solution, heading='###') + '\n\n<br>\n\n'
+        
+    return out
+
+def process_problem(problem_str, problem_num, show_solution):
+    assert problem_str.count('# BEGIN PROB') == problem_str.count('# END PROB') == 1, 'Need exactly one # BEGIN PROB and # END PROB pair'
+    
+    if '# BEGIN SUBPROB' in problem_str:
+        assert problem_str.count('# BEGIN SUBPROB') == problem_str.count('# END SUBPROB'), 'Different number of # BEGIN SUBPROB and # END SUBPROB'
+        return process_problem_with_subparts(problem_str, problem_num, show_solution)
+    
+    else:
+        return process_problem_no_subparts(problem_str, problem_num, show_solution)
+
+# ---
+
 def process_page(path):
     '''Takes in a path to a YML file and returns a MD file with everything.'''
     r = open(path, 'r').read()
     params = yaml.safe_load(r)
+
+    if 'show_solution' not in params.keys():
+        params['show_solution'] = True
     
     out = read_html_config('include-head.html')
     out += create_top_info(params)
-    out += stitch(params['questions'])
+
+    out += stitch(params['problems'], params['show_solution'])
 
     # TODO: easily extract all files for a single final exam
 
-    # TODO: handle subparts and their solutions
-    
-    # String containing a Markdown document, can be written to file then use pandoc on it
+    # TODO: format PDFs for printing: https://stackoverflow.com/problems/1664049/can-i-force-a-page-break-in-html-printing
     return out
 
 def write_page(path):
@@ -177,15 +283,3 @@ def create_index():
 if __name__ == '__main__':
     write_all_pages()
     create_index()
-
-# if __name__ == '__main__':
-#     while True:
-#         f = open('build/fa21-final.md', 'w')
-#         f.write(process_page('pages/exams/fa21-final.yml'))
-#         f.close()
-#         os.system('pandoc -s --standalone --from markdown-markdown_in_html_blocks+raw_html -c ../scripts/theme.css build/fa21-final.md -o build/fa21-final.html')
-#         os.
-#         time.sleep(3)
-    
-
-    # pandoc -s --toc -c pandoc.css -A footer.html MANUAL.txt -o example3.html
