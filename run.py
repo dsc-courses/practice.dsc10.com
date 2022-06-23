@@ -252,6 +252,11 @@ def write_all_pages(dir='pages'):
         os.system(f'rm -r {DST_FOLDER}')
     os.system(f'mkdir {DST_FOLDER}')
 
+    # Add CNAME back – this is a massive hack, but whatever
+    cname = open(f'{DST_FOLDER}/CNAME', 'w')
+    cname.write('practice.dsc10.com')
+    cname.close()
+
     all_paths = glob.glob(f'{dir}/*/*.yml')
     for path in all_paths:
         write_page(path)
