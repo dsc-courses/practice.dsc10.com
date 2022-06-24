@@ -40,7 +40,9 @@ def format_md_paths(names):
     return paths
 
 def read_html_config(path):
-    r = open(path, 'r').read()
+    f = open(path, 'r')
+    r = f.read()
+    f.close()
     return r + '\n\n'
 
 def create_top_info(params):
@@ -98,6 +100,7 @@ def pandoc(s, kind='md', flags=''):
     out_path = os.path.join('temp', 'temp.html')
     out_file = open(out_path, 'r')
     out_s = out_file.read()
+    out_file.close()
     delete_folder('temp')
 
     soup = BeautifulSoup(out_s, features='lxml')
@@ -255,7 +258,9 @@ def process_problem(problem_str, problem_num, show_solution):
 
 def process_page(path):
     '''Takes in a path to a YML file and returns a MD file with everything.'''
-    r = open(path, 'r').read()
+    r_file = open(path, 'r')
+    r = r_file.read()
+    r_file.close()
     params = yaml.safe_load(r)
 
     if 'show_solution' not in params.keys():
@@ -323,7 +328,10 @@ def write_all_pages(dir='pages'):
     shutil.copytree('assets', dst_path)
 
 def create_index():
-    index_src = open('index.md', 'r').read()
+    f_index = open('index.md', 'r')
+    index_src = f_index.read()
+    f_index.close()
+
     out = read_html_config('include-head.html')
     out += '\n' + index_src
 
