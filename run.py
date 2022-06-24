@@ -279,7 +279,8 @@ def process_page(path):
 def write_page(path):
     '''Takes in a path to a YML file and writes the MD file, runs pandoc, deletes the MD file'''
 
-    assignment_name = path.split('/')[-1].replace('.yml', '')
+    sep = '/' if '/' in path else '\\'
+    assignment_name = path.split(sep)[-1].replace('.yml', '')
 
     # Generate the Markdown
     page = process_page(path)
