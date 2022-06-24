@@ -22,26 +22,24 @@ What is the **total variation distance** (TVD) between Kelsey Plum's shot distri
 
 # BEGIN SOLUTION
 
-0.2
+**Answer:** 0.2
 
 Recall, the TVD is the sum of the absolute differences in proportions, divided by 2. The absolute differences in proportions for each category are as follows:
 
 - Free throws: $|0.05 - 0.2| = 0.15$
-- Threes: $$|0.35 - 0.2| = 0.15$$
+- Threes: $|0.35 - 0.2| = 0.15$
 - Midrange: $|0.35 - 0.3| = 0.05$
 - Layups: $|0.25 - 0.3| = 0.05$
 
 Then, we have
 
-$$\text{TVD} = \frac{1}{2} \left( 0.15 + 0.15 + 0.05 + 0.05 \right) = 0.2$$
+$$\text{TVD} = \frac{1}{2} (0.15 + 0.15 + 0.05 + 0.05) = 0.2$$
 
 # END SOLUTION
 
 # END SUBPROB
 
 # BEGIN SUBPROB
-
-TODO: how to format this?
 
 Recall, `breakdown` has information for 50 different players. We want to find the player whose shot distribution is the **most similar to Kelsey Plum**, i.e. has the lowest TVD with Kelsey Plum's shot distribution.
 
@@ -59,17 +57,17 @@ for player in other_players:
         __(c)__
 ```
 
-What goes in blank (a)?
+1. What goes in blank (a)?
 
 ( ) -1
 ( ) -0.5
 ( ) 0
 ( ) 0.5
-(X) 1
+( ) 1
 ( ) `np.array([])`
 ( ) `''`
 
-What goes in blank (b)?
+2. What goes in blank (b)?
 
 [____](np.arange(1, 50))
 
@@ -79,7 +77,11 @@ What goes in blank (c)?
 
 # BEGIN SOLUTION
 
-TODO
+**Answer:**
+
+1. 1
+2. `np.arange(1, 50)`
+3. `most_sim_player=player`
 
 # END SOLUTION
 

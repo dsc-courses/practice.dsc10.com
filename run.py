@@ -4,8 +4,21 @@ import glob
 import re
 from bs4 import BeautifulSoup
 import lxml
+import shutil
+import stat
 
 DST_FOLDER = 'docs'
+
+def delete_folder(path):
+    '''Needed for Windows...
+       Taken from https://stackoverflow.com/questions/21261132/shutil-rmtree-to-remove-readonly-files
+    '''
+
+    def del_rw(action, name, exc):
+        os.chmod(name, stat.S_IWRITE)
+        os.remove(name)
+
+    return shutil.rmtree(path, onerror=del_rw)
 
 def format_assignment_name(name):
     '''Takes in a string like 'fa21-final' and returns 'Fall 2021 Final Exam
@@ -19,7 +32,7 @@ def format_assignment_name(name):
     return season + ' ' + year + ' ' + type.title() + ' Exam'
 
 def format_md_path(name):
-    path = f'problems/{name}.md'
+    path = os.path.join('problems', f'{name}.md')
     return path
 
 def format_md_paths(names):
@@ -71,17 +84,21 @@ def pandoc(s, kind='md', flags=''):
     assert kind == 'tex' or kind == 'md', 'kind must be tex or md'
 
     if not os.path.exists('temp'):
-        os.system('mkdir temp')
+        os.mkdir('temp')
 
-    in_file = open(f'temp/temp.{kind}', 'w')
+    in_path = os.path.join('temp', f'temp.{kind}')
+    in_file = open(in_path, 'w')
     in_file.write(s)
     in_file.close()
 
-    os.system(f'pandoc --standalone --from markdown-markdown_in_html_blocks+raw_html --metadata title=" " -s temp/temp.{kind} {flags} -o temp/temp.html')
+    src_path = os.path.join('temp', f'temp.{kind}')
+    dst_path = os.path.join('temp', 'temp.html')
+    os.system(f'pandoc -s --standalone --from markdown-markdown_in_html_blocks+raw_html --metadata title=" " -s {src_path} {flags} -o {dst_path}')
 
-    out_file = open(f'temp/temp.html', 'r')
+    out_path = os.path.join('temp', 'temp.html')
+    out_file = open(out_path, 'r')
     out_s = out_file.read()
-    os.system('rm -r temp')
+    delete_folder('temp')
 
     soup = BeautifulSoup(out_s, features='lxml')
     return str(soup.find('body')).replace('<body>', '').replace('</body>', '')
@@ -111,6 +128,35 @@ Click to view the solution.
 
 
 '''
+    
+    return out
+
+def process_MC(problem_str):
+    '''Critical assumption: any problem with multiple choice or select all options has at least 2 choices'''
+    
+    # Multiple choice (circular boxes)
+    if problem_str.count('( )') >= 2:
+        exp = r'\( \) (.*)'
+        input_type = 'radio'
+        
+    # Select all (square boxes)
+    elif problem_str.count('[ ]') >= 2:
+        exp = r'\[ \] (.*)'
+        input_type = 'checkbox'
+        
+    else:
+        # Not a MC problem
+        return problem_str
+    
+    choices = re.findall(exp, problem_str)
+    problem_only = re.sub(exp, '', problem_str)
+    out = problem_only + '\n\n<ul class="task-list">\n'
+    for choice in choices:
+        processed_choice = pandoc(choice) # In case the choice includes Markdown
+        processed_choice = str(BeautifulSoup(processed_choice, features='lxml').find('p')).replace('<p>', '').replace('</p>', '')
+        out += f'<li><p><input type="{input_type}" disabled="" /> {processed_choice}</p></li>\n'
+    
+    out += '</ul>'
     
     return out
 
@@ -164,6 +210,10 @@ def process_problem_no_subparts(problem_str, problem_num, show_solution, heading
 
     # Get the problem text
     problem_only = problem_only.replace('# BEGIN PROB', '').replace('# END PROB', '').strip('\n')
+
+    # Process MC/SA boxes in problem_only
+
+    problem_only = process_MC(problem_only)
     
     # Put it all together
     
@@ -230,58 +280,72 @@ def write_page(path):
     page = process_page(path)
 
     # Write the Markdown
-    f = open(f'{DST_FOLDER}/{assignment_name}.md', 'w')
+    open_path = os.path.join(DST_FOLDER, f'{assignment_name}.md')
+    f = open(open_path, 'w')
     f.write(page)
     f.close()
 
     # Convert to HTML
-    os.system(f'mkdir -p {DST_FOLDER}/{assignment_name}') # make folder
+    dst_folder_path = os.path.join(DST_FOLDER, assignment_name)
+    os.mkdir(dst_folder_path) # make folder
 
     title = format_assignment_name(assignment_name)
-    src_path = f'{DST_FOLDER}/{assignment_name}.md'
-    dst_path = f'{DST_FOLDER}/{assignment_name}/index.html'
-    os.system(f'pandoc -s --standalone --from markdown-markdown_in_html_blocks+raw_html -c ../assets/theme.css --metadata title="{title}" {src_path} -o {dst_path}')
+    src_path = os.path.join(DST_FOLDER, f'{assignment_name}.md')
+    dst_path = os.path.join(DST_FOLDER, assignment_name, 'index.html')
+    css_path = os.path.join('..', 'assets', 'theme.css')
+    os.system(f'pandoc -s --standalone --from markdown-markdown_in_html_blocks+raw_html -c {css_path} --metadata title="{title}" {src_path} -o {dst_path}')
 
     # Delete the intermediate Markdown
-    os.system(f'rm {DST_FOLDER}/{assignment_name}.md')
+    os.remove(src_path)
 
 def write_all_pages(dir='pages'):
     '''Assumes all pages are specified in YML'''
 
     if os.path.exists(DST_FOLDER):
-        os.system(f'rm -r {DST_FOLDER}')
-    os.system(f'mkdir {DST_FOLDER}')
+        delete_folder(DST_FOLDER)
+    os.mkdir(DST_FOLDER)
 
     # Add CNAME back – this is a massive hack, but whatever
-    cname = open(f'{DST_FOLDER}/CNAME', 'w')
+    cname_path = os.path.join(DST_FOLDER, 'CNAME')
+    cname = open(cname_path, 'w')
     cname.write('practice.dsc10.com')
     cname.close()
 
-    all_paths = glob.glob(f'{dir}/*/*.yml')
+    page_paths = os.path.join(dir, '*', '*.yml')
+    all_paths = glob.glob(page_paths)
     for path in all_paths:
         write_page(path)
 
     # Copy over images/scripts
-    os.system(f'mkdir -p {DST_FOLDER}/assets/')
-    os.system(f'cp -R assets/ {DST_FOLDER}/assets/')
+    # os.mkdir(f'{DST_FOLDER}/assets/')
+    # os.system(f'cp -R assets/ {DST_FOLDER}/assets/')
+    dst_path = os.path.join(DST_FOLDER, 'assets')
+    shutil.copytree('assets', dst_path)
 
 def create_index():
     index_src = open('index.md', 'r').read()
     out = read_html_config('include-head.html')
     out += '\n' + index_src
-    f = open(f'{DST_FOLDER}/index.md', 'w')
+
+    src_path = os.path.join(DST_FOLDER, 'index.md')
+    f = open(src_path, 'w')
     f.write(out)
     f.close()
-    os.system(f'pandoc -c assets/theme.css -s {DST_FOLDER}/index.md -o {DST_FOLDER}/index.html')
-    os.system(f'rm -r {DST_FOLDER}/index.md')
+
+    css_path = os.path.join('assets', 'theme.css')
+    src_path = os.path.join(DST_FOLDER, 'index.md')
+    dst_path = os.path.join(DST_FOLDER, 'index.html')
+    os.system(f'pandoc -c {css_path} -s {src_path} -o {dst_path}')
+    os.remove(src_path)
 
     # Remove pre-defined title
-    f = open(f'{DST_FOLDER}/index.html', 'r')
+    src_path = os.path.join(DST_FOLDER, 'index.html')
+    f = open(src_path, 'r')
     r = f.read()
     f.close()
 
     r = re.sub(r'<h1 class="title">.*?</h1>', '', r)
-    f = open(f'{DST_FOLDER}/index.html', 'w')
+    f = open(src_path, 'w')
     f.write(r)
     f.close()
     

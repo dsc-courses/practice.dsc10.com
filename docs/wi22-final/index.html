@@ -141,12 +141,12 @@ turnovers are bad!)</li>
 <h3 id="problem-1.1">Problem 1.1</h3>
 <p>What type of visualization is best suited for visualizing the trend
 in the number of points Kelsey Plum scored per game in 2021?</p>
-<ol type="1">
-<li>Histogram</li>
-<li>Bar chart</li>
-<li>Line chart</li>
-<li>Scatter plot</li>
-</ol>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Histogram</p></li>
+<li><p><input type="radio" disabled="" /> Bar chart</p></li>
+<li><p><input type="radio" disabled="" /> Line chart</p></li>
+<li><p><input type="radio" disabled="" /> Scatter plot</p></li>
+</ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading1_1">
@@ -160,9 +160,7 @@ aria-labelledby="heading1_1" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<ol start="3" type="1">
-<li>Line chart</li>
-</ol>
+<p><strong>Answer: </strong> Line chart</p>
 <p>Here, there are two quantitative variables (number of points and game
 number), and one of them involves some element of time (game number).
 Line charts are appropriate when one quantitative variable is time.</p>
@@ -193,11 +191,20 @@ aria-labelledby="heading1_2" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
+<p><strong>Answer:</strong></p>
 <ol type="1">
-<li><p>Blank (a):
-<code>plum.get('Date').str.contains('-06-')</code></p></li>
-<li><p>Blank (b): <code>get('PTS').sum()</code></p></li>
+<li><p><code>plum.get('Date').str.contains('-06-')</code></p></li>
+<li><p><code>get('PTS').sum()</code></p></li>
 </ol>
+<p>To find the total number of points Kelsey Plum scored in June, one
+approach is to first create a DataFrame with only the rows for June. All
+June <code>'Date'</code>s contain <code>'-06'</code> (since June is the
+6th month), so <code>plum.get('Date').str.contains('-06-')</code> is a
+Series containing <code>True</code> only for the June rows and
+<code>june_only = plum[plum.get('Date').str.contains('-06-')]</code> is
+a DataFrame containing only the June rows.</p>
+<p>Then, all we need is the sum of the <code>'PTS'</code> column, which
+is given by <code>june_only.get('PTS').sum()</code>.</p>
 </div>
 </div>
 </div>
@@ -209,16 +216,16 @@ aria-labelledby="heading1_2" data-bs-parent="#accordionExample">
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    grouped <span class="op">=</span> plum.groupby(<span class="st">&#39;Opp&#39;</span>).<span class="bu">max</span>().get([<span class="st">&#39;Date&#39;</span>, <span class="st">&#39;PTS&#39;</span>])</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.array(grouped.reset_index().index)[df]</span></code></pre></div>
 <p>What does <code>unknown(3)</code> evaluate to?</p>
-<ol type="1">
-<li><code>'2021-06-05'</code></li>
-<li><code>'WAS'</code></li>
-<li>The date on which Kelsey Plum scored the most points</li>
-<li>The three-letter code of the opponent on which Kelsey Plum scored
-the most points</li>
-<li>The number 0</li>
-<li>The number 3</li>
-<li>An error</li>
-</ol>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>'2021-06-05'</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>'WAS'</code></p></li>
+<li><p><input type="radio" disabled="" /> The date on which Kelsey Plum scored the most points</p></li>
+<li><p><input type="radio" disabled="" /> The three-letter code of the opponent on which Kelsey Plum scored the
+most points</p></li>
+<li><p><input type="radio" disabled="" /> The number 0</p></li>
+<li><p><input type="radio" disabled="" /> The number 3</p></li>
+<li><p><input type="radio" disabled="" /> An error</p></li>
+</ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading1_3">
@@ -232,10 +239,32 @@ aria-labelledby="heading1_3" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<ol start="6" type="1">
-<li>The number 3</li>
-</ol>
-<p>Here’s why…</p>
+<p><strong>Answer:</strong> The number 3</p>
+<p><code>plum.groupby('Opp').max()</code> finds the largest value in the
+<code>'Date'</code>, <code>'Home'</code>, <code>'Won'</code>,
+<code>'PTS'</code>, <code>'AST'</code>, and <code>'TOV'</code> columns
+for each unique <code>'Opp'</code> (independently for each column).
+<code>grouped = plum.groupby('Opp').max().get(['Date', 'PTS'])</code>
+keeps only the <code>'Date'</code> and <code>'PTS'</code> columns. Note
+that in <code>grouped</code>, the index is <code>'Date'</code>, the
+column we grouped on.</p>
+<p>When <code>grouped.reset_index()</code> is called, the index is
+switched back to the default of 0, 1, 2, 3, 4, and so on. Then,
+<code>grouped.reset_index().index</code> is an <code>Index</code>
+containing the numbers <code>[0, 1, 2, 3, 4, ...]</code>, and
+<code>np.array(grouped.reset_index().index)</code> is
+<code>np.array([0, 1, 2, 3, 4, ...])</code>. In this array, the number
+at position <code>i</code> is just <code>i</code>, so the number at
+position <code>df</code> is <code>df</code>. Here, <code>df</code> is
+the argument to <code>unknown</code>, and we were asked for the value of
+<code>unknown(3)</code>, so the correct answer is the number at position
+3 in <code>np.array([0, 1, 2, 3, 4, ...])</code> which is 3.</p>
+<p>Note that if we asked for <code>unknown(50)</code> (or
+<code>unknown(k)</code>, where <code>k</code> is any integer above 30),
+the answer would be “An error”, since <code>grouped</code> could not
+have had 51 rows. <code>plum</code> has 31 rows, so <code>grouped</code>
+has at most 31 rows (but likely less, since Kelsey Plum’s team likely
+played the same opponent multiple times).</p>
 </div>
 </div>
 </div>
@@ -268,8 +297,36 @@ aria-labelledby="heading1_4" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><code>home_won</code> has <span class="math inline"><em>n</em></span>
-rows and <span class="math inline"><em>d</em></span> columns.</p>
+<p><strong>Answer:</strong> 4 rows and 5 columns.</p>
+<p><code>plum.groupby(['Home', 'Won']).mean()</code> contains one row
+for every unique combination of <code>'Home'</code> and
+<code>'Won'</code>. There are two values of <code>'Home'</code> -
+<code>True</code> and <code>False</code> – and two values of
+<code>'Won'</code> – <code>True</code> and <code>False</code> – leading
+to 4 combinations. We can assume that there was at least one row in
+<code>plum</code> for each of these 4 combinations due to the assumption
+given in the problem:</p>
+<p><em>Suppose that Plum’s team, the Las Vegas Aces, won at least one
+game in Las Vegas and lost at least one game in Las Vegas. Also, suppose
+they won at least one game in an opponent’s arena and lost at least one
+game in an opponent’s arena.</em></p>
+<p><code>plum</code> started with 7 columns: <code>'Date'</code>,
+<code>'Opp'</code>, <code>'Home'</code>, <code>'Won'</code>,
+<code>'PTS'</code>, <code>'AST'</code>, and <code>'TOV'</code>. After
+grouping by <code>['Home', 'Won']</code> and using <code>.mean()</code>,
+<code>'Home'</code> and <code>'Won'</code> become the index. The
+resulting DataFrame contains all of the columns that the
+<code>.mean()</code> aggregation method can work on. We cannot take the
+mean of <code>'Date'</code> and <code>'Opp'</code>, because those
+columns are strings, so
+<code>plum.groupby(['Home', 'Won']).mean()</code> contains a
+<code>MultiIndex</code> with 2 “columns” – <code>'Home'</code> and
+<code>'Won'</code> – and 3 regular columns – <code>'PTS'</code>
+<code>'AST'</code>, and <code>'TOV'</code>. Then, when using
+<code>.reset_index()</code>, <code>'Home'</code> and <code>'Won'</code>
+are restored as regular columns, meaning that
+<code>plum.groupby(['Home', 'Won']).mean().reset_index()</code> has
+<span class="math inline">2 + 3 = 5</span> columns.</p>
 </div>
 </div>
 </div>
@@ -285,16 +342,16 @@ that the only difference between <code>home_won</code> and
 <div class="sourceCode" id="cb5"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>puzzle <span class="op">=</span> plum.groupby([<span class="st">&#39;Home&#39;</span>, <span class="st">&#39;Won&#39;</span>]).count().reset_index()</span></code></pre></div>
 <p>How do the number of rows and columns in <code>home_won</code>
 compare to the number of rows and columns in <code>puzzle</code>?</p>
-<ol type="1">
-<li><code>home_won</code> and <code>puzzle</code> have the same number
-of rows and columns</li>
-<li><code>home_won</code> and <code>puzzle</code> have the same number
-of rows, but a different number of columns</li>
-<li><code>home_won</code> and <code>puzzle</code> have the same number
-of columns, but a different number of rows</li>
-<li><code>home_won</code> and <code>puzzle</code> have both a different
-number of rows and a different number of columns</li>
-</ol>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>home_won</code> and <code>puzzle</code> have the same number of
+rows and columns</p></li>
+<li><p><input type="radio" disabled="" /> <code>home_won</code> and <code>puzzle</code> have the same number of
+rows, but a different number of columns</p></li>
+<li><p><input type="radio" disabled="" /> <code>home_won</code> and <code>puzzle</code> have the same number of
+columns, but a different number of rows</p></li>
+<li><p><input type="radio" disabled="" /> <code>home_won</code> and <code>puzzle</code> have both a different
+number of rows and a different number of columns</p></li>
+</ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading1_5">
@@ -308,10 +365,23 @@ aria-labelledby="heading1_5" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<ol start="2" type="1">
-<li><code>home_won</code> and <code>puzzle</code> have the same number
-of rows, but a different number of columns</li>
-</ol>
+<p><strong>Answer: </strong> <code>home_won</code> and
+<code>puzzle</code> have the same number of rows, but a different number
+of columns</p>
+<p>All that changed between <code>home_won</code> and
+<code>puzzle</code> is the aggregation method. The aggregation method
+has no influence on the number of rows in the output DataFrame, as there
+is still one row for each of the 4 unique combinations of
+<code>'Home'</code> and <code>'Won'</code>.</p>
+<p>However, <code>puzzle</code> has 7 columns, instead of 5. In the
+solution to the above subpart, we noticed that we could not use
+<code>.mean()</code> on the <code>'Date'</code> and <code>'Opp'</code>
+columns, since they contained strings. However, we can use
+<code>.count()</code> (since <code>.count()</code> just determines the
+number of unique values in each group), and so the <code>'Date'</code>
+and <code>'Opp'</code> columns are not “lost” when aggregating. Hence,
+<code>puzzle</code> has the same number of columns as
+<code>home_won</code>, plus 2.</p>
 </div>
 </div>
 </div>
@@ -343,10 +413,25 @@ aria-labelledby="heading1_6" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
+<p><strong>Answer:</strong></p>
 <ol type="1">
-<li><p>Blank (a): <code>'Opp'</code></p></li>
-<li><p>Blank (b): <code>sort_values('Won').index[0]</code></p></li>
+<li><p><code>'Opp'</code></p></li>
+<li><p><code>sort_values('Won').index[0]</code></p></li>
 </ol>
+<p>The key insight here is that the values in the <code>'Won'</code>
+column are Boolean, and when Boolean values are used in arithmetic they
+are treated as 1s (<code>True</code>) and 0s (<code>False</code>). The
+<code>sum</code> of several <code>'Won'</code> values is the same as the
+number of wins.</p>
+<p>If we group <code>plum</code> by <code>'Opp'</code> and use
+<code>.sum()</code>, the resulting <code>'Won'</code> column contains
+the number of wins that Plum’s team had against each unique opponent. If
+we sort this DataFrame by <code>'Won'</code> in increasing order (which
+is the default behavior of <code>sort_values</code>), the row at the top
+will correspond to the <code>'Opp'</code> that Plum’s team had no wins
+against. Since we grouped by <code>'Opp'</code>, team names are stored
+in the index, so <code>.index[0]</code> will give us the name of the
+desired team.</p>
 </div>
 </div>
 </div>
@@ -363,13 +448,13 @@ of the 31 games Kelsey Plum’s team played in the 2021 WNBA season.</p>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>n_wins <span class="op">=</span> plum.get(<span class="st">&#39;Won&#39;</span>).<span class="bu">sum</span>()</span>
 <span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>win_bool <span class="op">=</span> n_wins <span class="op">==</span> (<span class="dv">31</span> <span class="op">+</span> modify_series(plum.get(<span class="st">&#39;Won&#39;</span>)))</span></code></pre></div>
 <p>What goes in blank (a)?</p>
-<ol type="1">
-<li><code>-s.sum()</code></li>
-<li><code>-(s == False).sum()</code></li>
-<li><code>len(s) - s.sum()</code></li>
-<li><code>not s.sum()</code></li>
-<li><code>-s[s.get('Won') == False].sum()</code></li>
-</ol>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>-s.sum()</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>-(s == False).sum()</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>len(s) - s.sum()</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>not s.sum()</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>-s[s.get('Won') == False].sum()</code></p></li>
+</ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading1_7">
@@ -383,9 +468,22 @@ aria-labelledby="heading1_7" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<ol start="2" type="1">
-<li><code>-(s == False).sum()</code></li>
-</ol>
+<p><strong>Answer:</strong> <code>-(s == False).sum()</code></p>
+<p><code>n_wins</code> is equal to the number of wins that Plum’s team
+had. Recall, her team played 31 games total. In order for
+<code>(31 + modify_series(plum.get('Won')))</code> to be equal to her
+team’s number of wins, <code>modify_series(plum.get('Won'))</code> must
+be equal to her team’s number of losses, multiplied by -1.</p>
+<p>To see this algebraically, let
+<code>modified = modify_series(plum.get('Won'))</code>. Then:</p>
+<p><span class="math display">31 + <em>m</em><em>o</em><em>d</em><em>i</em><em>f</em><em>i</em><em>e</em><em>d</em> = wins</span>
+<span class="math display"><em>m</em><em>o</em><em>d</em><em>i</em><em>f</em><em>i</em><em>e</em><em>d</em> = wins − 31 =  − (31−wins) =  − (losses)</span></p>
+<p>The function <code>modified_series(s)</code> takes in a Series
+containing the wins and losses for each of Plum’s team’s games and needs
+to return the number of losses multiplied by -1. <code>s.sum()</code>
+returns the number of wins, and <code>(s == False).sum()</code> returns
+the number of losses. Then, <code>-(s == False).sum()</code> returns the
+number of losses multiplied by -1, as desired.</p>
 </div>
 </div>
 </div>
@@ -428,26 +526,25 @@ aria-labelledby="heading2_1" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p>0.2</p>
+<p><strong>Answer:</strong> 0.2</p>
 <p>Recall, the TVD is the sum of the absolute differences in
 proportions, divided by 2. The absolute differences in proportions for
 each category are as follows:</p>
 <ul>
 <li>Free throws: <span class="math inline">|0.05−0.2| = 0.15</span></li>
-<li>Threes: <span class="math display">|0.35−0.2| = 0.15</span></li>
+<li>Threes: <span class="math inline">|0.35−0.2| = 0.15</span></li>
 <li>Midrange: <span class="math inline">|0.35−0.3| = 0.05</span></li>
 <li>Layups: <span class="math inline">|0.25−0.3| = 0.05</span></li>
 </ul>
 <p>Then, we have</p>
-<p><span class="math display">$$\text{TVD} = \frac{1}{2} \left( 0.15 +
-0.15 + 0.05 + 0.05 \right) = 0.2$$</span></p>
+<p><span class="math display">$$\text{TVD} = \frac{1}{2} (0.15 + 0.15 +
+0.05 + 0.05) = 0.2$$</span></p>
 </div>
 </div>
 </div>
 </div>
 <p><br></p>
 <h3 id="problem-2.2">Problem 2.2</h3>
-<p>TODO: how to format this?</p>
 <p>Recall, <code>breakdown</code> has information for 50 different
 players. We want to find the player whose shot distribution is the
 <strong>most similar to Kelsey Plum</strong>, i.e. has the lowest TVD
@@ -466,13 +563,22 @@ distribution to Kelsey Plum. Assume that the column named
 <span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> player_tvd <span class="op">&lt;</span> lowest_tvd_so_far:</span>
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>        lowest_tvd_so_far <span class="op">=</span> player_tvd</span>
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>        __(c)__</span></code></pre></div>
-<p>What goes in blank (a)?</p>
-<p>( ) -1 ( ) -0.5 ( ) 0 ( ) 0.5 (X) 1 ( ) <code>np.array([])</code> ( )
-<code>''</code></p>
-<p>What goes in blank (b)?</p>
+<ol type="1">
+<li><p>What goes in blank (a)?</p></li>
+<li><p>What goes in blank (b)?</p></li>
+</ol>
 <p><a href="np.arange(1,%2050)">____</a></p>
 <p>What goes in blank (c)?</p>
 <p><a href="most_sim_player%20=%20player">____</a></p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> -1</p></li>
+<li><p><input type="radio" disabled="" /> -0.5</p></li>
+<li><p><input type="radio" disabled="" /> 0</p></li>
+<li><p><input type="radio" disabled="" /> 0.5</p></li>
+<li><p><input type="radio" disabled="" /> 1</p></li>
+<li><p><input type="radio" disabled="" /> <code>np.array([])</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>''</code></p></li>
+</ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading2_2">
@@ -486,7 +592,12 @@ aria-labelledby="heading2_2" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p>TODO</p>
+<p><strong>Answer:</strong></p>
+<ol type="1">
+<li>1</li>
+<li><code>np.arange(1, 50)</code></li>
+<li><code>most_sim_player=player</code></li>
+</ol>
 </div>
 </div>
 </div>
