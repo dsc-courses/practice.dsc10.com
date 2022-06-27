@@ -21,7 +21,8 @@ This site contains practice problems taken from old exams. You should work on th
   <tbody>
     <tr>
       <th scope="row">Spring 2022</th>
-      <td>Midterm<br><a href='sp22-final/index.html'>Final</a></td>
+      <td><a href='sp22-midterm/index.html'>Midterm</a><br>
+	<a href='sp22-final/index.html'>Final</a></td>
     </tr>
     <tr>
       <th scope="row">Winter 2022</th>
