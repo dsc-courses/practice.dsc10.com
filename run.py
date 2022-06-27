@@ -269,10 +269,19 @@ def process_page(path):
     out = read_html_config('include-head.html')
     out += create_top_info(params)
 
+    # Add information for the entire exam
+    if 'data_info' in params.keys():
+        info_path = os.path.join('problems', f'{params["data_info"]}.md')
+        info_file = open(info_path, 'r')
+        info = info_file.read()
+        info_file.close()
+
+        out += info + '\n\n --- \n\n'
+        
+
     out += stitch(params['problems'], params['show_solution'])
 
     # TODO: easily extract all files for a single final exam
-
     # TODO: format PDFs for printing: https://stackoverflow.com/problems/1664049/can-i-force-a-page-break-in-html-printing
     return out
 
