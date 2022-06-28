@@ -22,11 +22,12 @@ This site contains practice problems taken from old exams. You should work on th
     <tr>
       <th scope="row">Spring 2022</th>
       <td><a href='sp22-midterm/index.html'>Midterm</a><br>
-	<a href='sp22-final/index.html'>Final</a></td>
+	        <a href='sp22-final/index.html'>Final</a></td>
     </tr>
     <tr>
       <th scope="row">Winter 2022</th>
-      <td>Midterm<br><a href='wi22-final/index.html'>Final</a></td>
+      <td><a href='wi22-midterm/index.html'>Midterm</a><br>
+          <a href='wi22-final/index.html'>Final</a></td>
     </tr>
     <tr>
       <th scope="row">Fall 2021</th>

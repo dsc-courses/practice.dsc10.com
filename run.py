@@ -95,7 +95,7 @@ def pandoc(s, kind='md', flags=''):
 
     src_path = os.path.join('temp', f'temp.{kind}')
     dst_path = os.path.join('temp', 'temp.html')
-    os.system(f'pandoc -s --standalone --from markdown-markdown_in_html_blocks+raw_html --metadata title=" " -s {src_path} {flags} -o {dst_path}')
+    os.system(f'pandoc -s --standalone --katex --from markdown-markdown_in_html_blocks+raw_html --metadata title=" " -s {src_path} {flags} -o {dst_path}')
 
     out_path = os.path.join('temp', 'temp.html')
     out_file = open(out_path, 'r')
@@ -150,6 +150,11 @@ def process_MC(problem_str):
     else:
         # Not a MC problem
         return problem_str
+
+    # TODO
+    # Find the start of a box sequence by looking for a ( ) with nothing before it
+    # At the start of a box sequence, add the right task list
+    # Then, replace each ( ) with the correct input type
     
     choices = re.findall(exp, problem_str)
     problem_only = re.sub(exp, '', problem_str)
@@ -269,10 +274,21 @@ def process_page(path):
     out = read_html_config('include-head.html')
     out += create_top_info(params)
 
+    # Add information for the entire exam
+    if 'data_info' in params.keys():
+        info_path = os.path.join('problems', f'{params["data_info"]}.md')
+        info_file = open(info_path, 'r')
+        info = info_file.read()
+        info_file.close()
+
+        out += info + '\n\n --- \n\n'
+        
+
     out += stitch(params['problems'], params['show_solution'])
 
-    # TODO: easily extract all files for a single final exam
+    out += '$$ $$' # to enable latex always
 
+    # TODO: easily extract all files for a single final exam
     # TODO: format PDFs for printing: https://stackoverflow.com/problems/1664049/can-i-force-a-page-break-in-html-printing
     return out
 
@@ -299,7 +315,7 @@ def write_page(path):
     src_path = os.path.join(DST_FOLDER, f'{assignment_name}.md')
     dst_path = os.path.join(DST_FOLDER, assignment_name, 'index.html')
     css_path = os.path.join('..', 'assets', 'theme.css')
-    os.system(f'pandoc -s --standalone --from markdown-markdown_in_html_blocks+raw_html -c {css_path} --metadata title="{title}" {src_path} -o {dst_path}')
+    os.system(f'pandoc -s --standalone --katex --from markdown-markdown_in_html_blocks+raw_html -c {css_path} --metadata title="{title}" {src_path} -o {dst_path}')
 
     # Delete the intermediate Markdown
     os.remove(src_path)
