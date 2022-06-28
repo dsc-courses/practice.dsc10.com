@@ -75,9 +75,26 @@
     code span.va { color: #19177c; } /* Variable */
     code span.vs { color: #4070a0; } /* VerbatimString */
     code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
   <link rel="stylesheet" href="../assets/theme.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
@@ -93,9 +110,6 @@ rel="stylesheet"
 href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css"
 /> <!-- add after bootstrap.min.js or bootstrap.bundle.min.js -->
 <script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script></p>
-<p><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
-<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script></p>
 <p><a href="../index.html">← return to practice.dsc10.com</a></p>
 <hr />
 <p><strong>Instructor(s):</strong> Suraj Rampure</p>
@@ -327,7 +341,7 @@ columns are strings, so
 <code>.reset_index()</code>, <code>'Home'</code> and <code>'Won'</code>
 are restored as regular columns, meaning that
 <code>plum.groupby(['Home', 'Won']).mean().reset_index()</code> has
-<span class="math inline">2 + 3 = 5</span> columns.</p>
+<span class="math inline">2 + 3 = 5</span> columns.</p>
 </div>
 </div>
 </div>
@@ -477,8 +491,8 @@ team’s number of wins, <code>modify_series(plum.get('Won'))</code> must
 be equal to her team’s number of losses, multiplied by -1.</p>
 <p>To see this algebraically, let
 <code>modified = modify_series(plum.get('Won'))</code>. Then:</p>
-<p><span class="math display">31 + <em>m</em><em>o</em><em>d</em><em>i</em><em>f</em><em>i</em><em>e</em><em>d</em> = wins</span>
-<span class="math display"><em>m</em><em>o</em><em>d</em><em>i</em><em>f</em><em>i</em><em>e</em><em>d</em> = wins − 31 =  − (31−wins) =  − (losses)</span></p>
+<p><span class="math display">31 + modified = \text{wins}</span> <span class="math display"> modified = \text{wins} - 31 = -(31 - \text{wins})
+= -(\text{losses})</span></p>
 <p>The function <code>modified_series(s)</code> takes in a Series
 containing the wins and losses for each of Plum’s team’s games and needs
 to return the number of losses multiplied by -1. <code>s.sum()</code>
@@ -532,14 +546,15 @@ aria-labelledby="heading2_1" data-bs-parent="#accordionExample">
 proportions, divided by 2. The absolute differences in proportions for
 each category are as follows:</p>
 <ul>
-<li>Free throws: <span class="math inline">|0.05−0.2| = 0.15</span></li>
-<li>Threes: <span class="math inline">|0.35−0.2| = 0.15</span></li>
-<li>Midrange: <span class="math inline">|0.35−0.3| = 0.05</span></li>
-<li>Layups: <span class="math inline">|0.25−0.3| = 0.05</span></li>
+<li>Free throws: <span class="math inline">|0.05 - 0.2| =
+0.15</span></li>
+<li>Threes: <span class="math inline">|0.35 - 0.2| = 0.15</span></li>
+<li>Midrange: <span class="math inline">|0.35 - 0.3| = 0.05</span></li>
+<li>Layups: <span class="math inline">|0.25 - 0.3| = 0.05</span></li>
 </ul>
 <p>Then, we have</p>
-<p><span class="math display">$$\text{TVD} = \frac{1}{2} (0.15 + 0.15 +
-0.05 + 0.05) = 0.2$$</span></p>
+<p><span class="math display">\text{TVD} = \frac{1}{2} (0.15 + 0.15 +
+0.05 + 0.05) = 0.2</span></p>
 </div>
 </div>
 </div>
@@ -717,5 +732,6 @@ of…</p>
 </div>
 <p><br></p>
 <hr />
+<p><span class="math display"> </span></p>
 </body>
 </html>

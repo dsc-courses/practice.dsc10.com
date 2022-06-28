@@ -7,8 +7,6 @@ Let's learn about this problem.
 
 What does the following expression evaluate to?
 
-$$L(x) = f(x) + f(x^2) + f(x^3) + ...$$
-
 Give your answer as a reduced fraction.
 
 ( ) Does this work?
@@ -16,6 +14,8 @@ Give your answer as a reduced fraction.
 ( ) <code>how about this</code>
 
 # BEGIN SOLUTION
+
+$$L(x) = f(x) + f(x^2) + f(x^3) + ...$$
 
 <center><iframe width="560" height="315" src="https://www.youtube.com/embed/enRxW-djG58" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></center>
 
@@ -30,8 +30,7 @@ Give your answer as a reduced fraction.
 Here's an image. Recreate that DataFrame.
 
 [ ] Write the press release
-[ ] $2x + 3^2$
-[ ] Contact the media
+[ ] Other option
 
 # BEGIN SOLUTION
 
@@ -43,6 +42,12 @@ public static void main(String[] args){
     System.out.println("hello, world!");
 }
 ```
+
+<center><img src='../assets/images/sp22-midterm/graph-paper-soln.png' width=330></center>
+
+Is there something weird about $\log(f(x)) + \frac{2}{4}$? How about
+
+$$\int_\infty^\infty [f(x) + g(x^2)] dx$$
 
 # END SOLUTION
 
