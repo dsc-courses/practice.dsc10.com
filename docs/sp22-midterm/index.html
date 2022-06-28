@@ -276,5 +276,141 @@ Click to view the solution.
 </div>
 </div>
 <hr />
+<h2 id="problem-7">Problem 7</h2>
+<p>Another DataFrame called <code>music</code> contains a row for every music artist that has ever released a song. The columns are:</p>
+<ul>
+<li><code>'Name'</code> (str): the name of the music artist</li>
+<li><code>'Genre'</code> (str): the primary genre of the artist</li>
+<li><code>'Top_Hit'</code> (str): the most popular song by that artist, based on sales, radio play, and streaming</li>
+<li><code>'Top_Hit_Year'</code> (str): the year in which the top hit song was released</li>
+</ul>
+<p>You want to know how many musical genres have been represented at Sun God since its inception in 1983. Which of the following expressions produces a DataFrame called <code>merged</code> that could help determine the answer?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>merged = sungod.merge(music, left_on='Year', right_on='Top_Hit_Year')</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>merged = music.merge(sungod, left_on='Year', right_on='Top_Hit_Year')</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>merged = sungod.merge(music, left_on='Artist', right_on='Name')</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>merged = music.merge(sungod, left_on='Artist', right_on='Name')</code></p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading7">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7" aria-expanded="true" aria-controls="collapse7">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse7" class="accordion-collapse collapse collapse" aria-labelledby="heading7" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> <code>merged = sungod.merge(music, left_on='Artist', right_on='Name')</code></p>
+<p>The question we want to answer is about Sun God music artists’ genres. In order to answer, we’ll need a DataFrame consisting of rows of artists that have performed at Sun God since its inception in 1983. If we merge the <code>sungod</code> DataFrame with the <code>music</code> DataFrame based on the artist’s name, we’ll end up with a DataFrame containing one row for each artist that has ever performed at Sun God. Since the column containing artist name is called <code>'Artist'</code> in <code>sungod</code> and <code>'Name'</code> in <code>music</code>, the correct syntax for this merge is <code>merged = sungod.merge(music, left_on='Artist', right_on='Name')</code>. Note that we could also interchange the left DataFrame with the right DataFrame, as swapping the roles of the two DataFrames in a merge only changes the ordering of rows and columns in the output, not the data itself. It would also be correct to do <code>merged = music.merge(sungod, left_on='Name', right_on='Artist')</code>, but this is not one of the answer choices.</p>
+</div>
+</div>
+</div>
+</div>
+<hr />
+<h2 id="problem-8">Problem 8</h2>
+<p>Consider an artist that has only appeared once at Sun God. At the time of their Sun God performance, we’ll call the artist</p>
+<ul>
+<li><strong>outdated</strong> if their top hit came out more than five years prior,</li>
+<li><strong>trending</strong> if their top hit came out within the five years prior, and</li>
+<li><strong>up-and-coming</strong> if their top hit came out after they appeared at Sun God.</li>
+</ul>
+<p>Complete the function below so it outputs the appropriate description for any input artist who has appeared exactly once at Sun God.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> classify_artist(artist):</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    filtered <span class="op">=</span> merged[merged.get(<span class="st">&#39;Artist&#39;</span>) <span class="op">==</span> artist]</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    year <span class="op">=</span> filtered.get(<span class="st">&#39;Year&#39;</span>).iloc[<span class="dv">0</span>]</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    top_hit_year <span class="op">=</span> filtered.get(<span class="st">&#39;Top_Hit_Year&#39;</span>).iloc[<span class="dv">0</span>]</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> ___(a)___ <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;up-and-coming&#39;</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> ___(b)___:</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;outdated&#39;</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;trending&#39;</span></span></code></pre></div>
+<p><br></p>
+<h3 id="problem-8.1">Problem 8.1</h3>
+<p>What goes in blank (a)?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading8_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_1" aria-expanded="true" aria-controls="collapse8_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse8_1" class="accordion-collapse collapse collapse" aria-labelledby="heading8_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> <code>top_hit_year - year</code></p>
+<p>Before we can answer this question, we need to understand what the first three lines of the <code>classify_artist</code> function are doing. The first line creates a DataFrame with only one row, correponding to the particular artist that’s passed in as input to the function. We know there is just one row because we are told that the artist being passed in as input has appeared exactly once at Sun God. The next two lines create two variables:</p>
+<ul>
+<li><code>year</code> contains the year in which the artist performed at Sun God, and</li>
+<li><code>top_hit_year</code> contains the year in which their top hit song was released.</li>
+</ul>
+<p>Now, we can fill in blank (a). Notice that the body of the <code>if</code> clause is <code>return 'up-and-coming'</code>. Therefore we need a condition that corresponds to up-and-coming, which we are told means the top hit came out after the artist appeared at Sun God. Using the variables that have been defined for us, this condition is <code>top_hit_year &gt; year</code>. However, the <code>if</code> statement condition is already partially set up with <code>&gt; 0</code> included. We can simply rearrange our condition <code>top_hit_year &gt; year</code> by subtracting <code>year</code> from both sides to obtain <code>top_hit_year - year &gt; 0</code>, which fits the desired format.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-8.2">Problem 8.2</h3>
+<p>What goes in blank (b)?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading8_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_2" aria-expanded="true" aria-controls="collapse8_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse8_2" class="accordion-collapse collapse collapse" aria-labelledby="heading8_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> <code>year-top_hit_year &gt; 5</code></p>
+<p>For this part, we need a condition that corresponds to an artist being outdated which happens when their top hit came out more than five years prior to their appearance at Sun God. There are several ways to state this condition: <code>year-top_hit_year &gt; 5</code>, <code>year &gt; top_hit_year + 5</code>, or any equivalent condition would be considered correct.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-9">Problem 9</h2>
+<p>The expression below evaluates to <code>True</code>.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>classify_artist(<span class="st">&#39;Michelle Branch&#39;</span>)<span class="op">==</span><span class="st">&#39;outdated&#39;</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="kw">and</span> </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>classify_artist(<span class="st">&#39;Drake&#39;</span>)<span class="op">==</span><span class="st">&#39;trending&#39;</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>Consider the scatterplot created by the code below.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>merged.plot(kind<span class="op">=</span><span class="st">&#39;scatter&#39;</span>, x<span class="op">=</span><span class="st">&#39;Year&#39;</span>, y<span class="op">=</span><span class="st">&#39;Top_Hit_Year&#39;</span>)<span class="op">;</span></span></code></pre></div>
+<p>The point for Drake is somewhere in this scatterplot. Relative to the point for Drake, there are four quadrants of the scatterplot, as shown below.</p>
+<center><img src='../assets/images/sp22-midterm/drake-quadrants.png' width=200></center>
+<p>There is one quadrant in which the point for Michelle Branch <strong>cannot</strong> appear. Which is it?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> northeast</p></li>
+<li><p><input type="radio" disabled="" /> northwest</p></li>
+<li><p><input type="radio" disabled="" /> southwest</p></li>
+<li><p><input type="radio" disabled="" /> southeast</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading9">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9" aria-expanded="true" aria-controls="collapse9">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse9" class="accordion-collapse collapse collapse" aria-labelledby="heading9" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> northwest</p>
+</div>
+</div>
+</div>
+</div>
+<hr />
 </body>
 </html>
