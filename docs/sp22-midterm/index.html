@@ -75,9 +75,24 @@
     code span.va { color: #19177c; } /* Variable */
     code span.vs { color: #4070a0; } /* VerbatimString */
     code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-    .display.math{display: block; text-align: center; margin: 0.5rem auto;}
   </style>
   <link rel="stylesheet" href="..\assets\theme.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+   var mathElements = document.getElementsByClassName("math");
+   var macros = [];
+   for (var i = 0; i < mathElements.length; i++) {
+    var texText = mathElements[i].firstChild;
+    if (mathElements[i].tagName == "SPAN") {
+     katex.render(texText.data, mathElements[i], {
+      displayMode: mathElements[i].classList.contains('display'),
+      throwOnError: false,
+      macros: macros,
+      fleqn: false
+     });
+  }}});
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css" />
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
@@ -90,7 +105,6 @@
 rel="stylesheet"
 href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css"
 /> <!-- add after bootstrap.min.js or bootstrap.bundle.min.js --> <script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script></p>
-<p><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous"> <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script> <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script></p>
 <p><a href="../index.html">← return to practice.dsc10.com</a></p>
 <hr />
 <p><strong>Instructor(s):</strong> Janine Tiefenbruck</p>
@@ -148,9 +162,9 @@ Click to view the solution.
 </header>
 <p><strong>Answer: </strong></p>
 <center><img src="../assets/images/sp22-midterm/graph-paper-soln.png" width="330"/></center>
-<p>To draw the histogram, we first need to bin the data and figure out how many data values fall into each bin. The code includes <code>bins=np.arange(0, 7, 2)</code> which means the bin endpoints are <span class="math inline">0, 2, 4, 6</span>. This means there will be three bins: <span class="math inline">[0, 2)</span>, <span class="math inline">[2, 4)</span>, and <span class="math inline">[4, 6]</span>. Remember that all bins, except for the last one, include the left endpoint but not the right. The last bin includes both endpoints.</p>
-<p>Now that we know what the bins are, we can count up the number of values in each bin. We need to look in the <code>'Appearance_Order'</code> column of <code>sungod.take(np.arange(5))</code>, or the first five rows of <code>sungod</code>. The values there are <span class="math inline">1, 4, 3, 1, 3</span>. The two <span class="math inline">1</span>s fall into the first bin <span class="math inline">[0, 2)</span>. The two <span class="math inline">3</span>s fall into the second bin <span class="math inline">[2, 4)</span>, and the one <span class="math inline">4</span> falls into the last bin <span class="math inline">[4, 6]</span>. This means the proportion of values in each bin are <span class="math inline">$\frac{2}{5}, \frac{2}{5}, \frac{1}{5}$</span> from left to right.</p>
-<p>To figure out the height of each bar in the histogram, we use the fact that the area of a bar in a density histogram should equal the proportion of values in that bin. The area of a rectangle is height times width, so height is area divided by width. For the bin <span class="math inline">[0, 2)</span>, the area is $ = 0.4 $ and the width is <span class="math inline">2</span>, so the height is <span class="math inline">$\frac{0.4}{2} = 0.2$</span>. For the bin <span class="math inline">[2, 4)</span>, again the area is $ = 0.4 $ and the width is <span class="math inline">2</span>, so the height is <span class="math inline">$\frac{0.4}{2} = 0.2$</span>. For the bin <span class="math inline">[4, 6)</span>, the area is $ = 0.2 $ and the width is <span class="math inline">2</span>, so the height is <span class="math inline">$\frac{0.2}{2} = 0.1$</span>.</p>
+<p>To draw the histogram, we first need to bin the data and figure out how many data values fall into each bin. The code includes <code>bins=np.arange(0, 7, 2)</code> which means the bin endpoints are <span class="math inline">0, 2, 4, 6</span>. This means there will be three bins: <span class="math inline">[0, 2)</span>, <span class="math inline">[2, 4)</span>, and <span class="math inline">[4, 6]</span>. Remember that all bins, except for the last one, include the left endpoint but not the right. The last bin includes both endpoints.</p>
+<p>Now that we know what the bins are, we can count up the number of values in each bin. We need to look in the <code>'Appearance_Order'</code> column of <code>sungod.take(np.arange(5))</code>, or the first five rows of <code>sungod</code>. The values there are <span class="math inline">1, 4, 3, 1, 3</span>. The two <span class="math inline">1</span>s fall into the first bin <span class="math inline">[0, 2)</span>. The two <span class="math inline">3</span>s fall into the second bin <span class="math inline">[2, 4)</span>, and the one <span class="math inline">4</span> falls into the last bin <span class="math inline">[4, 6]</span>. This means the proportion of values in each bin are <span class="math inline">\frac{2}{5}, \frac{2}{5}, \frac{1}{5}</span> from left to right.</p>
+<p>To figure out the height of each bar in the histogram, we use the fact that the area of a bar in a density histogram should equal the proportion of values in that bin. The area of a rectangle is height times width, so height is area divided by width. For the bin <span class="math inline">[0, 2)</span>, the area is $ = 0.4 $ and the width is <span class="math inline">2</span>, so the height is <span class="math inline">\frac{0.4}{2} = 0.2</span>. For the bin <span class="math inline">[2, 4)</span>, again the area is $ = 0.4 $ and the width is <span class="math inline">2</span>, so the height is <span class="math inline">\frac{0.4}{2} = 0.2</span>. For the bin <span class="math inline">[4, 6)</span>, the area is $ = 0.2 $ and the width is <span class="math inline">2</span>, so the height is <span class="math inline">\frac{0.2}{2} = 0.1</span>.</p>
 <p>Since the bins are all the same width, the fact that there an equal number of values in the first two bins and half as many in the third bin means the first two bars should be equally tall and the third should be half as tall. We can use this to draw the rest of the histogram quickly once we’ve drawn the first bar.</p>
 </div>
 </div>
@@ -407,10 +421,184 @@ Click to view the solution.
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer: </strong> northwest</p>
+<p>The scatterplot shows an artist’s year of performance at Sun God on the x-axis, and their top hit year on the y-axis.</p>
+<p>Since Drake is considered trending, we know his top hit came out within the five years prior to his Sun God performance. In other words, the time gap between his top hit release and his Sun God performance is at most five years.</p>
+<p>If Michelle Branch were in the northwest quadrant, that would mean her x-coordinate was smaller than Drake’s, and her y-coordinate was larger. In other words, that would mean she performed at Sun God before Drake and her top hit was released after Drake’s. This means the time gap between her top hit release and her Sun God performance is less than five years, so she could not be considered outdated.</p>
+<p>We could also answer this question through process of eliminiation. This would entail finding scenarios that show each of the other three quadrants is possible.</p>
+<p>Michelle Branch could wind up in the northeast quadrant if, say, she performed 10 years after Drake and released her top hit 1 year after Drake. She’d be considered outdated because the time gap between her top hit and her Sun God performance would exceed five years.</p>
+<p>Similarly, Michelle Branch could be in the southwest quadrant if, say, she performed 1 year before Drake and released her top hit 10 years before Drake. Again, the time gap between her top hit and her Sun God performance would exceed five years, making her outdated.</p>
+<p>She could also be in the southeast quadrant if, say, she performed 10 years after Drake and released her top hit 10 years before Drake. This would also make the time gap between her top hit and Sun God performance more than five years.</p>
+<p>So since all three other quadrants are possible and we are told that one quadrant is impossible, the northwest quadrant must be impossible.</p>
 </div>
 </div>
 </div>
 </div>
 <hr />
+<h2 id="problem-10">Problem 10</h2>
+<p>In 2014, the UCSD administration made some important changes to Sun God policies, including:</p>
+<ol type="1">
+<li>eliminating guest tickets for non-students,</li>
+<li>increasing security, and</li>
+<li>introducing on-site medical care.</li>
+</ol>
+<p>These changes were implemented because of incidents related to drug and alcohol abuse at the festival. At the 2013 Sun God festival, 48 students were hospitalized, and at the 2014 festival, only 8 students were hospitalized. Assuming there was no change in the total number of attendees from 2013 to 2014, which of the following statements is correct?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> We cannot be sure if there is an association between administrative changes and hospitalizations.</p></li>
+<li><p><input type="radio" disabled="" /> There is an association between administrative changes and hospitalizations. One or more of the administrative changes is responsible for the decrease in hospitalizations, but since several administrative changes happened at the same time, we can’t be sure of which one to credit with the reduction in hospitalizations.</p></li>
+<li><p><input type="radio" disabled="" /> There is an association between administrative changes and hospitalizations. We can’t be sure if any of the administrative changes are responsible for the reduction in hospitalizations.</p></li>
+<li><p><input type="radio" disabled="" /> None of the above.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading10">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10" aria-expanded="true" aria-controls="collapse10">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse10" class="accordion-collapse collapse collapse" aria-labelledby="heading10" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> There is an association between administrative changes and hospitalizations. We can’t be sure if any of the administrative changes are responsible for the reduction in hospitalizations.</p>
+<p>We do know there is an association between administrative changes and hospitalizations because the number of hospitalized students dropped after the changes went into effect.</p>
+<p>Since no randomized controlled trial was done, we can’t be sure of the reason for the reduction in hospitalizations. For example, maybe there were fewer hospitalizations because a new flavor of sparkling water came out in 2014, and people drank that instead of alcohol. We just don’t know enough to conclude any causal explanation for the reduction in hospitalizations.</p>
+</div>
+</div>
+</div>
+</div>
+<hr />
+<h2 id="problem-11">Problem 11</h2>
+<p>The fine print of the Sun God festival website says “Ticket does not guarantee entry. Venue subject to capacity restrictions.” RIMAC field, where the 2022 festival will be held, has a capacity of 20,000 people. Let’s say that UCSD distributes 21,000 tickets to Sun God 2022 because prior data shows that 5% of tickets distributed are never actually redeemed. Let’s suppose that each person with a ticket this year has a 5% chance of not attending (independently of all others). What is the probability that at least one student who has a ticket cannot get in due to the capacity restriction? Fill in the blanks in the code below so that <code>prob_angry_student</code> evaluates to an approximation of this probability.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>num_angry <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> rep <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># randomly choose 21000 elements from [True, False] such that </span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># True has probability 0.95, False has probability 0.05</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    attending <span class="op">=</span> np.random.choice([<span class="va">True</span>, <span class="va">False</span>], <span class="dv">21000</span>, p<span class="op">=</span>[<span class="fl">0.95</span>, <span class="fl">0.05</span>])</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> __(a)__:</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>        __(b)__</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>prob_angry_student <span class="op">=</span> __(c)__</span></code></pre></div>
+<p><br></p>
+<h3 id="problem-11.1">Problem 11.1</h3>
+<p>What goes in the <strong>first</strong> blank?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>np.count_nonzero(attending) == 20001</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>attending[20000] == False</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>attending.sum() &gt; 20000</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>np.count_nonzero(attending) &gt; num_angry</code></p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading11_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11_1" aria-expanded="true" aria-controls="collapse11_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse11_1" class="accordion-collapse collapse collapse" aria-labelledby="heading11_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> <code>attending.sum() &gt; 20000</code></p>
+<p>Let’s look at the variable <code>attending</code>. Since we’re choosing 21,000 elements from the list <code>[True, False]</code> and there are 21,000 tickets distributed, this code is randomly determining whether each ticket holder will actually attend the festival. There’s a 95% chance of each ticket holder attending, which is reflected in the <code>p=[0.95, 0.05]</code> argument. Remember that <code>np.random.choice</code> returns an array of random choices, which in this case means it will contain 21,000 elements, each of which is <code>True</code> or <code>False</code>.</p>
+<p>We want to figure out the probability of at least one ticket holder showing up and not being admitted. Another way to say this is we want to find the probability that more than 20,000 ticket holders show up to attend the festival. The way we approximate a probability through simulation is we repeat a process many times and see how often some event occured. The event we’re interested in this case is that more than 20,000 ticket holders came to Sun God. Since we have an array of <code>True</code> and <code>False</code> values corresponding to whether each ticket holder actually came, we just need to determine if there are more than 20,000 <code>True</code> values in the <code>attending</code> array.</p>
+<p>There are several ways to count the number of <code>True</code> values in a Boolean array. One way is to sum the array, since in Python, <code>True</code> counts as 1 and <code>False</code> counts as 0. Therefore <code>attending.sum() &gt; 20000</code> is the condition we need to check here.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-11.2">Problem 11.2</h3>
+<p>What goes in the <strong>second</strong> blank?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading11_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11_2" aria-expanded="true" aria-controls="collapse11_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse11_2" class="accordion-collapse collapse collapse" aria-labelledby="heading11_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> <code>num_angry = num_angry+1</code></p>
+<p>Remember our goal in simulation is to repeat a process many times to see how often some event occurs. The repetition comes from the <code>for</code> loop which runs 10,000 times. Each time, we are simulating the process of 21,000 students each randomly deciding whether to show up to Sun God or not. We want to know, out of these 10,000 trials, how frequently more than 20,000 of the students will show up. So when this happens, we want to record that it happened. The standard way to do that is to keep a counter variable that starts at 0 and gets incremented, or increased by one, each time we had more than 20,000 attendees in our simulation.</p>
+<p>The framework to do this is already set up, because a variable called <code>num_angry</code> is initalized to 0 before the <code>for</code> loop. This variable is our counter variable, meant to count the number of trials, out of 10,000, that resulted in at least one student being angry because they showed up to Sun God with a ticket and were denied entrance. So all we need to do when there are more than 20,000 <code>True</code> values in the <code>attending</code> array is increment this counter by one via the code <code>num_angry = num_angry+1</code>, sometimes abbreviated as <code>num_angry += 1</code>.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-11.3">Problem 11.3</h3>
+<p>What goes in the <strong>third</strong> blank?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading11_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11_3" aria-expanded="true" aria-controls="collapse11_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse11_3" class="accordion-collapse collapse collapse" aria-labelledby="heading11_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> <code>num_angry/10000</code></p>
+<p>To calculate the approximate probability, all we need to do is divide the number of trials in which a student was angry by the total number of trials, which is 10,000.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-12">Problem 12</h2>
+<p><br></p>
+<h3 id="problem-12.1">Problem 12.1</h3>
+<p>You’re definitely going to Sun God 2022, but you don’t want to go alone! Fortunately, you have <span class="math inline">n</span> friends who promise to go with you. Unfortunately, your friends are somewhat flaky, and each has a probability <span class="math inline">p</span> of actually going (independent of all others). What is the probability that you wind up going alone? Give your answer in terms of <span class="math inline">p</span> and <span class="math inline">n</span>.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading12_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12_1" aria-expanded="true" aria-controls="collapse12_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse12_1" class="accordion-collapse collapse collapse" aria-labelledby="heading12_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> <span class="math inline">(1-p)^n</span></p>
+<p>If you go alone, it means all of your friends failed to come. We can think of this as and <em>and</em> condition so that we can use multiplication. The condition is: your first friend doesn’t come <em>and</em> your second friend doesn’t come, and so on. The probability of any individual friend not coming is <span class="math inline">1-p</span>, so the probability of all your friends not coming is <span class="math inline">(1-p)^n</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-12.2">Problem 12.2</h3>
+<p>In past Sun God festivals, sometimes artists that were part of the lineup have failed to show up! Let’s say there are <span class="math inline">n</span> artists scheduled for Sun God 2022, and each artist has a probability <span class="math inline">p</span> of showing up (independent of all others). What is the probability that the number of artists that show up is less than <span class="math inline">n</span>, meaning somebody no-shows? Give your answer in terms of <span class="math inline">p</span> and <span class="math inline">n</span>.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading12_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12_2" aria-expanded="true" aria-controls="collapse12_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse12_2" class="accordion-collapse collapse collapse" aria-labelledby="heading12_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> <span class="math inline">1-p^n</span></p>
+<p>It’s actually easier to figure out the opposite event. The opposite of somebody no-showing is everybody shows up. This is easier to calculate because we can think of it as an <em>and</em> condition: the first artist shows up <em>and</em> the second artist shows up, and so on. That means we just multiply probabilites. Therefore, the probability of all artists showing up is <span class="math inline">p^n</span> and the probability of some artist not showing up is <span class="math inline">1-p^n</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<p><span class="math display"> </span></p>
 </body>
 </html>
