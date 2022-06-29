@@ -3,13 +3,9 @@
 What was the largest number of artists that ever performed in a single Sun God festival? **Select all expressions that evaluate to the correct answer.**
 
 [ ] `sungod.groupby('Appearance_Order').count().get('Year').max()`
-
 [ ] `sungod.groupby('Year').count().get('Artist').max()`
-
 [ ] `sungod.get('Appearance_Order').max()`
-
 [ ] `sungod.groupby('Year').max().get('Year').max()`
-
 [ ] None of the above.
 
 # BEGIN SOLUTION

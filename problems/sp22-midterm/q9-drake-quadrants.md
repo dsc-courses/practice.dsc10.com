@@ -23,11 +23,8 @@ There is one quadrant in which the point for Michelle Branch **cannot** appear. 
 
 
 ( ) northeast
-
 ( ) northwest
-
 ( ) southwest
-
 ( ) southeast
 
 # BEGIN SOLUTION

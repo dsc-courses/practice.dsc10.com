@@ -6,6 +6,9 @@ from bs4 import BeautifulSoup
 import lxml
 import shutil
 import stat
+import sys
+import warnings
+warnings.simplefilter('ignore')
 
 DST_FOLDER = 'docs'
 
@@ -134,39 +137,43 @@ Click to view the solution.
     
     return out
 
-def process_MC(problem_str):
-    '''Critical assumption: any problem with multiple choice or select all options has at least 2 choices'''
+def process_MC_matches(matchobj):
+    '''Helper function for process_MC'''
+    global count
+
+    match_str = matchobj.group()
     
     # Multiple choice (circular boxes)
-    if problem_str.count('( )') >= 2:
+    if match_str.count('( )') >= 2:
         exp = r'\( \) (.*)'
         input_type = 'radio'
         
     # Select all (square boxes)
-    elif problem_str.count('[ ]') >= 2:
+    elif match_str.count('[ ]') >= 2:
         exp = r'\[ \] (.*)'
         input_type = 'checkbox'
         
     else:
-        # Not a MC problem
-        return problem_str
-
-    # TODO
-    # Find the start of a box sequence by looking for a ( ) with nothing before it
-    # At the start of a box sequence, add the right task list
-    # Then, replace each ( ) with the correct input type
-    
-    choices = re.findall(exp, problem_str)
-    problem_only = re.sub(exp, '', problem_str)
-    out = problem_only + '\n\n<ul class="task-list">\n'
+        print(match_str)
+        raise SyntaxError('How did this happen?')
+        
+    choices = re.findall(exp, match_str)
+    out = '\n\n<ul class="task-list">\n'
     for choice in choices:
         processed_choice = pandoc(choice) # In case the choice includes Markdown
         processed_choice = str(BeautifulSoup(processed_choice, features='lxml').find('p')).replace('<p>', '').replace('</p>', '')
         out += f'<li><p><input type="{input_type}" disabled="" /> {processed_choice}</p></li>\n'
     
-    out += '</ul>'
+    out += '</ul>\n\n'
     
     return out
+
+def process_MC(problem_str):
+    '''Critical assumption: any problem with multiple choice or select all options has at least 2 choices'''
+
+    extract_exp = r'\n\n([[(] [])] [\d\D]+?)\n\n'
+    return re.sub(extract_exp, process_MC_matches, problem_str)
+
 
 def process_problem_no_subparts(problem_str, problem_num, show_solution, heading='##'):
     '''Used for problems with no subparts, and to process individual subparts'''
@@ -217,10 +224,9 @@ def process_problem_no_subparts(problem_str, problem_num, show_solution, heading
             problem_only = problem_str
 
     # Get the problem text
-    problem_only = problem_only.replace('# BEGIN PROB', '').replace('# END PROB', '').strip('\n')
+    problem_only = problem_only.replace('# BEGIN PROB', '').replace('# END PROB', '')
 
     # Process MC/SA boxes in problem_only
-
     problem_only = process_MC(problem_only)
     
     # Put it all together
@@ -375,5 +381,11 @@ def create_index():
     f.close()
     
 if __name__ == '__main__':
-    write_all_pages()
-    create_index()
+    # No arguments: run all
+    if len(sys.argv) == 1:
+        write_all_pages()
+        create_index()
+
+    else:
+        for page in sys.argv[1:]:
+            write_page(page)

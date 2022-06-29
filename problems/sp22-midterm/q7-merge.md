@@ -11,11 +11,8 @@ You want to know how many musical genres have been represented at Sun God since 
 
 
 ( ) `merged = sungod.merge(music, left_on='Year', right_on='Top_Hit_Year')`
-
 ( ) `merged = music.merge(sungod, left_on='Year', right_on='Top_Hit_Year')`
-
 ( ) `merged = sungod.merge(music, left_on='Artist', right_on='Name')`
-
 ( ) `merged = music.merge(sungod, left_on='Artist', right_on='Name')`
 
 # BEGIN SOLUTION

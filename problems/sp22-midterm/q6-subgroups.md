@@ -8,11 +8,8 @@ chronological = sungod.groupby(___________).max().reset_index()
 
 
 ( ) `['Year', 'Artist', 'Appearance_Order']`
-
 ( ) `['Year', 'Appearance_Order']`
-
 ( ) `['Appearance_Order', 'Year']`
-
 ( ) None of the above.
 
 # BEGIN SOLUTION

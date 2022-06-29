@@ -2,15 +2,10 @@
 
 Which of the following is a valid reason **not** to set the index of `sungod` to `'Artist'`? **Select all correct answers.**
 
-
 [ ] Two different artists have the same name.
-
 [ ] An artist performed at Sun God in more than one year.
-
 [ ] Several different artists performed at Sun God in the same year.
-
 [ ] Many different artists share the same value of `'Appearance_Order'`.
-
 [ ] None of the above.
 
 # BEGIN SOLUTION

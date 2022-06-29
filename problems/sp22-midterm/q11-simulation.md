@@ -19,11 +19,8 @@ prob_angry_student = __(c)__
 What goes in the **first** blank?
 
 ( ) `np.count_nonzero(attending) == 20001`
-
 ( ) `attending[20000] == False`
-
 ( ) `attending.sum() > 20000`
-
 ( ) `np.count_nonzero(attending) > num_angry`
 
 # BEGIN SOLUTION

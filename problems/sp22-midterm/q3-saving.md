@@ -15,11 +15,8 @@ After we run that cell, we type the following in a second cell.
 What is the output when we run the second cell? Note that the first Sun God festival was held in 1983.
 
 ( ) `'Blues Traveler'`
-
 ( ) The artist who appeared on stage first in 1983.
-
 ( ) An artist who appeared in 1983, but not necessarily the one who appeared first.
-
 ( ) Not enough information to tell.
 
 # BEGIN SOLUTION

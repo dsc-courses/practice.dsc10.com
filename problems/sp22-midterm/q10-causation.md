@@ -9,11 +9,8 @@ In 2014, the UCSD administration made some important changes to Sun God policies
 These changes were implemented because of incidents related to drug and alcohol abuse at the festival. At the 2013 Sun God festival, 48 students were hospitalized, and at the 2014 festival, only 8 students were hospitalized. Assuming there was no change in the total number of attendees from 2013 to 2014, which of the following statements is correct?
 
 ( ) We cannot be sure if there is an association between administrative changes and hospitalizations.
-
 ( ) There is an association between administrative changes and hospitalizations. One or more of the administrative changes is responsible for the decrease in hospitalizations, but since several administrative changes happened at the same time, we can’t be sure of which one to credit with the reduction in hospitalizations.
-
 ( ) There is an association between administrative changes and hospitalizations. We can’t be sure if any of the administrative changes are responsible for the reduction in hospitalizations.
-
 ( ) None of the above.
 
 # BEGIN SOLUTION

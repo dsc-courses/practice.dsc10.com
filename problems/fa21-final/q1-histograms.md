@@ -4,14 +4,18 @@ Let's learn about this problem.
 
 # BEGIN SUBPROB
 
+This should work.
 
-What does the following expression evaluate to?
+( ) Hey!
+( ) How are you?
 
-Give your answer as a reduced fraction.
+So should this:
 
-( ) Does this work?
+[ ] $f(x^2) + g(x^2)$
+[ ] `lambda x: x ** 2`
+[ ] another option
 
-( ) <code>how about this</code>
+So should this!
 
 # BEGIN SOLUTION
 
@@ -25,7 +29,7 @@ $$L(x) = f(x) + f(x^2) + f(x^3) + ...$$
 
 # BEGIN SUBPROB
 
-<center><img src='../assets/images/fa21-final/plum.png' width=30%></center>
+<center><img src='../assets/images/wi22-final/plum.png' width=30%></center>
 
 Here's an image. Recreate that DataFrame.
 
