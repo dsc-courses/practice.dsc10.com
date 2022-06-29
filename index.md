@@ -31,7 +31,8 @@ This site contains practice problems taken from old exams. You should work on th
     </tr>
     <tr>
       <th scope="row">Fall 2021</th>
-      <td>Midterm<br><a href='fa21-final/index.html'>Final</a></td>
+      <td><a href='fa21-midterm/index.html'>Midterm</a><br>
+          <a href='fa21-final/index.html'>Final</a></td>
     </tr>
   </tbody>
 </table>
