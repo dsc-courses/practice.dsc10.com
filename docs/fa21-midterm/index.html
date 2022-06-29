@@ -147,6 +147,9 @@ Click to view the solution.
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer: </strong> None of these are good choices for the index</p>
+<p>When choosing an index, we have to make sure that the index is different for each row of the DataFrame. The index in this case should uniquely identify the flight.</p>
+<p><code>'DATE'</code>does not uniquely identify a flight because there are many different flights in a single day. <code>'FLIGHT'</code> does not uniquely identify a flight because airlines reuse flight numbers on a daily basis, as we are told in the data description. Neither <code>'FROM'</code> nor <code>'TO'</code> uniquely identifies a flight, as there are many flights each day that depart from each airport and arrive at each airport.</p>
+<p>There is no single column that’s sufficient to uniquely identify a flight, but if we could use multiple columns to create what’s called a multi-index, we’d probably want to use <code>'DATE'</code> and <code>'FLIGHT'</code> because each row of our DataFrame should have a unique pair of values in these columns. That’s because airlines don’t reuse flight numbers within a single day.</p>
 <p>solution here</p>
 </div>
 </div>
@@ -172,7 +175,7 @@ Click to view the solution.
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer: </strong> Categorical</p>
-<p>solution here</p>
+<p><code>'FLIGHT'</code> is a categorical variable because it doesn’t make sense to do arithemetic with the values in the <code>'FLIGHT'</code> column. <code>'FLIGHT'</code> is just a label for each flight, and the fact that includes some numbers does not make it numerical. We could have just as well used letter codes to distinguish flights.</p>
 </div>
 </div>
 </div>
@@ -202,7 +205,8 @@ Click to view the solution.
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer: </strong> <code>flights[flights.get('TO') == 'SAN'].shape[0]</code></p>
-<p>solution here</p>
+<p>The strategy is to create a DataFrame with only the flights that went to San Diego, then count the number of rows. The first step is to query with condition <code>flights.get('TO') == 'SAN'</code> and the second step is to extract the number of rows with <code>.shape[0]</code>.</p>
+<p>Some of the other answer choices use <code>.loc['SAN']</code> but <code>.loc</code> only works with the index, and <code>flights</code> does not have airport codes in its index.</p>
 </div>
 </div>
 </div>
@@ -240,7 +244,7 @@ Click to view the solution.
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer: </strong> <code>'TO'</code>, <code>.loc['SAN']</code>, True</p>
-<p>solution here</p>
+<p>The strategy here is to group all of King Triton’s flights according to where they landed, and count up the number that landed in San Diego. The expression <code>flights.groupby('TO').count()</code> evaluates to a DataFrame indexed by arrival airport, where for any arrival airport, each column has a count of the number of King Triton’s flights that landed at that airport. To get the count for San Diego, we need the entry in any column, in the row corresponding to San Diego. The code <code>.get('FLIGHT')</code> says we’ll use the ‘FLIGHT’ column, but any other column would be equivalent. To access the entry of this column corresponding to San Diego, we have to use <code>.loc</code> because we know the name of the value in the index should be <code>'SAN'</code>, but we don’t know the row number or integer position.</p>
 </div>
 </div>
 </div>
@@ -269,7 +273,9 @@ Click to view the solution.
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer: </strong> <code>flights[(flights.get('FROM') == 'LAX') &amp; (flights.get('TO') == 'LAX')]</code></p>
-<p>solution here</p>
+<p>The DataFrame <code>san</code> contains all rows of <code>flights</code> that have a departure airport of <code>'SAN'</code> and an arrival airport of <code>'SAN'</code>. But as you may know, and as you’re told in the data description, there are no flights from an airport to itself. So <code>san</code> is actually an empty DataFrame with no rows!</p>
+<p>We just need to find which of the other DataFrames would necessarily be empty, and we can see that <code>flights[(flights.get('FROM') == 'LAX') &amp; (flights.get('TO') == 'LAX')]</code> will be empty for the same reason.</p>
+<p>Note that none of the other answer choices are correct. The first option uses the Python keyword <code>and</code> instead of the symbol <code>&amp;</code>, which behaves unexpectedly but does not give an empty DataFrame. The second option will be non-empty because it will contain all flights that have San Diego as the departure airport or arrival airport, and we already know from the first few rows of <code>flight</code> that there are some of these. The third option will contain all the flights that King Triton has taken from <code>'LAX'</code> to <code>'SAN'</code>. Perhaps he’s never flown this route, or perhaps he has. This DataFrame could be empty, but it’s not necessarily going to be empty, as the question requires.</p>
 </div>
 </div>
 </div>
@@ -302,7 +308,7 @@ Click to view the solution.
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer: </strong> <code>assign</code></p>
-<p>solution here</p>
+<p>We want to add a new column, so we must use <code>assign</code>. We can also tell that the answer will be <code>assign</code> because it’s the only DataFrame method that takes an input of the form <code>SPEED=___</code>. Remember that when using assign, we get to call the new column anything we want, and we don’t use quotes around its name.</p>
 </div>
 </div>
 </div>
@@ -323,7 +329,9 @@ Click to view the solution.
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer: </strong> <code>(flights.get('DIST') / flights.get('HOURS'))</code></p>
-<p>solution here</p>
+<p>In this blank, we’ll need a Series or array containing the average speed of each flight, in miles per hour.</p>
+<p>To calculate the average speed of an individual flight in miles per hour, we’d simply divide the total number of miles by the total amount of time in hours. For example, a flight that travels 500 miles in one hour travels at 500 miles per hour. Note that this is an <em>average</em> speed; at some points of the journey, the plane may have been moving faster than this speed, at other times slower. We are calculating an average speed for the whole trip by simply dividing, and we don’t need to use <code>.mean()</code>.</p>
+<p>Once we know how to calculate the average speed for an individual flight, we can do the same operation on each flight all at once using Series arithmetic. <code>flights.get('DIST')</code> is a Series containing the distances of each flight, and <code>flights.get('HOURS')</code> is a Series containing the times of each flight, in the same order. When we divide these two Series, corresponding entries are divided and the result is a Series of average speeds for each flight, as desired.</p>
 </div>
 </div>
 </div>
@@ -640,10 +648,38 @@ Click to view the solution.
 <p><br></p>
 <hr />
 <h2 id="problem-8">Problem 8</h2>
-<p>question intro here</p>
+<p>It turns out that King Triton is so busy that he doesn’t even book his own flights – he has a travel agent who books his flights for him. He doesn’t get to choose the airline that he flies on, but his travel agent gave him the following table, which describes the probability of each of his flights in 2022 being on Delta, United, American, or another airline:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Airline</th>
+<th>Chance</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Delta</td>
+<td>0.4</td>
+</tr>
+<tr class="even">
+<td>United</td>
+<td>0.3</td>
+</tr>
+<tr class="odd">
+<td>American</td>
+<td>0.2</td>
+</tr>
+<tr class="even">
+<td>All other airlines</td>
+<td>0.1</td>
+</tr>
+</tbody>
+</table>
+<p>The airline for one flight has no impact on the airline for another flight.</p>
+<p>For this question, suppose that King Triton schedules 3 flights for January 2022.</p>
 <p><br></p>
 <h3 id="problem-8.1">Problem 8.1</h3>
-<p>part a here</p>
+<p>What is the probability that all 3 flights are on United? Give your answer as an <strong>exact</strong> decimal between 0 and 1 (not a Python expression).</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading8_1">
@@ -656,7 +692,7 @@ Click to view the solution.
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer: </strong></p>
+<p><strong>Answer: </strong> 0.027</p>
 <p>solution here</p>
 </div>
 </div>
@@ -664,7 +700,7 @@ Click to view the solution.
 </div>
 <p><br></p>
 <h3 id="problem-8.2">Problem 8.2</h3>
-<p>part b here</p>
+<p>What is the probability that all 3 flights are on Delta, or all on United, or all on American? Give your answer as an <strong>exact</strong> decimal between 0 and 1 (not a Python expression).</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading8_2">
@@ -677,7 +713,7 @@ Click to view the solution.
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer: </strong></p>
+<p><strong>Answer: </strong> 0.099</p>
 <p>solution here</p>
 </div>
 </div>
@@ -685,7 +721,11 @@ Click to view the solution.
 </div>
 <p><br></p>
 <h3 id="problem-8.3">Problem 8.3</h3>
-<p>part c here</p>
+<p>True or False: The probability that all 3 flights are on the same airline is equal to the probability you computed in the previous subpart.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
+</ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading8_3">
@@ -698,7 +738,7 @@ Click to view the solution.
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer: </strong></p>
+<p><strong>Answer: </strong> False</p>
 <p>solution here</p>
 </div>
 </div>
@@ -707,10 +747,38 @@ Click to view the solution.
 <p><br></p>
 <hr />
 <h2 id="problem-9">Problem 9</h2>
-<p>question intro here</p>
+<p>King Triton has boarded a Southwest flight. For in-flight refreshments, Southwest serves four types of cookies – chocolate chip, gingerbread, oatmeal, and peanut butter.</p>
+<p>The flight attendant comes to King Triton with a box containing 10 cookies:</p>
+<ul>
+<li>4 chocolate chip</li>
+<li>3 gingerbread</li>
+<li>2 oatmeal, and</li>
+<li>1 peanut butter</li>
+</ul>
+<p>The flight attendant tells King Triton to grab 2 cookies out of the box without looking.</p>
+<p>Fill in the blanks below to implement a simulation that estimates the probability that both of King Triton’s selected cookies are the same.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># &#39;cho&#39; stands for chocolate chip, &#39;gin&#39; stands for gingerbread,</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># &#39;oat&#39; stands for oatmeal, and &#39;pea&#39; stands for peanut butter.</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>cookie_box <span class="op">=</span> np.array([<span class="st">&#39;cho&#39;</span>, <span class="st">&#39;cho&#39;</span>, <span class="st">&#39;cho&#39;</span>, <span class="st">&#39;cho&#39;</span>, <span class="st">&#39;gin&#39;</span>, </span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>                       <span class="st">&#39;gin&#39;</span>, <span class="st">&#39;gin&#39;</span>, <span class="st">&#39;oat&#39;</span>, <span class="st">&#39;oat&#39;</span>, <span class="st">&#39;pea&#39;</span>])</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>repetitions <span class="op">=</span> <span class="dv">10000</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>prob_both_same <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(repetitions):</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    grab <span class="op">=</span> np.random.choice(__(a)__)</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> __(b)__:</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>        prob_both_same <span class="op">=</span> prob_both_same <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>prob_both_same <span class="op">=</span> __(c)__</span></code></pre></div>
 <p><br></p>
 <h3 id="problem-9.1">Problem 9.1</h3>
-<p>part a here</p>
+<p>What goes in blank (a)?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>cookie_box, repetitions, replace=False</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>cookie_box, 2, replace=True</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>cookie_box, 2, replace=False</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>cookie_box, 2</code></p></li>
+</ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading9_1">
@@ -723,7 +791,7 @@ Click to view the solution.
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer: </strong></p>
+<p><strong>Answer: </strong> <code>cookie_box, 2, replace=False</code></p>
 <p>solution here</p>
 </div>
 </div>
@@ -731,7 +799,7 @@ Click to view the solution.
 </div>
 <p><br></p>
 <h3 id="problem-9.2">Problem 9.2</h3>
-<p>part b here</p>
+<p>What goes in blank (b)?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading9_2">
@@ -744,7 +812,7 @@ Click to view the solution.
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer: </strong></p>
+<p><strong>Answer: </strong> <code>grab[0] == grab[1]</code></p>
 <p>solution here</p>
 </div>
 </div>
@@ -752,7 +820,13 @@ Click to view the solution.
 </div>
 <p><br></p>
 <h3 id="problem-9.3">Problem 9.3</h3>
-<p>part c here</p>
+<p>What goes in blank (c)?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>prob_both_same / repetitions</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>prob_both_same / 2</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>np.mean(prob_both_same)</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>prob_both_same.mean()</code></p></li>
+</ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading9_3">
@@ -765,7 +839,7 @@ Click to view the solution.
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer: </strong></p>
+<p><strong>Answer: </strong> <code>prob_both_same / repetitions</code></p>
 <p>solution here</p>
 </div>
 </div>
@@ -774,7 +848,14 @@ Click to view the solution.
 <p><br></p>
 <hr />
 <h2 id="problem-10">Problem 10</h2>
-<p>question here</p>
+<p>In response to the pandemic, some airlines chose to leave middle seats empty, while others continued seating passengers in middle seats. Let’s suppose Delta did not seat passengers in middle seats during the pandemic, and United did seat passengers in middle seats during the pandemic.</p>
+<p>Delta wants to know whether customers were satisfied with them for making this decision not to use middle seats. Suppose they have access to a dataset of customer satisfaction surveys, taken annually for each airline. How can Delta determine whether its new seating policy caused an increase in customer satisfaction?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Compare Delta’s average customer satisfaction before and after this change went into effect.</p></li>
+<li><p><input type="radio" disabled="" /> Compare Delta’s average customer satisfaction after the change went into effect to United’s average customer satisfaction at the same point in time.</p></li>
+<li><p><input type="radio" disabled="" /> Compare the change in Delta’s average customer satisfaction to the change in United’s average customer satisfaction, throughout the same period of time, spanning the change.</p></li>
+<li><p><input type="radio" disabled="" /> None of the above.</p></li>
+</ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading10">
@@ -787,7 +868,8 @@ Click to view the solution.
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer: </strong></p>
+<p><strong>Answer: </strong> None of the above.</p>
+<p>None of the options isolate the effect of the seating policy because they do not use randomized controlled trials. Even measuring the change in each airline’s average satisfaction rating as described in the third option is insufficient because we don’t know whether any differences are due to the changed seating policy or other changes. It’s possible that many things changed around the time of the pandemic, and we have no way of separating the effects of each of these changes. For example, maybe United stopped serving snacks during the pandemic and Delta continued serving snacks, at around the same time as the seating changes went into effect. If we find a difference in average customer satisfaction between the airlines, we have no way of knowing whether it’s because of the differences in seating policies or snack policies (or something else).</p>
 <p>solution here</p>
 </div>
 </div>
