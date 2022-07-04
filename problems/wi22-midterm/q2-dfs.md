@@ -1,9 +1,5 @@
 # BEGIN PROB
 
-For your convenience, we show the first few rows of `sky` once again.
-
-<center><img src='../assets/images/wi22-midterm/sky.png' width=60%></center>
-
 In this question, we'll write code to learn more about the skyscrapers in the beautiful city of San Diego. (Unrelated fun fact – since the San Diego Airport is so close to downtown, buildings in downtown San Diego legally cannot be taller than 152 meters.)
 
 # BEGIN SUBPROB
@@ -43,7 +39,36 @@ What goes in the blank?
 
 **Answer:** `sort_values('floors', ascending=False).get('height')`
 
+The end of the line given to us is `.iloc[0]`. We know that `.iloc[0]` extracts the first element in whatever Series it is called on, so what comes before `.iloc[0]` must be a Series where the first element is the `'height'` of the skyscraper with the most floors, among all skyscrapers in San Diego that are over 100 meters tall. The DataFrame we are working with, `san_tall`, already only has skyscrapers in San Diego that are over 100 meters tall.
 
+This means that in the blank, all we need to do is:
+1. Sort skyscrapers by `'floors'` in decreasing order (so that the first row is the skyscraper with the most `'floors'`)
+2. Extract the `'height'` column
+
+As such, a complete answer is `height_many_floors = san_tall.sort_values('floors', ascending=False).get('height').iloc[0]`.
+
+# END SOLN
+
+# END SUBPROB
+
+# BEGIN SUBPROB
+
+`height_many_floors`, the value you computed in the previous part (2.2) was a number.
+
+**True or False:** Assuming that the DataFrame `san_tall` contains all skyscrapers in San Diego, `height_many_floors` is the height (in meters) of the **tallest** skyscraper in San Diego.
+
+( ) True
+( ) False
+
+# BEGIN SOLN
+
+**Answer:** False
+
+`height_many_floors` is the height of the skyscraper with the most `'floors'`. However, this is not necessarily the tallest skyscraper (i.e. the skyscraper with the largest `'height'`)! Consider the following scenario:
+- Building A: 15 floors, height of 150 feet
+- Building B: 20 floors, height of 100 feet
+
+`height_many_floors` would be 100, but it is not the `'height'` of the taller building.
 
 # END SOLN
 
