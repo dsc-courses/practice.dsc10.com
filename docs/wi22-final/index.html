@@ -545,7 +545,7 @@ aria-labelledby="heading2_1" data-bs-parent="#accordionExample">
 proportions, divided by 2. The absolute differences in proportions for
 each category are as follows:</p>
 <ul>
-<li>Free throws: <span class="math inline">|0.05 - 0.2| =
+<li>Free Throws: <span class="math inline">|0.05 - 0.2| =
 0.15</span></li>
 <li>Threes: <span class="math inline">|0.35 - 0.2| = 0.15</span></li>
 <li>Midrange: <span class="math inline">|0.35 - 0.3| = 0.05</span></li>
@@ -591,11 +591,9 @@ distribution to Kelsey Plum. Assume that the column named
 <li><p><input type="radio" disabled="" /> <code>''</code></p></li>
 </ul>
 <ol start="2" type="1">
-<li>What goes in blank (b)?</li>
+<li><p>What goes in blank (b)?</p></li>
+<li><p>What goes in blank (c)?</p></li>
 </ol>
-<p><a href="np.arange(1,%2050)">____</a></p>
-<p>What goes in blank (c)?</p>
-<p><a href="most_sim_player%20=%20player">____</a></p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading2_2">
@@ -609,12 +607,68 @@ aria-labelledby="heading2_2" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer:</strong></p>
-<ol type="1">
-<li>1</li>
-<li><code>np.arange(1, 50)</code></li>
-<li><code>most_sim_player=player</code></li>
-</ol>
+<p><strong>Answers:</strong> 1, <code>np.arange(1, 50)</code>,
+<code>most_sim_player = player</code></p>
+<p>Let’s try and understand the code provided to us. It appears that
+we’re looping over the names of all other players, each time computing
+the TVD between Kelsey Plum’s shot distribution and that player’s shot
+distribution. If the TVD calculated in an iteration of the
+<code>for</code>-loop (<code>player_tvd</code>) is less than the
+previous lowest TVD (<code>lowest_tvd_so_far</code>), the current player
+(<code>player</code>) is now the most “similar” to Kelsey Plum, and so
+we store their TVD and name (in <code>most_sim_player</code>).</p>
+<p>Before the <code>for</code>-loop, we haven’t looked at any other
+players, so we don’t have values to store in
+<code>most_sim_player</code> and <code>lowest_tvd_so_far</code>. On the
+first iteration of the <code>for</code>-loop, both of these values need
+to be updated to reflect Kelsey Plum’s similarity with the first player
+in <code>other_players</code> – this is because, if we’ve only looked at
+one player, that player is the most similar to Kelsey Plum.
+<code>most_sim_player</code> is already initialized as an empty string,
+and we will specify how to “update” <code>most_sim_player</code> in
+blank (c). What we need to do here is pick a value of
+<code>lowest_tvd_so_far</code> that we can <strong>guarantee</strong>
+will be updated on the first iteration of the <code>for</code>-loop.
+Recall, TVDs range from 0 to 1, with 0 meaning “most similar” and 1
+meaning “most different”. This means that no matter what, the TVD
+between Kelsey Plum’s distribution and the first player’s distribution
+will be less than 1<em>, and so if we initialize
+<code>lowest_tvd_so_far</code> to 1 before the <code>for</code>-loop, we
+know it will be updated on the first iteration. - </em>It’s possible
+that the TVD between Kelsey Plum’s shot distribution and the first other
+player’s shot distribution is equal to 1, rather than being less than 1.
+If that were to happen, our code would still generate the correct
+answer, but <code>lowest_tvd_so_far</code> and
+<code>most_sim_player</code> wouldn’t be updated on the first iteration.
+Rather, they’d be updated on the first iteration where
+<code>player_tvd</code> is strictly less than 1. (We’d expect that the
+TVDs between all pairs of players are neither exactly 0 nor exactly 1,
+so this is not a practical issue.) To avoid this issue entirely, we
+could change <code>if player_tvd &lt; lowest_tvd_so_far</code> to
+<code>if player_tvd &lt;= lowest_tvd_so_far</code>, which would make
+sure that even if the first TVD is 1, both
+<code>lowest_tvd_so_far</code> and <code>most_sim_player</code> are
+updated on the first iteration. - Note that we could have initialized
+<code>lowest_tvd_so_far</code> to a value larger than 1 as well. Suppose
+we initialized it to 55 (an arbitrary positive integer). On the first
+iteration of the <code>for</code>-loop, <code>player_tvd</code> will be
+less than 55, and so <code>lowest_tvd_so_far</code> will be updated.</p>
+<p>Then, we need <code>other_players</code> to be an array containing
+the names of all players other than Kelsey Plum, whose name is stored at
+position 0 in <code>breakdown.columns</code>. We are told that there are
+50 players total, i.e. that there are 50 columns in
+<code>breakdown</code>. We want to <code>take</code> the elements in
+<code>breakdown.columns</code> at positions 1, 2, 3, …, 49 (the last
+element), and the call to <code>np.arange</code> that generates this
+sequence of positions is <code>np.arange(1, 50)</code>. (Remember,
+<code>np.arange(a, b)</code> does not include the second integer!)</p>
+<p>In blank (c), as mentioned in the explanation for blank (a), we need
+to update the value of <code>most_sim_player</code>. (Note that we only
+arrive at this line if <code>player_tvd</code> is the lowest pairwise
+TVD we’ve seen so far.) All this requires is
+<code>most_sim_player = player</code>, since <code>player</code>
+contains the name of the player who we are looking at in the current
+iteration of the <code>for</code>-loop.</p>
 </div>
 </div>
 </div>
@@ -623,12 +677,7 @@ aria-labelledby="heading2_2" data-bs-parent="#accordionExample">
 <h3 id="problem-2.3">Problem 2.3</h3>
 <p>Let’s again consider the shot distributions of Kelsey Plum and Cheney
 Ogwumike.</p>
-<figure>
-<img src="/files/b398bcf4-eca6-4635-a944-dd752d04e57c"
-alt="Screen_Shot_2022-03-06_at_2.03.57_AM.png" />
-<figcaption
-aria-hidden="true">Screen_Shot_2022-03-06_at_2.03.57_AM.png</figcaption>
-</figure>
+<center><img src='../assets/images/wi22-final/tvd.png' width=50%></center>
 <p>We define the <strong>maximum squared distance</strong> (MSD) between
 two categorical distributions as the <strong>largest squared difference
 between the proportions of any category</strong>.</p>
@@ -649,7 +698,23 @@ aria-labelledby="heading2_3" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p>0.023</p>
+<p><strong>Answer:</strong> 0.023</p>
+<p>Recall, in the solution to the first subpart of this problem, we
+calculated the absolute differences between the proportions of each
+category.</p>
+<ul>
+<li>Free Throws: <span class="math inline">|0.05 - 0.2| =
+0.15</span></li>
+<li>Threes: <span class="math inline">|0.35 - 0.2| = 0.15</span></li>
+<li>Midrange: <span class="math inline">|0.35 - 0.3| = 0.05</span></li>
+<li>Layups: <span class="math inline">|0.25 - 0.3| = 0.05</span></li>
+</ul>
+<p>The squared difference between the proportions of each category are
+computed by squaring the results in the list above (e.g. for Free Throws
+we’d have <span class="math inline">(0.05 - 0.2)^2 = 0.15^2</span>). To
+find the maximum squared difference, then, all we need to do is find the
+largest of <span class="math inline">0.15^2</span>, <span class="math inline">0.15^2</span>, <span class="math inline">0.05^2</span>, and <span class="math inline">0.05^2</span>. Since <span class="math inline">0.15
+&gt; 0.05</span>, we have that the maximum squared distance is <span class="math inline">0.15^2 = 0.0225</span>, which rounds to <span class="math inline">0.023</span>.</p>
 </div>
 </div>
 </div>
@@ -658,15 +723,14 @@ aria-labelledby="heading2_3" data-bs-parent="#accordionExample">
 <h3 id="problem-2.4">Problem 2.4</h3>
 <p>For your convenience, we show the first few columns of
 <code>breakdown</code> again below.</p>
-<figure>
-<img src="/files/e23acc3e-726b-4b07-92b2-a30c7e4047bc"
-alt="Screen_Shot_2022-03-06_at_1.56.40_AM.png" />
-<figcaption
-aria-hidden="true">Screen_Shot_2022-03-06_at_1.56.40_AM.png</figcaption>
-</figure>
-<p>In basketball: - layups are worth 2 points, - midrange shots are
-worth 2 points, - threes are worth 3 points, and - free throws are worth
-1 point</p>
+<center><img src='../assets/images/wi22-final/head-to-head.png' width=30%></center>
+<p>In basketball:</p>
+<ul>
+<li>layups are worth 2 points,</li>
+<li>midrange shots are worth 2 points,</li>
+<li>threes are worth 3 points, and</li>
+<li>free throws are worth 1 point</li>
+</ul>
 <p>Suppose that Kelsey Plum is guaranteed to shoot exactly 10 shots a
 game. The type of each shot is drawn from the <code>'Kelsey Plum'</code>
 column of <code>breakdown</code> (meaning that, for example, there is a
@@ -679,10 +743,10 @@ should return a single number.)</p>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    shots <span class="op">=</span> np.random.multinomial(__(a)__, breakdown.get(<span class="st">&#39;Kelsey Plum&#39;</span>))</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    possible_points <span class="op">=</span> np.array([<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">1</span>])</span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> __(b)__</span></code></pre></div>
-<p>What goes in blank (a)?</p>
-<p><a href="10">____</a></p>
-<p>What goes in blank (b)?</p>
-<p><a href="(shots%20*%20possible_points).sum()">____</a></p>
+<ol type="1">
+<li>What goes in blank (a)?</li>
+<li>What goes in blank (b)?</li>
+</ol>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading2_4">
@@ -696,8 +760,36 @@ aria-labelledby="heading2_4" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p>Just proof that we can use images in solutions!</p>
-<center><img src="../assets/images/wi22-final/test.png" width="40%"/></center>
+<p><strong>Answers:</strong> <code>10</code>,
+<code>(shots * possible_points).sum()</code></p>
+<p>To simulate the number of points Kelsey Plum scores in a single game,
+we need to: 1. Simulate the number of shots she takes of each type
+(layups, midranges, threes, free throws). 2. Using the simulated
+distribution in step 1, find the total number of points she scores –
+specifically, add 2 for every layup, 2 for every midrange, 3 for every
+three, and 1 for every free throw.</p>
+<p>To simulate the number of shots she takes of each type, we use
+<code>np.random.multinomial</code>. This is because each shot,
+independently of all other shots, has a 30% chance of being a layup, a
+30% chance of being a midrange, and so on. What goes in blank (a) is the
+number of shots she is taking total; here, that is 10.
+<code>shots</code> will be an array of length 4 containing the number of
+shots of each type - for instance, <code>shots</code> may be
+<code>np.array([3, 4, 2, 1])</code>, which would mean she took 3 layups,
+4 midranges, 2 threes, and 1 free throw.</p>
+<p>Now that we have <code>shots</code>, we need to factor in how many
+points each type of shot is worth. This can be accomplished by
+multiplying <code>shots</code> with <code>possible_points</code>, which
+was already defined for us. Using the example where <code>shots</code>
+is <code>np.array([3, 4, 2, 1])</code>,
+<code>shots * possible_points</code> evaluates to
+<code>np.array([6, 8, 6, 1])</code>, which would mean she scored 6
+points from layups, 8 points from midranges, and so on. Then, to find
+the total number of points she scored, we need to compute the sum of
+this array, either using the <code>np.sum</code> function or
+<code>.sum()</code> method. As such, the two correct answers for blank
+(b) are <code>(shots * possible_points).sum()</code> and
+<code>np.sum(shots * possible_points)</code>.</p>
 </div>
 </div>
 </div>
@@ -724,9 +816,47 @@ aria-labelledby="heading2_5" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>True</strong></p>
-<p>Recall, the central limit theorem states that the distribution
-of…</p>
+<p><strong>Answer: </strong> True</p>
+<p>The answer is True because of the Central Limit Theorem. Recall, the
+CLT states that no matter what the population distribution looks like,
+if you take many repeated samples with replacement, the distribution of
+the sample means and sample sums will be roughly normal.
+<code>simulate_points()</code> returns the sum of a sample of size 10
+drawn with replacement from a population, and so if we generate many
+sample sums, the distribution of those sample sums will be roughly
+normal.</p>
+<p>The distribution we are drawing from is the one below.</p>
+<table>
+<thead>
+<tr class="header">
+<th>Type</th>
+<th>Points</th>
+<th>Probability</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Layups</td>
+<td>2</td>
+<td>0.3</td>
+</tr>
+<tr class="even">
+<td>Midrange</td>
+<td>2</td>
+<td>0.3</td>
+</tr>
+<tr class="odd">
+<td>Threes</td>
+<td>3</td>
+<td>0.2</td>
+</tr>
+<tr class="even">
+<td>Free Throws</td>
+<td>1</td>
+<td>0.2</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>

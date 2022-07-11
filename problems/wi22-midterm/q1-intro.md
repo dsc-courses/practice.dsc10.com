@@ -16,8 +16,6 @@ sky.sort_values('height')
 ( ) DataFrame
 ( ) error
 
-here's something that should work
-
 # BEGIN SOLN
 
 **Answer:** DataFrame
