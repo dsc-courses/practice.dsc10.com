@@ -69,7 +69,23 @@ def date_to_season(date):
 
 **Answer: ** Option 1, Option 2, Option 3
 
-solution here
+All three options start with the same first line of code: `month_as_num = int(date.split('-')[1])`. This takes the date, originally a string formatted such as `'2021-09-07'`, separates it into a list of three strings such as `['2021', '09', '07']`, extracts the element in position 1 (the middle position), and converts it to an `int` such as 9. Now we have the month as a number we can work with more easily.
+
+According to the definition of seasons, the months in each season are as follows.
+
+| Season | Months | `month_as_num` |
+| --- | --- | --- |
+| Spring | March, April, May | 3, 4, 5 |
+| Summer | June, July, August | 6, 7, 8 |
+| Fall | September, October, November | 9, 10, 11 |
+| Winter | December, January, February | 12, 1, 2 |
+
+
+Option 1 correctly assigns months to seasons by checking if the month falls in the appropriate range for `'Spring'`, then `'Summer'`, then `'Fall'`. Finally, if all of these conditions are false, the `else` branch will return the correct answer of `'Winter'` when `month_as_num` is 12, 1, or 2.
+
+Option 2 is also correct, and in fact, it does the same exact thing as Option 1 even though it uses `if` where Option 1 used `elif`. The purpose of `elif` is to check a condition only when all previous conditions are false. So if we have an `if` followed by an `elif`, the `elif` condition will only be checked when the `if` condition is false. If we have two sequential `if` conditions, typically the second condition will be checked regardless of the outcome of the first condition, which means two `if` statments can behave differently than an `if` followed by an `elif`. In this case, however, since the `if` statements cause the function to `return` and therefore stop executing, the only way to get to a certain `if` condition is when all previous `if` conditions are false. If any prior `if` condition were true, the function would have returned already! So this means the three `if` conditions in Option 2 are equivalent to the `if`, `elif`, `elif` structure of Option 1. Note that the `else` case in Option 1 is reached when all prior conditions are false, whereas the `else` in Option 2 is paired only with the `if` statement immediately preceding it. But since we only ever get to that third `if` statement when the first two `if` conditions are false, we still only reach the `else` branch when all three `if` conditions are false.
+
+Option 3 works similarly to Option 1, except it separates the months into more categories, first categorizing January and February as `'Winter'`, then checking for `'Spring'`, `'Summer'`, and `'Fall'`. The only month that winds up in the `else` branch is December. We can think of Option 3 as the same as Option 1, except the Winter months have separated into two groups, and the group containing January and February is extracted and checked first.
 
 # END SOLUTION
 
@@ -88,7 +104,7 @@ Assuming we've defined `date_to_season` correctly in the previous part, which of
 
 **Answer: ** `flights.get('DATE').apply(date_to_season)`
 
-solution here
+Our function `date_to_season` takes as input a single date and converts it to a season. We cannot input a whole Series of dates, as in the first answer choice. We instead need to `apply` the function to the whole Series of dates. The correct syntax to do that is to first extract the Series of dates from the DataFrame and then use `.apply`, passing in the name of the function we wish to apply to each element of the Series. Therefore, the correct answer is `flights.get('DATE').apply(date_to_season)`.
 
 # END SOLUTION
 
