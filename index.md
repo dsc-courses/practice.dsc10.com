@@ -34,6 +34,11 @@ This site contains practice problems taken from old exams. You should work on th
       <td><a href='fa21-midterm/index.html'>Midterm</a><br>
           <a href='fa21-final/index.html'>Final</a></td>
     </tr>
+    <tr>
+      <th scope="row">Winter 2021</th>
+      <td><a href='wi21-midterm/index.html'>Midterm</a><br>
+	        <a href='wi21-final/index.html'>Final</a></td>
+    </tr>
   </tbody>
 </table>
 </center>

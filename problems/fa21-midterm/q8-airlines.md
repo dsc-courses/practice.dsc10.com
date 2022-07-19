@@ -54,7 +54,7 @@ True or False: The probability that all 3 flights are on the same airline is equ
 
 **Answer: ** False
 
-It's not quite the same because the previous subpart doesn't include the probability that all three flights are on the same airline which is not of Delta, United, or American. For example, there is a small probability that all three flights are on Allegiant or all three flights are on Southwest.
+It's not quite the same because the previous subpart doesn't include the probability that all three flights are on the same airline which is not one of Delta, United, or American. For example, there is a small probability that all three flights are on Allegiant or all three flights are on Southwest. 
 
 # END SOLUTION
 

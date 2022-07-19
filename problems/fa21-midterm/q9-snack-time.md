@@ -42,7 +42,7 @@ What goes in blank (a)?
 
 **Answer: ** `cookie_box, 2, replace=False`
 
-solution here
+We are told that King Triton grabs two cookies out of the box without looking. Since this is a random choice, we use the function `np.random.choice` to simulate this. The first input to this function is a sequence of values to choose from. We already have an array of values to choose from in the variable `cookie_box`. Calling `np.random.choice(cookie_box)` would select one cookie from the cookie box, but we want to select two, so we use an optional second parameter to specify the number of items to randomly select. Finally, we should consider whether we want to select with or without replacement. Since `cookie_box` contains individual cookies and King Triton is selecting two of them, he cannot choose the same exact cookie twice. This means we should sample without replacement, by specifying `replace=False`. Note that omitting the `replace` parameter would use the default option of sampling with replacement. 
 
 # END SOLUTION
 
@@ -56,7 +56,7 @@ What goes in blank (b)?
 
 **Answer: ** `grab[0] == grab[1]`
 
-solution here
+The idea of a simulation is to do some random process many times. We can use the results to approximate a probability by counting up the number of times some event occured, and dividing that by the number of times we did the random process. Here, the random process is selecting two cookies from the cookie box, and we are doing this 10,000 times. The approximate probability will be the number of times in which both cookies are the same divided by 10,000. So we need to count up the number of times that both randomly selected cookies are the same. We do this by having an accumulator variable that starts out at 0 and gets incremented, or increased by 1, every time both cookies are the same. The code has such a variable, called `prob_both_same`, that is initialized to 0 and gets incremented when some condition is met. We need to fill in the condition, which is that both randomly selected cookies are the same. We've already randomly selected the cookies and stored the results in `grab`, which is an array of length 2 that comes from the output of a call to `np.random.choice`. To check if both elements of the `grab` array are the same we access the individual elements using brackets with the position number, and compare using the `==` symbol to check equality. Note that at the end of the `for` loop, the variable `prob_both_same` will contain a count of the number of trials out of 10,000 in which both of King Triton's cookies were the same flavor.
 
 # END SOLUTION
 
@@ -75,7 +75,7 @@ What goes in blank (c)?
 
 **Answer: ** `prob_both_same / repetitions`
 
-solution here
+After the `for` loop, `prob_both_same` contains the number of trials out of 10,000 in which both of King Triton's cookies were the same flavor. We'd like it to represent the approximate probability of both cookies being the same flavor, so we need to divide the current value by the total number of trials, 10,000. Since this value is stored in the variable `repetitions`, we can divide `prob_both_same` by `repetitions`.
 
 # END SOLUTION
 
