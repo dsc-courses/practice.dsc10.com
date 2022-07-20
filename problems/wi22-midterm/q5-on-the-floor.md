@@ -28,7 +28,11 @@ Here, we're given the entire histogram, so we can find the proportion of values 
 
 The first step is finding the area of the $[30, 35)$ bin's bar. Its width is $35-30 = 5$, and its height is $0.04$, so its area is $5 \cdot 0.04 = 0.2$. Then,
 
-$$\begin{align*} \text{\# of values satisfying condition} &= \text{proportion of values satisfying condition} \cdot \text{total \# of values} \\ 160 &= 0.2 \cdot \text{total \# of values} \\ \implies \text{total \# of values} &= \frac{160}{0.2} = 160 \cdot 5 = 800 \end{align*}$$
+$$\begin{aligned} 
+        \text{\# of values satisfying condition} &= \text{proportion of values satisfying condition} \cdot \text{total \# of values} \\ 
+        160 &= 0.2 \cdot \text{total \# of values} \\ 
+        \implies \text{total \# of values} &= \frac{160}{0.2} = 160 \cdot 5 = 800 
+\end{aligned}$$
 
 # END SOLN
 
@@ -53,7 +57,7 @@ Suppose we re-draw the above histogram using the correct data. What will be the 
 
 The current height of the $[35, 40)$ bar is 0.03, and the current height of the $[50, 55)$ bar is 0.013 (approximately; its height appears to be slightly more than halfway between 0.01 and 0.015). We need to decrease the height of the $[50, 55)$ bar and increase the height of the $[35, 40)$ bar. The combined area of both bars must stay the same, since the proportion of values in their bins (together) is not changing. This means that the amount we need to decrease the $[50, 55)$ bar's height by is the same as the amount we need to increase the $[35, 40)$ bar's height by. Note that this relationship is true in all 4 answer choices.
 
-In the question, we were told that 20 skyscrapers were incorrectly binned. There are 800 skyscrapers total, so the proportion of skyscrapers were incorrectly binned is $\frac{20}{800} = 0.025$. This means that the area of the $[35, 40)$ bar needs to increase by 0.025 and the area of the $[50, 55)$ bar needs to decrease by 0.025. Recall, each bar has width 5. That means that the "rectangular section" we will add to the $[35, 40)$ bar and remove from the $[50, 55)$ bar has height
+In the question, we were told that 20 skyscrapers were incorrectly binned. There are 800 skyscrapers total, so the proportion of skyscrapers that were incorrectly binned is $\frac{20}{800} = 0.025$. This means that the area of the $[35, 40)$ bar needs to increase by 0.025 and the area of the $[50, 55)$ bar needs to decrease by 0.025. Recall, each bar has width 5. That means that the "rectangular section" we will add to the $[35, 40)$ bar and remove from the $[50, 55)$ bar has height
 
 $$\text{height} = \frac{\text{area}}{\text{width}} = \frac{0.025}{5} = 0.005$$
 

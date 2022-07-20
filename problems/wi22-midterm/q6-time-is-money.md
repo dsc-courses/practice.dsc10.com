@@ -27,7 +27,7 @@ Which of the following could we replace `'height'` with in the line of code abov
 
 Recall that when we use the `.count()` aggregation method while grouping, the values in all resulting columns are the same (they all contain the number of values in each unique group). This means that any column of `sky.groupby('year').count()` can replace `'height'` in the provided line.
 
-`'name'` is not a column in `sky.groupby('year').count()`. `'name'` was the index in `sky`, but is not present at all in `sky.groupby('year').count()` (the original index is lost completely). `'year'`, too, is not a column in `sky.groupby('year').count()`, since it is the index. The remaining three columns – `'material'`, `'city'`, and `'floors'` – would all work.
+`'name'` is not a column in `sky.groupby('year').count()`. `'name'` was the index in `sky`, but is not present at all in `sky.groupby('year').count()` (the original index is lost completely). `'year'` is also not a column in `sky.groupby('year').count()`, since it is the index. The remaining three columns – `'material'`, `'city'`, and `'floors'` – would all work.
 
 # END SOLN
 

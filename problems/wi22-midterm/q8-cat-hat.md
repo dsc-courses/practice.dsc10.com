@@ -18,6 +18,7 @@ Billy lives on the 8th floor of Building C. What's the probability that Billy ha
 **Answer:** 0.025
 
 In order for the 8th floor of Building C to be selected, two things need to happen:
+
 - In Wave 1, the 8th floor of Building C needs to be selected amongst all 10 floors in Building C – this happens with probability $\frac{1}{10}$, since each floor in Building C is equally likely to be selected.
 - In Wave 2, the 8th floor of Building C needs to be selected amongst the 4 floors selected in Wave 1 – this happens with probability $\frac{1}{4}$, since each floor in Wave 1 is equally likely to be selected.
 
