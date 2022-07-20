@@ -27,7 +27,7 @@ What goes in blank (a)?
 # BEGIN SOLUTION
 **Answer: ** `top_hit_year - year`
 
-Before we can answer this question, we need to understand what the first three lines of the `classify_artist` function are doing. The first line creates a DataFrame with only one row, correponding to the particular artist that's passed in as input to the function. We know there is just one row because we are told that the artist being passed in as input has appeared exactly once at Sun God. The next two lines create two variables: 
+Before we can answer this question, we need to understand what the first three lines of the `classify_artist` function are doing. The first line creates a DataFrame with only one row, corresponding to the particular artist that's passed in as input to the function. We know there is just one row because we are told that the artist being passed in as input has appeared exactly once at Sun God. The next two lines create two variables: 
 
 - `year` contains the year in which the artist performed at Sun God, and 
 - `top_hit_year` contains the year in which their top hit song was released.
