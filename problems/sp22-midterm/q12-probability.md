@@ -8,7 +8,7 @@ You’re definitely going to Sun God 2022, but you don’t want to go alone! For
 
 **Answer: ** $(1-p)^n$
 
-If you go alone, it means all of your friends failed to come. We can think of this as and *and* condition so that we can use multiplication. The condition is: your first friend doesn't come *and* your second friend doesn't come, and so on. The probability of any individual friend not coming is $1-p$, so the probability of all your friends not coming is $(1-p)^n$.
+If you go alone, it means all of your friends failed to come. We can think of this as an *and* condition in order to use multiplication. The condition is: your first friend doesn't come *and* your second friend doesn't come, and so on. The probability of any individual friend not coming is $1-p$, so the probability of all your friends not coming is $(1-p)^n$.
 
 # END SOLUTION
 

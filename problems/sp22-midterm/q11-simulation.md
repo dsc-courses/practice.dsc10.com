@@ -31,7 +31,7 @@ Let's look at the variable `attending`. Since we're choosing 21,000 elements fro
 
 We want to figure out the probability of at least one ticket holder showing up and not being admitted. Another way to say this is we want to find the probability that more than 20,000 ticket holders show up to attend the festival. The way we approximate a probability through simulation is we repeat a process many times and see how often some event occured. The event we're interested in this case is that more than 20,000 ticket holders came to Sun God. Since we have an array of `True` and `False` values corresponding to whether each ticket holder actually came, we just need to determine if there are more than 20,000 `True` values in the `attending` array. 
 
-There are several ways to count the number of `True` values in a Boolean array. One way is to sum the array, since in Python, `True` counts as 1 and `False` counts as 0. Therefore `attending.sum() > 20000` is the condition we need to check here.
+There are several ways to count the number of `True` values in a Boolean array. One way is to sum the array since in Python `True` counts as 1 and `False` counts as 0. Therefore, `attending.sum() > 20000` is the condition we need to check here.
 
 # END SOLUTION
 

@@ -17,9 +17,9 @@ These changes were implemented because of incidents related to drug and alcohol 
 
 **Answer: ** There is an association between administrative changes and hospitalizations. We can’t be sure if any of the administrative changes are responsible for the reduction in hospitalizations.
 
-We do know there is an association between administrative changes and hospitalizations because the number of hospitalized students dropped after the changes went into effect. 
+We know there is an association between administrative changes and hospitalizations because the number of hospitalized students dropped after the changes went into effect. 
 
-Since no randomized controlled trial was done, we can't be sure of the reason for the reduction in hospitalizations. For example, maybe there were fewer hospitalizations because a new flavor of sparkling water came out in 2014, and people drank that instead of alcohol. We just don't know enough to conclude any causal explanation for the reduction in hospitalizations. 
+However, since no randomized controlled trial was done, we can't be sure of the reason for the reduction in hospitalizations. For example, maybe there were fewer hospitalizations because a new flavor of sparkling water came out in 2014, and people drank that instead of alcohol. We just don't know enough to conclude any causal explanation for the reduction in hospitalizations. 
 
 
 # END SOLUTION
