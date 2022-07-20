@@ -42,8 +42,9 @@ What goes in the blank?
 The end of the line given to us is `.iloc[0]`. We know that `.iloc[0]` extracts the first element in whatever Series it is called on, so what comes before `.iloc[0]` must be a Series where the first element is the `'height'` of the skyscraper with the most floors, among all skyscrapers in San Diego that are over 100 meters tall. The DataFrame we are working with, `san_tall`, already only has skyscrapers in San Diego that are over 100 meters tall.
 
 This means that in the blank, all we need to do is:
-1. Sort skyscrapers by `'floors'` in decreasing order (so that the first row is the skyscraper with the most `'floors'`)
-2. Extract the `'height'` column
+
+1. Sort skyscrapers by `'floors'` in decreasing order (so that the first row is the skyscraper with the most `'floors'`).
+2. Extract the `'height'` column.
 
 As such, a complete answer is `height_many_floors = san_tall.sort_values('floors', ascending=False).get('height').iloc[0]`.
 
@@ -65,6 +66,7 @@ As such, a complete answer is `height_many_floors = san_tall.sort_values('floors
 **Answer:** False
 
 `height_many_floors` is the height of the skyscraper with the most `'floors'`. However, this is not necessarily the tallest skyscraper (i.e. the skyscraper with the largest `'height'`)! Consider the following scenario:
+
 - Building A: 15 floors, height of 150 feet
 - Building B: 20 floors, height of 100 feet
 

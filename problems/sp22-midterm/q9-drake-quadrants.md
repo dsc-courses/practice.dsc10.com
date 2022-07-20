@@ -37,7 +37,7 @@ Since Drake is considered trending, we know his top hit came out within the five
 
 If Michelle Branch were in the northwest quadrant, that would mean her x-coordinate was smaller than Drake's, and her y-coordinate was larger. In other words, that would mean she performed at Sun God before Drake and her top hit was released after Drake's. This means the time gap between her top hit release and her Sun God performance is less than five years, so she could not be considered outdated.
 
-We could also answer this question through process of eliminiation. This would entail finding scenarios that show each of the other three quadrants is possible. 
+We could also answer this question through process of elimination. This would entail finding scenarios that show each of the other three quadrants is possible. 
 
 Michelle Branch could wind up in the northeast quadrant if, say, she performed 10 years after Drake and released her top hit 1 year after Drake. She'd be considered outdated because the time gap between her top hit and her Sun God performance would exceed five years.
 

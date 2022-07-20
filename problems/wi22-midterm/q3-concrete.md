@@ -24,9 +24,11 @@ What goes in the blank?
 
 Let's first understand the code that is already provided for us. Note that `city` is a string corresponding to the name of a city.
 
-`all_city` contains only the rows for the passed in `city`. Note that `all_city.shape[0]` is the number of rows in `all_city`, i.e. it is the number of skyscrapers in `city`. Then, `concrete_city` contains only the rows in `all_city` corresponding to `'concrete'` skyscrapers, i.e. it contains only the rows in `city` corresponding to `'concrete'` skyscrapers in `city`. Note that `concrete_city.shape[0]` is the number of skyscrapers in `city` that are made of `'concrete'`.
+`all_city` contains only the rows for the passed in `city`. Note that `all_city.shape[0]` or `len(all_city)` is the number of rows in `all_city`, i.e. it is the number of skyscrapers in `city`. Then, `concrete_city` contains only the rows in `all_city` corresponding to `'concrete'` skyscrapers, i.e. it contains only the rows corresponding to `'concrete'` skyscrapers in `city`. Note that `concrete_city.shape[0]` or `len(concrete_city)` is the number of skyscrapers in `city` that are made of `'concrete'`.
 
 We want to return `True` only if at least 50% of the skyscrapers in `city` are made of concrete. The last line in the function, `return proportion >= 0.5`, is already provided for us, so all we need to do is compute the proportion of skyscrapers in `city` that are made of concrete. This is `concrete_city.shape[0] / all_city.shape[0]`.
+
+Another possible answer is `len(concrete_city) / len(all_city)`.
 
 # END SOLN
 
@@ -54,7 +56,7 @@ What goes in the blank?
 
 We are told to add a column to `by_city`. Recall, the way that `.assign` works is that the name of the new column comes before the `=` symbol, and a Series (or array) containing the values for the new column comes after the `=` symbol. As such, a Series needs to go in the blank.
 
-`majority_concrete` takes in the name of a single `city` and returns either `True` or `False` accordingly. All we need to do here, then, is use the `majority_concrete` function on every element in the `'city'` column. After accessing the `'city'` column using `by_city.get('city')`, we need to use the `.apply` method using the argument `majority_concrete`. Putting it all together yields `by_city.get('city').apply(majority_concrete)`, which is a Series.
+`majority_concrete` takes in the name of a single `city` and returns either `True` or `False` accordingly. All we need to do here then is use the `majority_concrete` function on every element in the `'city'` column. After accessing the `'city'` column using `by_city.get('city')`, we need to use the `.apply` method using the argument `majority_concrete`. Putting it all together yields `by_city.get('city').apply(majority_concrete)`, which is a Series.
 
 Note: Here, `by_city.get('city')` only works because `.reset_index()` was used in the line where `by_city` was defined. If we did not reset the index, `'city'` would not be a column!
 
@@ -100,9 +102,9 @@ Suppose `mystery.get('city').iloc[0] == mystery.get('city').iloc[1]` evaluates t
 
 **Answer:** True
 
-In the solution to the previous subart, we noted that `mystery` contains at most 2 rows, one corresponding to cities where `'is_majority'` is `True` and one corresponding to cities where `'is_majority` is `False`. Furthermore, recall that we used the `.count()` aggregation method, which means that the entries in each column of `mystery` contain the **number** of cities where `'is_majority'` is `True` and the **number** of cities where `'is_majority'` is `False`.
+In the solution to the previous subpart, we noted that `mystery` contains at most 2 rows, one corresponding to cities where `'is_majority'` is `True` and one corresponding to cities where `'is_majority'` is `False`. Furthermore, recall that we used the `.count()` aggregation method, which means that the entries in each column of `mystery` contain the **number** of cities where `'is_majority'` is `True` and the **number** of cities where `'is_majority'` is `False`.
 
-If `mystery.get('city').iloc[0] == mystery.get('city').iloc[1]`, it must be the case that the number of cities where `'is_majority'` is True and False are equal. This must mean that in exactly half of the cities in `sky`, it is true that the majority of skyscrapers are made of `'concrete'`. 
+If `mystery.get('city').iloc[0] == mystery.get('city').iloc[1]`, it must be the case that the number of cities where `'is_majority'` is `True` and `False` are equal. This must mean that in exactly half of the cities in `sky`, it is true that the majority of skyscrapers are made of `'concrete'`. 
 
 # END SOLN
 

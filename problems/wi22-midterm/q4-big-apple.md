@@ -30,7 +30,7 @@ select the true statement below.
 
 Here, we are merging `sky` and `new_york` on skyscraper names (stored in the index in `sky` and in the `'name'` column in `new_york`). The resulting DataFrame, `sky_with_location`, will have one row for each "match" between skyscrapers in `sky` and `new_york`. Since skyscraper names are presumably unique, `sky_with_location` will have one row for each skyscraper that is in both `sky` and `new_york`.
 
-The skyscrapers that are in both `sky` and `new_york` are just the skyscrapers in `new_york`, since all of the non-New York skyscrapers in `sky` won't be in `new_york`. As such, `sky_with_location` has the same number of rows as `new_york.` `new_york` has $n$ rows, so `sky_with_location` also has $n$ rows.
+The skyscrapers that are in both `sky` and `new_york` are just the skyscrapers in `new_york`, since all of the non-New York skyscrapers in `sky` won't be in `new_york`. As such, `sky_with_location` has the same number of rows as `new_york`. `new_york` has $n$ rows, so `sky_with_location` also has $n$ rows.
 
 # END SOLN
 

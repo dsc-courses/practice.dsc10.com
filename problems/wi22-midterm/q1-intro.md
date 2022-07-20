@@ -124,7 +124,7 @@ The function that `apply` takes in must work on individual elements in a Series,
 
 Here, we are trying to apply the `max` function on each `'city'` name. The `max` of a single item does not work in Python, because taking the `max` requires comparing two or more elements. Try it out - in a notebook, run the expression `max(5)`, and you'll see an error. So, if we tried to use `.apply(max)` on a Series of numbers, we'd run into an error.
 
-**However**, we are using `.apply(max)` on a Series of strings, and it turns out that Python **does** allow us to take the `max` of a string! The `max` of a string in Python is defined as the last character in the string alphabetically, so `max('hello')` evalutes to `'o'`. This means that `sky.get('city').apply(max)` does actually run without error; it evaluates to a Series containing the last element in the name of each `'city'`.
+**However**, we are using `.apply(max)` on a Series of strings, and it turns out that Python **does** allow us to take the `max` of a string! The `max` of a string in Python is defined as the last character in the string alphabetically, so `max('hello')` evaluates to `'o'`. This means that `sky.get('city').apply(max)` does actually run without error; it evaluates to a Series containing the last element in the name of each `'city'`.
 
 (This subpart was trickier than we intended – we ended up giving credit to both "error" and "Series".)
 

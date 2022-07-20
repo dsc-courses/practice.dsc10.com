@@ -76,7 +76,7 @@
     code span.vs { color: #4070a0; } /* VerbatimString */
     code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="..\assets\theme.css" />
+  <link rel="stylesheet" href="../assets/theme.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
    var mathElements = document.getElementsByClassName("math");
@@ -264,7 +264,7 @@ Click to view the solution.
 <p>This is a tricky problem!</p>
 <p>The function that <code>apply</code> takes in must work on individual elements in a Series, i.e. it must work with just a single argument. We saw this in the above subpart, where <code>sky.get('city').apply(len)</code> applied <code>len</code> on each <code>'city'</code> name.</p>
 <p>Here, we are trying to apply the <code>max</code> function on each <code>'city'</code> name. The <code>max</code> of a single item does not work in Python, because taking the <code>max</code> requires comparing two or more elements. Try it out - in a notebook, run the expression <code>max(5)</code>, and you’ll see an error. So, if we tried to use <code>.apply(max)</code> on a Series of numbers, we’d run into an error.</p>
-<p><strong>However</strong>, we are using <code>.apply(max)</code> on a Series of strings, and it turns out that Python <strong>does</strong> allow us to take the <code>max</code> of a string! The <code>max</code> of a string in Python is defined as the last character in the string alphabetically, so <code>max('hello')</code> evalutes to <code>'o'</code>. This means that <code>sky.get('city').apply(max)</code> does actually run without error; it evaluates to a Series containing the last element in the name of each <code>'city'</code>.</p>
+<p><strong>However</strong>, we are using <code>.apply(max)</code> on a Series of strings, and it turns out that Python <strong>does</strong> allow us to take the <code>max</code> of a string! The <code>max</code> of a string in Python is defined as the last character in the string alphabetically, so <code>max('hello')</code> evaluates to <code>'o'</code>. This means that <code>sky.get('city').apply(max)</code> does actually run without error; it evaluates to a Series containing the last element in the name of each <code>'city'</code>.</p>
 <p>(This subpart was trickier than we intended – we ended up giving credit to both “error” and “Series”.)</p>
 </div>
 </div>
@@ -409,7 +409,11 @@ Click to view the solution.
 </header>
 <p><strong>Answer:</strong> <code>sort_values('floors', ascending=False).get('height')</code></p>
 <p>The end of the line given to us is <code>.iloc[0]</code>. We know that <code>.iloc[0]</code> extracts the first element in whatever Series it is called on, so what comes before <code>.iloc[0]</code> must be a Series where the first element is the <code>'height'</code> of the skyscraper with the most floors, among all skyscrapers in San Diego that are over 100 meters tall. The DataFrame we are working with, <code>san_tall</code>, already only has skyscrapers in San Diego that are over 100 meters tall.</p>
-<p>This means that in the blank, all we need to do is: 1. Sort skyscrapers by <code>'floors'</code> in decreasing order (so that the first row is the skyscraper with the most <code>'floors'</code>) 2. Extract the <code>'height'</code> column</p>
+<p>This means that in the blank, all we need to do is:</p>
+<ol type="1">
+<li>Sort skyscrapers by <code>'floors'</code> in decreasing order (so that the first row is the skyscraper with the most <code>'floors'</code>).</li>
+<li>Extract the <code>'height'</code> column.</li>
+</ol>
 <p>As such, a complete answer is <code>height_many_floors = san_tall.sort_values('floors', ascending=False).get('height').iloc[0]</code>.</p>
 </div>
 </div>
@@ -436,7 +440,11 @@ Click to view the solution.
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer:</strong> False</p>
-<p><code>height_many_floors</code> is the height of the skyscraper with the most <code>'floors'</code>. However, this is not necessarily the tallest skyscraper (i.e. the skyscraper with the largest <code>'height'</code>)! Consider the following scenario: - Building A: 15 floors, height of 150 feet - Building B: 20 floors, height of 100 feet</p>
+<p><code>height_many_floors</code> is the height of the skyscraper with the most <code>'floors'</code>. However, this is not necessarily the tallest skyscraper (i.e. the skyscraper with the largest <code>'height'</code>)! Consider the following scenario:</p>
+<ul>
+<li>Building A: 15 floors, height of 150 feet</li>
+<li>Building B: 20 floors, height of 100 feet</li>
+</ul>
 <p><code>height_many_floors</code> would be 100, but it is not the <code>'height'</code> of the taller building.</p>
 </div>
 </div>
@@ -470,8 +478,9 @@ Click to view the solution.
 </header>
 <p><strong>Answer:</strong> <code>concrete_city.shape[0] / all_city.shape[0]</code></p>
 <p>Let’s first understand the code that is already provided for us. Note that <code>city</code> is a string corresponding to the name of a city.</p>
-<p><code>all_city</code> contains only the rows for the passed in <code>city</code>. Note that <code>all_city.shape[0]</code> is the number of rows in <code>all_city</code>, i.e. it is the number of skyscrapers in <code>city</code>. Then, <code>concrete_city</code> contains only the rows in <code>all_city</code> corresponding to <code>'concrete'</code> skyscrapers, i.e. it contains only the rows in <code>city</code> corresponding to <code>'concrete'</code> skyscrapers in <code>city</code>. Note that <code>concrete_city.shape[0]</code> is the number of skyscrapers in <code>city</code> that are made of <code>'concrete'</code>.</p>
+<p><code>all_city</code> contains only the rows for the passed in <code>city</code>. Note that <code>all_city.shape[0]</code> or <code>len(all_city)</code> is the number of rows in <code>all_city</code>, i.e. it is the number of skyscrapers in <code>city</code>. Then, <code>concrete_city</code> contains only the rows in <code>all_city</code> corresponding to <code>'concrete'</code> skyscrapers, i.e. it contains only the rows corresponding to <code>'concrete'</code> skyscrapers in <code>city</code>. Note that <code>concrete_city.shape[0]</code> or <code>len(concrete_city)</code> is the number of skyscrapers in <code>city</code> that are made of <code>'concrete'</code>.</p>
 <p>We want to return <code>True</code> only if at least 50% of the skyscrapers in <code>city</code> are made of concrete. The last line in the function, <code>return proportion &gt;= 0.5</code>, is already provided for us, so all we need to do is compute the proportion of skyscrapers in <code>city</code> that are made of concrete. This is <code>concrete_city.shape[0] / all_city.shape[0]</code>.</p>
+<p>Another possible answer is <code>len(concrete_city) / len(all_city)</code>.</p>
 </div>
 </div>
 </div>
@@ -497,7 +506,7 @@ Click to view the solution.
 </header>
 <p><strong>Answer:</strong> <code>by_city.get('city').apply(majority_concrete)</code></p>
 <p>We are told to add a column to <code>by_city</code>. Recall, the way that <code>.assign</code> works is that the name of the new column comes before the <code>=</code> symbol, and a Series (or array) containing the values for the new column comes after the <code>=</code> symbol. As such, a Series needs to go in the blank.</p>
-<p><code>majority_concrete</code> takes in the name of a single <code>city</code> and returns either <code>True</code> or <code>False</code> accordingly. All we need to do here, then, is use the <code>majority_concrete</code> function on every element in the <code>'city'</code> column. After accessing the <code>'city'</code> column using <code>by_city.get('city')</code>, we need to use the <code>.apply</code> method using the argument <code>majority_concrete</code>. Putting it all together yields <code>by_city.get('city').apply(majority_concrete)</code>, which is a Series.</p>
+<p><code>majority_concrete</code> takes in the name of a single <code>city</code> and returns either <code>True</code> or <code>False</code> accordingly. All we need to do here then is use the <code>majority_concrete</code> function on every element in the <code>'city'</code> column. After accessing the <code>'city'</code> column using <code>by_city.get('city')</code>, we need to use the <code>.apply</code> method using the argument <code>majority_concrete</code>. Putting it all together yields <code>by_city.get('city').apply(majority_concrete)</code>, which is a Series.</p>
 <p>Note: Here, <code>by_city.get('city')</code> only works because <code>.reset_index()</code> was used in the line where <code>by_city</code> was defined. If we did not reset the index, <code>'city'</code> would not be a column!</p>
 </div>
 </div>
@@ -552,8 +561,8 @@ Click to view the solution.
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer:</strong> True</p>
-<p>In the solution to the previous subart, we noted that <code>mystery</code> contains at most 2 rows, one corresponding to cities where <code>'is_majority'</code> is <code>True</code> and one corresponding to cities where <code>'is_majority</code> is <code>False</code>. Furthermore, recall that we used the <code>.count()</code> aggregation method, which means that the entries in each column of <code>mystery</code> contain the <strong>number</strong> of cities where <code>'is_majority'</code> is <code>True</code> and the <strong>number</strong> of cities where <code>'is_majority'</code> is <code>False</code>.</p>
-<p>If <code>mystery.get('city').iloc[0] == mystery.get('city').iloc[1]</code>, it must be the case that the number of cities where <code>'is_majority'</code> is True and False are equal. This must mean that in exactly half of the cities in <code>sky</code>, it is true that the majority of skyscrapers are made of <code>'concrete'</code>.</p>
+<p>In the solution to the previous subpart, we noted that <code>mystery</code> contains at most 2 rows, one corresponding to cities where <code>'is_majority'</code> is <code>True</code> and one corresponding to cities where <code>'is_majority'</code> is <code>False</code>. Furthermore, recall that we used the <code>.count()</code> aggregation method, which means that the entries in each column of <code>mystery</code> contain the <strong>number</strong> of cities where <code>'is_majority'</code> is <code>True</code> and the <strong>number</strong> of cities where <code>'is_majority'</code> is <code>False</code>.</p>
+<p>If <code>mystery.get('city').iloc[0] == mystery.get('city').iloc[1]</code>, it must be the case that the number of cities where <code>'is_majority'</code> is <code>True</code> and <code>False</code> are equal. This must mean that in exactly half of the cities in <code>sky</code>, it is true that the majority of skyscrapers are made of <code>'concrete'</code>.</p>
 </div>
 </div>
 </div>
@@ -593,7 +602,7 @@ Click to view the solution.
 </header>
 <p><strong>Answer:</strong> <code>sky_with_location</code> has exactly <span class="math inline">n</span> rows.</p>
 <p>Here, we are merging <code>sky</code> and <code>new_york</code> on skyscraper names (stored in the index in <code>sky</code> and in the <code>'name'</code> column in <code>new_york</code>). The resulting DataFrame, <code>sky_with_location</code>, will have one row for each “match” between skyscrapers in <code>sky</code> and <code>new_york</code>. Since skyscraper names are presumably unique, <code>sky_with_location</code> will have one row for each skyscraper that is in both <code>sky</code> and <code>new_york</code>.</p>
-<p>The skyscrapers that are in both <code>sky</code> and <code>new_york</code> are just the skyscrapers in <code>new_york</code>, since all of the non-New York skyscrapers in <code>sky</code> won’t be in <code>new_york</code>. As such, <code>sky_with_location</code> has the same number of rows as <code>new_york.</code> <code>new_york</code> has <span class="math inline">n</span> rows, so <code>sky_with_location</code> also has <span class="math inline">n</span> rows.</p>
+<p>The skyscrapers that are in both <code>sky</code> and <code>new_york</code> are just the skyscrapers in <code>new_york</code>, since all of the non-New York skyscrapers in <code>sky</code> won’t be in <code>new_york</code>. As such, <code>sky_with_location</code> has the same number of rows as <code>new_york</code>. <code>new_york</code> has <span class="math inline">n</span> rows, so <code>sky_with_location</code> also has <span class="math inline">n</span> rows.</p>
 </div>
 </div>
 </div>
