@@ -242,11 +242,250 @@ Click to view the solution.
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer: </strong> True</p>
-<p>The brackets in <code>df[b]</code> perform a query, or filter, to keep only the rows of <code>df</code> for which <code>b</code> has a <code>True</code> entry. Typically, <code>b</code> will come from some condition, such as the entry in a certain column of <code>df</code> equalling a certain value. Regardless, <code>df[b]</code> contains a subset of the rows of <code>df</code>, and <code>.shape[0]</code> counts the number of rows, so <code>df[b].shape[0]</code> must be less than or equal to `df.shape[0].</p>
+<p>The brackets in <code>df[b]</code> perform a query, or filter, to keep only the rows of <code>df</code> for which <code>b</code> has a <code>True</code> entry. Typically, <code>b</code> will come from some condition, such as the entry in a certain column of <code>df</code> equaling a certain value. Regardless, <code>df[b]</code> contains a subset of the rows of <code>df</code>, and <code>.shape[0]</code> counts the number of rows, so <code>df[b].shape[0]</code> must be less than or equal to <code>df.shape[0]</code>.</p>
 </div>
 </div>
 </div>
 </div>
+<hr />
+<h2 id="problem-6">Problem 6</h2>
+<p>You are given a DataFrame called <code>books</code> that contains columns <code>author</code> (string), <code>title</code> (string), <code>num_chapters</code> (int), and <code>publication_year</code> (int).</p>
+<p>Suppose that after doing <code>books.groupby('Author').max()</code>, one row says</p>
+<table>
+<thead>
+<tr class="header">
+<th>author</th>
+<th>title</th>
+<th>num_chapters</th>
+<th>publication_year</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Charles Dickens</td>
+<td>Oliver Twist</td>
+<td>53</td>
+<td>1838</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h3 id="problem-6.1">Problem 6.1</h3>
+<p>Based on this data, can you conclude that “Charles Dickens” is the alphabetically last of all names listed in this dataset?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Yes</p></li>
+<li><p><input type="radio" disabled="" /> No</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_1" aria-expanded="true" aria-controls="collapse6_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_1" class="accordion-collapse collapse collapse" aria-labelledby="heading6_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> No</p>
+<p>When we group by <code>'Author'</code>, all books by the same author get aggregated together into a single row. The aggregation function is applied separately to each other column besides the column we’re grouping by. Since we’re grouping by <code>'Author'</code> here, the <code>'Author'</code>column never has the <code>max()</code> function applied to it. Instead, unique value in the <code>'Author'</code> column becomes a value in the index of the grouped DataFrame. We are told that the Charles Dickens row is just one row of the output, but we don’t know anything about the other rows of the output, or the other authors. We can’t say anything about where Charles Dickens falls when authors are ordered alphabetically (but it’s probably not last!)</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-6.2">Problem 6.2</h3>
+<p>Based on this data, can you conclude that Charles Dickens wrote <em>Oliver Twist</em>?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Yes</p></li>
+<li><p><input type="radio" disabled="" /> No</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_2" aria-expanded="true" aria-controls="collapse6_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_2" class="accordion-collapse collapse collapse" aria-labelledby="heading6_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> Yes</p>
+<p>Grouping by <code>'Author'</code> collapses all books written by the same author into a single row. Since we’re applying the <code>max()</code> function to aggregate these books, we can conclude that <em>Oliver Twist</em> is alphabetically last among all books in the <code>books</code> DataFrame written by Charles Dickens. So Charles Dickens did write <em>Oliver Twist</em> based on this data.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-6.3">Problem 6.3</h3>
+<p>Based on this data, can you conclude that “Oliver Twist” has 53 chapters?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Yes</p></li>
+<li><p><input type="radio" disabled="" /> No</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_3" aria-expanded="true" aria-controls="collapse6_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_3" class="accordion-collapse collapse collapse" aria-labelledby="heading6_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> No</p>
+<p>The key to this problem is that <code>groupby</code> applies the aggregation function, <code>max()</code> in this case, independently to each column. The output should be interpreted as follows:</p>
+<ul>
+<li>Among all books in <code>books</code> written by Charles Dickens, <em>Oliver Twist</em> is the title that is alphabetically last.</li>
+<li>Among all books in <code>books</code> written by Charles Dickens, 53 is the greatest number of chapters.</li>
+<li>Among all books in <code>books</code> written by Charles Dickens, 1838 is the latest year of publication.</li>
+</ul>
+<p>However, the book titled <em>Oliver Twist</em> and the book with 53 chapters and the book published in 1838 are not necessarily all the same book. We cannot conclude, based on this data, that <em>Oliver Twist</em> has 53 chapters.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-6.4">Problem 6.4</h3>
+<p>Based on this data, can you conclude that Charles Dickens wrote a book with 53 chapters that was published in 1838?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Yes</p></li>
+<li><p><input type="radio" disabled="" /> No</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_4" aria-expanded="true" aria-controls="collapse6_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_4" class="accordion-collapse collapse collapse" aria-labelledby="heading6_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> No</p>
+<p>As explained in the previous question, the <code>max()</code> function is applied separately to each column, so the book written by Charles Dickens with 53 chapters may not be the same book as the book written by Charles Dickens published in 1838.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-7">Problem 7</h2>
+<p>Give an example of a dataset and a question you would want to answer about that dataset which you would answer by grouping with subgroups (using multiple columns in the <code>groupby</code> command). Explain how you would use the <code>groupby</code> command to answer your question.</p>
+<p>Creative responses that are different than ones we’ve already seen in this class will earn the most credit.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading7">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7" aria-expanded="true" aria-controls="collapse7">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse7" class="accordion-collapse collapse collapse" aria-labelledby="heading7" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> There are many possible correct answers. Below are some student responses that earned full credit.</p>
+</div>
+</div>
+</div>
+</div>
+<hr />
+<h2 id="problem-8">Problem 8</h2>
+<p>Which of the following best describes the input and output types of the <code>.apply</code> Series method?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> input: string, output: Series</p></li>
+<li><p><input type="radio" disabled="" /> input: Series, output: function</p></li>
+<li><p><input type="radio" disabled="" /> input: function, output: Series</p></li>
+<li><p><input type="radio" disabled="" /> input: function, output: function</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading8">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8" aria-expanded="true" aria-controls="collapse8">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse8" class="accordion-collapse collapse collapse" aria-labelledby="heading8" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> input: function, output: Series</p>
+<p>It helps to think of an example of how we typically use <code>.apply</code>. Consider the <code>books</code> DataFrame from question 6 and a function called <code>year_to_century</code> that converts a year to the century it belongs to. We might use <code>.apply</code> as follows:</p>
+<p><code>books.assign(publication_century = books.get('publication_year').apply(year_to_century))</code></p>
+<p><code>.apply</code> is called a Series method because we use it on a Series, in this case that Series is <code>books.get('publication_year')</code>. <code>.apply</code> takes one input, which is the name of the function we wish to apply to each element of the Series. In the example above, that function is <code>year_to_century</code>. The result is a Series containing the centuries for each book in the <code>books</code> DataFrame, which we can then assign back as a new column to the DataFrame. So <code>.apply</code> therefore takes as input a function and outputs a Series.</p>
+</div>
+</div>
+</div>
+</div>
+<hr />
+<h2 id="problem-9">Problem 9</h2>
+<p>You are given a DataFrame called <code>restaurants</code> that contains information on a variety of local restaurants’ daily number of customers and daily income. There is a row for each restaurant for each date in a given five-year time period.</p>
+<p>The columns of <code>restaurants</code> are <code>name</code> (string), <code>year</code> (int), <code>month</code> (int), <code>day</code> (int), <code>num_diners</code> (int), and <code>income</code> (float).</p>
+<p>Assume that in our data set, there are not two different restaurants that go by the same <code>name</code> (chain restaurants, for example).</p>
+<p><br></p>
+<h3 id="problem-9.1">Problem 9.1</h3>
+<p>What type of visualization would be best to display the data in a way that helps to answer the question “Do more customers bring in more income?”</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> scatterplot</p></li>
+<li><p><input type="radio" disabled="" /> line plot</p></li>
+<li><p><input type="radio" disabled="" /> bar chart</p></li>
+<li><p><input type="radio" disabled="" /> histogram</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading9_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_1" aria-expanded="true" aria-controls="collapse9_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse9_1" class="accordion-collapse collapse collapse" aria-labelledby="heading9_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> scatterplot</p>
+<p>The number of customers is given by <code>num_diners</code> which is an integer, and <code>income</code> is a float. Since both are numerical variables, neither of which represents time, it is most appropriate to use a scatterplot.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-9.2">Problem 9.2</h3>
+<p>What type of visualization would be best to display the data in a way that helps to answer the question “Have restaurants’ daily incomes been declining over time?”</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> scatterplot</p></li>
+<li><p><input type="radio" disabled="" /> line plot</p></li>
+<li><p><input type="radio" disabled="" /> bar chart</p></li>
+<li><p><input type="radio" disabled="" /> histogram</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading9_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_2" aria-expanded="true" aria-controls="collapse9_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse9_2" class="accordion-collapse collapse collapse" aria-labelledby="heading9_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> line plot</p>
+<p>Since we want to plot a trend of a numerical quantity (<code>income</code>) over time, it is best to use a line plot.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
 <hr />
 <p><span class="math display"> </span></p>
 </body>
