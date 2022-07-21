@@ -519,6 +519,7 @@ Click to view the solution.
 <p><br></p>
 <h3 id="problem-10.2">Problem 10.2</h3>
 <p>The code <code>prices.plot(kind='hist', y='broccoli', bins=np.arange(0.8, 2.11, 0.1), density=True)</code> produces the histogram below.</p>
+<center><img src='../assets/images/wi21-midterm/broccoli.png' width=40%></center>
 <p>How many grocery stores sold broccoli for a price greater than or equal to $1.30 per pound, but less than $1.40 per pound (the tallest bar)?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
@@ -579,7 +580,12 @@ Click to view the solution.
 </div>
 <p><br></p>
 <h3 id="problem-10.4">Problem 10.4</h3>
-<p>part d here</p>
+<p>You are interested in finding out the number of stores in which a pint of ice cream was cheaper than a pound of broccoli. Will you be able to determine the answer to this question by looking at the plot produced by the code below?</p>
+<p><code>prices.get(['broccoli', 'ice_cream']).plot(kind='barh')</code></p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Yes</p></li>
+<li><p><input type="radio" disabled="" /> No</p></li>
+</ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading10_4">
@@ -592,15 +598,22 @@ Click to view the solution.
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer: </strong></p>
-<p>solution here</p>
+<p><strong>Answer: </strong> Yes</p>
+<p>When we use <code>.plot</code> without specifying a <code>y</code> column, it uses every column in the DataFrame as a <code>y</code> column and creates an overlaid plot. Since we first use <code>get</code> with the list <code>['broccoli', 'ice_cream']</code>, this keeps the <code>'broccoli'</code> and <code>'ice_cream'</code> columns from <code>prices</code>, so our bar chart will overlay broccoli prices with ice cream prices. Notice that this <code>get</code> is unneccessary because <code>prices</code> only has these two columns, so it would have been the same to just use <code>prices</code> directly. The resulting bar chart will look something like this:</p>
+<center><img src="../assets/images/wi21-midterm/broc_bar.png" width="40%"/></center>
+<p>Each grocery store has its broccoli price represented by the length of the blue bar and its ice cream price represented by the length of the red bar. We can therefore answer the question by simply counting the number of red bars that are shorter than their corresponding blue bars.</p>
 </div>
 </div>
 </div>
 </div>
 <p><br></p>
 <h3 id="problem-10.5">Problem 10.5</h3>
-<p>part e here</p>
+<p>You are interested in finding out the number of stores in which a pint of ice cream was cheaper than a pound of broccoli. Will you be able to determine the answer to this question by looking at the plot produced by the code below?</p>
+<p><code>prices.get(['broccoli', 'ice_cream']).plot(kind='hist')</code></p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Yes</p></li>
+<li><p><input type="radio" disabled="" /> No</p></li>
+</ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading10_5">
@@ -613,15 +626,21 @@ Click to view the solution.
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer: </strong></p>
-<p>solution here</p>
+<p><strong>Answer: </strong> No</p>
+<p>This will create an overlaid histogram of broccoli prices and ice cream prices. So we will be able to see the distribution of broccoli prices together with the distribution of ice cream prices, but we won’t be able to pair up particular broccoli prices with ice cream prices at the same store, so we won’t be able to answer the question. The overlaid histogram would look something like this:</p>
+<center><img src="../assets/images/wi21-midterm/broc_hist.png" width="40%"/></center>
+<p>This tells us that broadly, ice cream tends to be more expensive than broccoli, but we can’t say anything about the number of stores where ice cream is cheaper than broccoli.</p>
 </div>
 </div>
 </div>
 </div>
 <p><br></p>
 <h3 id="problem-10.6">Problem 10.6</h3>
-<p>part f here</p>
+<p>The scatterplot below was produced by the code <code>(prices.get(['broccoli', 'ice_cream']).plot(kind='scatter', x='broccoli', y='ice_cream'))</code></p>
+<center><img src='../assets/images/wi21-midterm/broc_ice_cream.png' width=40%></center>
+<p>Can you use this plot to figure out the number of stores in which a pint of ice cream was cheaper than a pound of broccoli?</p>
+<p>If so, say how many such stores there are and explain how you came to that conclusion.</p>
+<p>If not, explain why this scatterplot cannot be used to answer the question.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading10_6">
@@ -634,13 +653,247 @@ Click to view the solution.
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer: </strong></p>
-<p>solution here</p>
+<p><strong>Answer: </strong> Yes, and there are 2 such stores.</p>
+<p>In this scatterplot, each grocery store is represented as one dot. The <span class="math inline">x</span>-coordinate of that dot tells the price of broccoli at that store, and the <span class="math inline">y</span>-coordinate tells the price of ice cream. If a grocery store’s ice cream price is cheaper than its broccoli price, the dot in the scatterplot will have <span class="math inline">y&lt;x</span>. To identify such dots in the scatterplot, imagine drawing the line <span class="math inline">y=x</span>. Any dot below this line corresponds to a point with <span class="math inline">y&lt;x</span>, which is a grocery store where ice cream is cheaper than broccoli. As we can see, there are two such stores.</p>
+<center><img src="../assets/images/wi21-midterm/broc_ice_cream2.png" width="40%"/></center>
 </div>
 </div>
 </div>
 </div>
 <p><br></p>
+<hr />
+<h2 id="problem-11">Problem 11</h2>
+<p>You have a DataFrame called <code>flights</code> containing information on various plane tickets sold between US cities. The columns are <code>'route_length'</code>, which stores distance between the arrival and departure airports, in miles, and <code>'price'</code>, which stores the cost of the airline ticket, in dollars. You notice that longer flights tend to cost more, as expected.</p>
+<table>
+<thead>
+<tr class="header">
+<th>route_length</th>
+<th>price</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2500</td>
+<td>249</td>
+</tr>
+<tr class="even">
+<td>2750</td>
+<td>249</td>
+</tr>
+<tr class="odd">
+<td>2850</td>
+<td>349</td>
+</tr>
+<tr class="even">
+<td>2850</td>
+<td>319</td>
+</tr>
+<tr class="odd">
+<td>2950</td>
+<td>329</td>
+</tr>
+<tr class="even">
+<td>2950</td>
+<td>309</td>
+</tr>
+<tr class="odd">
+<td>3000</td>
+<td>349</td>
+</tr>
+</tbody>
+</table>
+<p>You want to use your data, shown in full above, to predict the price of an airline ticket for a route that is 2800 miles long. What would Galton’s method predict for the price of your ticket, if we consider “nearby” to mean within 6o miles? Give your answer to the nearest dollar.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading11">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11" aria-expanded="true" aria-controls="collapse11">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse11" class="accordion-collapse collapse collapse" aria-labelledby="heading11" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> 306 dollars</p>
+<p>Galton’s method for making predictions is to take “nearby” <span class="math inline">x</span>-values and average their corresponding <span class="math inline">y</span>-values. For example, to predict the height of a child born to 70-inch parents, he averages the heights of children born to families where the parents are close to 70 inches tall. Using that same strategy here, we first need to identify which flights are considered “nearby” to a route that is 2800 miles. We are told that “nearby” means within 60 miles, so we are looking for flights between 2740 and 2860 miles in length. There are three such flights (the second, third, and fourth rows of the original data):</p>
+<table>
+<thead>
+<tr class="header">
+<th>route_length</th>
+<th>price</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2750</td>
+<td>249</td>
+</tr>
+<tr class="even">
+<td>2850</td>
+<td>349</td>
+</tr>
+<tr class="odd">
+<td>2850</td>
+<td>319</td>
+</tr>
+</tbody>
+</table>
+<p>Now, we simply need to average these three prices to make our prediction. Since <span class="math inline">\frac{249+349+319}{3} = 305.67</span> and we are told to round to the nearest dollar, our prediction is 306 dollars.</p>
+</div>
+</div>
+</div>
+</div>
+<hr />
+<h2 id="problem-12">Problem 12</h2>
+<p>You generate a three-digit number by randomly choosing each digit to be a number 0 through 9, inclusive. Each digit is equally likely to be chosen.</p>
+<p><br></p>
+<h3 id="problem-12.1">Problem 12.1</h3>
+<p>What is the probability you produce the number <strong>027</strong>? Give your answer as a decimal number between 0 and 1 with no rounding.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading12_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12_1" aria-expanded="true" aria-controls="collapse12_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse12_1" class="accordion-collapse collapse collapse" aria-labelledby="heading12_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> 0.001</p>
+<p>There is a <span class="math inline">\frac{1}{10}</span> chance that we get 0 as the first random number, a <span class="math inline">\frac{1}{10}</span> chance that we get 2 as the second random number, and a <span class="math inline">\frac{1}{10}</span> chance that we get 7 as the third random number. The probability of all of these events happening is <span class="math inline">\frac{1}{10}*\frac{1}{10}*\frac{1}{10} = 0.001</span>.</p>
+<p>Another way to do this problem is to think about the possible outcomes. Any number from 000 to 999 is possible and all are equally likely. Since there are 1000 possible outcomes and the number 027 is just one of the possible outcomes, the probability of getting this outcome is <span class="math inline">\frac{1}{1000} = 0.001</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-12.2">Problem 12.2</h3>
+<p>What is the probability you produce a number with an odd digit in the middle position? For example, <strong>250</strong>. Give your answer as a decimal number between 0 and 1 with no rounding.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading12_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12_2" aria-expanded="true" aria-controls="collapse12_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse12_2" class="accordion-collapse collapse collapse" aria-labelledby="heading12_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> 0.5</p>
+<p>Think of the middle position only. When selecting a random number to go here, we are choosing randomly from the numbers 0 through 9. Since 5 of these numbers are odd (1, 3, 5, 7, 9), the probability of getting an odd number is <span class="math inline">\frac{5}{10} = 0.5</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-12.3">Problem 12.3</h3>
+<p>What is the probability you produce a number with a <strong>7</strong> in it somewhere? Give your answer as a decimal number between 0 and 1 with no rounding.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading12_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12_3" aria-expanded="true" aria-controls="collapse12_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse12_3" class="accordion-collapse collapse collapse" aria-labelledby="heading12_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> 0.271</p>
+<p>It’s easier to calculate the probability that the number has no 7 in it, and then subtract this probability from 1. To solve this problem directly, we’d have to consider cases where 7 appeared multiple times, which would be more complicated.</p>
+<p>The probability that the resulting number has no 7 is <span class="math inline">\frac{9}{10}*\frac{9}{10}*\frac{9}{10} = 0.729</span> because in each of the three positions, there is a <span class="math inline">\frac{9}{10}</span> chance of selecting something other than a 7. Therefore, the probability that the number has a 7 is <span class="math inline">1 - 0.729 = 0.271</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-13">Problem 13</h2>
+<p>Describe in your own words the difference between a probability distribution and an empirical distribution. Give an example of what each distribution might look like for a certain experiment. Choose an experiment that we have not already seen in this class.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading13">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13" aria-expanded="true" aria-controls="collapse13">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse13" class="accordion-collapse collapse collapse" aria-labelledby="heading13" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> There are many possible correct answers. Below are some student responses that earned full credit.</p>
+<p>solution here</p>
+</div>
+</div>
+</div>
+</div>
+<hr />
+<h2 id="problem-14">Problem 14</h2>
+<p><code>results = np.array([]) for i in np.arange(10):     result = np.random.choice(np.arange(1000), replace=False)     results = np.append(results, result)</code></p>
+<p>After this code executes, <code>results</code> contains:</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> a simple random sample of size 9, chosen from a set of size 999 with replacement</p></li>
+<li><p><input type="radio" disabled="" /> a simple random sample of size 9, chosen from a set of size 999 without replacement</p></li>
+<li><p><input type="radio" disabled="" /> a simple random sample of size 10, chosen from a set of size 1000 with replacement</p></li>
+<li><p><input type="radio" disabled="" /> a simple random sample of size 10, chosen from a set of size 1000 without replacement</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading14">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse14" aria-expanded="true" aria-controls="collapse14">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse14" class="accordion-collapse collapse collapse" aria-labelledby="heading14" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> a simple random sample of size 10, chosen from a set of size 1000 with replacement</p>
+<p>Let’s see what the code is doing. The first line initializes an empty array called <code>results</code>. The for loop runs 10 times. Each time, it creates a value called <code>result</code> by some process we’ll inspect shortly and appends this value to the end of the <code>results</code> array. At the end of the code snippet, <code>results</code> will be an array containing 10 elements.</p>
+<p>Now, let’s look at the process by which each element <code>result</code> is generated. Each <code>result</code> is a random element chosen from <code>np.arange(1000)</code> which is the numbers from 0 to 999, inclusive. That’s 1000 possible numbers. Each time <code>np.random.choice</code> is called, just one value is chosen from this set of 1000 possible numbers.</p>
+<p>When we sample just one element from a set of values, sampling with replacement is the same as sampling without replacement, because sampling with or without replacement concerns whether subsequent draws can be the same as previous ones. When we’re just sampling one element, it really doesn’t matter whether our process involves putting that element back so it can be drawn again, as we’re not going to draw again!</p>
+<p>Therefore, <code>result</code> is just one random number chosen from the 1000 possible numbers. Each time the <code>for</code> loop executes, <code>result</code> gets set to a random number chosen from the 1000 possible numbers. It is possible (though unlikely) that the random <code>result</code> of the first execution of the loop matches the <code>result</code> of the second execution of the loop. More generally, there can be repeated values in the <code>results</code> array since each entry of this array is independently drawn from the same set of possibility. Since repetitions are possible, this means the sample is drawn with replacement.</p>
+<p>Therefore, the <code>results</code> array contains a sample of size 10 chosen from a set of size 100 with replacement. This is called a “simple random sample” because each possible sample of 10 values is equally likely, which comes from the fact that <code>np.random.choice</code> chooses each possible value with equal probability by default.</p>
+</div>
+</div>
+</div>
+</div>
+<hr />
+<h2 id="problem-15">Problem 15</h2>
+<p>Suppose we take a uniform random sample with replacement from a population, and use the sample mean as an estimate for the population mean. Which of the following is correct?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> If we take a larger sample, our sample mean will be closer to the population mean.</p></li>
+<li><p><input type="radio" disabled="" /> If we take a smaller sample, our sample mean will be closer to the population mean.</p></li>
+<li><p><input type="radio" disabled="" /> If we take a larger sample, our sample mean is more likely to be close to the population mean than if we take a smaller sample.</p></li>
+<li><p><input type="radio" disabled="" /> If we take a smaller sample, our sample mean is more likely to be close to the population mean than if we take a larger sample.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading15">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15" aria-expanded="true" aria-controls="collapse15">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse15" class="accordion-collapse collapse collapse" aria-labelledby="heading15" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> If we take a larger sample, our sample mean is more likely to be close to the population mean than if we take a smaller sample.</p>
+<p>Larger samples tend to give better estimates of the population mean than smaller samples. That’s because large samples are more like the population than small samples. We can see this in the extreme. Imagine a sample of 1 element from a population. The sample might vary a lot, depending on the distribution of the population. On the other extreme, if we sample the whole population, our sample mean will be exactly the same as the population mean.</p>
+<p>Notice that the correct answer choice uses the words “is more likely to be close to” as opposed to “will be closer to.” We’re talking about a general phenomenon here: larger samples tend to give better estimates of the population mean than smaller samples. We cannot say that if we take a larger sample our sample mean “will be closer to” the population mean than if we take a smaller sample, since it’s always possible to get lucky with a small sample and unlucky with a large sample. That is, one particular small sample may happen to have a mean very close to the population mean, and one particular large sample may happen to have a mean that’s not so close to the population mean. This <em>can</em> happen, it’s just not likely to.</p>
+</div>
+</div>
+</div>
+</div>
 <hr />
 <p><span class="math display"> </span></p>
 </body>

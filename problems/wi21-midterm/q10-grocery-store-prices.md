@@ -27,6 +27,7 @@ The code
 `prices.plot(kind='hist', y='broccoli', bins=np.arange(0.8, 2.11, 0.1), density=True)` 
 produces the histogram below.
 
+<center><img src='../assets/images/wi21-midterm/broccoli.png' width=40%></center>
 
 How many grocery stores sold broccoli for a price greater than or equal to $1.30 per pound, but less than $1.40 per pound (the tallest bar)? 
 
@@ -79,13 +80,22 @@ Adding these numbers together, this means there are 9 grocery stores whose brocc
 
 # BEGIN SUBPROB
 
-part d here
+You are interested in finding out the number of stores in which a pint of ice cream was cheaper than a pound of broccoli. Will you be able to determine the answer to this question by looking at the plot produced by the code below?
+
+`prices.get(['broccoli', 'ice_cream']).plot(kind='barh')`
+
+( ) Yes
+( ) No
 
 # BEGIN SOLUTION
 
-**Answer: ** 
+**Answer: ** Yes
 
-solution here
+When we use `.plot` without specifying a `y` column, it uses every column in the DataFrame as a `y` column and creates an overlaid plot. Since we first use `get` with the list `['broccoli', 'ice_cream']`, this keeps the `'broccoli'` and `'ice_cream'` columns from `prices`, so our bar chart will overlay broccoli prices with ice cream prices. Notice that this `get` is unneccessary because `prices` only has these two columns, so it would have been the same to just use `prices` directly. The resulting bar chart will look something like this:
+
+<center><img src='../assets/images/wi21-midterm/broc_bar.png' width=40%></center>
+
+Each grocery store has its broccoli price represented by the length of the blue bar and its ice cream price represented by the length of the red bar. We can therefore answer the question by simply counting the number of red bars that are shorter than their corresponding blue bars.
 
 # END SOLUTION
 
@@ -93,13 +103,22 @@ solution here
 
 # BEGIN SUBPROB
 
-part e here
+You are interested in finding out the number of stores in which a pint of ice cream was cheaper than a pound of broccoli. Will you be able to determine the answer to this question by looking at the plot produced by the code below?
+
+`prices.get(['broccoli', 'ice_cream']).plot(kind='hist')`
+
+( ) Yes
+( ) No
 
 # BEGIN SOLUTION
 
-**Answer: ** 
+**Answer: ** No
 
-solution here
+This will create an overlaid histogram of broccoli prices and ice cream prices. So we will be able to see the distribution of broccoli prices together with the distribution of ice cream prices, but we won't be able to pair up particular broccoli prices with ice cream prices at the same store, so we won't be able to answer the question. The overlaid histogram would look something like this:
+
+<center><img src='../assets/images/wi21-midterm/broc_hist.png' width=40%></center>
+
+This tells us that broadly, ice cream tends to be more expensive than broccoli, but we can't say anything about the number of stores where ice cream is cheaper than broccoli.
 
 # END SOLUTION
 
@@ -107,13 +126,25 @@ solution here
 
 # BEGIN SUBPROB
 
-part f here
+The scatterplot below was produced by the code 
+`(prices.get(['broccoli', 'ice_cream']).plot(kind='scatter', x='broccoli', y='ice_cream'))`
+
+<center><img src='../assets/images/wi21-midterm/broc_ice_cream.png' width=40%></center>
+
+Can you use this plot to figure out the number of stores in which a pint of ice cream was cheaper than a pound of broccoli?
+
+If so, say how many such stores there are and explain how you came to that conclusion.
+
+If not, explain why this scatterplot cannot be used to answer the question.
+
 
 # BEGIN SOLUTION
 
-**Answer: ** 
+**Answer: ** Yes, and there are 2 such stores.
 
-solution here
+In this scatterplot, each grocery store is represented as one dot. The $x$-coordinate of that dot tells the price of broccoli at that store, and the $y$-coordinate tells the price of ice cream. If a grocery store's ice cream price is cheaper than its broccoli price, the dot in the scatterplot will have $y<x$. To identify such dots in the scatterplot, imagine drawing the line $y=x$. Any dot below this line corresponds to a point with $y<x$, which is a grocery store where ice cream is cheaper than broccoli. As we can see, there are two such stores.
+
+<center><img src='../assets/images/wi21-midterm/broc_ice_cream2.png' width=40%></center>
 
 # END SOLUTION
 
