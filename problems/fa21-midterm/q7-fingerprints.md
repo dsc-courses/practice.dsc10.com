@@ -35,11 +35,11 @@ fingerprints.plot(kind='hist',
 
 **Answer: ** True
 
-The only difference in two code snippets is the data values used. The first creates a histogram of the `x`-values in `fingerprints`, and the second creates a histogram of the `y`-values in `fingerprints`. 
+The only difference between the two code snippets is the data values used. The first creates a histogram of the `x`-values in `fingerprints`, and the second creates a histogram of the `y`-values in `fingerprints`. 
 
-Both histograms use the same bins: `bins=np.arange(0, 8, 2)`. This means the bin endpoints are `[0, 2, 4, 6]`, so there are three distinct bins: $[0, 2)$, $[2, 4)$, and $[4, 6]$. Remember the right-most bin of a histogram includes both endpoints, where others include the left endpoint only.
+Both histograms use the same bins: `bins=np.arange(0, 8, 2)`. This means the bin endpoints are `[0, 2, 4, 6]`, so there are three distinct bins: $[0, 2)$, $[2, 4)$, and $[4, 6]$. Remember the right-most bin of a histogram includes both endpoints, whereas others include the left endpoint only.
 
-Let's look at the `x`-values first. If we divide the scatterplot into nine equally-sized regions as shown below, note that eight of the nine regions have a very similar number of data points. Aside from the middle region, about $\frac{1}{8}$ of the data falls in each region. That means $\frac{3}{8}$ of the data has an `x`-value in the first bin $[0, 2)$, $\frac{2}{8}$ of the data has an `x`-value in the middle bin $[2, 4)$, and $\frac{3}{8}$ of the data has an `x`-value in the rightmost bin $[4, 6]$. This distribution of `x`-values into bins determines what the histogram will look like.
+Let's look at the `x`-values first. If we divide the scatterplot into nine equally-sized regions, as shown below, note that eight of the nine regions have a very similar number of data points. Aside from the middle region, about $\frac{1}{8}$ of the data falls in each region. That means $\frac{3}{8}$ of the data has an `x`-value in the first bin $[0, 2)$, $\frac{2}{8}$ of the data has an `x`-value in the middle bin $[2, 4)$, and $\frac{3}{8}$ of the data has an `x`-value in the rightmost bin $[4, 6]$. This distribution of `x`-values into bins determines what the histogram will look like.
 
 Now, if we look at the `y`-values, we'll find that $\frac{3}{8}$ of the data has a `y`-value in the first bin $[0, 2)$, $\frac{2}{8}$ of the data has a `y`-value in the middle bin $[2, 4)$, and $\frac{3}{8}$ of the data has a `y`-value in the last bin $[4, 6]$. That's the same distribution of data into bins as the `x`-values had, so the histogram of `y`-values will look just like the histogram of `y`-values.
 

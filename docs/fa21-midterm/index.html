@@ -76,7 +76,7 @@
     code span.vs { color: #4070a0; } /* VerbatimString */
     code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="..\assets\theme.css" />
+  <link rel="stylesheet" href="../assets/theme.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
    var mathElements = document.getElementsByClassName("math");
@@ -146,8 +146,7 @@ Click to view the solution.
 <p><strong>Answer: </strong> None of these are good choices for the index</p>
 <p>When choosing an index, we have to make sure that the index is different for each row of the DataFrame. The index in this case should uniquely identify the flight.</p>
 <p><code>'DATE'</code>does not uniquely identify a flight because there are many different flights in a single day. <code>'FLIGHT'</code> does not uniquely identify a flight because airlines reuse flight numbers on a daily basis, as we are told in the data description. Neither <code>'FROM'</code> nor <code>'TO'</code> uniquely identifies a flight, as there are many flights each day that depart from each airport and arrive at each airport.</p>
-<p>There is no single column that’s sufficient to uniquely identify a flight, but if we could use multiple columns to create what’s called a multi-index, we’d probably want to use <code>'DATE'</code> and <code>'FLIGHT'</code> because each row of our DataFrame should have a unique pair of values in these columns. That’s because airlines don’t reuse flight numbers within a single day.</p>
-<p>solution here</p>
+<p>Therefore, there is no single column that’s sufficient to uniquely identify a flight, but if we could use multiple columns to create what’s called a multi-index, we’d probably want to use <code>'DATE'</code> and <code>'FLIGHT'</code> because each row of our DataFrame should have a unique pair of values in these columns. That’s because airlines don’t reuse flight numbers within a single day.</p>
 </div>
 </div>
 </div>
@@ -172,7 +171,7 @@ Click to view the solution.
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer: </strong> Categorical</p>
-<p><code>'FLIGHT'</code> is a categorical variable because it doesn’t make sense to do arithemetic with the values in the <code>'FLIGHT'</code> column. <code>'FLIGHT'</code> is just a label for each flight, and the fact that includes some numbers does not make it numerical. We could have just as well used letter codes to distinguish flights.</p>
+<p><code>'FLIGHT'</code> is a categorical variable because it doesn’t make sense to do arithmetic with the values in the <code>'FLIGHT'</code> column. <code>'FLIGHT'</code> is just a label for each flight, and the fact that it includes some numbers does not make it numerical. We could have just as well used letter codes to distinguish flights.</p>
 </div>
 </div>
 </div>
@@ -202,7 +201,7 @@ Click to view the solution.
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer: </strong> <code>flights[flights.get('TO') == 'SAN'].shape[0]</code></p>
-<p>The strategy is to create a DataFrame with only the flights that went to San Diego, then count the number of rows. The first step is to query with condition <code>flights.get('TO') == 'SAN'</code> and the second step is to extract the number of rows with <code>.shape[0]</code>.</p>
+<p>The strategy is to create a DataFrame with only the flights that went to San Diego, then count the number of rows. The first step is to query with the condition <code>flights.get('TO') == 'SAN'</code> and the second step is to extract the number of rows with <code>.shape[0]</code>.</p>
 <p>Some of the other answer choices use <code>.loc['SAN']</code> but <code>.loc</code> only works with the index, and <code>flights</code> does not have airport codes in its index.</p>
 </div>
 </div>
@@ -245,7 +244,7 @@ Click to view the solution.
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer: </strong> <code>'TO'</code>, <code>.loc['SAN']</code>, True</p>
-<p>The strategy here is to group all of King Triton’s flights according to where they landed, and count up the number that landed in San Diego. The expression <code>flights.groupby('TO').count()</code> evaluates to a DataFrame indexed by arrival airport, where for any arrival airport, each column has a count of the number of King Triton’s flights that landed at that airport. To get the count for San Diego, we need the entry in any column, in the row corresponding to San Diego. The code <code>.get('FLIGHT')</code> says we’ll use the ‘FLIGHT’ column, but any other column would be equivalent. To access the entry of this column corresponding to San Diego, we have to use <code>.loc</code> because we know the name of the value in the index should be <code>'SAN'</code>, but we don’t know the row number or integer position.</p>
+<p>The strategy here is to group all of King Triton’s flights according to where they landed, and count up the number that landed in San Diego. The expression <code>flights.groupby('TO').count()</code> evaluates to a DataFrame indexed by arrival airport where, for any arrival airport, each column has a count of the number of King Triton’s flights that landed at that airport. To get the count for San Diego, we need the entry in any column for the row corresponding to San Diego. The code <code>.get('FLIGHT')</code> says we’ll use the <code>'FLIGHT'</code> column, but any other column would be equivalent. To access the entry of this column corresponding to San Diego, we have to use <code>.loc</code> because we know the name of the value in the index should be <code>'SAN'</code>, but we don’t know the row number or integer position.</p>
 </div>
 </div>
 </div>
@@ -331,7 +330,7 @@ Click to view the solution.
 </header>
 <p><strong>Answer: </strong> <code>(flights.get('DIST') / flights.get('HOURS'))</code></p>
 <p>In this blank, we’ll need a Series or array containing the average speed of each flight, in miles per hour.</p>
-<p>To calculate the average speed of an individual flight in miles per hour, we’d simply divide the total number of miles by the total amount of time in hours. For example, a flight that travels 500 miles in one hour travels at 500 miles per hour. Note that this is an <em>average</em> speed; at some points of the journey, the plane may have been moving faster than this speed, at other times slower. We are calculating an average speed for the whole trip by simply dividing, and we don’t need to use <code>.mean()</code>.</p>
+<p>To calculate the average speed of an individual flight in miles per hour, we’d simply divide the total number of miles by the total amount of time in hours. For example, a flight that travels 500 miles in one hour travels at 500 miles per hour. Note that this is an <em>average</em> speed; at some points of the journey, the plane may have been moving faster than this speed, at other times slower. Because we are calculating an average speed for the whole trip by simply dividing, we don’t need to use <code>.mean()</code>.</p>
 <p>Once we know how to calculate the average speed for an individual flight, we can do the same operation on each flight all at once using Series arithmetic. <code>flights.get('DIST')</code> is a Series containing the distances of each flight, and <code>flights.get('HOURS')</code> is a Series containing the times of each flight, in the same order. When we divide these two Series, corresponding entries are divided and the result is a Series of average speeds for each flight, as desired.</p>
 </div>
 </div>
@@ -425,7 +424,7 @@ Click to view the solution.
 </header>
 <p><strong>Answer: </strong> Option 1, Option 2, Option 3</p>
 <p>All three options start with the same first line of code: <code>month_as_num = int(date.split('-')[1])</code>. This takes the date, originally a string formatted such as <code>'2021-09-07'</code>, separates it into a list of three strings such as <code>['2021', '09', '07']</code>, extracts the element in position 1 (the middle position), and converts it to an <code>int</code> such as 9. Now we have the month as a number we can work with more easily.</p>
-<p>According to the definition of seasons, the months in each season are as follows.</p>
+<p>According to the definition of seasons, the months in each season are as follows:</p>
 <table>
 <thead>
 <tr class="header">
@@ -457,9 +456,9 @@ Click to view the solution.
 </tr>
 </tbody>
 </table>
-<p>Option 1 correctly assigns months to seasons by checking if the month falls in the appropriate range for <code>'Spring'</code>, then <code>'Summer'</code>, then <code>'Fall'</code>. Finally, if all of these conditions are false, the <code>else</code> branch will return the correct answer of <code>'Winter'</code> when <code>month_as_num</code> is 12, 1, or 2.</p>
-<p>Option 2 is also correct, and in fact, it does the same exact thing as Option 1 even though it uses <code>if</code> where Option 1 used <code>elif</code>. The purpose of <code>elif</code> is to check a condition only when all previous conditions are false. So if we have an <code>if</code> followed by an <code>elif</code>, the <code>elif</code> condition will only be checked when the <code>if</code> condition is false. If we have two sequential <code>if</code> conditions, typically the second condition will be checked regardless of the outcome of the first condition, which means two <code>if</code> statments can behave differently than an <code>if</code> followed by an <code>elif</code>. In this case, however, since the <code>if</code> statements cause the function to <code>return</code> and therefore stop executing, the only way to get to a certain <code>if</code> condition is when all previous <code>if</code> conditions are false. If any prior <code>if</code> condition were true, the function would have returned already! So this means the three <code>if</code> conditions in Option 2 are equivalent to the <code>if</code>, <code>elif</code>, <code>elif</code> structure of Option 1. Note that the <code>else</code> case in Option 1 is reached when all prior conditions are false, whereas the <code>else</code> in Option 2 is paired only with the <code>if</code> statement immediately preceding it. But since we only ever get to that third <code>if</code> statement when the first two <code>if</code> conditions are false, we still only reach the <code>else</code> branch when all three <code>if</code> conditions are false.</p>
-<p>Option 3 works similarly to Option 1, except it separates the months into more categories, first categorizing January and February as <code>'Winter'</code>, then checking for <code>'Spring'</code>, <code>'Summer'</code>, and <code>'Fall'</code>. The only month that winds up in the <code>else</code> branch is December. We can think of Option 3 as the same as Option 1, except the Winter months have separated into two groups, and the group containing January and February is extracted and checked first.</p>
+<p><br/> Option 1 correctly assigns months to seasons by checking if the month falls in the appropriate range for <code>'Spring'</code>, then <code>'Summer'</code>, then <code>'Fall'</code>. Finally, if all of these conditions are false, the <code>else</code> branch will return the correct answer of <code>'Winter'</code> when <code>month_as_num</code> is 12, 1, or 2.</p>
+<p>Option 2 is also correct, and in fact, it does the same exact thing as Option 1 even though it uses <code>if</code> where Option 1 used <code>elif</code>. The purpose of <code>elif</code> is to check a condition only when all previous conditions are false. So if we have an <code>if</code> followed by an <code>elif</code>, the <code>elif</code> condition will only be checked when the <code>if</code> condition is false. If we have two sequential <code>if</code> conditions, typically the second condition will be checked regardless of the outcome of the first condition, which means two <code>if</code> statements can behave differently than an <code>if</code> followed by an <code>elif</code>. In this case, however, since the <code>if</code> statements cause the function to <code>return</code> and therefore stop executing, the only way to get to a certain <code>if</code> condition is when all previous <code>if</code> conditions are false. If any prior <code>if</code> condition was true, the function would have returned already! So this means the three <code>if</code> conditions in Option 2 are equivalent to the <code>if</code>, <code>elif</code>, <code>elif</code> structure of Option 1. Note that the <code>else</code> case in Option 1 is reached when all prior conditions are false, whereas the <code>else</code> in Option 2 is paired only with the <code>if</code> statement immediately preceding it. But since we only ever get to that third <code>if</code> statement when the first two <code>if</code> conditions are false, we still only reach the <code>else</code> branch when all three <code>if</code> conditions are false.</p>
+<p>Option 3 works similarly to Option 1, except it separates the months into more categories, first categorizing January and February as <code>'Winter'</code>, then checking for <code>'Spring'</code>, <code>'Summer'</code>, and <code>'Fall'</code>. The only month that winds up in the <code>else</code> branch is December. We can think of Option 3 as the same as Option 1, except the Winter months have been separated into two groups, and the group containing January and February is extracted and checked first.</p>
 </div>
 </div>
 </div>
@@ -513,7 +512,7 @@ Click to view the solution.
 </header>
 <p><strong>Answer: </strong> 38</p>
 <p>There are two flights from LAX. When we merge <code>socal</code> with itself on the <code>'FROM'</code> column, each of these flights gets paired up with each of these flights, for a total of four rows in the output. That is, the first flight from LAX gets paired with both the first and second flights from LAX. Similarly, the second flight from LAX gets paired with both the first and second flights from LAX.</p>
-<p>Following this logic, each of the five flights from SAN gets paired with each of the five flights from SAN, for an addition 25 rows in the output. For SNA, there will be 9 rows in the output. The total is therefore <span class="math inline">2^2 + 5^2 + 3^2 = 4 + 25 + 9 = 38</span> rows.</p>
+<p>Following this logic, each of the five flights from SAN gets paired with each of the five flights from SAN, for an additional 25 rows in the output. For SNA, there will be 9 rows in the output. The total is therefore <span class="math inline">2^2 + 5^2 + 3^2 = 4 + 25 + 9 = 38</span> rows.</p>
 </div>
 </div>
 </div>
@@ -540,7 +539,7 @@ Click to view the solution.
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer: </strong> <code>['FROM', 'TO']</code></p>
-<p>We want to organize flights by route. This means we need to group by both <code>FROM</code> and <code>TO</code> so any flights with the same pair of departure and arrival airports get grouped together. To group by multiple columns, we must use a list containing all these column names, as in <code>flights.groupby(['FROM', 'TO'])</code>.</p>
+<p>We want to organize flights by route. This means we need to group by both <code>'FROM'</code> and <code>'TO'</code> so any flights with the same pair of departure and arrival airports get grouped together. To group by multiple columns, we must use a list containing all these column names, as in <code>flights.groupby(['FROM', 'TO'])</code>.</p>
 </div>
 </div>
 </div>
@@ -595,7 +594,7 @@ Click to view the solution.
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer: </strong> <code>by='HOURS', ascending=False</code></p>
-<p>We want to know the route that King Triton spent the most time flying on. After we group flights by route, summing flights on the same route, the <code>HOURS</code> column contains the total amount of time spent on each route. We need <code>most_frequent.get('FROM').iloc[0]</code> and <code>most_frequent.get('TO').iloc[0]</code> correspond to the departure and destination airports of the route that King Triton has spent the most time flying on, so we need to sort in descending order of time, to bring the largest time to the top of the DataFrame. So we must sort by <code>'HOURS'</code> with <code>ascending=False</code>.</p>
+<p>We want to know the route that King Triton spent the most time flying on. After we group flights by route, summing flights on the same route, the <code>'HOURS'</code> column contains the total amount of time spent on each route. We need <code>most_frequent.get('FROM').iloc[0]</code> and <code>most_frequent.get('TO').iloc[0]</code> to correspond with the departure and destination airports of the route that King Triton has spent the most time flying on. To do this, we need to sort in descending order of time, to bring the largest time to the top of the DataFrame. So we must sort by <code>'HOURS'</code> with <code>ascending=False</code>.</p>
 </div>
 </div>
 </div>
@@ -635,9 +634,9 @@ Click to view the solution.
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer: </strong> True</p>
-<p>The only difference in two code snippets is the data values used. The first creates a histogram of the <code>x</code>-values in <code>fingerprints</code>, and the second creates a histogram of the <code>y</code>-values in <code>fingerprints</code>.</p>
-<p>Both histograms use the same bins: <code>bins=np.arange(0, 8, 2)</code>. This means the bin endpoints are <code>[0, 2, 4, 6]</code>, so there are three distinct bins: <span class="math inline">[0, 2)</span>, <span class="math inline">[2, 4)</span>, and <span class="math inline">[4, 6]</span>. Remember the right-most bin of a histogram includes both endpoints, where others include the left endpoint only.</p>
-<p>Let’s look at the <code>x</code>-values first. If we divide the scatterplot into nine equally-sized regions as shown below, note that eight of the nine regions have a very similar number of data points. Aside from the middle region, about <span class="math inline">\frac{1}{8}</span> of the data falls in each region. That means <span class="math inline">\frac{3}{8}</span> of the data has an <code>x</code>-value in the first bin <span class="math inline">[0, 2)</span>, <span class="math inline">\frac{2}{8}</span> of the data has an <code>x</code>-value in the middle bin <span class="math inline">[2, 4)</span>, and <span class="math inline">\frac{3}{8}</span> of the data has an <code>x</code>-value in the rightmost bin <span class="math inline">[4, 6]</span>. This distribution of <code>x</code>-values into bins determines what the histogram will look like.</p>
+<p>The only difference between the two code snippets is the data values used. The first creates a histogram of the <code>x</code>-values in <code>fingerprints</code>, and the second creates a histogram of the <code>y</code>-values in <code>fingerprints</code>.</p>
+<p>Both histograms use the same bins: <code>bins=np.arange(0, 8, 2)</code>. This means the bin endpoints are <code>[0, 2, 4, 6]</code>, so there are three distinct bins: <span class="math inline">[0, 2)</span>, <span class="math inline">[2, 4)</span>, and <span class="math inline">[4, 6]</span>. Remember the right-most bin of a histogram includes both endpoints, whereas others include the left endpoint only.</p>
+<p>Let’s look at the <code>x</code>-values first. If we divide the scatterplot into nine equally-sized regions, as shown below, note that eight of the nine regions have a very similar number of data points. Aside from the middle region, about <span class="math inline">\frac{1}{8}</span> of the data falls in each region. That means <span class="math inline">\frac{3}{8}</span> of the data has an <code>x</code>-value in the first bin <span class="math inline">[0, 2)</span>, <span class="math inline">\frac{2}{8}</span> of the data has an <code>x</code>-value in the middle bin <span class="math inline">[2, 4)</span>, and <span class="math inline">\frac{3}{8}</span> of the data has an <code>x</code>-value in the rightmost bin <span class="math inline">[4, 6]</span>. This distribution of <code>x</code>-values into bins determines what the histogram will look like.</p>
 <p>Now, if we look at the <code>y</code>-values, we’ll find that <span class="math inline">\frac{3}{8}</span> of the data has a <code>y</code>-value in the first bin <span class="math inline">[0, 2)</span>, <span class="math inline">\frac{2}{8}</span> of the data has a <code>y</code>-value in the middle bin <span class="math inline">[2, 4)</span>, and <span class="math inline">\frac{3}{8}</span> of the data has a <code>y</code>-value in the last bin <span class="math inline">[4, 6]</span>. That’s the same distribution of data into bins as the <code>x</code>-values had, so the histogram of <code>y</code>-values will look just like the histogram of <code>y</code>-values.</p>
 <p>Alternatively, an easy way to see this is to use the fact that the scatterplot is symmetric over the line <span class="math inline">y=x</span>, the line that makes a 45 degree angle with the origin. In other words, interchanging the <code>x</code> and <code>y</code> values doesn’t change the scatterplot noticeably, so the <code>x</code> and <code>y</code> values have very similar distributions, and their histograms will be very similar as a result.</p>
 </div>
@@ -715,7 +714,7 @@ Click to view the solution.
 </tr>
 </tbody>
 </table>
-<p>The airline for one flight has no impact on the airline for another flight.</p>
+<p><br /> The airline for one flight has no impact on the airline for another flight.</p>
 <p>For this question, suppose that King Triton schedules 3 flights for January 2022.</p>
 <p><br></p>
 <h3 id="problem-8.1">Problem 8.1</h3>
@@ -854,7 +853,8 @@ Click to view the solution.
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer: </strong> <code>grab[0] == grab[1]</code></p>
-<p>The idea of a simulation is to do some random process many times. We can use the results to approximate a probability by counting up the number of times some event occured, and dividing that by the number of times we did the random process. Here, the random process is selecting two cookies from the cookie box, and we are doing this 10,000 times. The approximate probability will be the number of times in which both cookies are the same divided by 10,000. So we need to count up the number of times that both randomly selected cookies are the same. We do this by having an accumulator variable that starts out at 0 and gets incremented, or increased by 1, every time both cookies are the same. The code has such a variable, called <code>prob_both_same</code>, that is initialized to 0 and gets incremented when some condition is met. We need to fill in the condition, which is that both randomly selected cookies are the same. We’ve already randomly selected the cookies and stored the results in <code>grab</code>, which is an array of length 2 that comes from the output of a call to <code>np.random.choice</code>. To check if both elements of the <code>grab</code> array are the same we access the individual elements using brackets with the position number, and compare using the <code>==</code> symbol to check equality. Note that at the end of the <code>for</code> loop, the variable <code>prob_both_same</code> will contain a count of the number of trials out of 10,000 in which both of King Triton’s cookies were the same flavor.</p>
+<p>The idea of a simulation is to do some random process many times. We can use the results to approximate a probability by counting up the number of times some event occurred, and dividing that by the number of times we did the random process. Here, the random process is selecting two cookies from the cookie box, and we are doing this 10,000 times. The approximate probability will be the number of times in which both cookies are the same divided by 10,000. So we need to count up the number of times that both randomly selected cookies are the same. We do this by having an accumulator variable that starts out at 0 and gets incremented, or increased by 1, every time both cookies are the same. The code has such a variable, called <code>prob_both_same</code>, that is initialized to 0 and gets incremented when some condition is met.</p>
+<p>We need to fill in the condition, which is that both randomly selected cookies are the same. We’ve already randomly selected the cookies and stored the results in <code>grab</code>, which is an array of length 2 that comes from the output of a call to <code>np.random.choice</code>. To check if both elements of the <code>grab</code> array are the same, we access the individual elements using brackets with the position number, and compare using the <code>==</code> symbol to check equality. Note that at the end of the <code>for</code> loop, the variable <code>prob_both_same</code> will contain a count of the number of trials out of 10,000 in which both of King Triton’s cookies were the same flavor.</p>
 </div>
 </div>
 </div>

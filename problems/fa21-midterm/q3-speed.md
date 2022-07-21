@@ -36,7 +36,7 @@ What goes in blank (b)?
 
 In this blank, we'll need a Series or array containing the average speed of each flight, in miles per hour. 
 
-To calculate the average speed of an individual flight in miles per hour, we'd simply divide the total number of miles by the total amount of time in hours. For example, a flight that travels 500 miles in one hour travels at 500 miles per hour. Note that this is an *average* speed; at some points of the journey, the plane may have been moving faster than this speed, at other times slower. We are calculating an average speed for the whole trip by simply dividing, and we don't need to use `.mean()`.
+To calculate the average speed of an individual flight in miles per hour, we'd simply divide the total number of miles by the total amount of time in hours. For example, a flight that travels 500 miles in one hour travels at 500 miles per hour. Note that this is an *average* speed; at some points of the journey, the plane may have been moving faster than this speed, at other times slower. Because we are calculating an average speed for the whole trip by simply dividing, we don't need to use `.mean()`.
 
 Once we know how to calculate the average speed for an individual flight, we can do the same operation on each flight all at once using Series arithmetic. `flights.get('DIST')` is a Series containing the distances of each flight, and `flights.get('HOURS')` is a Series containing the times of each flight, in the same order. When we divide these two Series, corresponding entries are divided and the result is a Series of average speeds for each flight, as desired.
 

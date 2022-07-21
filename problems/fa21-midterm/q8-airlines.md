@@ -8,7 +8,7 @@ It turns out that King Triton is so busy that he doesn't even book his own fligh
 | United | 0.3 |
 | American | 0.2 |
 | All other airlines | 0.1 |
-
+<br />
 The airline for one flight has no impact on the airline for another flight.
 
 For this question, suppose that King Triton schedules 3 flights for January 2022.

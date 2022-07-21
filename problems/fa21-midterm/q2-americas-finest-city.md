@@ -13,7 +13,7 @@ Which of these correctly evaluates to the number of flights King Triton took to 
 
 **Answer: ** `flights[flights.get('TO') == 'SAN'].shape[0]`
 
-The strategy is to create a DataFrame with only the flights that went to San Diego, then count the number of rows. The first step is to query with condition `flights.get('TO') == 'SAN'` and the second step is to extract the number of rows with `.shape[0]`. 
+The strategy is to create a DataFrame with only the flights that went to San Diego, then count the number of rows. The first step is to query with the condition `flights.get('TO') == 'SAN'` and the second step is to extract the number of rows with `.shape[0]`. 
 
 Some of the other answer choices use `.loc['SAN']` but `.loc` only works with the index, and `flights` does not have airport codes in its index.
 
@@ -53,7 +53,7 @@ True or False: If we change `.get('FLIGHT')` to `.get('SEAT')`, the results of t
 
 **Answer: ** `'TO'`, `.loc['SAN']`, True
 
-The strategy here is to group all of King Triton's flights according to where they landed, and count up the number that landed in San Diego. The expression `flights.groupby('TO').count()` evaluates to a DataFrame indexed by arrival airport, where for any arrival airport, each column has a count of the number of King Triton's flights that landed at that airport. To get the count for San Diego, we need the entry in any column, in the row corresponding to San Diego. The code `.get('FLIGHT')` says we'll use the 'FLIGHT' column, but any other column would be equivalent. To access the entry of this column corresponding to San Diego, we have to use `.loc` because we know the name of the value in the index should be `'SAN'`, but we don't know the row number or integer position.
+The strategy here is to group all of King Triton's flights according to where they landed, and count up the number that landed in San Diego. The expression `flights.groupby('TO').count()` evaluates to a DataFrame indexed by arrival airport where, for any arrival airport, each column has a count of the number of King Triton's flights that landed at that airport. To get the count for San Diego, we need the entry in any column for the row corresponding to San Diego. The code `.get('FLIGHT')` says we'll use the `'FLIGHT'` column, but any other column would be equivalent. To access the entry of this column corresponding to San Diego, we have to use `.loc` because we know the name of the value in the index should be `'SAN'`, but we don't know the row number or integer position.
 
 # END SOLUTION
 
