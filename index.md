@@ -21,23 +21,19 @@ This site contains practice problems taken from old exams. You should work on th
   <tbody>
     <tr>
       <th scope="row">Spring 2022</th>
-      <td><a href='sp22-midterm/index.html'>Midterm</a><br>
-	        <a href='sp22-final/index.html'>Final</a></td>
+      <td><a href='sp22-midterm/index.html'>Midterm</a></td>
     </tr>
     <tr>
       <th scope="row">Winter 2022</th>
-      <td><a href='wi22-midterm/index.html'>Midterm</a><br>
-          <a href='wi22-final/index.html'>Final</a></td>
+      <td><a href='wi22-midterm/index.html'>Midterm</a></td>
     </tr>
     <tr>
       <th scope="row">Fall 2021</th>
-      <td><a href='fa21-midterm/index.html'>Midterm</a><br>
-          <a href='fa21-final/index.html'>Final</a></td>
+      <td><a href='fa21-midterm/index.html'>Midterm</a></td>
     </tr>
     <tr>
       <th scope="row">Winter 2021</th>
-      <td><a href='wi21-midterm/index.html'>Midterm</a><br>
-	        <a href='wi21-final/index.html'>Final</a></td>
+      <td><a href='wi21-midterm/index.html'>Midterm</a></td>
     </tr>
   </tbody>
 </table>
