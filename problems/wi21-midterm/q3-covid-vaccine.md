@@ -2,15 +2,15 @@
 
 The following is a quote from The New York Times' *The Morning* newsletter.
 
-> As Dr. Ashish Jha, the dean of the Brown University School of Public Health, told me this weekend: “I don’t actually care about infections. I care about hospitalizations and deaths and long-term complications.”
->
-> By those measures, all five of the vaccines — from Pfizer, Moderna, AstraZeneca, Novavax and Johnson & Johnson — look extremely good. Of the roughly 75,000 people who have received one of the five in a research trial, not a single person has died from Covid, and only a few people appear to have been hospitalized. None have remained hospitalized 28 days after receiving a shot.
->
-> To put that in perspective, it helps to think about what Covid has done so far to **a representative group of 75,000 American adults**: It has killed roughly 150 of them and sent several hundred more to the hospital. The vaccines reduce those numbers to zero and nearly zero, based on the research trials.
->
-> Zero isn’t even the most relevant benchmark. A typical U.S. flu season kills between five and 15 out of every 75,000 adults and hospitalizes more than 100 of them.
+<i>As Dr. Ashish Jha, the dean of the Brown University School of Public Health, told me this weekend: “I don’t actually care about infections. I care about hospitalizations and deaths and long-term complications.” </i>
 
-Why does the article use *a representative group of 75,000 American adults*?
+<i>By those measures, all five of the vaccines — from Pfizer, Moderna, AstraZeneca, Novavax and Johnson & Johnson — look extremely good. Of the roughly 75,000 people who have received one of the five in a research trial, not a single person has died from Covid, and only a few people appear to have been hospitalized. None have remained hospitalized 28 days after receiving a shot.</i>
+
+<i>To put that in perspective, it helps to think about what Covid has done so far to **a representative group of 75,000 American adults**: It has killed roughly 150 of them and sent several hundred more to the hospital. The vaccines reduce those numbers to zero and nearly zero, based on the research trials.</i>
+
+<i>Zero isn’t even the most relevant benchmark. A typical U.S. flu season kills between five and 15 out of every 75,000 adults and hospitalizes more than 100 of them.</i>
+
+Why does the article use a representative group of 75,000 American adults?
 
 ( ) Convention. Rates are often given per 75,000 people.
 ( ) Comparison. It allows for quick comparison against the group of people who got the vaccine in a trial.

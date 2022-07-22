@@ -5,7 +5,11 @@ Suppose you are given a DataFrame of employees for a given company. The DataFram
 # BEGIN SUBPROB
 
 Suppose that the code
-`employees.sort_values(by='years', ascending=False).index[0]`
+
+```py
+employees.sort_values(by='years', ascending=False).index[0]
+```
+
 outputs `'2476'`. 
 
 True or False: The number of years that employee 2476 has worked for the company is greater than the number of years that any other employee has worked for the company.
@@ -29,8 +33,11 @@ If the statement had said *greater than or equal to* instead of *greater than*, 
 # BEGIN SUBPROB
 
 What will be the output of the following code?
-`employees.assign(start=2021-employees.get('years'))
-employees.sort_values(by='start').index.iloc[-1]`
+
+```py
+employees.assign(start=2021-employees.get('years'))
+employees.sort_values(by='start').index.iloc[-1]
+```
 
 ( ) the employee id of an employee who has worked there for the most years
 ( ) the employee id of an employee who has worked there for the fewest years

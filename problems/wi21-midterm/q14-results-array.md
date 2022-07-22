@@ -1,9 +1,11 @@
 # BEGIN PROB
 
-`results = np.array([])
+```py
+results = np.array([])
 for i in np.arange(10):
     result = np.random.choice(np.arange(1000), replace=False)
-    results = np.append(results, result)`
+    results = np.append(results, result)
+```
 
 After this code executes, `results` contains:
 

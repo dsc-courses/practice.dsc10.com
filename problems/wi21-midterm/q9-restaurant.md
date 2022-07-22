@@ -2,9 +2,9 @@
 
 You are given a DataFrame called `restaurants` that contains information on a variety of local restaurants' daily number of customers and daily income. There is a row for each restaurant for each date in a given five-year time period.
 
-The columns of `restaurants` are `name` (string), `year` (int),  `month` (int), `day` (int), `num_diners` (int), and `income` (float).
+The columns of `restaurants` are `'name'` (string), `'year'` (int),  `'month'` (int), `'day'` (int), `'num_diners'` (int), and `'income'` (float).
 
-Assume that in our data set, there are not two different restaurants that go by the same `name` (chain restaurants, for example).
+Assume that in our data set, there are not two different restaurants that go by the same `'name'` (chain restaurants, for example).
 
 # BEGIN SUBPROB
 
@@ -19,7 +19,7 @@ What type of visualization would be best to display the data in a way that helps
 
 **Answer: **  scatterplot
 
-The number of customers is given by `num_diners` which is an integer, and `income` is a float. Since both are numerical variables, neither of which represents time, it is most appropriate to use a scatterplot.
+The number of customers is given by `'num_diners'` which is an integer, and `'income'` is a float. Since both are numerical variables, neither of which represents time, it is most appropriate to use a scatterplot.
 
 # END SOLUTION
 
@@ -38,7 +38,7 @@ What type of visualization would be best to display the data in a way that helps
 
 **Answer: ** line plot
 
-Since we want to plot a trend of a numerical quantity (`income`) over time, it is best to use a line plot. 
+Since we want to plot a trend of a numerical quantity (`'income'`) over time, it is best to use a line plot. 
 
 # END SOLUTION
 

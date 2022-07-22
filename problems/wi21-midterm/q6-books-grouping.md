@@ -1,6 +1,6 @@
 # BEGIN PROB
 
-You are given a DataFrame called `books` that contains columns `author` (string), `title` (string), `num_chapters` (int), and `publication_year` (int).
+You are given a DataFrame called `books` that contains columns `'author'` (string), `'title'` (string), `'num_chapters'` (int), and `'publication_year'` (int).
 
 Suppose that after doing `books.groupby('Author').max()`, one row says
 
@@ -10,7 +10,7 @@ Suppose that after doing `books.groupby('Author').max()`, one row says
 
 # BEGIN SUBPROB
 
-Based on this data, can you conclude that "Charles Dickens" is the alphabetically last of all names listed in this dataset?
+Based on this data, can you conclude that Charles Dickens is the alphabetically last of all author names in this dataset?
 
 ( ) Yes
 ( ) No
@@ -44,7 +44,7 @@ Grouping by  `'Author'` collapses all books written by the same author into a si
 
 # BEGIN SUBPROB
 
-Based on this data, can you conclude that "Oliver Twist" has 53 chapters?
+Based on this data, can you conclude that *Oliver Twist* has 53 chapters?
 
 ( ) Yes
 ( ) No
