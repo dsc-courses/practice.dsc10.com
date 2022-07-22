@@ -2,12 +2,34 @@
 
 We define the seasons as follows:
 
-| Season | Months |
-| --- | --- |
-| Spring | March, April, May |
-| Summer | June, July, August |
-| Fall | September, October, November |
-| Winter | December, January, February |
+<center>
+<table class="table" style="width:30%">
+  <thead>
+    <tr>
+      <th scope="col">Season</th>
+      <th scope="col">Month</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">Spring</th>
+      <td>March, April, May</td>
+    </tr>
+    <tr>
+      <th scope="row">Summer</th>
+      <td>June, July, August</td>
+    </tr>
+    <tr>
+      <th scope="row">Fall</th>
+      <td>September, October, November</td>
+    </tr>
+    <tr>
+      <th scope="row">Winter</th>
+      <td>December, January, February</td>
+    </tr>
+  </tbody>
+</table>
+</center>
 
 # BEGIN SUBPROB
 
@@ -73,13 +95,40 @@ All three options start with the same first line of code: `month_as_num = int(da
 
 According to the definition of seasons, the months in each season are as follows:
 
-| Season | Months | `month_as_num` |
-| --- | --- | --- |
-| Spring | March, April, May | 3, 4, 5 |
-| Summer | June, July, August | 6, 7, 8 |
-| Fall | September, October, November | 9, 10, 11 |
-| Winter | December, January, February | 12, 1, 2 |
-  <br />
+<center>
+<table class="table" style="width:40%">
+  <thead>
+    <tr>
+      <th scope="col">Season</th>
+      <th scope="col">Month</th>
+      <th scope="col">month_as_num</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">Spring</th>
+      <td>March, April, May</td>
+      <td>3, 4, 5</td>
+    </tr>
+    <tr>
+      <th scope="row">Summer</th>
+      <td>June, July, August</td>
+      <td>6, 7, 8</td>
+    </tr>
+    <tr>
+      <th scope="row">Fall</th>
+      <td>September, October, November</td>
+      <td>9, 10, 11</td>
+    </tr>
+    <tr>
+      <th scope="row">Winter</th>
+      <td>December, January, February</td>
+      <td>12, 1, 2</td>
+    </tr>
+  </tbody>
+</table>
+</center>
+
 Option 1 correctly assigns months to seasons by checking if the month falls in the appropriate range for `'Spring'`, then `'Summer'`, then `'Fall'`. Finally, if all of these conditions are false, the `else` branch will return the correct answer of `'Winter'` when `month_as_num` is 12, 1, or 2.
 
 Option 2 is also correct, and in fact, it does the same exact thing as Option 1 even though it uses `if` where Option 1 used `elif`. The purpose of `elif` is to check a condition only when all previous conditions are false. So if we have an `if` followed by an `elif`, the `elif` condition will only be checked when the `if` condition is false. If we have two sequential `if` conditions, typically the second condition will be checked regardless of the outcome of the first condition, which means two `if` statements can behave differently than an `if` followed by an `elif`. In this case, however, since the `if` statements cause the function to `return` and therefore stop executing, the only way to get to a certain `if` condition is when all previous `if` conditions are false. If any prior `if` condition was true, the function would have returned already! So this means the three `if` conditions in Option 2 are equivalent to the `if`, `elif`, `elif` structure of Option 1. Note that the `else` case in Option 1 is reached when all prior conditions are false, whereas the `else` in Option 2 is paired only with the `if` statement immediately preceding it. But since we only ever get to that third `if` statement when the first two `if` conditions are false, we still only reach the `else` branch when all three `if` conditions are false.
