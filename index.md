@@ -43,10 +43,6 @@ Each exam linked here lists the conditions under which the exam was given, inclu
       <th scope="row">Fall 2021</th>
       <td><a href='fa21-midterm/index.html'>Midterm</a></td>
     </tr>
-    <tr>
-      <th scope="row">Winter 2021</th>
-      <td><a href='wi21-midterm/index.html'>Midterm</a></td>
-    </tr>
   </tbody>
 </table>
 </center>
