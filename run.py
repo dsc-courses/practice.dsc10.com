@@ -294,6 +294,16 @@ def process_page(path):
 
     out += '$$ $$' # to enable latex always
 
+    # Temporary summer add-on to collect feedback
+    out += '''
+---
+
+#### 👋 Feedback: Find an error? Still confused? Have a suggestion? <a href="https://forms.gle/WZ71FchnXU1K154d7">Let us know here</u></a>.
+
+---
+    
+'''
+
     # TODO: easily extract all files for a single final exam
     # TODO: format PDFs for printing: https://stackoverflow.com/problems/1664049/can-i-force-a-page-break-in-html-printing
     return out

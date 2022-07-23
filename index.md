@@ -16,6 +16,10 @@ Each exam linked here lists the conditions under which the exam was given, inclu
 
 ---
 
+#### 👋 This site is new! If you're using it, please <a href='https://forms.gle/WZ71FchnXU1K154d7'>take a moment to let us know what you think</a>. Thanks!
+
+---
+
 ### Exams
 
 <center>
@@ -46,9 +50,3 @@ Each exam linked here lists the conditions under which the exam was given, inclu
   </tbody>
 </table>
 </center>
-
----
-
-### Feedback
-
-This site is new! If you're using it, please <a href='https://forms.gle/WZ71FchnXU1K154d7'>take a moment to let us know what you think<a>. Thanks!
