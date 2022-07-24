@@ -23,9 +23,13 @@ This code extracts the first entry of the `'broccoli'` column. Since this column
 
 # BEGIN SUBPROB
 
-The code
-`prices.plot(kind='hist', y='broccoli', bins=np.arange(0.8, 2.11, 0.1), density=True)` 
-produces the histogram below.
+Using the code,
+
+```py
+prices.plot(kind='hist', y='broccoli', bins=np.arange(0.8, 2.11, 0.1), density=True)
+```
+
+we produced the histogram below:
 
 <center><img src='../assets/images/wi21-midterm/broccoli.png' width=40%></center>
 
@@ -47,8 +51,11 @@ The reason for the slight discrepancy between 3.96 and 4 is that we used 2.2 for
 
 # BEGIN SUBPROB
 
-Suppose we now plot the same data with different bins, using the code 
-`prices.plot(kind='hist', y='broccoli', bins=[0.8, 1, 1.1, 1.5, 1.8, 1.9, 2.5], density=True)`.
+Suppose we now plot the same data with different bins, using the following line of code:
+
+```py
+prices.plot(kind='hist', y='broccoli', bins=[0.8, 1, 1.1, 1.5, 1.8, 1.9, 2.5], density=True)
+```
 
 What would be the height on the y-axis for the bin corresponding to the interval $[\$1.10, \$1.50)$? Input your answer below.
 
@@ -56,11 +63,10 @@ What would be the height on the y-axis for the bin corresponding to the interval
 
 **Answer: ** 1.25
 
-First we need to figure out how many grocery stores the bin $[\$1.10, \$1.50)$ contains. We already know from the previous subpart that there are four grocery stores in the bin $[\$1.30, \$1.40)$. We could do similar calculations to find the number of grocery stores in each of these bins: 
+First, we need to figure out how many grocery stores the bin $[\$1.10, \$1.50)$ contains. We already know from the previous subpart that there are four grocery stores in the bin $[\$1.30, \$1.40)$. We could do similar calculations to find the number of grocery stores in each of these bins: 
 
 - $[\$1.10, \$1.20)$
 - $[\$1.20, \$1.30)$
-- $[\$1.30, \$1.40)$
 - $[\$1.40, \$1.50)$
 
 However, it's much simpler and faster to use the fact that when the bins are all equally wide, the height of a bar is proportional to the number of data values it contains. So looking at the histogram in the previous subpart, since we know the $[\$1.30, \$1.40)$ bin contains 4 grocery stores, then the $[\$1.10, \$1.20)$ bin must contain 1 grocery store, since it's only a quarter as tall. Again, we're taking advantage of the fact that there must be an integer number of grocery stores in each bin when we say it's 1/4 as tall. Our only options are 1/4, 1/2, or 3/4 as tall, and among those choices, it's clear. 
@@ -72,7 +78,7 @@ Therefore, by looking at the relative heights of the bars, we can quickly determ
 - $[\$1.30, \$1.40)$: 4 grocery stores
 - $[\$1.40, \$1.50)$: 1 grocery store
 
-Adding these numbers together, this means there are 9 grocery stores whose broccoli prices fall in the interval $[\$1.10, \$1.50)$. In the new histogram, these 9 grocery stores will be represented by a bar of width $1.50-1.10 = 0.4$. The area of the bar should be $\frac{9}{18} = 0.5$. Therefore the height must be $\frac{0.5}{0.4} = 1.25.$
+Adding these numbers together, this means there are 9 grocery stores whose broccoli prices fall in the interval $[\$1.10, \$1.50)$. In the new histogram, these 9 grocery stores will be represented by a bar of width $1.50-1.10 = 0.4$. The area of the bar should be $\frac{9}{18} = 0.5$. Therefore the height must be $\frac{0.5}{0.4} = 1.25$.
 
 # END SOLUTION
 
@@ -82,7 +88,9 @@ Adding these numbers together, this means there are 9 grocery stores whose brocc
 
 You are interested in finding out the number of stores in which a pint of ice cream was cheaper than a pound of broccoli. Will you be able to determine the answer to this question by looking at the plot produced by the code below?
 
-`prices.get(['broccoli', 'ice_cream']).plot(kind='barh')`
+```py
+prices.get(['broccoli', 'ice_cream']).plot(kind='barh')
+```
 
 ( ) Yes
 ( ) No
@@ -91,7 +99,7 @@ You are interested in finding out the number of stores in which a pint of ice cr
 
 **Answer: ** Yes
 
-When we use `.plot` without specifying a `y` column, it uses every column in the DataFrame as a `y` column and creates an overlaid plot. Since we first use `get` with the list `['broccoli', 'ice_cream']`, this keeps the `'broccoli'` and `'ice_cream'` columns from `prices`, so our bar chart will overlay broccoli prices with ice cream prices. Notice that this `get` is unneccessary because `prices` only has these two columns, so it would have been the same to just use `prices` directly. The resulting bar chart will look something like this:
+When we use `.plot` without specifying a `y` column, it uses every column in the DataFrame as a `y` column and creates an overlaid plot. Since we first use `get` with the list `['broccoli', 'ice_cream']`, this keeps the `'broccoli'` and `'ice_cream'` columns from `prices`, so our bar chart will overlay broccoli prices with ice cream prices. Notice that this `get` is unnecessary because `prices` only has these two columns, so it would have been the same to just use `prices` directly. The resulting bar chart will look something like this:
 
 <center><img src='../assets/images/wi21-midterm/broc_bar.png' width=40%></center>
 
@@ -105,7 +113,9 @@ Each grocery store has its broccoli price represented by the length of the blue 
 
 You are interested in finding out the number of stores in which a pint of ice cream was cheaper than a pound of broccoli. Will you be able to determine the answer to this question by looking at the plot produced by the code below?
 
-`prices.get(['broccoli', 'ice_cream']).plot(kind='hist')`
+```py
+prices.get(['broccoli', 'ice_cream']).plot(kind='hist')
+```
 
 ( ) Yes
 ( ) No
@@ -114,7 +124,7 @@ You are interested in finding out the number of stores in which a pint of ice cr
 
 **Answer: ** No
 
-This will create an overlaid histogram of broccoli prices and ice cream prices. So we will be able to see the distribution of broccoli prices together with the distribution of ice cream prices, but we won't be able to pair up particular broccoli prices with ice cream prices at the same store, so we won't be able to answer the question. The overlaid histogram would look something like this:
+This will create an overlaid histogram of broccoli prices and ice cream prices. So we will be able to see the distribution of broccoli prices together with the distribution of ice cream prices, but we won't be able to pair up particular broccoli prices with ice cream prices at the same store. This means we won't be able to answer the question. The overlaid histogram would look something like this:
 
 <center><img src='../assets/images/wi21-midterm/broc_hist.png' width=40%></center>
 
@@ -126,8 +136,11 @@ This tells us that broadly, ice cream tends to be more expensive than broccoli, 
 
 # BEGIN SUBPROB
 
-The scatterplot below was produced by the code 
-`(prices.get(['broccoli', 'ice_cream']).plot(kind='scatter', x='broccoli', y='ice_cream'))`
+Some code and the scatterplot that produced it is shown below: 
+
+```py
+(prices.get(['broccoli', 'ice_cream']).plot(kind='scatter', x='broccoli', y='ice_cream'))
+```
 
 <center><img src='../assets/images/wi21-midterm/broc_ice_cream.png' width=40%></center>
 

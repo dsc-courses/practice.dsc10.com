@@ -22,9 +22,9 @@ Creative responses that are different than ones we've already seen in this class
 
 ---
 
-<i> You are given a table called cars with columns: brands (Toyota, Honda, etc.), model (Prius, Accord, etc.), price of the car, and fuel type (gas, hybrid, electric). Since you are environmentally friendly you only want cars that are electric, but you want to find the cheapest one. Find the brand that has the cheapest average price for an electric car.</i>
+<i> You are given a table called `cars` with columns: `'brands'` (Toyota, Honda, etc.), `'model'` (Prius, Accord, etc.), `'price'` of the car, and `'fuel_type'`  (gas, hybrid, electric). Since you are environmentally friendly you only want cars that are electric, but you want to find the cheapest one. Find the brand that has the cheapest average price for an electric car.</i>
 
-<i>You want to groupby on both brand and fuel type and use the aggregate command `mean()` to find the average price per fuel type for each brand. Then you would find only the electric fuel types and sort values to find the cheapest. </i>
+<i>You want to `groupby` on both `'brands'` and `'fuel_type'` and use the aggregate command `mean()` to find the average price per fuel type for each brand. Then you would find only the electric fuel types and sort values to find the cheapest. </i>
 
 # END SOLUTION
 

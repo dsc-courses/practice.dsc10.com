@@ -3,6 +3,7 @@
 The expression below evaluates to `True`.
 
 ```py
+(
 classify_artist('Michelle Branch')=='outdated' 
 and 
 classify_artist('Drake')=='trending'

@@ -11,7 +11,7 @@ You have a DataFrame called `flights` containing information on various plane ti
 | 2950   | 329      |
 | 2950   | 309      |
 | 3000   | 349      |
-
+<br/>
 You want to use your data, shown in full above, to predict the price of an airline ticket for a route that is 2800 miles long. What would Galton's method predict for the price of your ticket, if we consider "nearby" to mean within 6o miles? Give your answer to the nearest dollar.
 
 # BEGIN SOLUTION
@@ -25,7 +25,7 @@ Galton's method for making predictions is to take "nearby" $x$-values and averag
 | 2750   | 249      |
 | 2850   | 349      |
 | 2850   | 319      |
-
+<br/>
 Now, we simply need to average these three prices to make our prediction. Since $\frac{249+349+319}{3} = 305.67$ and we are told to round to the nearest dollar, our prediction is 306 dollars.
 
 # END SOLUTION

@@ -27,9 +27,7 @@ There is no convention about using 75,000 for rates. This number is used because
 
 75,000 is quite a large number and most people probably don't have a sense of the scale of 75,000 people. If the goal were comprehension, it would have made more sense to use a smaller number like 100 people.
 
-The number 75,000 is not arbitrary. It was chosen as the size of the representative group specifically to match the size of the group of people who the vaccine in a research trial. 
-
-
+The number 75,000 is not arbitrary. It was chosen as the size of the representative group specifically to equal the number of people who got the vaccine in a research trial. 
 
 # END SOLUTION
 

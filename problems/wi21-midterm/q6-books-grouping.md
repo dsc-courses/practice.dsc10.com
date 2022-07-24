@@ -19,7 +19,7 @@ Based on this data, can you conclude that Charles Dickens is the alphabetically 
 
 **Answer: ** No
 
-When we group by `'Author'`, all books by the same author get aggregated together into a single row. The aggregation function is applied separately to each other column besides the column we're grouping by. Since we're grouping by `'Author'` here, the `'Author'`column never has the `max()` function applied to it. Instead, unique value in the `'Author'` column becomes a value in the index of the grouped DataFrame. We are told that the Charles Dickens row is just one row of the output, but we don't know anything about the other rows of the output, or the other authors. We can't say anything about where Charles Dickens falls when authors are ordered alphabetically (but it's probably not last!)
+When we group by `'Author'`, all books by the same author get aggregated together into a single row. The aggregation function is applied separately to each other column besides the column we're grouping by. Since we're grouping by `'Author'` here, the `'Author'`column never has the `max()` function applied to it. Instead, each unique value in the `'Author'` column becomes a value in the index of the grouped DataFrame. We are told that the Charles Dickens row is just one row of the output, but we don't know anything about the other rows of the output, or the other authors. We can't say anything about where Charles Dickens falls when authors are ordered alphabetically (but it's probably not last!)
 
 # END SOLUTION
 
@@ -59,7 +59,7 @@ The key to this problem is that `groupby` applies the aggregation function, `max
 - Among all books in `books` written by Charles Dickens, 53 is the greatest number of chapters.
 - Among all books in `books` written by Charles Dickens, 1838 is the latest year of publication.
 
-However, the book titled *Oliver Twist* and the book with 53 chapters and the book published in 1838 are not necessarily all the same book. We cannot conclude, based on this data, that *Oliver Twist* has 53 chapters.
+However, the book titled *Oliver Twist*, the book with 53 chapters, and the book published in 1838 are not necessarily all the same book. We cannot conclude, based on this data, that *Oliver Twist* has 53 chapters.
 
 # END SOLUTION
 

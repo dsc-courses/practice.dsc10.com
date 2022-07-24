@@ -26,7 +26,7 @@ What is the probability you produce a number with an odd digit in the middle pos
 
 **Answer: ** 0.5
 
-Think of the middle position only. When selecting a random number to go here, we are choosing randomly from the numbers 0 through 9. Since 5 of these numbers are odd (1, 3, 5, 7, 9), the probability of getting an odd number is $\frac{5}{10} = 0.5$.
+Because the values of the left and right positions are not important to us, think of the middle position only. When selecting a random number to go here, we are choosing randomly from the numbers 0 through 9. Since 5 of these numbers are odd (1, 3, 5, 7, 9), the probability of getting an odd number is $\frac{5}{10} = 0.5$.
 
 # END SOLUTION
 
