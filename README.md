@@ -27,6 +27,8 @@ In translating from Latex to Markdown, there are a few easy find/replace things 
 \end{subprob} --> # END SUBPROB
 \begin{responsebox} --> # BEGIN SOLUTION
 \end{responsebox} --> # END SOLUTION
+\begin{soln} --> # BEGIN SOLUTION
+\end{soln} --> # END SOLUTION
 \bigskip -->
 \noindent --> 
 
