@@ -8,6 +8,8 @@ import shutil
 import stat
 import sys
 import warnings
+import time
+import webbrowser
 warnings.simplefilter('ignore')
 
 DST_FOLDER = 'docs'
@@ -397,5 +399,62 @@ if __name__ == '__main__':
         create_index()
 
     else:
-        for page in sys.argv[1:]:
-            write_page(page)
+        # LISTENING FEATURE IN DEVELOPMENT. BE CAREFUL WHEN USING. 
+        if sys.argv[1] == "listen":
+            # Obtain the file paths for all markdown files.
+            # We will be looking to see if the modification time changes to signal an update
+            page_paths = os.path.join('problems', '*', '*.md')
+            all_paths = glob.glob(page_paths)
+
+            # We might want to write all pages first prior to listening for changes just to get all changes done before
+            # we listen for changes. Ill leave it commented for now.
+            # write_all_pages()
+            # create_index()
+
+            # This will store the last modified timestamps for each file. 
+            # This is important for making comparisons to check for file changes.
+            cached_stamp = []
+            for path in all_paths:
+                cached_stamp += [os.stat(path).st_mtime]
+
+            # Beginning of listening loop.
+            # This is based on the second responce to this post: https://stackoverflow.com/questions/182197/how-do-i-watch-a-file-for-changes            
+            while True:
+                try:
+                    # Every second
+                    time.sleep(1)
+                    # For each markdown file
+                    for idx, path in enumerate(all_paths):
+                        # Get the last modified time stamp
+                        stamp = os.stat(path).st_mtime
+                        # Compare to currently cached timestamp
+                        # If its different then the file in questions has been modified and needs to be reflected on the html file
+                        if stamp != cached_stamp[idx]:
+                            # Update cached timestamp to reflect the update
+                            cached_stamp[idx] = stamp
+                            assignment_name = path.split("/")[-2]
+                            # Check that this file has a corresponding .yml file if so, update the page.
+                            # This could definitely be moved to the initial if statement but I didn't want to run the check every time
+                            yml_path = os.path.join('pages', '*', assignment_name+'.yml')
+                            find_paths = glob.glob(yml_path)
+                            if len(find_paths) != 0:
+                                print(f"Updating: {assignment_name}")
+                                # Delete the HTML folder so we can write a new one
+                                assignment_folder = DST_FOLDER+"/"+assignment_name
+                                if os.path.exists(assignment_folder):
+                                    delete_folder(assignment_folder)
+                                print(f"Deleted index.html: {assignment_name}")
+                                # Write the new HTML folder
+                                write_page(find_paths[0])
+                                print(f"Created new for index.html: {find_paths[0]}")
+                                # Open file in new tab. (This is the only thing available in base python)
+                                url = "file://"+os.path.abspath(os.path.join("docs",assignment_name,"index.html"))
+                                print(f"Opening in new tab: {url}")
+                                webbrowser.open("file://"+url, new=0)
+                                print("Finished Updating")
+                except KeyboardInterrupt:
+                    print("Finished Listening")
+                    break
+        else:
+            for page in sys.argv[1:]:
+                write_page(page)
