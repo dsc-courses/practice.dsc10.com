@@ -522,7 +522,7 @@ Click to view the solution.
 <li><p><input type="radio" disabled="" /> <code>to_minutes('assembly_time')</code></p></li>
 <li><p><input type="radio" disabled="" /> <code>to_minutes(app_data.get('assembly_time'))</code></p></li>
 <li><p><input type="radio" disabled="" /> <code>app_data.get('assembly_time').apply(to_minutes)</code></p></li>
-<li><p><input type="radio" disabled="" /> `app_data.get(‘assembly_time’).apply(to_minutes(time))</p></li>
+<li><p><input type="radio" disabled="" /> <code>app_data.get('assembly_time').apply(to_minutes(time))</code></p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
@@ -543,6 +543,63 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
+<hr />
+<h2 id="problem-6">Problem 6</h2>
+<p>We want to use <code>app_data</code> to estimate the average amount of time it takes to build an IKEA bed (any product in the ‘bed’ category). Which of the following strategies would be an appropriate way to estimate this quantity? Select all that apply.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Query to keep only the beds. Then resample with replacement many times. For each resample, take the mean of the <code>'minutes'</code> column. Compute a 95% confidence interval based on those means.</p></li>
+<li><p><input type="radio" disabled="" /> Query to keep only the beds. Group by <code>'product'</code> using the mean aggregation function. Then resample with replacement many times. For each resample, take the mean of the <code>'minutes'</code> column. Compute a 95% confidence interval based on those means.</p></li>
+<li><p><input type="radio" disabled="" /> Resample with replacement many times. For each resample, first query to keep only the beds and then take the mean of the <code>'minutes'</code> column. Compute a 95% confidence interval based on those means.</p></li>
+<li><p><input type="radio" disabled="" /> Resample with replacement many times. For each resample, first query to keep only the beds. Then group by <code>'product'</code> using the mean aggregation function, and finally take the mean of the <code>'minutes'</code> column. Compute a 95% confidence interval based on those means.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6" aria-expanded="true" aria-controls="collapse6">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6" class="accordion-collapse collapse collapse" aria-labelledby="heading6" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong></p>
+<p>Only the first answer is correct. This is a question of parameter estimation, so our approach is to use bootstrapping to create many resamples of our original sample, computing the average of each resample. Each resample should always be the same size as the original sample. The first answer choice accomplishes this by querying first to keep only the beds, then resampling from the DataFrame of beds only. This means resamples will have the same size as the original sample. Each resample’s mean will be computed, so we will have many resample means from which to construct our 95% confidence interval.</p>
+<p>In the second answer choice, we are actually taking the mean twice. We first average the build times for all builds of the same product when grouping by product. This produces a DataFrame of different products with the average build time for each. We then resample from this DataFrame, computing the average of each resample. But this is a resample of products, not of product builds. The size of the resample is the number of unique products in <code>app_data</code>, not the number of reported product builds in <code>app_data</code>. Further, we get incorrect results by averaging numbers that are already averages. For example, if 5 people build bed A and it takes them each 1 hour, and 1 person builds bed B and it takes them 10 hours, the average amount of time to build a bed is <span class="math inline">\frac{5*1+10}{6} = 2.5</span>. But if we average the times for bed A (1 hour) and average the times for bed B (5 hours), then average those, we get <span class="math inline">\frac{1+5}{2} = 3</span>, which is not the same. Taking the average of averages is not the same as taking an average, so this approach is incorrect. More generally, grouping is not a part of the bootstrapping process because we want each data value to be weighted equally.</p>
+<p>The last two answer choices are incorrect because they involve resampling from the full <code>app_data</code> DataFrame before querying to keep only the beds. This is incorrect because it does not preserve the sample size. For example, if <code>app_data</code> contains 1000 reported bed builds and 4000 other product builds, then the only relevant data is the 1000 bed build times, so when we resample, we want to consider another set of 1000 beds. If we resample from the full <code>app_data</code> DataFrame, our resample will contain 5000 rows, but the number of beds will be random, not necessarily 1000. If we query first to keep only the beds, then resample, our resample will contain exactly 1000 beds every time. As an added bonus, since we only care about beds, it’s much faster to resample from a smaller DataFrame of beds only than it is to resample from all <code>app_data</code> with plenty of rows we don’t care about.</p>
+</div>
+</div>
+</div>
+</div>
+<hr />
+<h2 id="problem-7">Problem 7</h2>
+<p>Laura built the LAPPLAND TV storage unit in 2 hours and 30 minutes, and she thinks she worked at an average speed. If you want to see whether the average time to build the TV storage unit is indeed 2 hours and 30 minutes using the sample of assembly times in <code>app_data</code>, which of the following tools <strong>could</strong> you use to help you? Select all that apply.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> hypothesis testing</p></li>
+<li><p><input type="radio" disabled="" /> permutation testing</p></li>
+<li><p><input type="radio" disabled="" /> bootstrapping</p></li>
+<li><p><input type="radio" disabled="" /> Central Limit Theorem</p></li>
+<li><p><input type="radio" disabled="" /> confidence interval</p></li>
+<li><p><input type="radio" disabled="" /> regression</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading7">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7" aria-expanded="true" aria-controls="collapse7">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse7" class="accordion-collapse collapse collapse" aria-labelledby="heading7" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> hypothesis testing, bootstrapping, Central Limit Theorem, confidence interval</p>
+</div>
+</div>
+</div>
+</div>
 <hr />
 <h2 id="section"><span class="math display"> </span></h2>
 <h4 id="feedback-find-an-error-still-confused-have-a-suggestion-let-us-know-here.">👋 Feedback: Find an error? Still confused? Have a suggestion? <a href="https://forms.gle/WZ71FchnXU1K154d7">Let us know here</u></a>.</h4>
