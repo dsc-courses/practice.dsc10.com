@@ -5,7 +5,7 @@ Another DataFrame called `music` contains a row for every music artist that has 
 - `'Name'` (`str`): the name of the music artist
 - `'Genre'` (`str`): the primary genre of the artist
 - `'Top_Hit'` (`str`): the most popular song by that artist, based on sales, radio play, and streaming
-- `'Top_Hit_Year'` (`str`): the year in which the top hit song was released
+- `'Top_Hit_Year'` (`int`): the year in which the top hit song was released
 
 You want to know how many musical genres have been represented at Sun God since its inception in 1983. Which of the following expressions produces a DataFrame called `merged` that could help determine the answer?
 
