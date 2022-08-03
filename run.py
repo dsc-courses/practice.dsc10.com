@@ -9,7 +9,6 @@ import stat
 import sys
 import warnings
 import time
-import webbrowser
 warnings.simplefilter('ignore')
 
 DST_FOLDER = 'docs'
@@ -338,6 +337,40 @@ def write_page(path):
     # Delete the intermediate Markdown
     os.remove(src_path)
 
+def update_page(path):
+
+    sep = '/' if '/' in path else '\\'
+    assignment_name = path.split(sep)[-1].replace('.yml', '')
+
+    # Generate the Markdown
+    page = process_page(path)
+
+    # Write the Markdown
+    open_path = os.path.join(DST_FOLDER, f'{assignment_name}.md')
+    f = open(open_path, 'w')
+    f.write(page)
+    f.close()
+
+    dst_folder_path = os.path.join(DST_FOLDER, assignment_name)
+    # Make the function much faster by not requiring the folder to be recreated
+    if not os.path.exists(dst_folder_path):
+        os.mkdir(dst_folder_path) # make folder
+    
+    title = format_assignment_name(assignment_name)
+    src_path = os.path.join(DST_FOLDER, f'{assignment_name}.md')
+    # Use a temp HTML file to write over than the main one inorder to minimize delay on viewing the page
+    tmp_path = os.path.join(DST_FOLDER, assignment_name, 'temp.html')
+    dst_path = os.path.join(DST_FOLDER, assignment_name, 'index.html')
+    css_path = os.path.join('..', 'assets', 'theme.css')
+    os.system(f'pandoc -s --standalone --katex --from markdown-markdown_in_html_blocks+raw_html -c {css_path} --metadata title="{title}" {src_path} -o {tmp_path}')
+
+    # Delete the intermediate Markdown
+    os.remove(src_path)
+    if os.path.exists(dst_path):
+        os.remove(dst_path)
+    os.rename(tmp_path, dst_path)
+
+
 def write_all_pages(dir='pages'):
     '''Assumes all pages are specified in YML'''
 
@@ -391,7 +424,7 @@ def create_index():
     f = open(src_path, 'w')
     f.write(r)
     f.close()
-    
+
 if __name__ == '__main__':
     # No arguments: run all
     if len(sys.argv) == 1:
@@ -400,6 +433,7 @@ if __name__ == '__main__':
 
     else:
         # LISTENING FEATURE IN DEVELOPMENT. BE CAREFUL WHEN USING. 
+
         if sys.argv[1] == "listen":
             # Obtain the file paths for all markdown files.
             # We will be looking to see if the modification time changes to signal an update
@@ -439,18 +473,8 @@ if __name__ == '__main__':
                             find_paths = glob.glob(yml_path)
                             if len(find_paths) != 0:
                                 print(f"Updating: {assignment_name}")
-                                # Delete the HTML folder so we can write a new one
-                                assignment_folder = DST_FOLDER+"/"+assignment_name
-                                if os.path.exists(assignment_folder):
-                                    delete_folder(assignment_folder)
-                                print(f"Deleted index.html: {assignment_name}")
-                                # Write the new HTML folder
-                                write_page(find_paths[0])
-                                print(f"Created new for index.html: {find_paths[0]}")
-                                # Open file in new tab. (This is the only thing available in base python)
-                                url = "file://"+os.path.abspath(os.path.join("docs",assignment_name,"index.html"))
-                                print(f"Opening in new tab: {url}")
-                                webbrowser.open("file://"+url, new=0)
+                                # Update the new HTML folder
+                                update_page(find_paths[0])
                                 print("Finished Updating")
                 except KeyboardInterrupt:
                     print("Finished Listening")
