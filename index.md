@@ -37,11 +37,18 @@ Each exam linked here lists the conditions under which the exam was given, inclu
     </tr>
     <tr>
       <th scope="row">Winter 2022</th>
-      <td><a href='wi22-midterm/index.html'>Midterm</a></td>
+      <td><a href='wi22-midterm/index.html'>Midterm</a>
+          <br>
+          <a href='wi22-final/index.html'>Final</a>
+      </td>
     </tr>
     <tr>
       <th scope="row">Fall 2021</th>
       <td><a href='fa21-midterm/index.html'>Midterm</a></td>
+    </tr>
+    <tr>
+      <th scope="row">Winter 2021</th>
+      <td><a href='wi21-midterm/index.html'>Midterm</a></td>
     </tr>
   </tbody>
 </table>
