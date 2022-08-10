@@ -15,3 +15,5 @@ Each row in `plum` corresponds to a single game. For each game, we have:
 - `'PTS'` (`int`), the number of points Kelsey Plum scored in the game
 - `'AST'` (`int`), the number of assists (passes) Kelsey Plum made in the game
 - `'TOV'` (`int`), the number of turnovers Kelsey Plum made in the game (a turnover is when you lose the ball – turnovers are bad!)
+
+**Tip:** Open this page in another tab, so that it is easy to refer to this data description as you work through the exam.

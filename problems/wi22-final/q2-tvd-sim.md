@@ -78,8 +78,9 @@ for player in other_players:
 Let's try and understand the code provided to us. It appears that we're looping over the names of all other players, each time computing the TVD between Kelsey Plum's shot distribution and that player's shot distribution. If the TVD calculated in an iteration of the `for`-loop (`player_tvd`) is less than the previous lowest TVD (`lowest_tvd_so_far`), the current player (`player`) is now the most "similar" to Kelsey Plum, and so we store their TVD and name (in `most_sim_player`).
 
 Before the `for`-loop, we haven't looked at any other players, so we don't have values to store in `most_sim_player` and `lowest_tvd_so_far`. On the first iteration of the `for`-loop, both of these values need to be updated to reflect Kelsey Plum's similarity with the first player in `other_players` – this is because, if we've only looked at one player, that player is the most similar to Kelsey Plum. `most_sim_player` is already initialized as an empty string, and we will specify how to "update" `most_sim_player` in blank (c). What we need to do here is pick a value of `lowest_tvd_so_far` that we can **guarantee** will be updated on the first iteration of the `for`-loop. Recall, TVDs range from 0 to 1, with 0 meaning "most similar" and 1 meaning "most different". This means that no matter what, the TVD between Kelsey Plum's distribution and the first player's distribution will be less than 1*, and so if we initialize `lowest_tvd_so_far` to 1 before the `for`-loop, we know it will be updated on the first iteration. 
-    - *It's possible that the TVD between Kelsey Plum's shot distribution and the first other player's shot distribution is equal to 1, rather than being less than 1. If that were to happen, our code would still generate the correct answer, but `lowest_tvd_so_far` and `most_sim_player` wouldn't be updated on the first iteration. Rather, they'd be updated on the first iteration where `player_tvd` is strictly less than 1. (We'd expect that the TVDs between all pairs of players are neither exactly 0 nor exactly 1, so this is not a practical issue.) To avoid this issue entirely, we could change `if player_tvd < lowest_tvd_so_far` to `if player_tvd <= lowest_tvd_so_far`, which would make sure that even if the first TVD is 1, both `lowest_tvd_so_far` and `most_sim_player` are updated on the first iteration.
-    - Note that we could have initialized `lowest_tvd_so_far` to a value larger than 1 as well. Suppose we initialized it to 55 (an arbitrary positive integer). On the first iteration of the `for`-loop, `player_tvd` will be less than 55, and so `lowest_tvd_so_far` will be updated.
+
+- It's possible that the TVD between Kelsey Plum's shot distribution and the first other player's shot distribution is equal to 1, rather than being less than 1. If that were to happen, our code would still generate the correct answer, but `lowest_tvd_so_far` and `most_sim_player` wouldn't be updated on the first iteration. Rather, they'd be updated on the first iteration where `player_tvd` is strictly less than 1. (We'd expect that the TVDs between all pairs of players are neither exactly 0 nor exactly 1, so this is not a practical issue.) To avoid this issue entirely, we could change `if player_tvd < lowest_tvd_so_far` to `if player_tvd <= lowest_tvd_so_far`, which would make sure that even if the first TVD is 1, both `lowest_tvd_so_far` and `most_sim_player` are updated on the first iteration.
+- Note that we could have initialized `lowest_tvd_so_far` to a value larger than 1 as well. Suppose we initialized it to 55 (an arbitrary positive integer). On the first iteration of the `for`-loop, `player_tvd` will be less than 55, and so `lowest_tvd_so_far` will be updated.
 
 Then, we need `other_players` to be an array containing the names of all players other than Kelsey Plum, whose name is stored at position 0 in `breakdown.columns`. We are told that there are 50 players total, i.e. that there are 50 columns in `breakdown`. We want to `take` the elements in `breakdown.columns` at positions 1, 2, 3, ..., 49 (the last element), and the call to `np.arange` that generates this sequence of positions is `np.arange(1, 50)`. (Remember, `np.arange(a, b)` does not include the second integer!)
 
@@ -174,12 +175,40 @@ The answer is True because of the Central Limit Theorem. Recall, the CLT states 
 
 The distribution we are drawing from is the one below.
 
-| Type | Points | Probability |
-| --- | --- | --- |
-| Layups | 2 | 0.3 |
-| Midrange | 2 | 0.3 |
-| Threes | 3 | 0.2 |
-| Free Throws | 1 | 0.2 |
+<center>
+<table class="table" style="width:60%">
+  <thead>
+    <tr>
+      <th scope="col">Type</th>
+      <th scope="col">Points</th>
+      <th scope="col">Probability</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">Layups</th>
+      <td>2</td>
+      <td>0.3</td>
+    </tr>
+    <tr>
+      <th scope="row">Midrange</th>
+      <td>2</td>
+      <td>0.3</td>
+    </tr>
+    <tr>
+      <th scope="row">Threes</th>
+      <td>3</td>
+      <td>0.2</td>
+    </tr>
+    <tr>
+      <th scope="row">Free Throws</th>
+      <td>1</td>
+      <td>0.2</td>
+    </tr>
+  </tbody>
+</table>
+</center>
+
 
 # END SOLUTION
 

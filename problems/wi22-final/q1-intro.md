@@ -209,8 +209,8 @@ What goes in blank (a)?
 
 To see this algebraically, let `modified = modify_series(plum.get('Won'))`. Then:
 
-$$31 + modified = \text{wins}$$
-$$ modified = \text{wins} - 31 = -(31 - \text{wins}) = -(\text{losses})$$
+$$31 + \text{modified} = \text{wins}$$
+$$ \text{modified} = \text{wins} - 31 = -(31 - \text{wins}) = -(\text{losses})$$
 
 The function `modified_series(s)` takes in a Series containing the wins and losses for each of Plum's team's games and needs to return the number of losses multiplied by -1. `s.sum()` returns the number of wins, and `(s == False).sum()` returns the number of losses. Then, `-(s == False).sum()` returns the number of losses multiplied by -1, as desired.
 
