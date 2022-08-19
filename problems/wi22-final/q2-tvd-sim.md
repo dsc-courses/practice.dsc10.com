@@ -77,7 +77,7 @@ for player in other_players:
 
 Let's try and understand the code provided to us. It appears that we're looping over the names of all other players, each time computing the TVD between Kelsey Plum's shot distribution and that player's shot distribution. If the TVD calculated in an iteration of the `for`-loop (`player_tvd`) is less than the previous lowest TVD (`lowest_tvd_so_far`), the current player (`player`) is now the most "similar" to Kelsey Plum, and so we store their TVD and name (in `most_sim_player`).
 
-Before the `for`-loop, we haven't looked at any other players, so we don't have values to store in `most_sim_player` and `lowest_tvd_so_far`. On the first iteration of the `for`-loop, both of these values need to be updated to reflect Kelsey Plum's similarity with the first player in `other_players` – this is because, if we've only looked at one player, that player is the most similar to Kelsey Plum. `most_sim_player` is already initialized as an empty string, and we will specify how to "update" `most_sim_player` in blank (c). What we need to do here is pick a value of `lowest_tvd_so_far` that we can **guarantee** will be updated on the first iteration of the `for`-loop. Recall, TVDs range from 0 to 1, with 0 meaning "most similar" and 1 meaning "most different". This means that no matter what, the TVD between Kelsey Plum's distribution and the first player's distribution will be less than 1*, and so if we initialize `lowest_tvd_so_far` to 1 before the `for`-loop, we know it will be updated on the first iteration. 
+Before the `for`-loop, we haven't looked at any other players, so we don't have values to store in `most_sim_player` and `lowest_tvd_so_far`. On the first iteration of the `for`-loop, both of these values need to be updated to reflect Kelsey Plum's similarity with the first player in `other_players`. This is because, if we've only looked at one player, that player is the most similar to Kelsey Plum. `most_sim_player` is already initialized as an empty string, and we will specify how to "update" `most_sim_player` in blank (c). For blank (a), we need to pick a value of `lowest_tvd_so_far` that we can **guarantee** will be updated on the first iteration of the `for`-loop. Recall, TVDs range from 0 to 1, with 0 meaning "most similar" and 1 meaning "most different". This means that no matter what, the TVD between Kelsey Plum's distribution and the first player's distribution will be less than 1*, and so if we initialize `lowest_tvd_so_far` to 1 before the `for`-loop, we know it will be updated on the first iteration. 
 
 - It's possible that the TVD between Kelsey Plum's shot distribution and the first other player's shot distribution is equal to 1, rather than being less than 1. If that were to happen, our code would still generate the correct answer, but `lowest_tvd_so_far` and `most_sim_player` wouldn't be updated on the first iteration. Rather, they'd be updated on the first iteration where `player_tvd` is strictly less than 1. (We'd expect that the TVDs between all pairs of players are neither exactly 0 nor exactly 1, so this is not a practical issue.) To avoid this issue entirely, we could change `if player_tvd < lowest_tvd_so_far` to `if player_tvd <= lowest_tvd_so_far`, which would make sure that even if the first TVD is 1, both `lowest_tvd_so_far` and `most_sim_player` are updated on the first iteration.
 - Note that we could have initialized `lowest_tvd_so_far` to a value larger than 1 as well. Suppose we initialized it to 55 (an arbitrary positive integer). On the first iteration of the `for`-loop, `player_tvd` will be less than 55, and so `lowest_tvd_so_far` will be updated.
@@ -111,7 +111,7 @@ Recall, in the solution to the first subpart of this problem, we calculated the 
 - Midrange: $|0.35 - 0.3| = 0.05$
 - Layups: $|0.25 - 0.3| = 0.05$
 
-The squared difference between the proportions of each category are computed by squaring the results in the list above (e.g. for Free Throws we'd have $(0.05 - 0.2)^2 = 0.15^2$). To find the maximum squared difference, then, all we need to do is find the largest of $0.15^2$, $0.15^2$, $0.05^2$, and $0.05^2$. Since $0.15 > 0.05$, we have that the maximum squared distance is $0.15^2 = 0.0225$, which rounds to $0.023$.
+The squared differences between the proportions of each category are computed by squaring the results in the list above (e.g. for Free Throws we'd have $(0.05 - 0.2)^2 = 0.15^2$). To find the maximum squared difference, then, all we need to do is find the largest of $0.15^2$, $0.15^2$, $0.05^2$, and $0.05^2$. Since $0.15 > 0.05$, we have that the maximum squared distance is $0.15^2 = 0.0225$, which rounds to $0.023$.
 
 # END SOLUTION
 
@@ -149,10 +149,11 @@ def simulate_points():
 **Answers:** `10`, `(shots * possible_points).sum()`
 
 To simulate the number of points Kelsey Plum scores in a single game, we need to:
+
 1. Simulate the number of shots she takes of each type (layups, midranges, threes, free throws).
 2. Using the simulated distribution in step 1, find the total number of points she scores – specifically, add 2 for every layup, 2 for every midrange, 3 for every three, and 1 for every free throw.
 
-To simulate the number of shots she takes of each type, we use `np.random.multinomial`. This is because each shot, independently of all other shots, has a 30\% chance of being a layup, a 30\% chance of being a midrange, and so on. What goes in blank (a) is the number of shots she is taking total; here, that is 10. `shots` will be an array of length 4 containing the number of shots of each type - for instance, `shots` may be `np.array([3, 4, 2, 1])`, which would mean she took 3 layups, 4 midranges, 2 threes, and 1 free throw.
+To simulate the number of shots she takes of each type, we use `np.random.multinomial`. This is because each shot, independently of all other shots, has a 30\% chance of being a layup, a 30\% chance of being a midrange, and so on. What goes in blank (a) is the number of shots she is taking in total; here, that is 10. `shots` will be an array of length 4 containing the number of shots of each type - for instance, `shots` may be `np.array([3, 4, 2, 1])`, which would mean she took 3 layups, 4 midranges, 2 threes, and 1 free throw.
 
 Now that we have `shots`, we need to factor in how many points each type of shot is worth. This can be accomplished by multiplying `shots` with `possible_points`, which was already defined for us. Using the example where `shots` is `np.array([3, 4, 2, 1])`, `shots * possible_points` evaluates to `np.array([6, 8, 6, 1])`, which would mean she scored 6 points from layups, 8 points from midranges, and so on. Then, to find the total number of points she scored, we need to compute the sum of this array, either using the `np.sum` function or `.sum()` method. As such, the two correct answers for blank (b) are `(shots * possible_points).sum()` and `np.sum(shots * possible_points)`.
 
@@ -164,8 +165,8 @@ Now that we have `shots`, we need to factor in how many points each type of shot
 
 True or False: If we call `simulate_points()` 10,000 times and plot a histogram of the results, the distribution will look roughly normal.
 
-1. True
-2. False
+( ) True
+( ) False
 
 # BEGIN SOLUTION
 

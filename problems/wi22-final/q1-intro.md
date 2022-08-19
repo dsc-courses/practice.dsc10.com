@@ -40,7 +40,7 @@ total_june = june_only.__(b)__
 
 2. `get('PTS').sum()`
 
-To find the total number of points Kelsey Plum scored in June, one approach is to first create a DataFrame with only the rows for June. All June `'Date'`s contain `'-06'` (since June is the 6th month), so `plum.get('Date').str.contains('-06-')` is a Series containing `True` only for the June rows and `june_only = plum[plum.get('Date').str.contains('-06-')]` is a DataFrame containing only the June rows.
+To find the total number of points Kelsey Plum scored in June, one approach is to first create a DataFrame with only the rows for June. During the month of June, the `'Date'` values contain `'-06-'` (since June is the 6th month), so `plum.get('Date').str.contains('-06-')` is a Series containing `True` only for the June rows and `june_only = plum[plum.get('Date').str.contains('-06-')]` is a DataFrame containing only the June rows.
 
 Then, all we need is the sum of the `'PTS'` column, which is given by `june_only.get('PTS').sum()`.
 
@@ -72,7 +72,7 @@ What does `unknown(3)` evaluate to?
 
 **Answer:** The number 3
 
-`plum.groupby('Opp').max()` finds the largest value in the `'Date'`, `'Home'`, `'Won'`, `'PTS'`, `'AST'`, and `'TOV'` columns for each unique `'Opp'` (independently for each column). `grouped = plum.groupby('Opp').max().get(['Date', 'PTS'])` keeps only the `'Date'` and `'PTS'` columns. Note that in `grouped`, the index is `'Date'`, the column we grouped on.
+`plum.groupby('Opp').max()` finds the largest value in the `'Date'`, `'Home'`, `'Won'`, `'PTS'`, `'AST'`, and `'TOV'` columns for each unique `'Opp'` (independently for each column). `grouped = plum.groupby('Opp').max().get(['Date', 'PTS'])` keeps only the `'Date'` and `'PTS'` columns. Note that in `grouped`, the index is `'Opp'`, the column we grouped on.
 
 When `grouped.reset_index()` is called, the index is switched back to the default of 0, 1, 2, 3, 4, and so on. Then, `grouped.reset_index().index` is an `Index` containing the numbers `[0, 1, 2, 3, 4, ...]`, and `np.array(grouped.reset_index().index)` is `np.array([0, 1, 2, 3, 4, ...])`. In this array, the number at position `i` is just `i`, so the number at position `df` is `df`. Here, `df` is the argument to `unknown`, and we were asked for the value of `unknown(3)`, so the correct answer is the number at position 3 in `np.array([0, 1, 2, 3, 4, ...])` which is 3.
 
@@ -141,7 +141,7 @@ How do the number of rows and columns in `home_won` compare to the number of row
 
 All that changed between `home_won` and `puzzle` is the aggregation method. The aggregation method has no influence on the number of rows in the output DataFrame, as there is still one row for each of the 4 unique combinations of `'Home'` and `'Won'`.
 
-However, `puzzle` has 7 columns, instead of 5. In the solution to the above subpart, we noticed that we could not use `.mean()` on the `'Date'` and `'Opp'` columns, since they contained strings. However, we can use `.count()` (since `.count()` just determines the number of unique values in each group), and so the `'Date'` and `'Opp'` columns are not "lost" when aggregating. Hence, `puzzle` has the same number of columns as `home_won`, plus 2.
+However, `puzzle` has 7 columns, instead of 5. In the solution to the above subpart, we noticed that we could not use `.mean()` on the `'Date'` and `'Opp'` columns, since they contained strings. However, we can use `.count()` (since `.count()` just determines the number of non-NA values in each group), and so the `'Date'` and `'Opp'` columns are not "lost" when aggregating. Hence, `puzzle` has 2 more columns than `home_won`.
 
 # END SOLUTION
 
@@ -205,7 +205,7 @@ What goes in blank (a)?
 
 **Answer:** `-(s == False).sum()`
 
-`n_wins` is equal to the number of wins that Plum's team had. Recall, her team played 31 games total. In order for `(31 + modify_series(plum.get('Won')))` to be equal to her team's number of wins, `modify_series(plum.get('Won'))` must be equal to her team's number of losses, multiplied by -1. 
+`n_wins` equals the number of wins that Plum's team had. Recall that her team played 31 games in total. In order for `(31 + modify_series(plum.get('Won')))` to be equal to her team's number of wins, `modify_series(plum.get('Won'))` must be equal to her team's number of losses, multiplied by -1. 
 
 To see this algebraically, let `modified = modify_series(plum.get('Won'))`. Then:
 

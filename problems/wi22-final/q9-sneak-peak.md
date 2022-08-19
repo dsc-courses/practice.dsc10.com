@@ -59,7 +59,7 @@ What is incorrect about Line 2? Select all that apply.
 
 The current implementation of Line 2 doesn't use the `resample` at all, when it should. If we were to leave Line 2 as it is, all of the values in `boot_means` would be identical (and equal to the mean of the `'PPG'` column in `small_season`).
 
-Option 1 is incorrect, since our bootstrapping procedure is independent of `season`. Option 3 is incorrect because `.mean()` is a valid Series method.
+Option 1 is incorrect since our bootstrapping procedure is independent of `season`. Option 3 is incorrect because `.mean()` is a valid Series method.
 
 # END SOLN
 
@@ -119,7 +119,7 @@ Here, **the "population" is `small_season`**, because that is the sample we're r
 
 The mean of `small_season` is 9, and so is the distribution of bootstrapped sample means. The standard deviation of `small_season` is 4, so the square root law, the standard deviation of the distribution of bootstrapped sample means is $\frac{4}{\sqrt{36}} = \frac{4}{6} = \frac{2}{3}$. 
 
-The answer now boils down to choosing the histogram that looks roughly normally distributed with a mean of 9 and a standard deviation of $\frac{2}{3}$. Options 1 and 4 can be ruled out right away, since their means seem to be smaller than 9. To decide between Options 2 and 3, we can use the inflection point rule, which states that in a normal distribution, the inflection points occur at one standard deviation above and one standard deviation below the mean. (An inflection point is when a curve changes from opening upwards to opening downwards.) See the picture below for more details.
+The answer now boils down to choosing the histogram that looks roughly normally distributed with a mean of 9 and a standard deviation of $\frac{2}{3}$. Options 1 and 4 can be ruled out right away since their means seem to be smaller than 9. To decide between Options 2 and 3, we can use the inflection point rule, which states that in a normal distribution, the inflection points occur at one standard deviation above and one standard deviation below the mean. (An inflection point is when a curve changes from opening upwards to opening downwards.) See the picture below for more details.
 
 <center><img src='../assets/images/wi22-final/inflection.jpeg' width=60%></center>
 
@@ -153,7 +153,7 @@ Select the most correct statement below.
 
 Normal-based confidence intervals are of the form $[\text{mean} - \text{something}, \text{mean} + \text{something}]$. In such confidence intervals, it is the case that the average of the left and right endpoints is exactly the mean of the distribution used to compute the interval.
 
-However, **the confidence interval we've created is not normal-based**, rather it is bootstrap-based! As such, we can't say that anything is "exactly" true; this rules out Options 1 and 3.
+However, **the confidence interval we've created is not normal-based**, rather it is bootstrap-based! As such, we can't say that anything is _exactly_ true; this rules out Options 1 and 3.
 
 Our 95% confidence interval was created by taking the middle 95% of bootstrapped sample means. The distribution of bootstrapped sample means is **roughly** normal, and the normal distribution is symmetric (the mean and median are both equal, and represent the "center" of the distribution). This means that the middle of our 95% confidence interval should be roughly equal to the mean of the distribution of bootstrapped sample means. This implies that Option 4 is correct; the difference between Options 2 and 4 is that Option 4 uses `small_season`, which is the sample we bootstrapped from, while Option 2 uses `season`, which was not accessed at all in our bootstrapping procedure.
 
@@ -179,7 +179,7 @@ In a normal distribution, roughly 95% of values are within 2 standard deviations
 
 So, our normal-based 95% confidence interval is computed as follows:
 
-$$\begin{align*} &[\text{mean of sample} - 2 \cdot \text{SD of distribution of sample means}, \text{mean of sample} + 2 \cdot \text{SD of distribution of sample means}] \\ &= [9 - 2 \cdot \frac{4}{\sqrt{36}}, 9 + 2 \cdot \frac{4}{\sqrt{36}}] \\ &= [9 - \frac{4}{3}, 9 + \frac{4}{3}] \\ &\approx \boxed{[7.667, 10.333]} \end{align*}$$
+$$\begin{aligned} &[\text{mean of sample} - 2 \cdot \text{SD of distribution of sample means}, \text{mean of sample} + 2 \cdot \text{SD of distribution of sample means}] \\ &= [9 - 2 \cdot \frac{4}{\sqrt{36}}, 9 + 2 \cdot \frac{4}{\sqrt{36}}] \\ &= [9 - \frac{4}{3}, 9 + \frac{4}{3}] \\ &\approx \boxed{[7.667, 10.333]} \end{aligned}$$
 
 # END SOLN
 

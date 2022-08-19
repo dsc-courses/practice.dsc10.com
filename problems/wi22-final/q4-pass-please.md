@@ -22,7 +22,7 @@ observed_diff = diff_in_group_means(plum, __(a)__, __(b)__)
 
 # BEGIN SOLN
 
-**Answers:** `'WON'`, `'Ast'`
+**Answers:** `'Won'`, `'AST'`
 
 To compute the number of assists Kelsey Plum averages in winning and losing games, we need to group by `'Won'`. Once doing so, and using the `.mean()` aggregation method, we need to access elements in the `'AST'` column.
 
@@ -98,7 +98,7 @@ First, we should note that the area to the left of the red line (a quarter) is t
 
 Let's first rule out the first two options.
 
-- **Option 1:** This option states that the probability that the null hypothesis (that the number of assists she makes in winning and losing games comes from the same distribution) is true is roughly a quarter. However, the p-value **is not** the probability that the null hypothesis is true.
+- **Option 1:** This option states that the probability that the null hypothesis (the number of assists she makes in winning and losing games comes from the same distribution) is true is roughly a quarter. However, the p-value **is not** the probability that the null hypothesis is true.
 - **Option 2:** The significance level is the formal name for the p-value "cutoff" that we specify in our hypothesis test. There is no cutoff mentioned in the problem. The _observed_ significance level is another name for the p-value, but Option 2 did not contain the word _observed_.
 
 Now, the only difference between Options 3 and 4 is the inclusion of "at least" in Option 3. Remember, to compute a p-value we must compute the probability of observing something as **or more** extreme than the observed, under the null. The "or more" corresponds to "at least" in Option 3. As such, Option 3 is the correct choice.

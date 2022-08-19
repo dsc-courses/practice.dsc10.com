@@ -54,7 +54,7 @@ Suppose, **throughout this question**, that the mean number of turnovers per gam
 
 **Answer:** 1
 
-The median of a distribution is the value that is "half-way" through the distribution, i.e. the value such that half of the values in the distribution are larger than it and half the values in the distribution are smaller than it. 
+The median of a distribution is the value that is "halfway" through the distribution, i.e. the value such that half of the values in the distribution are larger than it and half the values in the distribution are smaller than it. 
 
 Visually, we're looking for the location on the $x$-axis where we can draw a vertical line that splits the area of the histogram in half. While it's impossible to tell the exact median of the distribution, since we don't know how the values are distributed within the bars, we can get pretty close by using this principle.
 
@@ -88,7 +88,7 @@ Substituting the information we know into the above equation gives us:
 
 $$3 = \frac{3.5 - 1.25}{\text{SD of }x}$$
 
-In order to convert future values from original units to standard units, we'll need to know $\text{SD of }x$, which we don't currently but can obtain by re-arranging the above equation. Doing so yields
+In order to convert future values from original units to standard units, we'll need to know $\text{SD of }x$, which we don't currently but can obtain by rearranging the above equation. Doing so yields
 
 $$\text{SD of }x = \frac{3.5-1.25}{3} = \frac{2.25}{3} = 0.75$$
 
@@ -96,7 +96,7 @@ Now, let's look at the second line we're given: _In standard units, Sami Whitcom
 
 We have all the information we need to convert Sami Whitcomb's turnovers per game from standard units to original units! Plugging in the values we know gives us:
 
-$$\begin{align*} x_{\text{su}} &= \frac{x - \text{mean of }x}{\text{SD of }x} \\ -1 &= \frac{x - 1.25}{0.75} \\ -0.75 &= x - 1.25 \\ 1.25 - 0.75 &= x \\ x &= \boxed{0.5} \end{align*}$$
+$$\begin{aligned} x_{\text{su}} &= \frac{x - \text{mean of }x}{\text{SD of }x} \\ -1 &= \frac{x - 1.25}{0.75} \\ -0.75 &= x - 1.25 \\ 1.25 - 0.75 &= x \\ x &= \boxed{0.5} \end{aligned}$$
 
 Thus, in original units, Sami Whitcomb averaged 0.5 turnovers per game.
 
@@ -114,7 +114,7 @@ What is the **smallest** possible number of turnovers per game, in **standard un
 
 The smallest possible number of turnovers per game in original units is 0 (which a player would have if they never had a turnover – that would mean they're really good!). To find the smallest possible turnovers per game in standard units, all we need to do is convert 0 from original units to standard units. This will involve our work from the previous subpart.
 
-$$\begin{align*} x_{\text{su}} &= \frac{x - \text{mean of }x}{\text{SD of }x} \\ &= \frac{0 - 1.25}{0.75} \\ &= -\frac{1.25}{0.75} \\ &= -\frac{5}{3} = \boxed{-1.667} \end{align*}$$
+$$\begin{aligned} x_{\text{su}} &= \frac{x - \text{mean of }x}{\text{SD of }x} \\ &= \frac{0 - 1.25}{0.75} \\ &= -\frac{1.25}{0.75} \\ &= -\frac{5}{3} = \boxed{-1.667} \end{aligned}$$
 
 # END SOLN
 

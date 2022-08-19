@@ -219,7 +219,7 @@ The line `sim = np.random.multinomial(plum.shape[0], [0.6, 0.4])` assigns `sim` 
 - The numbers are randomly chosen each time the line is run
 - The numbers always add up to 31
 
-We need to select an option that also creates such an array (or list, in this case). Note that `won = plum.get('Won')`, a line that is common to all four options, assigns `won` to a Series with 31 elements, each of which are either `True` or `False` (corresponding to the wins and losses that the Las Vegas Aces earned in their season).
+We need to select an option that also creates such an array (or list, in this case). Note that `won = plum.get('Won')`, a line that is common to all four options, assigns `won` to a Series with 31 elements, each of which is either `True` or `False` (corresponding to the wins and losses that the Las Vegas Aces earned in their season).
 
 Let's take a look at the line `np.count_nonzero(np.random.choice(won, 31, replace=True))`, common to the first two options. Here, we are randomly selecting 31 elements from the Series `won`, with replacement, and counting the number of `True`s (since with `np.count_nonzero`, `False` is counted as `0`). Since we are making our selections with replacement, each selected element has a $\frac{22}{31}$ chance of being `True` and a $\frac{9}{31}$ chance of being `False` (since `won` has 22 `True`s and 9 `False`s). As such, `np.count_nonzero(np.random.choice(won, 31, replace=True))` can be any integer between 0 and 31, inclusive.
 
@@ -227,14 +227,14 @@ Note that if we select without replacement (`replace=False`) as Option 3 would l
 
 With this all in mind, let's look at the four options.
 
-- **Option 1:** Here, each time we call `with_rep()`, we get a random number between 0 and 31 (inclusive), corresponding to the (random) number of simulated wins. Each  Here, we are assigning `sim` to be `[with_rep(), 31 - with_rep()]`. However, it's not guaranteed that the two calls to `with_rep` return the same number of wins, so it's not guaranteed that `sum(sim)` is 31. Option 1, then, is invalid.
+- **Option 1:** Here, each time we call `with_rep()`, we get a random number between 0 and 31 (inclusive), corresponding to the (random) number of simulated wins. Then, we are assigning `sim` to be `[with_rep(), 31 - with_rep()]`. However, it's not guaranteed that the two calls to `with_rep` return the same number of wins, so it's not guaranteed that `sum(sim)` is 31. Option 1, then, is invalid.
 - **Option 2:** Correct, as we'll explain below.
 - **Option 3:** As mentioned above, Option 3 uses `replace=False`, and so `without_rep()` is always 22 and `sim` is always `[22, 9]`. The outcome is not random.
 - **Option 4:** Here, `perm()` always returns the same number, 22. This is because all we are doing is shuffling the entries in the `won` Series, but we aren't changing the number of wins (`True`s) and losses (`False`s). As a result, `w` is always 22 and `sim` is always `[22, 9]`, making this non-random, just like in Option 3.
 
 By the process of elimination, **Option 2** must be the correct choice. It is similar to Option 1, but it only calls `with_rep` once and "saves" the result to the name `w`. As a result, `w` is random, and `w` and `31 - w` are guaranteed to sum to 31.
 
-**⚠️ Note:** It turns out that none of these options run an actually valid hypothesis test, since the null hypothesis was that the Las Vegas Aces win 60% of their games but none of these simulation strategies use 60% anywhere (instead, they use the observation that the Aces actually won 22 games). However, this subpart was about the sampling strategies themselves, so this mistake from our end doesn't invalidate the problem.
+**⚠️ Note:** It turns out that none of these options run a valid hypothesis test, since the null hypothesis was that the Las Vegas Aces win 60% of their games but none of these simulation strategies use 60% anywhere (instead, they use the observation that the Aces actually won 22 games). However, this subpart was about the sampling strategies themselves, so this mistake from our end doesn't invalidate the problem.
 
 # END SOLN
 
@@ -256,7 +256,7 @@ In which of the four options is it **guaranteed** that `sum(sim)` evaluates to 3
 **Answers:** Options 2, 3, and 4
 
 - **Option 1:** As explained in the solution to the previous subpart, if the two calls to `with_rep` evaluate to different numbers (entirely possible, since it is random), then `sum(sim)` will not be 31.
-- **Option 2:** Here, `sim` is defined in terms of some `w`. Specifically, `w` is some number between 0 and 31 and - `sim` is `[w, 31 - w]`, so `sum(sim)` is the same as `w + 31 - w`, which is always 31.
+- **Option 2:** Here, `sim` is defined in terms of some `w`. Specifically, `w` is some number between 0 and 31 and `sim` is `[w, 31 - w]`, so `sum(sim)` is the same as `w + 31 - w`, which is always 31.
 - **Option 3:** In Option 3, `sim` is always `[22, 9]`, and `sum(sim)` is always 31.
 - **Option 4:** Same as Option 3.
 
