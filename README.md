@@ -17,10 +17,10 @@ In translating from Latex to Markdown, there are a few easy find/replace things 
 \texttt{ --> `
 \textbf{ --> **
 \textit{ --> *
-\bubble --> ()
-\correctbubble --> ()
-\squarebubble --> []
-\correctsquarebubble --> []
+\bubble --> ( )
+\correctbubble --> ( )
+\squarebubble --> [ ]
+\correctsquarebubble --> [ ]
 \begin{subprobset} -->
 \end{subprobset} -->
 \begin{subprob} --> # BEGIN SUBPROB
@@ -32,9 +32,11 @@ In translating from Latex to Markdown, there are a few easy find/replace things 
 \bigskip -->
 \noindent --> 
 
+Note: ( ) and [ ] need a space between the brackets. There should not be blank lines between options.
+
 To explain up-front:
 - All exams are individual (collaboration on exams is never allowed).
-- What () and [] mean. In their absence, students needed to write out code by hand.
+- What ( ) and [ ] mean. In their absence, students needed to write out code by hand.
 - In-person means on-paper.
 - Think of select-all questions as a sequence of true-false questions. Partial credit for these questions was assigned accordingly.
 - When taking an exam for practice, we recommend having a copy of the DSC 10 reference sheet open in another tab, as well as a second copy of the exam, so you can access the data descriptions.
