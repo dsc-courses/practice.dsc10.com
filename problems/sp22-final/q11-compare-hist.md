@@ -14,7 +14,7 @@ For how many days did IKEA sell between 20 (inclusive) and 30 (exclusive) KURA r
 
 Remember that for a density histogram, the proportion of data that falls in a certain range is the area of the histogram between those bounds. So to find the proportion of days for which IKEA sold between 20 and 30 KURA reversible beds, we need to find the total area of the bins $[20, 25)$ and $[25, 30)$. Note that the left endpoint of each bin is included and the right bin is not, which works perfectly with needing to include 20 and exclude 30.
 
-The bin $[20, 25)$ has a width of 5 and a height of about 0.047. The bin  $[25, 30)$ has a width of 5 and a height of about 0.053. The heights are approximate by eye, but it appears that the $[20, 25)$ bin is below the horizontal line at 0.05 by the same amount which the $[25, 30)$ is above that line. Noticing this spares us some annoying arithmetic and we can calculate the total area as 
+The bin $[20, 25)$ has a width of 5 and a height of about 0.047. The bin $[25, 30)$ has a width of 5 and a height of about 0.053. The heights are approximate by eye, but it appears that the $[20, 25)$ bin is below the horizontal line at 0.05 by the same amount which the $[25, 30)$ is above that line. Noticing this spares us some annoying arithmetic and we can calculate the total area as 
 
 $$\begin{aligned} 
         \text{total area} &= 5*0.047 + 5*0.053 \\ 
@@ -72,11 +72,11 @@ $$\begin{aligned}
 \end{aligned}$$
 This is a proportion of 0.4 out of 30 days total, which corresponds to **12 days**.
 
-2. To find the number of days for which IKEA sold at less than 25 ANTILOP highchairs, we need to find the total area of the leftmost four bins of the ANTILOP distribution. We can do this in the same way as before, but to avoid the math, we can also use the information we've already figured out to make this easier. In Problem 11.1, we learned that the KURA distribution included 15 days total in the two bins $[20, 25)$ and $[25, 30)$. Since the $[25, 30)$ bin is just slightly taller than the $[20, 25)$ bin, these 15 days must be split as 7 in the  $[20, 25)$ bin and 8 in the $[25, 30)$ bin. Once we know the tallest bin corresponds to 8 days, we can figure out the number of days corresponding to every other bin just by eye. Anything that's half as tall as the tallest bin, for example, represents 4 days. The red lines on the histogram below each represent 1 day, so we can easily count the number of days in each bin.
+1. To find the number of days for which IKEA sold less than 25 ANTILOP highchairs, we need to find the total area of the leftmost four bins of the ANTILOP distribution. We can do this in the same way as before, but to avoid the math, we can also use the information we've already figured out to make this easier. In Problem 11.1, we learned that the KURA distribution included 15 days total in the two bins $[20, 25)$ and $[25, 30)$. Since the $[25, 30)$ bin is just slightly taller than the $[20, 25)$ bin, these 15 days must be split as 7 in the  $[20, 25)$ bin and 8 in the $[25, 30)$ bin. Once we know the tallest bin corresponds to 8 days, we can figure out the number of days corresponding to every other bin just by eye. Anything that's half as tall as the tallest bin, for example, represents 4 days. The red lines on the histogram below each represent 1 day, so we can easily count the number of days in each bin.
 <center><img src='../assets/images/sp22-final/overlaidhist-red.png' width=40%></center>
-Therefore the number of days for which IKEA sold less than 25 ANTILOP highchairs is $0 + 3 + 0 + 5$, summing up the number of days in the ANTILOP distribution in the first four bins. All together, that's **8 days**.
+Therefore summing up the number of days from the 4 bins for which IKEA sold less than 25 ANTILOP highchairs gives $0 + 3 + 0 + 5 = 8$. Altogether, that's **8 days**.
 
-3. To find the number of days for which IKEA sold between 10 20 KURA reversible beds, we simply need to add the number of days in the $[10, 15)$ and $[15, 20)$ bins of the KURA distribution. Using the histogram with the red lines makes this easy to calculate as $4+5$, or **9 days**.
+1. To find the number of days for which IKEA sold between 10 and 20 KURA reversible beds, we simply need to add the number of days in the $[10, 15)$ and $[15, 20)$ bins of the KURA distribution. Using the histogram with the red lines makes this easy to calculate as $4+5$, or **9 days**.
 
 Therefore since 8<9<12, the correct answer is (2)<(3)<(1).
 

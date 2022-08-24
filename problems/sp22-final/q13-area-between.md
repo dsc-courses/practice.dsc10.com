@@ -52,7 +52,7 @@ As we saw in Problem 12.2, the point on the left half of the armchair curve that
 
 <center><img src='../assets/images/sp22-final/armchair-between-3.png' width=80%></center>
 
-Therefore the total of the blue and yellow areas the same as the area under one standard normal curve, which is 1.
+Therefore the total of the blue and yellow areas is the same as the area under one standard normal curve, which is 1.
 
 # END SOLUTION
 

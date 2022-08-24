@@ -21,7 +21,7 @@ We want to compare this to the actual distribution of IKEAs across states, which
 $$(3/52, 1/52, 0/52, 1/52, \dots)$$
 We can interpret each entry as the number of IKEAs in a state divided by the total number of IKEA locations. Note that this has nothing to do with the average number of IKEA locations in each state, which is 52/50.
 
-The way we take the TVD of two distributions is to subtract the distributions, take absolute value, sum up the values, and divide by 2. Since the entries represent states, this process aligns with the given answer.
+The way we take the TVD of two distributions is to subtract the distributions, take the absolute value, sum up the values, and divide by 2. Since the entries represent states, this process aligns with the given answer.
 
 # END SOLUTION
 

@@ -58,9 +58,10 @@ The Central Limit Theorem tells us about the distribution of the sample mean pur
 
 1. It is roughly normally distributed.
 2. Its mean is about 150 dollars, the same as the mean of the employee's sample.
-3. Its standard deviation is about $\frac{25}{\sqrt{40000}} = \frac{25}{200} = \frac{1}{8}$.
+3. Its standard deviation is about $\frac{\text{sample standard deviation}}{\sqrt{\text{sample size}}}=\frac{25}{\sqrt{40000}} = \frac{25}{200} = \frac{1}{8}$.
 
 Since the distribution of the sample mean is roughly normal, we can find a 95% confidence interval for the sample mean by stepping out two standard deviations from the center, using the fact that 95% of the area of a normal distribution falls within 2 standard deviations of the mean. Therefore the endpoints of the CLT-based 95% confidence interval for the mean IKEA purchase amount are
+
 - $150 - 2*\frac{1}{8} = 149.75$ dollars, and
 - $150 + 2*\frac{1}{8} = 150.25$ dollars.
 

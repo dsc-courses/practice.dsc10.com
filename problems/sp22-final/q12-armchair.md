@@ -54,8 +54,10 @@ What goes in blank (b)?
 **Answer: ** `1+scipy.stats.norm.cdf(z-8)`
 
 This blank should contain the value we want to return when `z` is in the right half of the armchair curve. In this case, the area under the armchair curve to the left of `z` is the sum of two areas:
+
 1. the area under the entire left half of the armchair curve, which is 1, and
 2. the area under the portion of the right half of the armchair curve that falls to the left of `z`. 
+
 Since the right half of the armchair curve is just a standard normal curve that's been shifted to the right by 8 units, the area under that normal curve to the left of `z` is the same as the area to the left of `z-8` on the standard normal curve that's centered at 0. Adding the portion from the left half and the right half of the armchair curve gives `1+scipy.stats.norm.cdf(z-8)`.
 
 For example, if we want to find the area under the armchair curve to the left of 9, we need to total the yellow and blue areas in the image below. 

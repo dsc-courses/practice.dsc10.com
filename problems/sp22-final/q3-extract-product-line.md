@@ -22,7 +22,7 @@ What are the input and output types of the `extract_product_line` function?
 
 **Answer: ** takes a string as input, returns a string
 
-To use the Series method `.apply`, we first need a Series, containing values of any type. We pass in the name of a function to `.apply` and essentially, `.apply` calls the given function on each input of the Series, producing a Series with the resulting outputs of those function calls. In this case, `.apply(extract_product_line)` is called on the Series `ikea.get('product')`, which contains string values. This means the function `extract_product_line` must take strings as inputs. We're told that the code assigns a new column to the `ikea` DataFrame containing the product line associated with each product, and we know that the product line is a string, as it's the first word of the product name. This means the function `extract_product_line` must output a string. 
+To use the Series method `.apply`, we first need a Series, containing values of any type. We pass in the name of a function to `.apply` and essentially, `.apply` calls the given function on each value of the Series, producing a Series with the resulting outputs of those function calls. In this case, `.apply(extract_product_line)` is called on the Series `ikea.get('product')`, which contains string values. This means the function `extract_product_line` must take strings as inputs. We're told that the code assigns a new column to the `ikea` DataFrame containing the product line associated with each product, and we know that the product line is a string, as it's the first word of the product name. This means the function `extract_product_line` must output a string. 
 
 # END SOLUTION
 
