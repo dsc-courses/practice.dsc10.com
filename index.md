@@ -33,7 +33,10 @@ Each exam linked here lists the conditions under which the exam was given, inclu
   <tbody>
     <tr>
       <th scope="row">Spring 2022</th>
-      <td><a href='sp22-midterm/index.html'>Midterm</a></td>
+      <td><a href='sp22-midterm/index.html'>Midterm</a>
+          <br>
+          <a href='sp22-final/index.html'>Final</a>
+      </td>
     </tr>
     <tr>
       <th scope="row">Winter 2022</th>
