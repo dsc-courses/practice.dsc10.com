@@ -15,7 +15,7 @@ For this scenario, which of the following most likely describes the slope of the
 
 **Answer: ** more than 1
 
-solution here
+The slope of a line represents the change in $y$ for each change of 1 in $x$. Therefore, the slope of the regression line is the amount we'd predict the sale price to increase when the production cost of an item increases by one dollar. In other words, it's the sale price per dollar of production cost. This is almost certainy more than 1, otherwise the company would not make a profit. We'd expect that for any company, the sale price of an item should exceed the production cost, meaning the slope of the regression line has a value greater than one.
 
 # END SOLUTION
 
@@ -34,7 +34,7 @@ For this scenario, which of the following most likely describes the slope of the
 
 **Answer: ** between 0 and 1, exclusive
 
-solution here
+When both variables are measured in standard units, the slope of the regression line is the correlation coefficient. We know the correlation coefficient is always between 0 and 1, and almost certainly not equal to either of these.
 
 # END SOLUTION
 
@@ -57,7 +57,7 @@ What is being represented on the horizontal axis of the residual plot?
 
 **Answer: ** actual production cost
 
-solution here
+Residual plots show $x$ on the horizontal axis and the residuals, or differences between actual $y$ values and predicted $y$ values, on the vertical axis. Therefore, the horizontal axis here shows the production cost. Note that we are not predicting production costs at all, so production cost means the *actual* cost to produce a product.
 
 # END SOLUTION
 
@@ -78,7 +78,19 @@ Which of the following is a correct conclusion based on this residual plot? Sele
 
 **Answer: ** It would be better to fit a nonlinear curve.
 
-solution here
+Let's go through each answer choice.
+
+- The correlation between production cost and sale price could be very strong. After all, we are able to predict the sale price within ten dollars almost all the time, since residuals are almost all between -10 and 10. 
+
+- It would be better to fit a nonlinear curve because the residuals show a pattern. Reading from left to right, they go from mostly negative to mostly positive to mostly negative again. This suggestions that a curve with more curvature might be a better fit for our data.
+
+- Our predictions are typically within ten dollars of the actual sale price, and this is consistent throughout. We see this on the residual plot by a fairly even vertical spread of dots as we scan from left to right. This data is not heteroscedastic.
+
+- We can do regression on a dataset of any size, even a very small data set. Further, this dataset is decently large, since there are a good number of points in the residual plot. 
+
+- The regression line is **always** the best-fitting line for any dataset. There may be other curves that are better fits than lines, but when we restrict to lines, the best of the bunch is the regression line.
+
+- We have no way of knowing how representative our data set is of the population. This is not something we can discern from a residual plot because such a plot contains no information about the population from which the data was drawn.
 
 # END SOLUTION
 
