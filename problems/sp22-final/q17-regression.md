@@ -9,7 +9,7 @@ The NORDMELA 4-drawer dresser sells for 200 dollars. How much do we predict its 
 
 **Answer: ** 92 dollars
 
-We first use the formulas for the slope, $m$, and intercept, $b$, of the regression to find the equation of the regression line. For our application, $x$ is the price and $y$ is the assembly cost since we want to predict the assembly cost based on price.
+We first use the formulas for the slope, $m$, and intercept, $b$, of the regression line to find the equation. For our application, $x$ is the price and $y$ is the assembly cost since we want to predict the assembly cost based on price.
 
 $$\begin{aligned} 
         m &= r*\frac{\text{SD of }y}{\text{SD of }x} \\
