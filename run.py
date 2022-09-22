@@ -26,7 +26,7 @@ def delete_folder(path):
 
 def format_assignment_name(name):
     '''Takes in a string like 'fa21-final' and returns 'Fall 2021 Final Exam
-       Will need to update for discussions at some point
+       Will need to update for discussions at some point <- lol these comments are out of date
     '''
     quarter, type = name.split('-')
     season, year = quarter[:2], quarter[2:]
@@ -36,8 +36,22 @@ def format_assignment_name(name):
     return season + ' ' + year + ' ' + type.title() + ' Exam'
 
 def format_md_path(name):
-    path = os.path.join('problems', f'{name}.md')
-    return path
+    '''Example behavior is shown below.
+    >>> format_md_path('problems/sp22-midterm/q7-merge')
+    'problems/sp22-midterm/q7-merge.md'
+
+    # new use case for discussion (when there's problem-specific context)
+    >>> format_md_path('problems/sp22-midterm/q7-merge, problems/sp22-midterm/data-info-for-discussion')
+    'problems/sp22-midterm/q7-merge.md, problems/sp22-midterm/data-info-for-discussion.md'
+    
+    '''
+    if ',' not in name:
+        return os.path.join('problems', f'{name}.md')
+    else:
+        names = name.split(', ')
+        if len(names) > 2:
+            raise Exception(f'Provided more than 2 files in a .yml file. For debugging: {name}')
+        return format_md_path(names[0]) + ', ' + format_md_path(names[1])
 
 def format_md_paths(names):
     paths = [format_md_path(name) for name in names]
@@ -49,21 +63,24 @@ def read_html_config(path):
     f.close()
     return r + '\n\n'
 
-def create_top_info(params):
+def create_top_info(params, is_discussion=False):
+
+    inst_info = f"**Instructor(s):** {params['instructors']}" if not is_discussion else ''
+
     return f'''
 [&#8592; return to practice.dsc10.com](../index.html)
 
 ---
 
-**Instructor(s):** {params['instructors']}
+{inst_info}
 
 {params['context']}
-
-{'_Note: Solutions are currently hidden, and will be made visible at a later date._' if not params['show_solution'] else ''}
 
 ---
 
 '''
+# {'_Note: Solutions are currently hidden, and will be made visible at a later date._' if not params['show_solution'] else ''}
+
 
 def stitch(files, show_solution, toc=False):
     '''Stitches individual .md files into a longer .md string with problems'''
@@ -75,7 +92,18 @@ def stitch(files, show_solution, toc=False):
         pass
 
     for i, path in enumerate(paths):
-        r = open(path, 'r').read()
+        # This case only happens for discussion worksheets, when we provide a question along with a "data info" sheet just for that question
+        if ', ' in path:
+            question_path, info_path = path.split(', ')
+            question_text = open(question_path, 'r').read()
+            info_text = open(info_path, 'r').read()
+
+            # Need to place the info text at the start of the question text
+            # So will replace the # BEGIN PROB in the question text with # BEGIN PROB {context}
+            r = question_text.replace("# BEGIN PROB", f"# BEGIN PROB {info_text} <br><br>")
+        else:
+            r = open(path, 'r').read()
+
         q_out = process_problem(problem_str=r, problem_num=i+1, show_solution=show_solution)
         q_out += '\n\n\n---\n\n\n'
 
@@ -268,8 +296,8 @@ def process_problem(problem_str, problem_num, show_solution):
 
 # ---
 
-def process_page(path):
-    '''Takes in a path to a YML file and returns a MD file with everything.'''
+def process_page(path, is_discussion=False):
+    '''Takes in a path to a YML file and returns a MD file with everything, along with the title of the page (which we access through params). Defaults to processing exams.'''
     r_file = open(path, 'r')
     r = r_file.read()
     r_file.close()
@@ -279,7 +307,7 @@ def process_page(path):
         params['show_solution'] = True
     
     out = read_html_config('include-head.html')
-    out += create_top_info(params)
+    out += create_top_info(params, is_discussion=is_discussion)
 
     # Add information for the entire exam
     if 'data_info' in params.keys():
@@ -289,7 +317,6 @@ def process_page(path):
         info_file.close()
 
         out += info + '\n\n --- \n\n'
-        
 
     out += stitch(params['problems'], params['show_solution'])
 
@@ -305,9 +332,14 @@ def process_page(path):
     
 '''
 
+    if 'title' in params.keys():
+        title = params['title']
+    else:
+        title = None
+
     # TODO: easily extract all files for a single final exam
     # TODO: format PDFs for printing: https://stackoverflow.com/problems/1664049/can-i-force-a-page-break-in-html-printing
-    return out
+    return out, title
 
 def write_page(path):
     '''Takes in a path to a YML file and writes the MD file, runs pandoc, deletes the MD file'''
@@ -315,8 +347,10 @@ def write_page(path):
     sep = '/' if '/' in path else '\\'
     assignment_name = path.split(sep)[-1].replace('.yml', '')
 
+    is_discussion = 'disc/' in path
+
     # Generate the Markdown
-    page = process_page(path)
+    page, title = process_page(path, is_discussion=is_discussion)
 
     # Write the Markdown
     open_path = os.path.join(DST_FOLDER, f'{assignment_name}.md')
@@ -326,9 +360,14 @@ def write_page(path):
 
     # Convert to HTML
     dst_folder_path = os.path.join(DST_FOLDER, assignment_name)
-    os.mkdir(dst_folder_path) # make folder
 
-    title = format_assignment_name(assignment_name)
+    if not os.path.exists(dst_folder_path):
+        os.mkdir(dst_folder_path) # make folder
+
+    # If an assignment title wasn't defined in params, try and create it using the file name
+    # For discussions at least, we will specify it and process_page will return it
+    if not title:
+        title = format_assignment_name(assignment_name)
     src_path = os.path.join(DST_FOLDER, f'{assignment_name}.md')
     dst_path = os.path.join(DST_FOLDER, assignment_name, 'index.html')
     css_path = os.path.join('..', 'assets', 'theme.css')
@@ -338,7 +377,7 @@ def write_page(path):
     os.remove(src_path)
 
 def update_page(path):
-
+    '''Doesn't work for discussion files, yet.'''
     sep = '/' if '/' in path else '\\'
     assignment_name = path.split(sep)[-1].replace('.yml', '')
 
@@ -457,7 +496,7 @@ if __name__ == '__main__':
 
 
             # Beginning of listening loop.
-            # This is based on the second responce to this post: https://stackoverflow.com/questions/182197/how-do-i-watch-a-file-for-changes            
+            # This is based on the second response to this post: https://stackoverflow.com/questions/182197/how-do-i-watch-a-file-for-changes            
             while True:
                 try:
                     # Every second

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Discussion 1: Association and Causality</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="../assets/theme.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Discussion 1: Association and Causality</h1>
+</header>
+<p><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<!-- add after bootstrap.min.css -->
+<link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css"/>
+<!-- add after bootstrap.min.js or bootstrap.bundle.min.js -->
+<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script></p>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B947E6J6H4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B947E6J6H4');
+</script>
+<p><a href="../index.html">← return to practice.dsc10.com</a></p>
+<hr />
+<p>The problems in this worksheet are taken from past exams. Work on
+them <strong>on paper</strong>, since the exams you take in this course
+will also be on paper. <br><br>We encourage you to complete this
+worksheet in a discussion section, which are held live on Monday,
+September 26th. Solutions will be made available after all discussion
+sections have concluded. You don’t need to submit your answers
+anywhere.</p>
+<hr />
+<h2 id="problem-1">Problem 1</h2>
+<p>Answer the following multiple-choice questions.</p>
+<p><br></p>
+<h3 id="problem-1.1">Problem 1.1</h3>
+<p>What does “RCT” stand for?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Random cookies tasty</p></li>
+<li><p><input type="radio" disabled="" /> Revelle college thebest</p></li>
+<li><p><input type="radio" disabled="" /> Randomized controlled trial</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-1.2">Problem 1.2</h3>
+<p>How sure are you of your previous answer?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Very sure</p></li>
+<li><p><input type="radio" disabled="" /> Unsure</p></li>
+<li><p><input type="radio" disabled="" /> 🤔</p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-2">Problem 2</h2>
+<p>Welcome to Sun God!</p>
+<center><img src='../assets/images/sp22-midterm/cartoon.png' width=20%></center>
+<p>After a two-year hiatus due to the pandemic, UCSD’s annual music
+festival, the Sun God festival, is back this year! Here, we’ll be
+looking at a DataFrame named <code>sungod</code> that contains
+information on the artists who have performed at Sun God in years past.
+<strong>For each year that the festival was held, we have one row for
+each artist that performed that year.</strong> The columns are:</p>
+<ul>
+<li><code>'Year'</code> (<code>int</code>): the year of the
+festival</li>
+<li><code>'Artist'</code> (<code>str</code>): the name of the
+artist</li>
+<li><code>'Appearance_Order'</code> (<code>int</code>): the order in
+which the artist appeared in that year’s festival (1 means they came
+onstage first)</li>
+</ul>
+<p>The rows of <code>sungod</code> are arranged in <strong>no particular
+order</strong>. The first few rows of <code>sungod</code> are shown
+below (though <code>sungod</code> has <strong>many more rows</strong>
+than pictured here).</p>
+<center><img src='../assets/images/sp22-midterm/sungod.png' width=30%></center>
+<p>Assume:</p>
+<ul>
+<li>Only one artist ever appeared at a time (for example, we can’t have
+two separate artists with a <code>'Year'</code> of 2015 and an
+<code>'Appearance_Order'</code> of 3).</li>
+<li>An artist may appear in multiple different Sun God festivals (they
+could be invited back). <br><br></li>
+</ul>
+<p>In 2014, the UCSD administration made some important changes to Sun
+God policies, including:</p>
+<ol type="1">
+<li>eliminating guest tickets for non-students,</li>
+<li>increasing security, and</li>
+<li>introducing on-site medical care.</li>
+</ol>
+<p>These changes were implemented because of incidents related to drug
+and alcohol abuse at the festival. At the 2013 Sun God festival, 48
+students were hospitalized, and at the 2014 festival, only 8 students
+were hospitalized. Assuming there was no change in the total number of
+attendees from 2013 to 2014, which of the following statements is
+correct?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> We cannot be sure if there is an association between administrative
+changes and hospitalizations.</p></li>
+<li><p><input type="radio" disabled="" /> There is an association between administrative changes and
+hospitalizations. One or more of the administrative changes is
+responsible for the decrease in hospitalizations, but since several
+administrative changes happened at the same time, we can’t be sure of
+which one to credit with the reduction in hospitalizations.</p></li>
+<li><p><input type="radio" disabled="" /> There is an association between administrative changes and
+hospitalizations. We can’t be sure if any of the administrative changes
+are responsible for the reduction in hospitalizations.</p></li>
+<li><p><input type="radio" disabled="" /> None of the above.</p></li>
+</ul>
+<hr />
+<h2 id="problem-3">Problem 3</h2>
+<p>Which of the following questions could not be answered by running a
+randomized controlled experiment?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Does eating citrus fruits increase the risk of heart disease?</p></li>
+<li><p><input type="radio" disabled="" /> Do exams with integrity pledges have fewer reported cases of academic
+dishonesty?</p></li>
+<li><p><input type="radio" disabled="" /> Does rewarding students for good grades improve high school
+graduation rates?</p></li>
+<li><p><input type="radio" disabled="" /> Does drug abuse lead to a shorter life span?</p></li>
+</ul>
+<hr />
+<h2 id="problem-4">Problem 4</h2>
+<p>In response to the pandemic, some airlines chose to leave middle
+seats empty, while others continued seating passengers in middle seats.
+Let’s suppose Delta did not seat passengers in middle seats during the
+pandemic, and United did seat passengers in middle seats during the
+pandemic.</p>
+<p>Delta wants to know whether customers were satisfied with them for
+making this decision not to use middle seats. Suppose they have access
+to a dataset of customer satisfaction surveys, taken annually for each
+airline. How can Delta determine whether its new seating policy caused
+an increase in customer satisfaction?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Compare Delta’s average customer satisfaction before and after this
+change went into effect.</p></li>
+<li><p><input type="radio" disabled="" /> Compare Delta’s average customer satisfaction after the change went
+into effect to United’s average customer satisfaction at the same point
+in time.</p></li>
+<li><p><input type="radio" disabled="" /> Compare the change in Delta’s average customer satisfaction to the
+change in United’s average customer satisfaction, throughout the same
+period of time, spanning the change.</p></li>
+<li><p><input type="radio" disabled="" /> None of the above.</p></li>
+</ul>
+<hr />
+<h2 id="section"><span class="math display"> </span></h2>
+<h4
+id="feedback-find-an-error-still-confused-have-a-suggestion-let-us-know-here.">👋
+Feedback: Find an error? Still confused? Have a suggestion?
+<a href="https://forms.gle/WZ71FchnXU1K154d7">Let us know
+here</u></a>.</h4>
+<hr />
+</body>
+</html>

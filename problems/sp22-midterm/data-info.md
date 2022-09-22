@@ -18,9 +18,6 @@ Assume:
 - An artist may appear in multiple different Sun God festivals (they could be invited back).
 - We have already run `import babypandas as bpd` and `import numpy as np`.
 
-
 **Throughout this exam, we will refer to `sungod` repeatedly.**
 
 **Tip:** Open this page in another tab, so that it is easy to refer to this data description as you work through the exam.
-
-
