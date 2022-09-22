@@ -470,6 +470,9 @@ if __name__ == '__main__':
         write_all_pages()
         create_index()
 
+    elif sys.argv[1] == 'index':
+        create_index()
+
     elif sys.argv[1] == "listen":
             # Obtain the file paths for all markdown files.
             # We will be looking to see if the modification time changes to signal an update

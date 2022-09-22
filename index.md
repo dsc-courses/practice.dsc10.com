@@ -43,6 +43,11 @@ Solutions to discussion worksheets will be made available on Monday evenings, af
     <tr>
       <th scope="row">1</th>
       <td>September 26th</td>
+      <td><a href="disc01/index.html">Association and Causality</a></td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>October 3rd</td>
       <td>TBD</td>
     </tr>
   </tbody>
