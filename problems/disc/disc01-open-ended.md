@@ -20,9 +20,9 @@ Propose a scenario where a randomized controlled trial (RCT) would be **impracti
 
 # BEGIN SOLN
 
-**Possible answer:** Conducting an experiment to determine if taking AP classes in high school cause better performance on the SAT among high schoolers. 
+**Possible answer:** Conducting an experiment to determine if winning the lottery increases happiness in middle-aged adults. 
 
-This would be impractical since it would not be possible to control for extraneous factors. A major confounding variable would be the students' preparation and studying outside of class, since this extra preparation they take would be independent of their classes while having an impact on their SAT score. It would also be impossible to control for the test-taking environment for the SAT since students take it in different locations and even on different days.
+It is not possible to provide the treatment (winning the lottery) as this is something that happens by chance, and is not something we can control. When we cannot control how participants receive a treatment, a RCT becomes impractical. 
 
 # END SOLN
 
