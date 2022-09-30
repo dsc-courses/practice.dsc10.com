@@ -1,6 +1,12 @@
 # practice.dsc10.com
 
-Repository containing practice problems for DSC 10 (past exams and discussion). Hosted at practice.dsc10.com.
+Repository containing practice problems for DSC 10 (past exams and discussion). Hosted at practice.dsc10.com. Before using the repo, make sure you have the following packages installed:
+
+```
+- BeautifulSoup4
+- pandoc
+- lxml
+```
 
 Style guide for writing up problems:
 
