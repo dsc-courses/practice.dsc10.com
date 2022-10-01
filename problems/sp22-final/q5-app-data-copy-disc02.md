@@ -1,4 +1,4 @@
-# BEGIN PROBLEM
+# BEGIN PROB
 
 Recall that an IKEA fan created an app for people to log the amount of time it takes them to assemble an IKEA product. We have this data in `app_data`.
 
@@ -20,4 +20,4 @@ Even though people must have distinct usernames, one person can build multiple d
 
 
 
-# END PROBLEM
+# END PROB
