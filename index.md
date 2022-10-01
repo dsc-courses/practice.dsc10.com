@@ -44,6 +44,7 @@ Solutions to discussion worksheets will be made available on Monday evenings, af
       <th scope="row">1</th>
       <td>September 26th</td>
       <td><a href="disc01/index.html">Association and Causality</a></td>
+      <td><a href="disc02/index.html">Python Basics, Arrays, and DataFrames</a></td>
     </tr>
     <tr>
       <th scope="row">2</th>

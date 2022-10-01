@@ -102,7 +102,7 @@ def stitch(files, show_solution, toc=False):
             # So will replace the # BEGIN PROB in the question text with # BEGIN PROB {context}
             r = question_text.replace("# BEGIN PROB", f"# BEGIN PROB {info_text} <br><br>")
         else:
-            r = open(path, 'r').read()
+            r = open(path, 'r', encoding='UTF-8').read()
 
         q_out = process_problem(problem_str=r, problem_num=i+1, show_solution=show_solution)
         q_out += '\n\n\n---\n\n\n'
@@ -121,7 +121,7 @@ def pandoc(s, kind='md', flags=''):
         os.mkdir('temp')
 
     in_path = os.path.join('temp', f'temp.{kind}')
-    in_file = open(in_path, 'w')
+    in_file = open(in_path, 'w', encoding='UTF-8')
     in_file.write(s)
     in_file.close()
 
@@ -130,7 +130,7 @@ def pandoc(s, kind='md', flags=''):
     os.system(f'pandoc -s --standalone --katex --from markdown-markdown_in_html_blocks+raw_html --metadata title=" " -s {src_path} {flags} -o {dst_path}')
 
     out_path = os.path.join('temp', 'temp.html')
-    out_file = open(out_path, 'r')
+    out_file = open(out_path, 'r', encoding='UTF-8') # CHANGED
     out_s = out_file.read()
     out_file.close()
     delete_folder('temp')
@@ -347,14 +347,14 @@ def write_page(path):
     sep = '/' if '/' in path else '\\'
     assignment_name = path.split(sep)[-1].replace('.yml', '')
 
-    is_discussion = 'disc/' in path
+    is_discussion = 'disc' in path
 
     # Generate the Markdown
     page, title = process_page(path, is_discussion=is_discussion)
 
     # Write the Markdown
     open_path = os.path.join(DST_FOLDER, f'{assignment_name}.md')
-    f = open(open_path, 'w')
+    f = open(open_path, 'w', encoding='UTF-8') # CHANGED
     f.write(page)
     f.close()
 
