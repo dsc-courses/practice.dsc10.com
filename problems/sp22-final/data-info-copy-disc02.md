@@ -3,10 +3,6 @@ IKEA is a Swedish furniture company that designs and sells ready-to-assemble fur
 <center><img src='../assets/images/sp22-final/wordless_instructions.png' width=40%></center>
 
 
-Here is the DataFrame you'll be working with:
-
-
-1. `app_data`
 
 An IKEA fan created an app where people can log the amount of time it took them to assemble their IKEA furniture. The DataFrame `app_data` has a row for each product build that was logged on the app. The columns are:
 
@@ -20,6 +16,6 @@ The first few rows of `app_data` are shown below, though `app_data` has many mor
 <center><img src='../assets/images/sp22-final/appdatadf.png' height=180></center>
 
 <p>&nbsp;</p>
-
+  
 
 Assume that we have already run `import babypandas as bpd` and `import numpy as np`.  
