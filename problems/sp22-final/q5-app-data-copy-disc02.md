@@ -1,8 +1,4 @@
 # BEGIN PROB
-
-Recall that an IKEA fan created an app for people to log the amount of time it takes them to assemble an IKEA product. We have this data in `app_data`.
-
-
 Suppose that when someone downloads the app, the app requires them to choose a username, which must be different from all other registered usernames. 
 
 **True or False**: If `app_data` had included a column with the username of the person who reported each product build, it would make sense to index `app_data` by username.

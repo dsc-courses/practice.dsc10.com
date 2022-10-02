@@ -19,4 +19,7 @@ The first few rows of `app_data` are shown below, though `app_data` has many mor
 
 <center><img src='../assets/images/sp22-final/appdatadf.png' height=180></center>
 
+<p>&nbsp;</p>
+
+
 Assume that we have already run `import babypandas as bpd` and `import numpy as np`.  

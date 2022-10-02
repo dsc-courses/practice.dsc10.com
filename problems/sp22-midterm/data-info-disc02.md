@@ -11,6 +11,9 @@ The rows of `sungod` are arranged in **no particular order**. The first few rows
 <center><img src='../assets/images/sp22-midterm/sungod.png' width=30%></center>
 
 Assume:
-- Only one artist ever appeared at a time (for example, we can't have two separate artists with a `'Year'` of 2015 and an `'Appearance_Order'` of 3). 
-- An artist may appear in multiple different Sun God festivals (they could be invited back).
-- We have already run `import babypandas as bpd` and `import numpy as np`.
+
+* Only one artist ever appeared at a time (for example, we can't have two separate artists with a `'Year'` of 2015 and an `'Appearance_Order'` of 3). 
+
+* An artist may appear in multiple different Sun God festivals (they could be invited back).
+
+* We have already run `import babypandas as bpd` and `import numpy as np`.
