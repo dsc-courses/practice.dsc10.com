@@ -48,8 +48,14 @@ Solutions to discussion worksheets will be made available on Monday evenings, af
     <tr>
       <th scope="row">2</th>
       <td>October 3rd</td>
+      <td><a href="disc02/index.html">Python Basics, Arrays, and Dataframes</a></td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>October 10th</td>
       <td>TBD</td>
     </tr>
+    
   </tbody>
 </table>
 </center>
