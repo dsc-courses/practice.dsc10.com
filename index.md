@@ -15,7 +15,7 @@ This site contains practice problems taken from old DSC 10 exams. We've organize
 
 In all cases, you should work on these problems **on paper**, since your exams will also be on paper. Even though you will see some multiple choice bubbles, you intentionally cannot select them.
 
-**Tip:** Keep the <a href='https://drive.google.com/file/d/1mQApk9Ovdi-QVqMgnNcq5dZcWucUKoG-/view?usp=sharing'>DSC 10 Reference Sheet<a> open in another tab. You will have access to this during exams.
+**Tip:** Keep the <a href='https://drive.google.com/file/d/1mQApk9Ovdi-QVqMgnNcq5dZcWucUKoG-/view?usp=sharing'>DSC 10 Reference Sheet<a> open in another tab. **You will have access to the Reference Sheet during exams (but no other resources).**
 
 <div class="alert alert-success" role="alert">This site is new! If you're using it, please <a href='https://forms.gle/WZ71FchnXU1K154d7'>take a moment to let us know what you think</a>. Thanks!</div>
 
