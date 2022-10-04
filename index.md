@@ -51,7 +51,7 @@ Solutions to discussion worksheets will be made available on Monday evenings, af
       <td><a href="disc02/index.html">Python Basics, Arrays, and Dataframes</a></td>
     </tr>
     <tr>
-      <th scope="row">2</th>
+      <th scope="row">3</th>
       <td>October 10th</td>
       <td>TBD</td>
     </tr>
