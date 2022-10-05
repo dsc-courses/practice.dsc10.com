@@ -29,8 +29,8 @@ Solutions to discussion worksheets will be made available on Monday evenings, af
 <table class="table" style="width:60%">
     <colgroup>
        <col span="1" style="width: 25%;">
-       <col span="1" style="width: 25%;">
-       <col span="1" style="width: 50%;">
+       <col span="1" style="width: 35%;">
+       <col span="1" style="width: 40%;">
     </colgroup>
   <thead>
     <tr>
@@ -48,7 +48,7 @@ Solutions to discussion worksheets will be made available on Monday evenings, af
     <tr>
       <th scope="row">2</th>
       <td>October 3rd</td>
-      <td><a href="disc02/index.html">Python Basics, Arrays, and Dataframes</a></td>
+      <td><a href="disc02/index.html">Python Basics, Arrays, and DataFrames</a></td>
     </tr>
     <tr>
       <th scope="row">3</th>
@@ -71,18 +71,21 @@ Each exam linked here lists the conditions under which the exam was given, inclu
 <center>
 <table class="table" style="width:60%">
     <colgroup>
-       <col span="1" style="width: 50%;">
-       <col span="1" style="width: 50%;">
+       <col span="1" style="width: 25%;">
+       <col span="1" style="width: 35%;">
+       <col span="1" style="width: 40%;">
     </colgroup>
   <thead>
     <tr>
       <th scope="col">Quarter</th>
+      <th scope="col">Instructor(s)</th>
       <th scope="col">Exam</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <th scope="row">Spring 2022</th>
+      <td>Janine Tiefenbruck</td>
       <td><a href='sp22-midterm/index.html'>Midterm</a>
           <br>
           <a href='sp22-final/index.html'>Final</a>
@@ -90,6 +93,7 @@ Each exam linked here lists the conditions under which the exam was given, inclu
     </tr>
     <tr>
       <th scope="row">Winter 2022</th>
+      <td>Suraj Rampure</td>
       <td><a href='wi22-midterm/index.html'>Midterm</a>
           <br>
           <a href='wi22-final/index.html'>Final</a>
@@ -97,10 +101,12 @@ Each exam linked here lists the conditions under which the exam was given, inclu
     </tr>
     <tr>
       <th scope="row">Fall 2021</th>
+      <td>Suraj Rampure, Janine Tiefenbruck</td>
       <td><a href='fa21-midterm/index.html'>Midterm</a></td>
     </tr>
     <tr>
       <th scope="row">Winter 2021</th>
+      <td>Janine Tiefenbruck</td>
       <td><a href='wi21-midterm/index.html'>Midterm</a></td>
     </tr>
   </tbody>
