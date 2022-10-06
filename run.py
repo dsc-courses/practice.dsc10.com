@@ -341,7 +341,7 @@ def process_page(path, is_discussion=False):
     # TODO: format PDFs for printing: https://stackoverflow.com/problems/1664049/can-i-force-a-page-break-in-html-printing
     return out, title
 
-def write_page(path):
+def write_page(path, called_from_write_all_pages=False):
     '''Takes in a path to a YML file and writes the MD file, runs pandoc, deletes the MD file'''
 
     sep = '/' if '/' in path else '\\'
@@ -375,6 +375,15 @@ def write_page(path):
 
     # Delete the intermediate Markdown
     os.remove(src_path)
+
+    # Copy over the images for just that page, but only if called individually
+    # If called in bulk, this shouldn't be run, since this is handled by
+    # write_all_pages
+    if not called_from_write_all_pages:
+        dst_path = os.path.join(DST_FOLDER, 'assets', 'images', assignment_name)
+        if os.path.exists(dst_path):
+            shutil.rmtree(dst_path)
+        shutil.copytree(os.path.join('assets', 'images', assignment_name), dst_path)
 
 def update_page(path):
     '''Doesn't work for discussion files, yet.'''
@@ -426,7 +435,7 @@ def write_all_pages(dir='pages'):
     page_paths = os.path.join(dir, '*', '*.yml')
     all_paths = glob.glob(page_paths)
     for path in all_paths:
-        write_page(path)
+        write_page(path, called_from_write_all_pages=True)
 
     # Copy over images/scripts
     # os.mkdir(f'{DST_FOLDER}/assets/')
