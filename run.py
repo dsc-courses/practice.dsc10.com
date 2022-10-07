@@ -380,10 +380,12 @@ def write_page(path, called_from_write_all_pages=False):
     # If called in bulk, this shouldn't be run, since this is handled by
     # write_all_pages
     if not called_from_write_all_pages:
-        dst_path = os.path.join(DST_FOLDER, 'assets', 'images', assignment_name)
-        if os.path.exists(dst_path):
-            shutil.rmtree(dst_path)
-        shutil.copytree(os.path.join('assets', 'images', assignment_name), dst_path)
+        src_path = os.path.join('assets', 'images', assignment_name)
+        dst_path = os.path.join(DST_FOLDER, src_path)
+        if os.path.exists(src_path):
+            if os.path.exists(dst_path):
+                shutil.rmtree(dst_path)
+            shutil.copytree(src_path, dst_path)
 
 def update_page(path):
     '''Doesn't work for discussion files, yet.'''
