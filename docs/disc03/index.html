@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Discussion 3: Querying, Grouping, and Plotting</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="../assets/theme.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Discussion 3: Querying, Grouping, and Plotting</h1>
+</header>
+<p><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<!-- add after bootstrap.min.css -->
+<link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css"/>
+<!-- add after bootstrap.min.js or bootstrap.bundle.min.js -->
+<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script></p>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B947E6J6H4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B947E6J6H4');
+</script>
+<p><a href="../index.html">← return to practice.dsc10.com</a></p>
+<hr />
+<p>The problems in this worksheet are taken from past exams. Work on
+them <strong>on paper</strong>, since the exams you take in this course
+will also be on paper. <br><br>We encourage you to complete this
+worksheet in a discussion section, which is held live on Monday, October
+10th. Solutions will be made available after all discussion sections
+have concluded. You don’t need to submit your answers anywhere.</p>
+<hr />
+<h2 id="problem-1">Problem 1</h2>
+<p>Suppose <code>df</code> is a DataFrame and <code>b</code> is any
+boolean array whose length is the same as the number of rows of
+<code>df</code>.</p>
+<p>True or False: For any such boolean array <code>b</code>,
+<code>df[b].shape[0]</code> is less than or equal to
+<code>df.shape[0]</code>.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
+</ul>
+<hr />
+<h2 id="problem-2">Problem 2</h2>
+<p>You are given a DataFrame called <code>books</code> that contains
+columns <code>'author'</code> (string), <code>'title'</code> (string),
+<code>'num_chapters'</code> (int), and <code>'publication_year'</code>
+(int).</p>
+<p>Suppose that after doing <code>books.groupby('Author').max()</code>,
+one row says</p>
+<table>
+<thead>
+<tr class="header">
+<th>author</th>
+<th>title</th>
+<th>num_chapters</th>
+<th>publication_year</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Charles Dickens</td>
+<td>Oliver Twist</td>
+<td>53</td>
+<td>1838</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h3 id="problem-2.1">Problem 2.1</h3>
+<p>Based on this data, can you conclude that Charles Dickens is the
+alphabetically last of all author names in this dataset?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Yes</p></li>
+<li><p><input type="radio" disabled="" /> No</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-2.2">Problem 2.2</h3>
+<p>Based on this data, can you conclude that Charles Dickens wrote
+<em>Oliver Twist</em>?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Yes</p></li>
+<li><p><input type="radio" disabled="" /> No</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-2.3">Problem 2.3</h3>
+<p>Based on this data, can you conclude that <em>Oliver Twist</em> has
+53 chapters?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Yes</p></li>
+<li><p><input type="radio" disabled="" /> No</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-2.4">Problem 2.4</h3>
+<p>Based on this data, can you conclude that Charles Dickens wrote a
+book with 53 chapters that was published in 1838?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Yes</p></li>
+<li><p><input type="radio" disabled="" /> No</p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-3">Problem 3</h2>
+<p>You are given a DataFrame called <code>restaurants</code> that
+contains information on a variety of local restaurants’ daily number of
+customers and daily income. There is a row for each restaurant for each
+date in a given five-year time period.</p>
+<p>The columns of <code>restaurants</code> are <code>'name'</code>
+(string), <code>'year'</code> (int), <code>'month'</code> (int),
+<code>'day'</code> (int), <code>'num_diners'</code> (int), and
+<code>'income'</code> (float).</p>
+<p>Assume that in our data set, there are not two different restaurants
+that go by the same <code>'name'</code> (chain restaurants, for
+example).</p>
+<p><br></p>
+<h3 id="problem-3.1">Problem 3.1</h3>
+<p>What type of visualization would be best to display the data in a way
+that helps to answer the question “Do more customers bring in more
+income?”</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> scatterplot</p></li>
+<li><p><input type="radio" disabled="" /> line plot</p></li>
+<li><p><input type="radio" disabled="" /> bar chart</p></li>
+<li><p><input type="radio" disabled="" /> histogram</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-3.2">Problem 3.2</h3>
+<p>What type of visualization would be best to display the data in a way
+that helps to answer the question “Have restaurants’ daily incomes been
+declining over time?”</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> scatterplot</p></li>
+<li><p><input type="radio" disabled="" /> line plot</p></li>
+<li><p><input type="radio" disabled="" /> bar chart</p></li>
+<li><p><input type="radio" disabled="" /> histogram</p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-4">Problem 4</h2>
+<p>You have a DataFrame called <code>prices</code> that contains
+information about food prices at 18 different grocery stores. There is
+column called <code>'broccoli'</code> that contains the price in dollars
+for one pound of broccoli at each grocery store. There is also a column
+called <code>'ice_cream'</code> that contains the price in dollars for a
+pint of store-brand ice cream.</p>
+<p><br></p>
+<h3 id="problem-4.1">Problem 4.1</h3>
+<p>Using the code,</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>prices.plot(kind<span class="op">=</span><span class="st">&#39;hist&#39;</span>, y<span class="op">=</span><span class="st">&#39;broccoli&#39;</span>, bins<span class="op">=</span>np.arange(<span class="fl">0.8</span>, <span class="fl">2.11</span>, <span class="fl">0.1</span>), density<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
+<p>we produced the histogram below:</p>
+<center><img src='../assets/images/wi21-midterm/broccoli.png' width=40%></center>
+<p>How many grocery stores sold broccoli for a price greater than or
+equal to $1.30 per pound, but less than $1.40 per pound (the tallest
+bar)?</p>
+<p><br></p>
+<h3 id="problem-4.2">Problem 4.2</h3>
+<p>Suppose we now plot the same data with different bins, using the
+following line of code:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>prices.plot(kind<span class="op">=</span><span class="st">&#39;hist&#39;</span>, y<span class="op">=</span><span class="st">&#39;broccoli&#39;</span>, bins<span class="op">=</span>[<span class="fl">0.8</span>, <span class="dv">1</span>, <span class="fl">1.1</span>, <span class="fl">1.5</span>, <span class="fl">1.8</span>, <span class="fl">1.9</span>, <span class="fl">2.5</span>], density<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
+<p>What would be the height on the y-axis for the bin corresponding to
+the interval <span class="math inline">[\$1.10, \$1.50)</span>? Input
+your answer below.</p>
+<p><br></p>
+<h3 id="problem-4.3">Problem 4.3</h3>
+<p>You are interested in finding out the number of stores in which a
+pint of ice cream was cheaper than a pound of broccoli. Will you be able
+to determine the answer to this question by looking at the plot produced
+by the code below?</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>prices.get([<span class="st">&#39;broccoli&#39;</span>, <span class="st">&#39;ice_cream&#39;</span>]).plot(kind<span class="op">=</span><span class="st">&#39;barh&#39;</span>)</span></code></pre></div>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Yes</p></li>
+<li><p><input type="radio" disabled="" /> No</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-4.4">Problem 4.4</h3>
+<p>You are interested in finding out the number of stores in which a
+pint of ice cream was cheaper than a pound of broccoli. Will you be able
+to determine the answer to this question by looking at the plot produced
+by the code below?</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>prices.get([<span class="st">&#39;broccoli&#39;</span>, <span class="st">&#39;ice_cream&#39;</span>]).plot(kind<span class="op">=</span><span class="st">&#39;hist&#39;</span>)</span></code></pre></div>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Yes</p></li>
+<li><p><input type="radio" disabled="" /> No</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-4.5">Problem 4.5</h3>
+<p>Some code and the scatterplot that produced it is shown below:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>(prices.get([<span class="st">&#39;broccoli&#39;</span>, <span class="st">&#39;ice_cream&#39;</span>]).plot(kind<span class="op">=</span><span class="st">&#39;scatter&#39;</span>, x<span class="op">=</span><span class="st">&#39;broccoli&#39;</span>, y<span class="op">=</span><span class="st">&#39;ice_cream&#39;</span>))</span></code></pre></div>
+<center><img src='../assets/images/wi21-midterm/broc_ice_cream.png' width=40%></center>
+<p>Can you use this plot to figure out the number of stores in which a
+pint of ice cream was cheaper than a pound of broccoli?</p>
+<p>If so, say how many such stores there are and explain how you came to
+that conclusion.</p>
+<p>If not, explain why this scatterplot cannot be used to answer the
+question.</p>
+<p><br></p>
+<hr />
+<h2 id="problem-5">Problem 5</h2>
+<p>King Triton 🔱, UCSD’s mascot, is quite the traveler! For this
+question, we will be working with the <code>flights</code> DataFrame,
+which details several facts about each of the flights that King Triton
+has been on over the past few years. The first few rows of
+<code>flights</code> are shown below.</p>
+<center><img src='../assets/images/fa21-midterm/flights.png' width=40%></center>
+<p>Here’s a description of the columns in <code>flights</code>:</p>
+<ul>
+<li><code>'DATE'</code>: the date on which the flight occurred. Assume
+that there were no “redeye” flights that spanned multiple days.</li>
+<li><code>'FLIGHT'</code>: the flight number. Note that this is not
+unique; airlines reuse flight numbers on a daily basis.</li>
+<li><code>'FROM'</code> and <code>'TO'</code>: the 3-letter airport code
+for the departure and arrival airports, respectively. Note that it’s not
+possible to have a flight from and to the same airport.</li>
+<li><code>'DIST'</code>: the distance of the flight, in miles.</li>
+<li><code>'HOURS'</code>: the length of the flight, in hours.</li>
+<li><code>'SEAT'</code>: the kind of seat King Triton sat in on the
+flight; the only possible values are <code>'WINDOW'</code>,
+<code>'MIDDLE'</code>, and <code>'AISLE'</code>. <br><br></li>
+</ul>
+<p><br></p>
+<h3 id="problem-5.1">Problem 5.1</h3>
+<p>Which of these correctly evaluates to the number of flights King
+Triton took to San Diego (airport code <code>'SAN'</code>)?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>flights.loc['SAN'].shape[0]</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>flights[flights.get('TO') == 'SAN'].shape[0]</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>flights[flights.get('TO') == 'SAN'].shape[1]</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>len(flights.sort_values('TO', ascending=False).loc['SAN'])</code></p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-5.2">Problem 5.2</h3>
+<p>Fill in the blanks below so that the result also evaluates to the
+number of flights King Triton took to San Diego (airport code
+<code>'SAN'</code>).</p>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>flights.groupby(__(a)__).count().get(<span class="st">&#39;FLIGHT&#39;</span>).__(b)__            </span></code></pre></div>
+<p>What goes in blank (a)?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>'DATE'</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>'FLIGHT'</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>'FROM'</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>'TO'</code></p></li>
+</ul>
+<p>What goes in blank (b)?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>.index[0]</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>.index[-1]</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>.loc['SAN']</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>.iloc['SAN']</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>.iloc[0]</code></p></li>
+</ul>
+<p>True or False: If we change <code>.get('FLIGHT')</code> to
+<code>.get('SEAT')</code>, the results of the above code block will not
+change. (You may assume you answered the previous two subparts
+correctly.)</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-5.3">Problem 5.3</h3>
+<p>Consider the DataFrame <code>san</code>, defined below.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>san <span class="op">=</span> flights[(flights.get(<span class="st">&#39;FROM&#39;</span>) <span class="op">==</span> <span class="st">&#39;SAN&#39;</span>) <span class="op">&amp;</span> (flights.get(<span class="st">&#39;TO&#39;</span>) <span class="op">==</span> <span class="st">&#39;SAN&#39;</span>)]</span></code></pre></div>
+<p>Which of these DataFrames <strong>must</strong> have the same number
+of rows as <code>san</code>?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>flights[(flights.get('FROM') == 'SAN') and (flights.get('TO') == 'SAN')]</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>flights[(flights.get('FROM') == 'SAN') | (flights.get('TO') == 'SAN')]</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>flights[(flights.get('FROM') == 'LAX') &amp; (flights.get('TO') == 'SAN')]</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>flights[(flights.get('FROM') == 'LAX') &amp; (flights.get('TO') == 'LAX')]</code></p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-6">Problem 6</h2>
+<p>The seat-back TV on one of King Triton’s more recent flights was very
+dirty and was full of fingerprints. The fingerprints made an interesting
+pattern. We’ve stored the x and y positions of each fingerprint in the
+DataFrame <code>fingerprints</code>, and created the following
+scatterplot using</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>fingerprints.plot(kind<span class="op">=</span><span class="st">&#39;scatter&#39;</span>, x<span class="op">=</span><span class="st">&#39;x&#39;</span>, y<span class="op">=</span><span class="st">&#39;y&#39;</span>)</span></code></pre></div>
+<center><img src='../assets/images/fa21-midterm/mt-hist.png' width=20%></center>
+<p><br></p>
+<h3 id="problem-6.1">Problem 6.1</h3>
+<p>True or False: The histograms that result from the following two
+lines of code will look very similar.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>fingerprints.plot(kind<span class="op">=</span><span class="st">&#39;hist&#39;</span>, </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>                  y<span class="op">=</span><span class="st">&#39;x&#39;</span>,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                  density<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>                  bins<span class="op">=</span>np.arange(<span class="dv">0</span>, <span class="dv">8</span>, <span class="dv">2</span>))</span></code></pre></div>
+<p>and</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>fingerprints.plot(kind<span class="op">=</span><span class="st">&#39;hist&#39;</span>, </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>                  y<span class="op">=</span><span class="st">&#39;y&#39;</span>,</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>                  density<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>                  bins<span class="op">=</span>np.arange(<span class="dv">0</span>, <span class="dv">8</span>, <span class="dv">2</span>))</span></code></pre></div>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-6.2">Problem 6.2</h3>
+<p>Below, we’ve drawn a histogram using the line of code</p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>fingerprints.plot(kind<span class="op">=</span><span class="st">&#39;hist&#39;</span>, </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>                  y<span class="op">=</span><span class="st">&#39;x&#39;</span>,</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>                  density<span class="op">=</span><span class="va">True</span>,</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>                  bins<span class="op">=</span>np.arange(<span class="dv">0</span>, <span class="dv">8</span>, <span class="dv">2</span>))</span></code></pre></div>
+<p>However, our Jupyter Notebook was corrupted, and so the resulting
+histogram doesn’t quite look right. While the height of the first bar is
+correct, the histogram doesn’t contain the second or third bars, and the
+y-axis is replaced with letters.</p>
+<center><img src='../assets/images/fa21-midterm/mt-hist-2.png' width=30%></center>
+<p>Which of the four options on the y-axis is closest to where the
+height of the middle bar should be?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> A</p></li>
+<li><p><input type="radio" disabled="" /> B</p></li>
+<li><p><input type="radio" disabled="" /> C</p></li>
+<li><p><input type="radio" disabled="" /> D</p></li>
+</ul>
+<p>Which of the four options on the y-axis is closest to where the
+height of the rightmost bar should be?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> A</p></li>
+<li><p><input type="radio" disabled="" /> B</p></li>
+<li><p><input type="radio" disabled="" /> C</p></li>
+<li><p><input type="radio" disabled="" /> D</p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-7">Problem 7</h2>
+<p>For this question we will use data from the 2021 Women’s National
+Basketball Association (WNBA) season for the next several problems. In
+basketball, players score points by shooting the ball into a hoop. The
+team that scores the most points wins the game.</p>
+<p>Kelsey Plum, a WNBA player, attended La Jolla Country Day School,
+which is adjacent to UCSD’s campus. Her current team is the Las Vegas
+Aces (three-letter code <code>'LVA'</code>). <strong>In 2021, the Las
+Vegas Aces played 31 games, and Kelsey Plum played in all
+31.</strong></p>
+<p>The DataFrame <code>plum</code> contains her stats for all games the
+Las Vegas Aces played in 2021. The first few rows of <code>plum</code>
+are shown below (though the full DataFrame has 31 rows, not 5):</p>
+<center><img src='../assets/images/wi22-final/plum.png' width=40%></center>
+<p>Each row in <code>plum</code> corresponds to a single game. For each
+game, we have:</p>
+<ul>
+<li><code>'Date'</code> (<code>str</code>), the date on which the game
+was played</li>
+<li><code>'Opp'</code> (<code>str</code>), the three-letter code of the
+opponent team</li>
+<li><code>'Home'</code> (<code>bool</code>), <code>True</code> if the
+game was played in Las Vegas (“home”) and <code>False</code> if it was
+played at the opponent’s arena (“away”)</li>
+<li><code>'Won'</code> (<code>bool</code>), <code>True</code> if the Las
+Vegas Aces won the game and <code>False</code> if they lost</li>
+<li><code>'PTS'</code> (<code>int</code>), the number of points Kelsey
+Plum scored in the game</li>
+<li><code>'AST'</code> (<code>int</code>), the number of assists
+(passes) Kelsey Plum made in the game</li>
+<li><code>'TOV'</code> (<code>int</code>), the number of turnovers
+Kelsey Plum made in the game (a turnover is when you lose the ball –
+turnovers are bad!) <br><br></li>
+</ul>
+<p><br></p>
+<h3 id="problem-7.1">Problem 7.1</h3>
+<p>What type of visualization is best suited for visualizing the trend
+in the number of points Kelsey Plum scored per game in 2021?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Histogram</p></li>
+<li><p><input type="radio" disabled="" /> Bar chart</p></li>
+<li><p><input type="radio" disabled="" /> Line chart</p></li>
+<li><p><input type="radio" disabled="" /> Scatter plot</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-7.2">Problem 7.2</h3>
+<p>Fill in the blanks below so that <code>total_june</code> evaluates to
+the total number of points Kelsey Plum scored in June.</p>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>june_only <span class="op">=</span> plum[__(a)__]</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>total_june <span class="op">=</span> june_only.__(b)__</span></code></pre></div>
+<ol type="1">
+<li><p>What goes in blank (a)?</p></li>
+<li><p>What goes in blank (b)?</p></li>
+</ol>
+<p><br></p>
+<h3 id="problem-7.3">Problem 7.3</h3>
+<p>For your convenience, we show the first few rows of <code>plum</code>
+again below.</p>
+<center><img src='../assets/images/wi22-final/plum.png' width=40%></center>
+<p>There is exactly one team in the WNBA that Plum’s team did not win
+any games against during the 2021 season. Fill in the blanks below so
+that <code>never_beat</code> evaluates to a string containing the
+three-letter code of that team.</p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>never_beat <span class="op">=</span> plum.groupby(__(a)__).<span class="bu">sum</span>().__(b)__</span></code></pre></div>
+<ol type="1">
+<li><p>What goes in blank (a)?</p></li>
+<li><p>What goes in blank (b)?</p></li>
+</ol>
+<p><br></p>
+<hr />
+<h2 id="problem-8">Problem 8</h2>
+<p>For the next several questions, we will work with a dataset
+consisting of various skyscrapers in the US, which we’ve loaded into a
+DataFrame called <code>sky</code>. The first few rows of
+<code>sky</code> are shown below (though the full DataFrame has more
+rows):</p>
+<center><img src='../assets/images/wi22-midterm/sky.png' width=60%></center>
+<p>&nbsp;</p>
+<p>Each row of <code>sky</code> corresponds to a single skyscraper. For
+each skyscraper, we have:</p>
+<ul>
+<li><p>its name, which is stored in the index of <code>sky</code>
+(string)</p></li>
+<li><p>the <code>'material'</code> it is made up of (string)</p></li>
+<li><p>the <code>'city'</code> in the US where it is located
+(string)</p></li>
+<li><p>the number of <code>'floors'</code> (levels) it contains
+(int)</p></li>
+<li><p>its <code>'height'</code> in meters (float), and</p></li>
+<li><p>the <code>'year'</code> in which it was opened (int)</p></li>
+</ul>
+<p>Note that the height of a floor may be different in each building.
+<br><br></p>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>sky.groupby(<span class="st">&#39;material&#39;</span>).<span class="bu">max</span>()</span></code></pre></div>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> int or float</p></li>
+<li><p><input type="radio" disabled="" /> Boolean</p></li>
+<li><p><input type="radio" disabled="" /> string</p></li>
+<li><p><input type="radio" disabled="" /> array</p></li>
+<li><p><input type="radio" disabled="" /> Series</p></li>
+<li><p><input type="radio" disabled="" /> DataFrame</p></li>
+<li><p><input type="radio" disabled="" /> error</p></li>
+</ul>
+<hr />
+<h2 id="problem-9">Problem 9</h2>
+<p>In this question, we’ll write code to learn more about the
+skyscrapers in the beautiful city of San Diego. (Unrelated fun fact –
+since the San Diego Airport is so close to downtown, buildings in
+downtown San Diego legally cannot be taller than 152 meters.)</p>
+<p>Below, fill in the blank to create a DataFrame, named
+<code>san_tall</code>, consisting of just the skyscrapers in San Diego
+that are over 100 meters tall.</p>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>condition <span class="op">=</span> ______</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>san_tall <span class="op">=</span> sky[(sky.get(<span class="st">&#39;city&#39;</span>) <span class="op">==</span> <span class="st">&#39;San Diego&#39;</span>) <span class="op">&amp;</span> condition]</span></code></pre></div>
+<p>What goes in the blank?</p>
+<hr />
+<h2 id="problem-10">Problem 10</h2>
+<p>Consider the following line plot, which depicts the number of
+skyscrapers built per year.</p>
+<center><img src='../assets/images/wi22-midterm/sky-per-year.png' width=40%></center>
+<p><br></p>
+<h3 id="problem-10.1">Problem 10.1</h3>
+<p>We created the line plot above using the following line of code:</p>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>sky.groupby(<span class="st">&#39;year&#39;</span>).count().plot(kind<span class="op">=</span><span class="st">&#39;line&#39;</span>, y<span class="op">=</span><span class="st">&#39;height&#39;</span>)<span class="op">;</span></span></code></pre></div>
+<p>Which of the following could we replace <code>'height'</code> with in
+the line of code above, such that the resulting line of code creates the
+same line plot? <strong>Select all that apply.</strong></p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> <code>'name'</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>'material'</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>'city'</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>'floors'</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>'year'</code></p></li>
+<li><p><input type="checkbox" disabled="" /> None of the above</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-10.2">Problem 10.2</h3>
+<p>Now let’s look at the number of skyscrapers built each year since
+1975 in New York City 🗽.</p>
+<center><img src='../assets/images/wi22-midterm/ny-per-year.png' width=40%></center>
+<p>Which of the following is a valid conclusion we can make using this
+graph alone?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> No city in the dataset had more skyscrapers built in 2015 than New
+York City.</p></li>
+<li><p><input type="radio" disabled="" /> The decrease in the number of skyscrapers built in 2012 over previous
+years was due to the 2008 economic recession, and the reason the
+decrease is seen in 2012 rather than 2008 is because skyscrapers usually
+take 4 years to be built.</p></li>
+<li><p><input type="radio" disabled="" /> The decrease in the number of skyscrapers built in 2012 over previous
+years was due to something other than the 2008 economic recession.</p></li>
+<li><p><input type="radio" disabled="" /> The COVID-19 pandemic is the reason that so few skyscrapers were
+built in 2020.</p></li>
+<li><p><input type="radio" disabled="" /> None of the above.</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-10.3">Problem 10.3</h3>
+<p>In which of the following scenarios would it make sense to draw a
+overlaid histogram?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> To visualize the number of skyscrapers of each material type,
+separately for New York City and Chicago.</p></li>
+<li><p><input type="radio" disabled="" /> To visualize the distribution of the number of floors per skyscraper,
+separately for New York City and Chicago.</p></li>
+<li><p><input type="radio" disabled="" /> To visualize the average height of skyscrapers built per year,
+separately for New York City and Chicago.</p></li>
+<li><p><input type="radio" disabled="" /> To visualize the relationship between the number of floors and height
+for all skyscrapers.</p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-11">Problem 11</h2>
+<p>IKEA is a Swedish furniture company that designs and sells
+ready-to-assemble furniture and other home furnishings.</p>
+<center><img src='../assets/images/sp22-final/wordless_instructions.png' width=40%></center>
+<p>An IKEA fan created an app where people can log the amount of time it
+took them to assemble their IKEA furniture. The DataFrame
+<code>app_data</code> has a row for each product build that was logged
+on the app. The columns are:</p>
+<ul>
+<li><code>'product'</code> (<code>str</code>): the name of the product,
+which includes the product line as the first word, followed by a
+description of the product</li>
+<li><code>'category'</code> (<code>str</code>): a categorical
+description of the type of product</li>
+<li><code>'assembly_time'</code> (<code>str</code>): the amount of time
+to assemble the product, formatted as <code>'x hr, y min'</code> where
+<code>x</code> and <code>y</code> represent integers, possibly zero</li>
+</ul>
+<p>The first few rows of <code>app_data</code> are shown below, though
+<code>app_data</code> has many more rows than pictured (5000 rows
+total).</p>
+<center><img src='../assets/images/sp22-final/appdatadf.png' height=180></center>
+<p>&nbsp;</p>
+<p>Assume that we have already run <code>import babypandas as bpd</code>
+and <code>import numpy as np</code>.<br />
+<br><br></p>
+<p>Complete the expression below so that it evaluates to a DataFrame
+indexed by <code>'category'</code> with one column called
+<code>'price'</code> containing the median cost of the products in each
+category.</p>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>ikea.___(a)___.get(___(b)___)</span></code></pre></div>
+<p><br></p>
+<h3 id="problem-11.1">Problem 11.1</h3>
+<p>What goes in blank (a)?</p>
+<p><br></p>
+<h3 id="problem-11.2">Problem 11.2</h3>
+<p>What goes in blank (b)?</p>
+<p><br></p>
+<hr />
+<h2 id="problem-12">Problem 12</h2>
+<p>The histogram below shows the distribution of the number of products
+sold per day throughout the last 30 days, for two different IKEA
+products: the KURA reversible bed, and the ANTILOP highchair.</p>
+<center><img src='../assets/images/sp22-final/overlaidhist.png' width=40%></center>
+<p><br></p>
+<h3 id="problem-12.1">Problem 12.1</h3>
+<p>For how many days did IKEA sell between 20 (inclusive) and 30
+(exclusive) KURA reversible beds per? Give an <strong>integer</strong>
+answer or write “not enough information”, but <strong>not
+both</strong>.</p>
+<p><br></p>
+<h3 id="problem-12.2">Problem 12.2</h3>
+<p>For how many days did IKEA sell more KURA reversible beds than
+ANTILOP highchairs? Give an <strong>integer</strong> answer or write
+“not enough information”, but <strong>not both</strong>.</p>
+<p><br></p>
+<h3 id="problem-12.3">Problem 12.3</h3>
+<p>Determine the relative order of the three quantities below.</p>
+<ol type="1">
+<li>The number of days for which IKEA sold at least 35 ANTILOP
+highchairs.</li>
+<li>The number of days for which IKEA sold less than 25 ANTILOP
+highchairs.</li>
+<li>The number of days for which IKEA sold between 10 (inclusive) and 20
+(exclusive) KURA reversible beds.</li>
+</ol>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> (1)&lt;(2)&lt;(3)</p></li>
+<li><p><input type="radio" disabled="" /> (1)&lt;(3)&lt;(2)</p></li>
+<li><p><input type="radio" disabled="" /> (2)&lt;(1)&lt;(3)</p></li>
+<li><p><input type="radio" disabled="" /> (2)&lt;(3)&lt;(1)</p></li>
+<li><p><input type="radio" disabled="" /> (3)&lt;(1)&lt;(2)</p></li>
+<li><p><input type="radio" disabled="" /> (3)&lt;(2)&lt;(1)</p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-13">Problem 13</h2>
+<p><center><img src='../assets/images/sp22-midterm/cartoon.png' width=20%></center></p>
+<p>Included is a DataFrame named <code>sungod</code> that contains
+information on the artists who have performed at Sun God in years past.
+<strong>For each year that the festival was held, we have one row for
+each artist that performed that year.</strong> The columns are:</p>
+<ul>
+<li><code>'Year'</code> (<code>int</code>): the year of the
+festival</li>
+<li><code>'Artist'</code> (<code>str</code>): the name of the
+artist</li>
+<li><code>'Appearance_Order'</code> (<code>int</code>): the order in
+which the artist appeared in that year’s festival (1 means they came
+onstage first)</li>
+</ul>
+<p>The rows of <code>sungod</code> are arranged in <strong>no particular
+order</strong>. The first few rows of <code>sungod</code> are shown
+below (though <code>sungod</code> has <strong>many more rows</strong>
+than pictured here).</p>
+<center><img src='../assets/images/sp22-midterm/sungod.png' width=30%></center>
+<p>Assume:</p>
+<ul>
+<li><p>Only one artist ever appeared at a time (for example, we can’t
+have two separate artists with a <code>'Year'</code> of 2015 and an
+<code>'Appearance_Order'</code> of 3).</p></li>
+<li><p>An artist may appear in multiple different Sun God festivals
+(they could be invited back).</p></li>
+<li><p>We have already run <code>import babypandas as bpd</code> and
+<code>import numpy as np</code>. <br><br></p></li>
+</ul>
+<p>On the graph paper below, draw the histogram that would be produced
+by this code.</p>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>sungod.take(np.arange(<span class="dv">5</span>))</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>      .plot(kind<span class="op">=</span><span class="st">&#39;hist&#39;</span>, density<span class="op">=</span><span class="va">True</span>, </span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>      bins<span class="op">=</span>np.arange(<span class="dv">0</span>, <span class="dv">7</span>, <span class="dv">2</span>), y<span class="op">=</span><span class="st">&#39;Appearance_Order&#39;</span>)<span class="op">;</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>In your drawing, make sure to label the height of each bar in the
+histogram on the vertical axis. You can scale the axes however you like,
+and the two axes don’t need to be on the same scale.</p>
+<center><img src='../assets/images/sp22-midterm/graph-paper.png' width=250></center>
+<hr />
+<h2 id="problem-14">Problem 14</h2>
+<p>What was the largest number of artists that ever performed in a
+single Sun God festival? <strong>Select all expressions that evaluate to
+the correct answer.</strong></p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> <code>sungod.groupby('Appearance_Order').count().get('Year').max()</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>sungod.groupby('Year').count().get('Artist').max()</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>sungod.get('Appearance_Order').max()</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>sungod.groupby('Year').max().get('Year').max()</code></p></li>
+<li><p><input type="checkbox" disabled="" /> None of the above.</p></li>
+</ul>
+<hr />
+<h2 id="section"><span class="math display"> </span></h2>
+<h4
+id="feedback-find-an-error-still-confused-have-a-suggestion-let-us-know-here.">👋
+Feedback: Find an error? Still confused? Have a suggestion?
+<a href="https://forms.gle/WZ71FchnXU1K154d7">Let us know
+here</u></a>.</h4>
+<hr />
+</body>
+</html>
