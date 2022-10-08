@@ -15,7 +15,7 @@ Fill in blank (a).
 
 # BEGIN SOLUTION
 
-**Answer: `groupby("kind")`** 
+**Answer: ** `groupby("kind")` 
 
 We start this problem by grouping the dataframe by `"kind"` since we're only 
 focusing on whether each unique `"kind"` of dog fits some sort of constraint.
@@ -34,7 +34,7 @@ Fill in blank (b).
 
 # BEGIN SOLUTION
 
-**Answer: `.mean()`** 
+**Answer: ** `.mean()` 
 
 After we do `.groupby("kind")`, we need to apply `.mean()` since the problem asks if 
 each unique `"kind"` of dog satisfies certain constraints **on average**. 
@@ -51,7 +51,7 @@ Fill in blank (c).
 
 # BEGIN SOLUTION
 
-**Answer: `(foo.get('weight') > 20 | foo.get(`height`) > 40)`** 
+**Answer: ** `(foo.get('weight') > 20 | foo.get(`height`) > 40)`
 
 Once we have grouped the dogs by `"kind"` and have calculated the average 
 stats of each kind of dog, we can do some querying with two conditionals:
@@ -75,7 +75,7 @@ Which of the following should fill in blank (d)?
 
 # BEGIN SOLUTION
 
-**Answer: `.index`** 
+**Answer: ** `.index` 
 
 Finally, we take the indeces of the final data frame since we're left with a
 bunch of rows of which the kind of dog satisfies the given conditions. Note 
@@ -99,7 +99,7 @@ Now, which of the following should fill in blank (d)?
 
 # BEGIN SOLUTION
 
-**Answer: `.get("kind")`** 
+**Answer: ** `.get("kind")`
 
 Now that we have reset the index of the dataframe, `kind` is once again its
 own column so we could simply do `.get("kind")`.
