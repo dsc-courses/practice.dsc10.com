@@ -4,9 +4,9 @@ You are given a DataFrame called `books` that contains columns `'author'` (strin
 
 Suppose that after doing `books.groupby('Author').max()`, one row says
 
-| author    | title | num_chapters | publication_year &nbsp; &nbsp;
-| :-----------: | :-----------: | :-----------: | :-----------: |
-| Charles Dickens      | Oliver Twist      | 53  | 1838
+| author               | title       |  num_chapters | publication_year |    
+| -----------          | ----------- | -----------   | -----------      |
+| Charles Dickens      | Oliver Twist| 53            | 1838             |
 
 # BEGIN SUBPROB
 
