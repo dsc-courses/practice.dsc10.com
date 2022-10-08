@@ -24,7 +24,7 @@ Here, there is a categorical variable (the breed of the dog) and a quantitative 
 
 # BEGIN SUBPROB
 
-Do toy dogs have smaller `"size"` values than other dogs?
+Do toy dogs have smaller `'size'` values than other dogs?
 
 ( ) Bar plot
 ( ) Scatter plot
@@ -35,7 +35,7 @@ Do toy dogs have smaller `"size"` values than other dogs?
 
 **Answer: ** None of the above 
 
-We are comparing two categorical variables (`"size"` and toy-sized vs not toy-sized). None of the graphs here are suitable for this scenario since bar plots are used to compare a categorical variable against a quantitative variable, while scatter plots and histograms compare a quantitative variable against quantitative variable.
+We are comparing two categorical variables (`'size'` and toy-sized vs not toy-sized). None of the graphs here are suitable for this scenario since bar plots are used to compare a categorical variable against a quantitative variable, while scatter plots and histograms compare a quantitative variable against quantitative variable.
 
 # END SOLUTION
 
