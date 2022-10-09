@@ -9,7 +9,7 @@ def doggos(n, lower, upper):
 
 This plot shows a density histogram of the `'longevity'` column.
 
-<center><img src='../assets/images/su22-final/q5_hist.png' width=90%></center>
+<center><img src='../assets/images/su22-final/q5_hist.png' width=80%></center>
 
 Answer each of these questions by either writing a **single number** in the box
  or selecting "Not enough information", but **not both**. What is the 
@@ -25,13 +25,13 @@ Answer each of these questions by either writing a **single number** in the box
 
 Let's first understand the function. The function takes inputs `n`, `lower`, and `upper`
 and randomly takes a sample of `n` rows with replacement from DataFrame `df`, gets column 
-`longevity` from the sample and save it as `t`. The `n` entries of `t` are randomly
+`longevity` from the sample and saves it as `t`. The `n` entries of `t` are randomly
 generated according to the density histogram shown in the picture. That is, 
 the probability of a particular value being generated in list `t` for a given 
 entry can be visualized by the density histogram in the picture. `lower <= t < upper`
 takes `t` and generates a boolean array with each entry being either `True` or `False`
 depending on whether the corresponding entry in `t` lies within the range. And so 
-`sum(lower <= t < upper)` returns the number of entries in `t` that lies between the range values.
+`sum(lower <= t < upper)` returns the number of entries in `t` that lies between the range values. (This is because `True` has a value of 1 and `False` has a value of 0, so summing Booleans is a quick way to count how many `True` there are.)
 
 Now for part a is just asking for the probability that we'll draw a `longevity` value 
 between 10 and 11 given the density plot. Note that the probability of a bar is 

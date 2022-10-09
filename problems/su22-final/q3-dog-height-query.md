@@ -15,13 +15,13 @@ Fill in blank (a).
 
 # BEGIN SOLUTION
 
-**Answer: ** `groupby("kind")` 
+**Answer: ** `groupby('kind')` 
 
-We start this problem by grouping the dataframe by `"kind"` since we're only 
-focusing on whether each unique `"kind"` of dog fits some sort of constraint.
+We start this problem by grouping the dataframe by `'kind'` since we're only 
+focusing on whether each unique `'kind'` of dog fits some sort of constraint.
 We don't quite perform querying yet since we need to sor the data frame into 
 groups first. In other words, we first need to group the data frame into each 
-`"kind"` before we could apply any sort of boolean conditionals.
+`'kind'` before we could apply any sort of boolean conditionals.
 
 
 # END SOLUTION
@@ -36,8 +36,8 @@ Fill in blank (b).
 
 **Answer: ** `.mean()` 
 
-After we do `.groupby("kind")`, we need to apply `.mean()` since the problem asks if 
-each unique `"kind"` of dog satisfies certain constraints **on average**. 
+After we do `.groupby('kind')`, we need to apply `.mean()` since the problem asks if 
+each unique `'kind'` of dog satisfies certain constraints **on average**. 
 `.mean()` calculates the average of each column of each group which is what 
 we want.
 
@@ -53,7 +53,7 @@ Fill in blank (c).
 
 **Answer: ** `(foo.get('weight') > 20 | foo.get(`height`) > 40)`
 
-Once we have grouped the dogs by `"kind"` and have calculated the average 
+Once we have grouped the dogs by `'kind'` and have calculated the average 
 stats of each kind of dog, we can do some querying with two conditionals:
 `foo.get('weight') > 20` filters out the kinds of dogs that have an average 
 weight of at least 20 and `foo.get('height') > 40)` filters out the kinds of 
@@ -70,8 +70,8 @@ Which of the following should fill in blank (d)?
 
 ( ) `.index`
 ( ) `.unique()`
-( ) `.get("kind")`
-( ) `.get(["kind"])`
+( ) `.get('kind')`
+( ) `.get(['kind'])`
 
 # BEGIN SOLUTION
 
@@ -79,8 +79,8 @@ Which of the following should fill in blank (d)?
 
 Finally, we take the indeces of the final data frame since we're left with a
 bunch of rows of which the kind of dog satisfies the given conditions. Note 
-that we use `.index` instead of `.get("kind")` because early we did 
-`groupby("kind")`, which automatically creates a data frame with `"kind"` as 
+that we use `.index` instead of `.get('kind')` because early we did 
+`groupby('kind')`, which automatically creates a data frame with `'kind'` as 
 the index.
 
 # END SOLUTION
@@ -94,15 +94,15 @@ Now, which of the following should fill in blank (d)?
 
 ( ) `.index`
 ( ) `.unique()`
-( ) `.get("kind")`
-( ) `.get(["kind"])`
+( ) `.get('kind')`
+( ) `.get(['kind'])`
 
 # BEGIN SOLUTION
 
-**Answer: ** `.get("kind")`
+**Answer: ** `.get('kind')`
 
 Now that we have reset the index of the dataframe, `kind` is once again its
-own column so we could simply do `.get("kind")`.
+own column so we could simply do `.get('kind')`.
 
 # END SOLUTION
 
