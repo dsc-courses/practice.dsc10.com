@@ -53,7 +53,7 @@ Solutions to discussion worksheets will be made available on Monday evenings, af
     <tr>
       <th scope="row">3</th>
       <td>October 10th</td>
-      <td>TBD</td>
+      <td><a href="disc03/index.html">Querying, Grouping, and Plotting</a></td>
     </tr>
     
   </tbody>
