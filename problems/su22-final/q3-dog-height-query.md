@@ -19,7 +19,7 @@ Fill in blank (a).
 
 We start this problem by grouping the dataframe by `'kind'` since we're only 
 focusing on whether each unique `'kind'` of dog fits some sort of constraint.
-We don't quite perform querying yet since we need to sor the data frame into 
+We don't quite perform querying yet since we need to sort the data frame into 
 groups first. In other words, we first need to group the data frame into each 
 `'kind'` before we could apply any sort of boolean conditionals.
 
