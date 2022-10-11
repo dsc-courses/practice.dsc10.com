@@ -9,7 +9,7 @@ def doggos(n, lower, upper):
 
 This plot shows a density histogram of the `'longevity'` column.
 
-<center><img src='assets/images/su22-final/q5_hist.png' width=40%></center>
+<center><img src='../../assets/images/su22-final/q5_hist.png' width=40%></center>
 
 Answer each of these questions by either writing a **single number** in the box
 or selecting "Not enough information", but **not both**. What is the 
