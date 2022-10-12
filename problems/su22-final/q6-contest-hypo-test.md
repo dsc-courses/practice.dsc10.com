@@ -30,7 +30,7 @@ dogs in the population.
 
 A null hyopthesis is a the hypothesis that there is no significant difference between populations. Let's consider what a potential null hypothesis might look like. A potential null hypothesis would be that there are is no difference between the win proportion of toy dogs compared to the proportion of toy dogs in the population.
 
-Option 1: We're not really looking at the distribtuion of dogs in our sample vs dogs in our population, rather, we're looking at whether whether toy dogs win more than other dogs. In other words, the only factors we're really consdiering are the proportion of toy dogs to normal dogs, as well as the win percentages of toy dogs to normal dogs; and so the distribution of the population doesn't really matter. Furthermore, this option makes no refereance to win rate of toy dogs.
+Option 1: We're not really looking at the distribution of dogs in our sample vs dogs in our population, rather, we're looking at whether whether toy dogs win more than other dogs. In other words, the only factors we're really consdiering are the proportion of toy dogs to normal dogs, as well as the win percentages of toy dogs to normal dogs; and so the distribution of the population doesn't really matter. Furthermore, this option makes no refereance to win rate of toy dogs.
 
 Option 2: This isn't really even a null hypothesis, but rather more of a description of a test procedure. This option also makes no attempt to refereance to win rate of toy dogs.
 
@@ -96,7 +96,6 @@ Option 3: This option is incorrect. The absolute difference of the sample propor
 Option 4: This option is incorrect for the same reasoning as above, but also 0.5 isn't a relavent number anyways.
 
 Option 5: This option is incorrect. Again, total variation distance won't help us tell whether or not the toy dogs have a disproportionately higher or lower winrate. 
-
 
 # END SOLUTION
 
