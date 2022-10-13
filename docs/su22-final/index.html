@@ -1590,6 +1590,458 @@ may not have had to do an extra step of standardizing the data).</p>
 </div>
 </div>
 <hr />
+<h2 id="problem-10">Problem 10</h2>
+<p>Sam wants to fit a linear model to predict a dog’s height using its
+weight.</p>
+<p>He first runs the following code:</p>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> df.get(<span class="st">&#39;weight&#39;</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> df.get(<span class="st">&#39;height&#39;</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> su(vals):</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (vals <span class="op">-</span> vals.mean()) <span class="op">/</span> np.std(vals)</span></code></pre></div>
+<p><br></p>
+<h3 id="problem-10.1">Problem 10.1</h3>
+<p>Select all of the Python snippets that correctly compute the
+correlation coefficient into the variable <code>r</code>.</p>
+<p>Snippet 1:</p>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> (su(x) <span class="op">*</span> su(y)).mean()</span></code></pre></div>
+<p>Snippet 2:</p>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> su(x <span class="op">*</span> y).mean()</span></code></pre></div>
+<p>Snippet 3:</p>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(x)):</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    t <span class="op">=</span> t <span class="op">+</span> su(x[i]) <span class="op">*</span> su(y[i])</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> t <span class="op">/</span> <span class="bu">len</span>(x)</span></code></pre></div>
+<p>Snippet 4:</p>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> np.array([])</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(x)):</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    t <span class="op">=</span> np.append(t, su(x)[i] <span class="op">*</span> su(y)[i])</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> t.mean()</span></code></pre></div>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> Snippet 1</p></li>
+<li><p><input type="checkbox" disabled="" /> Snippet 2</p></li>
+<li><p><input type="checkbox" disabled="" /> Snippet 3</p></li>
+<li><p><input type="checkbox" disabled="" /> Snippet 4</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading10_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10_1" aria-expanded="true" aria-controls="collapse10_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse10_1" class="accordion-collapse collapse collapse"
+aria-labelledby="heading10_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> Snippet 1 &amp; 4</p>
+<p>Snippet 1: Recall that the from the reference sheet, the correlation
+coefficient is precisely just
+<code>r = (su(x) * su(y)).mean()</code>.</p>
+<p>Snippet 2: We have to standardize each variable seperately so this
+snippet doesnt work.</p>
+<p>Snippet 3: Note that for this snippet we’re standardizing each data
+point within each variable seperately, and so we’re not really
+standardizing the entire variable correctly. In other words, applying
+<code>su(x[i])</code> to a singular data point is just going to convert
+this data point to zero, since we’re only inputting one data point into
+<code>su()</code>.</p>
+<p>Snippet 4: Note that this code is just the same as Snippet 1, except
+we’re now directly computing the product of each corresponding pai
+individually. Hence this Snippet works.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-10.2">Problem 10.2</h3>
+<p>Sam computest the following statistics for his sample:</p>
+<center><img src='../../assets/images/su22-final/q10_b.png' width=40%></center>
+<p>The best-fit line predicts that a dog with a weight of 10 kg has a
+height of 45 cm.</p>
+<p>What is the SD of dog heights?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> 2</p></li>
+<li><p><input type="radio" disabled="" /> 4.5</p></li>
+<li><p><input type="radio" disabled="" /> 10</p></li>
+<li><p><input type="radio" disabled="" /> 25</p></li>
+<li><p><input type="radio" disabled="" /> 45</p></li>
+<li><p><input type="radio" disabled="" /> None of the above</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading10_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10_2" aria-expanded="true" aria-controls="collapse10_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse10_2" class="accordion-collapse collapse collapse"
+aria-labelledby="heading10_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> Option 3: 10</p>
+<p>The best fit line in original units are given by
+<code>y = mx + b</code> where <code>m = r * (SD of y) / (SD of x)</code>
+and <code>b = (mean of y) - m * (mean of x)</code>. Let <code>c</code>
+be the SD of y, which we’re trying to find, then our best fir line is
+now <code>y = (0.8*c/8)x + (50-(0.8*c/8)*15)</code>. Plugging the two
+values they gave us into our best fit line gives
+<code>45 = 0.1*c*10 + (50 - 1.5*c)</code> which simplifies to
+<code>45 = 50 - 0.5*c</code> which gives us an answer of
+<code>c = 10</code>.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-10.3">Problem 10.3</h3>
+<p>Assume that the statistics in part b) still hold. Select all of the
+statements below that are true. (You don’t need to finish part b) in
+order to solve this question.)</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> The relationship between dog weight and height is linear.</p></li>
+<li><p><input type="checkbox" disabled="" /> The root mean squared error of the best-fit line is smaller than
+5.</p></li>
+<li><p><input type="checkbox" disabled="" /> The best-fit line predicts that a dog that weighs 15 kg will be 50 cm
+tall.</p></li>
+<li><p><input type="checkbox" disabled="" /> The best-fit line predicts that a dog that weighs 10 kg will be
+shorter than 50 cm.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading10_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10_3" aria-expanded="true" aria-controls="collapse10_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse10_3" class="accordion-collapse collapse collapse"
+aria-labelledby="heading10_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> Option 3 &amp; 4</p>
+<p>Option 1: We cannot determine whether two variables are linear simply
+from a line of best fit (which just so happens to find the best linear
+relationship between two varaibles)</p>
+<p>Option 2: To calculate the root mean squared error, we need the
+acutaly data points so we can calculate residual values. Seeing that we
+don’t have access to the data points, we cannot say that the root mean
+squared error of the best-fit line is smaller than 5.</p>
+<p>Option 3: This is true accarding to the problem statement given in
+part b</p>
+<p>Option 4: This is true since we expect there to be a positive
+correlation between dog height and weight. So dogs that are lighter will
+also most likely be shorter. (ie a dog that is lighter than 15 kg will
+most likely be shorter than 50cm)</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-11">Problem 11</h2>
+<p>Answer the following true/false questions.</p>
+<p><br></p>
+<h3 id="problem-11.1">Problem 11.1</h3>
+<p>When John Snow took off the handle from the Broad Street pump, the
+number of cholera deaths decreased. Because of this, he could conclude
+that cholera was caused by dirty water.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading11_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11_1" aria-expanded="true" aria-controls="collapse11_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse11_1" class="accordion-collapse collapse collapse"
+aria-labelledby="heading11_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> False</p>
+<p>There are a couple details that the problem fails to convey and that
+we cannot assume. 1) Do we even know that the pump he removed was the
+only pump with dirty water? 2) Do we know that people even drank/took
+water from the Broad Street pump? 3) Do we even know what kinds of
+people drank from the Broad Street pump?</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-11.2">Problem 11.2</h3>
+<p>If you get a p-value of 0.009 using a permutation test, you can
+conclude causality.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading11_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11_2" aria-expanded="true" aria-controls="collapse11_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse11_2" class="accordion-collapse collapse collapse"
+aria-labelledby="heading11_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> False</p>
+<p>Permutation tests don’t prove causality. Remember, we typically use
+the permutation test and calculate a p-value to reject a null
+hypothesis, not to prove the alternative.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-11.3">Problem 11.3</h3>
+<p><code>df.groupby("kind").mean()</code> will have 5 columns.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading11_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11_3" aria-expanded="true" aria-controls="collapse11_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse11_3" class="accordion-collapse collapse collapse"
+aria-labelledby="heading11_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> True</p>
+<p>Referring to <code>df</code> at the beginning of the exam, we could
+see that 5 of the columns have numerical values as inputs, and thus
+<code>df.groupby("kind").mean()</code> will return the mean of these 5
+numerical columns</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-11.4">Problem 11.4</h3>
+<p>If the 95% confidence interval for dog price is [650, 900], there is
+a 95% chance that the population dog price is between $650 and $900.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading11_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11_4" aria-expanded="true" aria-controls="collapse11_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse11_4" class="accordion-collapse collapse collapse"
+aria-labelledby="heading11_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> False</p>
+<p>A confidence interval gives us an interval in which one can be 95%
+confident that the population dog price will lie in between the given
+interval, not a probability that the dog price will lie in the
+interval.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-11.5">Problem 11.5</h3>
+<p>For a given sample, an 90% confidence interval is narrower than a 95%
+confidence interval.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading11_5">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11_5" aria-expanded="true" aria-controls="collapse11_5">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse11_5" class="accordion-collapse collapse collapse"
+aria-labelledby="heading11_5" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> True</p>
+<p>The more narrow an interval is, the less confident one is that the
+true statistic lies within that interval.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-11.6">Problem 11.6</h3>
+<p>If you tried to bootstrap your sample 1,000 times but accidentally
+sampled <strong>without</strong> replacement, the standard deviation of
+your test statistics is always equal to 0.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading11_6">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11_6" aria-expanded="true" aria-controls="collapse11_6">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse11_6" class="accordion-collapse collapse collapse"
+aria-labelledby="heading11_6" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p>**Answer: True</p>
+<p>Note that bootstrapping form a sample <strong>without</strong>
+replacement just means that we’re drawing the same sample over and over
+again. So the resulting test statistic will be the same between each
+sample, and thus the std of the test statistic is 0.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-11.7">Problem 11.7</h3>
+<p>You run a permutation test and store 500 simulated test statistics in
+an array called <code>stats</code>. You can construct a 95% confidence
+interval by finding the 2.5th and 97.5th percentiles of
+<code>stats</code>.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading11_7">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11_7" aria-expanded="true" aria-controls="collapse11_7">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse11_7" class="accordion-collapse collapse collapse"
+aria-labelledby="heading11_7" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> False</p>
+<p>False, to calculate a 95 percent confidence interval, we use
+bootstrapping to add variation to our samples.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-11.8">Problem 11.8</h3>
+<p>The distribution of sample proportions is roughly normal for large
+samples because of the Central Limit Theorem.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading11_8">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11_8" aria-expanded="true" aria-controls="collapse11_8">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse11_8" class="accordion-collapse collapse collapse"
+aria-labelledby="heading11_8" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> True</p>
+<p>This is just the definition of Central Limit Theorem.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-11.9">Problem 11.9</h3>
+<p>The 20th percentile of the sequence [10, 30, 50, 40, 9, 70] is
+30.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading11_9">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11_9" aria-expanded="true" aria-controls="collapse11_9">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse11_9" class="accordion-collapse collapse collapse"
+aria-labelledby="heading11_9" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> False</p>
+<p>To calculate percentile, we take 20 / 100 * 6, which gives us the
+ordinal rank of 6/5. Now we take the next largest integer ordinal rank
+which is 2. And since 10 has an ordinal rank of 2 in the data set, the
+20th percentile value of the data set is 10.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-11.10">Problem 11.10</h3>
+<p>Chebyshev’s inequality implies that we can always create a 96%
+confidence interval from a bootstrap distribution using the mean of the
+distribution plus or minus 5 standard deviations.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading11_10">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11_10" aria-expanded="true" aria-controls="collapse11_10">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse11_10" class="accordion-collapse collapse collapse"
+aria-labelledby="heading11_10" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> True</p>
+<p>By Chebyshev’s theorem, at most <code>1 - 1 / z^2</code> of the data
+is within <code>z</code> STD of the mean. Thus
+<code>1 - 1 / 5^2 = 0.96</code> of the data is within 5 STD of the
+mean.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
 <h2 id="section"><span class="math display"> </span></h2>
 <h4
 id="feedback-find-an-error-still-confused-have-a-suggestion-let-us-know-here.">👋
