@@ -966,11 +966,11 @@ higher or lower winrate.</p>
 the proportion of non-toy dogs. What is the observed value of the test
 statistic?</p>
 <ul class="task-list">
-<li><p><input type="radio" disabled="" /> <span class="math inline">-0.4</span></p></li>
-<li><p><input type="radio" disabled="" /> <span class="math inline">-0.2</span></p></li>
-<li><p><input type="radio" disabled="" /> <span class="math inline">0</span></p></li>
-<li><p><input type="radio" disabled="" /> <span class="math inline">0.2</span></p></li>
-<li><p><input type="radio" disabled="" /> <span class="math inline">0.4</span></p></li>
+<li><p><input type="radio" disabled="" /> -0.4</p></li>
+<li><p><input type="radio" disabled="" /> -0.2</p></li>
+<li><p><input type="radio" disabled="" /> 0</p></li>
+<li><p><input type="radio" disabled="" /> 0.2</p></li>
+<li><p><input type="radio" disabled="" /> 0.4</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
@@ -986,9 +986,8 @@ aria-labelledby="heading6_4" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer: </strong> Option 2: -0.2</p>
-<p>For our given sample, the proportion of toy dogs is <span class="math inline">0.4</span> and the proportion of non-toy dogs is
-<span class="math inline">0.6</span> so <span class="math inline">0.4 -
-0.6 = -0.2</span></p>
+<p>For our given sample, the proportion of toy dogs is 0.4 and the
+proportion of non-toy dogs is 0.6 so 0.4 - 0.6 = -0.2</p>
 </div>
 </div>
 </div>
@@ -997,13 +996,32 @@ aria-labelledby="heading6_4" data-bs-parent="#accordionExample">
 <h3 id="problem-6.5">Problem 6.5</h3>
 <p>Which snippets of code correctly compute Eric’s test statistic on one
 simulated sample under the null hypothesis? Select all that apply. The
-result must be stored in the variable <code>stat</code>.</p>
+result must be stored in the variable <code>stat</code>. Below are the 5
+snippets</p>
+<p>Snippet 1:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> np.random.choice([<span class="fl">0.3</span>, <span class="fl">0.7</span>])</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> np.random.choice([<span class="fl">0.3</span>, <span class="fl">0.7</span>])</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>stat <span class="op">=</span> a <span class="op">-</span> b</span></code></pre></div>
+<p>Snippet 2:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> np.random.choice([<span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.3</span>, <span class="fl">0.2</span>, <span class="fl">0.15</span>, <span class="fl">0.05</span>])</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>stat <span class="op">=</span> a <span class="op">-</span> (<span class="dv">1</span> <span class="op">-</span> a)</span></code></pre></div>
+<p>Snippet 3:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> np.random.multinomial(<span class="dv">500</span>, [<span class="fl">0.1</span>, <span class="fl">0.2</span>, <span class="fl">0.3</span>, <span class="fl">0.2</span>, <span class="fl">0.15</span>, <span class="fl">0.05</span>]) <span class="op">/</span> <span class="dv">500</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>stat <span class="op">=</span> a[<span class="dv">2</span>] <span class="op">-</span> (<span class="dv">1</span> <span class="op">-</span> a[<span class="dv">2</span>])</span></code></pre></div>
+<p>Snippet 4:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> np.random.multinomial(<span class="dv">500</span>, [<span class="fl">0.3</span>, <span class="fl">0.7</span>]) <span class="op">/</span> <span class="dv">500</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>stat <span class="op">=</span> a[<span class="dv">0</span>] <span class="op">-</span> (<span class="dv">1</span> <span class="op">-</span> a[<span class="dv">0</span>])</span></code></pre></div>
+<p>Snippet 5:</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> df.sample(<span class="dv">500</span>, replace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> a[a.get(<span class="st">&quot;kind&quot;</span>) <span class="op">==</span> <span class="st">&quot;toy&quot;</span>].shape[<span class="dv">0</span>] <span class="op">/</span> <span class="dv">500</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>stat <span class="op">=</span> b <span class="op">-</span> (<span class="dv">1</span> <span class="op">-</span> b)</span></code></pre></div>
 <ul class="task-list">
-<li><p><input type="checkbox" disabled="" /> Snippet 1:</p></li>
-<li><p><input type="checkbox" disabled="" /> Snippet 2:</p></li>
-<li><p><input type="checkbox" disabled="" /> Snippet 3:</p></li>
-<li><p><input type="checkbox" disabled="" /> Snippet 4:</p></li>
-<li><p><input type="checkbox" disabled="" /> Snippet 5:</p></li>
+<li><p><input type="checkbox" disabled="" /> Snippet 1</p></li>
+<li><p><input type="checkbox" disabled="" /> Snippet 2</p></li>
+<li><p><input type="checkbox" disabled="" /> Snippet 3</p></li>
+<li><p><input type="checkbox" disabled="" /> Snippet 4</p></li>
+<li><p><input type="checkbox" disabled="" /> Snippet 5</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
@@ -1049,12 +1067,12 @@ contest.</p>
 </div>
 <p><br></p>
 <h3 id="problem-6.6">Problem 6.6</h3>
-<p>LEM</p>
 <p>After simulating, Eric has an array called <code>sim</code> that
 stores his simulated test statistics, and a variable called
 <code>obs</code> that stores his observed test statistic.</p>
 <p>What should go in the blank to compute the p-value?</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>np.mean(sim _______ obs)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>np.mean(sim _______ obs)</span></code></pre></div>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> <code>&lt;</code></p></li>
 <li><p><input type="radio" disabled="" /> <code>&lt;=</code></p></li>
@@ -1088,7 +1106,6 @@ than <span class="math inline">0.2</span>, and thus we use
 </div>
 <p><br></p>
 <h3 id="problem-6.7">Problem 6.7</h3>
-<p>LEM</p>
 <p>Eric’s p-value is 0.03. If his p-value cutoff is 0.01, what does he
 conclude?</p>
 <ul class="task-list">
@@ -1255,6 +1272,323 @@ sense in this context.</p>
 </div>
 </div>
 <p><br></p>
+<hr />
+<h2 id="problem-8">Problem 8</h2>
+<p>Oren has a random sample of 200 dog prices in an array called . He
+has also bootstrapped his sample 1,000 times and stored the mean of each
+resample in an array called <code>boots</code>.</p>
+<p>In this question, assume that the following code has run:</p>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> np.mean(oren)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> np.std(oren)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> <span class="bu">len</span>(oren)</span></code></pre></div>
+<p><br></p>
+<h3 id="problem-8.1">Problem 8.1</h3>
+<p>What expression best estimates the population’s standard
+deviation?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>b</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>b / c</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>b / np.sqrt(c)</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>b * np.sqrt(c)</code></p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading8_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_1" aria-expanded="true" aria-controls="collapse8_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse8_1" class="accordion-collapse collapse collapse"
+aria-labelledby="heading8_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> option 1: <code>b</code></p>
+<p>The function <code>np.std</code> directly calculated the standard
+deviation of array <code>oren</code>. Even though <code>oren</code> is
+sample of the population, it’s still a pretty good estimate for the std
+since it’s a random sample. The other options don’t really make sense in
+this context.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-8.2">Problem 8.2</h3>
+<p>Which expression best estimates the mean of <code>boots</code>?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> 0</p></li>
+<li><p><input type="radio" disabled="" /> <code>a</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>(oren - a).mean()</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>(oren - a) / b</code></p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading8_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_2" aria-expanded="true" aria-controls="collapse8_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse8_2" class="accordion-collapse collapse collapse"
+aria-labelledby="heading8_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> Option 2: <code>a</code></p>
+<p>Note that <code>a</code> is equal to the mean of <code>oren</code>,
+which is a pretty good estimate of the mean of the overall population.
+The other options don’t really make sense in this context.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-8.3">Problem 8.3</h3>
+<p>What expression best estimates the standard deviation of
+<code>boots</code>?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>b</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>b / c</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>b / np.sqrt(c)</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>(a -b) / np.sqrt(c)</code></p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading8_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_3" aria-expanded="true" aria-controls="collapse8_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse8_3" class="accordion-collapse collapse collapse"
+aria-labelledby="heading8_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> Option 3: <code>b / np.sqrt(c)</code></p>
+<p>Note that we can use the central limit theorem for this problem which
+states that the STD of the distribution
+<code>(population STD) / np.sqrt(sample size)</code>. Since our sample
+is the population in this case, we can plug our variables in to see that
+<code>b / np.sqrt(c)</code> is our answer.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-8.4">Problem 8.4</h3>
+<p>What is the price of $560 in standard units?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>(560 - a) / b</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>(560 - a) / (b / np.sqrt(c))</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>(a - 560) / (b / np.sqrt(c))}</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>abs(560 - a) / b</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>abs(560 - a) / (b / np.sqrt(c))</code></p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading8_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_4" aria-expanded="true" aria-controls="collapse8_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse8_4" class="accordion-collapse collapse collapse"
+aria-labelledby="heading8_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> Option 1: <code>(560 - a) / b</code></p>
+<p>To convert a value to standard units, we simply take the value,
+subtract it by the mean, and divide by STD, which in this case is
+<code>(560 - a) / b</code>.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-8.5">Problem 8.5</h3>
+<p>The distribution of <code>boots</code> is normal because of the
+Central Limit Theorem.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading8_5">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_5" aria-expanded="true" aria-controls="collapse8_5">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse8_5" class="accordion-collapse collapse collapse"
+aria-labelledby="heading8_5" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> True</p>
+<p>True. The central limit theorem states that if you have a populations
+and take a sufficiently large random samples form the population, then
+the distribution of the sample means will be approximately normally
+distributed.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-8.6">Problem 8.6</h3>
+<p>If Oren’s sample was 400 dogs instead of 200, the standard deviation
+of <code>boots</code> will…</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Increase by a factor of <span class="math inline">2</span></p></li>
+<li><p><input type="radio" disabled="" /> Increase by a factor of <span class="math inline">sqrt(2)</span></p></li>
+<li><p><input type="radio" disabled="" /> Decrease by a factor of 2</p></li>
+<li><p><input type="radio" disabled="" /> Decrease by a factor of <span class="math inline">sqrt(2)</span></p></li>
+<li><p><input type="radio" disabled="" /> None of the above</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading8_6">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_6" aria-expanded="true" aria-controls="collapse8_6">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse8_6" class="accordion-collapse collapse collapse"
+aria-labelledby="heading8_6" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p>**Answer: Option 4: Decrease by a factor of <span class="math inline">sqrt(2)</span></p>
+<p>Recall that the central limit theorem states that the STD of the
+sample distribution is equal to
+<code>(population STD) / np.sqrt(sample size)</code>. So if we increase
+the sample size by a factor of 2, the STD of the sample distribution
+will decrease by a factor of <span class="math inline">sqrt(2)</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-8.7">Problem 8.7</h3>
+<p>If Oren took 4000 bootstrap resamples instead of 1000, the standard
+deviation of <code>boots</code> will…</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Increase by a factor of 4</p></li>
+<li><p><input type="radio" disabled="" /> Increase by a factor of 2</p></li>
+<li><p><input type="radio" disabled="" /> Decrease by a factor of 2</p></li>
+<li><p><input type="radio" disabled="" /> Decrease by a factor of 4</p></li>
+<li><p><input type="radio" disabled="" /> None of the above</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading8_7">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_7" aria-expanded="true" aria-controls="collapse8_7">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse8_7" class="accordion-collapse collapse collapse"
+aria-labelledby="heading8_7" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> Option 5: None of the above</p>
+<p>Again, from our formula given by the central limit theorem, the
+sample STD doesn’t depend on the number of bootstrap resamples so long
+as it’s “sufficiently large”. Thus increasing our bootstrap sample form
+1000 to 4000 will have no effect toe the std of <code>boots</code></p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-8.8">Problem 8.8</h3>
+<p>Write one line of code that evaluates to the <strong>right
+endpoint</strong> of a 92% normal theory confidence interval for the
+mean dog price. The following expressions may help:</p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>stats.norm.cdf(<span class="fl">1.75</span>) <span class="co"># =&gt; 0.96</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>stats.norm.cdf(<span class="fl">1.4</span>)  <span class="co"># =&gt; 0.92</span></span></code></pre></div>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading8_8">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_8" aria-expanded="true" aria-controls="collapse8_8">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse8_8" class="accordion-collapse collapse collapse"
+aria-labelledby="heading8_8" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> <code>a + 1.75 * b / np.sqrt(c)</code></p>
+<p>Recall that a 92% confidence interval means an interval that consists
+of the middle 92% of the distribution. In other words, we want to “chop”
+off 4% from either end of the ditribution. Thus to get the right
+endpoint, we want the value corresponding to the 96th percentile, or
+<code>mean + 1.75 * (std of population / np.sqrt(sample size)</code> or
+<code>a + 1.75 * b / np.sqrt(c)</code> (we divide by
+<code>np.sqrt(c)</code> due to the central limit theorem). Note, that
+the second line that was given is irrelavant the this particular
+problem.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-9">Problem 9</h2>
+<p>Suppose you want to estimate the proportion of UCSD students that
+love dogs using a survey with a yes/no question. If you poll 400
+students, what is the widest possible width for a 95% confidence
+interval?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> 0.01</p></li>
+<li><p><input type="radio" disabled="" /> 0.05</p></li>
+<li><p><input type="radio" disabled="" /> 0.1</p></li>
+<li><p><input type="radio" disabled="" /> 0.2</p></li>
+<li><p><input type="radio" disabled="" /> 0.5</p></li>
+<li><p><input type="radio" disabled="" /> None of the above</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading9">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9" aria-expanded="true" aria-controls="collapse9">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse9" class="accordion-collapse collapse collapse"
+aria-labelledby="heading9" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> Option 3: 0.01</p>
+<p>Recall that a 95% confidence interval of a sample mean is given by
+<code>[sample mean - 2 * (sample std / np.sqrt(sample size)), sample mean -+ 2 * (sample std / np.sqrt(sample size))]</code>.
+Using this, we realize that the width of a 95% confidence interval is
+approximately <code>4 * (sample std / np.sqrt(sample size))</code>. Now,
+the sample size is already constat, which was given to be 400. However,
+we can attempt to maximize the <code>sample std</code>. Without loss of
+generality, assume that a “yes” vote has a value of 1 and “no” vote has
+a value of 0 (to make calculations easier). It’s not hard to see that
+the maximum std we could achieve is buy recieving an equal number of
+yes/no votes (aka 200 of each vote). The standard deviation in this case
+is just 0.5, and so the widest possible width for a 95% confidence
+interval is just <code>4 * 0.5/np.sqrt(200)</code> which evaluates to
+0.1. (Note that we chose yes and no to be 1 and 0 so that we wouldn’t
+have to standardize the values. Had you chosen other values, you may or
+may not have had to do an extra step of standardizing the data).</p>
+</div>
+</div>
+</div>
+</div>
 <hr />
 <h2 id="section"><span class="math display"> </span></h2>
 <h4

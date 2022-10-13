@@ -107,18 +107,18 @@ Eric decides on this test statistic: the proportion of toy dogs
 minus the proportion of non-toy dogs. What is the observed value of
 the test statistic?
 
-( ) $-0.4$
-( ) $-0.2$
-( ) $0$
-( ) $0.2$
-( ) $0.4$
+( ) -0.4
+( ) -0.2
+( ) 0
+( ) 0.2
+( ) 0.4
 
 # BEGIN SOLUTION
 
 **Answer: ** Option 2: -0.2
 
-For our given sample, the proportion of toy dogs is $0.4$ and the proportion of non-toy dogs is $0.6$ so 
-$0.4 - 0.6 = -0.2$
+For our given sample, the proportion of toy dogs is 0.4 and the proportion of non-toy dogs is 0.6 so 
+0.4 - 0.6 = -0.2
 
 # END SOLUTION
 
@@ -126,35 +126,41 @@ $0.4 - 0.6 = -0.2$
 
 # BEGIN SUBPROB
 
-Which snippets of code correctly compute Eric's test statistic on one simulated sample under the null hypothesis? Select all that apply. The result must be stored in the variable `stat`.
+Which snippets of code correctly compute Eric's test statistic on one simulated sample under the null hypothesis? Select all that apply. The result must be stored in the variable `stat`. Below are the 5 snippets
 
-[ ] Snippet 1:
+Snippet 1: 
 ```py
 a = np.random.choice([0.3, 0.7])
 b = np.random.choice([0.3, 0.7])
 stat = a - b
 ```
-[ ] Snippet 2:
+Snippet 2:
 ```py
 a = np.random.choice([0.1, 0.2, 0.3, 0.2, 0.15, 0.05])
 stat = a - (1 - a)
 ```
-[ ] Snippet 3:
+Snippet 3:
 ```py
 a = np.random.multinomial(500, [0.1, 0.2, 0.3, 0.2, 0.15, 0.05]) / 500
 stat = a[2] - (1 - a[2])
 ```
-[ ] Snippet 4:
+Snippet 4:
 ```py
 a = np.random.multinomial(500, [0.3, 0.7]) / 500
 stat = a[0] - (1 - a[0])
 ```
-[ ] Snippet 5:
+Snippet 5:
 ```py
 a = df.sample(500, replace=True)
 b = a[a.get("kind") == "toy"].shape[0] / 500
 stat = b - (1 - b)
 ```
+
+[ ] Snippet 1
+[ ] Snippet 2
+[ ] Snippet 3
+[ ] Snippet 4
+[ ] Snippet 5
 
 # BEGIN SOLUTION
 
@@ -174,7 +180,7 @@ Snippet 5: Note that `df` is simple just a datafram containing information of th
 
 # END SUBPROB
 
-# BEGIN SUBPROBLEM
+# BEGIN SUBPROB
 
 After simulating, Eric has an array called `sim` that stores
 his simulated test statistics, and a variable called `obs`
@@ -200,9 +206,9 @@ Note that to calculate the p-value we look for test statistics that are equal to
 
 # END SOLUTION
 
-# END SUBPROBLEM
+# END SUBPROB
 
-# BEGIN SUBPROBLEM
+# BEGIN SUBPROB
 
 Eric's p-value is 0.03. If his p-value cutoff is 0.01, what does he
 conclude?
@@ -223,6 +229,6 @@ Option 4: This option is correct becuase our p-value was larger than our cutoff.
 
 # END SOLUTION
 
-# END SUBPROBLEM
+# END SUBPROB
 
 # END PROB
