@@ -55,9 +55,14 @@ Solutions to discussion worksheets will be made available on Monday evenings, af
       <td>October 10th</td>
       <td><a href="disc03/index.html">Querying, Grouping, and Plotting</a></td>
     </tr>
-     <tr>
+    <tr>
       <th scope="row">4</th>
       <td>October 17th</td>
+      <td><a href="disc04/index.html">Functions, Subgroups, Merge, and Control Flow</a></td>
+    </tr>
+    <tr>
+      <th scope="row">5</th>
+      <td>October 24th</td>
       <td>TBD</td>
     </tr>
     
