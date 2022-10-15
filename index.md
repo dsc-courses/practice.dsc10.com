@@ -58,7 +58,7 @@ Solutions to discussion worksheets will be made available on Monday evenings, af
     <tr>
       <th scope="row">4</th>
       <td>October 17th</td>
-      <td>TBD</td>
+      <td><a href="disc04/index.html">Functions, Subgroups, Merge, and Control Flow</a></td>
     </tr>
     <tr>
       <th scope="row">5</th>
