@@ -5,85 +5,100 @@
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>Discussion 4: Functions, Subgroups, Merge, and Control Flow</title>
-  <style type="text/css">
-      code{white-space: pre-wrap;}
-      span.smallcaps{font-variant: small-caps;}
-      span.underline{text-decoration: underline;}
-      div.column{display: inline-block; vertical-align: top; width: 50%;}
-  </style>
-  <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
-}
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {  }
-@media screen {
-a.sourceLine::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="../assets/theme.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/contrib/auto-render.min.js"></script><script>document.addEventListener("DOMContentLoaded", function() {
-    renderMathInElement(document.body);
-  });</script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.8.3/katex.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+   var mathElements = document.getElementsByClassName("math");
+   var macros = [];
+   for (var i = 0; i < mathElements.length; i++) {
+    var texText = mathElements[i].firstChild;
+    if (mathElements[i].tagName == "SPAN") {
+     katex.render(texText.data, mathElements[i], {
+      displayMode: mathElements[i].classList.contains('display'),
+      throwOnError: false,
+      macros: macros,
+      fleqn: false
+     });
+  }}});
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css" />
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
 </head>
 <body>
-<header>
+<header id="title-block-header">
 <h1 class="title">Discussion 4: Functions, Subgroups, Merge, and Control Flow</h1>
 </header>
 <p><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> <!-- add after bootstrap.min.css --> <link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css"/> <!-- add after bootstrap.min.js or bootstrap.bundle.min.js --> <script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script></p>
@@ -101,339 +116,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The problems in this worksheet are taken from past exams. Work on them <strong>on paper</strong>, since the exams you take in this course will also be on paper. <br><br>We encourage you to complete this worksheet in a discussion section, which is held live on Monday, October 10th. Solutions will be made available after all discussion sections have concluded. You don’t need to submit your answers anywhere.</p>
 <hr />
 <h2 id="problem-1">Problem 1</h2>
-<p>You are given a DataFrame called <code>books</code> that contains columns <code>'author'</code> (string), <code>'title'</code> (string), <code>'num_chapters'</code> (int), and <code>'publication_year'</code> (int).</p>
-<p>Suppose that after doing <code>books.groupby('Author').max()</code>, one row says</p>
-<table>
-<thead>
-<tr class="header">
-<th>author</th>
-<th>title</th>
-<th>num_chapters</th>
-<th>publication_year</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Charles Dickens</td>
-<td>Oliver Twist</td>
-<td>53</td>
-<td>1838</td>
-</tr>
-</tbody>
-</table>
-<p><br></p>
-<h3 id="problem-1.1">Problem 1.1</h3>
-<p>Based on this data, can you conclude that Charles Dickens is the alphabetically last of all author names in this dataset?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> Yes</p></li>
-<li><p><input type="radio" disabled="" /> No</p></li>
-</ul>
-<p><br></p>
-<h3 id="problem-1.2">Problem 1.2</h3>
-<p>Based on this data, can you conclude that Charles Dickens wrote <em>Oliver Twist</em>?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> Yes</p></li>
-<li><p><input type="radio" disabled="" /> No</p></li>
-</ul>
-<p><br></p>
-<h3 id="problem-1.3">Problem 1.3</h3>
-<p>Based on this data, can you conclude that <em>Oliver Twist</em> has 53 chapters?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> Yes</p></li>
-<li><p><input type="radio" disabled="" /> No</p></li>
-</ul>
-<p><br></p>
-<h3 id="problem-1.4">Problem 1.4</h3>
-<p>Based on this data, can you conclude that Charles Dickens wrote a book with 53 chapters that was published in 1838?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> Yes</p></li>
-<li><p><input type="radio" disabled="" /> No</p></li>
-</ul>
-<p><br></p>
-<hr />
-<h2 id="problem-2">Problem 2</h2>
-<p>Give an example of a dataset and a question you would want to answer about that dataset which you would answer by grouping with subgroups (using multiple columns in the <code>groupby</code> command). Explain how you would use the <code>groupby</code> command to answer your question.</p>
-<hr />
-<h2 id="problem-3">Problem 3</h2>
-<p>King Triton 🔱, UCSD’s mascot, is quite the traveler! For this question, we will be working with the <code>flights</code> DataFrame, which details several facts about each of the flights that King Triton has been on over the past few years. The first few rows of <code>flights</code> are shown below.</p>
-<center><img src='../assets/images/fa21-midterm/flights.png' width=40%></center>
-<p>Here’s a description of the columns in <code>flights</code>:</p>
-<ul>
-<li><code>'DATE'</code>: the date on which the flight occurred. Assume that there were no “redeye” flights that spanned multiple days.</li>
-<li><code>'FLIGHT'</code>: the flight number. Note that this is not unique; airlines reuse flight numbers on a daily basis.</li>
-<li><code>'FROM'</code> and <code>'TO'</code>: the 3-letter airport code for the departure and arrival airports, respectively. Note that it’s not possible to have a flight from and to the same airport.</li>
-<li><code>'DIST'</code>: the distance of the flight, in miles.</li>
-<li><code>'HOURS'</code>: the length of the flight, in hours.</li>
-<li><code>'SEAT'</code>: the kind of seat King Triton sat in on the flight; the only possible values are <code>'WINDOW'</code>, <code>'MIDDLE'</code>, and <code>'AISLE'</code>. <br><br></li>
-</ul>
-<p>Fill in the blanks below so that the result also evaluates to the number of flights King Triton took to San Diego (airport code <code>'SAN'</code>).</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb1-1" data-line-number="1">flights.groupby(__(a)__).count().get(<span class="st">&#39;FLIGHT&#39;</span>).__(b)__            </a></code></pre></div>
-<p>What goes in blank (a)?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> <code>'DATE'</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>'FLIGHT'</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>'FROM'</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>'TO'</code></p></li>
-</ul>
-<p>What goes in blank (b)?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> <code>.index[0]</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>.index[-1]</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>.loc['SAN']</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>.iloc['SAN']</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>.iloc[0]</code></p></li>
-</ul>
-<p>True or False: If we change <code>.get('FLIGHT')</code> to <code>.get('SEAT')</code>, the results of the above code block will not change. (You may assume you answered the previous two subparts correctly.)</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> True</p></li>
-<li><p><input type="radio" disabled="" /> False</p></li>
-</ul>
-<hr />
-<h2 id="problem-4">Problem 4</h2>
-<p>We define the seasons as follows:</p>
-<center>
-<table class="table" style="width:30%">
-  <thead>
-    <tr>
-      <th scope="col">Season</th>
-      <th scope="col">Month</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">Spring</th>
-      <td>March, April, May</td>
-    </tr>
-    <tr>
-      <th scope="row">Summer</th>
-      <td>June, July, August</td>
-    </tr>
-    <tr>
-      <th scope="row">Fall</th>
-      <td>September, October, November</td>
-    </tr>
-    <tr>
-      <th scope="row">Winter</th>
-      <td>December, January, February</td>
-    </tr>
-  </tbody>
-</table>
-</center>
-<p><br></p>
-<h3 id="problem-4.1">Problem 4.1</h3>
-<p>We want to create a function <code>date_to_season</code> that takes in a <code>date</code> as formatted in the <code>'DATE'</code> column of <code>flights</code> and returns the season corresponding to that date. Which of the following implementations of <code>date_to_season</code> works correctly? <strong>Select all that apply.</strong></p>
-<p>Option 1:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">def</span> date_to_season(date):</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2">    month_as_num <span class="op">=</span> <span class="bu">int</span>(date.split(<span class="st">&#39;-&#39;</span>)[<span class="dv">1</span>])</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3">    <span class="cf">if</span> month_as_num <span class="op">&gt;=</span> <span class="dv">3</span> <span class="kw">and</span> month_as_num <span class="op">&lt;</span> <span class="dv">6</span>:</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">        <span class="cf">return</span> <span class="st">&#39;Spring&#39;</span></a>
-<a class="sourceLine" id="cb2-5" data-line-number="5">    <span class="cf">elif</span> month_as_num <span class="op">&gt;=</span> <span class="dv">6</span> <span class="kw">and</span> month_as_num <span class="op">&lt;</span> <span class="dv">9</span>:</a>
-<a class="sourceLine" id="cb2-6" data-line-number="6">        <span class="cf">return</span> <span class="st">&#39;Summer&#39;</span></a>
-<a class="sourceLine" id="cb2-7" data-line-number="7">    <span class="cf">elif</span> month_as_num <span class="op">&gt;=</span> <span class="dv">9</span> <span class="kw">and</span> month_as_num <span class="op">&lt;</span> <span class="dv">12</span>:</a>
-<a class="sourceLine" id="cb2-8" data-line-number="8">        <span class="cf">return</span> <span class="st">&#39;Fall&#39;</span></a>
-<a class="sourceLine" id="cb2-9" data-line-number="9">    <span class="cf">else</span>:</a>
-<a class="sourceLine" id="cb2-10" data-line-number="10">        <span class="cf">return</span> <span class="st">&#39;Winter&#39;</span></a></code></pre></div>
-<p>Option 2:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">def</span> date_to_season(date):</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2">    month_as_num <span class="op">=</span> <span class="bu">int</span>(date.split(<span class="st">&#39;-&#39;</span>)[<span class="dv">1</span>])</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">    <span class="cf">if</span> month_as_num <span class="op">&gt;=</span> <span class="dv">3</span> <span class="kw">and</span> month_as_num <span class="op">&lt;</span> <span class="dv">6</span>:</a>
-<a class="sourceLine" id="cb3-4" data-line-number="4">        <span class="cf">return</span> <span class="st">&#39;Spring&#39;</span></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5">    <span class="cf">if</span> month_as_num <span class="op">&gt;=</span> <span class="dv">6</span> <span class="kw">and</span> month_as_num <span class="op">&lt;</span> <span class="dv">9</span>:</a>
-<a class="sourceLine" id="cb3-6" data-line-number="6">        <span class="cf">return</span> <span class="st">&#39;Summer&#39;</span></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7">    <span class="cf">if</span> month_as_num <span class="op">&gt;=</span> <span class="dv">9</span> <span class="kw">and</span> month_as_num <span class="op">&lt;</span> <span class="dv">12</span>:</a>
-<a class="sourceLine" id="cb3-8" data-line-number="8">        <span class="cf">return</span> <span class="st">&#39;Fall&#39;</span></a>
-<a class="sourceLine" id="cb3-9" data-line-number="9">    <span class="cf">else</span>:</a>
-<a class="sourceLine" id="cb3-10" data-line-number="10">        <span class="cf">return</span> <span class="st">&#39;Winter&#39;</span></a></code></pre></div>
-<p>Option 3:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python"><code class="sourceCode python"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">def</span> date_to_season(date):</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">    month_as_num <span class="op">=</span> <span class="bu">int</span>(date.split(<span class="st">&#39;-&#39;</span>)[<span class="dv">1</span>])</a>
-<a class="sourceLine" id="cb4-3" data-line-number="3">    <span class="cf">if</span> month_as_num <span class="op">&lt;</span> <span class="dv">3</span>:</a>
-<a class="sourceLine" id="cb4-4" data-line-number="4">        <span class="cf">return</span> <span class="st">&#39;Winter&#39;</span></a>
-<a class="sourceLine" id="cb4-5" data-line-number="5">    <span class="cf">elif</span> month_as_num <span class="op">&lt;</span> <span class="dv">6</span>:</a>
-<a class="sourceLine" id="cb4-6" data-line-number="6">        <span class="cf">return</span> <span class="st">&#39;Spring&#39;</span></a>
-<a class="sourceLine" id="cb4-7" data-line-number="7">    <span class="cf">elif</span> month_as_num <span class="op">&lt;</span> <span class="dv">9</span>:</a>
-<a class="sourceLine" id="cb4-8" data-line-number="8">        <span class="cf">return</span> <span class="st">&#39;Summer&#39;</span></a>
-<a class="sourceLine" id="cb4-9" data-line-number="9">    <span class="cf">elif</span> month_as_num <span class="op">&lt;</span> <span class="dv">12</span>:</a>
-<a class="sourceLine" id="cb4-10" data-line-number="10">        <span class="cf">return</span> <span class="st">&#39;Fall&#39;</span></a>
-<a class="sourceLine" id="cb4-11" data-line-number="11">    <span class="cf">else</span>:</a>
-<a class="sourceLine" id="cb4-12" data-line-number="12">        <span class="cf">return</span> <span class="st">&#39;Winter&#39;</span> </a></code></pre></div>
-<ul class="task-list">
-<li><p><input type="checkbox" disabled="" /> Option 1</p></li>
-<li><p><input type="checkbox" disabled="" /> Option 2</p></li>
-<li><p><input type="checkbox" disabled="" /> Option 3</p></li>
-<li><p><input type="checkbox" disabled="" /> None of these implementations of <code>date_to_season</code> work correctly</p></li>
-</ul>
-<p><br></p>
-<h3 id="problem-4.2">Problem 4.2</h3>
-<p>Assuming we’ve defined <code>date_to_season</code> correctly in the previous part, which of the following lines of code correctly computes the season for each flight in <code>flights</code>?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> <code>date_to_season(flights.get('DATE'))</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>date_to_season.apply(flights).get('DATE')</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>flights.apply(date_to_season).get('DATE')</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>flights.get('DATE').apply(date_to_season)</code></p></li>
-</ul>
-<p><br></p>
-<hr />
-<h2 id="problem-5">Problem 5</h2>
-<p>Suppose we create a DataFrame called <code>socal</code> containing only King Triton’s flights departing from SAN, LAX, or SNA (John Wayne Airport in Orange County). <code>socal</code> has 10 rows; the bar chart below shows how many of these 10 flights departed from each airport.</p>
-<center><img src='../assets/images/fa21-midterm/socal.png' width=30%></center>
-<p>Consider the DataFrame that results from merging <code>socal</code> with itself, as follows:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode py"><code class="sourceCode python"><a class="sourceLine" id="cb5-1" data-line-number="1">double_merge <span class="op">=</span> socal.merge(socal, left_on<span class="op">=</span><span class="st">&#39;FROM&#39;</span>, right_on<span class="op">=</span><span class="st">&#39;FROM&#39;</span>)</a></code></pre></div>
-<p>How many rows does <code>double_merge</code> have?</p>
-<hr />
-<h2 id="problem-6">Problem 6</h2>
-<p>We define a “route” to be a departure and arrival airport pair. For example, all flights from <code>'SFO'</code> to <code>'SAN'</code> make up the “SFO to SAN route”. This is different from the “SAN to SFO route”.</p>
-<p>Fill in the blanks below so that <code>most_frequent.get('FROM').iloc[0]</code> and <code>most_frequent.get('TO').iloc[0]</code> correspond to the departure and destination airports of the route that King Triton has spent the <strong>most time flying on</strong>.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode py"><code class="sourceCode python"><a class="sourceLine" id="cb6-1" data-line-number="1">most_frequent <span class="op">=</span> flights.groupby(__(a)__).__(b)__</a>
-<a class="sourceLine" id="cb6-2" data-line-number="2">most_frequent <span class="op">=</span> most_frequent.reset_index().sort_values(__(c)__)</a></code></pre></div>
-<p><br></p>
-<h3 id="problem-6.1">Problem 6.1</h3>
-<p>What goes in blank (a)?</p>
-<p><br></p>
-<h3 id="problem-6.2">Problem 6.2</h3>
-<p>What goes in blank (b)?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> <code>count()</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>mean()</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>sum()</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>max()</code></p></li>
-</ul>
-<p><br></p>
-<h3 id="problem-6.3">Problem 6.3</h3>
-<p>What goes in blank (c)?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> <code>by='HOURS', ascending=True</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>by='HOURS', ascending=False</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>by='HOURS', descending=True</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>by='DIST', ascending=False</code></p></li>
-</ul>
-<p><br></p>
-<hr />
-<h2 id="problem-7">Problem 7</h2>
-<p>For the next several questions, we will work with a dataset consisting of various skyscrapers in the US, which we’ve loaded into a DataFrame called <code>sky</code>. The first few rows of <code>sky</code> are shown below (though the full DataFrame has more rows):</p>
-<center><img src='../assets/images/wi22-midterm/sky.png' width=60%></center>
-<p>&nbsp;</p>
-<p>Each row of <code>sky</code> corresponds to a single skyscraper. For each skyscraper, we have:</p>
-<ul>
-<li><p>its name, which is stored in the index of <code>sky</code> (string)</p></li>
-<li><p>the <code>'material'</code> it is made up of (string)</p></li>
-<li><p>the <code>'city'</code> in the US where it is located (string)</p></li>
-<li><p>the number of <code>'floors'</code> (levels) it contains (int)</p></li>
-<li><p>its <code>'height'</code> in meters (float), and</p></li>
-<li><p>the <code>'year'</code> in which it was opened (int)</p></li>
-</ul>
-<p>Note that the height of a floor may be different in each building. <br><br></p>
-<p>Note that each part of Question 3 depends on previous parts of Question 3.</p>
-<p>In this question, we’ll take a closer look at the <code>'material'</code> column of <code>sky</code>.</p>
-<p><br></p>
-<h3 id="problem-7.1">Problem 7.1</h3>
-<p>Below, fill in the blank to complete the implementation of the function <code>majority_concrete</code>, which takes in the name of a <code>city</code> and returns <code>True</code> if the majority of the skyscrapers in that city are made of concrete, and <code>False</code> otherwise. <strong>We define “majority” to mean “at least 50%”.</strong></p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode py"><code class="sourceCode python"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">def</span> majority_concrete(city):</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2">    all_city <span class="op">=</span> sky[sky.get(<span class="st">&#39;city&#39;</span>) <span class="op">==</span> city]</a>
-<a class="sourceLine" id="cb7-3" data-line-number="3">    concrete_city <span class="op">=</span> all_city[all_city(<span class="st">&#39;material&#39;</span>) <span class="op">==</span> <span class="st">&#39;concrete&#39;</span>]</a>
-<a class="sourceLine" id="cb7-4" data-line-number="4">    proportion <span class="op">=</span> ______</a>
-<a class="sourceLine" id="cb7-5" data-line-number="5">    <span class="cf">return</span> proportion <span class="op">&gt;=</span> <span class="fl">0.5</span></a></code></pre></div>
-<p>What goes in the blank?</p>
-<p><br></p>
-<h3 id="problem-7.2">Problem 7.2</h3>
-<p>Below, we create a DataFrame named <code>by_city</code>.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode py"><code class="sourceCode python"><a class="sourceLine" id="cb8-1" data-line-number="1">by_city <span class="op">=</span> sky.groupby(<span class="st">&#39;city&#39;</span>).count().reset_index()</a></code></pre></div>
-<p>Below, fill in the blanks to add a column to <code>by_city</code>, called <code>'is_majority'</code>, that contains the value <code>True</code> for each city where the majority of skyscrapers are concrete, and <code>False</code> for all other cities. You may need to use the function you defined in the previous subpart.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode py"><code class="sourceCode python"><a class="sourceLine" id="cb9-1" data-line-number="1">by_city <span class="op">=</span> by_city.assign(is_majority <span class="op">=</span> ______)</a></code></pre></div>
-<p>What goes in the blank?</p>
-<p><br></p>
-<h3 id="problem-7.3">Problem 7.3</h3>
-<p><code>by_city</code> now has a column named <code>'is_majority'</code> as described in the previous subpart. Now, suppose we create another DataFrame, <code>mystery</code>, below:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode py"><code class="sourceCode python"><a class="sourceLine" id="cb10-1" data-line-number="1">mystery <span class="op">=</span> by_city.groupby(<span class="st">&#39;is_majority&#39;</span>).count()</a></code></pre></div>
-<p>What is the largest possible value that <code>mystery.shape[0]</code> could evaluate to?</p>
-<p><br></p>
-<h3 id="problem-7.4">Problem 7.4</h3>
-<p>Suppose <code>mystery.get('city').iloc[0] == mystery.get('city').iloc[1]</code> evaluates to <code>True</code>.</p>
-<p><strong>True or False:</strong> In exactly half of the cities in <code>sky</code>, it is true that a majority of skyscrapers are made of <code>'concrete'</code>. (<strong><em>Tip:</em></strong> Walk through the manipulations performed in the previous three subparts to get an idea of what <code>mystery</code> looks like and contains.)</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> True</p></li>
-<li><p><input type="radio" disabled="" /> False</p></li>
-</ul>
-<p><br></p>
-<hr />
-<h2 id="problem-8">Problem 8</h2>
-<p>Suppose we have access to another DataFrame, <code>new_york</code>, that contains the latitude and longitude of every single skyscraper in New York City that is also in <code>sky</code>. The first few rows of <code>new_york</code> are shown below.</p>
-<center><img src='../assets/images/wi22-midterm/ny.png' width=40%></center>
-<p>Below, we define a new DataFrame, <code>sky_with_location</code>, that merges together both <code>sky</code> and <code>new_york</code>.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode py"><code class="sourceCode python"><a class="sourceLine" id="cb11-1" data-line-number="1">sky_with_location <span class="op">=</span> sky.merge(new_york, left_index<span class="op">=</span><span class="va">True</span>, right_on<span class="op">=</span><span class="st">&#39;name&#39;</span>)</a></code></pre></div>
-<p>Given that:</p>
-<ul>
-<li><code>sky</code> has <span class="math inline">\(s\)</span> rows,</li>
-<li><code>new_york</code> has <span class="math inline">\(n\)</span> rows, and</li>
-<li>building names are spelled and formatted the exact same way in both <code>sky</code> and <code>new_york</code>, i.e. that there are no typos in either DataFrame,</li>
-</ul>
-<p>select the true statement below.</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> <code>sky_with_location</code> has exactly <span class="math inline">\(s\)</span> rows.</p></li>
-<li><p><input type="radio" disabled="" /> <code>sky_with_location</code> has exactly <span class="math inline">\(n\)</span> rows.</p></li>
-<li><p><input type="radio" disabled="" /> <code>sky_with_location</code> has exactly <span class="math inline">\(s - n\)</span> rows.</p></li>
-<li><p><input type="radio" disabled="" /> <code>sky_with_location</code> has exactly <span class="math inline">\(s + n\)</span> rows.</p></li>
-<li><p><input type="radio" disabled="" /> <code>sky_with_location</code> has exactly <span class="math inline">\(s \times n\)</span> rows.</p></li>
-</ul>
-<hr />
-<h2 id="problem-9">Problem 9</h2>
-<p>For this question we will use data from the 2021 Women’s National Basketball Association (WNBA) season for the next several problems. In basketball, players score points by shooting the ball into a hoop. The team that scores the most points wins the game.</p>
-<p>Kelsey Plum, a WNBA player, attended La Jolla Country Day School, which is adjacent to UCSD’s campus. Her current team is the Las Vegas Aces (three-letter code <code>'LVA'</code>). <strong>In 2021, the Las Vegas Aces played 31 games, and Kelsey Plum played in all 31.</strong></p>
-<p>The DataFrame <code>plum</code> contains her stats for all games the Las Vegas Aces played in 2021. The first few rows of <code>plum</code> are shown below (though the full DataFrame has 31 rows, not 5):</p>
-<center><img src='../assets/images/wi22-final/plum.png' width=40%></center>
-<p>Each row in <code>plum</code> corresponds to a single game. For each game, we have:</p>
-<ul>
-<li><code>'Date'</code> (<code>str</code>), the date on which the game was played</li>
-<li><code>'Opp'</code> (<code>str</code>), the three-letter code of the opponent team</li>
-<li><code>'Home'</code> (<code>bool</code>), <code>True</code> if the game was played in Las Vegas (“home”) and <code>False</code> if it was played at the opponent’s arena (“away”)</li>
-<li><code>'Won'</code> (<code>bool</code>), <code>True</code> if the Las Vegas Aces won the game and <code>False</code> if they lost</li>
-<li><code>'PTS'</code> (<code>int</code>), the number of points Kelsey Plum scored in the game</li>
-<li><code>'AST'</code> (<code>int</code>), the number of assists (passes) Kelsey Plum made in the game</li>
-<li><code>'TOV'</code> (<code>int</code>), the number of turnovers Kelsey Plum made in the game (a turnover is when you lose the ball – turnovers are bad!) <br><br></li>
-</ul>
-<p><br></p>
-<h3 id="problem-9.1">Problem 9.1</h3>
-<p>Consider the function <code>unknown</code>, defined below.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode py"><code class="sourceCode python"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">def</span> unknown(df):</a>
-<a class="sourceLine" id="cb12-2" data-line-number="2">    grouped <span class="op">=</span> plum.groupby(<span class="st">&#39;Opp&#39;</span>).<span class="bu">max</span>().get([<span class="st">&#39;Date&#39;</span>, <span class="st">&#39;PTS&#39;</span>])</a>
-<a class="sourceLine" id="cb12-3" data-line-number="3">    <span class="cf">return</span> np.array(grouped.reset_index().index)[df]</a></code></pre></div>
-<p>What does <code>unknown(3)</code> evaluate to?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> <code>'2021-06-05'</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>'WAS'</code></p></li>
-<li><p><input type="radio" disabled="" /> The date on which Kelsey Plum scored the most points</p></li>
-<li><p><input type="radio" disabled="" /> The three-letter code of the opponent on which Kelsey Plum scored the most points</p></li>
-<li><p><input type="radio" disabled="" /> The number 0</p></li>
-<li><p><input type="radio" disabled="" /> The number 3</p></li>
-<li><p><input type="radio" disabled="" /> An error</p></li>
-</ul>
-<p><br></p>
-<h3 id="problem-9.2">Problem 9.2</h3>
-<p>For your convenience, we show the first few rows of <code>plum</code> again below.</p>
-<center><img src='../assets/images/wi22-final/plum.png' width=40%></center>
-<p>Suppose that Plum’s team, the Las Vegas Aces, won at least one game in Las Vegas and lost at least one game in Las Vegas. Also, suppose they won at least one game in an opponent’s arena and lost at least one game in an opponent’s arena.</p>
-<p>Consider the DataFrame <code>home_won</code>, defined below.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode py"><code class="sourceCode python"><a class="sourceLine" id="cb13-1" data-line-number="1">home_won <span class="op">=</span> plum.groupby([<span class="st">&#39;Home&#39;</span>, <span class="st">&#39;Won&#39;</span>]).mean().reset_index()</a></code></pre></div>
-<ol type="1">
-<li><p>How many rows does <code>home_won</code> have?</p></li>
-<li><p>How many columns does <code>home_won</code> have?</p></li>
-</ol>
-<p><br></p>
-<h3 id="problem-9.3">Problem 9.3</h3>
-<p>Consider the DataFrame <code>home_won</code> once again.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode py"><code class="sourceCode python"><a class="sourceLine" id="cb14-1" data-line-number="1">home_won <span class="op">=</span> plum.groupby([<span class="st">&#39;Home&#39;</span>, <span class="st">&#39;Won&#39;</span>]).mean().reset_index()</a></code></pre></div>
-<p>Now consider the DataFrame <code>puzzle</code>, defined below. Note that the only difference between <code>home_won</code> and <code>puzzle</code> is the use of <code>.count()</code> instead of <code>.mean()</code>.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode py"><code class="sourceCode python"><a class="sourceLine" id="cb15-1" data-line-number="1">puzzle <span class="op">=</span> plum.groupby([<span class="st">&#39;Home&#39;</span>, <span class="st">&#39;Won&#39;</span>]).count().reset_index()</a></code></pre></div>
-<p>How do the number of rows and columns in <code>home_won</code> compare to the number of rows and columns in <code>puzzle</code>?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> <code>home_won</code> and <code>puzzle</code> have the same number of rows and columns</p></li>
-<li><p><input type="radio" disabled="" /> <code>home_won</code> and <code>puzzle</code> have the same number of rows, but a different number of columns</p></li>
-<li><p><input type="radio" disabled="" /> <code>home_won</code> and <code>puzzle</code> have the same number of columns, but a different number of rows</p></li>
-<li><p><input type="radio" disabled="" /> <code>home_won</code> and <code>puzzle</code> have both a different number of rows and a different number of columns</p></li>
-</ul>
-<p><br></p>
-<hr />
-<h2 id="problem-10">Problem 10</h2>
 <p><center><img src='../assets/images/sp22-midterm/cartoon.png' width=20%></center></p>
 <p>Included is a DataFrame named <code>sungod</code> that contains information on the artists who have performed at Sun God in years past. <strong>For each year that the festival was held, we have one row for each artist that performed that year.</strong> The columns are:</p>
 <ul>
@@ -449,18 +131,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>An artist may appear in multiple different Sun God festivals (they could be invited back).</p></li>
 <li><p>We have already run <code>import babypandas as bpd</code> and <code>import numpy as np</code>. <br><br></p></li>
 </ul>
-<p>What was the largest number of artists that ever performed in a single Sun God festival? <strong>Select all expressions that evaluate to the correct answer.</strong></p>
-<ul class="task-list">
-<li><p><input type="checkbox" disabled="" /> <code>sungod.groupby('Appearance_Order').count().get('Year').max()</code></p></li>
-<li><p><input type="checkbox" disabled="" /> <code>sungod.groupby('Year').count().get('Artist').max()</code></p></li>
-<li><p><input type="checkbox" disabled="" /> <code>sungod.get('Appearance_Order').max()</code></p></li>
-<li><p><input type="checkbox" disabled="" /> <code>sungod.groupby('Year').max().get('Year').max()</code></p></li>
-<li><p><input type="checkbox" disabled="" /> None of the above.</p></li>
-</ul>
-<hr />
-<h2 id="problem-11">Problem 11</h2>
 <p>Fill in the blank in the code below so that <code>chronological</code> is a DataFrame with the same rows as <code>sungod</code>, but ordered chronologically by appearance on stage. That is, earlier years should come before later years, and within a single year, artists should appear in the DataFrame in the order they appeared on stage at Sun God. Note that <code>groupby</code> automatically sorts the index in ascending order.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode py"><code class="sourceCode python"><a class="sourceLine" id="cb16-1" data-line-number="1">chronological <span class="op">=</span> sungod.groupby(___________).<span class="bu">max</span>().reset_index()</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>chronological <span class="op">=</span> sungod.groupby(___________).<span class="bu">max</span>().reset_index()</span></code></pre></div>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> <code>['Year', 'Artist', 'Appearance_Order']</code></p></li>
 <li><p><input type="radio" disabled="" /> <code>['Year', 'Appearance_Order']</code></p></li>
@@ -468,7 +140,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p><input type="radio" disabled="" /> None of the above.</p></li>
 </ul>
 <hr />
-<h2 id="problem-12">Problem 12</h2>
+<h2 id="problem-2">Problem 2</h2>
 <p>Another DataFrame called <code>music</code> contains a row for every music artist that has ever released a song. The columns are:</p>
 <ul>
 <li><code>'Name'</code> (<code>str</code>): the name of the music artist</li>
@@ -484,7 +156,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p><input type="radio" disabled="" /> <code>merged = music.merge(sungod, left_on='Artist', right_on='Name')</code></p></li>
 </ul>
 <hr />
-<h2 id="problem-13">Problem 13</h2>
+<h2 id="problem-3">Problem 3</h2>
 <p>Consider an artist that has only appeared once at Sun God. At the time of their Sun God performance, we’ll call the artist</p>
 <ul>
 <li><strong>outdated</strong> if their top hit came out more than five years prior,</li>
@@ -492,132 +164,117 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><strong>up-and-coming</strong> if their top hit came out after they appeared at Sun God.</li>
 </ul>
 <p>Complete the function below so it outputs the appropriate description for any input artist who has appeared exactly once at Sun God.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode py"><code class="sourceCode python"><a class="sourceLine" id="cb17-1" data-line-number="1"><span class="kw">def</span> classify_artist(artist):</a>
-<a class="sourceLine" id="cb17-2" data-line-number="2">    filtered <span class="op">=</span> merged[merged.get(<span class="st">&#39;Artist&#39;</span>) <span class="op">==</span> artist]</a>
-<a class="sourceLine" id="cb17-3" data-line-number="3">    year <span class="op">=</span> filtered.get(<span class="st">&#39;Year&#39;</span>).iloc[<span class="dv">0</span>]</a>
-<a class="sourceLine" id="cb17-4" data-line-number="4">    top_hit_year <span class="op">=</span> filtered.get(<span class="st">&#39;Top_Hit_Year&#39;</span>).iloc[<span class="dv">0</span>]</a>
-<a class="sourceLine" id="cb17-5" data-line-number="5">    <span class="cf">if</span> ___(a)___ <span class="op">&gt;</span> <span class="dv">0</span>:</a>
-<a class="sourceLine" id="cb17-6" data-line-number="6">        <span class="cf">return</span> <span class="st">&#39;up-and-coming&#39;</span></a>
-<a class="sourceLine" id="cb17-7" data-line-number="7">    <span class="cf">elif</span> ___(b)___:</a>
-<a class="sourceLine" id="cb17-8" data-line-number="8">        <span class="cf">return</span> <span class="st">&#39;outdated&#39;</span></a>
-<a class="sourceLine" id="cb17-9" data-line-number="9">    <span class="cf">else</span>:</a>
-<a class="sourceLine" id="cb17-10" data-line-number="10">        <span class="cf">return</span> <span class="st">&#39;trending&#39;</span></a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> classify_artist(artist):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    filtered <span class="op">=</span> merged[merged.get(<span class="st">&#39;Artist&#39;</span>) <span class="op">==</span> artist]</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    year <span class="op">=</span> filtered.get(<span class="st">&#39;Year&#39;</span>).iloc[<span class="dv">0</span>]</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    top_hit_year <span class="op">=</span> filtered.get(<span class="st">&#39;Top_Hit_Year&#39;</span>).iloc[<span class="dv">0</span>]</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> ___(a)___ <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;up-and-coming&#39;</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> ___(b)___:</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;outdated&#39;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;trending&#39;</span></span></code></pre></div>
 <p><br></p>
-<h3 id="problem-13.1">Problem 13.1</h3>
+<h3 id="problem-3.1">Problem 3.1</h3>
 <p>What goes in blank (a)?</p>
 <p><br></p>
-<h3 id="problem-13.2">Problem 13.2</h3>
+<h3 id="problem-3.2">Problem 3.2</h3>
 <p>What goes in blank (b)?</p>
 <p><br></p>
 <hr />
-<h2 id="problem-14">Problem 14</h2>
-<p>IKEA is a Swedish furniture company that designs and sells ready-to-assemble furniture and other home furnishings.</p>
-<center><img src='../assets/images/sp22-final/wordless_instructions.png' width=40%></center>
-<p>An IKEA fan created an app where people can log the amount of time it took them to assemble their IKEA furniture. The DataFrame <code>app_data</code> has a row for each product build that was logged on the app. The columns are:</p>
+<h2 id="problem-4">Problem 4</h2>
+<p>Suppose we create a DataFrame called <code>socal</code> containing only King Triton’s flights departing from SAN, LAX, or SNA (John Wayne Airport in Orange County). <code>socal</code> has 10 rows; the bar chart below shows how many of these 10 flights departed from each airport.</p>
+<center><img src='../assets/images/fa21-midterm/socal.png' width=30%></center>
+<p>Consider the DataFrame that results from merging <code>socal</code> with itself, as follows:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>double_merge <span class="op">=</span> socal.merge(socal, left_on<span class="op">=</span><span class="st">&#39;FROM&#39;</span>, right_on<span class="op">=</span><span class="st">&#39;FROM&#39;</span>)</span></code></pre></div>
+<p>How many rows does <code>double_merge</code> have?</p>
+<hr />
+<h2 id="problem-5">Problem 5</h2>
+<p>We define a “route” to be a departure and arrival airport pair. For example, all flights from <code>'SFO'</code> to <code>'SAN'</code> make up the “SFO to SAN route”. This is different from the “SAN to SFO route”.</p>
+<p>Fill in the blanks below so that <code>most_frequent.get('FROM').iloc[0]</code> and <code>most_frequent.get('TO').iloc[0]</code> correspond to the departure and destination airports of the route that King Triton has spent the <strong>most time flying on</strong>.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>most_frequent <span class="op">=</span> flights.groupby(__(a)__).__(b)__</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>most_frequent <span class="op">=</span> most_frequent.reset_index().sort_values(__(c)__)</span></code></pre></div>
+<p><br></p>
+<h3 id="problem-5.1">Problem 5.1</h3>
+<p>What goes in blank (a)?</p>
+<p><br></p>
+<h3 id="problem-5.2">Problem 5.2</h3>
+<p>What goes in blank (b)?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>count()</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>mean()</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>sum()</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>max()</code></p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-5.3">Problem 5.3</h3>
+<p>What goes in blank (c)?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>by='HOURS', ascending=True</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>by='HOURS', ascending=False</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>by='HOURS', descending=True</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>by='DIST', ascending=False</code></p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-6">Problem 6</h2>
+<p>For this question we will use data from the 2021 Women’s National Basketball Association (WNBA) season for the next several problems. In basketball, players score points by shooting the ball into a hoop. The team that scores the most points wins the game.</p>
+<p>Kelsey Plum, a WNBA player, attended La Jolla Country Day School, which is adjacent to UCSD’s campus. Her current team is the Las Vegas Aces (three-letter code <code>'LVA'</code>). <strong>In 2021, the Las Vegas Aces played 31 games, and Kelsey Plum played in all 31.</strong></p>
+<p>The DataFrame <code>plum</code> contains her stats for all games the Las Vegas Aces played in 2021. The first few rows of <code>plum</code> are shown below (though the full DataFrame has 31 rows, not 5):</p>
+<center><img src='../assets/images/wi22-final/plum.png' width=40%></center>
+<p>Each row in <code>plum</code> corresponds to a single game. For each game, we have:</p>
 <ul>
-<li><code>'product'</code> (<code>str</code>): the name of the product, which includes the product line as the first word, followed by a description of the product</li>
-<li><code>'category'</code> (<code>str</code>): a categorical description of the type of product</li>
-<li><code>'assembly_time'</code> (<code>str</code>): the amount of time to assemble the product, formatted as <code>'x hr, y min'</code> where <code>x</code> and <code>y</code> represent integers, possibly zero</li>
-</ul>
-<p>The first few rows of <code>app_data</code> are shown below, though <code>app_data</code> has many more rows than pictured (5000 rows total).</p>
-<center><img src='../assets/images/sp22-final/appdatadf.png' height=180></center>
-<p>&nbsp;</p>
-<p>Assume that we have already run <code>import babypandas as bpd</code> and <code>import numpy as np</code>.<br />
-<br><br></p>
-<p>Recall that we have the complete set of currently available discounts in the DataFrame <code>offers</code>.</p>
-<p>The DataFrame <code>with_offers</code> is created as follows.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode py"><code class="sourceCode python"><a class="sourceLine" id="cb18-1" data-line-number="1">    (with_offers <span class="op">=</span> ikea.take(np.arange(<span class="dv">6</span>))</a>
-<a class="sourceLine" id="cb18-2" data-line-number="2">                       .merge(offers, left_on<span class="op">=</span><span class="st">&#39;category&#39;</span>,  </a>
-<a class="sourceLine" id="cb18-3" data-line-number="3">                                      right_on<span class="op">=</span><span class="st">&#39;eligible_category&#39;</span>))</a></code></pre></div>
-<p><br></p>
-<h3 id="problem-14.1">Problem 14.1</h3>
-<p>How many rows does <code>with_offers</code> have?</p>
-<p><br></p>
-<h3 id="problem-14.2">Problem 14.2</h3>
-<p>How many rows of <code>with_offers</code> have a value of 20 in the <code>'percent_off'</code> column?</p>
-<p><br></p>
-<h3 id="problem-14.3">Problem 14.3</h3>
-<p>If you can use just one offer per product, you’d want to use the one that saves you the most money, which we’ll call the best offer.</p>
-<p><strong>True or False</strong>: The expression below evaluates to a Series indexed by <code>'product'</code> with the name of the best offer for each product that appears in the <code>with_offers</code> DataFrame.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode py"><code class="sourceCode python"><a class="sourceLine" id="cb19-1" data-line-number="1">with_offers.groupby(<span class="st">&#39;product&#39;</span>).<span class="bu">max</span>().get(<span class="st">&#39;offer&#39;</span>)</a></code></pre></div>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> True</p></li>
-<li><p><input type="radio" disabled="" /> False</p></li>
+<li><code>'Date'</code> (<code>str</code>), the date on which the game was played</li>
+<li><code>'Opp'</code> (<code>str</code>), the three-letter code of the opponent team</li>
+<li><code>'Home'</code> (<code>bool</code>), <code>True</code> if the game was played in Las Vegas (“home”) and <code>False</code> if it was played at the opponent’s arena (“away”)</li>
+<li><code>'Won'</code> (<code>bool</code>), <code>True</code> if the Las Vegas Aces won the game and <code>False</code> if they lost</li>
+<li><code>'PTS'</code> (<code>int</code>), the number of points Kelsey Plum scored in the game</li>
+<li><code>'AST'</code> (<code>int</code>), the number of assists (passes) Kelsey Plum made in the game</li>
+<li><code>'TOV'</code> (<code>int</code>), the number of turnovers Kelsey Plum made in the game (a turnover is when you lose the ball – turnovers are bad!) <br><br></li>
 </ul>
 <p><br></p>
-<h3 id="problem-14.4">Problem 14.4</h3>
-<p>You want to add a column to <code>with_offers</code> containing the price after the offer discount is applied.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode py"><code class="sourceCode python"><a class="sourceLine" id="cb20-1" data-line-number="1">with_offers <span class="op">=</span> with_offers.assign(after_price <span class="op">=</span> _________)</a>
-<a class="sourceLine" id="cb20-2" data-line-number="2">with_offers</a></code></pre></div>
-<p>Which of the following could go in the blank? Select all that apply.</p>
+<h3 id="problem-6.1">Problem 6.1</h3>
+<p>Consider the function <code>unknown</code>, defined below.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> unknown(df):</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    grouped <span class="op">=</span> plum.groupby(<span class="st">&#39;Opp&#39;</span>).<span class="bu">max</span>().get([<span class="st">&#39;Date&#39;</span>, <span class="st">&#39;PTS&#39;</span>])</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.array(grouped.reset_index().index)[df]</span></code></pre></div>
+<p>What does <code>unknown(3)</code> evaluate to?</p>
 <ul class="task-list">
-<li><p><input type="checkbox" disabled="" /> <code>with_offers.get('price') - with_offers.get('percent_off')/100</code></p></li>
-<li><p><input type="checkbox" disabled="" /> <code>with_offers.get('price')*(100 - with_offers.get('percent_off'))/100</code></p></li>
-<li><p><input type="checkbox" disabled="" /> <code>with_offers.get('price') - with_offers.get('price')*with_offers.get('percent_off')/100</code></p></li>
-<li><p><input type="checkbox" disabled="" /> <code>with_offers.get('price')*(100 - with_offers.get('percent_off')/100)</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>'2021-06-05'</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>'WAS'</code></p></li>
+<li><p><input type="radio" disabled="" /> The date on which Kelsey Plum scored the most points</p></li>
+<li><p><input type="radio" disabled="" /> The three-letter code of the opponent on which Kelsey Plum scored the most points</p></li>
+<li><p><input type="radio" disabled="" /> The number 0</p></li>
+<li><p><input type="radio" disabled="" /> The number 3</p></li>
+<li><p><input type="radio" disabled="" /> An error</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-6.2">Problem 6.2</h3>
+<p>For your convenience, we show the first few rows of <code>plum</code> again below.</p>
+<center><img src='../assets/images/wi22-final/plum.png' width=40%></center>
+<p>Suppose that Plum’s team, the Las Vegas Aces, won at least one game in Las Vegas and lost at least one game in Las Vegas. Also, suppose they won at least one game in an opponent’s arena and lost at least one game in an opponent’s arena.</p>
+<p>Consider the DataFrame <code>home_won</code>, defined below.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>home_won <span class="op">=</span> plum.groupby([<span class="st">&#39;Home&#39;</span>, <span class="st">&#39;Won&#39;</span>]).mean().reset_index()</span></code></pre></div>
+<ol type="1">
+<li><p>How many rows does <code>home_won</code> have?</p></li>
+<li><p>How many columns does <code>home_won</code> have?</p></li>
+</ol>
+<p><br></p>
+<h3 id="problem-6.3">Problem 6.3</h3>
+<p>Consider the DataFrame <code>home_won</code> once again.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>home_won <span class="op">=</span> plum.groupby([<span class="st">&#39;Home&#39;</span>, <span class="st">&#39;Won&#39;</span>]).mean().reset_index()</span></code></pre></div>
+<p>Now consider the DataFrame <code>puzzle</code>, defined below. Note that the only difference between <code>home_won</code> and <code>puzzle</code> is the use of <code>.count()</code> instead of <code>.mean()</code>.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>puzzle <span class="op">=</span> plum.groupby([<span class="st">&#39;Home&#39;</span>, <span class="st">&#39;Won&#39;</span>]).count().reset_index()</span></code></pre></div>
+<p>How do the number of rows and columns in <code>home_won</code> compare to the number of rows and columns in <code>puzzle</code>?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>home_won</code> and <code>puzzle</code> have the same number of rows and columns</p></li>
+<li><p><input type="radio" disabled="" /> <code>home_won</code> and <code>puzzle</code> have the same number of rows, but a different number of columns</p></li>
+<li><p><input type="radio" disabled="" /> <code>home_won</code> and <code>puzzle</code> have the same number of columns, but a different number of rows</p></li>
+<li><p><input type="radio" disabled="" /> <code>home_won</code> and <code>puzzle</code> have both a different number of rows and a different number of columns</p></li>
 </ul>
 <p><br></p>
 <hr />
-<h2 id="problem-15">Problem 15</h2>
-<p>IKEA is piloting a new rewards program where customers can earn free Swedish meatball plates from the in-store cafe when they purchase expensive items. Meatball plates are awarded as follows. Assume the item price is always an integer.</p>
-<center>
-<table class="table" style="width:30%">
-  <thead>
-    <tr>
-      <th scope="col">Item price</th>
-      <th scope="col">Number of meatball plates</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">less than 99 dollars</th>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th scope="row">100 to 199 dollars</th>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th scope="row">200 dollars or more</th>
-      <td>2</td>
-    </tr>
-  </tbody>
-</table>
-</center>
-<p>We want to implement a function called <code>calculate_meatball_plates</code> that takes as input an array of several item prices, corresponding to the individual items purchased in one transaction, and returns the total number of meatball plates earned in that transaction.</p>
-<p>Select all correct ways of implementing this function from the options below.</p>
-<p>Way 1:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode py"><code class="sourceCode python"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="kw">def</span> calculate_meatball_plates(prices): </a>
-<a class="sourceLine" id="cb21-2" data-line-number="2">    meatball_plates <span class="op">=</span> <span class="dv">0</span></a>
-<a class="sourceLine" id="cb21-3" data-line-number="3">    <span class="cf">for</span> price <span class="kw">in</span> prices:</a>
-<a class="sourceLine" id="cb21-4" data-line-number="4">        <span class="cf">if</span> price <span class="op">&gt;=</span> <span class="dv">100</span> <span class="kw">and</span> price <span class="op">&lt;=</span> <span class="dv">199</span>:</a>
-<a class="sourceLine" id="cb21-5" data-line-number="5">            meatball_plates <span class="op">=</span> <span class="dv">1</span></a>
-<a class="sourceLine" id="cb21-6" data-line-number="6">        <span class="cf">elif</span> price <span class="op">&gt;=</span> <span class="dv">200</span>:</a>
-<a class="sourceLine" id="cb21-7" data-line-number="7">            meatball_plates <span class="op">=</span> <span class="dv">2</span></a>
-<a class="sourceLine" id="cb21-8" data-line-number="8">    <span class="cf">return</span> meatball_plates</a></code></pre></div>
-<p>Way 2:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode py"><code class="sourceCode python"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="kw">def</span> calculate_meatball_plates(prices): </a>
-<a class="sourceLine" id="cb22-2" data-line-number="2">    meatball_plates <span class="op">=</span> <span class="dv">0</span></a>
-<a class="sourceLine" id="cb22-3" data-line-number="3">    <span class="cf">for</span> price <span class="kw">in</span> prices:</a>
-<a class="sourceLine" id="cb22-4" data-line-number="4">        <span class="cf">if</span> price <span class="op">&gt;=</span> <span class="dv">200</span>:</a>
-<a class="sourceLine" id="cb22-5" data-line-number="5">            meatball_plates <span class="op">=</span> meatball_plates <span class="op">+</span> <span class="dv">1</span></a>
-<a class="sourceLine" id="cb22-6" data-line-number="6">        <span class="cf">if</span> price <span class="op">&gt;=</span> <span class="dv">100</span>:</a>
-<a class="sourceLine" id="cb22-7" data-line-number="7">            meatball_plates <span class="op">=</span> meatball_plates <span class="op">+</span> <span class="dv">1</span></a>
-<a class="sourceLine" id="cb22-8" data-line-number="8">    <span class="cf">return</span> meatball_plates</a></code></pre></div>
-<p>Way 3:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode py"><code class="sourceCode python"><a class="sourceLine" id="cb23-1" data-line-number="1"><span class="kw">def</span> calculate_meatball_plates(prices): </a>
-<a class="sourceLine" id="cb23-2" data-line-number="2">    <span class="cf">return</span> np.count_nonzero(prices <span class="op">&gt;=</span> <span class="dv">100</span>) <span class="op">+</span> np.count_nonzero(prices <span class="op">&gt;=</span> <span class="dv">200</span>)</a></code></pre></div>
-<p>Way 4:</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode py"><code class="sourceCode python"><a class="sourceLine" id="cb24-1" data-line-number="1"><span class="kw">def</span> calculate_meatball_plates(prices): </a>
-<a class="sourceLine" id="cb24-2" data-line-number="2">    <span class="cf">return</span> (prices <span class="op">&gt;=</span> <span class="dv">200</span>).<span class="bu">sum</span>()<span class="op">*</span><span class="dv">2</span> <span class="op">+</span> ((<span class="dv">100</span> <span class="op">&lt;=</span> prices) <span class="op">&amp;</span> (prices <span class="op">&lt;=</span> <span class="dv">199</span>)).<span class="bu">sum</span>()<span class="op">*</span><span class="dv">1</span></a></code></pre></div>
-<ul class="task-list">
-<li><p><input type="checkbox" disabled="" /> Way 1</p></li>
-<li><p><input type="checkbox" disabled="" /> Way 2</p></li>
-<li><p><input type="checkbox" disabled="" /> Way 3</p></li>
-<li><p><input type="checkbox" disabled="" /> Way 4</p></li>
-</ul>
-<hr />
-<h2 id="section"><span class="math display">\[ \]</span></h2>
+<h2 id="section"><span class="math display"> </span></h2>
 <h4 id="feedback-find-an-error-still-confused-have-a-suggestion-let-us-know-here.">👋 Feedback: Find an error? Still confused? Have a suggestion? <a href="https://forms.gle/WZ71FchnXU1K154d7">Let us know here</u></a>.</h4>
 <hr />
 </body>
