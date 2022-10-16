@@ -35,7 +35,7 @@ Do toy dogs have smaller `'size'` values than other dogs?
 
 **Answer: ** None of the above 
 
-We are comparing two categorical variables (`'size'` and toy-sized vs not toy-sized). None of the graphs here are suitable for this scenario since bar plots are used to compare a categorical variable against a quantitative variable, while scatter plots and histograms compare a quantitative variable against quantitative variable.
+We are comparing two categorical variables (`'size'` and `'kind'`). None of the graphs here are suitable for this scenario since bar plots are used to compare a categorical variable against a quantitative variable, while scatter plots and histograms compare a quantitative variable against quantitative variable.
 
 # END SOLUTION
 
@@ -73,7 +73,7 @@ Do dogs that are highly suitable for children weight more?
 
 **Answer: ** Bar plot 
 
-We have a categorical variable (dog suitability for children) with a quantitative varible (weight). A bar plot is most approriate when comparing a categorical variable against a quantitative variable. Both scatter plot and histogram aim to compare a quantitative variable against another quantitative variable.
+We're comparing a categorical variable (dog suitability for children) with a quantitative varible (weight). A bar plot is most approriate when comparing a categorical variable against a quantitative variable. Both scatter plot and histogram aim to compare a quantitative variable against another quantitative variable.
 
 # END SOLUTION
 

@@ -48,8 +48,8 @@ Which of the following can fill in blank (c)? **Select all that apply.**
 **Answer: ** `index[0]`
 
 - `loc[0]`: `loc` retrieves an element by the row label, which in this case is by `'breed'`, not by index value. Furthermore, `loc` actually returns the entire row, which is not what we are looking for. (Note that we are trying to find the singular `'breed'` of the cheapest toy dog.)  
-- `iloc[0]`: While `iloc` does retrieve elements by index position, `iloc` actually returns the entire row, which is not what we are looking for. (Note that we are trying to find the singular `'breed'` of the cheapest toy dog.) 
-- `index[0]`: Note that since `'breed'` is the index column of our dataframe, and since we have already filtered and sorted the dataframe, simply doing taking the `'breed'` at index 0, or `index[0]` will return the `'breed'` of the cheapest toy dog.
+- `iloc[0]`: While `iloc` does retrieve elements by index position, `iloc` actually returns the entire row, which is not what we are looking for.
+- `index[0]`: Note that since `'breed'` is the index column of our dataframe, and since we have already filtered and sorted the dataframe, simply taking the `'breed'` at index 0, or `index[0]` will return the `'breed'` of the cheapest toy dog.
 - `min()`: `min()` is a method used to find the smallest value on a series not a dataframe.
 
 # END SOLUTION

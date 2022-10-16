@@ -36,7 +36,7 @@ Fill in blank (a).
 
 **Answer: ** `np.array([])` or `[]`
 
-`res` is the list in which we'll be storing the each cumulative sum. Thus 
+`res` is the list in which we'll be storing each cumulative sum. Thus 
 we start by initializing `res` to an empty list. 
 
 # END SOLUTION
@@ -70,9 +70,9 @@ Fill in blank (c).
 
 **Answer: ** `res[i - 1] + arr[i]` or `sum(arr[:i + 1])`
 
-Looking syntax of the problem, the blank we have to fill essentially
+Looking at the syntax of the problem, the blank we have to fill essentially
 requires us to calculate the current cumulative sum, since the rest of line will 
-already append the blank to `res` for us. For the first method, one way to think of a cumulative sum is 
+already append the blank to `res` for us. One way to think of a cumulative sum is 
 to add the "current" `arr` element to the previous cumulative sum, 
 since the previous cumulative sum encapsulates all the previous elements. 
 Because we have access to both of those values, we can easily represent it as 
