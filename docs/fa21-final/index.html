@@ -1586,7 +1586,20 @@ aria-labelledby="heading9_1" data-bs-parent="#accordionExample">
 <p><strong>Answer: </strong> This is a permutation test, and our test
 statistic is the difference in the mean Adelie mass and mean Chinstrap
 mass (Option 4)</p>
-<p>solution here</p>
+<p>Recall, a permutation test helps us decide whether two random samples
+come from the same distribution. This test matches our goal of testing
+whether the masses of Adelie penguins and Chinstrap penguins are drawn
+from the same population distribution. The code above are also doing
+steps of a permutation test. In part (a), it shuffles
+<code>'species'</code> and store teh shuffled series to
+<code>shuffled</code>. In part (b), it assign the shuffled series of
+values to <code>'species'</code> column. Then, it uses
+<code>grouped = with_shuffled.groupby('species').mean()</code> to
+calculate the mean of each species. In part (c), it computes the
+difference between mean mass of the two species by first getting the
+<code>'mass'</code> column and then access mean mass of each group
+(Adelie and Chinstrap) with positional index <code>0</code> and
+<code>1</code>.</p>
 </div>
 </div>
 </div>
@@ -1622,7 +1635,22 @@ aria-labelledby="heading9_2" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer: </strong> Option 1 only</p>
-<p>solution here</p>
+<p>We use <code>df.get(column_name).iloc[positional_index]</code> to
+access value in a column with <code>positional_index</code>. Similarly,
+we use <code>df.get(column_name).loc[index]</code> to access value in a
+column with its <code>index</code>. Remember <code>grouped</code> is a
+DataFrame that <code>groupby('species')</code>, so we have species name
+<code>'Adelie'</code> and <code>'Chinstrap'</code> as index for
+<code>grouped</code>.</p>
+<p>Option 2 is incorrect since it does subtraction in the reverse order
+which results in a different <code>stat</code> compared to
+<code>line(c)</code>. Its output will be <span class="math inline">-1
+\cdot</span> <code>stat</code>. Recall, in
+<code>grouped = with_shuffled.groupby('species').mean()</code>, we use
+<code>groupby()</code> and since <code>'species'</code> is a column with
+string values, our index will be sorted in alphabetical order. So,
+<code>.iloc[0]</code> is <code>'Adelie'</code> and <code>.iloc[1]</code>
+is <code>'Chinstrap'</code>.</p>
 </div>
 </div>
 </div>
@@ -1650,7 +1678,8 @@ aria-labelledby="heading9_3" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer: </strong> Yes, it’s possible</p>
-<p>solution here</p>
+<p>There are multiple ways to achieve this. For instance
+<code>stat = grouped.get('mass').iloc[0] - grouped.sort_index(ascending = False).get('mass').iloc[0]</code>.</p>
 </div>
 </div>
 </div>
@@ -1708,7 +1737,14 @@ aria-labelledby="heading9_4" data-bs-parent="#accordionExample">
 <p><strong>Answer: </strong> This would not run a valid hypothesis test,
 as all values in the <code>stats</code> array would be exactly the same
 (Option 2)</p>
-<p>solution here</p>
+<p>Recall, <code>DataFrame.sample(n, replace = False)</code> (or
+<code>DataFrame.sample(n)</code> since <code>replace = False</code> is
+by default) returns a DataFrame by randomly sampling <code>n</code> rows
+from the DataFrame, without replacement. Since our <code>n</code> is
+<code>adelie_chinstrap.shape[0]</code>, and we are smapling without
+repacement, we will get the exactly same Datafram (though the order of
+rows may be different but the <code>stats</code> array would be exactly
+the same).</p>
 </div>
 </div>
 </div>
@@ -1766,7 +1802,15 @@ aria-labelledby="heading9_5" data-bs-parent="#accordionExample">
 <p><strong>Answer: </strong> This would not run a valid hypothesis test,
 even though there would be several different values in the
 <code>stats</code> array (Option 3)</p>
-<p>solution here</p>
+<p>Recall, <code>DataFrame.sample(n, replace = True)</code> returns a
+new DataFrame by randomly sampling <code>n</code> rows from the
+DataFrame, with replacement. Since we are sampling with replacement, we
+will have a DataFrame which produces a <code>stats</code> array with
+some different value. However, recall, the key idea behind a permutation
+test is to shuffle the group labels. So, the above code does not meet
+this key requirement since we only want to shuffle the
+<code>"species"</code> column without changing the size of the two
+species. However, the code may change the size of the two species.</p>
 </div>
 </div>
 </div>
@@ -1829,7 +1873,10 @@ aria-labelledby="heading9_6" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer: </strong> This would still run a valid hypothesis
 test (Option 1)</p>
-<p>solution here</p>
+<p>Our goal for the permutation test is to randomly assigning birth
+weights to groups, without changing group sizes. The above code shuffle
+<code>'species'</code> and <code>'mass'</code> columns and assign them
+back to the DataFrame. This fulfills our goal.</p>
 </div>
 </div>
 </div>
@@ -1865,7 +1912,18 @@ aria-labelledby="heading9_7" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer: </strong> <span class="math inline">\frac{1}{3}</span></p>
-<p>solution here</p>
+<p>Recall, the p-value is the chance, under the null hypothesis, that
+the test statistic is equal to the value that was observed in the data
+or is even further in the direction of the alternative. Thus, we compute
+the proportion of the test statistic that is equal or less than the
+observed statistic. (It is less than because less than corresponds to
+the alternative hypothesis “Chinstrap penguins weigh more on average
+than Adelie penguins”. Recall, when computing teh statistic, we use
+Adelie’s mean mass minus Chinstrap’s mean mass. If Chinstrap’s mean mass
+is larger, the statistic will be negative, the direction that less than
+observed statistic).</p>
+<p>Thus, we look at the proportion of area less than or on the red line
+(which represents observed statistic), it is around <span class="math inline">\frac{1}{3}</span>.</p>
 </div>
 </div>
 </div>
@@ -2118,7 +2176,7 @@ aria-labelledby="heading10_6" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer: </strong> False</p>
-<p>Recall, the p_value is the chance, under the null hypothesis, that
+<p>Recall, the p-value is the chance, under the null hypothesis, that
 the test statistic is equal to the value that was observed in the data
 or is even further in the direction of the alternative. It only gives us
 the strength of evidence in favor of the null hypothesis, that is
@@ -2167,34 +2225,6 @@ statistics}\cdot 1.5</span></p>
 </div>
 </div>
 <p><br></p>
-<hr />
-<h2 id="problem-11">Problem 11</h2>
-<p>Hopefully, after taking this course, you have a sense of how broadly
-applicable data science can be. Tell us about a cause or an issue that’s
-important to you, and how you might use data science to support the
-cause or address the issue you care about. Be specific and reference
-particular data science tools you have learned in this class.</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading11">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11" aria-expanded="true" aria-controls="collapse11">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse11" class="accordion-collapse collapse collapse"
-aria-labelledby="heading11" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> Example of a novel issue that can be
-addressed with data science, with very detailed steps of how exactly to
-use tools from this class to address it</p>
-<p>solution here</p>
-</div>
-</div>
-</div>
-</div>
 <hr />
 <h2 id="section"><span class="math display"> </span></h2>
 <h4

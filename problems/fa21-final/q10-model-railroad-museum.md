@@ -152,7 +152,7 @@ True or False: the p-value represents the probability that the null hypothesis i
 
 **Answer: ** False
 
-Recall, the p_value is the chance, under the null hypothesis, that the test statistic is equal to the value that was observed in the data or is even further in the direction of the alternative. It only gives us the strength of evidence in favor of the null hypothesis, that is different from "the probability that the null hypothesis is true". 
+Recall, the p-value is the chance, under the null hypothesis, that the test statistic is equal to the value that was observed in the data or is even further in the direction of the alternative. It only gives us the strength of evidence in favor of the null hypothesis, that is different from "the probability that the null hypothesis is true". 
 
 # END SOLUTION
 
