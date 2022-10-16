@@ -23,7 +23,7 @@ What goes in blank (a)?
 
 **Answer: ** `data/data.sum()`
 
-To calculate proportion for each group, we devide each value in the array (tickets sold to each group) by the sum of all values (total tickets sold). Remember values in an array can be processed as a whole.
+To calculate proportion for each group, we divide each value in the array (tickets sold to each group) by the sum of all values (total tickets sold). Remember values in an array can be processed as a whole.
 
 # END SOLUTION
 
@@ -48,7 +48,7 @@ We want to conduct a hypothesis test to determine whether the admissions data we
 
 **Answer: ** Child, adult, and senior tickets are purchased in proportions 0.25, 0.6, and 0.15. (Option 2)
 
-Recall, null hypothesis is the hypothesis that there is no significant difference between specified populations, any observed difference being due to sampling or experimental error. So, we assume the distribution is same as the model.
+Recall, null hypothesis is the hypothesis that there is no significant difference between specified populations, any observed difference being due to sampling or experimental error. So, we assume the distribution is the same as the model.
 
 # END SOLUTION
 
@@ -68,7 +68,7 @@ Which of the following test statistics could we use to test our hypotheses? Sele
 
 **Answer: ** sum of squared differences in proportions, mean of squared differences in proportions (Option 2, 4)
 
-We need to use squared difference to avoid the case that large positive and negative difference cancel out in the process of calculating sum or mean, resulting in small sum of difference or mean of difference that does not reflect the true diviation. So, we eliminate Option 1 and 3.
+We need to use squared difference to avoid the case that large positive and negative difference cancel out in the process of calculating sum or mean, resulting in small sum of difference or mean of difference that does not reflect the actual deviation. So, we eliminate Option 1 and 3.
 
 # END SOLUTION
 
@@ -95,8 +95,8 @@ $$\frac{400}{550+1550+400} = 0.16$$
 So, we have the distribution of the `admissions_data`
 
 Then, we calculate the observed value of the test statistic (the mean of the absolute differences in proportions)
-$$\frac{|0.22-0.25|+|0.62-0.6|+|0.16-0.15|}{3 text\{number of groups}}$$
-$$\frac{0.03+0.02+0.01}{3} = 0.02$$
+$$\frac{|0.22-0.25|+|0.62-0.6|+|0.16-0.15|}{number\ of\ goups}$$
+$$=\frac{0.03+0.02+0.01}{3} = 0.02$$
 
 # END SOLUTION
 
@@ -125,17 +125,17 @@ What goes in blank (d)? ____
 
 **Answer: ** (a) `admissions_data.sum()` (b) `model` (c) `np.abs(simulated_proportions - model).mean()` (d) `np.count_nonzero(simulated_stats >= observed_stat) / 10000`
 
-Recall, in `np.random.multinomial(n, [p_1, ..., p_k])`, `n` is number of experiments, and `[p_1, ..., p_k]` is a sequence of probability. The medthod returns an array of length k in which each element contains the
+Recall, in `np.random.multinomial(n, [p_1, ..., p_k])`, `n` is the number of experiments, and `[p_1, ..., p_k]` is a sequence of probability. The method returns an array of length k in which each element contains the
 number of occurrences of an event, where the probability of the
 ith event is `p_i`.  
 
 We want our `simulated_proportion` to have the same data size as `admissions_data`, so we use `admissions_data.sum()` in (a). 
 
-Since our null hypothesis is based on `model`, we simulate based on dirstibution in `model`, so we have `model` in (b). 
+Since our null hypothesis is based on `model`, we simulate based on distribution in `model`, so we have `model` in (b). 
 
 In (c), we compute the mean of the absolute differences in proportions. `np.abs(simulated_proportions - model)` gives us a series of absolute differences, and `.mean()` computes the mean of the absolute differences.
 
-In (d), we calulates the `p_value`. Recall, the `p_value` is the chance, under the null hypothesis, that the test statistic is equal to the value that was observed in the data or is even further in the direction of the alternative. `np.count_nonzero(simulated_stats >= observed_stat)` gives us the number of `simulated_stats` greater than or equal to the `observed_stat` in the 10000 times simulations, so we need to devide it by `10000` to compute the proportion of `simulated_stats` greater than or equal to the `observed_stat`, and this gives us the `p_value`.
+In (d), we calculate the `p_value`. Recall, the `p_value` is the chance, under the null hypothesis, that the test statistic is equal to the value that was observed in the data or is even further in the direction of the alternative. `np.count_nonzero(simulated_stats >= observed_stat)` gives us the number of `simulated_stats` greater than or equal to the `observed_stat` in the 10000 times simulations, so we need to divide it by `10000` to compute the proportion of `simulated_stats` greater than or equal to the `observed_stat`, and this gives us the `p_value`.
 
 # END SOLUTION
 
@@ -152,7 +152,7 @@ True or False: the p-value represents the probability that the null hypothesis i
 
 **Answer: ** False
 
-Recall, the p-value is the chance, under the null hypothesis, that the test statistic is equal to the value that was observed in the data or is even further in the direction of the alternative. It only gives us the strength of evidence in favor of the null hypothesis, that is different from "the probability that the null hypothesis is true". 
+Recall, the p-value is the chance, under the null hypothesis, that the test statistic is equal to the value that was observed in the data or is even further in the direction of the alternative. It only gives us the strength of evidence in favor of the null hypothesis, which is different from "the probability that the null hypothesis is true". 
 
 # END SOLUTION
 
@@ -166,7 +166,7 @@ The new statistic that we used for this hypothesis test, the mean of the absolut
 
 **Answer: ** 1.5
 
-Recall, the total variation distance (TVD) is the sum of the absolute differences in proportions, divided by 2. When we compute the mean of the absolute differences in proportions, we are computing the sum of the absolute differences in proportions, divided by number of groups (which is 3). Thus, to get TVD, we first multiply our current statistics (the mean of the absolute differences in proportions) by 3, we get the sum of the absolute differences in proportions. Then according to the definition of TVD, we divide this value by 2. Thus, we have $\text{current statistics}\cdot 3 / 2 = \text{current statistics}\cdot 1.5$
+Recall, the total variation distance (TVD) is the sum of the absolute differences in proportions, divided by 2. When we compute the mean of the absolute differences in proportions, we are computing the sum of the absolute differences in proportions, divided by the number of groups (which is 3). Thus, to get TVD, we first multiply our current statistics (the mean of the absolute differences in proportions) by 3, we get the sum of the absolute differences in proportions. Then according to the definition of TVD, we divide this value by 2. Thus, we have $\text{current statistics}\cdot 3 / 2 = \text{current statistics}\cdot 1.5$
 
 # END SOLUTION
 

@@ -44,7 +44,7 @@ If we know that Chester is not from Dream island, what is the probability that C
 
 Method 1
 
-P(Chester is not an Adelie penguin given that Chester is not from Dream island) = # of penguins that are not Adelie penguins from islands other than Dream island $/$ # of penguins in island other than Dream island = $\frac{119\ \text{(elilimate all penguins that are Adelie or from Dream island, only Gentoo penguins from Biscoe are left)}}{44+44+119} \approx 0.575$
+P(Chester is not an Adelie penguin given that Chester is not from Dream island) = # of penguins that are not Adelie penguins from islands other than Dream island $/$ # of penguins in island other than Dream island = $\frac{119\ \text{(eliminate all penguins that are Adelie or from Dream island, only Gentoo penguins from Biscoe are left)}}{44+44+119} \approx 0.575$
 
 Method 2
 

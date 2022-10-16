@@ -41,7 +41,7 @@ Which type of visualization would be best suited for comparing the two distribut
 
 **Answer: ** Overlaid bar chart
 
-A **scatter plot** visualizes the relationship between two numerical variables. In this problem, we only have to visulaize the distribution of a categorical variable.
+A **scatter plot** visualizes the relationship between two numerical variables. In this problem, we only have to visualize the distribution of a categorical variable.
 
 A **line plot** shows trends in numerical variables over time. In this problem, we only have categorical variables. Moreover, when it says over time, it is suitable for plotting change in multiple years (e.g. 2001, 2002, 2003, ... , 2013), or even with data of days. In this question, we only want to compare the distribution of 2003 and 2013, this makes the line plot not useful. In addition, if you try to draw a line plot for this question, you will find the line plot fails to visualize distribution (e.g. the idea of 15%, 9%, 52%, and 24% add up to 100%).
 
