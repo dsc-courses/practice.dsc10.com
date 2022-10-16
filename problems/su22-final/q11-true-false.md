@@ -32,7 +32,7 @@ conclude causality.
 
 **Answer: ** False
 
-Permutation tests don't prove causality. Remember, we typically use the permutation test and calculate a p-value to reject a null hypothesis, not to prove the alternative.
+Permutation tests don't prove causality. Remember, we use the permutation test and calculate a p-value to simply reject a null hypothesis, not to prove the alternative hypothesis.
 
 # END SOLUTION
 

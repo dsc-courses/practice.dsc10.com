@@ -16,7 +16,7 @@ Do small dogs typically live longer than medium and large dogs?
 
 **Answer: ** Option 2: Permutation test.
 
-We have two parameters: dog size and life expectancy. Here if there was no significant statistical difference between the life expectancy of different dog sizes, randomly assigning the life expectancy to each dog should would lead us to observe similar observations to the observed statistic. Thus using a permutation test to comapre the two groups makes the most sense. We're not really trying to estimate a spcecific value so bootstrapping isn't a good idea here. Also, there's not really a good way to randomly generate life expectancies so a hypothesis test is not a good idea here. 
+We have two parameters: dog size and life expectancy. Here if there was no significant statistical difference between the life expectancy of different dog sizes, randomly assigning our sampled life expectancy to each dog should would lead us to observe similar observations to the observed statistic. Thus using a permutation test to comapre the two groups makes the most sense. We're not really trying to estimate a spcecific value so bootstrapping isn't a good idea here. Also, there's not really a good way to randomly generate life expectancies so a hypothesis test is not a good idea here. 
 
 # END SOLUTION
 
@@ -34,7 +34,7 @@ Does Tiffany's sample have an even distribution of dog kinds?
 
 **Answer: ** Option 1: Standard hypothesis test.
 
-We're not really comparing a variable between two groups, but rather looking at the overall distribution, so Permutation testing wouldn't work too well here. Again, we're not really trying to estimate anything here so bootstrapping isn't a good idea. This leaves us with the Standard Hypothesis Test. (if you're curious, you can see if the distribution is evenly distributed with a hypothesis test combined with total variation distance)
+We're not really comparing a variable between two groups, but rather looking at the overall distribution, so Permutation testing wouldn't work too well here. Again, we're not really trying to estimate anything here so bootstrapping isn't a good idea. This leaves us with the Standard Hypothesis Test, which makes sense if we use Total Variation Distance as our test statistic.
 
 # END SOLUTION
 

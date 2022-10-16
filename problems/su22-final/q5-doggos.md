@@ -9,7 +9,7 @@ def doggos(n, lower, upper):
 
 This plot shows a density histogram of the `'longevity'` column.
 
-<center><img src='../../assets/images/su22-final/q5_hist.png' width=40%></center>
+<center><img src='../assets/images/su22-final/q5_hist.png' width=40%></center>
 
 Answer each of these questions by either writing a **single number** in the box
 or selecting "Not enough information", but **not both**. What is the 
@@ -21,7 +21,7 @@ probability that:
 
 # BEGIN SOLUTION
 
-**Answer: ** $0.15$
+**Answer: ** 0.15
 
 Let's first understand the function. The function takes inputs `n`, `lower`, and `upper`
 and randomly takes a sample of `n` rows with replacement from DataFrame `df`, gets column 
@@ -33,7 +33,7 @@ takes `t` and generates a boolean array with each entry being either `True` or `
 depending on whether the corresponding entry in `t` lies within the range. And so 
 `sum(lower <= t < upper)` returns the number of entries in `t` that lies between the range values. (This is because `True` has a value of 1 and `False` has a value of 0, so summing Booleans is a quick way to count how many `True` there are.)
 
-Now for part a is just asking for the probability that we'll draw a `longevity` value 
+Now part a is just asking for the probability that we'll draw a `longevity` value 
 between 10 and 11 given the density plot. Note that the probability of a bar is 
 given by the width of the bar multiplied by the height. Now looking at the bar 
 with bin of range 10 to 11, we can see that the probability is just $1 * 0.15 = 0.15$.
@@ -48,7 +48,7 @@ with bin of range 10 to 11, we can see that the probability is just $1 * 0.15 = 
 
 # BEGIN SOLUTION
 
-**Answer: ** $0.0.36$
+**Answer: ** 0.36
 
 Part b is essentially asking us: What is the probability that after drawing two
 `longevity` values according to the density plot, both of them will lie in between
@@ -73,7 +73,7 @@ square this probability which gives us an answer of $0.6*0.6 = 0.36$
 
 # BEGIN SOLUTION
 
-**Answer: ** $0.19$
+**Answer: ** 0.19
 
 Part c is essentially asking us: What is the probability that after drawing two
 `longevity` values according to the density plot, at least of them will lie in between
