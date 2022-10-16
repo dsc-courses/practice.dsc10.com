@@ -170,7 +170,21 @@ To better estimate the population mean, we bootstrapped our sample and plotted a
 
 **Answer: ** Option 2
 
-solution here
+Recall, the distribution of sample mean is roughly normal and centered at the **population mean** (which is not necessarily our sample mean which is 4200). Thus, we eliminate **Option 1**
+
+To compute the SD of the sample mean's distribution, when we don't know the population's SD, we can use the sample's SD (840):
+$$\text{SD of Distribution of Possible Sample Means} \approx \frac{\text{Sample SD}}{\sqrt{\text{sample size}}} = \frac{840}{\sqrt{330}} \approx 46.24$$
+
+Recall: proportion with $z$ SDs of the mean
+
+|Percent in Range | All Distributions (via Chebyshev's Inequality) | Normal Distributions|
+|---|---|---|
+|$\text{average} \pm 1 \ \text{SD}$ | $\geq 0\%$ | $\approx 68\%$ |
+|$\text{average} \pm 2\text{SDs}$ | $\geq 75\%$ | $\approx 95\%$ |
+|$\text{average} \pm 3\text{SDs}$ | $\geq 88\%$ | $\approx 99.73\%$ |
+
+In this question, we want 68% confidence interval, given that the distribution of sample mean is roughly normal, our CI should have range $\text{population mean} \pm 1 \ \text{SD}$. Thus, the interval is approximately $46.24-(-46.24)=92.48$.
+We compare the 68% CI in Option 2, 3, 4, and we choose **Option 2** since it has a 68% CI with an interval approximates to 92.48. (There is 3.5 bars between 4150 and 4200, so 1 bar is about $50/3.5 \approx 14$ width. There is about 6.5 bars within 68% CI in Option 2, so we have $6.5 \cdot 14 = 91$)
 
 # END SOLUTION
 
@@ -192,7 +206,11 @@ What goes in blank (b)? ____
 
 **Answer: ** (a) 16 (b) 84
 
-solution here
+Recall, `np.percentile(array, p)` computes the `p`th percentile of the numbers in `array`. To compute the 68% CI, we need to know the percentile of left tail and right tail. 
+
+left percentile = $(1-0.68)/2 = (0.32)/2 = 0.16$ so we have 16th percentile
+
+right percentile = $1-((1-0.68)/2) = 1-((0.32)/2) = 1-0.16 = 0.84$ so we have 84th percentile
 
 # END SOLUTION
 
@@ -212,7 +230,9 @@ Which of the following is a correct interpretation of this confidence interval? 
 
 **Answer: ** Option 4 (If we created many confidence intervals using the same method, approximately 68% of them would contain the mean weight of all penguins in Antarctica.)
 
-solution here
+Recall, what a $k$% confidence level states is that approximately $k$% of the time, the intervals you create through this process will contain the true population parameter.
+
+In this question, our population parameter is the mean weight of all penguins in Antarctica. So 86% of the time, the intervals you create through this process will contain the the mean weight of all penguins in Antarctica. This is the same as Option 4. However, it will be false if we state it in the reverse order (Option 1) since our population parameter is already fixed.
 
 # END SOLUTION
 
