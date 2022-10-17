@@ -21,7 +21,7 @@ Select the true statement below.
 
 **Answer: ** The median mass of penguins is less than the average mass of penguins
 
-This is a distribution that skewed to the right, so mean is greater than median.
+This is a distribution that is skewed to the right, so mean is greater than median.
 
 # END SOLUTION
 
@@ -41,7 +41,7 @@ Which of the following is a valid conclusion that we can draw solely from the hi
 
 **Answer: ** The number of penguins with a mass of at most 3500 grams is greater than the number of penguins with a mass of at least 5500 grams.
 
-Recall, a histogram has intervals on axis, so we cannot know the frequency of an exact value. Thus, we cannot conclude statement 1, 3, 4. Since the frequency of an exact value is unkown, for statement 3, it is possible that all numbers we have in this distribution are even. Although in the graph, we are only given frequency rather than number, we can justify statement 2 by comparing the sum of frequency in the left side of 3500, and the sum of frequency in the right side of 5500. You can either estimate by visually compare the areas of both parts or compute the sum of both sides by estimating the bars' height.
+Recall, a histogram has intervals on the axis, so we cannot know the frequency of an exact value. Thus, we cannot conclude statements 1, 3, 4. Since the frequency of an exact value is unknown, for statement 3, it is possible that all numbers we have in this distribution are even. Although in the graph, we are only given frequency rather than number, we can justify statement 2 by comparing the area in the left side of 3500, and the area in the right side of 5500. You can either estimate by visually comparing the areas of both parts or compute the area sum of both sides by estimating the bars' height and windth.
 
 # END SOLUTION
 
@@ -93,7 +93,7 @@ To approach the problem, we'll start by converting 3276 grams and 5124 grams to 
 
 When $z = -3$, we have $\frac{1 - \frac{1}{z^2}}{2} = \frac{1 - \frac{1}{3^2}}{2} = \frac{1-\frac{1}{9}}{2} = \frac{4}{9}$. (Remember we have to divide the percentage by 2 since we are only computing one side of the mean. In other words, half of the range.) When $z = +2$, we have $\frac{1 - \frac{1}{z^2}}{2} = \frac{1 - \frac{1}{2^2}}{2} = \frac{1-\frac{1}{4}}{2} = \frac{3}{8}$. We sum the percentage together, $\frac{4}{9}+\frac{3}{8}=\frac{32+27}{72} \approx 0.819444$, which as a percentage rounded to one decimal places is $81.9\%$.
 
-In our options, 75% < 81.9%, 88.8% > 81.9%. Thus, **at least** $75\%$ of penguins have a mass between 1680 grams and 5880 grams.
+In our options, 75% < 81.9%, 88.8% > 81.9%. Thus, **at least** 75% of the penguins have a mass between 1680 grams and 5880 grams.
 
 # END SOLUTION
 
@@ -139,8 +139,8 @@ What goes in blank (b)? ____
 
 **Answer: ** (a) `masses, 2, replace=False` (b) `abs(two_penguins[0] - two_penguins[1])<=50`
 
-(a) Recall, `np.random.choice( )` can have three parameters `array, n, replace=False`, and returns n elements from the array at random, without replacement. We are randomly choosing **2 different** penguins from the `masses` **array**, so we are using `np.random.choice( )` without repalcement.
-(b) We want to count the number of pairs of penguins that have body masses difference within 50 grams, so we are using the index to access the two penguins generated from `two_penguins` and caculating their absolute difference with `abs()`. And in this `if` condition, we only want to have penguins with absolute difference less than or equal to 50, so we write a `<=` condition to justify whether the generated pairs of penguins fulfill this requirement.
+(a) Recall, `np.random.choice( )` can have three parameters `array, n, replace=False`, and returns n elements from the array at random, without replacement. We are randomly choosing **2 different** penguins from the `masses` **array**, so we are using `np.random.choice( )` without replacement.
+(b) We want to count the number of pairs of penguins that have body masses difference within 50 grams, so we are using the index to access the two penguins generated from `two_penguins` and calculating their absolute difference with `abs()`. And in this `if` condition, we only want to have penguins with absolute difference less than or equal to 50, so we write a `<=` condition to justify whether the generated pairs of penguins fulfill this requirement.
 
 # END SOLUTION
 
@@ -170,7 +170,21 @@ To better estimate the population mean, we bootstrapped our sample and plotted a
 
 **Answer: ** Option 2
 
-solution here
+Recall, the distribution of sample mean is roughly normal and centered at the **population mean** (which is not necessarily our sample mean which is 4200). Thus, we eliminate **Option 1**
+
+To compute the SD of the sample mean's distribution, when we don't know the population's SD, we can use the sample's SD (840):
+$$\text{SD of Distribution of Possible Sample Means} \approx \frac{\text{Sample SD}}{\sqrt{\text{sample size}}} = \frac{840}{\sqrt{330}} \approx 46.24$$
+
+Recall: proportion with $z$ SDs of the mean
+
+|Percent in Range | All Distributions (via Chebyshev's Inequality) | Normal Distributions|
+|---|---|---|
+|$\text{average} \pm 1 \ \text{SD}$ | $\geq 0\%$ | $\approx 68\%$ |
+|$\text{average} \pm 2\text{SDs}$ | $\geq 75\%$ | $\approx 95\%$ |
+|$\text{average} \pm 3\text{SDs}$ | $\geq 88\%$ | $\approx 99.73\%$ |
+
+In this question, we want 68% confidence interval, given that the distribution of sample mean is roughly normal, our CI should have range $\text{population mean} \pm 1 \ \text{SD}$. Thus, the interval is approximately $46.24-(-46.24)=92.48$.
+We compare the 68% CI in Option 2, 3, 4, and we choose **Option 2** since it has a 68% CI with an interval approximately 92.48. (There is 3.5 bars between 4150 and 4200, so 1 bar is about $50/3.5 \approx 14$ width. There is about 6.5 bars within 68% CI in Option 2, so we have $6.5 \cdot 14 = 91$)
 
 # END SOLUTION
 
@@ -192,7 +206,11 @@ What goes in blank (b)? ____
 
 **Answer: ** (a) 16 (b) 84
 
-solution here
+Recall, `np.percentile(array, p)` computes the `p`th percentile of the numbers in `array`. To compute the 68% CI, we need to know the percentile of left tail and right tail. 
+
+left percentile = $(1-0.68)/2 = (0.32)/2 = 0.16$ so we have 16th percentile
+
+right percentile = $1-((1-0.68)/2) = 1-((0.32)/2) = 1-0.16 = 0.84$ so we have 84th percentile
 
 # END SOLUTION
 
@@ -212,7 +230,9 @@ Which of the following is a correct interpretation of this confidence interval? 
 
 **Answer: ** Option 4 (If we created many confidence intervals using the same method, approximately 68% of them would contain the mean weight of all penguins in Antarctica.)
 
-solution here
+Recall, what a $k$% confidence level states is that approximately $k$% of the time, the intervals you create through this process will contain the true population parameter.
+
+In this question, our population parameter is the mean weight of all penguins in Antarctica. So 86% of the time, the intervals you create through this process will contain the mean weight of all penguins in Antarctica. This is the same as Option 4. However, it will be false if we state it in the reverse order (Option 1) since our population parameter is already fixed.
 
 # END SOLUTION
 

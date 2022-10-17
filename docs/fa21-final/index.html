@@ -353,6 +353,10 @@ Option 1 <strong>returns</strong> the desired value, and so only Option
 <p><br></p>
 <hr />
 <h2 id="problem-2">Problem 2</h2>
+<p>In this question, we’ll keep working with the
+<code>art_museums</code> DataFrame.</p>
+<p><br></p>
+<h3 id="problem-2.1">Problem 2.1</h3>
 <p>(Remember to keep the data description from the top of the exam open
 in another tab!)</p>
 <p><code>'Tate Modern'</code> is the most popular art museum in London.
@@ -379,13 +383,13 @@ decreasing order of number of visitors. The first few rows of
 </ol>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="true" aria-controls="collapse2">
+<h2 class="accordion-header" id="heading2_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2_1" aria-expanded="true" aria-controls="collapse2_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse2" class="accordion-collapse collapse collapse"
-aria-labelledby="heading2" data-bs-parent="#accordionExample">
+<div id="collapse2_1" class="accordion-collapse collapse collapse"
+aria-labelledby="heading2_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -400,10 +404,79 @@ aria-labelledby="heading2" data-bs-parent="#accordionExample">
 <div id="cb1" class="sourceCode">
 <pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a>best_per_city <span class="op">=</span> art_museums.sort_values(<span class="st">'Visitors'</span>, ascending<span class="op">=</span><span class="va">True</span>).groupby(<span class="st">'City'</span>).last().sort_values(<span class="st">'Visitors'</span>, ascending<span class="op">=</span><span class="va">False</span>)</span></code></pre>
 </div>
+<p>We first sort the row in <code>art_museums</code> by the number of
+<code>'Visitors'</code> in <code>ascending</code> order. Then
+<code>goupby('City')</code>, so that we have one row per city. Recall,
+we need an aggregation method after using <code>groupby()</code>. In
+this question, we use <code>last()</code> to only keep the one last row
+for each city. Since in blank (a) we have sorted the rows by
+<code>'Visitors'</code>, so <code>last()</code> keeps the row that
+contains the name of the most visited museum in that city. At last we
+sort this new DataFrame by <code>'Visitors'</code> in descending order
+to fulfill the question’s requirement.</p>
 </div>
 </div>
 </div>
 </div>
+<p><br></p>
+<h3 id="problem-2.2">Problem 2.2</h3>
+<p>Assume you’ve defined <code>best_per_city</code> correctly.</p>
+<p>Which of the following options evaluates to the number of visitors to
+the most visited art museum in Amsterdam? Select all that apply.</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> <code>best_per_city.get('Visitors').loc['Amsterdam']</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>best_per_city[best_per_city.index == 'Amsterdam'].get('Visitors').iloc[0]</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>best_per_city[best_per_city.index == 'Amsterdam'].get('Visitors').iloc[-1]</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>best_per_city[best_per_city.index == 'Amsterdam'].get('Visitors').loc['Amsterdam']</code></p></li>
+<li><p><input type="checkbox" disabled="" /> None of the above</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading2_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2_2" aria-expanded="true" aria-controls="collapse2_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse2_2" class="accordion-collapse collapse collapse"
+aria-labelledby="heading2_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong>
+<code>best_per_city.get('Visitors').loc['Amsterdam']</code>,
+<code>best_per_city[best_per_city.index == 'Amsterdam'].get('Visitors').iloc[0]</code>,
+<code>best_per_city[best_per_city.index == 'Amsterdam'].get('Visitors').iloc[-1]</code>,
+<code>best_per_city[best_per_city.index == 'Amsterdam'].get('Visitors').loc['Amsterdam']</code>
+(Select all except “None of the above”)</p>
+<p><code>best_per_city.get('Visitors').loc['Amsterdam']</code> We first
+use <code>.get(column_name)</code> to get a series with number of
+visitors to the most visited art museum, and then locate the number of
+visitors to the most visited art museum in Amsterdam using
+<code>.loc[index]</code> since we have <code>"City"</code> as index.</p>
+<p><code>best_per_city[best_per_city.index == 'Amsterdam'].get('Visitors').iloc[0]</code>
+We first query the <code>best_per_city</code> to only include the
+DataFrame with one row with index <code>'Amsterdam'</code>. Then, we get
+the <code>'Visitors'</code> column of this DataFrame. Finally, we use
+<code>iloc[0]</code> to access the first and the only value in this
+column.</p>
+<p><code>best_per_city[best_per_city.index == 'Amsterdam'].get('Visitors').iloc[-1]</code>
+We first query the <code>best_per_city</code> to only include the
+DataFrame with one row with index <code>'Amsterdam'</code>. Then, we get
+the <code>'Visitors'</code> column of this DataFrame. Finally, we use
+<code>iloc[-1]</code> to access the last and the only value in this
+column.</p>
+<p><code>best_per_city[best_per_city.index == 'Amsterdam'].get('Visitors').loc['Amsterdam']</code>
+We first query the <code>best_per_city</code> to only include the
+DataFrame with one row with index <code>'Amsterdam'</code>. Then, we get
+the <code>'Visitors'</code> column of this DataFrame. Finally, we use
+<code>loc['Amsterdam']</code> to access the value in this column with
+index <code>'Amsterdam'</code>.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
 <hr />
 <h2 id="problem-3">Problem 3</h2>
 <p>The table below shows the average amount of revenue from different
@@ -474,7 +547,7 @@ aria-labelledby="heading3_2" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer: </strong> Overlaid bar chart</p>
 <p>A <strong>scatter plot</strong> visualizes the relationship between
-two numerical variables. In this problem, we only have to visulaize the
+two numerical variables. In this problem, we only have to visualize the
 distribution of a categorical variable.</p>
 <p>A <strong>line plot</strong> shows trends in numerical variables over
 time. In this problem, we only have categorical variables. Moreover,
@@ -623,19 +696,19 @@ aria-labelledby="heading4_2" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer: </strong> neither bootstrapping nor the Central Limit
 Theorem</p>
-<p>Recall, the Centrual Limit Theorem (CLT) says that the probability
+<p>Recall, the Central Limit Theorem (CLT) says that the probability
 distribution of <strong>the sum or average</strong> of a large random
 sample drawn with replacement will be roughly normal, regardless of the
 distribution of the population from which the sample is drawn. Thus, the
 theorem only applies when our sample statistics is sum or average, while
 in this question, our statistics is range, so CLT does not apply.</p>
-<p>Bootstrapping uses sample to simulate more samples, so the sample
-itself must looks like the population. In this question, the curator
+<p>Bootstrapping uses a sample to simulate more samples, so the sample
+itself must look like the population. In this question, the curator
 doubted that “the estimate of the parameter obtained from this sample
 could certainly have come out differently, if the museum had started
 with a different sample of bones.”. In other words, the curator
 concerned this sample itself is not representative, and does not look
-like the poplulation. Thus, this sample does not fulfill the requirement
+like the population. Thus, this sample does not fulfill the requirement
 of bootstrapping and cannot generate the distribution of the sample
 statistic.</p>
 </div>
@@ -681,14 +754,15 @@ aria-labelledby="heading5_1" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer: </strong> <span class="math inline">\frac{365}{5}\cdot(v_1 + v_2 + v_3 + v_4 +
 v_5)</span></p>
-<p>Our sample is the number of vistors on the five days, and our
+<p>Our sample is the number of visitors on the five days, and our
 population is the number of visitors in all 365 days.</p>
-<p>First, we calculate the sample mean, the average number of vistors in
-the 5 days, which is <span class="math inline">m = \frac{1}{5}\cdot(v_1
-+ v_2 + v_3 + v_4 + v_5)</span>. We use this statistic to estimate the
-poplulation mean, the average number of vistors in this year.</p>
+<p>First, we calculate the sample mean, the average number of visitors
+in the 5 days, which is <span class="math inline">m =
+\frac{1}{5}\cdot(v_1 + v_2 + v_3 + v_4 + v_5)</span>. We use this
+statistic to estimate the population mean, the average number of
+visitors in this year.</p>
 <p>Then, we use the estimated population mean to calculate the estimated
-puplulation sum, so we multiply the number of days in a year (365) with
+pupulation sum, so we multiply the number of days in a year (365) with
 the estimated population mean. We get <span class="math display">365 m =
 \frac{365}{5}\cdot(v_1 + v_2 + v_3 + v_4 + v_5)</span></p>
 </div>
@@ -725,7 +799,7 @@ aria-labelledby="heading5_2" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer: </strong> 10.500</p>
 <p>Recall, the regression line predicts that a value of x (the
-independent varaible) which is <span class="math inline">n</span>
+independent variable) which is <span class="math inline">n</span>
 standard units above (or below) average <span class="math inline">\bar{x}</span> has a value of y (dependent variable)
 which is <span class="math inline">rn</span> standard units above (or
 below) average <span class="math inline">\bar{y}</span></p>
@@ -786,8 +860,8 @@ aria-labelledby="heading6_1" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer: </strong> The median mass of penguins is less than
 the average mass of penguins</p>
-<p>This is a distribution that skewed to the right, so mean is greater
-than median.</p>
+<p>This is a distribution that is skewed to the right, so mean is
+greater than median.</p>
 </div>
 </div>
 </div>
@@ -822,15 +896,15 @@ aria-labelledby="heading6_2" data-bs-parent="#accordionExample">
 <p><strong>Answer: </strong> The number of penguins with a mass of at
 most 3500 grams is greater than the number of penguins with a mass of at
 least 5500 grams.</p>
-<p>Recall, a histogram has intervals on axis, so we cannot know the
-frequency of an exact value. Thus, we cannot conclude statement 1, 3, 4.
-Since the frequency of an exact value is unkown, for statement 3, it is
-possible that all numbers we have in this distribution are even.
+<p>Recall, a histogram has intervals on the axis, so we cannot know the
+frequency of an exact value. Thus, we cannot conclude statements 1, 3,
+4. Since the frequency of an exact value is unknown, for statement 3, it
+is possible that all numbers we have in this distribution are even.
 Although in the graph, we are only given frequency rather than number,
-we can justify statement 2 by comparing the sum of frequency in the left
-side of 3500, and the sum of frequency in the right side of 5500. You
-can either estimate by visually compare the areas of both parts or
-compute the sum of both sides by estimating the bars’ height.</p>
+we can justify statement 2 by comparing the area in the left side of
+3500, and the area in the right side of 5500. You can either estimate by
+visually comparing the areas of both parts or compute the area sum of
+both sides by estimating the bars’ height and windth.</p>
 </div>
 </div>
 </div>
@@ -925,8 +999,8 @@ the percentage together, <span class="math inline">\frac{4}{9}+\frac{3}{8}=\frac
 0.819444</span>, which as a percentage rounded to one decimal places is
 <span class="math inline">81.9\%</span>.</p>
 <p>In our options, 75% &lt; 81.9%, 88.8% &gt; 81.9%. Thus, <strong>at
-least</strong> <span class="math inline">75\%</span> of penguins have a
-mass between 1680 grams and 5880 grams.</p>
+least</strong> 75% of the penguins have a mass between 1680 grams and
+5880 grams.</p>
 </div>
 </div>
 </div>
@@ -1001,15 +1075,15 @@ aria-labelledby="heading6_6" data-bs-parent="#accordionExample">
 array at random, without replacement. We are randomly choosing <strong>2
 different</strong> penguins from the <code>masses</code>
 <strong>array</strong>, so we are using <code>np.random.choice( )</code>
-without repalcement.</li>
+without replacement.</li>
 <li>We want to count the number of pairs of penguins that have body
 masses difference within 50 grams, so we are using the index to access
-the two penguins generated from <code>two_penguins</code> and caculating
-their absolute difference with <code>abs()</code>. And in this
-<code>if</code> condition, we only want to have penguins with absolute
-difference less than or equal to 50, so we write a <code>&lt;=</code>
-condition to justify whether the generated pairs of penguins fulfill
-this requirement.</li>
+the two penguins generated from <code>two_penguins</code> and
+calculating their absolute difference with <code>abs()</code>. And in
+this <code>if</code> condition, we only want to have penguins with
+absolute difference less than or equal to 50, so we write a
+<code>&lt;=</code> condition to justify whether the generated pairs of
+penguins fulfill this requirement.</li>
 </ol>
 </div>
 </div>
@@ -1051,7 +1125,57 @@ aria-labelledby="heading6_7" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer: </strong> Option 2</p>
-<p>solution here</p>
+<p>Recall, the distribution of sample mean is roughly normal and
+centered at the <strong>population mean</strong> (which is not
+necessarily our sample mean which is 4200). Thus, we eliminate
+<strong>Option 1</strong></p>
+<p>To compute the SD of the sample mean’s distribution, when we don’t
+know the population’s SD, we can use the sample’s SD (840): <span class="math display">\text{SD of Distribution of Possible Sample Means}
+\approx \frac{\text{Sample SD}}{\sqrt{\text{sample size}}} =
+\frac{840}{\sqrt{330}} \approx 46.24</span></p>
+<p>Recall: proportion with <span class="math inline">z</span> SDs of the
+mean</p>
+<table>
+<colgroup>
+<col style="width: 33%"/>
+<col style="width: 33%"/>
+<col style="width: 33%"/>
+</colgroup>
+<thead>
+<tr class="header">
+<th>Percent in Range</th>
+<th>All Distributions (via Chebyshev’s Inequality)</th>
+<th>Normal Distributions</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\text{average} \pm 1 \
+\text{SD}</span></td>
+<td><span class="math inline">\geq 0\%</span></td>
+<td><span class="math inline">\approx 68\%</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\text{average} \pm 2\text{SDs}</span></td>
+<td><span class="math inline">\geq 75\%</span></td>
+<td><span class="math inline">\approx 95\%</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\text{average} \pm 3\text{SDs}</span></td>
+<td><span class="math inline">\geq 88\%</span></td>
+<td><span class="math inline">\approx 99.73\%</span></td>
+</tr>
+</tbody>
+</table>
+<p>In this question, we want 68% confidence interval, given that the
+distribution of sample mean is roughly normal, our CI should have range
+<span class="math inline">\text{population mean} \pm 1 \
+\text{SD}</span>. Thus, the interval is approximately <span class="math inline">46.24-(-46.24)=92.48</span>. We compare the 68% CI
+in Option 2, 3, 4, and we choose <strong>Option 2</strong> since it has
+a 68% CI with an interval approximately 92.48. (There is 3.5 bars
+between 4150 and 4200, so 1 bar is about <span class="math inline">50/3.5 \approx 14</span> width. There is about 6.5
+bars within 68% CI in Option 2, so we have <span class="math inline">6.5
+\cdot 14 = 91</span>)</p>
 </div>
 </div>
 </div>
@@ -1080,7 +1204,14 @@ aria-labelledby="heading6_8" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer: </strong> (a) 16 (b) 84</p>
-<p>solution here</p>
+<p>Recall, <code>np.percentile(array, p)</code> computes the
+<code>p</code>th percentile of the numbers in <code>array</code>. To
+compute the 68% CI, we need to know the percentile of left tail and
+right tail.</p>
+<p>left percentile = <span class="math inline">(1-0.68)/2 = (0.32)/2 =
+0.16</span> so we have 16th percentile</p>
+<p>right percentile = <span class="math inline">1-((1-0.68)/2) =
+1-((0.32)/2) = 1-0.16 = 0.84</span> so we have 84th percentile</p>
 </div>
 </div>
 </div>
@@ -1117,7 +1248,16 @@ aria-labelledby="heading6_9" data-bs-parent="#accordionExample">
 <p><strong>Answer: </strong> Option 4 (If we created many confidence
 intervals using the same method, approximately 68% of them would contain
 the mean weight of all penguins in Antarctica.)</p>
-<p>solution here</p>
+<p>Recall, what a <span class="math inline">k</span>% confidence level
+states is that approximately <span class="math inline">k</span>% of the
+time, the intervals you create through this process will contain the
+true population parameter.</p>
+<p>In this question, our population parameter is the mean weight of all
+penguins in Antarctica. So 86% of the time, the intervals you create
+through this process will contain the mean weight of all penguins in
+Antarctica. This is the same as Option 4. However, it will be false if
+we state it in the reverse order (Option 1) since our population
+parameter is already fixed.</p>
 </div>
 </div>
 </div>
@@ -1125,10 +1265,31 @@ the mean weight of all penguins in Antarctica.)</p>
 <p><br></p>
 <hr />
 <h2 id="problem-7">Problem 7</h2>
-<p>question intro here</p>
+<p>Now let’s study the relationship between a penguin’s bill length (in
+millimeters) and mass (in grams). Suppose we’re given that</p>
+<ul>
+<li>bill length and body mass have a correlation coefficient of
+0.55</li>
+<li>the average bill length is 44 mm and the standard deviation of bill
+lengths is 6 mm</li>
+<li>as before, the average body mass is 4200 grams and the standard
+deviation of body mass is 840 grams</li>
+</ul>
 <p><br></p>
 <h3 id="problem-7.1">Problem 7.1</h3>
-<p>part a here</p>
+<p>Which of the four scatter plots below describe the relationship
+between bill length and body mass, based on the information provided in
+the question?</p>
+<center><img src='../assets/images/fa21-final/bills_option1.png' width=40%></center>
+<center><img src='../assets/images/fa21-final/bills_option2.png' width=40%></center>
+<center><img src='../assets/images/fa21-final/bills_option3.png' width=40%></center>
+<center><img src='../assets/images/fa21-final/bills_option4.png' width=40%></center>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Option 1</p></li>
+<li><p><input type="radio" disabled="" /> Option 2</p></li>
+<li><p><input type="radio" disabled="" /> Option 3</p></li>
+<li><p><input type="radio" disabled="" /> Option 4</p></li>
+</ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading7_1">
@@ -1142,15 +1303,27 @@ aria-labelledby="heading7_1" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer: </strong></p>
-<p>solution here</p>
+<p><strong>Answer: </strong> Option 3</p>
+<p>Given the correlation coefficient is 0.55, bill length and body mass
+has a moderate positive correlation. We eliminate Option 1 (strong
+correlation) and Option 4 (weak correlation).</p>
+<p>Given the average bill length is 44 mm, we expect our x-axis to have
+44 at the middle, so we eliminate Option 2</p>
 </div>
 </div>
 </div>
 </div>
 <p><br></p>
 <h3 id="problem-7.2">Problem 7.2</h3>
-<p>part b here</p>
+<p>Suppose we want to find the regression line that uses bill length,
+<span class="math inline">x</span>, to predict body mass, <span
+class="math inline">y</span>. The line is of the form <span
+class="math inline">y = mx\+\ b</span>. What are <span
+class="math inline">m</span> and <span class="math inline">b</span>?</p>
+<p>What is <span class="math inline">m</span>? Give your answer as a
+number without any units, rounded to three decimal places. ____</p>
+<p>What is <span class="math inline">b</span>? Give your answer as a
+number without units, rounded to three decimal places. ____</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading7_2">
@@ -1164,15 +1337,20 @@ aria-labelledby="heading7_2" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer: </strong></p>
-<p>solution here</p>
+<p><strong>Answer: </strong> <span class="math inline">m = 77</span>,
+<span class="math inline">b = 812</span></p>
+<p><span class="math display">m = r \cdot \frac{\text{SD of }y
+}{\text{SD of }x} = 0.55 \cdot \frac{840}{6} = 77</span> <span class="math display">b = \text{mean of }y - m \cdot \text{mean of }x =
+4200-77 \cdot 44 = 812 </span></p>
 </div>
 </div>
 </div>
 </div>
 <p><br></p>
 <h3 id="problem-7.3">Problem 7.3</h3>
-<p>part c here</p>
+<p>What is the predicted body mass (in grams) of a penguin whose bill
+length is 44 mm? Give your answer as a number without any units, rounded
+to three decimal places.____</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading7_3">
@@ -1186,15 +1364,18 @@ aria-labelledby="heading7_3" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer: </strong></p>
-<p>solution here</p>
+<p><strong>Answer: </strong> 4200</p>
+<p><span class="math display">y = mx\ +\ b = 77 \cdot 44 + 812 = 3388
++812 = 4200</span></p>
 </div>
 </div>
 </div>
 </div>
 <p><br></p>
 <h3 id="problem-7.4">Problem 7.4</h3>
-<p>part d here</p>
+<p>A particular penguin had a predicted body mass of 6800 grams. What is
+that penguin’s bill length (in mm)? Give your answer as a number without
+any units, rounded to three decimal places. ____</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading7_4">
@@ -1208,8 +1389,850 @@ aria-labelledby="heading7_4" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer: </strong></p>
-<p>solution here</p>
+<p><strong>Answer: </strong> 77.766</p>
+<p>In this question, we want to compute x value given y value <span class="math display">y = mx\ +\ b</span> <span class="math display">y -
+b = mx</span> <span class="math display">\frac{y - b}{m} = x\ \ \text{(m
+is nonzero)}</span> <span class="math display">x = \frac{y - b}{m} =
+\frac{6800 - 812}{77} = \frac{5988}{77} \approx 77.766</span></p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-7.5">Problem 7.5</h3>
+<p>Below is the residual plot for our regression line.</p>
+<center><img src='../assets/images/fa21-final/bills_residual.png' width=40%></center>
+<p>Which of the following is a valid conclusion that we can draw solely
+from the residual plot above?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> For this dataset, there is another line with a lower root mean
+squared error</p></li>
+<li><p><input type="radio" disabled="" /> The root mean squared error of the regression line is 0</p></li>
+<li><p><input type="radio" disabled="" /> The accuracy of the regression line’s predictions depends on bill
+length</p></li>
+<li><p><input type="radio" disabled="" /> The relationship between bill length and body mass is likely
+non-linear</p></li>
+<li><p><input type="radio" disabled="" /> None of the above</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading7_5">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_5" aria-expanded="true" aria-controls="collapse7_5">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse7_5" class="accordion-collapse collapse collapse"
+aria-labelledby="heading7_5" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> The accuracy of the regression line’s
+predictions depends on bill length</p>
+<p>The vertical spread in this residual plot is uneven, which implies
+that the regression line’s predictions aren’t equally accurate for all
+inputs. This doesn’t necessarily mean that fitting a nonlinear curve
+would be better. It just impacts how we interpret the regression line’s
+predictions.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-8">Problem 8</h2>
+<p>Each individual penguin in our dataset is of a certain species
+(Adelie, Chinstrap, or Gentoo) and comes from a particular island in
+Antarctica (Biscoe, Dream, or Torgerson). There are 330 penguins in our
+dataset, grouped by species and island as shown below.</p>
+<center><img src='../assets/images/fa21-final/dream_form.png' width=40%></center>
+<p>Suppose we pick one of these 330 penguins, uniformly at random, and
+name it Chester.</p>
+<p><br></p>
+<h3 id="problem-8.1">Problem 8.1</h3>
+<p>What is the probability that Chester comes from Dream island? Give
+your answer as a number between 0 and 1, rounded to three decimal
+places. ____</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading8_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_1" aria-expanded="true" aria-controls="collapse8_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse8_1" class="accordion-collapse collapse collapse"
+aria-labelledby="heading8_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> 0.373</p>
+<p>P(Chester comes from Dream island) = # of penguins in dream island
+<span class="math inline">/</span> # of all penguins in the data = <span class="math inline">\frac{55+68}{330} \approx 0.373</span></p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-8.2">Problem 8.2</h3>
+<p>If we know that Chester comes from Dream island, what is the
+probability that Chester is an Adelie penguin? Give your answer as a
+number between 0 and 1, rounded to three decimal places. ____</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading8_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_2" aria-expanded="true" aria-controls="collapse8_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse8_2" class="accordion-collapse collapse collapse"
+aria-labelledby="heading8_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> 0.447</p>
+<p>P(Chester is an Adelie penguin given that Chester comes from Dream
+island) = # of Adelie penguins from Dream island <span class="math inline">/</span> # of penguins from Dream island = <span class="math inline">\frac{55}{55+68} \approx 0.447</span></p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-8.3">Problem 8.3</h3>
+<p>If we know that Chester is not from Dream island, what is the
+probability that Chester is not an Adelie penguin? Give your answer as a
+number between 0 and 1, rounded to three decimal places. ____</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading8_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_3" aria-expanded="true" aria-controls="collapse8_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse8_3" class="accordion-collapse collapse collapse"
+aria-labelledby="heading8_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> 0.575</p>
+<p>Method 1</p>
+<p>P(Chester is not an Adelie penguin given that Chester is not from
+Dream island) = # of penguins that are not Adelie penguins from islands
+other than Dream island <span class="math inline">/</span> # of penguins
+in island other than Dream island = <span class="math inline">\frac{119\
+\text{(eliminate all penguins that are Adelie or from Dream island, only
+Gentoo penguins from Biscoe are left)}}{44+44+119} \approx
+0.575</span></p>
+<p>Method 2</p>
+<p>P(Chester is not an Adelie penguin given that Chester is not from
+Dream island) = 1- (# of penguins that are Adelie penguins from islands
+other than Dream island <span class="math inline">/</span> # of penguins
+in island other than Dream island) = <span class="math inline">1-\frac{44+44}{44+44+119} \approx 0.575</span></p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-9">Problem 9</h2>
+<p>We’re now interested in investigating the differences between the
+masses of Adelie penguins and Chinstrap penguins. Specifically, our null
+hypothesis is that their masses are drawn from the same population
+distribution, and any observed differences are due to chance only.</p>
+<p>Below, we have a snippet of working code for this hypothesis test,
+for a specific test statistic. Assume that <code>adelie_chinstrap</code>
+is a DataFrame of only Adelie and Chinstrap penguins, with just two
+columns – <code>'species'</code> and <code>'mass'</code>.</p>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>stats <span class="op">=</span> np.array([])</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>num_reps <span class="op">=</span> <span class="dv">500</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(num_reps):</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (a) starts ---</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    shuffled <span class="op">=</span> np.random.permutation(adelie_chinstrap.get(<span class="st">&#39;species&#39;</span>))</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (a) ends ---</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (b) starts ---</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    with_shuffled <span class="op">=</span> adelie_chinstrap.assign(species<span class="op">=</span>shuffled)</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (b) ends ---</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    grouped <span class="op">=</span> with_shuffled.groupby(<span class="st">&#39;species&#39;</span>).mean()</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (c) starts ---</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>    stat <span class="op">=</span> grouped.get(<span class="st">&#39;mass&#39;</span>).iloc[<span class="dv">0</span>] <span class="op">-</span> grouped.get(<span class="st">&#39;mass&#39;</span>).iloc[<span class="dv">1</span>]</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (c) ends ---</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>    stats <span class="op">=</span> np.append(stats, stat)</span></code></pre></div>
+<p><br></p>
+<h3 id="problem-9.1">Problem 9.1</h3>
+<p>Which of the following statements best describe the procedure
+above?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> This is a standard hypothesis test, and our test statistic is the
+total variation distance between the distribution of Adelie masses and
+Chinstrap masses</p></li>
+<li><p><input type="radio" disabled="" /> This is a standard hypothesis test, and our test statistic is the
+difference between the expected proportion of Adelie penguins and the
+proportion of Adelie penguins in our resample</p></li>
+<li><p><input type="radio" disabled="" /> This is a permutation test, and our test statistic is the total
+variation distance between the distribution of Adelie masses and
+Chinstrap masses</p></li>
+<li><p><input type="radio" disabled="" /> This is a permutation test, and our test statistic is the difference
+in the mean Adelie mass and mean Chinstrap mass</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading9_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_1" aria-expanded="true" aria-controls="collapse9_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse9_1" class="accordion-collapse collapse collapse"
+aria-labelledby="heading9_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> This is a permutation test, and our test
+statistic is the difference in the mean Adelie mass and mean Chinstrap
+mass (Option 4)</p>
+<p>Recall, a permutation test helps us decide whether two random samples
+come from the same distribution. This test matches our goal of testing
+whether the masses of Adelie penguins and Chinstrap penguins are drawn
+from the same population distribution. The code above are also doing
+steps of a permutation test. In part (a), it shuffles
+<code>'species'</code> and stores the shuffled series to
+<code>shuffled</code>. In part (b), it assign the shuffled series of
+values to <code>'species'</code> column. Then, it uses
+<code>grouped = with_shuffled.groupby('species').mean()</code> to
+calculate the mean of each species. In part (c), it computes the
+difference between mean mass of the two species by first getting the
+<code>'mass'</code> column and then accessing mean mass of each group
+(Adelie and Chinstrap) with positional index <code>0</code> and
+<code>1</code>.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-9.2">Problem 9.2</h3>
+<p>Currently, line (c) (marked with a comment) uses .iloc. Which of the
+following options compute the exact same statistic as line (c) currently
+does?</p>
+<p>Option 1:</p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>stat <span class="op">=</span> grouped.get(<span class="st">&#39;mass&#39;</span>).loc[<span class="st">&#39;Adelie&#39;</span>] <span class="op">-</span> grouped.get(<span class="st">&#39;mass&#39;</span>).loc[<span class="st">&#39;Chinstrap&#39;</span>]</span></code></pre></div>
+<p>Option 2:</p>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>stat <span class="op">=</span> grouped.get(<span class="st">&#39;mass&#39;</span>).loc[<span class="st">&#39;Chinstrap&#39;</span>] <span class="op">-</span> grouped.get(<span class="st">&#39;mass&#39;</span>).loc[<span class="st">&#39;Adelie&#39;</span>]</span></code></pre></div>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Option 1 only</p></li>
+<li><p><input type="radio" disabled="" /> Option 2 only</p></li>
+<li><p><input type="radio" disabled="" /> Both options</p></li>
+<li><p><input type="radio" disabled="" /> Neither option</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading9_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_2" aria-expanded="true" aria-controls="collapse9_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse9_2" class="accordion-collapse collapse collapse"
+aria-labelledby="heading9_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> Option 1 only</p>
+<p>We use <code>df.get(column_name).iloc[positional_index]</code> to
+access the value in a column with <code>positional_index</code>.
+Similarly, we use <code>df.get(column_name).loc[index]</code> to access
+value in a column with its <code>index</code>. Remember
+<code>grouped</code> is a DataFrame that
+<code>groupby('species')</code>, so we have species name
+<code>'Adelie'</code> and <code>'Chinstrap'</code> as index for
+<code>grouped</code>.</p>
+<p>Option 2 is incorrect since it does subtraction in the reverse order
+which results in a different <code>stat</code> compared to
+<code>line(c)</code>. Its output will be <span class="math inline">-1
+\cdot</span> <code>stat</code>. Recall, in
+<code>grouped = with_shuffled.groupby('species').mean()</code>, we use
+<code>groupby()</code> and since <code>'species'</code> is a column with
+string values, our index will be sorted in alphabetical order. So,
+<code>.iloc[0]</code> is <code>'Adelie'</code> and <code>.iloc[1]</code>
+is <code>'Chinstrap'</code>.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-9.3">Problem 9.3</h3>
+<p>Is it possible to re-write <code>line (c)</code> in a way that uses
+<code>.iloc[0]</code> twice, without any other uses of <code>.loc</code>
+or <code>.iloc</code>?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Yes, it’s possible</p></li>
+<li><p><input type="radio" disabled="" /> No, it’s not possible</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading9_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_3" aria-expanded="true" aria-controls="collapse9_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse9_3" class="accordion-collapse collapse collapse"
+aria-labelledby="heading9_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> Yes, it’s possible</p>
+<p>There are multiple ways to achieve this. For instance
+<code>stat = grouped.get('mass').iloc[0] - grouped.sort_index(ascending = False).get('mass').iloc[0]</code>.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-9.4">Problem 9.4</h3>
+<p>For your convenience, we copy the code for the hypothesis test
+below.</p>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>stats <span class="op">=</span> np.array([])</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>num_reps <span class="op">=</span> <span class="dv">500</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(num_reps):</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (a) starts ---</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    shuffled <span class="op">=</span> np.random.permutation(adelie_chinstrap.get(<span class="st">&#39;species&#39;</span>))</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (a) ends ---</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (b) starts ---</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    with_shuffled <span class="op">=</span> adelie_chinstrap.assign(species<span class="op">=</span>shuffled)</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (b) ends ---</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>    grouped <span class="op">=</span> with_shuffled.groupby(<span class="st">&#39;species&#39;</span>).mean()</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (c) starts ---</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>    stat <span class="op">=</span> grouped.get(<span class="st">&#39;mass&#39;</span>).iloc[<span class="dv">0</span>] <span class="op">-</span> grouped.get(<span class="st">&#39;mass&#39;</span>).iloc[<span class="dv">1</span>]</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (c) ends ---</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>    stats <span class="op">=</span> np.append(stats, stat)</span></code></pre></div>
+<p>What would happen if we removed <code>line (a)</code>, and replaced
+<code>line (b)</code> with</p>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>with_shuffled <span class="op">=</span> adelie_chinstrap.sample(adelie_chinstrap.shape[<span class="dv">0</span>], replace<span class="op">=</span><span class="va">False</span>)</span></code></pre></div>
+<p>Select the best answer.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> This would still run a valid hypothesis test</p></li>
+<li><p><input type="radio" disabled="" /> This would not run a valid hypothesis test, as all values in the
+<code>stats</code> array would be exactly the same</p></li>
+<li><p><input type="radio" disabled="" /> This would not run a valid hypothesis test, even though there would
+be several different values in the <code>stats</code> array</p></li>
+<li><p><input type="radio" disabled="" /> This would not run a valid hypothesis test, as it would incorporate
+information about Gentoo penguins</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading9_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_4" aria-expanded="true" aria-controls="collapse9_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse9_4" class="accordion-collapse collapse collapse"
+aria-labelledby="heading9_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> This would not run a valid hypothesis test,
+as all values in the <code>stats</code> array would be exactly the same
+(Option 2)</p>
+<p>Recall, <code>DataFrame.sample(n, replace = False)</code> (or
+<code>DataFrame.sample(n)</code> since <code>replace = False</code> is
+by default) returns a DataFrame by randomly sampling <code>n</code> rows
+from the DataFrame, without replacement. Since our <code>n</code> is
+<code>adelie_chinstrap.shape[0]</code>, and we are sampling without
+replacement, we will get the exactly same Dataframe (though the order of
+rows may be different but the <code>stats</code> array would be exactly
+the same).</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-9.5">Problem 9.5</h3>
+<p>For your convenience, we copy the code for the hypothesis test
+below.</p>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>stats <span class="op">=</span> np.array([])</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>num_reps <span class="op">=</span> <span class="dv">500</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(num_reps):</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (a) starts ---</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    shuffled <span class="op">=</span> np.random.permutation(adelie_chinstrap.get(<span class="st">&#39;species&#39;</span>))</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (a) ends ---</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (b) starts ---</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    with_shuffled <span class="op">=</span> adelie_chinstrap.assign(species<span class="op">=</span>shuffled)</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (b) ends ---</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>    grouped <span class="op">=</span> with_shuffled.groupby(<span class="st">&#39;species&#39;</span>).mean()</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (c) starts ---</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>    stat <span class="op">=</span> grouped.get(<span class="st">&#39;mass&#39;</span>).iloc[<span class="dv">0</span>] <span class="op">-</span> grouped.get(<span class="st">&#39;mass&#39;</span>).iloc[<span class="dv">1</span>]</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (c) ends ---</span></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>    stats <span class="op">=</span> np.append(stats, stat)</span></code></pre></div>
+<p>What would happen if we removed <code>line (a)</code>, and replaced
+<code>line (b)</code> with</p>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>with_shuffled <span class="op">=</span> adelie_chinstrap.sample(adelie_chinstrap.shape[<span class="dv">0</span>], replace<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
+<p>Select the best answer.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> This would still run a valid hypothesis test</p></li>
+<li><p><input type="radio" disabled="" /> This would not run a valid hypothesis test, as all values in the
+<code>stats</code> array would be exactly the same</p></li>
+<li><p><input type="radio" disabled="" /> This would not run a valid hypothesis test, even though there would
+be several different values in the <code>stats</code> array</p></li>
+<li><p><input type="radio" disabled="" /> This would not run a valid hypothesis test, as it would incorporate
+information about Gentoo penguins</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading9_5">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_5" aria-expanded="true" aria-controls="collapse9_5">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse9_5" class="accordion-collapse collapse collapse"
+aria-labelledby="heading9_5" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> This would not run a valid hypothesis test,
+even though there would be several different values in the
+<code>stats</code> array (Option 3)</p>
+<p>Recall, <code>DataFrame.sample(n, replace = True)</code> returns a
+new DataFrame by randomly sampling <code>n</code> rows from the
+DataFrame, with replacement. Since we are sampling with replacement, we
+will have a DataFrame which produces a <code>stats</code> array with
+some different values. However, recall, the key idea behind a
+permutation test is to shuffle the group labels. So, the above code does
+not meet this key requirement since we only want to shuffle the
+<code>"species"</code> column without changing the size of the two
+species. However, the code may change the size of the two species.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-9.6">Problem 9.6</h3>
+<p>For your convenience, we copy the code for the hypothesis test
+below.</p>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>stats <span class="op">=</span> np.array([])</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>num_reps <span class="op">=</span> <span class="dv">500</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(num_reps):</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (a) starts ---</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    shuffled <span class="op">=</span> np.random.permutation(adelie_chinstrap.get(<span class="st">&#39;species&#39;</span>))</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (a) ends ---</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (b) starts ---</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    with_shuffled <span class="op">=</span> adelie_chinstrap.assign(species<span class="op">=</span>shuffled)</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (b) ends ---</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>    grouped <span class="op">=</span> with_shuffled.groupby(<span class="st">&#39;species&#39;</span>).mean()</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (c) starts ---</span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>    stat <span class="op">=</span> grouped.get(<span class="st">&#39;mass&#39;</span>).iloc[<span class="dv">0</span>] <span class="op">-</span> grouped.get(<span class="st">&#39;mass&#39;</span>).iloc[<span class="dv">1</span>]</span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (c) ends ---</span></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>    stats <span class="op">=</span> np.append(stats, stat)</span></code></pre></div>
+<p>What would happen if we replaced <code>line (a)</code> with</p>
+<div class="sourceCode" id="cb20"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>with_shuffled <span class="op">=</span> adelie_chinstrap.assign(</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    species<span class="op">=</span>np.random.permutation(adelie_chinstrap.get(<span class="st">&#39;species&#39;</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>and replaced line (b) with</p>
+<div class="sourceCode" id="cb21"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>with_shuffled <span class="op">=</span> with_shuffled.assign(</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    mass<span class="op">=</span>np.random.permutation(adelie_chinstrap.get(<span class="st">&#39;mass&#39;</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>Select the best answer.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> This would still run a valid hypothesis test</p></li>
+<li><p><input type="radio" disabled="" /> This would not run a valid hypothesis test, as all values in the
+<code>stats</code> array would be exactly the same</p></li>
+<li><p><input type="radio" disabled="" /> This would not run a valid hypothesis test, even though there would
+be several different values in the <code>stats</code> array</p></li>
+<li><p><input type="radio" disabled="" /> This would not run a valid hypothesis test, as it would incorporate
+information about Gentoo penguins</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading9_6">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_6" aria-expanded="true" aria-controls="collapse9_6">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse9_6" class="accordion-collapse collapse collapse"
+aria-labelledby="heading9_6" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> This would still run a valid hypothesis
+test (Option 1)</p>
+<p>Our goal for the permutation test is to randomly assign birth weights
+to groups, without changing group sizes. The above code shuffles
+<code>'species'</code> and <code>'mass'</code> columns and assigns them
+back to the DataFrame. This fulfills our goal.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-9.7">Problem 9.7</h3>
+<p>Suppose we run the code for the hypothesis test and see the following
+empirical distribution for the test statistic. In red is the observed
+statistic.</p>
+<center><img src='../assets/images/fa21-final/measuring_up_his.png' width=40%></center>
+<p>Suppose our alternative hypothesis is that Chinstrap penguins weigh
+more on average than Adelie penguins. Which of the following is closest
+to the p-value for our hypothesis test?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <span class="math inline">0</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">\frac{1}{4}</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">\frac{1}{3}</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">\frac{2}{3}</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">\frac{3}{4}</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">1</span></p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading9_7">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_7" aria-expanded="true" aria-controls="collapse9_7">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse9_7" class="accordion-collapse collapse collapse"
+aria-labelledby="heading9_7" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> <span class="math inline">\frac{1}{3}</span></p>
+<p>Recall, the p-value is the chance, under the null hypothesis, that
+the test statistic is equal to the value that was observed in the data
+or is even further in the direction of the alternative. Thus, we compute
+the proportion of the test statistic that is equal or less than the
+observed statistic. (It is less than because less than corresponds to
+the alternative hypothesis “Chinstrap penguins weigh more on average
+than Adelie penguins”. Recall, when computing the statistic, we use
+Adelie’s mean mass minus Chinstrap’s mean mass. If Chinstrap’s mean mass
+is larger, the statistic will be negative, the direction of less than
+the observed statistic).</p>
+<p>Thus, we look at the proportion of area less than or on the red line
+(which represents observed statistic), it is around <span class="math inline">\frac{1}{3}</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-10">Problem 10</h2>
+<p>At the San Diego Model Railroad Museum, there are different admission
+prices for children, adults, and seniors. Over a period of time, as
+tickets are sold, employees keep track of how many of each type of
+ticket are sold. These ticket counts (in the order child, adult, senior)
+are stored as follows.</p>
+<div class="sourceCode" id="cb22"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>admissions_data <span class="op">=</span> np.array([<span class="dv">550</span>, <span class="dv">1550</span>, <span class="dv">400</span>])</span></code></pre></div>
+<p><br></p>
+<h3 id="problem-10.1">Problem 10.1</h3>
+<p>Complete the code below so that it creates an array
+<code>admissions_proportions</code> with the proportions of tickets sold
+to each group (in the order child, adult, senior).</p>
+<div class="sourceCode" id="cb23"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> as_proportion(data):</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> __(a)__</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>admissions_proportions <span class="op">=</span> as_proportion(admissions_data)</span></code></pre></div>
+<p>What goes in blank (a)?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading10_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10_1" aria-expanded="true" aria-controls="collapse10_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse10_1" class="accordion-collapse collapse collapse"
+aria-labelledby="heading10_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> <code>data/data.sum()</code></p>
+<p>To calculate proportion for each group, we divide each value in the
+array (tickets sold to each group) by the sum of all values (total
+tickets sold). Remember values in an array can be processed as a
+whole.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-10.2">Problem 10.2</h3>
+<p>The museum employees have a model in mind for the proportions in
+which they sell tickets to children, adults, and seniors. This model is
+stored as follows.</p>
+<div class="sourceCode" id="cb24"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> np.array([<span class="fl">0.25</span>, <span class="fl">0.6</span>, <span class="fl">0.15</span>])</span></code></pre></div>
+<p>We want to conduct a hypothesis test to determine whether the
+admissions data we have is consistent with this model. Which of the
+following is the null hypothesis for this test?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Child, adult, and senior tickets might plausibly be purchased in
+proportions 0.25, 0.6, and 0.15.</p></li>
+<li><p><input type="radio" disabled="" /> Child, adult, and senior tickets are purchased in proportions 0.25,
+0.6, and 0.15.</p></li>
+<li><p><input type="radio" disabled="" /> Child, adult, and senior tickets might plausibly be purchased in
+proportions other than 0.25, 0.6, and 0.15.</p></li>
+<li><p><input type="radio" disabled="" /> Child, adult, and senior tickets, are purchased in proportions other
+than 0.25, 0.6, and 0.15.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading10_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10_2" aria-expanded="true" aria-controls="collapse10_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse10_2" class="accordion-collapse collapse collapse"
+aria-labelledby="heading10_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> Child, adult, and senior tickets are
+purchased in proportions 0.25, 0.6, and 0.15. (Option 2)</p>
+<p>Recall, null hypothesis is the hypothesis that there is no
+significant difference between specified populations, any observed
+difference being due to sampling or experimental error. So, we assume
+the distribution is the same as the model.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-10.3">Problem 10.3</h3>
+<p>Which of the following test statistics could we use to test our
+hypotheses? Select all that could work.</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> sum of differences in proportions</p></li>
+<li><p><input type="checkbox" disabled="" /> sum of squared differences in proportions</p></li>
+<li><p><input type="checkbox" disabled="" /> mean of differences in proportions</p></li>
+<li><p><input type="checkbox" disabled="" /> mean of squared differences in proportions</p></li>
+<li><p><input type="checkbox" disabled="" /> none of the above</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading10_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10_3" aria-expanded="true" aria-controls="collapse10_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse10_3" class="accordion-collapse collapse collapse"
+aria-labelledby="heading10_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> sum of squared differences in proportions,
+mean of squared differences in proportions (Option 2, 4)</p>
+<p>We need to use squared difference to avoid the case that large
+positive and negative difference cancel out in the process of
+calculating sum or mean, resulting in small sum of difference or mean of
+difference that does not reflect the actual deviation. So, we eliminate
+Option 1 and 3.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-10.4">Problem 10.4</h3>
+<p>Below, we’ll perform the hypothesis test with a different test
+statistic, the mean of the absolute differences in proportions.</p>
+<p>Recall that the ticket counts we observed for children, adults, and
+seniors are stored in the array
+<code>admissions_data  = np.array([550, 1550, 400])</code>, and that our
+model is <code>model = np.array([0.25, 0.6, 0.15])</code>.</p>
+<p>For our hypothesis test to determine whether the admissions data is
+consistent with our model, what is the observed value of the test
+statistic? Input your answer as a decimal between 0 and 1. Round to
+three decimal places. ____</p>
+<p>Moving forward, suppose that the value you calculated above is
+assigned to the variable <code>observed_stat</code>.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading10_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10_4" aria-expanded="true" aria-controls="collapse10_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse10_4" class="accordion-collapse collapse collapse"
+aria-labelledby="heading10_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> 0.02</p>
+<p>We first calculate the proportion for each value in
+<code>admissions_data</code> <span class="math display">\frac{550}{550+1550+400} = 0.22</span> <span class="math display">\frac{1550}{550+1550+400} = 0.62</span> <span class="math display">\frac{400}{550+1550+400} = 0.16</span> So, we have
+the distribution of the <code>admissions_data</code></p>
+<p>Then, we calculate the observed value of the test statistic (the mean
+of the absolute differences in proportions) <span class="math display">\frac{|0.22-0.25|+|0.62-0.6|+|0.16-0.15|}{number\
+of\ goups}</span> <span class="math display">=\frac{0.03+0.02+0.01}{3} =
+0.02</span></p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-10.5">Problem 10.5</h3>
+<p>Now, we want to simulate the test statistic 10,000 times under the
+assumptions of the null hypothesis. Fill in the blanks below to complete
+this simulation and calculate the p-value for our hypothesis test.
+Assume that the variables <code>admissions_data</code>,
+<code>admissions_proportions</code>, <code>model</code>, and
+<code>observed_stat</code> are already defined as specified earlier in
+the question.</p>
+<div class="sourceCode" id="cb25"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>simulated_stats <span class="op">=</span> np.array([]) </span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    simulated_proportions <span class="op">=</span> as_proportions(np.random.multinomial(__(a)__, __(b)__))</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    simulated_stat <span class="op">=</span> __(c)__</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    simulated_stats <span class="op">=</span> np.append(simulated_stats, simulated_stat)</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>p_value <span class="op">=</span> __(d)__</span></code></pre></div>
+<p>What goes in blank (a)? ____ What goes in blank (b)? ____ What goes
+in blank (c)? ____ What goes in blank (d)? ____</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading10_5">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10_5" aria-expanded="true" aria-controls="collapse10_5">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse10_5" class="accordion-collapse collapse collapse"
+aria-labelledby="heading10_5" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> (a) <code>admissions_data.sum()</code> (b)
+<code>model</code> (c)
+<code>np.abs(simulated_proportions - model).mean()</code> (d)
+<code>np.count_nonzero(simulated_stats &gt;= observed_stat) / 10000</code></p>
+<p>Recall, in <code>np.random.multinomial(n, [p_1, ..., p_k])</code>,
+<code>n</code> is the number of experiments, and
+<code>[p_1, ..., p_k]</code> is a sequence of probability. The method
+returns an array of length k in which each element contains the number
+of occurrences of an event, where the probability of the ith event is
+<code>p_i</code>.</p>
+<p>We want our <code>simulated_proportion</code> to have the same data
+size as <code>admissions_data</code>, so we use
+<code>admissions_data.sum()</code> in (a).</p>
+<p>Since our null hypothesis is based on <code>model</code>, we simulate
+based on distribution in <code>model</code>, so we have
+<code>model</code> in (b).</p>
+<p>In (c), we compute the mean of the absolute differences in
+proportions. <code>np.abs(simulated_proportions - model)</code> gives us
+a series of absolute differences, and <code>.mean()</code> computes the
+mean of the absolute differences.</p>
+<p>In (d), we calculate the <code>p_value</code>. Recall, the
+<code>p_value</code> is the chance, under the null hypothesis, that the
+test statistic is equal to the value that was observed in the data or is
+even further in the direction of the alternative.
+<code>np.count_nonzero(simulated_stats &gt;= observed_stat)</code> gives
+us the number of <code>simulated_stats</code> greater than or equal to
+the <code>observed_stat</code> in the 10000 times simulations, so we
+need to divide it by <code>10000</code> to compute the proportion of
+<code>simulated_stats</code> greater than or equal to the
+<code>observed_stat</code>, and this gives us the
+<code>p_value</code>.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-10.6">Problem 10.6</h3>
+<p>True or False: the p-value represents the probability that the null
+hypothesis is true.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading10_6">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10_6" aria-expanded="true" aria-controls="collapse10_6">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse10_6" class="accordion-collapse collapse collapse"
+aria-labelledby="heading10_6" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> False</p>
+<p>Recall, the p-value is the chance, under the null hypothesis, that
+the test statistic is equal to the value that was observed in the data
+or is even further in the direction of the alternative. It only gives us
+the strength of evidence in favor of the null hypothesis, which is
+different from “the probability that the null hypothesis is true”.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-10.7">Problem 10.7</h3>
+<p>The new statistic that we used for this hypothesis test, the mean of
+the absolute differences in proportions, is in fact closely related to
+the total variation distance. Given two arrays of length three,
+<code>array_1</code> and <code>array_2</code>, suppose we compute the
+mean of the absolute differences in proportions between
+<code>array_1</code> and <code>array_2</code> and store the result as
+madp. What value would we have to multiply <code>madp</code> by to
+obtain the total variation distance <code>array_1</code> and
+<code>array_2</code>? Input your answer below, rounding to three decimal
+places.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading10_7">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10_7" aria-expanded="true" aria-controls="collapse10_7">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse10_7" class="accordion-collapse collapse collapse"
+aria-labelledby="heading10_7" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> 1.5</p>
+<p>Recall, the total variation distance (TVD) is the sum of the absolute
+differences in proportions, divided by 2. When we compute the mean of
+the absolute differences in proportions, we are computing the sum of the
+absolute differences in proportions, divided by the number of groups
+(which is 3). Thus, to get TVD, we first multiply our current statistics
+(the mean of the absolute differences in proportions) by 3, we get the
+sum of the absolute differences in proportions. Then according to the
+definition of TVD, we divide this value by 2. Thus, we have <span class="math inline">\text{current statistics}\cdot 3 / 2 = \text{current
+statistics}\cdot 1.5</span></p>
 </div>
 </div>
 </div>
