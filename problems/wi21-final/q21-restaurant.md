@@ -6,7 +6,10 @@ A restaurant keeps track of each table's number of people (average 3; standard d
 
 **Answer: ** 79.20
 
-Some explanation
+To anwser this question, first find the z score for a table of 5 people. Z = 5-3/1 = 2. 
+Now having this Z score, find the price that correlated in the bill distribution by finding the value
+for 2 standard deviations larger than the mean while also accounting for the correlation between the two variables.
+This is calculated with mean + ((Z*SD) * r)  which is 60 + ((12 * 2) * 0.8) = 79.20.
 
 # END SOLUTION
 

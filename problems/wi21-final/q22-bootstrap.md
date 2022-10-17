@@ -14,7 +14,9 @@ Which of the following is the most accurate description of the mean of the distr
 
 **Answer: ** The mean will be approximately equal to 400.
 
-Some explanation
+The distribution of bootstrapped means' mean will be approximately 400 since that is the mean
+of the sample and bootstrapping is taking many samples of the original sample. The mean will not be exactly 400 do to some
+randomness though it will be very close. 
 
 # END SOLUTION
 
@@ -32,7 +34,8 @@ Which of the following is closest to the standard deviation of the distribution 
 
 **Answer: ** 4
 
-Some explanation
+To find the standard deviation of the distribution, we can take the sample standard deviation S divided by the square root of
+the sample size. From plugging in, we get 40 / 10 = 4. 
 
 # END SOLUTION
 

@@ -14,7 +14,8 @@ How many galleries have at least 80 but less than 100 art pieces? Input your ans
 
 **Answer: ** 7
 
-Some explanation
+Through looking at the graph we can find the total number of art galleries by taking 0.012 (height of bin) * 20 (the size of the bin) * 29 (total number of art galleries).
+This will yield an anwser of 6.96 which should be rounded to the nearest integer (7).
 
 # END SOLUTION
 
@@ -28,7 +29,11 @@ If we added to our dataset two more art galleries, each containing 24 pieces of 
 
 **Answer: ** 0.007742
 
-Some explanation
+Taking the area of the bin `[20,45]` we can find the number of art galleries already within this bin 0.0055 * 25  = 0.1375 (estimation based on the visualization).
+To find the number take this proportion x the total number of art galleries. 0.1375 * 29 = about 4 art galleries. If we add
+two art galleries to this total we get 4 art galleries in the `[20,45]` bin to get 6 art galleries. To find the frequency of 6 art
+galleries to the entire data set we can take 6/31. Note that the question asks for the *height* of the bin. Therefore, we can 
+take (6/31) / 2.5 due to the sice of the bin which will give an answer of 0.007742 upon rounding to six decimal places. 
 
 # END SOLUTION
 

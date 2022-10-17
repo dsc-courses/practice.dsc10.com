@@ -19,7 +19,12 @@ By this definition, any percentile between 0 and 100 can be computed for any col
 
 **Answer: ** 58
 
-Some explanation
+From the definition provided in the question, we want all values of (p/100) * n which will yield
+an integer larger than 4, but less than or equal to 5 because we want the 5th element (10) in the dataset. To approach this problem
+we can find how many percentiles each piece of data falls within by taking 100 / 7 which yields around
+14.3. Wanting to find the percentiles for the range of 4 to 5 we can multiple (100/7) by 4 to get our lower bound.
+(100/7) * 4 = 57.14 which is rounded up to 58 since the 57th percentile belongs to the 4th element
+while 58 belongs to the fifth element. 
 
 # END SOLUTION
 
@@ -32,7 +37,8 @@ Some explanation
 
 **Answer: ** 71
 
-Some explanation
+To find the largest we will take (100/7) * 5 which yields 71.43. We will round down since the 72th percentile belongs
+to the sixth element in thed data set. For more information look at the solution above.
 
 # END SOLUTION
 

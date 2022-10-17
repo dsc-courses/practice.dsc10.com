@@ -6,7 +6,12 @@
 
 **Answer: ** False
 
-Some explanation
+False, a 95% confidence interval indicates we  are 95% confident that the true population
+parameter falls within the interval [L, R]. Note that the problem specifies that the confidence
+interval is bootstrapped. Since the interval is found using bootstrapping, L anr R averaged will not be
+the mean of the original sample since the mean of the original sample is not what is used in calculating
+the bootstrapped confidence interval. The bootstrapped confidence interval (as noted on the reference sheet
+is created by re-sampling the data with replacement over and over again).
 
 # END SOLUTION
 

@@ -18,7 +18,13 @@ Which of the following would be the best way to set the index for this dataset?
 
 **Answer: ** `restaurants.set_index(['name', 'year', 'month', 'day'])`
 
-Some explanation
+The correct answer is to create an index with the `'name'`, `'year'`, '`month`', and '`day`' columns. The question provides that there
+is a row for each restaurant for each data in the five year span. Therefore, we are interested in the granularity of a 
+specific day (the day, the month, and the year). In order to have this information available in this index, we must set
+the index to be a multi index with columns `['name', 'year', 'month', 'day']`. Looking at the other options, simply looking 
+at the `'name'` column would not account for the fact the dataframe contains daily data on customers and income for each
+restaurant. Similarly, the second option of `['name', 'month', 'day']` would not account for the fact that the data comes 
+in a five year span so there will naturally be five overlaps (one for each year) for each unique date that much be accounted for. 
 
 # END SOLUTION
 

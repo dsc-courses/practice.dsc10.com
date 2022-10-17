@@ -13,7 +13,8 @@ Is this histogram a probability histogram or an empirical histogram?
 
 **Answer: ** empirical histogram
 
-Some explanation
+Empirical histograms refer to distributions of observed data. Since the question at hand is conducting
+an experiment and creating a histogram of observed data from these trials the correct anwser is an empirical histogram. 
 
 # END SOLUTION
 
@@ -30,7 +31,9 @@ If you instead repeat the experiment 100,000 times, how will the histogram chang
 
 **Answer: ** it will barely change at all
 
-Some explanation
+Doing more of an experiment will barely change the histogram. The parameter we are trying
+to estimate through our experiment is some statistic. The number of experiments has no effect
+on the histograms distribution since the value of some statistic is not becoming more random. 
 
 # END SOLUTION
 
@@ -47,7 +50,10 @@ For each experiment, if you instead do the random process 5,000 times, how will 
 
 **Answer: ** it will become wider
 
-Some explanation
+By increasing the number of random process we increase the possible range of values from 500 to 5000. The
+statistic being calculated is the count of how many times a phenomenon occurs. If the number of random process increases 10x
+the statistic can now take values ranging from `[0, 5000]` instead of `[0, 500]` which will clearly 
+make the histogram width wider (due to the wider range of values it can take). 
 
 # END SOLUTION
 
