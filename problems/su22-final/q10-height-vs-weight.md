@@ -68,7 +68,7 @@ r = t.mean()
 
 Sam computes the following statistics for his sample:
 
-<center><img src='../assets/images/su22-final/q10_b.png' width=40%></center>
+<center><img src='../assets/images/su22-final/q10_b.png' width=30%></center>
 
 The best-fit line predicts that a dog with a weight of 10 kg has a
 height of 45 cm.
