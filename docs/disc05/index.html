@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Discussion 5: Probability and Simulation</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="..\assets\theme.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Discussion 5: Probability and Simulation</h1>
+</header>
+<p><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<!-- add after bootstrap.min.css -->
+<link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css"/>
+<!-- add after bootstrap.min.js or bootstrap.bundle.min.js -->
+<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script></p>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B947E6J6H4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B947E6J6H4');
+</script>
+<p><a href="../index.html">← return to practice.dsc10.com</a></p>
+<hr />
+<p>The problems in this worksheet are taken from past exams. Work on
+them <strong>on paper</strong>, since the exams you take in this course
+will also be on paper. <br><br>We encourage you to complete this
+worksheet in a discussion section, which are held live on Monday,
+October 24th. Solutions will be made available after all discussion
+sections have concluded. You don’t need to submit your answers
+anywhere.</p>
+<hr />
+<h2 id="problem-1">Problem 1</h2>
+<p>Suppose you are booking a flight through a travel agent and you have
+no control over which airline you fly on. Below is a DataFrame with
+multiple airlines and their probability of being selected.</p>
+<center>
+<table class="table" style="width:20%">
+  <thead>
+    <tr>
+      <th scope="col">Airline</th>
+      <th scope="col">Chance</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">Delta</th>
+      <td>0.4</td>
+    </tr>
+    <tr>
+      <th scope="row">United</th>
+      <td>0.3</td>
+    </tr>
+    <tr>
+      <th scope="row">American</th>
+      <td>0.2</td>
+    </tr>
+    <tr>
+      <th scope="row">All other airlines</th>
+      <td>0.1</td>
+    </tr>
+  </tbody>
+</table>
+</center>
+<p>The airline for one flight has no impact on the airline for another
+flight.</p>
+<p>For this question, suppose that you schedule 3 flights for January
+2022.</p>
+<p><br></p>
+<h3 id="problem-1.1">Problem 1.1</h3>
+<p>What is the probability that all 3 flights are on United? Give your
+answer as an <strong>exact</strong> decimal between 0 and 1 (not a
+Python expression).</p>
+<p><br></p>
+<h3 id="problem-1.2">Problem 1.2</h3>
+<p>What is the probability that all 3 flights are on Delta, or all on
+United, or all on American? Give your answer as an
+<strong>exact</strong> decimal between 0 and 1 (not a Python
+expression).</p>
+<p><br></p>
+<h3 id="problem-1.3">Problem 1.3</h3>
+<p>True or False: The probability that all 3 flights are on the same
+airline is equal to the probability you computed in the previous
+subpart.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-2">Problem 2</h2>
+<p>King Triton has boarded a Southwest flight. For in-flight
+refreshments, Southwest serves four types of cookies – chocolate chip,
+gingerbread, oatmeal, and peanut butter.</p>
+<p>The flight attendant comes to King Triton with a box containing 10
+cookies:</p>
+<ul>
+<li>4 chocolate chip</li>
+<li>3 gingerbread</li>
+<li>2 oatmeal, and</li>
+<li>1 peanut butter</li>
+</ul>
+<p>The flight attendant tells King Triton to grab 2 cookies out of the
+box without looking.</p>
+<p>Fill in the blanks below to implement a simulation that estimates the
+probability that both of King Triton’s selected cookies are the
+same.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># &#39;cho&#39; stands for chocolate chip, &#39;gin&#39; stands for gingerbread,</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># &#39;oat&#39; stands for oatmeal, and &#39;pea&#39; stands for peanut butter.</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>cookie_box <span class="op">=</span> np.array([<span class="st">&#39;cho&#39;</span>, <span class="st">&#39;cho&#39;</span>, <span class="st">&#39;cho&#39;</span>, <span class="st">&#39;cho&#39;</span>, <span class="st">&#39;gin&#39;</span>, </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>                       <span class="st">&#39;gin&#39;</span>, <span class="st">&#39;gin&#39;</span>, <span class="st">&#39;oat&#39;</span>, <span class="st">&#39;oat&#39;</span>, <span class="st">&#39;pea&#39;</span>])</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>repetitions <span class="op">=</span> <span class="dv">10000</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>prob_both_same <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(repetitions):</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    grab <span class="op">=</span> np.random.choice(__(a)__)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> __(b)__:</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>        prob_both_same <span class="op">=</span> prob_both_same <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>prob_both_same <span class="op">=</span> __(c)__</span></code></pre></div>
+<p><br></p>
+<h3 id="problem-2.1">Problem 2.1</h3>
+<p>What goes in blank (a)?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>cookie_box, repetitions, replace=False</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>cookie_box, 2, replace=True</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>cookie_box, 2, replace=False</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>cookie_box, 2</code></p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-2.2">Problem 2.2</h3>
+<p>What goes in blank (b)?</p>
+<p><br></p>
+<h3 id="problem-2.3">Problem 2.3</h3>
+<p>What goes in blank (c)?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>prob_both_same / repetitions</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>prob_both_same / 2</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>np.mean(prob_both_same)</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>prob_both_same.mean()</code></p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-3">Problem 3</h2>
+<p>You have a DataFrame called <code>flights</code> containing
+information on various plane tickets sold between US cities. The columns
+are <code>'route_length'</code>, which stores distance between the
+arrival and departure airports, in miles, and <code>'price'</code>,
+which stores the cost of the airline ticket, in dollars. You notice that
+longer flights tend to cost more, as expected.</p>
+<table>
+<thead>
+<tr class="header">
+<th>route_length</th>
+<th>price</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2500</td>
+<td>249</td>
+</tr>
+<tr class="even">
+<td>2750</td>
+<td>249</td>
+</tr>
+<tr class="odd">
+<td>2850</td>
+<td>349</td>
+</tr>
+<tr class="even">
+<td>2850</td>
+<td>319</td>
+</tr>
+<tr class="odd">
+<td>2950</td>
+<td>329</td>
+</tr>
+<tr class="even">
+<td>2950</td>
+<td>309</td>
+</tr>
+<tr class="odd">
+<td>3000</td>
+<td>349</td>
+</tr>
+</tbody>
+</table>
+<p><br/> You want to use your data, shown in full above, to predict the
+price of an airline ticket for a route that is 2800 miles long. What
+would Galton’s method predict for the price of your ticket, if we
+consider “nearby” to mean within 6o miles? Give your answer to the
+nearest dollar.</p>
+<hr />
+<h2 id="problem-4">Problem 4</h2>
+<p>You generate a three-digit number by randomly choosing each digit to
+be a number 0 through 9, inclusive. Each digit is equally likely to be
+chosen.</p>
+<p><br></p>
+<h3 id="problem-4.1">Problem 4.1</h3>
+<p>What is the probability you produce the number <strong>027</strong>?
+Give your answer as a decimal number between 0 and 1 with no
+rounding.</p>
+<p><br></p>
+<h3 id="problem-4.2">Problem 4.2</h3>
+<p>What is the probability you produce a number with an odd digit in the
+middle position? For example, <strong>250</strong>. Give your answer as
+a decimal number between 0 and 1 with no rounding.</p>
+<p><br></p>
+<h3 id="problem-4.3">Problem 4.3</h3>
+<p>What is the probability you produce a number with a
+<strong>7</strong> in it somewhere? Give your answer as a decimal number
+between 0 and 1 with no rounding.</p>
+<p><br></p>
+<hr />
+<h2 id="problem-5">Problem 5</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> np.array([])</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10</span>):</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> np.random.choice(np.arange(<span class="dv">1000</span>), replace<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    results <span class="op">=</span> np.append(results, result)</span></code></pre></div>
+<p>After this code executes, <code>results</code> contains:</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> a simple random sample of size 9, chosen from a set of size 999 with
+replacement</p></li>
+<li><p><input type="radio" disabled="" /> a simple random sample of size 9, chosen from a set of size 999
+without replacement</p></li>
+<li><p><input type="radio" disabled="" /> a simple random sample of size 10, chosen from a set of size 1000
+with replacement</p></li>
+<li><p><input type="radio" disabled="" /> a simple random sample of size 10, chosen from a set of size 1000
+without replacement</p></li>
+</ul>
+<hr />
+<h2 id="problem-6">Problem 6</h2>
+<p>Suppose you have a dataframe called ‘plums’ with 31 rows.</p>
+<p>Consider the function <code>df_choice</code>, defined below.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> df_choice(df):</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df[np.random.choice([<span class="va">True</span>, <span class="va">False</span>], df.shape[<span class="dv">0</span>], replace<span class="op">=</span><span class="va">True</span>)]</span></code></pre></div>
+<p><br></p>
+<h3 id="problem-6.1">Problem 6.1</h3>
+<p>Suppose we call <code>df_choice(plum)</code> once. What is the
+probability that the result is an empty DataFrame?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> 0</p></li>
+<li><p><input type="radio" disabled="" /> 1</p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">\frac{1}{2^{25}}</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">\frac{1}{2^{30}}</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">\frac{1}{2^{31}}</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">\frac{2^{31} - 1}{2^{31}}</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">\frac{31}{2^{30}}</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">\frac{31}{2^{31}}</span></p></li>
+<li><p><input type="radio" disabled="" /> None of the above</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-6.2">Problem 6.2</h3>
+<p>Suppose we call <code>df_choice(plum)</code> once. What is the
+probability that the result is a DataFrame with 30 rows?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> 0</p></li>
+<li><p><input type="radio" disabled="" /> 1</p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">\frac{1}{2^{25}}</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">\frac{1}{2^{30}}</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">\frac{1}{2^{31}}</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">\frac{2^{31} - 1}{2^{31}}</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">\frac{31}{2^{30}}</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">\frac{31}{2^{31}}</span></p></li>
+<li><p><input type="radio" disabled="" /> None of the above</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-6.3">Problem 6.3</h3>
+<p>Suppose we call <code>df_choice(plum)</code> once.</p>
+<p><strong>True or False:</strong> The probability that the result is a
+DataFrame that consists of <strong>just</strong> row 0 from
+<code>plum</code> (and no other rows) is equal to the probability you
+computed in the first subpart of this problem.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-6.4">Problem 6.4</h3>
+<p>Suppose we call <code>df_choice(plum)</code> once.</p>
+<p>What is the probability that the resulting DataFrame has 0 rows, or 1
+row, or 30 rows, or 31 rows?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> 0</p></li>
+<li><p><input type="radio" disabled="" /> 1</p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">\frac{1}{2^{25}}</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">\frac{1}{2^{30}}</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">\frac{1}{2^{31}}</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">\frac{2^{31} - 1}{2^{31}}</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">\frac{31}{2^{30}}</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">\frac{31}{2^{31}}</span></p></li>
+<li><p><input type="radio" disabled="" /> None of the above</p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="section"><span class="math display"> </span></h2>
+<h4
+id="feedback-find-an-error-still-confused-have-a-suggestion-let-us-know-here.">👋
+Feedback: Find an error? Still confused? Have a suggestion?
+<a href="https://forms.gle/WZ71FchnXU1K154d7">Let us know
+here</u></a>.</h4>
+<hr />
+</body>
+</html>
