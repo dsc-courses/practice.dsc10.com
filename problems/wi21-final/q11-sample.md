@@ -6,7 +6,7 @@ Suppose you draw a sample of size 100 from a population with mean 50 and standar
 
 **Answer: ** 0.48
 
-We want to use Z scores to anwser this question. We can find the Z score for sample mean that are 
+We want to use Z scores to answer this question. We can find the Z score for sample mean that are 
 50 or above by using the Z-score formula z = (x – μ) / (σ / √n).
 x represents the sample mean, μ represents the population mean, σ represents the population
 standard deviation, and n represents the sample size. Plugging in we get the following:

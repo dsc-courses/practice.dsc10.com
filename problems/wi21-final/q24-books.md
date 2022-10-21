@@ -1,4 +1,4 @@
-# BEGIN PROBLEM
+# BEGIN PROB
 
 *Are nonfiction books longer than fiction books?*
 

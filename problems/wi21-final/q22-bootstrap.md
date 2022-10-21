@@ -1,4 +1,4 @@
-# BEGIN PROBLEM
+# BEGIN PROB
 
 From a population with mean 500 and standard deviation 50, you collect a sample of size 100. The sample has mean 400 and standard deviation 40. You bootstrap this sample 10,000 times, collecting 10,000 resample means.
 

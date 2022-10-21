@@ -1,4 +1,4 @@
-# BEGIN PROBLEM
+# BEGIN PROB
 
 The data visualization below shows all Olympic gold medals for women’s gymnastics, broken down by the age of the gymnast. 
 
@@ -41,7 +41,7 @@ Which of the following is larger for this dataset?
 
 Since the distribution is right skewed, the 75th percentile will have a larger difference from the 50th percentile than the
 25th percentile. With right skewness, values above the 50th percentile will be more different than those smaller than the 50th 
-percentile. 
+percentile (and thus more spread out according to the graph). 
 
 # END SOLUTION
 

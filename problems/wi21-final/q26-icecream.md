@@ -1,4 +1,4 @@
-# BEGIN PROBLEM
+# BEGIN PROB
 
 *Does an ice cream shop sell more chocolate or vanilla ice cream cones?*
 

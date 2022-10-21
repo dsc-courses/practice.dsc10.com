@@ -14,7 +14,7 @@ Assume `df` is a DataFrame with distinct rows. Which of the following best descr
 Looking at the documentation for `.sample()` we can see that it accepts a few arguments. The first argument
 specifies the number of rows (which is why we specify 10). The next argument is a boolean that specifies if the sampling
 happens with or without replacement. By default, the sampling will occur without replacement (which happens in this question since
-no argument is specified so the default is evoked). Looking at the return, we can see that since we are sampling a dataframe
+no argument is specified so the default is evoked). Looking at the return, we can see that since we are sampling a dataframe,
 a dataframe will also be returned which is why a DataFrame with 10 rows, where no two rows can be the same is correct.
 
 # END SOLUTION

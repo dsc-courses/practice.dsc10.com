@@ -5,7 +5,7 @@ You need to estimate the proportion of American adults who want to be vaccinated
 
 **Answer: ** 625
 
-To anwser this question we can find the minimum number of people to survey by plugging in
+To answer this question we can find the minimum number of people to survey by plugging in
 n = (2/0.04)^2 (0.5) (1-0.5) = 625. To solve this we use the following formula:
 n = (Z/M)^2 * (P) * (1-P)
 where n is the sample size, Z is the score, M is the margin of error, and P is the probability. 

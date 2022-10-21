@@ -1,4 +1,4 @@
-# BEGIN PROBLEM
+# BEGIN PROB
 
 Recall the mathematical definition of percentile and how we calculate it.
 
@@ -11,6 +11,9 @@ By this definition, any percentile between 0 and 100 can be computed for any col
 1. Sort the collection in increasing order.
 2. Find *p*% of *n*: (*p*/100) *n*. Call that *h*. If *h* is an integer, define *k*=*h*. Otherwise, let *k* be the smallest integer greater than *h*.
 3. Take the *k*th element of the sorted collection.
+
+You have a dataset of 7 values, which are ``[3, 6, 7, 9, 10, 15, 18]``. Using the mathematical definition of percentile above, find the smallest and largest integer values of p so that the pth percentile of this dataset corresponds to the value 10. Input your answers below, **as integers between 0 and 100**.
+
 # BEGIN SUBPROB
 
 `Smallest = _`
@@ -38,7 +41,7 @@ while 58 belongs to the fifth element.
 **Answer: ** 71
 
 To find the largest we will take (100/7) * 5 which yields 71.43. We will round down since the 72th percentile belongs
-to the sixth element in thed data set. For more information look at the solution above.
+to the sixth element in the data set. For more information look at the solution above.
 
 # END SOLUTION
 

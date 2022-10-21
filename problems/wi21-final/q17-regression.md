@@ -1,4 +1,4 @@
-# BEGIN PROBLEM
+# BEGIN PROB
 
 **True or False**:The slope of the regression line, when both variables are measured in original units, is never more than 1.
 

@@ -1,10 +1,10 @@
-# BEGIN PROBLEM
+# BEGIN PROB
 
 Suppose you have a dataset of 29 art galleries that includes the number of pieces of art in each gallery. 
 
 A histogram of the number of art pieces in each gallery, as well as the code that generated it, is shown below.
 
-<center><img src='../assets/images/wi21-final/art-galleries.png' width=40%></center>
+<center><img src='../assets/images/wi21-final/art-galleries.png' width=70%></center>
 
 # BEGIN SUBPROB
 
@@ -33,7 +33,7 @@ Taking the area of the bin `[20,45]` we can find the number of art galleries alr
 To find the number take this proportion x the total number of art galleries. 0.1375 * 29 = about 4 art galleries. If we add
 two art galleries to this total we get 4 art galleries in the `[20,45]` bin to get 6 art galleries. To find the frequency of 6 art
 galleries to the entire data set we can take 6/31. Note that the question asks for the *height* of the bin. Therefore, we can 
-take (6/31) / 2.5 due to the sice of the bin which will give an answer of 0.007742 upon rounding to six decimal places. 
+take (6/31) / 2.5 due to the size of the bin which will give an answer of 0.007742 upon rounding to six decimal places. 
 
 # END SOLUTION
 

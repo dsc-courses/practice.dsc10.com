@@ -1,4 +1,4 @@
-# BEGIN PROBLEM
+# BEGIN PROB
 
 Suppose you do an experiment in which you do some random process 500 times and calculate the value of some statistic, which is a count of how many times a certain phenomenon occurred out of the 500 trials. You repeat the experiment 10,000 times and draw a histogram of the 10,000 statistics.
 
@@ -33,7 +33,7 @@ If you instead repeat the experiment 100,000 times, how will the histogram chang
 
 Doing more of an experiment will barely change the histogram. The parameter we are trying
 to estimate through our experiment is some statistic. The number of experiments has no effect
-on the histograms distribution since the value of some statistic is not becoming more random. 
+on the histograms distribution since the value of some statistic is not becoming more random.
 
 # END SOLUTION
 
@@ -42,6 +42,7 @@ on the histograms distribution since the value of some statistic is not becoming
 # BEGIN SUBPROB
 
 For each experiment, if you instead do the random process 5,000 times, how will the histogram change?
+
 ( ) it will become wider
 ( ) it will become narrower
 ( ) it will barely change at all
