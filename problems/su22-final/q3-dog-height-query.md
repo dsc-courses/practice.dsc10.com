@@ -19,8 +19,8 @@ Fill in blank (a).
 
 We start this problem by grouping the dataframe by `'kind'` since we're only 
 interested in whether each unique `'kind'` of dog fits some sort of constraint.
-We don't quite perform querying yet since we need to group the data frame first. 
-In other words, we first need to group the data frame into each 
+We don't quite perform querying yet since we need to group the DataFrame first. 
+In other words, we first need to group the DataFrame into each 
 `'kind'` before we could apply any sort of boolean conditionals.
 
 
@@ -78,7 +78,7 @@ Which of the following should fill in blank (d)?
 **Answer: ** `.index` 
 
 Note that earlier, we did `groupby('kind')`, which automatically sets each unique
- `kind` as the index. Since this is what we want anyways, simply doing `.index`
+ `'kind'` as the index. Since this is what we want anyways, simply doing `.index`
  will give us all the kinds of dogs that satisfy the given conditions.
 
 # END SOLUTION
@@ -99,7 +99,7 @@ Now, which of the following should fill in blank (d)?
 
 **Answer: ** `.get('kind')`
 
-Now that we have reset the index of the dataframe, `kind` is once again its
+Now that we have reset the index of the dataframe, `'kind'` is once again its
 own column so we could simply do `.get('kind')`.
 
 # END SOLUTION

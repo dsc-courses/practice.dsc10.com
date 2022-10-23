@@ -16,7 +16,7 @@ Do small dogs typically live longer than medium and large dogs?
 
 **Answer: ** Option 2: Permutation test.
 
-We have two parameters: dog size and life expectancy. Here if there was no significant statistical difference between the life expectancy of different dog sizes, randomly assigning our sampled life expectancy to each dog should would lead us to observe similar observations to the observed statistic. Thus using a permutation test to comapre the two groups makes the most sense. We're not really trying to estimate a spcecific value so bootstrapping isn't a good idea here. Also, there's not really a good way to randomly generate life expectancies so a hypothesis test is not a good idea here. 
+We have two parameters: dog size and life expectancy. Here if there was no significant statistical difference between the life expectancy of different dog sizes, randomly assigning our sampled life expectancy to each dog should lead us to observe similar observations to the observed statistic. Thus using a permutation test to comapre the two groups makes the most sense. We're not really trying to estimate a spcecific value so bootstrapping isn't a good idea here. Also, there's not really a good way to randomly generate life expectancies so a hypothesis test is not a good idea here. 
 
 # END SOLUTION
 

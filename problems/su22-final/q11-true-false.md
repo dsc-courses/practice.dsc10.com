@@ -14,7 +14,7 @@ conclude that cholera was caused by dirty water.
 
 **Answer: ** False
 
-There are a couple details that the problem fails to convey and that we cannot assume. 1) Do we even know that the pump he removed was the only pump with dirty water? 2) Do we know that people even drank/took water from the Broad Street pump? 3) Do we even know what kinds of people drank from the Broad Street pump?
+There are a couple details that the problem fails to convey and that we cannot assume. 1) Do we even know that the pump he removed was the only pump with dirty water? 2) Do we know that people even drank/took water from the Broad Street pump? 3) Do we even know what kinds of people drank from the Broad Street pump? We need to eliminate all confounding factors, otherwise, it might be difficult to identify causality.
 
 # END SOLUTION
 
@@ -65,7 +65,7 @@ $900.
 
 **Answer: ** False
 
-A confidence interval gives us an interval in which one can be 95% confident that the population dog price will lie in between the given interval, not a probability that the dog price will lie in the interval.
+Recall, what a k% confidence level states is that approximately k% of the time, the intervals you create through this process will contain the true population parameter. In this case, the confidence interval states that approximately 95% of the time, the intervals you create through this process will contain the population dog price. However, it will be false if we state it in the reverse order since our population parameter is already fixed. 
 
 # END SOLUTION
 
@@ -83,7 +83,7 @@ For a given sample, an 90% confidence interval is narrower than a
 
 **Answer: ** True
 
-The more narrow an interval is, the less confident one is that the true statistic lies within that interval.
+The more narrow an interval is, the less confident one is that the intervals one creates will contain the true population parameter.
 
 # END SOLUTION
 
@@ -100,7 +100,7 @@ your test statistics is always equal to 0.
 
 # BEGIN SOLUTION
 
-**Answer: True
+**Answer: ** True
 
 Note that bootstrapping form a sample **without** replacement just means that we're drawing the same sample over and over again. So the resulting test statistic will be the same between each sample, and thus the std of the test statistic is 0.
 
@@ -156,7 +156,20 @@ The 20th percentile of the sequence [10, 30, 50, 40, 9, 70] is 30.
 
 **Answer: ** False
 
-To calculate percentile, we take 20 / 100 * 6, which gives us the ordinal rank of 6/5. Now we take the next largest integer ordinal rank which is 2. And since 10 has an ordinal rank of 2 in the data set, the 20th percentile value of the data set is 10.
+Recall, we find the $p$th percentile in 4 steps: 
+
+1. Sort the collection in increasing order.
+[9, 10, 30, 40, 50, 70]
+
+2. Define $h$ to be $p\%$ of $n$: 
+$$h = \frac p{100} \cdot n$$
+$$h = \frac {20}{100} \cdot 6 = 1.2$$
+
+3. If $h$ is an integer, define $k = h$. Otherwise, let $k$ be the smallest integer greater than $h$.
+Since h (which is 1.2) is not an integer, so $k$ is 2
+
+4. Take the $k$th element of the sorted collection (start counting from 1, not 0).
+Since 10 has an ordinal rank of 2 in the data set, the 20th percentile value of the data set is 10, not 30.
 
 # END SOLUTION
 

@@ -25,18 +25,18 @@ probability that:
 
 Let's first understand the function. The function takes inputs `n`, `lower`, and `upper`
 and randomly takes a sample of `n` rows with replacement from DataFrame `df`, gets column 
-`longevity` from the sample and saves it as `t`. The `n` entries of `t` are randomly
+`longevity` from the sample and saves it as a Series `t`. The `n` entries of `t` are randomly
 generated according to the density histogram shown in the picture. That is, 
-the probability of a particular value being generated in list `t` for a given 
+the probability of a particular value being generated in Series `t` for a given 
 entry can be visualized by the density histogram in the picture. `lower <= t < upper`
-takes `t` and generates a boolean array with each entry being either `True` or `False`
+takes `t` and generates a Series of boolean values, either `True` or `False`
 depending on whether the corresponding entry in `t` lies within the range. And so 
 `sum(lower <= t < upper)` returns the number of entries in `t` that lies between the range values. (This is because `True` has a value of 1 and `False` has a value of 0, so summing Booleans is a quick way to count how many `True` there are.)
 
-Now part a is just asking for the probability that we'll draw a `longevity` value 
+Now part a is just asking for the probability that we'll draw a `longevity` value (given that `n` is `1`, so we only draw one `longevity` value)
 between 10 and 11 given the density plot. Note that the probability of a bar is 
 given by the width of the bar multiplied by the height. Now looking at the bar 
-with bin of range 10 to 11, we can see that the probability is just $1 * 0.15 = 0.15$.
+with bin of range 10 to 11, we can see that the probability is just $(11-10) * 0.15 = 1 * 0.15 = 0.15$.
 
 # END SOLUTION
 
@@ -76,14 +76,14 @@ square this probability which gives us an answer of $0.6*0.6 = 0.36$
 **Answer: ** 0.19
 
 Part c is essentially asking us: What is the probability that after drawing two
-`longevity` values according to the density plot, at least of them will lie in between
+`longevity` values according to the density plot, at least one of them will lie in between
 12 and 20?
 
 While you can directly solve for this probability, a faster method would be to 
 solve for the complementary of this problem. That is, we can solve for the 
 probability that **none** of them lie in between the given ranges. And once we 
 solve this, we can simply subtract our answer from one, because the only options 
-for this scenario is that either at least of the values lie in between the 
+for this scenario is that either at least one of the values lie in between the 
 range, or neither of the values do.
 
 Again, let's solve for the probability of drawing 1 `longevity` value that isn't

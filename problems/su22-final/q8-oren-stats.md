@@ -43,7 +43,7 @@ Which expression best estimates the mean of `boots`?
 
 **Answer: ** `a`
 
-Note that `a` is equal to the mean of `oren`, which is a pretty good estimate of the mean of the overall population. The other options don't really make sense in this context. 
+Note that `a` is equal to the mean of `oren`, which is a pretty good estimator of the mean of the overall population. The other options don't really make sense in this context. 
 
 # END SOLUTION
 
@@ -118,7 +118,7 @@ If Oren's sample was 400 dogs instead of 200, the standard deviation of `boots` 
 
 # BEGIN SOLUTION
 
-**Answer: Decrease by a factor of $\sqrt{2}$
+**Answer: ** Decrease by a factor of $\sqrt{2}$
 
 Recall that the central limit theorem states that the STD of the sample distribution is equal to `(population STD) / np.sqrt(sample size)`. So if we increase the sample size by a factor of 2, the STD of the sample distribution will decrease by a factor of $\sqrt{2}$.
 
@@ -161,7 +161,7 @@ stats.norm.cdf(1.4)  # => 0.92
 
 **Answer: ** `a + 1.75 * b / np.sqrt(c)`
 
-Recall that a 92% confidence interval means an interval that consists of the middle 92% of the distribution. In other words, we want to "chop" off 4% from either end of the ditribution. Thus to get the right endpoint, we want the value corresponding to the 96th percentile, or `mean + 1.75 * (std of population / np.sqrt(sample size)` or `a + 1.75 * b / np.sqrt(c)` (we divide by `np.sqrt(c)` due to the central limit theorem). Note, that the second line of information that was given is irrelavant to this particular problem.
+Recall that a 92% confidence interval means an interval that consists of the middle 92% of the distribution. In other words, we want to "chop" off 4% from either end of the ditribution. Thus to get the right endpoint, we want the value corresponding to the 96th percentile, or `mean + 1.75 * (std of population / np.sqrt(sample size)` or `a + 1.75 * b / np.sqrt(c)` (we divide by `np.sqrt(c)` due to the central limit theorem). Note, that the second line of information that was given `stats.norm.cdf(1.4)` is irrelavant to this particular problem.
 
 # END SOLUTION
 

@@ -37,7 +37,7 @@ Fill in blank (a).
 **Answer: ** `np.array([])` or `[]`
 
 `res` is the list in which we'll be storing each cumulative sum. Thus 
-we start by initializing `res` to an empty list. 
+we start by initializing `res` to an empty array or list. 
 
 # END SOLUTION
 
@@ -49,13 +49,13 @@ Fill in blank (b).
 
 # BEGIN SOLUTION
 
-**Answer: ** `range(1, len(arr))`
+**Answer: ** `range(1, len(arr))` or `np.arange(1, len(arr))`
 
 We're trying to loop through the indices of `arr` and calculate the cumulative
 sum corresponding to each entry. To access each index in sequential order, we simply 
-use `range()`. However, notice that we have already appended the first entry of `arr` 
+use `range()` or `np.arange()`. However, notice that we have already appended the first entry of `arr` 
 to `res` on line 3 of the code snippet. (Note that the first entry of `arr` is 
-the same as the first cumulative sum.) Thus the lower bound of `range` actually 
+the same as the first cumulative sum.) Thus the lower bound of `range()` (or `np.arange()`) actually 
 starts at 1, not 0. The upper bound is still `len(arr)` as usual. 
 
 # END SOLUTION

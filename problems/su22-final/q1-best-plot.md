@@ -54,7 +54,7 @@ Is there a linear relationship between weight and height?
 
 **Answer: ** Scatter plot 
 
-When looking for a relationship between two continuous quantitative variables, a scatter plot is the most appropriate graph here since the primary use of a scatter plot is to observe the relationship between two numeric values. A bar chart isn't suitable since we have two quantitative variables. A histogram isn't suitable since it's typically used to show the frequency of each bin or interval.
+When looking for a relationship between two continuous quantitative variables, a scatter plot is the most appropriate graph here since the primary use of a scatter plot is to observe the relationship between two numerical variables. A bar chart isn't suitable since we have two quantitative variables, while a bar chart visualizes a quantitative variable and a categorical variable. A histogram isn't suitable since it's typically used to show the frequency of each interval (in other words, the distribution of a numerical variable).
 
 # END SOLUTION
 
