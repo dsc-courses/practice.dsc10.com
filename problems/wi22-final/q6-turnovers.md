@@ -110,7 +110,7 @@ What is the **smallest** possible number of turnovers per game, in **standard un
 
 # BEGIN SOLN
 
-**Answer:** 1.667
+**Answer:** -1.667
 
 The smallest possible number of turnovers per game in original units is 0 (which a player would have if they never had a turnover – that would mean they're really good!). To find the smallest possible turnovers per game in standard units, all we need to do is convert 0 from original units to standard units. This will involve our work from the previous subpart.
 
