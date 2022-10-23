@@ -52,7 +52,7 @@ r = t.mean()
 
 **Answer: ** Snippet 1 & 4
 
-- Snippet 1: Recall that the from the reference sheet, the correlation coefficient is precisely just `r = (su(x) * su(y)).mean()`.
+- Snippet 1: Recall from the reference sheet, the correlation coefficient is `r = (su(x) * su(y)).mean()`.
 
 - Snippet 2: We have to standardize each variable seperately so this snippet doesnt work.
 
@@ -106,11 +106,11 @@ part b) in order to solve this question.)
 
 **Answer: ** Option 3 & 4
 
-- Option 1: We cannot determine whether two variables are linear simply from a line of best fit. The line of best fit just so happens to find the best linear relationship between two varaibles, not whether or not the variables have a linear relationship.
+- Option 1: We cannot determine whether two variables are linear simply from a line of best fit. The line of best fit just happens to find the best linear relationship between two varaibles, not whether or not the variables have a linear relationship.
 
 - Option 2: To calculate the root mean squared error, we need the actual data points so we can calculate residual values. Seeing that we don't have access to the data points, we cannot say that the root mean squared error of the best-fit line is smaller than 5.
 
-- Option 3: This is true accarding to the problem statement given in part b
+- Option 3: This is true accrding to the problem statement given in part b
 
 - Option 4: This is true since we expect there to be a positive correlation between dog height and weight. So dogs that are lighter will also most likely be shorter. (ie a dog that is lighter than 15 kg will most likely be shorter than 50cm)
 

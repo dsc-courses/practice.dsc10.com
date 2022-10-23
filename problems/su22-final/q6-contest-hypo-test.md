@@ -23,9 +23,9 @@ Select all correct statements of the null hypothesis.
 
 **Answer: ** Options 4 & 5
 
-A null hyopthesis is the hypothesis that there is no significant difference between two populations. Let's consider what a potential null hypothesis might look like. A potential null hypothesis would be that there are is no difference between the win proportion of toy dogs compared to the proportion of toy dogs in the population.
+A null hypothesis is the hypothesis that there is no significant difference between specified populations, any observed difference being due to sampling or experimental error. Let's consider what a potential null hypothesis might look like. A potential null hypothesis would be that there is no difference between the win proportion of toy dogs compared to the proportion of toy dogs in the population.
 
-- Option 1: We're not really looking at the distribution of dogs in our sample vs. dogs in our population, rather, we're looking at whether whether toy dogs win more than other dogs. In other words, the only factors we're really consdiering are the proportion of toy dogs to normal dogs, as well as the win percentages of toy dogs to normal dogs; and so the distribution of the population doesn't really matter. Furthermore, this option makes no referance to win rate of toy dogs.
+- Option 1: We're not really looking at the distribution of dogs in our sample vs. dogs in our population, rather, we're looking at whether toy dogs win more than other dogs. In other words, the only factors we're really consdiering are the proportion of toy dogs to normal dogs, as well as the win percentages of toy dogs to normal dogs; and so the distribution of the population doesn't really matter. Furthermore, this option makes no referance to win rate of toy dogs.
 
 - Option 2: This isn't really even a null hypothesis, but rather more of a description of a test procedure. This option also makes no attempt to referance to win rate of toy dogs.
 
@@ -112,7 +112,7 @@ the test statistic?
 
 **Answer: ** -0.2
 
-For our given sample, the proportion of toy dogs is 0.4 and the proportion of non-toy dogs is 0.6 so 
+For our given sample, the proportion of toy dogs is $\frac{200}{500}=0.4$ and the proportion of non-toy dogs is $\frac{500-200}{500}=0.6$, so 
 $0.4 - 0.6 = -0.2$.
 
 # END SOLUTION
@@ -161,11 +161,11 @@ stat = b - (1 - b)
 
 **Answer: ** Snippet 3 & Snippet 4
 
-- Snippet 1: This is incorrect because `np.random.choice` only chooses values that are either 0.3 or 0.7 which is simply just wrong.
+- Snippet 1: This is incorrect because `np.random.choice()` only chooses values that are either 0.3 or 0.7 which is simply just wrong.
 
-- Snippet 2: This is wrong because `np.random.choice` only chooses from the values within the list. From a sanity check it's not hard to realize that `a` should be able to take on more values than the ones simply in the list.
+- Snippet 2: This is wrong because `np.random.choice()` only chooses from the values within the list. From a sanity check it's not hard to realize that `a` should be able to take on more values than the ones simply in the list.
 
-- Snippet 3: This option is correct. `np.random.multinomial` generates a sample of 500 objects according to the given distribution (which is the same as the total population distribution). We divide the first line by 500 to convert our the values in our resulting array into proportions. To access the proportion of toy dogs in our sample, we simply take the entry with the probability ditribution value of 0.3, which is the third entry in the array or `a[2]`. To calculate our test statistic we simply take the proportion of toy dogs miinus the proportion of non-toy dogs or `a[2] - (1 - a[2])`
+- Snippet 3: This option is correct. Recall, in `np.random.multinomial(n, [p_1, ..., p_k])`, `n` is the number of experiments, and `[p_1, ..., p_k]` is a sequence of probability. The method returns an array of length k in which each element contains the number of occurrences of an event, where the probability of the ith event is `p_i`. In this sinppet, `np.random.multinomial(500, [0.1, 0.2, 0.3, 0.2, 0.15, 0.05])` generates a array of length 6 (`len([0.1, 0.2, 0.3, 0.2, 0.15, 0.05])`) that contains the number of occurrences of each kinds of dogs according to the given distribution (the population distribution). We divide the first line by 500 to convert the number of counts in our resulting array into proportions. To access the proportion of toy dogs in our sample, we simply take the entry with the probability ditribution value of 0.3, which is the third entry in the array or `a[2]`. To calculate our test statistic we simply take the proportion of toy dogs minus the proportion of non-toy dogs or `a[2] - (1 - a[2])`
 
 - Snippet 4: This option is correct. This approach is similar to the one above except we're only considering the probability distribution of toy dogs vs non-toy dogs which is what we wanted in the first place. The rest of the steps are similar to the ones aboce.
 
@@ -197,7 +197,7 @@ np.mean(sim _______ obs)
 
 **Answer: ** Option 4: `>=`
 
-Note that to calculate the p-value we look for test statistics that are equal to or more extreme that the observed statistic. In this case, if the proportion of the population of toy dogs compared to the rest of the dog population was higher than observed, we'd get a value larger than 0.2, and thus we use `>=`.
+Note that to calculate the p-value we look for test statistics that are equal to the observed statistic or even further in the direction of the alternative. In this case, if the proportion of the population of toy dogs compared to the rest of the dog population was higher than observed, we'd get a value larger than 0.2, and thus we use `>=`.
 
 # END SOLUTION
 

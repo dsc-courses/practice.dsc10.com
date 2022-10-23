@@ -8,10 +8,15 @@
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
     pre > code.sourceCode { white-space: pre; position: relative; }
     pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -50,7 +55,7 @@
     code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
     code span.at { color: #7d9029; } /* Attribute */
     code span.bn { color: #40a070; } /* BaseN */
-    code span.bu { } /* BuiltIn */
+    code span.bu { color: #008000; } /* BuiltIn */
     code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
     code span.ch { color: #4070a0; } /* Char */
     code span.cn { color: #880000; } /* Constant */
@@ -63,7 +68,7 @@
     code span.ex { } /* Extension */
     code span.fl { color: #40a070; } /* Float */
     code span.fu { color: #06287e; } /* Function */
-    code span.im { } /* Import */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
     code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
     code span.kw { color: #007020; font-weight: bold; } /* Keyword */
     code span.op { color: #666666; } /* Operator */
@@ -147,8 +152,8 @@ etc.). There are six total kinds.</li>
 </ul>
 <p>The rows of <code>df</code> are arranged in <strong>no particular
 order</strong>. The first five rows of <code>df</code> are shown below
-(though <code>df</code> has <strong>many more rows</strong>than pictured
-here).</p>
+(though <code>df</code> has <strong>many more rows</strong> than
+pictured here).</p>
 <center><img src='../assets/images/su22-final/df.png' width=90%></center>
 <p>Assume: - We have already run <code>import babypandas as bpd</code>
 and <code>import numpy as np</code>.</p>
@@ -250,9 +255,11 @@ aria-labelledby="heading1_3" data-bs-parent="#accordionExample">
 <p>When looking for a relationship between two continuous quantitative
 variables, a scatter plot is the most appropriate graph here since the
 primary use of a scatter plot is to observe the relationship between two
-numeric values. A bar chart isn’t suitable since we have two
-quantitative variables. A histogram isn’t suitable since it’s typically
-used to show the frequency of each bin or interval.</p>
+numerical variables. A bar chart isn’t suitable since we have two
+quantitative variables, while a bar chart visualizes a quantitative
+variable and a categorical variable. A histogram isn’t suitable since
+it’s typically used to show the frequency of each interval (in other
+words, the distribution of a numerical variable).</p>
 </div>
 </div>
 </div>
@@ -423,8 +430,8 @@ aria-labelledby="heading3_1" data-bs-parent="#accordionExample">
 <p>We start this problem by grouping the dataframe by
 <code>'kind'</code> since we’re only interested in whether each unique
 <code>'kind'</code> of dog fits some sort of constraint. We don’t quite
-perform querying yet since we need to group the data frame first. In
-other words, we first need to group the data frame into each
+perform querying yet since we need to group the DataFrame first. In
+other words, we first need to group the DataFrame into each
 <code>'kind'</code> before we could apply any sort of boolean
 conditionals.</p>
 </div>
@@ -511,7 +518,7 @@ aria-labelledby="heading3_4" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer: </strong> <code>.index</code></p>
 <p>Note that earlier, we did <code>groupby('kind')</code>, which
-automatically sets each unique <code>kind</code> as the index. Since
+automatically sets each unique <code>'kind'</code> as the index. Since
 this is what we want anyways, simply doing <code>.index</code> will give
 us all the kinds of dogs that satisfy the given conditions.</p>
 </div>
@@ -543,8 +550,8 @@ aria-labelledby="heading3_5" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer: </strong> <code>.get('kind')</code></p>
-<p>Now that we have reset the index of the dataframe, <code>kind</code>
-is once again its own column so we could simply do
+<p>Now that we have reset the index of the dataframe,
+<code>'kind'</code> is once again its own column so we could simply do
 <code>.get('kind')</code>.</p>
 </div>
 </div>
@@ -592,7 +599,7 @@ aria-labelledby="heading4_1" data-bs-parent="#accordionExample">
 <code>[]</code></p>
 <p><code>res</code> is the list in which we’ll be storing each
 cumulative sum. Thus we start by initializing <code>res</code> to an
-empty list.</p>
+empty array or list.</p>
 </div>
 </div>
 </div>
@@ -613,15 +620,17 @@ aria-labelledby="heading4_2" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer: </strong> <code>range(1, len(arr))</code></p>
+<p><strong>Answer: </strong> <code>range(1, len(arr))</code> or
+<code>np.arange(1, len(arr))</code></p>
 <p>We’re trying to loop through the indices of <code>arr</code> and
 calculate the cumulative sum corresponding to each entry. To access each
-index in sequential order, we simply use <code>range()</code>. However,
-notice that we have already appended the first entry of <code>arr</code>
-to <code>res</code> on line 3 of the code snippet. (Note that the first
-entry of <code>arr</code> is the same as the first cumulative sum.) Thus
-the lower bound of <code>range</code> actually starts at 1, not 0. The
-upper bound is still <code>len(arr)</code> as usual.</p>
+index in sequential order, we simply use <code>range()</code> or
+<code>np.arange()</code>. However, notice that we have already appended
+the first entry of <code>arr</code> to <code>res</code> on line 3 of the
+code snippet. (Note that the first entry of <code>arr</code> is the same
+as the first cumulative sum.) Thus the lower bound of
+<code>range()</code> (or <code>np.arange()</code>) actually starts at 1,
+not 0. The upper bound is still <code>len(arr)</code> as usual.</p>
 </div>
 </div>
 </div>
@@ -694,25 +703,28 @@ aria-labelledby="heading5_1" data-bs-parent="#accordionExample">
 <code>n</code>, <code>lower</code>, and <code>upper</code> and randomly
 takes a sample of <code>n</code> rows with replacement from DataFrame
 <code>df</code>, gets column <code>longevity</code> from the sample and
-saves it as <code>t</code>. The <code>n</code> entries of <code>t</code>
-are randomly generated according to the density histogram shown in the
-picture. That is, the probability of a particular value being generated
-in list <code>t</code> for a given entry can be visualized by the
-density histogram in the picture. <code>lower &lt;= t &lt; upper</code>
-takes <code>t</code> and generates a boolean array with each entry being
-either <code>True</code> or <code>False</code> depending on whether the
-corresponding entry in <code>t</code> lies within the range. And so
+saves it as a Series <code>t</code>. The <code>n</code> entries of
+<code>t</code> are randomly generated according to the density histogram
+shown in the picture. That is, the probability of a particular value
+being generated in Series <code>t</code> for a given entry can be
+visualized by the density histogram in the picture.
+<code>lower &lt;= t &lt; upper</code> takes <code>t</code> and generates
+a Series of boolean values, either <code>True</code> or
+<code>False</code> depending on whether the corresponding entry in
+<code>t</code> lies within the range. And so
 <code>sum(lower &lt;= t &lt; upper)</code> returns the number of entries
 in <code>t</code> that lies between the range values. (This is because
 <code>True</code> has a value of 1 and <code>False</code> has a value of
 0, so summing Booleans is a quick way to count how many
 <code>True</code> there are.)</p>
 <p>Now part a is just asking for the probability that we’ll draw a
-<code>longevity</code> value between 10 and 11 given the density plot.
-Note that the probability of a bar is given by the width of the bar
-multiplied by the height. Now looking at the bar with bin of range 10 to
-11, we can see that the probability is just <span class="math inline">1
-* 0.15 = 0.15</span>.</p>
+<code>longevity</code> value (given that <code>n</code> is
+<code>1</code>, so we only draw one <code>longevity</code> value)
+between 10 and 11 given the density plot. Note that the probability of a
+bar is given by the width of the bar multiplied by the height. Now
+looking at the bar with bin of range 10 to 11, we can see that the
+probability is just <span class="math inline">(11-10) * 0.15 = 1 * 0.15
+= 0.15</span>.</p>
 </div>
 </div>
 </div>
@@ -766,14 +778,14 @@ aria-labelledby="heading5_3" data-bs-parent="#accordionExample">
 <p><strong>Answer: </strong> 0.19</p>
 <p>Part c is essentially asking us: What is the probability that after
 drawing two <code>longevity</code> values according to the density plot,
-at least of them will lie in between 12 and 20?</p>
+at least one of them will lie in between 12 and 20?</p>
 <p>While you can directly solve for this probability, a faster method
 would be to solve for the complementary of this problem. That is, we can
 solve for the probability that <strong>none</strong> of them lie in
 between the given ranges. And once we solve this, we can simply subtract
 our answer from one, because the only options for this scenario is that
-either at least of the values lie in between the range, or neither of
-the values do.</p>
+either at least one of the values lie in between the range, or neither
+of the values do.</p>
 <p>Again, let’s solve for the probability of drawing 1
 <code>longevity</code> value that isn’t between the range. Staying true
 to our complementary strategy, this is just 1 minus the probability of
@@ -827,20 +839,20 @@ aria-labelledby="heading6_1" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer: </strong> Options 4 &amp; 5</p>
-<p>A null hyopthesis is the hypothesis that there is no significant
-difference between two populations. Let’s consider what a potential null
-hypothesis might look like. A potential null hypothesis would be that
-there are is no difference between the win proportion of toy dogs
+<p>A null hypothesis is the hypothesis that there is no significant
+difference between specified populations, any observed difference being
+due to sampling or experimental error. Let’s consider what a potential
+null hypothesis might look like. A potential null hypothesis would be
+that there is no difference between the win proportion of toy dogs
 compared to the proportion of toy dogs in the population.</p>
 <ul>
 <li><p>Option 1: We’re not really looking at the distribution of dogs in
 our sample vs. dogs in our population, rather, we’re looking at whether
-whether toy dogs win more than other dogs. In other words, the only
-factors we’re really consdiering are the proportion of toy dogs to
-normal dogs, as well as the win percentages of toy dogs to normal dogs;
-and so the distribution of the population doesn’t really matter.
-Furthermore, this option makes no referance to win rate of toy
-dogs.</p></li>
+toy dogs win more than other dogs. In other words, the only factors
+we’re really consdiering are the proportion of toy dogs to normal dogs,
+as well as the win percentages of toy dogs to normal dogs; and so the
+distribution of the population doesn’t really matter. Furthermore, this
+option makes no referance to win rate of toy dogs.</p></li>
 <li><p>Option 2: This isn’t really even a null hypothesis, but rather
 more of a description of a test procedure. This option also makes no
 attempt to referance to win rate of toy dogs.</p></li>
@@ -987,9 +999,8 @@ aria-labelledby="heading6_4" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer: </strong> -0.2</p>
-<p>For our given sample, the proportion of toy dogs is 0.4 and the
-proportion of non-toy dogs is 0.6 so <span class="math inline">0.4 - 0.6
-= -0.2</span>.</p>
+<p>For our given sample, the proportion of toy dogs is <span class="math inline">\frac{200}{500}=0.4</span> and the proportion of
+non-toy dogs is <span class="math inline">\frac{500-200}{500}=0.6</span>, so <span class="math inline">0.4 - 0.6 = -0.2</span>.</p>
 </div>
 </div>
 </div>
@@ -1041,22 +1052,29 @@ aria-labelledby="heading6_5" data-bs-parent="#accordionExample">
 <p><strong>Answer: </strong> Snippet 3 &amp; Snippet 4</p>
 <ul>
 <li><p>Snippet 1: This is incorrect because
-<code>np.random.choice</code> only chooses values that are either 0.3 or
-0.7 which is simply just wrong.</p></li>
-<li><p>Snippet 2: This is wrong because <code>np.random.choice</code>
+<code>np.random.choice()</code> only chooses values that are either 0.3
+or 0.7 which is simply just wrong.</p></li>
+<li><p>Snippet 2: This is wrong because <code>np.random.choice()</code>
 only chooses from the values within the list. From a sanity check it’s
 not hard to realize that <code>a</code> should be able to take on more
 values than the ones simply in the list.</p></li>
-<li><p>Snippet 3: This option is correct.
-<code>np.random.multinomial</code> generates a sample of 500 objects
-according to the given distribution (which is the same as the total
-population distribution). We divide the first line by 500 to convert our
-the values in our resulting array into proportions. To access the
-proportion of toy dogs in our sample, we simply take the entry with the
-probability ditribution value of 0.3, which is the third entry in the
-array or <code>a[2]</code>. To calculate our test statistic we simply
-take the proportion of toy dogs miinus the proportion of non-toy dogs or
-<code>a[2] - (1 - a[2])</code></p></li>
+<li><p>Snippet 3: This option is correct. Recall, in
+<code>np.random.multinomial(n, [p_1, ..., p_k])</code>, <code>n</code>
+is the number of experiments, and <code>[p_1, ..., p_k]</code> is a
+sequence of probability. The method returns an array of length k in
+which each element contains the number of occurrences of an event, where
+the probability of the ith event is <code>p_i</code>. In this sinppet,
+<code>np.random.multinomial(500, [0.1, 0.2, 0.3, 0.2, 0.15, 0.05])</code>
+generates a array of length 6
+(<code>len([0.1, 0.2, 0.3, 0.2, 0.15, 0.05])</code>) that contains the
+number of occurrences of each kinds of dogs according to the given
+distribution (the population distribution). We divide the first line by
+500 to convert the number of counts in our resulting array into
+proportions. To access the proportion of toy dogs in our sample, we
+simply take the entry with the probability ditribution value of 0.3,
+which is the third entry in the array or <code>a[2]</code>. To calculate
+our test statistic we simply take the proportion of toy dogs minus the
+proportion of non-toy dogs or <code>a[2] - (1 - a[2])</code></p></li>
 <li><p>Snippet 4: This option is correct. This approach is similar to
 the one above except we’re only considering the probability distribution
 of toy dogs vs non-toy dogs which is what we wanted in the first place.
@@ -1100,10 +1118,11 @@ aria-labelledby="heading6_6" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer: </strong> Option 4: <code>&gt;=</code></p>
 <p>Note that to calculate the p-value we look for test statistics that
-are equal to or more extreme that the observed statistic. In this case,
-if the proportion of the population of toy dogs compared to the rest of
-the dog population was higher than observed, we’d get a value larger
-than 0.2, and thus we use <code>&gt;=</code>.</p>
+are equal to the observed statistic or even further in the direction of
+the alternative. In this case, if the proportion of the population of
+toy dogs compared to the rest of the dog population was higher than
+observed, we’d get a value larger than 0.2, and thus we use
+<code>&gt;=</code>.</p>
 </div>
 </div>
 </div>
@@ -1176,12 +1195,12 @@ aria-labelledby="heading7_1" data-bs-parent="#accordionExample">
 <p>We have two parameters: dog size and life expectancy. Here if there
 was no significant statistical difference between the life expectancy of
 different dog sizes, randomly assigning our sampled life expectancy to
-each dog should would lead us to observe similar observations to the
-observed statistic. Thus using a permutation test to comapre the two
-groups makes the most sense. We’re not really trying to estimate a
-spcecific value so bootstrapping isn’t a good idea here. Also, there’s
-not really a good way to randomly generate life expectancies so a
-hypothesis test is not a good idea here.</p>
+each dog should lead us to observe similar observations to the observed
+statistic. Thus using a permutation test to comapre the two groups makes
+the most sense. We’re not really trying to estimate a spcecific value so
+bootstrapping isn’t a good idea here. Also, there’s not really a good
+way to randomly generate life expectancies so a hypothesis test is not a
+good idea here.</p>
 </div>
 </div>
 </div>
@@ -1346,7 +1365,7 @@ aria-labelledby="heading8_2" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer: </strong> <code>a</code></p>
 <p>Note that <code>a</code> is equal to the mean of <code>oren</code>,
-which is a pretty good estimate of the mean of the overall population.
+which is a pretty good estimator of the mean of the overall population.
 The other options don’t really make sense in this context.</p>
 </div>
 </div>
@@ -1470,7 +1489,7 @@ aria-labelledby="heading8_6" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p>**Answer: Decrease by a factor of <span class="math inline">\sqrt{2}</span></p>
+<p><strong>Answer: </strong> Decrease by a factor of <span class="math inline">\sqrt{2}</span></p>
 <p>Recall that the central limit theorem states that the STD of the
 sample distribution is equal to
 <code>(population STD) / np.sqrt(sample size)</code>. So if we increase
@@ -1542,8 +1561,9 @@ endpoint, we want the value corresponding to the 96th percentile, or
 <code>mean + 1.75 * (std of population / np.sqrt(sample size)</code> or
 <code>a + 1.75 * b / np.sqrt(c)</code> (we divide by
 <code>np.sqrt(c)</code> due to the central limit theorem). Note, that
-the second line of information that was given is irrelavant to this
-particular problem.</p>
+the second line of information that was given
+<code>stats.norm.cdf(1.4)</code> is irrelavant to this particular
+problem.</p>
 </div>
 </div>
 </div>
@@ -1655,9 +1675,8 @@ aria-labelledby="heading10_1" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer: </strong> Snippet 1 &amp; 4</p>
 <ul>
-<li><p>Snippet 1: Recall that the from the reference sheet, the
-correlation coefficient is precisely just
-<code>r = (su(x) * su(y)).mean()</code>.</p></li>
+<li><p>Snippet 1: Recall from the reference sheet, the correlation
+coefficient is <code>r = (su(x) * su(y)).mean()</code>.</p></li>
 <li><p>Snippet 2: We have to standardize each variable seperately so
 this snippet doesnt work.</p></li>
 <li><p>Snippet 3: Note that for this snippet we’re standardizing each
@@ -1746,15 +1765,15 @@ aria-labelledby="heading10_3" data-bs-parent="#accordionExample">
 <p><strong>Answer: </strong> Option 3 &amp; 4</p>
 <ul>
 <li><p>Option 1: We cannot determine whether two variables are linear
-simply from a line of best fit. The line of best fit just so happens to
+simply from a line of best fit. The line of best fit just happens to
 find the best linear relationship between two varaibles, not whether or
 not the variables have a linear relationship.</p></li>
 <li><p>Option 2: To calculate the root mean squared error, we need the
 actual data points so we can calculate residual values. Seeing that we
 don’t have access to the data points, we cannot say that the root mean
 squared error of the best-fit line is smaller than 5.</p></li>
-<li><p>Option 3: This is true accarding to the problem statement given
-in part b</p></li>
+<li><p>Option 3: This is true accrding to the problem statement given in
+part b</p></li>
 <li><p>Option 4: This is true since we expect there to be a positive
 correlation between dog height and weight. So dogs that are lighter will
 also most likely be shorter. (ie a dog that is lighter than 15 kg will
@@ -1795,7 +1814,9 @@ aria-labelledby="heading11_1" data-bs-parent="#accordionExample">
 we cannot assume. 1) Do we even know that the pump he removed was the
 only pump with dirty water? 2) Do we know that people even drank/took
 water from the Broad Street pump? 3) Do we even know what kinds of
-people drank from the Broad Street pump?</p>
+people drank from the Broad Street pump? We need to eliminate all
+confounding factors, otherwise, it might be difficult to identify
+causality.</p>
 </div>
 </div>
 </div>
@@ -1876,10 +1897,13 @@ aria-labelledby="heading11_4" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer: </strong> False</p>
-<p>A confidence interval gives us an interval in which one can be 95%
-confident that the population dog price will lie in between the given
-interval, not a probability that the dog price will lie in the
-interval.</p>
+<p>Recall, what a k% confidence level states is that approximately k% of
+the time, the intervals you create through this process will contain the
+true population parameter. In this case, the confidence interval states
+that approximately 95% of the time, the intervals you create through
+this process will contain the population dog price. However, it will be
+false if we state it in the reverse order since our population parameter
+is already fixed.</p>
 </div>
 </div>
 </div>
@@ -1907,7 +1931,7 @@ aria-labelledby="heading11_5" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer: </strong> True</p>
 <p>The more narrow an interval is, the less confident one is that the
-true statistic lies within that interval.</p>
+intervals one creates will contain the true population parameter.</p>
 </div>
 </div>
 </div>
@@ -1934,7 +1958,7 @@ aria-labelledby="heading11_6" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p>**Answer: True</p>
+<p><strong>Answer: </strong> True</p>
 <p>Note that bootstrapping form a sample <strong>without</strong>
 replacement just means that we’re drawing the same sample over and over
 again. So the resulting test statistic will be the same between each
@@ -2022,10 +2046,20 @@ aria-labelledby="heading11_9" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer: </strong> False</p>
-<p>To calculate percentile, we take 20 / 100 * 6, which gives us the
-ordinal rank of 6/5. Now we take the next largest integer ordinal rank
-which is 2. And since 10 has an ordinal rank of 2 in the data set, the
-20th percentile value of the data set is 10.</p>
+<p>Recall, we find the <span class="math inline">p</span>th percentile
+in 4 steps:</p>
+<ol type="1">
+<li><p>Sort the collection in increasing order. [9, 10, 30, 40, 50,
+70]</p></li>
+<li><p>Define <span class="math inline">h</span> to be <span class="math inline">p\%</span> of <span class="math inline">n</span>:
+<span class="math display">h = \frac p{100} \cdot n</span> <span class="math display">h = \frac {20}{100} \cdot 6 = 1.2</span></p></li>
+<li><p>If <span class="math inline">h</span> is an integer, define <span class="math inline">k = h</span>. Otherwise, let <span class="math inline">k</span> be the smallest integer greater than <span class="math inline">h</span>. Since h (which is 1.2) is not an integer,
+so <span class="math inline">k</span> is 2</p></li>
+<li><p>Take the <span class="math inline">k</span>th element of the
+sorted collection (start counting from 1, not 0). Since 10 has an
+ordinal rank of 2 in the data set, the 20th percentile value of the data
+set is 10, not 30.</p></li>
+</ol>
 </div>
 </div>
 </div>
