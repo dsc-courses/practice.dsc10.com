@@ -94,6 +94,12 @@ Each exam linked here lists the conditions under which the exam was given, inclu
   </thead>
   <tbody>
     <tr>
+      <th scope="row">Summer 2022</th>
+      <td>Sam Lau</td>
+      <td><a href='su22-final/index.html'>Final</a>
+      </td>
+    </tr>
+    <tr>
       <th scope="row">Spring 2022</th>
       <td>Janine Tiefenbruck</td>
       <td><a href='sp22-midterm/index.html'>Midterm</a>
@@ -112,12 +118,18 @@ Each exam linked here lists the conditions under which the exam was given, inclu
     <tr>
       <th scope="row">Fall 2021</th>
       <td>Suraj Rampure, Janine Tiefenbruck</td>
-      <td><a href='fa21-midterm/index.html'>Midterm</a></td>
+      <td><a href='fa21-midterm/index.html'>Midterm</a>
+          <br>
+          <a href='fa21-final/index.html'>Final</a>
+          </td>
     </tr>
     <tr>
       <th scope="row">Winter 2021</th>
       <td>Janine Tiefenbruck</td>
-      <td><a href='wi21-midterm/index.html'>Midterm</a></td>
+      <td><a href='wi21-midterm/index.html'>Midterm</a>
+          <br>
+          <a href='wi21-final/index.html'>Final</a>
+      </td>
     </tr>
   </tbody>
 </table>
