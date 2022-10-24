@@ -61,8 +61,13 @@ Solutions to discussion worksheets will be made available on Monday evenings, af
       <td><a href="disc04/index.html">Functions, Subgroups, Merge, and Control Flow</a></td>
     </tr>
     <tr>
-      <th scope="row">5</th>
+      <th scope="row">4</th>
       <td>October 24th</td>
+      <td><a href="disc05/index.html">Probability and Simulation</a></td>
+    </tr>
+    <tr>
+      <th scope="row">5</th>
+      <td>October 31st</td>
       <td>TBD</td>
     </tr>
     
