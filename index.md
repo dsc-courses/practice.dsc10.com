@@ -67,8 +67,8 @@ Solutions to discussion worksheets will be made available on Monday evenings, af
     </tr>
     <tr>
       <th scope="row">6</th>
-      <td>October 31st</td>
-      <td>TBD</td>
+      <td>October 31st 🎃</td>
+      <td>Midterm Solutions and Hypothesis Testing</td>
     </tr>
     
   </tbody>
@@ -98,6 +98,12 @@ Each exam linked here lists the conditions under which the exam was given, inclu
     </tr>
   </thead>
   <tbody>
+    <tr>
+      <th scope="row">Fall 2022</th>
+      <td>Suraj Rampure, Puoya Tabaghi, Janine Tiefenbruck</td>
+      <td><a href='fa22-midterm/index.html'>Midterm</a>
+      </td>
+    </tr>
     <tr>
       <th scope="row">Summer 2022</th>
       <td>Sam Lau</td>
