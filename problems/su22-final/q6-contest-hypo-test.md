@@ -6,7 +6,7 @@ that have won the Photo Contest. In his sample, 200 dogs were toy dogs.
 
 Eric also knows the distribution of dog kinds in the population:
 
-<center><img src='../assets/images/su22-final/q6_df.png' width=40%></center>
+<center><img src='../assets/images/su22-final/q6_df.png' width=60%></center>
 
 # BEGIN SUBPROB
 
