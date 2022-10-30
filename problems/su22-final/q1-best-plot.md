@@ -62,7 +62,7 @@ When looking for a relationship between two continuous quantitative variables, a
 
 # BEGIN SUBPROB
 
-Do dogs that are highly suitable for children weight more?
+Do dogs that are highly suitable for children weigh more?
 
 ( ) Bar plot
 ( ) Scatter plot

@@ -6,9 +6,9 @@ resample in an array called `boots`.
 In this question, assume that the following code has run:
 
 ```py
-a = np.mean(oren)
-b = np.std(oren)
-c = len(oren)
+a = np.mean(boots)
+b = np.std(boots)
+c = len(boots)
 ```
 
 # BEGIN SUBPROB
