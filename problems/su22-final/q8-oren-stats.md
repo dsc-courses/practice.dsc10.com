@@ -1,14 +1,14 @@
 # BEGIN PROB
-Oren has a random sample of 200 dog prices in an array called \oren. He has
+Oren has a random sample of 200 dog prices in an array called `oren`. He has
 also bootstrapped his sample 1,000 times and stored the mean of each
 resample in an array called `boots`.
 
 In this question, assume that the following code has run:
 
 ```py
-a = np.mean(boots)
-b = np.std(boots)
-c = len(boots)
+a = np.mean(oren)
+b = np.std(oren)
+c = len(oren)
 ```
 
 # BEGIN SUBPROB
