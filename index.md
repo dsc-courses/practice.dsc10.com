@@ -68,7 +68,12 @@ Solutions to discussion worksheets will be made available on Monday evenings, af
     <tr>
       <th scope="row">6</th>
       <td>October 31st 🎃</td>
-      <td>Midterm Solutions and Hypothesis Testing</td>
+      <td><a href="disc06/index.html">Midterm Solutions and Hypothesis Testing</a></td>
+    </tr>
+    <tr>
+      <th scope="row">7</th>
+      <td>November 7</td>
+      <td>Hypothesis Testing and Permutation Testing</td>
     </tr>
     
   </tbody>
