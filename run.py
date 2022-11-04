@@ -13,6 +13,20 @@ warnings.simplefilter('ignore')
 
 DST_FOLDER = 'docs'
 
+GAUGE_COUNT = 0
+
+# helper for gauge
+def get_color(value):
+    if value < 25:
+        return 'red'
+    elif value < 50:
+        return 'orange'
+    elif value < 75:
+        return 'gold'
+    else:
+        return 'green'
+#---
+
 def delete_folder(path):
     '''Needed for Windows...
        Taken from https://stackoverflow.com/questions/21261132/shutil-rmtree-to-remove-readonly-files
@@ -285,8 +299,46 @@ def process_problem_with_subparts(problem_str, problem_num, show_solution):
     return out
 
 def process_problem(problem_str, problem_num, show_solution):
+    global GAUGE_COUNT
+
     assert problem_str.count('# BEGIN PROB') == problem_str.count('# END PROB') == 1, 'Need exactly one # BEGIN PROB and # END PROB pair'
     
+    # GAUGE
+        # Render the gauge, wherever it is
+    diff_match = re.findall(r'<difficulty>(\d+)</difficulty>', problem_str)
+    
+    if len(diff_match) > 0:
+        for match in diff_match:
+            GAUGE_COUNT += 1
+            diff_int = int(match)
+            diff_gauge = '''
+<center><div id="myDiv<num>"></div></center>
+<script type="text/javascript">
+var data = [
+	{
+		domain: { x: [0, 1], y: [0, 1] },
+		value: <value>,
+		title: { text: "Difficulty"},
+		type: "indicator",
+		mode: "gauge+number",
+        gauge: {
+            axis: {
+                range: [0, 100]
+            },
+            bar: {
+                color: "<color>"
+            }
+        }
+	}
+];
+
+var layout = { width: 300, height: 200, margin: { t: 0, b: 0 }, font: {family: "Arial"} };
+Plotly.newPlot('myDiv<num>', data, layout, {displayModeBar: false});
+</script>
+'''.replace('<value>', str(diff_int)).replace('<num>', str(GAUGE_COUNT)).replace('<color>', get_color(int(diff_int)))
+            problem_str = re.sub(rf'<difficulty>{diff_int}</difficulty>', diff_gauge, problem_str)
+
+
     if '# BEGIN SUBPROB' in problem_str:
         assert problem_str.count('# BEGIN SUBPROB') == problem_str.count('# END SUBPROB'), 'Different number of # BEGIN SUBPROB and # END SUBPROB'
         return process_problem_with_subparts(problem_str, problem_num, show_solution)
