@@ -73,7 +73,12 @@ Solutions to discussion worksheets will be made available on Monday evenings, af
     <tr>
       <th scope="row">7</th>
       <td>November 7</td>
-      <td>Hypothesis Testing and Permutation Testing</td>
+      <td><a href="disc07/index.html">Hypothesis Testing and Permutation Testing</td>
+    </tr>
+    <tr>
+      <th scope="row">8</th>
+      <td>November 14</td>
+      <td>Permutation Testing and Bootstrapping</td>
     </tr>
     
   </tbody>
