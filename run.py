@@ -16,12 +16,11 @@ DST_FOLDER = 'docs'
 GAUGE_COUNT = 0
 
 # helper for gauge
-def get_color(value):
-    if value < 25:
+# this function takes in a difficulty, not an average
+def get_color_from_diff(diff):
+    if diff >= 60:
         return 'red'
-    elif value < 50:
-        return 'orange'
-    elif value < 75:
+    elif diff >= 30:
         return 'gold'
     else:
         return 'green'
@@ -305,12 +304,14 @@ def process_problem(problem_str, problem_num, show_solution):
     
     # GAUGE
         # Render the gauge, wherever it is
-    diff_match = re.findall(r'<difficulty>(\d+)</difficulty>', problem_str)
+    avg_match = re.findall(r'<average>(\d+)<\/average>', problem_str)
     
-    if len(diff_match) > 0:
-        for match in diff_match:
+    if len(avg_match) > 0:
+        for match in avg_match:
             GAUGE_COUNT += 1
-            diff_int = int(match)
+            avg_int = int(match)
+            diff_int = 100 - avg_int # difficulty = 100 - average score on problem; in the problem .md files, specify averages
+            caption = f'The average score on this problem was {avg_int}%.'
             diff_gauge = '''
 <center><div id="myDiv<num>"></div></center>
 <script type="text/javascript">
@@ -332,11 +333,19 @@ var data = [
 	}
 ];
 
-var layout = { width: 300, height: 200, margin: { t: 0, b: 0 }, font: {family: "Arial"} };
+var layout = { width: 300, 
+               height: 200, 
+               margin: { t: 0, b: 0 }, 
+               font: {family: "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif"},
+               annotations: [{x: 0.5, y: 0.18, xref: 'paper', yref: 'paper', text: "<caption>", showarrow: false}]};
 Plotly.newPlot('myDiv<num>', data, layout, {displayModeBar: false});
 </script>
-'''.replace('<value>', str(diff_int)).replace('<num>', str(GAUGE_COUNT)).replace('<color>', get_color(int(diff_int)))
-            problem_str = re.sub(rf'<difficulty>{diff_int}</difficulty>', diff_gauge, problem_str)
+'''.replace('<value>', str(diff_int)) \
+    .replace('<num>', str(GAUGE_COUNT)) \
+    .replace('<color>', get_color_from_diff(int(diff_int))) \
+    .replace('<caption>', caption)
+
+            problem_str = re.sub(rf'<average>{avg_int}<\/average>', diff_gauge, problem_str)
 
 
     if '# BEGIN SUBPROB' in problem_str:
