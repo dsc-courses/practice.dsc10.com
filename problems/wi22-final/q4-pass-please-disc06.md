@@ -54,7 +54,7 @@ As such, Options 2 through 4 are all valid, and Option 1 is the only invalid one
 
 # BEGIN SUBPROB
 
-Suppose we generate 10,000 simulated test statistics, using one of the valid options from Question 4.2. The empirical distribution of test statistics, with a red line at `observed_diff`, is shown below.
+Suppose we generate 10,000 simulated test statistics, using one of the valid options from Question 1.1. The empirical distribution of test statistics, with a red line at `observed_diff`, is shown below.
 
 <center><img src='../assets/images/wi22-final/quarter-hist.png' width=50%></center>
 
