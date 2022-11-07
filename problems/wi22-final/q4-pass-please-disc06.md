@@ -11,7 +11,7 @@ def diff_in_group_means(df, group_col, num_col):
 
 # BEGIN SUBPROB
 
-After observing that Kelsey Plum averages more assists in winning games than in losing games, we become interested in conducting a permutation test for the following hypotheses:
+It turns out that Kelsey Plum averages 0.61 more assists in games that she wins than in games that she loses. After observing that Kelsey Plum averages more assists in winning games than in losing games, we become interested in conducting a permutation test for the following hypotheses:
 
 - **Null Hypothesis:** The number of assists Kelsey Plum makes in winning games and in losing games come from the same distribution.
 - **Alternative Hypothesis:** The number of assists Kelsey Plum makes in winning games is higher on average than the number of assists that she makes in losing games.
@@ -38,7 +38,7 @@ Which of the following options **does not** compute a valid simulated test stati
 
 **Answer:** `diff_in_group_means(shuffled, 'Won', 'AST')`
 
-As we saw in the previous subpart, `diff_in_group_means(shuffled, 'Won', 'AST')` computes the observed test statistic, which is -0.61. There is no randomness involved in the observed test statistic; each time we run the line `diff_in_group_means(shuffled, 'Won', 'AST')` we will see the same result, so this cannot be used for simulation.
+`diff_in_group_means(shuffled, 'Won', 'AST')` computes the observed test statistic, which is -0.61. There is no randomness involved in the observed test statistic; each time we run the line `diff_in_group_means(shuffled, 'Won', 'AST')` we will see the same result, so this cannot be used for simulation.
 
 To perform a permutation test here, we need to simulate under the null by randomly assigning assist counts to groups; here, the groups are "win" and "loss".
 
