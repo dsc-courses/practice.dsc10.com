@@ -33,6 +33,8 @@ We want to figure out the probability of at least one ticket holder showing up a
 
 There are several ways to count the number of `True` values in a Boolean array. One way is to sum the array since in Python `True` counts as 1 and `False` counts as 0. Therefore, `attending.sum() > 20000` is the condition we need to check here.
 
+<average>67</average>
+
 # END SOLUTION
 
 # END SUBPROB
@@ -49,6 +51,8 @@ Remember our goal in simulation is to repeat a process many times to see how oft
 
 The framework to do this is already set up because a variable called `num_angry` is initialized to 0 before the `for` loop. This variable is our counter variable, meant to count the number of trials, out of 10,000, that resulted in at least one student being angry because they showed up to Sun God with a ticket and were denied entrance. So all we need to do when there are more than 20,000 `True` values in the `attending` array is increment this counter by one via the code `num_angry = num_angry + 1`, sometimes abbreviated as `num_angry += 1`.
 
+<average>59</average>
+
 
 # END SOLUTION
 
@@ -63,6 +67,9 @@ What goes in the **third** blank?
 **Answer: ** `num_angry/10000`
 
 To calculate the approximate probability, all we need to do is divide the number of trials in which a student was angry by the total number of trials, which is 10,000.  
+
+<average>68</average>
+
 
 # END SOLUTION
 

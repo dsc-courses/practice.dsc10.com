@@ -48,6 +48,9 @@ She could also be in the southeast quadrant if, say, she performed 10 years afte
 
 So since all three other quadrants are possible and we are told that one quadrant is impossible, the northwest quadrant must be impossible.
 
+<average>65</average>
+
+
 # END SOLUTION
 
 

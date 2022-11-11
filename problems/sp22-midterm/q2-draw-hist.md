@@ -34,6 +34,8 @@ For the bin $[4, 6]$, the area is $\frac{1}{5} = 0.2$ and the width is $2$, so t
 
 Since the bins are all the same width, the fact that there an equal number of values in the first two bins and half as many in the third bin means the first two bars should be equally tall and the third should be half as tall. We can use this to draw the rest of the histogram quickly once we've drawn the first bar.
 
+<average>45</average>
+
 # END SOLUTION
 
 # END PROB
