@@ -15,6 +15,7 @@ Larger samples tend to give better estimates of the population mean than smaller
 
 Notice that the correct answer choice uses the words "is more likely to be close to" as opposed to "will be closer to." We're talking about a general phenomenon here: larger samples tend to give better estimates of the population mean than smaller samples. We cannot say that if we take a larger sample our sample mean "will be closer to" the population mean, since it's always possible to get lucky with a small sample and unlucky with a large sample. That is, one particular small sample may happen to have a mean very close to the population mean, and one particular large sample may happen to have a mean that's not so close to the population mean. This *can* happen, it's just not likely to.
 
+<average>100</average>
 # END SOLUTION
 
 # END PROB

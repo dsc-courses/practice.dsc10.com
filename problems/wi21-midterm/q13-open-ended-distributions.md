@@ -36,6 +36,7 @@ Describe in your own words the difference between a probability distribution and
 The probability distribution would suggest that each pair of shoes has an equal chance of getting picked on any given day.
 On the other hand, an empirical distribution would be drawn by recording which pair got picked on a given day in N trials. </i>
 
+<average>82</average>
 # END SOLUTION
 
 # END PROB

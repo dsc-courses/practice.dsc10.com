@@ -20,7 +20,7 @@ What type of visualization would be best to display the data in a way that helps
 **Answer: **  scatterplot
 
 The number of customers is given by `'num_diners'` which is an integer, and `'income'` is a float. Since both are numerical variables, neither of which represents time, it is most appropriate to use a scatterplot.
-
+<average>87</average>
 # END SOLUTION
 
 # END SUBPROB
@@ -40,6 +40,7 @@ What type of visualization would be best to display the data in a way that helps
 
 Since we want to plot a trend of a numerical quantity (`'income'`) over time, it is best to use a line plot. 
 
+<average>95</average>
 # END SOLUTION
 
 # END SUBPROB

@@ -24,6 +24,7 @@ The first two answer choices attempt to use `.loc` or `.iloc` directly on a Data
 
 The last answer choice is incorrect because we can't use `.get` with the index, only with a column. The index is never considered a column.
 
+<average>88</average>
 # END SOLUTION
 
 # END PROB
