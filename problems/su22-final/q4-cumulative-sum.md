@@ -39,6 +39,7 @@ Fill in blank (a).
 `res` is the list in which we'll be storing each cumulative sum. Thus 
 we start by initializing `res` to an empty array or list. 
 
+<average>100</average>
 # END SOLUTION
 
 # END SUBPROB
@@ -57,6 +58,8 @@ use `range()` or `np.arange()`. However, notice that we have already appended th
 to `res` on line 3 of the code snippet. (Note that the first entry of `arr` is 
 the same as the first cumulative sum.) Thus the lower bound of `range()` (or `np.arange()`) actually 
 starts at 1, not 0. The upper bound is still `len(arr)` as usual. 
+
+<average>64</average>
 
 # END SOLUTION
 
@@ -79,6 +82,8 @@ Because we have access to both of those values, we can easily represent it as
 `res[i - 1] + arr[i]`. The second answer is more a more direct approach. Because the cumulative 
 sum is just the sum of all the previous elements up to the current element, we 
 can directly compute it with `sum(arr[:i + 1])`
+
+<average>71</average>
 
 # END SOLUTION
 

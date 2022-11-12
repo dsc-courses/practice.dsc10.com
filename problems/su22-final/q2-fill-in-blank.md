@@ -15,6 +15,7 @@ Fill in part (a).
 
 To find the cheapest toy dog, we can start by narrowing down our dataframe to only include dogs that are of kind toy. We do this by constructing the following boolean condition: `df.get('kind') == 'toy'`, which will check whether a dog is of kind toy (i.e. whether or not a given row's `'kind'` value is equal to `'toy'`). As a result, `df[df.get('kind') == 'toy']` will retrieve all rows for which the `'kind'` column is equal to `'toy'`.
 
+<average>91</average>
 # END SOLUTION
 
 # END SUBPROB
@@ -30,6 +31,7 @@ Fill in part (b).
 Next, we can sort the resulting dataframe by price, which will make the minimum price (i.e. the cheapest toy dog) easily accessible to us later on. To sort the dataframe, simply use `.sort_values()`, with parameter `'price'` as follows:
 `.sort_values('price')`
 
+<average>86</average>
 # END SOLUTION
 
 # END SUBPROB
@@ -52,6 +54,7 @@ Which of the following can fill in blank (c)? **Select all that apply.**
 - `index[0]`: Note that since `'breed'` is the index column of our dataframe, and since we have already filtered and sorted the dataframe, simply taking the `'breed'` at index 0, or `index[0]` will return the `'breed'` of the cheapest toy dog.
 - `min()`: `min()` is a method used to find the smallest value on a series not a dataframe.
 
+<average>81</average>
 # END SOLUTION
 
 # END SUBPROB

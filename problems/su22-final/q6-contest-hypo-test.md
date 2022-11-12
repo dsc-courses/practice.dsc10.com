@@ -37,6 +37,8 @@ A null hypothesis is the hypothesis that there is no significant difference betw
 
 - Option 6: This statement, although similar to Option 5, would not be a null hypothesis because 0.5 has no relevance to any of the relevant proportions. While it's true that if the proportion of of toy dogs that win is over 0.5, we could maybe infer that toy dogs win the majority of the times; however, the question is not to determine whether toy dogs win most of the times, but rather if toy dogs win a disproportionately high number of times relative to its population size.
 
+<average>83</average>
+
 # END SOLUTION
 
 # END SUBPROB
@@ -63,6 +65,8 @@ The alternative hypothesis is the hypothesis we're trying to support, which in t
 - Option 3: We don't really care too much about the distribution of dog kinds, since that doesn't help us determine toy dog win rates compared to other dogs.
 
 - Option 4: This isn't a hypothesis, rather, it's more of a description of a procedure.
+
+<average>67</average>
 
 # END SOLUTION
 
@@ -92,6 +96,8 @@ Select all the test statistics that Eric can use to conduct his hypothesis.
 
 - Option 5: This option is incorrect. Again, total variation distance won't help us tell whether or not the toy dogs have a disproportionately higher or lower winrate. 
 
+<average>70</average>
+
 # END SOLUTION
 
 # END SUBPROB
@@ -114,6 +120,8 @@ the test statistic?
 
 For our given sample, the proportion of toy dogs is $\frac{200}{500}=0.4$ and the proportion of non-toy dogs is $\frac{500-200}{500}=0.6$, so 
 $0.4 - 0.6 = -0.2$.
+
+<average>74</average>
 
 # END SOLUTION
 
@@ -171,6 +179,8 @@ stat = b - (1 - b)
 
 - Snippet 5: Note that `df` is simple just a dataframe containing information of the dogs, and may or may not reflect the population distribution of dogs that participate in the photo contest. 
 
+<average>72</average>
+
 # END SOLUTION
 
 # END SUBPROB
@@ -199,6 +209,8 @@ np.mean(sim _______ obs)
 
 Note that to calculate the p-value we look for test statistics that are equal to the observed statistic or even further in the direction of the alternative. In this case, if the proportion of the population of toy dogs compared to the rest of the dog population was higher than observed, we'd get a value larger than 0.2, and thus we use `>=`.
 
+<average>66</average>
+
 # END SOLUTION
 
 # END SUBPROB
@@ -224,6 +236,8 @@ conclude?
 - Option 3: We didn't accept the alternative since we failed to reject the null.
 
 - Option 4: This option is correct becuase our p-value was larger than our cutoff.
+
+<average>86</average>
 
 # END SOLUTION
 

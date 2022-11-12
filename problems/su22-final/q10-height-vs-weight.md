@@ -60,6 +60,8 @@ r = t.mean()
 
 - Snippet 4: Note that this code is just the same as Snippet 1, except we're now directly computing the product of each corresponding data points individually. Hence this Snippet works.
 
+<average>81</average>
+
 # END SOLUTION
 
 # END SUBPROB
@@ -87,6 +89,8 @@ What is the SD of dog heights?
 **Answer: ** Option 3: 10
 
 The best fit line in original units are given by `y = mx + b` where `m = r * (SD of y) / (SD of x)` and `b = (mean of y) - m * (mean of x)` (refer to reference sheet). Let `c` be the STD of y, which we're trying to find, then our best fit line is now $y = (0.8*c/8)x + (50-(0.8*c/8)*15)$. Plugging the two values they gave us into our best fit line and simplifying gives $45 = 0.1*c*10 + (50 - 1.5*c)$ which simplifies to $45 = 50 - 0.5*c$ which gives us an answer of `c = 10`.
+<average>89</average>
+
 # END SOLUTION
 
 # END SUBPROB
@@ -113,6 +117,8 @@ part b) in order to solve this question.)
 - Option 3: This is true accrding to the problem statement given in part b
 
 - Option 4: This is true since we expect there to be a positive correlation between dog height and weight. So dogs that are lighter will also most likely be shorter. (ie a dog that is lighter than 15 kg will most likely be shorter than 50cm)
+
+<average>72</average>
 
 # END SOLUTION
 

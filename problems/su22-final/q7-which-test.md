@@ -18,6 +18,8 @@ Do small dogs typically live longer than medium and large dogs?
 
 We have two parameters: dog size and life expectancy. Here if there was no significant statistical difference between the life expectancy of different dog sizes, randomly assigning our sampled life expectancy to each dog should lead us to observe similar observations to the observed statistic. Thus using a permutation test to comapre the two groups makes the most sense. We're not really trying to estimate a spcecific value so bootstrapping isn't a good idea here. Also, there's not really a good way to randomly generate life expectancies so a hypothesis test is not a good idea here. 
 
+<average>77</average>
+
 # END SOLUTION
 
 # END SUBPROB
@@ -35,6 +37,8 @@ Does Tiffany's sample have an even distribution of dog kinds?
 **Answer: ** Option 1: Standard hypothesis test.
 
 We're not really comparing a variable between two groups, but rather looking at the overall distribution, so Permutation testing wouldn't work too well here. Again, we're not really trying to estimate anything here so bootstrapping isn't a good idea. This leaves us with the Standard Hypothesis Test, which makes sense if we use Total Variation Distance as our test statistic.
+
+<average>51</average>
 
 # END SOLUTION
 
@@ -54,6 +58,8 @@ What's the median weight for herding dogs?
 
 Here we're trying to determine a specific value, which immediately leads us to bootstrapping. The other two tests wouldn't really make sense in this context.
 
+<average>83</average>
+
 # END SOLUTION
 
 # END SUBPROB
@@ -71,6 +77,8 @@ Do dogs live longer than 12 years on average?
 **Answer: ** Option 3: Bootstrapping
 
 While the wording here might throw us off, we're really just trying to determine the average life expectancy of dogs, and then see how that compares to 12. This leads us to bootstrapping since we're trying to determine a specific value. The other two tests wouldn't really make sense in this context.
+
+<average>43</average>
 
 # END SOLUTION
 

@@ -23,7 +23,7 @@ We don't quite perform querying yet since we need to group the DataFrame first.
 In other words, we first need to group the DataFrame into each 
 `'kind'` before we could apply any sort of boolean conditionals.
 
-
+<average>97</average>
 # END SOLUTION
 
 # END SUBPROB
@@ -41,6 +41,7 @@ each unique `'kind'` of dog satisfies certain constraints **on average**.
 `.mean()` calculates the average of each column of each group which is what 
 we want.
 
+<average>94</average>
 # END SOLUTION
 
 # END SUBPROB
@@ -60,6 +61,7 @@ than 20 kg on average and `foo.get('height') > 40)` gets the kinds of dogs that
  are taller than 40 cm on average. We combine these two conditions with the 
 `|` operator since we want the kind of dogs that satisfy either condition.
 
+<average>93</average>
 # END SOLUTION
 
 # END SUBPROB
@@ -80,6 +82,8 @@ Which of the following should fill in blank (d)?
 Note that earlier, we did `groupby('kind')`, which automatically sets each unique
  `'kind'` as the index. Since this is what we want anyways, simply doing `.index`
  will give us all the kinds of dogs that satisfy the given conditions.
+
+ <average>94</average>
 
 # END SOLUTION
 
@@ -102,6 +106,7 @@ Now, which of the following should fill in blank (d)?
 Now that we have reset the index of the dataframe, `'kind'` is once again its
 own column so we could simply do `.get('kind')`.
 
+<average>100</average>
 # END SOLUTION
 
 # END SUBPROB
