@@ -28,6 +28,7 @@ Therefore, `result` is just one random number chosen from the 1000 possible numb
 
 Therefore, the `results` array contains a sample of size 10 chosen from a set of size 1000 with replacement. This is called a "simple random sample" because each possible sample of 10 values is equally likely, which comes from the fact that `np.random.choice` chooses each possible value with equal probability by default.
 
+<average>11</average>
 # END SOLUTION
 
 # END PROB

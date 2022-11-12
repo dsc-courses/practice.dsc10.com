@@ -26,6 +26,7 @@ Creative responses that are different than ones we've already seen in this class
 
 <i>You want to `groupby` on both `'brands'` and `'fuel_type'` and use the aggregate command `mean()` to find the average price per fuel type for each brand. Then you would find only the electric fuel types and sort values to find the cheapest. </i>
 
+<average>81</average>
 # END SOLUTION
 
 # END PROB
