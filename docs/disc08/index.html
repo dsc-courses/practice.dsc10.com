@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Discussion 8: Permutation Testing and Bootstrapping</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="../assets/theme.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+   var mathElements = document.getElementsByClassName("math");
+   var macros = [];
+   for (var i = 0; i < mathElements.length; i++) {
+    var texText = mathElements[i].firstChild;
+    if (mathElements[i].tagName == "SPAN") {
+     katex.render(texText.data, mathElements[i], {
+      displayMode: mathElements[i].classList.contains('display'),
+      throwOnError: false,
+      macros: macros,
+      fleqn: false
+     });
+  }}});
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Discussion 8: Permutation Testing and Bootstrapping</h1>
+</header>
+<p><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> <!-- add after bootstrap.min.css --> <link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css"/> <!-- add after bootstrap.min.js or bootstrap.bundle.min.js --> <script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script></p>
+<!-- for difficulty gauges-->
+<script src="https://cdn.plot.ly/plotly-2.16.1.min.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B947E6J6H4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B947E6J6H4');
+</script>
+<p><a href="../index.html">← return to practice.dsc10.com</a></p>
+<hr />
+<p>The problems in this worksheet are taken from past exams. Work on them <strong>on paper</strong>, since the exams you take in this course will also be on paper. <br><br>We encourage you to complete this worksheet in a discussion section, which is held live on Monday, November 14th. Solutions will be made available after all discussion sections have concluded. You don’t need to submit your answers anywhere.<br><br><b>Note: We do not plan to cover all problems here in the live discussion section</b>; the problems we don’t cover can be used for extra practice.</p>
+<hr />
+<h2 id="problem-1">Problem 1</h2>
+<p>Give an example of a dataset and a question you would want to answer about that dataset which you could answer by performing a permutation test (also known as an A/B test).</p>
+<p>Creative responses that are different than ones we’ve already seen in this class will earn the most credit.</p>
+<hr />
+<h2 id="problem-2">Problem 2</h2>
+<p><strong>True or False</strong>: Suppose that from a sample, you compute a 95% bootstrapped confidence interval for a population parameter to be the interval [L, R]. Then the average of L and R is the mean of the original sample.</p>
+<hr />
+<h2 id="problem-3">Problem 3</h2>
+<p><strong>True or False</strong>: Suppose that from a sample, you compute a 95% normal confidence interval for a population parameter to be the interval [L, R]. Then the average of L and R is the mean of the original sample.</p>
+<hr />
+<h2 id="problem-4">Problem 4</h2>
+<p>From a population with mean 500 and standard deviation 50, you collect a sample of size 100. The sample has mean 400 and standard deviation 40. You bootstrap this sample 10,000 times, collecting 10,000 resample means.</p>
+<p><br></p>
+<h3 id="problem-4.1">Problem 4.1</h3>
+<p>Which of the following is the most accurate description of the mean of the distribution of the 10,000 bootstrapped means?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> The mean will be exactly equal to 400.</p></li>
+<li><p><input type="radio" disabled="" /> The mean will be exactly equal to 500.</p></li>
+<li><p><input type="radio" disabled="" /> The mean will be approximately equal to 400.</p></li>
+<li><p><input type="radio" disabled="" /> The mean will be approximately equal to 500.</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-4.2">Problem 4.2</h3>
+<p>Which of the following is closest to the standard deviation of the distribution of the 10,000 bootstrapped means?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> 400</p></li>
+<li><p><input type="radio" disabled="" /> 40</p></li>
+<li><p><input type="radio" disabled="" /> 4</p></li>
+<li><p><input type="radio" disabled="" /> 0.4</p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-5">Problem 5</h2>
+<p>We’re now interested in investigating the differences between the masses of Adelie penguins and Chinstrap penguins. Specifically, our null hypothesis is that their masses are drawn from the same population distribution, and any observed differences are due to chance only.</p>
+<p>Below, we have a snippet of working code for this hypothesis test, for a specific test statistic. Assume that <code>adelie_chinstrap</code> is a DataFrame of only Adelie and Chinstrap penguins, with just two columns – <code>'species'</code> and <code>'mass'</code>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>stats <span class="op">=</span> np.array([])</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>num_reps <span class="op">=</span> <span class="dv">500</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(num_reps):</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (a) starts ---</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    shuffled <span class="op">=</span> np.random.permutation(adelie_chinstrap.get(<span class="st">&#39;species&#39;</span>))</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (a) ends ---</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (b) starts ---</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    with_shuffled <span class="op">=</span> adelie_chinstrap.assign(species<span class="op">=</span>shuffled)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (b) ends ---</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    grouped <span class="op">=</span> with_shuffled.groupby(<span class="st">&#39;species&#39;</span>).mean()</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (c) starts ---</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    stat <span class="op">=</span> grouped.get(<span class="st">&#39;mass&#39;</span>).iloc[<span class="dv">0</span>] <span class="op">-</span> grouped.get(<span class="st">&#39;mass&#39;</span>).iloc[<span class="dv">1</span>]</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (c) ends ---</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    stats <span class="op">=</span> np.append(stats, stat)</span></code></pre></div>
+<p><br></p>
+<h3 id="problem-5.1">Problem 5.1</h3>
+<p>Which of the following statements best describe the procedure above?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> This is a standard hypothesis test, and our test statistic is the total variation distance between the distribution of Adelie masses and Chinstrap masses</p></li>
+<li><p><input type="radio" disabled="" /> This is a standard hypothesis test, and our test statistic is the difference between the expected proportion of Adelie penguins and the proportion of Adelie penguins in our resample</p></li>
+<li><p><input type="radio" disabled="" /> This is a permutation test, and our test statistic is the total variation distance between the distribution of Adelie masses and Chinstrap masses</p></li>
+<li><p><input type="radio" disabled="" /> This is a permutation test, and our test statistic is the difference in the mean Adelie mass and mean Chinstrap mass</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-5.2">Problem 5.2</h3>
+<p>Currently, line (c) (marked with a comment) uses .iloc. Which of the following options compute the exact same statistic as line (c) currently does?</p>
+<p>Option 1:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>stat <span class="op">=</span> grouped.get(<span class="st">&#39;mass&#39;</span>).loc[<span class="st">&#39;Adelie&#39;</span>] <span class="op">-</span> grouped.get(<span class="st">&#39;mass&#39;</span>).loc[<span class="st">&#39;Chinstrap&#39;</span>]</span></code></pre></div>
+<p>Option 2:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>stat <span class="op">=</span> grouped.get(<span class="st">&#39;mass&#39;</span>).loc[<span class="st">&#39;Chinstrap&#39;</span>] <span class="op">-</span> grouped.get(<span class="st">&#39;mass&#39;</span>).loc[<span class="st">&#39;Adelie&#39;</span>]</span></code></pre></div>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Option 1 only</p></li>
+<li><p><input type="radio" disabled="" /> Option 2 only</p></li>
+<li><p><input type="radio" disabled="" /> Both options</p></li>
+<li><p><input type="radio" disabled="" /> Neither option</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-5.3">Problem 5.3</h3>
+<p>Is it possible to re-write <code>line (c)</code> in a way that uses <code>.iloc[0]</code> twice, without any other uses of <code>.loc</code> or <code>.iloc</code>?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Yes, it’s possible</p></li>
+<li><p><input type="radio" disabled="" /> No, it’s not possible</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-5.4">Problem 5.4</h3>
+<p>For your convenience, we copy the code for the hypothesis test below.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>stats <span class="op">=</span> np.array([])</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>num_reps <span class="op">=</span> <span class="dv">500</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(num_reps):</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (a) starts ---</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    shuffled <span class="op">=</span> np.random.permutation(adelie_chinstrap.get(<span class="st">&#39;species&#39;</span>))</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (a) ends ---</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (b) starts ---</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    with_shuffled <span class="op">=</span> adelie_chinstrap.assign(species<span class="op">=</span>shuffled)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (b) ends ---</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    grouped <span class="op">=</span> with_shuffled.groupby(<span class="st">&#39;species&#39;</span>).mean()</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (c) starts ---</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    stat <span class="op">=</span> grouped.get(<span class="st">&#39;mass&#39;</span>).iloc[<span class="dv">0</span>] <span class="op">-</span> grouped.get(<span class="st">&#39;mass&#39;</span>).iloc[<span class="dv">1</span>]</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (c) ends ---</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    stats <span class="op">=</span> np.append(stats, stat)</span></code></pre></div>
+<p>What would happen if we removed <code>line (a)</code>, and replaced <code>line (b)</code> with</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>with_shuffled <span class="op">=</span> adelie_chinstrap.sample(adelie_chinstrap.shape[<span class="dv">0</span>], replace<span class="op">=</span><span class="va">False</span>)</span></code></pre></div>
+<p>Select the best answer.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> This would still run a valid hypothesis test</p></li>
+<li><p><input type="radio" disabled="" /> This would not run a valid hypothesis test, as all values in the <code>stats</code> array would be exactly the same</p></li>
+<li><p><input type="radio" disabled="" /> This would not run a valid hypothesis test, even though there would be several different values in the <code>stats</code> array</p></li>
+<li><p><input type="radio" disabled="" /> This would not run a valid hypothesis test, as it would incorporate information about Gentoo penguins</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-5.5">Problem 5.5</h3>
+<p>For your convenience, we copy the code for the hypothesis test below.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>stats <span class="op">=</span> np.array([])</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>num_reps <span class="op">=</span> <span class="dv">500</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(num_reps):</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (a) starts ---</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    shuffled <span class="op">=</span> np.random.permutation(adelie_chinstrap.get(<span class="st">&#39;species&#39;</span>))</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (a) ends ---</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (b) starts ---</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    with_shuffled <span class="op">=</span> adelie_chinstrap.assign(species<span class="op">=</span>shuffled)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (b) ends ---</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    grouped <span class="op">=</span> with_shuffled.groupby(<span class="st">&#39;species&#39;</span>).mean()</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (c) starts ---</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    stat <span class="op">=</span> grouped.get(<span class="st">&#39;mass&#39;</span>).iloc[<span class="dv">0</span>] <span class="op">-</span> grouped.get(<span class="st">&#39;mass&#39;</span>).iloc[<span class="dv">1</span>]</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (c) ends ---</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    stats <span class="op">=</span> np.append(stats, stat)</span></code></pre></div>
+<p>What would happen if we removed <code>line (a)</code>, and replaced <code>line (b)</code> with</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>with_shuffled <span class="op">=</span> adelie_chinstrap.sample(adelie_chinstrap.shape[<span class="dv">0</span>], replace<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
+<p>Select the best answer.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> This would still run a valid hypothesis test</p></li>
+<li><p><input type="radio" disabled="" /> This would not run a valid hypothesis test, as all values in the <code>stats</code> array would be exactly the same</p></li>
+<li><p><input type="radio" disabled="" /> This would not run a valid hypothesis test, even though there would be several different values in the <code>stats</code> array</p></li>
+<li><p><input type="radio" disabled="" /> This would not run a valid hypothesis test, as it would incorporate information about Gentoo penguins</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-5.6">Problem 5.6</h3>
+<p>For your convenience, we copy the code for the hypothesis test below.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>stats <span class="op">=</span> np.array([])</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>num_reps <span class="op">=</span> <span class="dv">500</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(num_reps):</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (a) starts ---</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    shuffled <span class="op">=</span> np.random.permutation(adelie_chinstrap.get(<span class="st">&#39;species&#39;</span>))</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (a) ends ---</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (b) starts ---</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    with_shuffled <span class="op">=</span> adelie_chinstrap.assign(species<span class="op">=</span>shuffled)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (b) ends ---</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    grouped <span class="op">=</span> with_shuffled.groupby(<span class="st">&#39;species&#39;</span>).mean()</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (c) starts ---</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    stat <span class="op">=</span> grouped.get(<span class="st">&#39;mass&#39;</span>).iloc[<span class="dv">0</span>] <span class="op">-</span> grouped.get(<span class="st">&#39;mass&#39;</span>).iloc[<span class="dv">1</span>]</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (c) ends ---</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    stats <span class="op">=</span> np.append(stats, stat)</span></code></pre></div>
+<p>What would happen if we replaced <code>line (a)</code> with</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>with_shuffled <span class="op">=</span> adelie_chinstrap.assign(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    species<span class="op">=</span>np.random.permutation(adelie_chinstrap.get(<span class="st">&#39;species&#39;</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>and replaced line (b) with</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>with_shuffled <span class="op">=</span> with_shuffled.assign(</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    mass<span class="op">=</span>np.random.permutation(adelie_chinstrap.get(<span class="st">&#39;mass&#39;</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>Select the best answer.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> This would still run a valid hypothesis test</p></li>
+<li><p><input type="radio" disabled="" /> This would not run a valid hypothesis test, as all values in the <code>stats</code> array would be exactly the same</p></li>
+<li><p><input type="radio" disabled="" /> This would not run a valid hypothesis test, even though there would be several different values in the <code>stats</code> array</p></li>
+<li><p><input type="radio" disabled="" /> This would not run a valid hypothesis test, as it would incorporate information about Gentoo penguins</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-5.7">Problem 5.7</h3>
+<p>Suppose we run the code for the hypothesis test and see the following empirical distribution for the test statistic. In red is the observed statistic.</p>
+<center><img src='../assets/images/fa21-final/measuring_up_his.png' width=40%></center>
+<p>Suppose our alternative hypothesis is that Chinstrap penguins weigh more on average than Adelie penguins. Which of the following is closest to the p-value for our hypothesis test?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <span class="math inline">0</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">\frac{1}{4}</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">\frac{1}{3}</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">\frac{2}{3}</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">\frac{3}{4}</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">1</span></p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-6">Problem 6</h2>
+<p>ESPN (a large sports news network) states that the Las Vegas Aces have a 60% chance of winning their upcoming game. You’re curious as to how they came up with this estimate, and you decide to conduct a hypothesis test for the following hypotheses:</p>
+<ul>
+<li><p><strong>Null Hypothesis:</strong> The Las Vegas Aces win each game with a probability of 60%.</p></li>
+<li><p><strong>Alternative Hypothesis:</strong> The Las Vegas Aces win each game with a probability <strong>above</strong> 60%.</p></li>
+</ul>
+<p>In both hypotheses, we are assuming that each game is independent of all other games.</p>
+<p>In the 2021 season, the Las Vegas Aces <strong>won 22</strong> of their games and <strong>lost 9</strong> of their games.</p>
+<p><br></p>
+<h3 id="problem-6.1">Problem 6.1</h3>
+<p>Below, we have provided the code necessary to conduct the hypothesis test described above.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>stats <span class="op">=</span> np.array([])</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    sim <span class="op">=</span> np.random.multinomial(<span class="dv">31</span>, [<span class="fl">0.6</span>, <span class="fl">0.4</span>])</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    stat <span class="op">=</span> fn(sim)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    stats <span class="op">=</span> np.append(stats, stat)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>win_p_value <span class="op">=</span> np.count_nonzero(stats <span class="op">&gt;=</span> fn([<span class="dv">22</span>, <span class="dv">9</span>])) <span class="op">/</span> <span class="dv">10000</span></span></code></pre></div>
+<p><code>fn</code> is a <strong>function</strong> that computes a test statistic, given a list or array <code>arr</code> of two elements (the first of which is the number of wins, and the second of which is the number of losses). You can assume that neither element of <code>arr</code> is equal to 0.</p>
+<p>Below, we define 5 possible test statistics <code>fn</code>.</p>
+<p><strong>Option 1:</strong></p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fn(arr):</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> arr[<span class="dv">0</span>] <span class="op">/</span> arr[<span class="dv">1</span>]</span></code></pre></div>
+<p><strong>Option 2:</strong></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fn(arr):</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> arr[<span class="dv">0</span>]</span></code></pre></div>
+<p><strong>Option 3:</strong></p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fn(arr):</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.<span class="bu">abs</span>(arr[<span class="dv">0</span>] <span class="op">-</span> arr[<span class="dv">1</span>])</span></code></pre></div>
+<p><strong>Option 4:</strong></p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fn(arr):</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> arr[<span class="dv">0</span>] <span class="op">-</span> arr[<span class="dv">1</span>]</span></code></pre></div>
+<p><strong>Option 5:</strong></p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fn(arr):</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> arr[<span class="dv">1</span>] <span class="op">-</span> arr[<span class="dv">0</span>]</span></code></pre></div>
+<p>Which of the above functions <code>fn</code> would be valid test statistics for this hypothesis test and p-value calculation? <strong>Select all that apply.</strong></p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> Option 1</p></li>
+<li><p><input type="checkbox" disabled="" /> Option 2</p></li>
+<li><p><input type="checkbox" disabled="" /> Option 3</p></li>
+<li><p><input type="checkbox" disabled="" /> Option 4</p></li>
+<li><p><input type="checkbox" disabled="" /> Option 5</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-6.2">Problem 6.2</h3>
+<p>The empirical distribution of one of the 5 test statistics presented in the previous subpart is shown below. To draw the histogram, we used the argument <code>bins=np.arange(-10, 25)</code>.</p>
+<center><img src='../assets/images/wi22-final/test-stat-dist.png' width=50%></center>
+<p>Which test statistic does the above empirical distribution belong to?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Option 1</p></li>
+<li><p><input type="radio" disabled="" /> Option 2</p></li>
+<li><p><input type="radio" disabled="" /> Option 3</p></li>
+<li><p><input type="radio" disabled="" /> Option 4</p></li>
+<li><p><input type="radio" disabled="" /> Option 5</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-6.3">Problem 6.3</h3>
+<p>Consider the function <code>fn_plus</code> defined below.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> fn_plus(arr):</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> fn(arr) <span class="op">+</span> <span class="dv">31</span></span></code></pre></div>
+<p><strong>True or False:</strong> If <code>fn</code> is a valid test statistic for the hypothesis test and p-value calculation presented at the start of the problem, then <code>fn_plus</code> is also a valid test statistic for the hypothesis test and p-value calculation presented at the start of the problem.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-6.4">Problem 6.4</h3>
+<p>Below, we present the same code that is given at the start of the problem. (Remember to keep the data description from the top of the exam open in another tab!)</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>stats <span class="op">=</span> np.array([])</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    sim <span class="op">=</span> np.random.multinomial(<span class="dv">31</span>, [<span class="fl">0.6</span>, <span class="fl">0.4</span>])</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    stat <span class="op">=</span> fn(sim)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    stats <span class="op">=</span> np.append(stats, stat)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>win_p_value <span class="op">=</span> np.count_nonzero(stats <span class="op">&gt;=</span> fn([<span class="dv">22</span>, <span class="dv">9</span>])) <span class="op">/</span> <span class="dv">10000</span></span></code></pre></div>
+<p>Below are four possible replacements for the line <code>sim = np.random.multinomial(31, [0.6, 0.4])</code>.</p>
+<p><strong>Option 1:</strong></p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> with_rep():</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    won <span class="op">=</span> plum.get(<span class="st">&#39;Won&#39;</span>)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.count_nonzero(np.random.choice(won, <span class="dv">31</span>, replace<span class="op">=</span><span class="va">True</span>))</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>sim <span class="op">=</span> [with_rep(), <span class="dv">31</span> <span class="op">-</span> with_rep()]</span></code></pre></div>
+<p><strong>Option 2:</strong></p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> with_rep():</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    won <span class="op">=</span> plum.get(<span class="st">&#39;Won&#39;</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.count_nonzero(np.random.choice(won, <span class="dv">31</span>, replace<span class="op">=</span><span class="va">True</span>))</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>w <span class="op">=</span> with_rep()</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>sim <span class="op">=</span> [w, <span class="dv">31</span> <span class="op">-</span> w]</span></code></pre></div>
+<p><strong>Option 3:</strong></p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> without_rep():</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    won <span class="op">=</span> plum.get(<span class="st">&#39;Won&#39;</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.count_nonzero(np.random.choice(won, <span class="dv">31</span>, replace<span class="op">=</span><span class="va">False</span>))</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>sim <span class="op">=</span> [without_rep(), <span class="dv">31</span> <span class="op">-</span> without_rep()]</span></code></pre></div>
+<p><strong>Option 4:</strong></p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> perm():</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    won <span class="op">=</span> plum.get(<span class="st">&#39;Won&#39;</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.count_nonzero(np.random.permutation(won))</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>w <span class="op">=</span> perm()</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>sim <span class="op">=</span> [w, <span class="dv">31</span> <span class="op">-</span> w]</span></code></pre></div>
+<p>Which of the above four options could we replace the line <code>sim = np.random.multinomial(plum.shape[0], [0.6, 0.4])</code> with and still perform a valid hypothesis test for the hypotheses stated at the start of the problem?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Option 1</p></li>
+<li><p><input type="radio" disabled="" /> Option 2</p></li>
+<li><p><input type="radio" disabled="" /> Option 3</p></li>
+<li><p><input type="radio" disabled="" /> Option 4</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-6.5">Problem 6.5</h3>
+<p>Consider again the four options presented in the previous subpart.</p>
+<p>In which of the four options is it <strong>guaranteed</strong> that <code>sum(sim)</code> evaluates to 31? <strong>Select all that apply.</strong></p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> Option 1</p></li>
+<li><p><input type="checkbox" disabled="" /> Option 2</p></li>
+<li><p><input type="checkbox" disabled="" /> Option 3</p></li>
+<li><p><input type="checkbox" disabled="" /> Option 4</p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-7">Problem 7</h2>
+<p>For your convenience, we show the first few rows of <code>season</code> again below.</p>
+<center><img src='../assets/images/wi22-final/seasons.png' width=40%></center>
+<p>In the past three problems, we presumed that we had access to the entire <code>season</code> DataFrame. Now, suppose we only have access to the DataFrame <code>small_season</code>, which is a random sample of <strong>size 36</strong> from <code>season</code>. We’re interested in learning about the true mean points per game of all players in <code>season</code> given just the information in <code>small_season</code>.</p>
+<p>To start, we want to bootstrap <code>small_season</code> 10,000 times and compute the mean of the resample each time. We want to store these 10,000 bootstrapped means in the array <code>boot_means</code>.</p>
+<p>Here is a broken implementation of this procedure.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>boot_means <span class="op">=</span> np.array([])                                           </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):                                          </span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    resample <span class="op">=</span> small_season.sample(season.shape[<span class="dv">0</span>], replace<span class="op">=</span><span class="va">False</span>)  <span class="co"># Line 1</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    resample_mean <span class="op">=</span> small_season.get(<span class="st">&#39;PPG&#39;</span>).mean()                  <span class="co"># Line 2</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    np.append(boot_means, new_mean)                                 <span class="co"># Line 3</span></span></code></pre></div>
+<p>For each of the 3 lines of code above (marked by comments), specify what is incorrect about the line by selecting one or more of the corresponding options below. Or, select “Line _ is correct as-is” if you believe there’s nothing that needs to be changed about the line in order for the above code to run properly.</p>
+<p><br></p>
+<h3 id="problem-7.1">Problem 7.1</h3>
+<p>What is incorrect about Line 1? Select all that apply.</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> Currently the procedure samples from <code>small_season</code>, when it should be sampling from <code>season</code></p></li>
+<li><p><input type="checkbox" disabled="" /> The sample size is <code>season.shape[0]</code>, when it should be <code>small_season.shape[0]</code></p></li>
+<li><p><input type="checkbox" disabled="" /> Sampling is currently being done without replacement, when it should be done with replacement</p></li>
+<li><p><input type="checkbox" disabled="" /> Line 1 is correct as-is</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-7.2">Problem 7.2</h3>
+<p>What is incorrect about Line 2? Select all that apply.</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> Currently it is taking the mean of the <code>'PPG'</code> column in <code>small_season</code>, when it should be taking the mean of the <code>'PPG'</code> column in <code>season</code></p></li>
+<li><p><input type="checkbox" disabled="" /> Currently it is taking the mean of the <code>'PPG'</code> column in <code>small_season</code>, when it should be taking the mean of the <code>'PPG'</code> column in <code>resample</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>.mean()</code> is not a valid Series method, and should be replaced with a call to the function <code>np.mean</code></p></li>
+<li><p><input type="checkbox" disabled="" /> Line 2 is correct as-is</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-7.3">Problem 7.3</h3>
+<p>What is incorrect about Line 3? Select all that apply.</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> The result of calling <code>np.append</code> is not being reassigned to <code>boot_means</code>, so <code>boot_means</code> will be an empty array after running this procedure</p></li>
+<li><p><input type="checkbox" disabled="" /> The indentation level of the line is incorrect – <code>np.append</code> should be outside of the <code>for</code>-loop (and aligned with <code>for i</code>)</p></li>
+<li><p><input type="checkbox" disabled="" /> <code>new_mean</code> is not a defined variable name, and should be replaced with <code>resample_mean</code></p></li>
+<li><p><input type="checkbox" disabled="" /> Line 3 is correct as-is</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-7.4">Problem 7.4</h3>
+<p>Suppose we’ve now fixed everything that was incorrect about our bootstrapping implementation.</p>
+<p>Recall from earlier in the exam that, in <code>season</code>, the mean number of points per game is 7, with a standard deviation of 5.</p>
+<p>It turns out that when looking at just the players in <code>small_season</code>, the mean number of points per game is 9, with a standard deviation of 4. Remember that <code>small_season</code> is a random sample of size 36 taken from <code>season</code>.</p>
+<p>Which of the following histograms visualizes the empirical distribution of the sample mean, computed using the bootstrapping procedure above?</p>
+<center><img src='../assets/images/wi22-final/hist-grid.png' width=50%></center>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Option 1</p></li>
+<li><p><input type="radio" disabled="" /> Option 2</p></li>
+<li><p><input type="radio" disabled="" /> Option 3</p></li>
+<li><p><input type="radio" disabled="" /> Option 4</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-7.5">Problem 7.5</h3>
+<p>We construct a 95% confidence interval for the true mean points per game for all players by taking the middle 95% of the bootstrapped sample means.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>left_b <span class="op">=</span> np.percentile(boot_means, <span class="fl">2.5</span>)</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>right_b <span class="op">=</span> np.percentile(boot_means, <span class="fl">97.5</span>)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>boot_ci <span class="op">=</span> [left_b, right_b]</span></code></pre></div>
+<p>Select the most correct statement below.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>(left_b + right_b) / 2</code> is exactly equal to the mean points per game in <code>season</code>.</p></li>
+<li><p><input type="radio" disabled="" /> <code>(left_b + right_b) / 2</code> is not necessarily equal to the mean points per game in <code>season</code>, but is close.</p></li>
+<li><p><input type="radio" disabled="" /> <code>(left_b + right_b) / 2</code> is exactly equal to the mean points per game in <code>small_season</code>.</p></li>
+<li><p><input type="radio" disabled="" /> <code>(left_b + right_b) / 2</code> is not necessarily equal to the mean points per game in <code>small_season</code>, but is close.</p></li>
+<li><p><input type="radio" disabled="" /> <code>(left_b _+ right_b) / 2</code> is not close to either the mean points per game in <code>season</code> or the mean points per game in <code>small_season</code>.</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-7.6">Problem 7.6</h3>
+<p>Instead of bootstrapping, we could also construct a 95% confidence interval for the true mean points per game by using the Central Limit Theorem.</p>
+<p>Recall that, when looking at just the players in <code>small_season</code>, the mean number of points per game is 9, with a standard deviation of 4. Also remember that <code>small_season</code> is a random sample of size 36 taken from <code>season</code>.</p>
+<p><strong>Using only the information that we have about <code>small_season</code></strong> (i.e. without using any facts about <code>season</code>), compute a 95% confidence interval for the true mean points per game.</p>
+<p>What are the left and right endpoints of your interval? Give your answers as numbers rounded to 3 decimal places.</p>
+<p><br></p>
+<h3 id="problem-7.7">Problem 7.7</h3>
+<p>Recall that the mean points per game in <code>season</code> is 7, which is not in the interval you found above (if it is, check your work!).</p>
+<p>Select the true statement below.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> The 95% confidence interval we created in the previous subpart did not contain the true mean points per game, which means that the distribution of the sample mean is not normal.</p></li>
+<li><p><input type="radio" disabled="" /> The 95% confidence interval we created in the previous subpart did not contain the true mean points per game, which means that the distribution of points per game in <code>small_season</code> is not normal.</p></li>
+<li><p><input type="radio" disabled="" /> The 95% confidence interval we created in the previous subpart did not contain the true mean points per game. This is to be expected, because the Central Limit Theorem is only correct 95% of the time.</p></li>
+<li><p><input type="radio" disabled="" /> The 95% confidence interval we created in the previous subpart did not contain the true mean points per game, but if we collected many original samples and constructed many 95% confidence intervals, then roughly 95% of them would contain the true mean points per game.</p></li>
+<li><p><input type="radio" disabled="" /> The 95% confidence interval we created in the previous subpart did not contain the true mean points per game, but if we collected many original samples and constructed many 95% confidence intervals, then exactly 95% of them would contain the true mean points per game.</p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-8">Problem 8</h2>
+<p>We want to use <code>app_data</code> to estimate the average amount of time it takes to build an IKEA bed (any product in the ‘bed’ category). Which of the following strategies would be an appropriate way to estimate this quantity? Select all that apply.</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> Query to keep only the beds. Then resample with replacement many times. For each resample, take the mean of the <code>'minutes'</code> column. Compute a 95% confidence interval based on those means.</p></li>
+<li><p><input type="checkbox" disabled="" /> Query to keep only the beds. Group by <code>'product'</code> using the mean aggregation function. Then resample with replacement many times. For each resample, take the mean of the <code>'minutes'</code> column. Compute a 95% confidence interval based on those means.</p></li>
+<li><p><input type="checkbox" disabled="" /> Resample with replacement many times. For each resample, first query to keep only the beds and then take the mean of the <code>'minutes'</code> column. Compute a 95% confidence interval based on those means.</p></li>
+<li><p><input type="checkbox" disabled="" /> Resample with replacement many times. For each resample, first query to keep only the beds. Then group by <code>'product'</code> using the mean aggregation function, and finally take the mean of the <code>'minutes'</code> column. Compute a 95% confidence interval based on those means.</p></li>
+</ul>
+<hr />
+<h2 id="problem-9">Problem 9</h2>
+<p>You are browsing the IKEA showroom, deciding whether to purchase the BILLY bookcase or the LOMMARP bookcase. You are concerned about the amount of time it will take to assemble your new bookcase, so you look up the assembly times reported in <code>app_data</code>. Thinking of the data in <code>app_data</code> as a random sample of all IKEA purchases, you want to perform a permutation test to test the following hypotheses.</p>
+<p><strong>Null Hypothesis</strong>: The assembly time for the BILLY bookcase and the assembly time for the LOMMARP bookcase come from the same distribution.</p>
+<p><strong>Alternative Hypothesis</strong>: The assembly time for the BILLY bookcase and the assembly time for the LOMMARP bookcase come from different distributions.</p>
+<p><br></p>
+<h3 id="problem-9.1">Problem 9.1</h3>
+<p>Suppose we query <code>app_data</code> to keep only the BILLY bookcases, then average the <code>'minutes'</code> column. In addition, we separately query <code>app_data</code> to keep only the LOMMARP bookcases, then average the <code>'minutes'</code> column. If the null hypothesis is true, which of the following statements about these two averages is correct?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> These two averages are the same.</p></li>
+<li><p><input type="radio" disabled="" /> Any difference between these two averages is due to random chance.</p></li>
+<li><p><input type="radio" disabled="" /> Any difference between these two averages cannot be ascribed to random chance alone.</p></li>
+<li><p><input type="radio" disabled="" /> The difference between these averages is statistically significant.</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-9.2">Problem 9.2</h3>
+<p>For the permutation test, we’ll use as our test statistic the average assembly time for BILLY bookcases minus the average assembly time for LOMMARP bookcases, in minutes.</p>
+<p>Complete the code below to generate one simulated value of the test statistic in a new way, without using <code>np.random.permutation</code>.</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>billy <span class="op">=</span> (app_data.get(<span class="st">&#39;product&#39;</span>) <span class="op">==</span> </span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>        <span class="st">&#39;BILLY Bookcase, white, 31 1/2x11x79 1/2&#39;</span>)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>lommarp <span class="op">=</span> (app_data.get(<span class="st">&#39;product&#39;</span>) <span class="op">==</span> </span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>          <span class="st">&#39;LOMMARP Bookcase, dark blue-green, 25 5/8x78 3/8&#39;</span>)</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>billy_lommarp <span class="op">=</span> app_data[billy<span class="op">|</span>lommarp]</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>billy_mean <span class="op">=</span> np.random.choice(billy_lommarp.get(<span class="st">&#39;minutes&#39;</span>), billy.<span class="bu">sum</span>()).mean()</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>lommarp_mean <span class="op">=</span> _________</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>billy_mean <span class="op">-</span> lommarp_mean</span></code></pre></div>
+<p>What goes in the blank?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>billy_lommarp[lommarp].get('minutes').mean()</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>np.random.choice(billy_lommarp.get('minutes'), lommarp.sum()).mean()</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>billy_lommarp.get('minutes').mean() - billy_mean</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>(billy_lommarp.get('minutes').sum() - billy_mean * billy.sum())/lommarp.sum()</code></p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-10">Problem 10</h2>
+<p>Suppose Tiffany has a random sample of dogs. Select the most appropriate technique to answer each of the following questions using Tiffany’s dog sample.</p>
+<p><br></p>
+<h3 id="problem-10.1">Problem 10.1</h3>
+<p>Do small dogs typically live longer than medium and large dogs?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Standard hypothesis test.</p></li>
+<li><p><input type="radio" disabled="" /> Permutation test.</p></li>
+<li><p><input type="radio" disabled="" /> Bootstrapping</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-10.2">Problem 10.2</h3>
+<p>Does Tiffany’s sample have an even distribution of dog kinds?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Standard hypothesis test.</p></li>
+<li><p><input type="radio" disabled="" /> Permutation test.</p></li>
+<li><p><input type="radio" disabled="" /> Bootstrapping</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-10.3">Problem 10.3</h3>
+<p>What’s the median weight for herding dogs?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Standard hypothesis test.</p></li>
+<li><p><input type="radio" disabled="" /> Permutation test.</p></li>
+<li><p><input type="radio" disabled="" /> Bootstrapping</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-10.4">Problem 10.4</h3>
+<p>Do dogs live longer than 12 years on average?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Standard hypothesis test.</p></li>
+<li><p><input type="radio" disabled="" /> Permutation test.</p></li>
+<li><p><input type="radio" disabled="" /> Bootstrapping</p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="section"><span class="math display"> </span></h2>
+<h4 id="feedback-find-an-error-still-confused-have-a-suggestion-let-us-know-here.">👋 Feedback: Find an error? Still confused? Have a suggestion? <a href="https://forms.gle/WZ71FchnXU1K154d7">Let us know here</u></a>.</h4>
+<hr />
+</body>
+</html>
