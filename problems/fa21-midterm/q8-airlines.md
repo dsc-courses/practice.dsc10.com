@@ -41,11 +41,13 @@ What is the probability that all 3 flights are on United? Give your answer as an
 
 # BEGIN SOLUTION
 
-**Answer: ** 0.027
+**Answer:** 0.027
 
 For all three flights to be on United, we need the first flight to be on United, and the second, and the third. Since these are independent events that do not impact one another, and we need all three flights to separately be on United, we need to multiply these probabilities, giving an answer of $0.3*0.3*0.3 = 0.027$.
 
 Note that on an exam without calculator access, you could leave your answer as $(0.3)^3$.
+
+<average>93</average>
 
 # END SOLUTION
 
@@ -61,6 +63,8 @@ What is the probability that all 3 flights are on Delta, or all on United, or al
 
 We already calculated the probability of all three flights being on United as $(0.3)^3 = 0.027$. Similarly, the probability of all three flights being on Delta is $(0.4)^3 = 0.064$, and the probability of all three flights being on American is $(0.2)^3 = 0.008$. Since we cannot satisfy more than one of these conditions at the same time, we can separately add their probabilities to find a total probability of $0.027 + 0.064 + 0.008 = 0.099$.
 
+<average>76</average>
+
 # END SOLUTION
 
 # END SUBPROB
@@ -74,9 +78,11 @@ True or False: The probability that all 3 flights are on the same airline is equ
 
 # BEGIN SOLUTION
 
-**Answer: ** False
+**Answer:** False
 
 It's not quite the same because the previous subpart doesn't include the probability that all three flights are on the same airline which is not one of Delta, United, or American. For example, there is a small probability that all three flights are on Allegiant or all three flights are on Southwest. 
+
+<average>90</average>
 
 # END SOLUTION
 

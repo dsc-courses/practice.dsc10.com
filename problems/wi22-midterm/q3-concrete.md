@@ -30,6 +30,8 @@ We want to return `True` only if at least 50% of the skyscrapers in `city` are m
 
 Another possible answer is `len(concrete_city) / len(all_city)`.
 
+<average>85</average>
+
 # END SOLN
 
 # END SUBPROB
@@ -60,6 +62,8 @@ We are told to add a column to `by_city`. Recall, the way that `.assign` works i
 
 Note: Here, `by_city.get('city')` only works because `.reset_index()` was used in the line where `by_city` was defined. If we did not reset the index, `'city'` would not be a column!
 
+<average>86</average>
+
 # END SOLN
 
 # END SUBPROB
@@ -85,6 +89,8 @@ Note: The question asked for the "largest possible value" that `mystery.shape[0]
 1. It is true in **all cities** that the majority of skyscrapers are made of `'concrete'`.
 2. It is true in **no cities** that the majority of skyscrapers are made of `'concrete'`.
 
+<average>76</average>
+
 # END SOLN
 
 # END SUBPROB
@@ -105,6 +111,8 @@ Suppose `mystery.get('city').iloc[0] == mystery.get('city').iloc[1]` evaluates t
 In the solution to the previous subpart, we noted that `mystery` contains at most 2 rows, one corresponding to cities where `'is_majority'` is `True` and one corresponding to cities where `'is_majority'` is `False`. Furthermore, recall that we used the `.count()` aggregation method, which means that the entries in each column of `mystery` contain the **number** of cities where `'is_majority'` is `True` and the **number** of cities where `'is_majority'` is `False`.
 
 If `mystery.get('city').iloc[0] == mystery.get('city').iloc[1]`, it must be the case that the number of cities where `'is_majority'` is `True` and `False` are equal. This must mean that in exactly half of the cities in `sky`, it is true that the majority of skyscrapers are made of `'concrete'`. 
+
+<average>69</average>
 
 # END SOLN
 

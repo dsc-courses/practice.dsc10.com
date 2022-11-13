@@ -29,6 +29,8 @@ Recall that when we use the `.count()` aggregation method while grouping, the va
 
 `'name'` is not a column in `sky.groupby('year').count()`. `'name'` was the index in `sky`, but is not present at all in `sky.groupby('year').count()` (the original index is lost completely). `'year'` is also not a column in `sky.groupby('year').count()`, since it is the index. The remaining three columns – `'material'`, `'city'`, and `'floors'` – would all work.
 
+<average>74</average>
+
 # END SOLN
 
 # END SUBPROB
@@ -60,6 +62,8 @@ Let's look at each answer choice.
 
 **Tip:** This is a typical "cause-and-effect" problem that you'll see in DSC 10 exams quite often. In order to establish that some treatment had an effect, we need to run a randomized controlled trial, or have some other guarantee that there is no difference between the naturally-observed control and treatment groups.
 
+<average>90</average>
+
 # END SOLN
 
 # END SUBPROB
@@ -85,6 +89,7 @@ In the three incorrect answer choices, another visualization type is more approp
 - To visualize the average height of skyscrapers built per year, separately for New York City and Chicago, we'd need to draw an overlaid line chart. There would be two lines, one for New York City and one for Chicago (this would look similar to the plot in the previous subpart, but with another line).
 - To visualize the relationship between the number of floors and height for all skyscrapers, we'd need to draw a scatter plot. This is because scatter plots are the correct tool to use to visualize the relationship between two numerical variables, and both "number of floors" and "height" are numerical variables.
 
+<average>62</average>
 
 # END SOLN
 

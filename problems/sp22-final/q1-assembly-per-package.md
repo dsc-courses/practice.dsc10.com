@@ -17,6 +17,7 @@ What goes in blank (a)?
 
 This column, as its name suggests, contains the average assembly cost per package, obtained by dividing the total cost of each product by the number of packages that product comes in. This code uses the fact that arithmetic operations between two Series happens element-wise.
 
+<average>91</average>
 # END SOLUTION
 
 # END SUBPROB
@@ -31,6 +32,7 @@ What goes in blank (b)?
 
 After adding the `'assembly_per_package'` column and sorting by that column in the default ascending order, the product with the lowest `'assembly_per_package'` will be in the very first row. To access the name of that product, we need to `get` the column containing product names and use `iloc` to access an element of that Series by integer position.
 
+<average>66</average>
 # END SOLUTION
 
 # END SUBPROB

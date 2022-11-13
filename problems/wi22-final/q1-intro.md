@@ -15,6 +15,8 @@ What type of visualization is best suited for visualizing the trend in the numbe
 
 Here, there are two quantitative variables (number of points and game number), and one of them involves some element of time (game number). Line charts are appropriate when one quantitative variable is time.
 
+<average>75</average>
+
 # END SOLUTION
 
 # END SUBPROB
@@ -43,6 +45,8 @@ total_june = june_only.__(b)__
 To find the total number of points Kelsey Plum scored in June, one approach is to first create a DataFrame with only the rows for June. During the month of June, the `'Date'` values contain `'-06-'` (since June is the 6th month), so `plum.get('Date').str.contains('-06-')` is a Series containing `True` only for the June rows and `june_only = plum[plum.get('Date').str.contains('-06-')]` is a DataFrame containing only the June rows.
 
 Then, all we need is the sum of the `'PTS'` column, which is given by `june_only.get('PTS').sum()`.
+
+<average>90</average>
 
 # END SOLUTION
 
@@ -78,6 +82,8 @@ When `grouped.reset_index()` is called, the index is switched back to the defaul
 
 Note that if we asked for `unknown(50)` (or `unknown(k)`, where `k` is any integer above 30), the answer would be "An error", since `grouped` could not have had 51 rows. `plum` has 31 rows, so `grouped` has at most 31 rows (but likely less, since Kelsey Plum's team likely played the same opponent multiple times).
 
+<average>72</average>
+
 # END SOLUTION
 
 # END SUBPROB
@@ -109,6 +115,8 @@ home_won = plum.groupby(['Home', 'Won']).mean().reset_index()
 _Suppose that Plum's team, the Las Vegas Aces, won at least one game in Las Vegas and lost at least one game in Las Vegas. Also, suppose they won at least one game in an opponent's arena and lost at least one game in an opponent's arena._
 
 `plum` started with 7 columns: `'Date'`, `'Opp'`, `'Home'`, `'Won'`, `'PTS'`, `'AST'`, and `'TOV'`. After grouping by `['Home', 'Won']` and using `.mean()`, `'Home'` and `'Won'` become the index. The resulting DataFrame contains all of the columns that the `.mean()` aggregation method can work on. We cannot take the mean of `'Date'` and `'Opp'`, because those columns are strings, so `plum.groupby(['Home', 'Won']).mean()` contains a `MultiIndex` with 2 "columns" – `'Home'` and `'Won'` – and 3 regular columns – `'PTS'` `'AST'`, and `'TOV'`. Then, when using `.reset_index()`, `'Home'` and `'Won'` are restored as regular columns, meaning that `plum.groupby(['Home', 'Won']).mean().reset_index()` has $2 + 3 = 5$ columns.
+
+<average>78</average>
 
 # END SOLUTION
 
@@ -143,6 +151,8 @@ All that changed between `home_won` and `puzzle` is the aggregation method. The 
 
 However, `puzzle` has 7 columns, instead of 5. In the solution to the above subpart, we noticed that we could not use `.mean()` on the `'Date'` and `'Opp'` columns, since they contained strings. However, we can use `.count()` (since `.count()` just determines the number of non-NA values in each group), and so the `'Date'` and `'Opp'` columns are not "lost" when aggregating. Hence, `puzzle` has 2 more columns than `home_won`.
 
+<average>85</average>
+
 # END SOLUTION
 
 # END SUBPROB
@@ -174,6 +184,8 @@ never_beat = plum.groupby(__(a)__).sum().__(b)__
 The key insight here is that the values in the `'Won'` column are Boolean, and when Boolean values are used in arithmetic they are treated as 1s (`True`) and 0s (`False`). The `sum` of several `'Won'` values is the same as the number of wins.
 
 If we group `plum` by `'Opp'` and use `.sum()`, the resulting `'Won'` column contains the number of wins that Plum's team had against each unique opponent. If we sort this DataFrame by `'Won'` in increasing order (which is the default behavior of `sort_values`), the row at the top will correspond to the `'Opp'` that Plum's team had no wins against. Since we grouped by `'Opp'`, team names are stored in the index, so `.index[0]` will give us the name of the desired team.
+
+<average>67</average>
 
 # END SOLUTION
 
@@ -213,6 +225,8 @@ $$31 + \text{modified} = \text{wins}$$
 $$ \text{modified} = \text{wins} - 31 = -(31 - \text{wins}) = -(\text{losses})$$
 
 The function `modified_series(s)` takes in a Series containing the wins and losses for each of Plum's team's games and needs to return the number of losses multiplied by -1. `s.sum()` returns the number of wins, and `(s == False).sum()` returns the number of losses. Then, `-(s == False).sum()` returns the number of losses multiplied by -1, as desired.
+
+<average>76</average>
 
 # END SOLUTION
 

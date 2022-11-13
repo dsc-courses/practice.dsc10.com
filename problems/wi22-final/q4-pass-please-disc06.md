@@ -48,6 +48,8 @@ To perform a permutation test here, we need to simulate under the null by random
 
 As such, Options 2 through 4 are all valid, and Option 1 is the only invalid one.
 
+<average>68</average>
+
 # END SOLN
 
 # END SUBPROB
@@ -77,6 +79,8 @@ Let's first rule out the first two options.
 - **Option 2:** The significance level is the formal name for the p-value "cutoff" that we specify in our hypothesis test. There is no cutoff mentioned in the problem. The _observed_ significance level is another name for the p-value, but Option 2 did not contain the word _observed_.
 
 Now, the only difference between Options 3 and 4 is the inclusion of "at least" in Option 3. Remember, to compute a p-value we must compute the probability of observing something as **or more** extreme than the observed, under the null. The "or more" corresponds to "at least" in Option 3. As such, Option 3 is the correct choice.
+
+<average>70</average>
 
 # END SOLN
 

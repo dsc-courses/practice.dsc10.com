@@ -13,13 +13,15 @@ Which of the following is the best estimate the number of visitors for the entir
 
 # BEGIN SOLUTION
 
-**Answer: ** $\frac{365}{5}\cdot(v_1 + v_2 + v_3 + v_4 + v_5)$
+**Answer:** $\frac{365}{5}\cdot(v_1 + v_2 + v_3 + v_4 + v_5)$
 
 Our sample is the number of visitors on the five days, and our population is the number of visitors in all 365 days. 
 
 First, we calculate the sample mean, the average number of visitors in the 5 days, which is $m = \frac{1}{5}\cdot(v_1 + v_2 + v_3 + v_4 + v_5)$. We use this statistic to estimate the population mean, the average number of visitors in this year.
 
 Then, we use the estimated population mean to calculate the estimated pupulation sum, so we multiply the number of days in a year (365) with the estimated population mean. We get $$365 m = \frac{365}{5}\cdot(v_1 + v_2 + v_3 + v_4 + v_5)$$
+
+<average>92</average>
 
 # END SOLUTION
 
@@ -41,7 +43,7 @@ What would the regression line predict for the admission cost (in dollars) at th
 
 # BEGIN SOLUTION
 
-**Answer: ** 10.500
+**Answer:** 10.500
 
 Recall, the regression line predicts that a value of x (the independent variable) which is $n$ standard units above (or below) average $\bar{x}$ has a value of y (dependent variable) which is $rn$ standard units above (or below) average $\bar{y}$
 
@@ -51,6 +53,8 @@ Thus, we have $$x_{\ \text {Museum of Natural History}} = \bar{x}-1.5\cdot \text
 
 Since $\bar{x} = 15\ \text{dollars}$, $\text{SD of x} = 3\ \text{dollars}$,
 $$x_{\ \text {Museum of Natural History}} = 15\ \text{dollars} -1.5\cdot 3\ \text{dollars} = 10.500\ \text{dollars}$$
+
+<average>62</average>
 
 # END SOLUTION
 

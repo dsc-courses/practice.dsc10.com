@@ -66,6 +66,8 @@ Note that if `df` is a DataFrame, then `df.sample(10)` is a DataFrame containing
 - **Option 4:** At first, it may appear that this option is wrong, as `get_10` does not take in any inputs. However, the body of `get_10` contains a reference to the DataFrame `art_museums`, which is ultimately where we want to sample from. As a result, `get_10` does indeed return an array containing 10 randomly selected museum names, and `random_art_museums = get_10()` correctly assigns `random_art_museums` to this array, so Option 4 is correct.
 - **Option 5:** Here, `get_10` returns the correct array. However, outside of the function, `random_art_museums` is never assigned to the output of `get_10`. (The variable name `random_art_museums` inside the function has nothing to do with the array defined before and outside the function.) As a result, after running the line `get_10()` at the bottom of the code block, `random_art_museums` is still an empty array, and as such, Option 5 is incorrect.
 
+<average>85</average>
+
 # END SOLN
 
 # END SUBPROB
@@ -124,6 +126,8 @@ Let's walk through the logic of Option 1 (which we don't necessarily need to do 
 
 - First, we use `most_common` to find the city with the most art museums. `most_common` does this by grouping the input DataFrame `df` (`art_museums`, in this case) by `'City'` and using the `.count()` method to find the number of rows per `'City'`. Note that when using `.count()`, all columns in the aggregated DataFrame will contain the same information, so it doesn't matter which column you use to extract the counts per group. After sorting by one of these columns (`'Rank'`, in this case) in decreasing order, `most_common` takes the first value in the `index`, which will be the name of the `'City'` with the most art museums. **This is London**, i.e. `most_common(art_museums, 'City')` evaluates to `'London'` in Option 1 (in Option 2, it evaluates to `None`, since `most_common` there doesn't `return` anything).
 - Then, we use `most_visited` to find the museum with the most visitors in the city with the most museums. This is achieved by keeping only the rows of the input DataFrame `df` (again, `art_museums` in this case) where the value in the `col` (`'City'`) column is `value` (`most_common(art_museums, 'City')`, or `'London'`). Now that we only have information for museums in London, we can sort by `'Visitors'` to find the most visited such museum, and take the first value from the resulting `'Name'` column. While all 3 options follow this logic, only Option 1 **returns** the desired value, and so only Option 1 assigns `best_in_london` correctly. (Even if Option 2's `most_visited` used `return` instead of `print`, it still wouldn't work, since Option 2's `most_common` also uses `print` instead of `return`).
+
+<average>86</average>
 
 # END SOLN
 

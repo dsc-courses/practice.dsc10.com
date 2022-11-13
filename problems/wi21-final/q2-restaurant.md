@@ -26,6 +26,7 @@ at the `'name'` column would not account for the fact the dataframe contains dai
 restaurant. Similarly, the second option of `['name', 'month', 'day']` would not account for the fact that the data comes 
 in a five year span so there will naturally be five overlaps (one for each year) for each unique date that must be accounted for. 
 
+<average>53</average>
 # END SOLUTION
 
 # END PROB

@@ -49,6 +49,8 @@ Now, if we look at the `y`-values, we'll find that $\frac{3}{8}$ of the data has
 
 Alternatively, an easy way to see this is to use the fact that the scatterplot is symmetric over the line $y=x$, the line that makes a 45 degree angle with the origin. In other words, interchanging the `x` and `y` values doesn't change the scatterplot noticeably, so the `x` and `y` values have very similar distributions, and their histograms will be very similar as a result.
 
+<average>88</average>
+
 # END SOLUTION
 
 # END SUBPROB
@@ -86,6 +88,8 @@ Which of the four options on the y-axis is closest to where the height of the ri
 **Answer: ** B, then C
 
 We've already determined that the first bin should contain $\frac{3}{8}$ of the values, the middle bin should contain  $\frac{2}{8}$ of the values, and the rightmost bin should contain  $\frac{3}{8}$ of the values. The middle bar of the histogram should therefore be two-thirds as tall as the first bin, and the rightmost bin should be equally as tall as the first bin. The only reasonable height for the middle bin is B, as it's closest to two-thirds of the height of the first bar. Similarly, the rightmost bar must be at height C, as it's the only one close to the height of the first bar.
+
+<average>94</average>
 
 # END SOLUTION
 

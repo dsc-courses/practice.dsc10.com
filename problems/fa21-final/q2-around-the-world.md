@@ -38,6 +38,8 @@ best_per_city = art_museums.sort_values('Visitors', ascending=True).groupby('Cit
 
 We first sort the row in `art_museums` by the number of `'Visitors'` in `ascending` order. Then `goupby('City')`, so that we have one row per city. Recall, we need an aggregation method after using `groupby()`. In this question, we use `last()` to only keep the one last row for each city. Since in blank (a) we have sorted the rows by `'Visitors'`, so `last()` keeps the row that contains the name of the most visited museum in that city. At last we sort this new DataFrame by `'Visitors'` in descending order to fulfill the question's requirement.
 
+<average>65</average>
+
 # END SOLUTION
 
 # END SUBPROB
@@ -56,7 +58,7 @@ Which of the following options evaluates to the number of visitors to the most v
 
 # BEGIN SOLUTION
 
-**Answer: ** `best_per_city.get('Visitors').loc['Amsterdam']`, `best_per_city[best_per_city.index == 'Amsterdam'].get('Visitors').iloc[0]`, `best_per_city[best_per_city.index == 'Amsterdam'].get('Visitors').iloc[-1]`, `best_per_city[best_per_city.index == 'Amsterdam'].get('Visitors').loc['Amsterdam']` (Select all except "None of the above")
+**Answer:** `best_per_city.get('Visitors').loc['Amsterdam']`, `best_per_city[best_per_city.index == 'Amsterdam'].get('Visitors').iloc[0]`, `best_per_city[best_per_city.index == 'Amsterdam'].get('Visitors').iloc[-1]`, `best_per_city[best_per_city.index == 'Amsterdam'].get('Visitors').loc['Amsterdam']` (Select all except "None of the above")
 
 `best_per_city.get('Visitors').loc['Amsterdam']` We first use `.get(column_name)` to get a series with number of visitors to the most visited art museum, and then locate the number of visitors to the most visited art museum in Amsterdam using `.loc[index]` since we have `"City"` as index.
 
@@ -66,6 +68,8 @@ We first query the `best_per_city` to only include the DataFrame with one row wi
 `best_per_city[best_per_city.index == 'Amsterdam'].get('Visitors').iloc[-1]` We first query the `best_per_city` to only include the DataFrame with one row with index `'Amsterdam'`. Then, we get the `'Visitors'` column of this DataFrame. Finally, we use `iloc[-1]` to access the last and the only value in this column.
 
 `best_per_city[best_per_city.index == 'Amsterdam'].get('Visitors').loc['Amsterdam']` We first query the `best_per_city` to only include the DataFrame with one row with index `'Amsterdam'`. Then, we get the `'Visitors'` column of this DataFrame. Finally, we use `loc['Amsterdam']` to access the value in this column with index `'Amsterdam'`.
+
+<average>84</average>
 
 # END SOLUTION
 

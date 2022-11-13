@@ -35,6 +35,8 @@ Then, we have
 
 $$\text{TVD} = \frac{1}{2} (0.15 + 0.15 + 0.05 + 0.05) = 0.2$$
 
+<average>84</average>
+
 # END SOLUTION
 
 # END SUBPROB
@@ -86,6 +88,8 @@ Then, we need `other_players` to be an array containing the names of all players
 
 In blank (c), as mentioned in the explanation for blank (a), we need to update the value of `most_sim_player`. (Note that we only arrive at this line if `player_tvd` is the lowest pairwise TVD we've seen so far.) All this requires is `most_sim_player = player`, since `player` contains the name of the player who we are looking at in the current iteration of the `for`-loop.
 
+<average>70</average>
+
 # END SOLUTION
 
 # END SUBPROB
@@ -112,6 +116,8 @@ Recall, in the solution to the first subpart of this problem, we calculated the 
 - Layups: $|0.25 - 0.3| = 0.05$
 
 The squared differences between the proportions of each category are computed by squaring the results in the list above (e.g. for Free Throws we'd have $(0.05 - 0.2)^2 = 0.15^2$). To find the maximum squared difference, then, all we need to do is find the largest of $0.15^2$, $0.15^2$, $0.05^2$, and $0.05^2$. Since $0.15 > 0.05$, we have that the maximum squared distance is $0.15^2 = 0.0225$, which rounds to $0.023$.
+
+<average>85</average>
 
 # END SOLUTION
 
@@ -156,6 +162,8 @@ To simulate the number of points Kelsey Plum scores in a single game, we need to
 To simulate the number of shots she takes of each type, we use `np.random.multinomial`. This is because each shot, independently of all other shots, has a 30\% chance of being a layup, a 30\% chance of being a midrange, and so on. What goes in blank (a) is the number of shots she is taking in total; here, that is 10. `shots` will be an array of length 4 containing the number of shots of each type - for instance, `shots` may be `np.array([3, 4, 2, 1])`, which would mean she took 3 layups, 4 midranges, 2 threes, and 1 free throw.
 
 Now that we have `shots`, we need to factor in how many points each type of shot is worth. This can be accomplished by multiplying `shots` with `possible_points`, which was already defined for us. Using the example where `shots` is `np.array([3, 4, 2, 1])`, `shots * possible_points` evaluates to `np.array([6, 8, 6, 1])`, which would mean she scored 6 points from layups, 8 points from midranges, and so on. Then, to find the total number of points she scored, we need to compute the sum of this array, either using the `np.sum` function or `.sum()` method. As such, the two correct answers for blank (b) are `(shots * possible_points).sum()` and `np.sum(shots * possible_points)`.
+
+<average>84</average>
 
 # END SOLUTION
 

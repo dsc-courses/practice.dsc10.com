@@ -13,6 +13,7 @@ We decided to use a probability of 0.5 since it is the worst case (provides the 
 portion of the equation). M is given in the problem as 0.04. We can calculate Z from intuition,
 we want the estimate to be within 0.04 95% of the time. Using the 68-95-99.7 rule we know 2 standard deviations
 (Z = 2) is the correct choice for Z. 
+<average>40</average>
 # END SOLUTION
 
 # END PROB

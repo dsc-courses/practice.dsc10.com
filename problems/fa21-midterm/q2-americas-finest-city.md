@@ -17,6 +17,8 @@ The strategy is to create a DataFrame with only the flights that went to San Die
 
 Some of the other answer choices use `.loc['SAN']` but `.loc` only works with the index, and `flights` does not have airport codes in its index.
 
+<average>95</average>
+
 # END SOLUTION
 
 # END SUBPROB
@@ -55,6 +57,8 @@ True or False: If we change `.get('FLIGHT')` to `.get('SEAT')`, the results of t
 
 The strategy here is to group all of King Triton's flights according to where they landed, and count up the number that landed in San Diego. The expression `flights.groupby('TO').count()` evaluates to a DataFrame indexed by arrival airport where, for any arrival airport, each column has a count of the number of King Triton's flights that landed at that airport. To get the count for San Diego, we need the entry in any column for the row corresponding to San Diego. The code `.get('FLIGHT')` says we'll use the `'FLIGHT'` column, but any other column would be equivalent. To access the entry of this column corresponding to San Diego, we have to use `.loc` because we know the name of the value in the index should be `'SAN'`, but we don't know the row number or integer position.
 
+<average>89</average>
+
 # END SOLUTION
 
 # END SUBPROB
@@ -83,6 +87,8 @@ The DataFrame `san` contains all rows of `flights` that have a departure airport
 We just need to find which of the other DataFrames would necessarily be empty, and we can see that `flights[(flights.get('FROM') == 'LAX') & (flights.get('TO') == 'LAX')]` will be empty for the same reason. 
 
 Note that none of the other answer choices are correct. The first option uses the Python keyword `and` instead of the symbol `&`, which behaves unexpectedly but does not give an empty DataFrame. The second option will be non-empty because it will contain all flights that have San Diego as the departure airport or arrival airport, and we already know from the first few rows of `flight` that there are some of these. The third option will contain all the flights that King Triton has taken from `'LAX'` to `'SAN'`.  Perhaps he's never flown this route, or perhaps he has. This DataFrame could be empty, but it's not necessarily going to be empty, as the question requires.
+
+<average>70</average>
 
 # END SOLUTION
 

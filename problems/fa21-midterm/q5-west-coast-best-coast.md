@@ -20,6 +20,8 @@ There are two flights from LAX. When we merge `socal` with itself on the `'FROM'
 
 Following this logic, each of the five flights from SAN gets paired with each of the five flights from SAN, for an additional 25 rows in the output. For SNA, there will be 9 rows in the output. The total is therefore $2^2 + 5^2 + 3^2 = 4 + 25 + 9 = 38$ rows.
 
+<average>27</average>
+
 # END SOLUTION
 
 # END PROB

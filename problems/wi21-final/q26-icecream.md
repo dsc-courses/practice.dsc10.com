@@ -19,6 +19,7 @@ and the alternative as Chocolate has more sales than Vanilla. A permutation test
 we are not interested if Chocolate and Vanilla sales are drawn from the same underlying distribution, but rather are interested
 an underlying model (in this case which is about the sales of different flavors of ice cream).
 
+<average>57</average>
 # END SOLUTION
 
 # END PROB

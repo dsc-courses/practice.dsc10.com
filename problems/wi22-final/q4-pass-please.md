@@ -30,6 +30,8 @@ The second argument to `diff_in_group_means`, `group_col`, is the column we're g
 
 Note that after extracting the Series containing the average number of assists in wins and losses, we are returning the value with the index `False` ("loss") minus the value with the index `True` ("win"). So, throughout this problem, keep in mind that we are computing "losses minus wins". Since our observation was that she averaged 0.61 more assists in wins than in losses, it makes sense that `diff_in_group_means(plum, 'Won', 'AST')` is -0.61 (rather than +0.61).
 
+<average>94</average>
+
 # END SOLN
 
 # END SUBPROB
@@ -73,6 +75,8 @@ To perform a permutation test here, we need to simulate under the null by random
 
 As such, Options 2 through 4 are all valid, and Option 1 is the only invalid one.
 
+<average>68</average>
+
 # END SOLN
 
 # END SUBPROB
@@ -103,6 +107,8 @@ Let's first rule out the first two options.
 
 Now, the only difference between Options 3 and 4 is the inclusion of "at least" in Option 3. Remember, to compute a p-value we must compute the probability of observing something as **or more** extreme than the observed, under the null. The "or more" corresponds to "at least" in Option 3. As such, Option 3 is the correct choice.
 
+<average>70</average>
+
 # END SOLN
 
 # END SUBPROB
@@ -119,6 +125,8 @@ Now, the only difference between Options 3 and 4 is the inclusion of "at least" 
 **Answer:** False
 
 The area of a density histogram is 1. The area of the histogram drawn in the previous subpart is much larger than 1. In fact, the area of this histogram is in the hundreds or thousands; you can draw a rectangle stretching from -1 to 1 on the $x$-axis and 0 to 300 on the $y$-axis that has area $2 \cdot 300 = 600$, and this rectangle is much smaller than the larger histogram.
+
+<average>82</average>
 
 # END SOLN
 

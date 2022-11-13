@@ -59,6 +59,8 @@ By process of elimination, Option 3, `np.count_nonzero(choices == 23) > 0`, must
 - `np.count_nonzero(choices == 23)` evaluates to the number of `True`s in `choices == 23`. If it is positive (i.e. 1), it means that floor 23 was selected. If it is 0, it means floor 23 was not selected.
 - Thus, `np.count_nonzero(choices == 23) > 0` evaluates to `True` if (and only if) floor 23 was selected.
 
+<average>75</average>
+
 # END SOLN
 
 # END SUBPROB
@@ -82,6 +84,8 @@ With these changes, which of the following is the most accurate representation o
 The calculation we did in the previous subpart was not specific to the number 23. That is, we could have replaced 23 with any integer between 1 and 75 inclusive and the simulation would have been just as valid. The probability we estimated is the probability that **any one floor** was randomly selected; there is nothing special about 23.
 
 (We say "roughly equal" because the result may turn out slightly different due to randomness.)
+
+<average>89</average>
 
 # END SOLN
 

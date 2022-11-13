@@ -23,7 +23,7 @@ and median with values closer to 19-25). Comparing the median and mean, it is im
 distribution is skewed right. When the data is skewed right it pulls the mean towards a higher value (as the higher values
 naturally make the average higher). Therefore, we know that the mean will be greater than the median and the ranking is 
 SD, median, mean. 
-
+<average>72</average>
 # END SOLUTION
 
 # END SUBPROB
@@ -42,7 +42,7 @@ Which of the following is larger for this dataset?
 Since the distribution is right skewed, the 75th percentile will have a larger difference from the 50th percentile than the
 25th percentile. With right skewness, values above the 50th percentile will be more different than those smaller than the 50th 
 percentile (and thus more spread out according to the graph). 
-
+<average>78</average>
 # END SOLUTION
 
 # END SUBPROB

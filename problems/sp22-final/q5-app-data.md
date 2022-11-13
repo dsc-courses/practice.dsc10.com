@@ -15,7 +15,7 @@ Suppose that when someone downloads the app, the app requires them to choose a u
 **Answer: ** False
 
 Even though people must have distinct usernames, one person can build multiple different IKEA products and log their time for each build. So we don't expect every row of `app_data` to have a distinct username associated with it, and therefore username would not be suitable as an index, since the index should have distinct values.
-
+<average>52</average>
 # END SOLUTION
 
 # END SUBPROB
@@ -40,7 +40,7 @@ What does the code below evaluate to?
 The code says that we should take the first four rows of `app_data` (which we can see in the preview at the start of this exam), sort the rows in ascending order of `'assembly_time'`, and extract the very first entry of the `'assembly_time'` column. In other words, we have to find the `'assembly_time'` value that would be first when sorted in ascending order. As given in the hint, the `'assembly_time'` column contains strings, and strings get sorted alphabetically, so we are looking for the assembly time, among the first four, that would come first alphabetically. This is `'1 hr, 45 min'`.
 
 Note that first alphabetically does not correspond to the least amount of time. `'1 hr, 5 min'` represents less time than `'1 hr, 45 min'`, but in alphabetical order `'1 hr, 45 min'` comes before `'1 hr, 5 min'` because both start with the same characters `'1 hr, '` and comparing the next character, `'4'` comes before `'5'`. 
-
+<average>46</average>
 # END SOLUTION
 
 # END SUBPROB
@@ -76,7 +76,7 @@ Now we have the pieces we need to compute the number of minutes, using the idea 
 
 Note that failure to convert strings to integers using the `int` function would lead to very different behavior. Let's take the example time string of `'3 hr, 5 min'` as input to our function. With the return statement as `int(first_split[0])*60+int(second_split[0])`, the function would return 185 on this input, as desired. With the return statement as `first_split[0]*60+second_split[0]`, the function would return a string of length 61, looking something like this `'3333...33335'`. That's because the `*` and `+` symbols do have meaning for strings, they're just different meanings than when used with integers.
 
-
+<average>71</average>
 # END SOLUTION
 
 # END SUBPROB
@@ -103,6 +103,7 @@ Which of the following should go in the blank?
 
 We want to create a Series of times in minutes, since it's to be added to the `app_data` DataFrame using `.assign`. The correct way to do that is to use `.apply` so that our function, which works for one input time string, can be applied separately to every time string in the `'assembly_time'` column of `app_data`. Remember that `.apply` takes as input one parameter, the name of the function to apply, with no arguments. The correct syntax is `app_data.get('assembly_time').apply(to_minutes)`.
 
+<average>98</average>
 # END SOLUTION
 
 # END SUBPROB

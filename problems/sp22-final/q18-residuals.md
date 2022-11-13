@@ -17,6 +17,7 @@ For this scenario, which of the following most likely describes the slope of the
 
 The slope of a line represents the change in $y$ for each change of 1 in $x$. Therefore, the slope of the regression line is the amount we'd predict the sale price to increase when the production cost of an item increases by one dollar. In other words, it's the sale price per dollar of production cost. This is almost certainly more than 1, otherwise the company would not make a profit. We'd expect that for any company, the sale price of an item should exceed the production cost, meaning the slope of the regression line has a value greater than one.
 
+<average>72</average>
 # END SOLUTION
 
 # END SUBPROB
@@ -36,6 +37,7 @@ For this scenario, which of the following most likely describes the slope of the
 
 When both variables are measured in standard units, the slope of the regression line is the correlation coefficient. Recall that correlation coefficients are always between -1 and 1, however, because it’s not realistic for production cost and sale price to be negatively correlated (as that would mean products sell for less if they cost more to produce) we can limit our choice of answer to values between 0 and 1. Because a coefficient of 0 would mean there is no correlation and 1 would mean perfect correlation (that is, plotting the data would create a line), these are unlikely occurrences leaving us with the answer being between 0 and 1, exclusive.
 
+<average>86</average>
 # END SOLUTION
 
 # END SUBPROB
@@ -59,6 +61,7 @@ What is being represented on the horizontal axis of the residual plot?
 
 Residual plots show $x$ on the horizontal axis and the residuals, or differences between actual $y$ values and predicted $y$ values, on the vertical axis. Therefore, the horizontal axis here shows the production cost. Note that we are not predicting production costs at all, so production cost means the *actual* cost to produce a product.
 
+<average>43</average>
 # END SOLUTION
 
 # END SUBPROB
@@ -92,6 +95,7 @@ Let's go through each answer choice.
 
 - We have no way of knowing how representative our data set is of the population. This is not something we can discern from a residual plot because such a plot contains no information about the population from which the data was drawn.
 
+<average>61</average>
 # END SOLUTION
 
 # END SUBPROB

@@ -22,6 +22,8 @@ sky.sort_values('height')
 
 `sky` is a DataFrame. All the `sort_values` method does is change the order of the rows in the Series/DataFrame it is called on, it does not change the data structure. As such, `sky.sort_values('height')` is also a DataFrame.
 
+<average>87</average>
+
 # END SOLN
 
 # END SUBPROB
@@ -48,6 +50,8 @@ sky.sort_values('height').get('material').loc[0]
 
 Remember, the `.loc` _accessor_ is used to access elements in a Series based on their index. `sky.sort_values('height').get('material').loc[0]` is asking for the element in the `sky.sort_values('height').get('material')` Series with index 0. However, the index of `sky` is made up of building names. Since there is no building named `0`,  `.loc[0]` causes an error.
 
+<average>79</average>
+
 # END SOLN
 
 # END SUBPROB
@@ -72,6 +76,8 @@ sky.sort_values('height').get('material').iloc[0]
 
 As we mentioned above, `sky.sort_values('height').get('material')` is a Series containing values from the `'material'` column (but sorted). Remember, there is no element in this Series with an index of 0, so `sky.sort_values('height').get('material').loc[0]` errors. However, `.iloc[0]` works differently than `.loc[0]`; `.iloc[0]` will give us the first element in a Series (independent of what's in the index). So, `sky.sort_values('height').get('material').iloc[0]` gives us back a value from the `'material'` column, which is made up of strings, so it gives us a string. (Specifically, it gives us the `'material'` type of the skyscraper with the smallest `'height'`.)
 
+<average>89</average>
+
 # END SOLN
 
 # END SUBPROB
@@ -95,6 +101,8 @@ sky.get('city').apply(len)
 **Answer:** Series
 
 The `.apply` method takes in a function and evaluates that function on every element in a Series. Here, `sky.get('city').apply(len)` is using the function `len` on every element in the Series `sky.get('city')`. The result is also a Series, containing the lengths of the names of each `'city'`.
+
+<average>79</average>
 
 # END SOLN
 
@@ -128,6 +136,8 @@ Here, we are trying to apply the `max` function on each `'city'` name. The `max`
 
 (This subpart was trickier than we intended – we ended up giving credit to both "error" and "Series".)
 
+<average>89</average>
+
 # END SOLN
 
 # END SUBPROB
@@ -151,6 +161,8 @@ sky.get('floors').max()
 **Answer:** int or float
 
 The Series `sky.get('floors')` is made up of integers, and `sky.get('floors').max()` evaluates to the largest number in the Series, which is also an integer.
+
+<average>91</average>
 
 # END SOLN
 
@@ -178,6 +190,8 @@ When grouping and using an aggregation method, the result is always a DataFrame.
 
 Note that no columns were "dropped", as may happen when using `.mean()`, because `.max()` can work on Series' of any type. You can take the max of strings, while you cannot take the mean of strings.
 
+<average>78</average>
+
 # END SOLN
 
 # END SUBPROB
@@ -201,6 +215,8 @@ sky.index[0]
 **Answer:** string
 
 `sky.index` contains the values `'Bayard-Condict Building'`, `'The Yacht Club at Portofino'`, `'City Investing Building'`, etc. `sky.index[0]` is then `'Bayard-Condict Building'`, which is a string.
+
+<average>91</average>
 
 # END SOLN
 

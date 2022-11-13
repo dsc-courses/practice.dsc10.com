@@ -32,6 +32,8 @@ Here, we are merging `sky` and `new_york` on skyscraper names (stored in the ind
 
 The skyscrapers that are in both `sky` and `new_york` are just the skyscrapers in `new_york`, since all of the non-New York skyscrapers in `sky` won't be in `new_york`. As such, `sky_with_location` has the same number of rows as `new_york`. `new_york` has $n$ rows, so `sky_with_location` also has $n$ rows.
 
+<average>64</average>
+
 # END SOLN
 
 # END PROB

@@ -85,6 +85,8 @@ Remember, the direction that is "extreme" is determined by our alternative hypot
 - **Option 4:** From the explanation of Option 3, we know that when the Aces win a lot, `arr[0] - arr[1]` is large. Furthermore, when the Aces lose a lot, `arr[0] - arr[1]` is small (negative numbers are small in this context). This works!
 - **Option 5:** `arr[1] - arr[0]` is the opposite of `arr[0] - arr[1]` in Option 4. When the Aces win a lot, `arr[1] - arr[0]` is small (negative), and when the Aces lose a lot, `arr[1] - arr[0]` is large (positive). This is the opposite of what we want, so Option 5 does not work.
 
+<average>77</average>
+
 # END SOLN
 
 # END SUBPROB
@@ -121,6 +123,8 @@ Back to our distribution. Note that the distribution provided in this subpart is
 
 As such, the correct answer is Option 4.
 
+<average>86</average>
+
 # END SOLN
 
 # END SUBPROB
@@ -144,6 +148,8 @@ def fn_plus(arr):
 **Answer:** True
 
 All `fn_plus` is doing is adding 31 to the output of `fn`. If we think in terms of pictures, the _shape_ of the distribution of `fn_plus` looks the same as the distribution of `fn`, just moved to the right by 31 units. Since the distribution's shape is no different, the proportion of simulated test statistics that are greater than the observed test statistic is no different either, and so the p-value we calculate with `fn_plus` is the same as the one we calculate with `fn`.
+
+<average>73</average>
 
 # END SOLN
 
@@ -236,6 +242,8 @@ By the process of elimination, **Option 2** must be the correct choice. It is si
 
 **⚠️ Note:** It turns out that none of these options run a valid hypothesis test, since the null hypothesis was that the Las Vegas Aces win 60% of their games but none of these simulation strategies use 60% anywhere (instead, they use the observation that the Aces actually won 22 games). However, this subpart was about the sampling strategies themselves, so this mistake from our end doesn't invalidate the problem.
 
+<average>70</average>
+
 # END SOLN
 
 # END SUBPROB
@@ -259,6 +267,8 @@ In which of the four options is it **guaranteed** that `sum(sim)` evaluates to 3
 - **Option 2:** Here, `sim` is defined in terms of some `w`. Specifically, `w` is some number between 0 and 31 and `sim` is `[w, 31 - w]`, so `sum(sim)` is the same as `w + 31 - w`, which is always 31.
 - **Option 3:** In Option 3, `sim` is always `[22, 9]`, and `sum(sim)` is always 31.
 - **Option 4:** Same as Option 3.
+
+<average>72</average>
 
 # END SOLN
 

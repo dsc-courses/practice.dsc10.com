@@ -30,6 +30,8 @@ When `grouped.reset_index()` is called, the index is switched back to the defaul
 
 Note that if we asked for `unknown(50)` (or `unknown(k)`, where `k` is any integer above 30), the answer would be "An error", since `grouped` could not have had 51 rows. `plum` has 31 rows, so `grouped` has at most 31 rows (but likely less, since Kelsey Plum's team likely played the same opponent multiple times).
 
+<average>72</average>
+
 # END SOLUTION
 
 # END SUBPROB
@@ -61,6 +63,8 @@ home_won = plum.groupby(['Home', 'Won']).mean().reset_index()
 _Suppose that Plum's team, the Las Vegas Aces, won at least one game in Las Vegas and lost at least one game in Las Vegas. Also, suppose they won at least one game in an opponent's arena and lost at least one game in an opponent's arena._
 
 `plum` started with 7 columns: `'Date'`, `'Opp'`, `'Home'`, `'Won'`, `'PTS'`, `'AST'`, and `'TOV'`. After grouping by `['Home', 'Won']` and using `.mean()`, `'Home'` and `'Won'` become the index. The resulting DataFrame contains all of the columns that the `.mean()` aggregation method can work on. We cannot take the mean of `'Date'` and `'Opp'`, because those columns are strings, so `plum.groupby(['Home', 'Won']).mean()` contains a `MultiIndex` with 2 "columns" – `'Home'` and `'Won'` – and 3 regular columns – `'PTS'` `'AST'`, and `'TOV'`. Then, when using `.reset_index()`, `'Home'` and `'Won'` are restored as regular columns, meaning that `plum.groupby(['Home', 'Won']).mean().reset_index()` has $2 + 3 = 5$ columns.
+
+<average>78</average>
 
 # END SOLUTION
 
@@ -94,6 +98,8 @@ How do the number of rows and columns in `home_won` compare to the number of row
 All that changed between `home_won` and `puzzle` is the aggregation method. The aggregation method has no influence on the number of rows in the output DataFrame, as there is still one row for each of the 4 unique combinations of `'Home'` and `'Won'`.
 
 However, `puzzle` has 7 columns, instead of 5. In the solution to the above subpart, we noticed that we could not use `.mean()` on the `'Date'` and `'Opp'` columns, since they contained strings. However, we can use `.count()` (since `.count()` just determines the number of non-NA values in each group), and so the `'Date'` and `'Opp'` columns are not "lost" when aggregating. Hence, `puzzle` has 2 more columns than `home_won`.
+
+<average>85</average>
 
 # END SOLUTION
 

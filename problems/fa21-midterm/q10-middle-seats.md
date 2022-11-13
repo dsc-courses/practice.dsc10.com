@@ -11,9 +11,11 @@ Delta wants to know whether customers were satisfied with them for making this d
 
 # BEGIN SOLUTION
 
-**Answer: ** None of the above.
+**Answer:** None of the above.
 
 None of the options isolate the effect of the seating policy because they do not use randomized controlled trials. Even measuring the change in each airline's average satisfaction rating as described in the third option is insufficient because we don't know whether any differences are due to the changed seating policy or other changes. It's possible that many things changed around the time of the pandemic, and we have no way of separating the effects of each of these changes. For example, maybe United stopped serving snacks during the pandemic and Delta continued serving snacks, at around the same time as the seating changes went into effect. If we find a difference in average customer satisfaction between the airlines, we have no way of knowing whether it's because of the differences in seating policies or snack policies (or something else). 
+
+<average>13</average>
 
 # END SOLUTION
 

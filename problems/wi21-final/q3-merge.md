@@ -17,6 +17,7 @@ merging two tables together, the tables can be merged with a inner, left, right,
 joins will produce a different amount of rows. Since the question does not provide the type of join, it is impossible to tell
 the resulting table size. 
 
+<average>74</average>
 # END SOLUTION
 
 # END PROB

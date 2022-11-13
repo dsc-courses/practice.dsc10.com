@@ -22,7 +22,7 @@ is the `'num_chapters'` column). The other columns are string, and therefore, wi
 call (since you can't take the mean of a string). Consequently `.shape[1]` will only result one column for the mean of the `'num_chapters'` 
 column. 
 
-
+<average>67</average>
 # END SOLUTION
 
 # END SUBPROB
@@ -42,6 +42,7 @@ Which of the following strategies would work to compute the absolute difference 
 Logically, we want to somehow separate data for author "Dean Koontz" and "Charles Dickens". (If we don't we'll be taking a mean that includes the chapters of books from both authors.) To achieve this separation, we can create two separate tables with a query that specifies a value on the `'author'` column. Now having two separate
 tables, we can aggregate on the `'num_chapters'` (the column of interest). To get the `'num_chapters'` column we can use
 the `get` method. To actually acquire the mean of the `'num_chapters'` column we can evoke the `.mean()` call.
+<average>80</average>
 # END SOLUTION
 
 # END SUBPROB
@@ -61,6 +62,7 @@ The key in this question is to understand that different authors can create book
 check for each unique book title (the first response) and check for each unique other (the second response). To ensure we
 have all unique author and title pairs we must group based on both `'Author'` and `'Title'`. To actually get the number of rows
 we can take `.shape[0]`.
+<average>56</average>
 # END SOLUTION
 
 # END SUBPROB

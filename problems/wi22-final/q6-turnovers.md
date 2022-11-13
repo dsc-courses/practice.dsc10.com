@@ -29,6 +29,8 @@ Which of the following is the best choice for the index of `season`?
 
 Ideally, the index of a DataFrame is unique, so that we can use it to "identify" the rows. Here, each row is about a player, so `'Player'` should be the index. `'Player'` is the only column that is likely to be unique; it is possible that two players have the same name, but it's still a _better_ choice of index than the other three options, which are definitely not unique.
 
+<average>95</average>
+
 # END SOLN
 
 # END SUBPROB
@@ -59,6 +61,8 @@ The median of a distribution is the value that is "halfway" through the distribu
 Visually, we're looking for the location on the $x$-axis where we can draw a vertical line that splits the area of the histogram in half. While it's impossible to tell the exact median of the distribution, since we don't know how the values are distributed within the bars, we can get pretty close by using this principle.
 
 Immediately, we can rule out 0.5, 0.75, 1.5, and 1.75, since they are too far from the "center" of the distribution (imagine drawing vertical lines at any of those points on the $x$-axis; they don't split the distribution's area in half). To decide between 1 and 1.25, we can use the fact that the distribution is _right-skewed_, meaning that its mean is larger than its median (intuitively, the mean is dragged in the direction of the tail, which is to the right). This means that the median should be less than the mean. We are given that the mean of the distribution is 1.25, so the median should be 1.
+
+<average>73</average>
 
 # END SOLN
 
@@ -100,6 +104,8 @@ $$\begin{aligned} x_{\text{su}} &= \frac{x - \text{mean of }x}{\text{SD of }x} \
 
 Thus, in original units, Sami Whitcomb averaged 0.5 turnovers per game.
 
+<average>87</average>
+
 # END SOLN
 
 # END SUBPROB
@@ -115,6 +121,8 @@ What is the **smallest** possible number of turnovers per game, in **standard un
 The smallest possible number of turnovers per game in original units is 0 (which a player would have if they never had a turnover – that would mean they're really good!). To find the smallest possible turnovers per game in standard units, all we need to do is convert 0 from original units to standard units. This will involve our work from the previous subpart.
 
 $$\begin{aligned} x_{\text{su}} &= \frac{x - \text{mean of }x}{\text{SD of }x} \\ &= \frac{0 - 1.25}{0.75} \\ &= -\frac{1.25}{0.75} \\ &= -\frac{5}{3} = \boxed{-1.667} \end{aligned}$$
+
+<average>82</average>
 
 # END SOLN
 
