@@ -18,6 +18,7 @@ the difference between two underlying populations (nonfiction books and fiction 
 A permutation test is the best data science tool when investigating differences between two
 underlying distributions. 
 
+<average>90</average>
 # END SOLUTION
 
 

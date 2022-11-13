@@ -13,6 +13,7 @@ the mean of the original sample since the mean of the original sample is not wha
 the bootstrapped confidence interval. The bootstrapped confidence interval (as noted on the reference sheet
 is created by re-sampling the data with replacement over and over again). Thus, the interval is not centered around the mean because bootstrapping and random sampling will lead to variation in the confidence interval.
 
+<average>87</average>
 # END SOLUTION
 
 

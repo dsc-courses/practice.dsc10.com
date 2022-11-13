@@ -17,7 +17,7 @@ Rank these three students in **ascending** order of their exam performance relat
 To compare Vivek, Hector, and Clara's relative performance we want to compare their Z scores to handle standardization.
 For Vivek, his Z score is (83-75) / 6 = 4/3. For Hector, his score is (77-70) / 5 = 7/5. For Clara, her score is (80-75) / 3 = 5/3.
 Ranking these, 5/3 > 7/5 > 4/3 which yields the result of Vivek, Hector, Clara. 
-
+<average>76</average>
 # END SOLUTION
 
 # END PROB

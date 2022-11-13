@@ -19,6 +19,7 @@ Thus plugging the appropriate values in our regression line yields
 
 y = (48/5) * 5 + 60 - (48/5)*3 = 79.2
  
+<average>88</average>
 # END SOLUTION
 
 

@@ -29,6 +29,7 @@ we can find how many percentiles each piece of data falls within by taking 100 /
 (100/7) * 4 = 57.14 which is rounded up to 58 since the 57th percentile belongs to the 4th element
 while 58 belongs to the fifth element. 
 
+<average>73</average>
 # END SOLUTION
 
 # END SUBPROB
@@ -43,6 +44,7 @@ while 58 belongs to the fifth element.
 To find the largest we will take (100/7) * 5 which yields 71.43. We will round down since the 72th percentile belongs
 to the sixth element in the data set. For more information look at the solution above.
 
+<average>74</average>
 # END SOLUTION
 
 # END SUBPROB
