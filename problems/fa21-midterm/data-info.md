@@ -1,4 +1,4 @@
-King Triton 🔱, UCSD's mascot, is quite the traveler! Throughout this exam, we will be working with the `flights` DataFrame, which details several facts about each of the flights that King Triton has been on over the past few years. The first few rows of `flights` are shown below.
+King Triton, UCSD's mascot, is quite the traveler! Throughout this exam, we will be working with the `flights` DataFrame, which details several facts about each of the flights that King Triton has been on over the past few years. The first few rows of `flights` are shown below.
 
 <center><img src='../assets/images/fa21-midterm/flights.png' width=40%></center>
 
