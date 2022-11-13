@@ -34,6 +34,8 @@ $$\begin{aligned}
         \implies \text{total \# of values} &= \frac{160}{0.2} = 160 \cdot 5 = 800 
 \end{aligned}$$
 
+<average>62</average>
+
 # END SOLN
 
 # END SUBPROB
@@ -62,6 +64,8 @@ In the question, we were told that 20 skyscrapers were incorrectly binned. There
 $$\text{height} = \frac{\text{area}}{\text{width}} = \frac{0.025}{5} = 0.005$$
 
 Thus, the height of the $[35, 40)$ bar becomes $0.03 + 0.005 = 0.035$ and the height of the $[50, 55)$ bar becomes $0.013 - 0.005 = 0.008$.
+
+<average>74</average>
 
 # END SOLN
 

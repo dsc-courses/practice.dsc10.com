@@ -13,9 +13,11 @@ The Museum of Natural History has a large collection of dinosaur bones, and they
 
 # BEGIN SOLUTION
 
-**Answer: ** sample max - sample min
+**Answer:** sample max - sample min
 
 Our goal is to estimate **the total number of years that dinosaurs lived on Earth**. In other words, we want to know the range of time that dinosaurs lived on Earth, and by definition range = biggest value - smallest value. By using "sample max - sample min", we calculate the difference between the earliest and the latest dinosaur bones in this uniform random sample, which helps us to estimate the population range.
+
+<average>52</average>
 
 # END SOLUTION
 
@@ -32,11 +34,13 @@ The curator at the Museum of Natural History, who happens to have taken a data s
 
 # BEGIN SOLUTION
 
-**Answer: ** neither bootstrapping nor the Central Limit Theorem
+**Answer:** neither bootstrapping nor the Central Limit Theorem
 
 Recall, the Central Limit Theorem (CLT) says that the probability distribution of **the sum or average** of a large random sample drawn with replacement will be roughly normal, regardless of the distribution of the population from which the sample is drawn. Thus, the theorem only applies when our sample statistics is sum or average, while in this question, our statistics is range, so CLT does not apply.
 
 Bootstrapping uses a sample to simulate more samples, so the sample itself must look like the population. In this question, the curator doubted that "the estimate of the parameter obtained from this sample could certainly have come out differently, if the museum had started with a different sample of bones.". In other words, the curator concerned this sample itself is not representative, and does not look like the population. Thus, this sample does not fulfill the requirement of bootstrapping and cannot generate the distribution of the sample statistic.
+
+<average>20</average>
 
 # END SOLUTION
 

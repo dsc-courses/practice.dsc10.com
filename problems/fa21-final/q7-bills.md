@@ -25,11 +25,13 @@ Which of the four scatter plots below describe the relationship between bill len
 
 # BEGIN SOLUTION
 
-**Answer: ** Option 3
+**Answer** Option 3
 
 Given the correlation coefficient is 0.55, bill length and body mass has a moderate positive correlation. We eliminate Option 1 (strong correlation) and Option 4 (weak correlation). 
 
 Given the average bill length is 44 mm, we expect our x-axis to have 44 at the middle, so we eliminate Option 2
+
+<average>91</average>
 
 # END SOLUTION
 
@@ -45,10 +47,12 @@ What is $b$? Give your answer as a number without units, rounded to three decima
 
 # BEGIN SOLUTION
 
-**Answer: ** $m = 77$, $b = 812$
+**Answer:** $m = 77$, $b = 812$
 
 $$m = r \cdot \frac{\text{SD of }y }{\text{SD of }x} = 0.55 \cdot \frac{840}{6} = 77$$
 $$b = \text{mean of }y - m \cdot \text{mean of }x = 4200-77 \cdot 44 = 812 $$
+
+<average>92</average>
 
 # END SOLUTION
 
@@ -60,9 +64,11 @@ What is the predicted body mass (in grams) of a penguin whose bill length is 44 
 
 # BEGIN SOLUTION
 
-**Answer: ** 4200
+**Answer:** 4200
 
 $$y = mx\ +\ b = 77 \cdot 44 + 812 = 3388 +812 = 4200$$
+
+<average>95</average>
 
 # END SOLUTION
 
@@ -74,13 +80,15 @@ A particular penguin had a predicted body mass of 6800 grams. What is that pengu
 
 # BEGIN SOLUTION
 
-**Answer: ** 77.766
+**Answer:** 77.766
 
 In this question, we want to compute x value given y value
 $$y = mx\ +\ b$$
 $$y - b = mx$$
 $$\frac{y - b}{m} = x\ \ \text{(m is nonzero)}$$
 $$x = \frac{y - b}{m} = \frac{6800 - 812}{77} = \frac{5988}{77} \approx 77.766$$
+
+<average>88</average>
 
 # END SOLUTION
 
@@ -102,9 +110,11 @@ Which of the following is a valid conclusion that we can draw solely from the re
 
 # BEGIN SOLUTION
 
-**Answer: ** The accuracy of the regression line's predictions depends on bill length
+**Answer:** The accuracy of the regression line's predictions depends on bill length
 
 The vertical spread in this residual plot is uneven, which implies that the regression line's predictions aren't equally accurate for all inputs. This doesn't necessarily mean that fitting a nonlinear curve would be better. It just impacts how we interpret the regression line's predictions. 
+
+<average>40</average>
 
 # END SOLUTION
 

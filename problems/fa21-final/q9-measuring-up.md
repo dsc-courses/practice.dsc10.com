@@ -36,9 +36,11 @@ Which of the following statements best describe the procedure above?
 
 # BEGIN SOLUTION
 
-**Answer: ** This is a permutation test, and our test statistic is the difference in the mean Adelie mass and mean Chinstrap mass (Option 4)
+**Answer:** This is a permutation test, and our test statistic is the difference in the mean Adelie mass and mean Chinstrap mass (Option 4)
 
 Recall, a permutation test helps us decide whether two random samples come from the same distribution. This test matches our goal of testing whether the masses of Adelie penguins and Chinstrap penguins are drawn from the same population distribution. The code above are also doing steps of a permutation test. In part (a), it shuffles `'species'` and stores the shuffled series to `shuffled`. In part (b), it assign the shuffled series of values to `'species'` column. Then, it uses ` grouped = with_shuffled.groupby('species').mean()` to calculate the mean of each species. In part (c), it computes the difference between mean mass of the two species by first getting the `'mass'` column and then accessing mean mass of each group (Adelie and Chinstrap) with positional index `0` and `1`.
+
+<average>98</average>
 
 # END SOLUTION
 
@@ -67,11 +69,13 @@ stat = grouped.get('mass').loc['Chinstrap'] - grouped.get('mass').loc['Adelie']
 
 # BEGIN SOLUTION
 
-**Answer: ** Option 1 only
+**Answer:** Option 1 only
 
 We use `df.get(column_name).iloc[positional_index]` to access the value in a column with `positional_index`. Similarly, we use `df.get(column_name).loc[index]` to access value in a column with its `index`. Remember `grouped` is a DataFrame that `groupby('species')`, so we have species name `'Adelie'` and `'Chinstrap'` as index for `grouped`.
 
 Option 2 is incorrect since it does subtraction in the reverse order which results in a different `stat` compared to `line(c)`. Its output will be $-1 \cdot$ `stat`. Recall, in `grouped = with_shuffled.groupby('species').mean()`, we use `groupby()` and since `'species'` is a column with string values, our index will be sorted in alphabetical order. So, `.iloc[0]` is `'Adelie'` and `.iloc[1]` is `'Chinstrap'`.
+
+<average>81</average>
 
 # END SOLUTION
 
@@ -86,10 +90,12 @@ Is it possible to re-write `line (c)` in a way that uses `.iloc[0]` twice, witho
 
 # BEGIN SOLUTION
 
-**Answer: ** Yes, it's possible
+**Answer:** Yes, it's possible
 
 There are multiple ways to achieve this.
 For instance `stat = grouped.get('mass').iloc[0] - grouped.sort_index(ascending = False).get('mass').iloc[0]`.
+
+<average>64</average>
 
 # END SOLUTION
 
@@ -135,9 +141,11 @@ Select the best answer.
 
 # BEGIN SOLUTION
 
-**Answer: ** This would not run a valid hypothesis test, as all values in the `stats` array would be exactly the same (Option 2)
+**Answer:** This would not run a valid hypothesis test, as all values in the `stats` array would be exactly the same (Option 2)
 
 Recall, `DataFrame.sample(n, replace = False)` (or `DataFrame.sample(n)` since `replace = False` is by default) returns a DataFrame by randomly sampling `n` rows from the DataFrame, without replacement. Since our `n` is `adelie_chinstrap.shape[0]`, and we are sampling without replacement, we will get the exactly same Dataframe (though the order of rows may be different but the `stats` array would be exactly the same).
+
+<average>87</average>
 
 # END SOLUTION
 
@@ -183,9 +191,11 @@ Select the best answer.
 
 # BEGIN SOLUTION
 
-**Answer: ** This would not run a valid hypothesis test, even though there would be several different values in the `stats` array (Option 3)
+**Answer:** This would not run a valid hypothesis test, even though there would be several different values in the `stats` array (Option 3)
 
 Recall, `DataFrame.sample(n, replace = True)` returns a new DataFrame by randomly sampling `n` rows from the DataFrame, with replacement. Since we are sampling with replacement, we will have a DataFrame which produces a `stats` array with some different values. However, recall, the key idea behind a permutation test is to shuffle the group labels. So, the above code does not meet this key requirement since we only want to shuffle the `"species"` column without changing the size of the two species. However, the code may change the size of the two species.
+
+<average>66</average>
 
 # END SOLUTION
 
@@ -241,9 +251,11 @@ Select the best answer.
 
 # BEGIN SOLUTION
 
-**Answer: ** This would still run a valid hypothesis test (Option 1)
+**Answer:** This would still run a valid hypothesis test (Option 1)
 
 Our goal for the permutation test is to randomly assign birth weights to groups, without changing group sizes. The above code shuffles `'species'` and `'mass'` columns and assigns them back to the DataFrame. This fulfills our goal.
+
+<average>81</average>
 
 # END SOLUTION
 
@@ -266,11 +278,13 @@ Suppose our alternative hypothesis is that Chinstrap penguins weigh more on aver
 
 # BEGIN SOLUTION
 
-**Answer: ** $\frac{1}{3}$
+**Answer:** $\frac{1}{3}$
 
 Recall, the p-value is the chance, under the null hypothesis, that the test statistic is equal to the value that was observed in the data or is even further in the direction of the alternative. Thus, we compute the proportion of the test statistic that is equal or less than the observed statistic. (It is less than because less than corresponds to the alternative hypothesis "Chinstrap penguins weigh more on average than Adelie penguins". Recall, when computing the statistic, we use Adelie's mean mass minus Chinstrap's mean mass. If Chinstrap's mean mass is larger, the statistic will be negative, the direction of less than the observed statistic). 
 
 Thus, we look at the proportion of area less than or on the red line (which represents observed statistic), it is around $\frac{1}{3}$.
+
+<average>80</average>
 
 # END SOLUTION
 

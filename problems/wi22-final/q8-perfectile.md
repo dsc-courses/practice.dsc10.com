@@ -18,6 +18,8 @@ To approach the problem, we'll start by converting 25 points per game to standar
 
 When $z = 3.6$, we have $1 - \frac{1}{z^2} = 1 - \frac{1}{3.6^2} = 0.922839$, which as a percentage rounded to three decimal places is $92.284\%$. Thus, at least $92.284\%$ scored 25 or fewer points per game.
 
+<average>46</average>
+
 # END SOLN
 
 # END SUBPROB
@@ -64,6 +66,8 @@ Let's try and find a value of $p$ such that 14.24 is the $p$th percentile. To do
 Let's see what happens when we try the same process with $p = 86$. This time, we have $h = \frac{86}{100} \cdot 14 = 12.04$ and thus $k = 13$, meaning that the 86th percentile is the number at position 13, which is 14.81.
 
 This means that the value of $q$ is 85 – the 85th percentile is 14.24, while the 86th percentile is 14.81.
+
+<average>57</average>
 
 # END SOLN
 

@@ -40,6 +40,8 @@ Here, our goal is to bootstrap from `small_season`. When bootstrapping, we **sam
 
 Option 1 is incorrect; `season` has nothing to do with this problem, as we are bootstrapping from `small_season`.
 
+<average>95</average>
+
 # END SOLN
 
 # END SUBPROB
@@ -60,6 +62,8 @@ What is incorrect about Line 2? Select all that apply.
 The current implementation of Line 2 doesn't use the `resample` at all, when it should. If we were to leave Line 2 as it is, all of the values in `boot_means` would be identical (and equal to the mean of the `'PPG'` column in `small_season`).
 
 Option 1 is incorrect since our bootstrapping procedure is independent of `season`. Option 3 is incorrect because `.mean()` is a valid Series method.
+
+<average>98</average>
 
 # END SOLN
 
@@ -84,6 +88,8 @@ What is incorrect about Line 3? Select all that apply.
 `np.append` returns a new array and does not modify the array it is called on (`boot_means`, in this case), so Option 1 is a necessary fix. Furthermore, Option 3 is a necessary fix since `new_mean` wasn't defined anywhere.
 
 Option 2 is incorrect; if `np.append` were outside of the `for`-loop, none of the 10,000 resampled means would be saved in `boot_means`.
+
+<average>94</average>
 
 # END SOLN
 
@@ -125,6 +131,8 @@ The answer now boils down to choosing the histogram that looks roughly normally 
 
 Option 3 is the only distribution that appears to be centered at 9 with a standard deviation of $\frac{2}{3}$ (0.7 is close to $\frac{2}{3}$), so it must be the empirical distribution of the bootstrapped sample means.
 
+<average>42</average>
+
 # END SOLN
 
 # END SUBPROB
@@ -157,6 +165,8 @@ However, **the confidence interval we've created is not normal-based**, rather i
 
 Our 95% confidence interval was created by taking the middle 95% of bootstrapped sample means. The distribution of bootstrapped sample means is **roughly** normal, and the normal distribution is symmetric (the mean and median are both equal, and represent the "center" of the distribution). This means that the middle of our 95% confidence interval should be roughly equal to the mean of the distribution of bootstrapped sample means. This implies that Option 4 is correct; the difference between Options 2 and 4 is that Option 4 uses `small_season`, which is the sample we bootstrapped from, while Option 2 uses `season`, which was not accessed at all in our bootstrapping procedure.
 
+<average>62</average>
+
 # END SOLN
 
 # END SUBPROB
@@ -181,6 +191,8 @@ So, our normal-based 95% confidence interval is computed as follows:
 
 $$\begin{aligned} &[\text{mean of sample} - 2 \cdot \text{SD of distribution of sample means}, \text{mean of sample} + 2 \cdot \text{SD of distribution of sample means}] \\ &= [9 - 2 \cdot \frac{4}{\sqrt{36}}, 9 + 2 \cdot \frac{4}{\sqrt{36}}] \\ &= [9 - \frac{4}{3}, 9 + \frac{4}{3}] \\ &\approx \boxed{[7.667, 10.333]} \end{aligned}$$
 
+<average>87</average>
+
 # END SOLN
 
 # END SUBPROB
@@ -202,6 +214,8 @@ Select the true statement below.
 **Answer:** The 95% confidence interval we created in the previous subpart did not contain the true mean points per game, but if we collected many original samples and constructed many 95% confidence intervals, then roughly 95% of them would contain the true mean points per game.
 
 In a confidence interval, the confidence level gives us a level of confidence in **the process** used to create the confidence interval. If we repeat the process of collecting a sample from the population and using the sample to construct a c% confidence interval for the population mean, then **roughly** c% of the intervals we create should contain the population mean. Option 4 is the only option that corresponds to this interpretation; the others are all incorrect in different ways.
+
+<average>87</average>
 
 # END SOLN
 

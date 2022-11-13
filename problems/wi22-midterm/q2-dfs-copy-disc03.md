@@ -19,6 +19,8 @@ We need to query for all of the skyscrapers that satisfy two conditions – the 
 
 Here, we want all of the rows where `'height'` is above 100, so we `get` the `'height'` column and compare it to 100 like so: `sky.get('height') > 100`.
 
+<average>95</average>
+
 # END SOLN
 
 # END PROB

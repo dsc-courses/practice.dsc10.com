@@ -19,6 +19,8 @@ What goes in blank (a)?
 
 We want to organize flights by route. This means we need to group by both `'FROM'` and `'TO'` so any flights with the same pair of departure and arrival airports get grouped together. To group by multiple columns, we must use a list containing all these column names, as in `flights.groupby(['FROM', 'TO'])`.
 
+<average>72</average>
+
 # END SOLUTION
 
 # END SUBPROB
@@ -40,6 +42,8 @@ Every `.groupby` command needs an aggregation function! Since we are asked to fi
 
 Note that `.count()` would tell us how many flights King Triton has taken on each route. That's meaningful information, but not what we need to address the question of which route he spent the most time flying on.
 
+<average>58</average>
+
 # END SOLUTION
 
 # END SUBPROB
@@ -57,6 +61,8 @@ What goes in blank (c)?
 **Answer: ** `by='HOURS', ascending=False`
 
 We want to know the route that King Triton spent the most time flying on. After we group flights by route, summing flights on the same route, the `'HOURS'` column contains the total amount of time spent on each route. We need  `most_frequent.get('FROM').iloc[0]` and `most_frequent.get('TO').iloc[0]` to correspond with the departure and destination airports of the route that King Triton has spent the most time flying on. To do this, we need to sort in descending order of time, to bring the largest time to the top of the DataFrame. So we must sort by `'HOURS'` with `ascending=False`.
+
+<average>94</average>
 
 # END SOLUTION
 

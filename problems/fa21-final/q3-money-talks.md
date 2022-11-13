@@ -4,15 +4,13 @@ The table below shows the average amount of revenue from different sources for a
 
 <center><img src='../assets/images/fa21-final/means.png' width=20%></center>
 
-<center><img src='../assets/images/fa21-final/youth.png' width=20%></center>
-
 # BEGIN SUBPROB
 
 What is the total variation distance between the distribution of revenue sources in 2003 and the distribution of revenue sources in 2013? Give your answer as a proportion (i.e. a decimal between 0 and 1), **not** a percentage. Round your answer to three decimal places.
 
 # BEGIN SOLUTION
 
-**Answer: ** 0.19
+**Answer:** 0.19
 
 Recall, the total variation distance (TVD) is the sum of the absolute differences in proportions, divided by 2. The absolute differences in proportions for each source are as follows:
 
@@ -24,6 +22,8 @@ Recall, the total variation distance (TVD) is the sum of the absolute difference
 Then, we have
 
 $$\text{TVD} = \frac{1}{2} (0.09 + 0.03 + 0.19 + 0.07) = 0.19$$
+
+<average>95</average>
 
 # END SOLUTION
 
@@ -39,7 +39,7 @@ Which type of visualization would be best suited for comparing the two distribut
 
 # BEGIN SOLUTION
 
-**Answer: ** Overlaid bar chart
+**Answer:** Overlaid bar chart
 
 A **scatter plot** visualizes the relationship between two numerical variables. In this problem, we only have to visualize the distribution of a categorical variable.
 
@@ -55,6 +55,7 @@ Histogram: No space between the bars; intervals on axis; 2 numerical axes; order
 In the question, we are plotting 2003 and 2013 distributions of four categories (Admissions, Restaurants and Catering, Store, and Other). 
 Thus, an **overlaid bar chart** is more appropriate. 
 
+<average>74</average>
 
 # END SOLUTION
 
@@ -71,11 +72,13 @@ Notably, there was an economic recession in 2008-2009. Which of the following ca
 
 # BEGIN SOLUTION
 
-**Answer: ** None of the above
+**Answer:** None of the above
 
 Since we are only given the distribution of the revenue, and have no information about the amount of revenue in 2003 and 2013, we cannot conclude how the revenue has changed from 2003 to 2013 after the recession. 
 
 For instance, if the total revenue in 2003 was 100 billion USD and the total revenue in 2013 was 50 billion USD, revenue from admissions in 2003 was 100 * 15% = 15 billion USD, and revenue from admissions in 2003 was 50 * 24% = 12 billion USD. In this case, we will have 15 > 12, the revenue from admissions has declined rather than increased (As stated by 'The increase in revenue from admissions, as more people were visiting museums.'). Similarly, since we don't know the total revenue in 2003 and 2013, we cannot conclude  'The decline in revenue from museum stores, as people had less money to spend.' or 'The decline in total revenue, as fewer people were visiting museums.'
+
+<average>72</average>
 
 # END SOLUTION
 

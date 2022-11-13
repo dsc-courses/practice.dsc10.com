@@ -135,6 +135,8 @@ Option 2 is also correct, and in fact, it does the same exact thing as Option 1 
 
 Option 3 works similarly to Option 1, except it separates the months into more categories, first categorizing January and February as `'Winter'`, then checking for `'Spring'`, `'Summer'`, and `'Fall'`. The only month that winds up in the `else` branch is December. We can think of Option 3 as the same as Option 1, except the Winter months have been separated into two groups, and the group containing January and February is extracted and checked first.
 
+<average>76</average>
+
 # END SOLUTION
 
 # END SUBPROB
@@ -153,6 +155,8 @@ Assuming we've defined `date_to_season` correctly in the previous part, which of
 **Answer: ** `flights.get('DATE').apply(date_to_season)`
 
 Our function `date_to_season` takes as input a single date and converts it to a season. We cannot input a whole Series of dates, as in the first answer choice. We instead need to `apply` the function to the whole Series of dates. The correct syntax to do that is to first extract the Series of dates from the DataFrame and then use `.apply`, passing in the name of the function we wish to apply to each element of the Series. Therefore, the correct answer is `flights.get('DATE').apply(date_to_season)`.
+
+<average>97</average>
 
 # END SOLUTION
 

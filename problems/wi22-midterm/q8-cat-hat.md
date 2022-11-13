@@ -26,6 +26,8 @@ Since **both** events need to occur, and both events are independent (think of s
 
 $$\frac{1}{10} \cdot \frac{1}{4} = \frac{1}{40} = 0.025$$
 
+<average>80</average>
+
 # END SOLN
 
 # END SUBPROB
@@ -49,6 +51,8 @@ Lastly, the probability we are asked for is the complement of the probability we
 $$1 - \left( 1 - \frac{1}{10} \right)^4 = 1 - \left( \frac{9}{10} \right)^4 = 1 - 0.6561 = 0.3439$$
 
 This rounds to 0.344.
+
+<average>64</average>
 
 # END SOLN
 

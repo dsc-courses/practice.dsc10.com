@@ -21,6 +21,8 @@ We need to query for all of the skyscrapers that satisfy two conditions – the 
 
 Here, we want all of the rows where `'height'` is above 100, so we `get` the `'height'` column and compare it to 100 like so: `sky.get('height') > 100`.
 
+<average>95</average>
+
 # END SOLN
 
 # END SUBPROB
@@ -48,6 +50,8 @@ This means that in the blank, all we need to do is:
 
 As such, a complete answer is `height_many_floors = san_tall.sort_values('floors', ascending=False).get('height').iloc[0]`.
 
+<average>74</average>
+
 # END SOLN
 
 # END SUBPROB
@@ -71,6 +75,8 @@ As such, a complete answer is `height_many_floors = san_tall.sort_values('floors
 - Building B: 20 floors, height of 100 feet
 
 `height_many_floors` would be 100, but it is not the `'height'` of the taller building.
+
+<average>84</average>
 
 # END SOLN
 

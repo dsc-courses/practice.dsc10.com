@@ -20,6 +20,8 @@ When grouping and using an aggregation method, the result is always a DataFrame.
 
 Note that no columns were "dropped", as may happen when using `.mean()`, because `.max()` can work on Series' of any type. You can take the max of strings, while you cannot take the mean of strings.
 
+<average>78</average>
+
 # END SOLN
 
 # END PROB

@@ -53,6 +53,8 @@ So, once again, the regression line predicts Tina Charles will have 5.4 assists 
 
 **Note:** The numbers in this problem may seem ugly, but students taking this exam had access to calculators since this exam was online. It also turns out that the numbers were easier to work with in Solution 1 over Solution 2; this was intentional.
 
+<average>81</average>
+
 # END SOLN
 
 # END SUBPROB
@@ -74,6 +76,8 @@ $$\text{residual} = \text{actual } y - \text{predicted }y$$
 $2.1 - 5.4 = -3.3$, which gives us our answer.
 
 **Note:** Many students answered 3.3. Pay attention to the order of the calculation!
+
+<average>82</average>
 
 # END SOLN
 
@@ -112,6 +116,8 @@ $$y = mx + b = mx + \text{mean of }y - m \cdot \text{mean of }x$$
 - If $x = \text{mean of }x$, then the above simplifies to: $y = m \cdot \text{mean of }x + \text{mean of }y - m \cdot \text{mean of }x = \text{mean of }y$, meaning that $(\text{mean of }x, \text{mean of }y)$ — which is $(7, 1.5)$ in this case — is on the regression line in original units, so **Option 4 is correct**. 
 - In the above equation, if $x = 0$, then $y = \text{mean of }y - m \cdot \text{mean of }x$, which in this case simplifies to $1.5 - 0.195 \cdot 7 = 0.135 \neq 0$. This means that (0, 0) is not on the regression line in original units and **Option 2 is incorrect**.
 
+<average>87</average>
+
 # END SOLN
 
 # END SUBPROB
@@ -140,6 +146,8 @@ In the two regression lines mentioned in this problem, we have
 $$\begin{aligned} a &= r \cdot \frac{\text{SD of assists per game}}{\text{SD of points per game}} \\ c &= r \cdot \frac{\text{SD of points per game}}{\text{SD of assists per game}}  \end{aligned}$$
 
 We're told in the problem that the SD of points per game is 5 and the SD of assists per game is 1.5. So, $a = r \cdot \frac{1.5}{5}$ and $c = r \cdot \frac{5}{1.5}$; since $\frac{1.5}{5} < \frac{5}{1.5}$, $a < c$.
+
+<average>74</average>
 
 # END SOLN
 

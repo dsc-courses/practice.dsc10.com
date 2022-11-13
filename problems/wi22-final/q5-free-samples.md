@@ -44,6 +44,7 @@ In this subpart, we're asked for the probability that `df_choice(plum)` is an em
 
 $$\begin{aligned} P(\text{empty DataFrame}) &= P(\text{all rows missing}) \\ &= P(\text{row 0 missing and row 1 missing and ... and row 30 missing}) \\ &= P(\text{row 0 missing}) \cdot P(\text{row 1 missing}) \cdot ... \cdot P(\text{row 30 missing}) \\ &= \frac{1}{2} \cdot \frac{1}{2} \cdot ... \cdot \frac{1}{2} \\ &= \boxed{\frac{1}{2^{31}}} \end{aligned}$$
 
+<average>83</average>
 
 # END SOLN
 
@@ -75,6 +76,8 @@ Then, in order for there to be 30 rows, either row 0 must be missing, or row 1 m
 
 $$\begin{aligned} P(\text{exactly one row missing}) &= P(\text{only row 0 is missing or only row 1 is missing or ... or only row 30 is missing}) \\ &= P(\text{only row 0 is missing}) + P(\text{only row 1 is missing}) + ... + P(\text{only row 30 is missing}) \\ &= \frac{1}{2^{31}} + \frac{1}{2^{31}} + ... + \frac{1}{2^{31}} \\ &= \boxed{\frac{31}{2^{31}}}  \end{aligned}$$
 
+<average>48</average>
+
 # END SOLN
 
 # END SUBPROB
@@ -97,6 +100,8 @@ An important realization to make is that all **subsets** of the rows in `plum` a
 This is true because for each individual row, the probability that it is present or missing is the same – $\frac{1}{2}$ – so the probability of any subset is a product of 31 $\frac{1}{2}$s, which is $\frac{1}{2^{31}}$. (The answer to the previous subpart was not $\frac{1}{2^{31}}$ because it was asking about multiple subsets – the subset where only row 0 was missing, and the subset where only row 1 was missing, and so on).
 
 So, the probability that `df_choice(plum)` consists of just row 0 is $\frac{1}{2^{31}}$, and this is the same as the answer to the first subpart ($\frac{1}{2^{31}}$); in both situations, we are calculating the probability of one specific subset.
+
+<average>63</average>
 
 # END SOLN
 
@@ -138,7 +143,7 @@ Putting it all together, we have:
 
 $$\begin{aligned} P(\text{number of returned rows is 0, 1, 30, or 31}) &= P(\text{0 rows are returned}) + P(\text{1 row is returned}) + P(\text{30 rows are returned}) + P(\text{31 rows are returned}) \\ &= \frac{1}{2^{31}} + \frac{31}{2^{31}} + \frac{31}{2^{31}} + \frac{1}{2^{31}} \\ &= \frac{1 + 31 + 31 + 1}{2^{31}} \\ &= \frac{64}{2^{31}} \\ &= \frac{2^6}{2^{31}} \\ &= \frac{1}{2^{31 - 6}} \\ &= \boxed{\frac{1}{2^{25}}} \end{aligned}$$
 
-
+<average>35</average>
 
 # END SOLN
 
