@@ -84,7 +84,6 @@ Note that earlier, we did `groupby('kind')`, which automatically sets each uniqu
  will give us all the kinds of dogs that satisfy the given conditions.
 
  <average>94</average>
-
 # END SOLUTION
 
 # END SUBPROB

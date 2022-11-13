@@ -34,7 +34,7 @@ Suppose we had saved the sorted DataFrame as in the code below.
 
 In this case, the output would be the name of an artist who appeared in 1983, but not necessarily the one who appeared first. There will be several artists associated with the year 1983, and we don't know which of them will be first in the sorted DataFrame.
 
-<average>100</average>
+<average>12</average>
 
 # END SOLUTION
 
