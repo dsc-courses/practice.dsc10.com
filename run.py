@@ -298,21 +298,19 @@ def process_problem_with_subparts(problem_str, problem_num, show_solution):
     return out
 
 def process_problem(problem_str, problem_num, show_solution):
-    global GAUGE_COUNT
 
     assert problem_str.count('# BEGIN PROB') == problem_str.count('# END PROB') == 1, 'Need exactly one # BEGIN PROB and # END PROB pair'
     
     # GAUGE
-        # Render the gauge, wherever it is
-    avg_match = re.findall(r'<average>(\d+)<\/average>', problem_str)
-    
-    if len(avg_match) > 0:
-        for match in avg_match:
-            GAUGE_COUNT += 1
-            avg_int = int(match)
-            diff_int = 100 - avg_int # difficulty = 100 - average score on problem; in the problem .md files, specify averages
-            caption = f'The average score on this problem was {avg_int}%.'
-            diff_gauge = '''
+    # Render the gauge, wherever it is
+
+    def gauge_repl(matchobj):
+        global GAUGE_COUNT
+        GAUGE_COUNT += 1
+        avg_int = int(re.findall(r'<average>(\d+)<\/average>', matchobj[0])[0])
+        diff_int = 100 - avg_int # difficulty = 100 - average score on problem; in the problem .md files, specify averages
+        caption = f'The average score on this problem was {avg_int}%.'
+        diff_gauge = '''
 <center><div id="myDiv<num>"></div></center>
 <script type="text/javascript">
 var data = [
@@ -340,12 +338,14 @@ var layout = { width: 300,
                annotations: [{x: 0.5, y: 0.18, xref: 'paper', yref: 'paper', text: "<caption>", showarrow: false}]};
 Plotly.newPlot('myDiv<num>', data, layout, {displayModeBar: false});
 </script>
-'''.replace('<value>', str(diff_int)) \
-    .replace('<num>', str(GAUGE_COUNT)) \
-    .replace('<color>', get_color_from_diff(int(diff_int))) \
-    .replace('<caption>', caption)
+    '''.replace('<value>', str(diff_int)) \
+        .replace('<num>', str(GAUGE_COUNT)) \
+        .replace('<color>', get_color_from_diff(int(diff_int))) \
+        .replace('<caption>', caption)
 
-            problem_str = re.sub(rf'<average>{avg_int}<\/average>', diff_gauge, problem_str)
+        return diff_gauge
+
+    problem_str = re.sub(r'<average>(\d+)<\/average>', gauge_repl, problem_str)
 
 
     if '# BEGIN SUBPROB' in problem_str:
