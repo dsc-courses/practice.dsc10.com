@@ -34,7 +34,7 @@ Similarly, the third option works because if the number of beds (out of 2500) is
 
 The fourth option is invalid because out of 2500 beds and outdoor furniture items, the number of beds plus the number of outdoor furniture items is always 2500. So the value of this statistic is constant regardless of whether the alternative hypothesis is true, which means it does not help you distinguish between the two hypotheses.
 
-
+<average>78</average>
 # END SOLUTION
 
 # END SUBPROB
@@ -85,6 +85,7 @@ This yields the answer
 
 Notice that this is the *observed* value of the test statistic because it's based on the real-life data in the `app_data` DataFrame, not simulated data.
 
+<average>90</average>
 # END SOLUTION
 
 # END SUBPROB
@@ -112,6 +113,7 @@ To answer this question, we need to know whether small values or large values of
 
 The p-value is defined as the proportion of simulated test statistics that are equal to the observed value or more extreme, where extreme means in the direction of the alternative. In this case, since small values of the test statistic indicate the alternative hypothesis, the correct answer is `<=`.
 
+<average>43</average>
 # END SOLUTION
 
 # END SUBPROB

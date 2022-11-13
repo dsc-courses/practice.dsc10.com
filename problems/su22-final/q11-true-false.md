@@ -16,6 +16,8 @@ conclude that cholera was caused by dirty water.
 
 There are a couple details that the problem fails to convey and that we cannot assume. 1) Do we even know that the pump he removed was the only pump with dirty water? 2) Do we know that people even drank/took water from the Broad Street pump? 3) Do we even know what kinds of people drank from the Broad Street pump? We need to eliminate all confounding factors, otherwise, it might be difficult to identify causality.
 
+<average>91</average>
+
 # END SOLUTION
 
 # END SUBPROB
@@ -34,6 +36,8 @@ conclude causality.
 
 Permutation tests don't prove causality. Remember, we use the permutation test and calculate a p-value to simply reject a null hypothesis, not to prove the alternative hypothesis.
 
+<average>91</average>
+
 # END SOLUTION
 
 # END SUBPROB
@@ -51,6 +55,8 @@ Permutation tests don't prove causality. Remember, we use the permutation test a
 
 Referring to `df` at the beginning of the exam, we could see that 5 of the columns have numerical values as inputs, and thus `df.groupby("kind").mean()` will return the mean of these 5 numerical columns
 
+<average>74</average>
+
 # END SOLUTION
 
 # END SUBPROB
@@ -66,6 +72,8 @@ $900.
 **Answer: ** False
 
 Recall, what a k% confidence level states is that approximately k% of the time, the intervals you create through this process will contain the true population parameter. In this case, the confidence interval states that approximately 95% of the time, the intervals you create through this process will contain the population dog price. However, it will be false if we state it in the reverse order since our population parameter is already fixed. 
+
+<average>66</average>
 
 # END SOLUTION
 
@@ -85,6 +93,8 @@ For a given sample, an 90% confidence interval is narrower than a
 
 The more narrow an interval is, the less confident one is that the intervals one creates will contain the true population parameter.
 
+<average>91</average>
+
 # END SOLUTION
 
 # END SUBPROB
@@ -103,6 +113,8 @@ your test statistics is always equal to 0.
 **Answer: ** True
 
 Note that bootstrapping form a sample **without** replacement just means that we're drawing the same sample over and over again. So the resulting test statistic will be the same between each sample, and thus the std of the test statistic is 0.
+
+<average>86</average>
 
 # END SOLUTION
 
@@ -124,6 +136,8 @@ confidence interval by finding the 2.5th and 97.5th percentiles of
 
 False, to calculate a 95 percent confidence interval, we use bootstrapping to add variation to our samples. 
 
+<average>40</average>
+
 # END SOLUTION
 
 # END SUBPROB
@@ -140,6 +154,8 @@ The distribution of sample proportions is roughly normal for large samples becau
 **Answer: ** True
 
 This is just the definition of Central Limit Theorem.
+
+<average>43</average>
 
 # END SOLUTION
 
@@ -171,6 +187,8 @@ Since h (which is 1.2) is not an integer, so $k$ is 2
 4. Take the $k$th element of the sorted collection (start counting from 1, not 0).
 Since 10 has an ordinal rank of 2 in the data set, the 20th percentile value of the data set is 10, not 30.
 
+<average>66</average>
+
 # END SOLUTION
 
 # END SUBPROB
@@ -186,6 +204,8 @@ the mean of the distribution plus or minus 5 standard deviations.
 **Answer: ** True
 
 By Chebyshev's theorem, at most `1 - 1 / z^2` of the data is within `z` STD of the mean. Thus `1 - 1 / 5^2 = 0.96` of the data is within 5 STD of the mean. 
+
+<average>51</average>
 
 # END SOLUTION
 

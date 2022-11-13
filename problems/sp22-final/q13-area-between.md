@@ -27,6 +27,7 @@ The blue area is the same by symmetry so the total shaded area is $0.975*2 = 1.9
 
 Equivalently, we can use the fact that the total area under the armchair curve is 2, and the amount of unshaded area on either side is 0.025, so the total shaded area is $2 - (0.025*2) = 1.95.$
 
+<average>76</average>
 # END SOLUTION
 
 # END SUBPROB
@@ -54,6 +55,7 @@ As we saw in Problem 12.2, the point on the left half of the armchair curve that
 
 Therefore the total of the blue and yellow areas is the same as the area under one standard normal curve, which is 1.
 
+<average>76</average>
 # END SOLUTION
 
 # END SUBPROB

@@ -29,6 +29,7 @@ There is no convention about using 75,000 for rates. This number is used because
 
 The number 75,000 is not arbitrary. It was chosen as the size of the representative group specifically to equal the number of people who got the vaccine in a research trial. 
 
+<average>91</average>
 # END SOLUTION
 
 # END PROB

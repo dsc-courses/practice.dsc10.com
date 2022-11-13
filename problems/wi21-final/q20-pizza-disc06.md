@@ -21,6 +21,7 @@ In this case, the statement of interest is the pizzeria's claims of pizzas are 1
 
 The alternative hypothesis is a statement that contradicts the null hypothesis. In this case this statement
 is that the mean pizza diameter at the local pizzeria is not 16 inches. (ie. the other option to the null hypothesis)
+<average>35</average>
 # END SOLUTION
 
 # END SUBPROB
@@ -36,6 +37,7 @@ What test statistic would you use?
 Looking at the null and alternative hypothesis we can see we are directly interested in the mean pizza diameter, so it is most 
 likely the best measurement for the test statistic. The main idea is that we somehow want to show the difference in distribution of the pizza diameters.
 
+<average>70</average>
 # END SOLUTION
 
 # END SUBPROB

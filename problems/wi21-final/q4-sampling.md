@@ -14,6 +14,7 @@ The answer is true since someone can easily sketch each sample to view the proba
 a certain subset. For example, when n = 2 we know the elements are 1, 3, 5, 7, and so on. Similarly we know
 this information for n = 3, 4 and 5. Using this information we could calculate the probability of selecting a subset.
 
+<average>97</average>
 # END SOLUTION
 
 # END SUBPROB
@@ -31,6 +32,7 @@ as element 1 will always be selected due to the way sampling is conducted as def
 That is, the question says we always include element one in the sample which will over represent it in samples
 as compared to other parts of the population. 
 
+<average>46</average>
 # END SOLUTION
 
 # END SUBPROB

@@ -26,6 +26,7 @@ The code says that when the `employees` DataFrame is sorted in descending order 
 
 If the statement had said *greater than or equal to* instead of *greater than*, the statement would have been true.
 
+<average>29</average>
 # END SOLUTION
 
 # END SUBPROB
@@ -52,6 +53,7 @@ The problem is that the first line of code does not actually add a new column to
 
 This code also has a problem with `iloc[-1]`, since `iloc` cannot be used on the index, but since the problem with the missing `'start'` column is encountered first, that will be the error message displayed.
 
+<average>27</average>
 # END SOLUTION
 
 # END SUBPROB

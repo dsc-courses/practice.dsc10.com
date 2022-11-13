@@ -30,7 +30,7 @@ $$\begin{aligned}
          &= 92
 \end{aligned}$$
 
-
+<average>76</average>
 # END SOLUTION
 
 # END SUBPROB
@@ -54,7 +54,7 @@ $$\begin{aligned}
 	16 &= \text{ rise, or change in } y 
 \end{aligned}$$
 
-
+<average>65</average>
 # END SOLUTION
 
 # END SUBPROB
@@ -71,7 +71,7 @@ If we create a 95% prediction interval for the assembly cost of a 100 dollar pro
 **Answer: ** The one for the 100 dollar product.
 
 Prediction intervals get wider the further we get from the point $(\text{mean of } x, \text{mean of } y)$ since all regression lines must go through this point. Since the average product price is 140 dollars, the prediction interval will be wider for the 100 dollar product, since it's the further of 100 and 120 from 140.
-
+<average>45</average>
 # END SOLUTION
 
 # END SUBPROB

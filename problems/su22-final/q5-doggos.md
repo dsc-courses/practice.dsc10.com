@@ -38,6 +38,7 @@ between 10 and 11 given the density plot. Note that the probability of a bar is
 given by the width of the bar multiplied by the height. Now looking at the bar 
 with bin of range 10 to 11, we can see that the probability is just $(11-10) * 0.15 = 1 * 0.15 = 0.15$.
 
+<average>86</average>
 # END SOLUTION
 
 # END SUBPROB
@@ -62,6 +63,7 @@ $(4*0.05) + (1*0.15) + (1*0.25) = 0.6$
 Now because we draw each value independently from one another, we simply 
 square this probability which gives us an answer of $0.6*0.6 = 0.36$
 
+<average>81</average>
 
 # END SOLUTION
 
@@ -96,6 +98,7 @@ gives us the probability that neither of our drawn values are in the range, or
 $0.9*0.9 = 0.81$. Finally, subtracting this from 1 gives us our desired answer or
 $1 - 0.81 =0.19$
 
+<average>66</average>
 # END SOLUTION
 
 # END SUBPROB

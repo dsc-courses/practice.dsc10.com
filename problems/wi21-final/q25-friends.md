@@ -17,6 +17,7 @@ The question at hand is investigating two continuous variables (time and number 
 Regression is the best data science tool as it is dealing with two continuous variables and we can understand
 correlations between time and the number of friends.
 
+<average>90</average>
 # END SOLUTION
 
 

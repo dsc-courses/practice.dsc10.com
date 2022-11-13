@@ -15,6 +15,7 @@ Why is the distribution of purchase amounts roughly normal?
 
 The data that we have is a sample of purchase amounts. It is not a sample mean or sample sum, so the Central Limit Theorem does not apply. The data just naturally happens to be roughly normally distributed, like human heights, for example.
 
+<average>42</average>
 # END SOLUTION
 
 # END SUBPROB
@@ -42,6 +43,7 @@ $$\begin{aligned}
 
 A more intuitive way to think about standard units is the number of standard deviations above the mean (where negative means below the mean). Here, Shiv spent 150 dollars more than average. One standard deviation is 25 dollars, so 150 dollars is six standard deviations.
 
+<average>97</average>
 # END SOLUTION
 
 # END SUBPROB
@@ -65,6 +67,7 @@ Since the distribution of the sample mean is roughly normal, we can find a 95% c
 - $150 - 2*\frac{1}{8} = 149.75$ dollars, and
 - $150 + 2*\frac{1}{8} = 150.25$ dollars.
 
+<average>36</average>
 # END SOLUTION
 
 # END SUBPROB

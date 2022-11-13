@@ -17,6 +17,7 @@ Notice that the first proposed study, about the impacts of citrus fruits on hear
 
 Similarly, we could run a randomized controlled trial by giving an exam where some students had to sign an integrity pledge and others didn't, tracking the number of reported dishonesty cases in each group. Likewise, we could reward some students for good grades and not others, and keep track of high school graduation rates in each group. Neither of these studies would involve knowingly harming people and could reasonably be carried out.
 
+<average>85</average>
 # END SOLUTION
 
 # END PROB

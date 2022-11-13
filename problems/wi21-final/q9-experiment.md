@@ -16,6 +16,7 @@ Is this histogram a probability histogram or an empirical histogram?
 Empirical histograms refer to distributions of observed data. Since the question at hand is conducting
 an experiment and creating a histogram of observed data from these trials the correct anwser is an empirical histogram. 
 
+<average>90</average>
 # END SOLUTION
 
 # END SUBPROB
@@ -35,6 +36,7 @@ Doing more of an experiment will barely change the histogram. The parameter we a
 to estimate through our experiment is some statistic. The number of experiments has no effect
 on the histograms distribution since the value of some statistic is not becoming more random.
 
+<average>57</average>
 # END SOLUTION
 
 # END SUBPROB
@@ -56,6 +58,7 @@ statistic being calculated is the count of how many times a phenomenon occurs. I
 the statistic can now take values ranging from `[0, 5000]` instead of `[0, 500]` which will clearly 
 make the histogram width wider (due to the wider range of values it can take). 
 
+<average>39</average>
 # END SOLUTION
 
 # END SUBPROB

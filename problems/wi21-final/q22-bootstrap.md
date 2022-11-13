@@ -18,6 +18,7 @@ The distribution of bootstrapped means' mean will be approximately 400 since tha
 of the sample and bootstrapping is taking many samples of the original sample. The mean will not be exactly 400 do to some
 randomness though it will be very close. 
 
+<average>54</average>
 # END SOLUTION
 
 # END SUBPROB
@@ -37,6 +38,7 @@ Which of the following is closest to the standard deviation of the distribution 
 To find the standard deviation of the distribution, we can take the sample standard deviation S divided by the square root of
 the sample size. From plugging in, we get 40 / 10 = 4. 
 
+<average>51</average>
 # END SOLUTION
 
 # END SUBPROB

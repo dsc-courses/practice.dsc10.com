@@ -23,6 +23,9 @@ The third option works because we can find the desired quantity by simply lookin
 
 The fourth option is not even correct Python code. The DataFrame produced by `sungod.groupby('Year').max()` is indexed by `'Year'` and no longer has `'Year'` as a column. So we'd get an error if we tried to access this nonexistent column, as in `sungod.groupby('Year').max().get('Year')`. 
 
+<average>78</average>
+
+
 # END SOLUTION
 
 # END PROB

@@ -26,6 +26,7 @@ This bar has a width of 0.1 and we'd estimate the height to be around 2.2, thoug
 
 The reason for the slight discrepancy between 3.96 and 4 is that we used 2.2 for the height of the bar, a number that we determined by eye. We don't know the exact height of the bar. It is reassuring to do the calculation and get a value that's very close to an integer, since we know the final answer must be an integer.
 
+<average>71</average>
 # END SOLUTION
 
 # END SUBPROB
@@ -61,6 +62,7 @@ Therefore, by looking at the relative heights of the bars, we can quickly determ
 
 Adding these numbers together, this means there are 9 grocery stores whose broccoli prices fall in the interval $[\$1.10, \$1.50)$. In the new histogram, these 9 grocery stores will be represented by a bar of width $1.50-1.10 = 0.4$. The area of the bar should be $\frac{9}{18} = 0.5$. Therefore the height must be $\frac{0.5}{0.4} = 1.25$.
 
+<average>33</average>
 # END SOLUTION
 
 # END SUBPROB
@@ -86,6 +88,7 @@ When we use `.plot` without specifying a `y` column, it uses every column in the
 
 Each grocery store has its broccoli price represented by the length of the blue bar and its ice cream price represented by the length of the red bar. We can therefore answer the question by simply counting the number of red bars that are shorter than their corresponding blue bars.
 
+<average>78</average>
 # END SOLUTION
 
 # END SUBPROB
@@ -111,6 +114,7 @@ This will create an overlaid histogram of broccoli prices and ice cream prices. 
 
 This tells us that broadly, ice cream tends to be more expensive than broccoli, but we can't say anything about the number of stores where ice cream is cheaper than broccoli.
 
+<average>81</average>
 # END SOLUTION
 
 # END SUBPROB
@@ -140,6 +144,7 @@ In this scatterplot, each grocery store is represented as one dot. The $x$-coord
 
 <center><img src='../assets/images/wi21-midterm/broc_ice_cream2.png' width=40%></center>
 
+<average>78</average>
 # END SOLUTION
 
 # END SUBPROB

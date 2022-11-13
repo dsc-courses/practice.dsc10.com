@@ -22,7 +22,7 @@ The last two answer choices are incorrect because they involve resampling from t
 
 
  
-
+<average>71</average>
 # END SOLUTION
 
 # END PROB

@@ -28,6 +28,7 @@ Galton's method for making predictions is to take "nearby" $x$-values and averag
 <br/>
 Now, we simply need to average these three prices to make our prediction. Since $\frac{249+349+319}{3} = 305.67$ and we are told to round to the nearest dollar, our prediction is 306 dollars.
 
+<average>59</average>
 # END SOLUTION
 
 # END PROB

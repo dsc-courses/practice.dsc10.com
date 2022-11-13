@@ -24,6 +24,7 @@ What are the input and output types of the `extract_product_line` function?
 
 To use the Series method `.apply`, we first need a Series, containing values of any type. We pass in the name of a function to `.apply` and essentially, `.apply` calls the given function on each value of the Series, producing a Series with the resulting outputs of those function calls. In this case, `.apply(extract_product_line)` is called on the Series `ikea.get('product')`, which contains string values. This means the function `extract_product_line` must take strings as inputs. We're told that the code assigns a new column to the `ikea` DataFrame containing the product line associated with each product, and we know that the product line is a string, as it's the first word of the product name. This means the function `extract_product_line` must output a string. 
 
+<average>72</average>
 # END SOLUTION
 
 # END SUBPROB
@@ -46,6 +47,7 @@ What goes in the blank?
 This function should take as input a string `x`, representing a product name, and return the first word of that string, representing the product line. Since words are separated by spaces, we want to split the string on the space character `' '`. 
 
 It's also correct to answer `x.split()[0]` without specifying to split on spaces, because the default behavior of the string `.split` method is to split on any whitespace, which includes any number of spaces, tabs, newlines, etc. Since we're only extracting the first word, which will be separated from the rest of the product name by a single space, it's equivalent to split using single spaces and using the default of any whitespace.
+<average>84</average>
 # END SOLUTION
 
 # END SUBPROB

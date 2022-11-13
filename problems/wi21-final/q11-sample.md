@@ -17,6 +17,7 @@ the mean which indicates 2.5 percent of the sample means are not included above 
 Therefore, we can compute the final values as P(Z>0) - P(Z>2) which is the same as 0.5-0.025 = 0.475 rounded to
 0.48. 
 
+<average>48</average>
 # END SOLUTION
 
 # END PROB

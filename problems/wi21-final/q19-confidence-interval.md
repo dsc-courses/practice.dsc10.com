@@ -11,6 +11,7 @@ parameter falls within the interval [L, R]. Looking at how a confidence interval
 subtracting a confidence level value (z) by the standard error. Since the top and bottom of the interval
 will be different from the mean by the same amount, the average will be the mean. (For more information, refer to the reference sheet)
 
+<average>68</average>
 # END SOLUTION
 
 

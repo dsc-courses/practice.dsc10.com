@@ -17,6 +17,7 @@ How many galleries have at least 80 but less than 100 art pieces? Input your ans
 Through looking at the graph we can find the total number of art galleries by taking 0.012 (height of bin) * 20 (the size of the bin) * 29 (total number of art galleries).
 This will yield an anwser of 6.96 which should be rounded to the nearest integer (7).
 
+<average>94</average>
 # END SOLUTION
 
 # END SUBPROB
@@ -35,6 +36,7 @@ two art galleries to this total we get 4 art galleries in the `[20,45]` bin to g
 galleries to the entire data set we can take 6/31. Note that the question asks for the *height* of the bin. Therefore, we can 
 take (6/31) / 2.5 due to the size of the bin which will give an answer of 0.007742 upon rounding to six decimal places. 
 
+<average>66</average>
 # END SOLUTION
 
 # END SUBPROB

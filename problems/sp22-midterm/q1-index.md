@@ -24,6 +24,8 @@ For the third option, if several different artists performed at Sun God in the s
 
 For the last answer choice, if many different artists share the same value of `'Appearance_Order'`, this would not create duplicates in the `'Artist'` column. Therefore, this is also not a valid reason to avoid indexing `sungod` by `'Artist'`.
 
+<average>83</average>
+
 # END SOLUTION
 
 # END PROB

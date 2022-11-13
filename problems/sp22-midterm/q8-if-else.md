@@ -34,6 +34,9 @@ Before we can answer this question, we need to understand what the first three l
 
 Now, we can fill in blank (a). Notice that the body of the `if` clause is `return 'up-and-coming'`. Therefore we need a condition that corresponds to up-and-coming, which we are told means the top hit came out after the artist appeared at Sun God. Using the variables that have been defined for us, this condition is `top_hit_year > year`. However, the `if` statement condition is already partially set up with `> 0` included. We can simply rearrange our condition `top_hit_year > year` by subtracting `year` from both sides to obtain `top_hit_year - year > 0`, which fits the desired format.
 
+<average>89</average>
+
+
 # END SOLUTION
 # END SUBPROB
 # BEGIN SUBPROB
@@ -42,6 +45,9 @@ What goes in blank (b)?
 **Answer: ** `year-top_hit_year > 5`
 
 For this part, we need a condition that corresponds to an artist being outdated which happens when their top hit came out more than five years prior to their appearance at Sun God. There are several ways to state this condition: `year-top_hit_year > 5`, `year > top_hit_year + 5`, or any equivalent condition would be considered correct. 
+
+<average>89</average>
+
 # END SOLUTION
 # END SUBPROB
 # END PROB

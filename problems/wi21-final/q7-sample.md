@@ -17,6 +17,7 @@ happens with or without replacement. By default, the sampling will occur without
 no argument is specified so the default is evoked). Looking at the return, we can see that since we are sampling a dataframe,
 a dataframe will also be returned which is why a DataFrame with 10 rows, where no two rows can be the same is correct.
 
+<average>94</average>
 # END SOLUTION
 
 # END PROB

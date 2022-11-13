@@ -15,6 +15,7 @@ What can we say about the shapes of *Dist<sub>10</sub>* and *Dist<sub>15</sub>*?
 
 By the central limit theorem, both simulations will appear to be roughly normally distributed. 
 
+<average>90</average>
 # END SOLUTION
 
 # END SUBPROB
@@ -33,6 +34,7 @@ What can we say about the centers of *Dist<sub>10</sub>* and *Dist<sub>15</sub>*
 The distribution which moves in 10 turns will have a smaller mean as there are less turns to move spaces. Therefore,
 the mean movement from turns will naturally be higher for the distribution with more turns. 
 
+<average>83</average>
 # END SOLUTION
 
 # END SUBPROB
@@ -49,7 +51,7 @@ What can we say about the spread of *Dist<sub>10</sub>* and *Dist<sub>15</sub>*?
 **Answer: ** the standard deviation of *Dist<sub>10</sub>* will be smaller than the standard deviation of *Dist<sub>15</sub>*
 
 Since taking more turns allows for more possible values, the spread of *Dist<sub>10</sub>* will be smaller than the standard deviation of *Dist<sub>15</sub>*. (ie. consider the possible range of values that are attainable for each case)
-
+<average>65</average>
 # END SOLUTION
 
 # END SUBPROB

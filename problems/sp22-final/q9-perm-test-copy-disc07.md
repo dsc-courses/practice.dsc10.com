@@ -32,6 +32,7 @@ The third answer choice is incorrect for the same reason that the second answer 
 
 The fourth answer choice is incorrect. If there is a difference between the averages, it should be very small and not statistically significant. In other words, if we did a hypothesis test and the null hypothesis was true, we should fail to reject the null.
 
+<average>77</average>
 # END SOLUTION
 
 # END SUBPROB
@@ -88,7 +89,7 @@ A common wrong answer for this question was the second answer choice, `np.random
 6. Repeat step 5, drawing as many times as there are LOMMARP bookcases, without replacement.
 
 We could easily get the same assembly time once for BILLY and once for LOMMARP, while other assembly times could get picked for neither. This process doesn't split the data into two random groups as desired.
-
+<average>12</average>
 # END SOLUTION
 
 # END SUBPROB
