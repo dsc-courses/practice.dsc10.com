@@ -8,8 +8,8 @@ Tiffany's dog sample.
 
 Do small dogs typically live longer than medium and large dogs?
 
-( ) Standard hypothesis test.
-( ) Permutation test.
+( ) Standard hypothesis test
+( ) Permutation test
 ( ) Bootstrapping
 
 # BEGIN SOLUTION
@@ -28,8 +28,8 @@ We have two parameters: dog size and life expectancy. Here if there was no signi
 
 Does Tiffany's sample have an even distribution of dog kinds?
 
-( ) Standard hypothesis test.
-( ) Permutation test.
+( ) Standard hypothesis test
+( ) Permutation test
 ( ) Bootstrapping
 
 # BEGIN SOLUTION
@@ -48,8 +48,8 @@ We're not really comparing a variable between two groups, but rather looking at 
 
 What's the median weight for herding dogs?
 
-( ) Standard hypothesis test.
-( ) Permutation test.
+( ) Standard hypothesis test
+( ) Permutation test
 ( ) Bootstrapping
 
 # BEGIN SOLUTION
@@ -68,8 +68,8 @@ Here we're trying to determine a specific value, which immediately leads us to b
 
 Do dogs live longer than 12 years on average?
 
-( ) Standard hypothesis test.
-( ) Permutation test.
+( ) Standard hypothesis test
+( ) Permutation test
 ( ) Bootstrapping
 
 # BEGIN SOLUTION
