@@ -12,6 +12,7 @@ Suppose that when someone downloads the app, the app requires them to choose a u
 
 Even though people must have distinct usernames, one person can build multiple different IKEA products and log their time for each build. So we don't expect every row of `app_data` to have a distinct username associated with it, and therefore username would not be suitable as an index, since the index should have distinct values.
 
+<average>52</average>
 # END SOLUTION
 
 

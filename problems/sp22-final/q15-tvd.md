@@ -23,6 +23,7 @@ We can interpret each entry as the number of IKEAs in a state divided by the tot
 
 The way we take the TVD of two distributions is to subtract the distributions, take the absolute value, sum up the values, and divide by 2. Since the entries represent states, this process aligns with the given answer.
 
+<average>30</average>
 # END SOLUTION
 
 # END PROB

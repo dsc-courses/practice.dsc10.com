@@ -86,6 +86,7 @@ $$\begin{aligned}
                               &= 0.2
 \end{aligned}$$
 
+<average>72</average>
 # END SOLUTION
 
 # END SUBPROB
@@ -99,7 +100,7 @@ What is the probability that Ryland assembles the bedside table in 40 minutes if
 **Answer: ** 0.4
 
 We are told that the time it takes someone to assemble the bedside table is a random quantity, *independent* of the time it takes them to assemble the bed frame. Therefore we can disregard the information about the time it took him to assemble the bed frame and read directly from the probability distribution that his probability of assembling the bedside table in 40 minutes is 0.4.
-
+<average>82</average>
 # END SOLUTION
 
 # END SUBPROB
@@ -125,7 +126,7 @@ Using the multiplication rule, these probabilities are:
 3. $0.5*0.3 = 0.15$
 
 Finally, adding them up because they represent mutually exclusive cases, we get $0.1+0.28+0.15 = 0.53$.
-
+<average>58</average>
 # END SOLUTION
 
 # END SUBPROB

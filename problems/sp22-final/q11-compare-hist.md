@@ -25,6 +25,7 @@ $$\begin{aligned}
 
 Therefore, the proportion of days where IKEA sold between 20 and 30 KURA reversible beds is 0.5. Since there are 30 days represented in this histogram, that corresponds to 15 days.
 
+<average>54</average>
 # END SOLUTION
 
 # END SUBPROB
@@ -39,6 +40,7 @@ For how many days did IKEA sell more KURA reversible beds than ANTILOP highchair
 
 We cannot compare the number of KURA reversible beds sold on a certain day with the number of ANTILOP highchairs sold on the same day. These are two separate histograms shown on the same axes, but we have no way to associate data from one histogram with data from the other. For example, it's possible that on some days, IKEA sold the same number of KURA reversible beds and ANTILOP highchairs. It's also possible from this histogram that this never happened on any day.
 
+<average>54</average>
 # END SOLUTION
 
 # END SUBPROB
@@ -80,6 +82,7 @@ Therefore summing up the number of days from the 4 bins for which IKEA sold less
 
 Therefore since 8<9<12, the correct answer is (2)<(3)<(1).
 
+<average>81</average>
 # END SOLUTION
 
 # END SUBPROB

@@ -27,6 +27,7 @@ Pandas Tutor is a really helpful tool to visualize the merge process. Below is a
 
 <center><img src='../assets/images/sp22-final/mergetutor.jpg' width=80%></center>
 
+<average>41</average>
 # END SOLUTION
 
 # END SUBPROB
@@ -46,7 +47,7 @@ The <a href="https://pandastutor.com/vis.html#code=import%20pandas%20as%20pd%0Ai
 
 <center><img src='../assets/images/sp22-final/mergetutor.jpg' width=80%></center>
 
-
+<average>70</average>
 # END SOLUTION
 
 # END SUBPROB
@@ -77,6 +78,7 @@ We can see this directly by looking at the output of Pandas Tutor below, generat
 
 <center><img src='../assets/images/sp22-final/maxtutor.jpg' width=80%></center>
 
+<average>69</average>
 # END SOLUTION
 
 # END SUBPROB
@@ -118,6 +120,7 @@ The fourth answer multiplies the price by the quantity 100 minus the percent off
 
 Therefore, only the second and third answer choices are correct.
 
+<average>79</average>
 # END SOLUTION
 
 # END SUBPROB

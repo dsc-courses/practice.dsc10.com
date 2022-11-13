@@ -88,6 +88,7 @@ Way 3 works without using any iteration at all. It uses `np.count_nonzero` to co
 
 Way 4 also works and calculates the number of meatball plates without iteration. The expression `prices >= 200` evaluates to a boolean Series with True for each price that is at least 200 dollars. Summing this Series gives a count of the number of prices that are at least 200 dollars, since True counts as 1 and False counts as 0 in Python. Each such purchase earns 2 meatball plates, so this count of purchases 200 dollars and up gets multiplied by 2. Similarly, `(100 <= prices) & (prices <= 199)` is a Series containing True for each price that is at least 100 dollars and at most 199 dollars, and the sum of that Series is the number of prices between 100 and 199 dollars. Each such purchase contributes one additional meatball plate, so the number of such purchases gets multiplied by 1 and added to the total.
 
+<average>64</average>
 # END SOLUTION
 
 # END PROB

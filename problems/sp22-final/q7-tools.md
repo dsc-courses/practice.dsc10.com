@@ -21,6 +21,7 @@ The only listed tools that could not be used here are permutation testing and re
 
 Regression is used to predict one numerical quantity based on another, not to estimate a parameter as we are doing here. Regression would be appropriate to answer a question like, "How does the assembly time for the LAPPLAND TV storage unit change with the assembler's age?"
 
+<average>78</average>
 # END SOLUTION
 
 # END PROB
