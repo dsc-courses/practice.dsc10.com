@@ -80,6 +80,11 @@ Solutions to discussion worksheets will be made available on Monday evenings, af
       <td>November 14</td>
       <td><a href="disc08/index.html">Permutation Testing and Bootstrapping</a></td>
     </tr>
+    <tr>
+      <th scope="row">9</th>
+      <td>November 21</td>
+      <td>Normal Curve and CLT</td>
+    </tr>
     
   </tbody>
 </table>
