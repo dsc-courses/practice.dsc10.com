@@ -1,10 +1,6 @@
 # BEGIN PROB
 
-For your convenience, we show the first few rows of `season` again below.
-
-<center><img src='../assets/images/wi22-final/seasons.png' width=40%></center>
-
-In the past three problems, we presumed that we had access to the entire `season` DataFrame. Now, suppose we only have access to the DataFrame `small_season`, which is a random sample of **size 36** from `season`. We're interested in learning about the true mean points per game of all players in `season` given just the information in `small_season`.
+Suppose we only have access to the DataFrame `small_season`, which is a random sample of **size 36** from `season`. We're interested in learning about the true mean points per game of all players in `season` given just the information in `small_season`.
 
 To start, we want to bootstrap `small_season` 10,000 times and compute the mean of the resample each time. We want to store these 10,000 bootstrapped means in the array `boot_means`.
 
