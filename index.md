@@ -17,8 +17,6 @@ In all cases, you should work on these problems **on paper**, since your exams w
 
 **Tip:** Keep the <a href='https://drive.google.com/file/d/1mQApk9Ovdi-QVqMgnNcq5dZcWucUKoG-/view?usp=sharing'>DSC 10 Reference Sheet<a> open in another tab. **You will have access to the Reference Sheet during exams (but no other resources).**
 
-<div class="alert alert-success" role="alert">This site is new! If you're using it, please <a href='https://forms.gle/WZ71FchnXU1K154d7'>take a moment to let us know what you think</a>. Thanks!</div>
-
 ---
 
 ### Discussions
@@ -91,7 +89,6 @@ Solutions to discussion worksheets will be made available on Monday evenings, af
 </center>
 
 
-
 ---
 
 ### Exams
@@ -160,3 +157,37 @@ Each exam linked here lists the conditions under which the exam was given, inclu
   </tbody>
 </table>
 </center>
+
+<div class="alert alert-primary" role="alert">New! We've started to embed <i>difficulty meters</i> in the solutions of exam questions, like this one. 
+
+<center><div id="myDiv-example"></div></center>
+<script type="text/javascript">
+var data = [
+{
+    domain: { x: [0, 1], y: [0, 1] },
+    value: 35,
+    title: { text: "Difficulty"},
+    type: "indicator",
+    mode: "gauge+number",
+    gauge: {
+        axis: {
+            range: [0, 100]
+        },
+        bar: {
+            color: "gold"
+        }
+    }
+}
+];
+
+var layout = { width: 300, 
+            height: 200, 
+            margin: { t: 0, b: 0 }, 
+            font: {family: "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif"},
+            annotations: [{x: 0.5, y: 0.18, xref: 'paper', yref: 'paper', text: "The average score on this problem was 65%.", showarrow: false}],
+            plot_bgcolor:"#d0e2ff",
+            paper_bgcolor:"#d0e2ff"};
+Plotly.newPlot('myDiv-example', data, layout, {displayModeBar: false});
+</script>
+
+The difficulty of a problem is $100 - \text{average score on the problem}$. Difficulty is a little subjective, as different groups of students perform differently on exams. With that said, the difficulty meters should help you gauge your preparedness for upcoming exams.</div>

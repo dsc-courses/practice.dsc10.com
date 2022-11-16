@@ -80,6 +80,10 @@ def create_top_info(params, is_discussion=False):
 
     inst_info = f"**Instructor(s):** {params['instructors']}" if not is_discussion else ''
 
+    if 'average' in params:
+        avg_logic = gauge_repl([f'<average>{params["average"]}</average>'], exam=True)
+        avg_logic = f'<details><summary>Click to view the overall difficulty of this exam.</summary> <br> {avg_logic} </details>'
+
     return f'''
 [&#8592; return to practice.dsc10.com](../index.html)
 
@@ -88,6 +92,8 @@ def create_top_info(params, is_discussion=False):
 {inst_info}
 
 {params['context']}
+
+{avg_logic}
 
 ---
 
@@ -297,56 +303,60 @@ def process_problem_with_subparts(problem_str, problem_num, show_solution):
         
     return out
 
+# renders gauge
+AVG_REGEXP = r'<average>(\d+)<\/average>'
+def gauge_repl(matchobj, exam=False):
+    global GAUGE_COUNT
+    GAUGE_COUNT += 1
+    avg_int = int(re.findall(AVG_REGEXP, matchobj[0])[0])
+    diff_int = 100 - avg_int # difficulty = 100 - average score on problem; in the problem .md files, specify averages
+    if exam:
+        caption = f'The average score on this exam was {avg_int}%.'
+        title = "Overall Difficulty"
+    else:
+        caption = f'The average score on this problem was {avg_int}%.'
+        title = "Difficulty"
+    diff_gauge = '''
+<center><div id="myDiv<num>"></div></center>
+<script type="text/javascript">
+var data = [
+{
+    domain: { x: [0, 1], y: [0, 1] },
+    value: <value>,
+    title: { text: "<title>"},
+    type: "indicator",
+    mode: "gauge+number",
+    gauge: {
+        axis: {
+            range: [0, 100]
+        },
+        bar: {
+            color: "<color>"
+        }
+    }
+}
+];
+
+var layout = { width: 300, 
+            height: 200, 
+            margin: { t: 0, b: 0 }, 
+            font: {family: "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif"},
+            annotations: [{x: 0.5, y: 0.18, xref: 'paper', yref: 'paper', text: "<caption>", showarrow: false}]};
+Plotly.newPlot('myDiv<num>', data, layout, {displayModeBar: false});
+</script>
+'''.replace('<value>', str(diff_int)) \
+    .replace('<num>', str(GAUGE_COUNT)) \
+    .replace('<color>', get_color_from_diff(int(diff_int))) \
+    .replace('<caption>', caption) \
+    .replace('<title>', title)
+
+    return diff_gauge
+
 def process_problem(problem_str, problem_num, show_solution):
 
     assert problem_str.count('# BEGIN PROB') == problem_str.count('# END PROB') == 1, 'Need exactly one # BEGIN PROB and # END PROB pair'
     
-    # GAUGE
-    # Render the gauge, wherever it is
-
-    def gauge_repl(matchobj):
-        global GAUGE_COUNT
-        GAUGE_COUNT += 1
-        avg_int = int(re.findall(r'<average>(\d+)<\/average>', matchobj[0])[0])
-        diff_int = 100 - avg_int # difficulty = 100 - average score on problem; in the problem .md files, specify averages
-        caption = f'The average score on this problem was {avg_int}%.'
-        diff_gauge = '''
-<center><div id="myDiv<num>"></div></center>
-<script type="text/javascript">
-var data = [
-	{
-		domain: { x: [0, 1], y: [0, 1] },
-		value: <value>,
-		title: { text: "Difficulty"},
-		type: "indicator",
-		mode: "gauge+number",
-        gauge: {
-            axis: {
-                range: [0, 100]
-            },
-            bar: {
-                color: "<color>"
-            }
-        }
-	}
-];
-
-var layout = { width: 300, 
-               height: 200, 
-               margin: { t: 0, b: 0 }, 
-               font: {family: "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif"},
-               annotations: [{x: 0.5, y: 0.18, xref: 'paper', yref: 'paper', text: "<caption>", showarrow: false}]};
-Plotly.newPlot('myDiv<num>', data, layout, {displayModeBar: false});
-</script>
-    '''.replace('<value>', str(diff_int)) \
-        .replace('<num>', str(GAUGE_COUNT)) \
-        .replace('<color>', get_color_from_diff(int(diff_int))) \
-        .replace('<caption>', caption)
-
-        return diff_gauge
-
-    problem_str = re.sub(r'<average>(\d+)<\/average>', gauge_repl, problem_str)
-
+    problem_str = re.sub(AVG_REGEXP, gauge_repl, problem_str)
 
     if '# BEGIN SUBPROB' in problem_str:
         assert problem_str.count('# BEGIN SUBPROB') == problem_str.count('# END SUBPROB'), 'Different number of # BEGIN SUBPROB and # END SUBPROB'
