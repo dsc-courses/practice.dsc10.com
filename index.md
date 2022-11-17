@@ -17,7 +17,7 @@ In all cases, you should work on these problems **on paper**, since your exams w
 
 **Tip:** Keep the <a href='https://drive.google.com/file/d/1mQApk9Ovdi-QVqMgnNcq5dZcWucUKoG-/view?usp=sharing'>DSC 10 Reference Sheet<a> open in another tab. **You will have access to the Reference Sheet during exams (but no other resources).**
 
-<div class="alert alert-success" role="alert"><b>New</b>: In the solutions of most problems, you'll see a difficulty rating between 1 and 5 stars (⭐️ being the easiest and ⭐️⭐️⭐️⭐️⭐️ being the hardest). These ratings depend on the proportion of students that answered the problem correctly when it appeared in an exam. Difficulty is a little subjective, as different groups of students perform differently on exams, but the difficulty ratings should help you gauge your preparedness for upcoming exams.</div>
+<div class="alert alert-success" role="alert"><b>New</b>: In the solutions of most problems, you'll see a difficulty rating between 1 and 5 stars (⭐️ being the easiest and ⭐️⭐️⭐️⭐️⭐️ being the hardest). These ratings depend on the proportion of students that answered the problem correctly when it appeared in an exam. Measuring difficulty by student performance does not take into account the fact that different groups of students will perform differently on exams. With that said, the difficulty ratings should still help you gauge your preparedness for upcoming exams.</div>
 
 ---
 
