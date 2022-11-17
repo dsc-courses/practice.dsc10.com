@@ -15,16 +15,19 @@ DST_FOLDER = 'docs'
 
 GAUGE_COUNT = 0
 
-# helper for gauge
-# this function takes in a difficulty, not an average
-def get_color_from_diff(diff):
-    if diff >= 60:
-        return 'red'
-    elif diff >= 30:
-        return 'gold'
+def get_stars_from_average(avg):
+    if avg >= 90:
+        stars = 1
+    elif avg >= 75:
+        stars = 2
+    elif avg >= 50:
+        stars = 3
+    elif avg >= 30:
+        stars = 4
     else:
-        return 'green'
-#---
+        stars = 5
+    return stars * '⭐️'
+
 
 def delete_folder(path):
     '''Needed for Windows...
@@ -80,10 +83,6 @@ def create_top_info(params, is_discussion=False):
 
     inst_info = f"**Instructor(s):** {params['instructors']}" if not is_discussion else ''
 
-    if 'average' in params:
-        avg_logic = gauge_repl([f'<average>{params["average"]}</average>'], exam=True)
-        avg_logic = f'<details><summary>Click to view the overall difficulty of this exam.</summary> <br> {avg_logic} </details>'
-
     return f'''
 [&#8592; return to practice.dsc10.com](../index.html)
 
@@ -92,8 +91,6 @@ def create_top_info(params, is_discussion=False):
 {inst_info}
 
 {params['context']}
-
-{avg_logic}
 
 ---
 
@@ -305,58 +302,19 @@ def process_problem_with_subparts(problem_str, problem_num, show_solution):
 
 # renders gauge
 AVG_REGEXP = r'<average>(\d+)<\/average>'
-def gauge_repl(matchobj, exam=False):
-    global GAUGE_COUNT
-    GAUGE_COUNT += 1
+def stars_repl(matchobj, exam=False):
+    # global GAUGE_COUNT
+    # GAUGE_COUNT += 1
     avg_int = int(re.findall(AVG_REGEXP, matchobj[0])[0])
-    diff_int = 100 - avg_int # difficulty = 100 - average score on problem; in the problem .md files, specify averages
-    if exam:
-        caption = f'The average score on this exam was {avg_int}%.'
-        title = "Overall Difficulty"
-    else:
-        caption = f'The average score on this problem was {avg_int}%.'
-        title = "Difficulty"
-    diff_gauge = '''
-<center><div id="myDiv<num>"></div></center>
-<script type="text/javascript">
-var data = [
-{
-    domain: { x: [0, 1], y: [0, 1] },
-    value: <value>,
-    title: { text: "<title>"},
-    type: "indicator",
-    mode: "gauge+number",
-    gauge: {
-        axis: {
-            range: [0, 100]
-        },
-        bar: {
-            color: "<color>"
-        }
-    }
-}
-];
-
-var layout = { width: 300, 
-            height: 200, 
-            margin: { t: 0, b: 0 }, 
-            font: {family: "-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif"},
-            annotations: [{x: 0.5, y: 0.18, xref: 'paper', yref: 'paper', text: "<caption>", showarrow: false}]};
-Plotly.newPlot('myDiv<num>', data, layout, {displayModeBar: false});
-</script>
-'''.replace('<value>', str(diff_int)) \
-    .replace('<num>', str(GAUGE_COUNT)) \
-    .replace('<color>', get_color_from_diff(int(diff_int))) \
-    .replace('<caption>', caption) \
-    .replace('<title>', title)
-
-    return diff_gauge
+    stars = get_stars_from_average(avg_int)
+    kind = 'exam' if exam else 'problem'
+    return f'<br><hr><h5>Difficulty: {stars}</h5><p>The average score on this {kind} was {avg_int}%.'
 
 def process_problem(problem_str, problem_num, show_solution):
 
     assert problem_str.count('# BEGIN PROB') == problem_str.count('# END PROB') == 1, 'Need exactly one # BEGIN PROB and # END PROB pair'
     
-    problem_str = re.sub(AVG_REGEXP, gauge_repl, problem_str)
+    problem_str = re.sub(AVG_REGEXP, stars_repl, problem_str)
 
     if '# BEGIN SUBPROB' in problem_str:
         assert problem_str.count('# BEGIN SUBPROB') == problem_str.count('# END SUBPROB'), 'Different number of # BEGIN SUBPROB and # END SUBPROB'

@@ -77,31 +77,39 @@
     code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="../assets/theme.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.js"></script>
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
-   var mathElements = document.getElementsByClassName("math");
-   var macros = [];
-   for (var i = 0; i < mathElements.length; i++) {
-    var texText = mathElements[i].firstChild;
-    if (mathElements[i].tagName == "SPAN") {
-     katex.render(texText.data, mathElements[i], {
-      displayMode: mathElements[i].classList.contains('display'),
-      throwOnError: false,
-      macros: macros,
-      fleqn: false
-     });
-  }}});
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
   </script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css" />
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
 </head>
 <body>
 <header id="title-block-header">
-<h1 class="title">Discussion 7: Hypothesis Testing and Permutation Testing</h1>
+<h1 class="title">Discussion 7: Hypothesis Testing and Permutation
+Testing</h1>
 </header>
-<p><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> <!-- add after bootstrap.min.css --> <link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css"/> <!-- add after bootstrap.min.js or bootstrap.bundle.min.js --> <script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script></p>
+<p><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<!-- add after bootstrap.min.css -->
+<link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css"/>
+<!-- add after bootstrap.min.js or bootstrap.bundle.min.js -->
+<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script></p>
 <!-- for difficulty gauges-->
 <script src="https://cdn.plot.ly/plotly-2.16.1.min.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -115,47 +123,86 @@
 </script>
 <p><a href="../index.html">← return to practice.dsc10.com</a></p>
 <hr />
-<p>The problems in this worksheet are taken from past exams. Work on them <strong>on paper</strong>, since the exams you take in this course will also be on paper. <br><br>We encourage you to complete this worksheet in a discussion section, which is held live on Monday, November 7th. Solutions will be made available after all discussion sections have concluded. You don’t need to submit your answers anywhere.<br><br><b>Note: We do not plan to cover all problems here in the live discussion section</b>; the problems we don’t cover can be used for extra practice.</p>
+<p>The problems in this worksheet are taken from past exams. Work on
+them <strong>on paper</strong>, since the exams you take in this course
+will also be on paper. <br><br>We encourage you to complete this
+worksheet in a discussion section, which is held live on Monday,
+November 7th. Solutions will be made available after all discussion
+sections have concluded. You don’t need to submit your answers
+anywhere.<br><br><b>Note: We do not plan to cover all problems here in
+the live discussion section</b>; the problems we don’t cover can be used
+for extra practice.</p>
 <hr />
 <h2 id="problem-1">Problem 1</h2>
-<p>For this question, we will use data from the 2021 Women’s National Basketball Association (WNBA) season for the next several problems. In basketball, players score points by shooting the ball into a hoop. The team that scores the most points wins the game.</p>
-<p>Kelsey Plum, a WNBA player, attended La Jolla Country Day School, which is adjacent to UCSD’s campus. Her current team is the Las Vegas Aces (three-letter code <code>'LVA'</code>). <strong>In 2021, the Las Vegas Aces played 31 games, and Kelsey Plum played in all 31.</strong></p>
-<p>The DataFrame <code>plum</code> contains her stats for all games the Las Vegas Aces played in 2021. The first few rows of <code>plum</code> are shown below (though the full DataFrame has 31 rows, not 5):</p>
+<p>For this question, we will use data from the 2021 Women’s National
+Basketball Association (WNBA) season for the next several problems. In
+basketball, players score points by shooting the ball into a hoop. The
+team that scores the most points wins the game.</p>
+<p>Kelsey Plum, a WNBA player, attended La Jolla Country Day School,
+which is adjacent to UCSD’s campus. Her current team is the Las Vegas
+Aces (three-letter code <code>'LVA'</code>). <strong>In 2021, the Las
+Vegas Aces played 31 games, and Kelsey Plum played in all
+31.</strong></p>
+<p>The DataFrame <code>plum</code> contains her stats for all games the
+Las Vegas Aces played in 2021. The first few rows of <code>plum</code>
+are shown below (though the full DataFrame has 31 rows, not 5):</p>
 <center><img src='../assets/images/wi22-final/plum.png' width=40%></center>
-<p>Each row in <code>plum</code> corresponds to a single game. For each game, we have:</p>
+<p>Each row in <code>plum</code> corresponds to a single game. For each
+game, we have:</p>
 <ul>
-<li><code>'Date'</code> (<code>str</code>), the date on which the game was played</li>
-<li><code>'Opp'</code> (<code>str</code>), the three-letter code of the opponent team</li>
-<li><code>'Home'</code> (<code>bool</code>), <code>True</code> if the game was played in Las Vegas (“home”) and <code>False</code> if it was played at the opponent’s arena (“away”)</li>
-<li><code>'Won'</code> (<code>bool</code>), <code>True</code> if the Las Vegas Aces won the game and <code>False</code> if they lost</li>
-<li><code>'PTS'</code> (<code>int</code>), the number of points Kelsey Plum scored in the game</li>
-<li><code>'AST'</code> (<code>int</code>), the number of assists (passes) Kelsey Plum made in the game</li>
-<li><code>'TOV'</code> (<code>int</code>), the number of turnovers Kelsey Plum made in the game (a turnover is when you lose the ball – turnovers are bad!) <br><br></li>
+<li><code>'Date'</code> (<code>str</code>), the date on which the game
+was played</li>
+<li><code>'Opp'</code> (<code>str</code>), the three-letter code of the
+opponent team</li>
+<li><code>'Home'</code> (<code>bool</code>), <code>True</code> if the
+game was played in Las Vegas (“home”) and <code>False</code> if it was
+played at the opponent’s arena (“away”)</li>
+<li><code>'Won'</code> (<code>bool</code>), <code>True</code> if the Las
+Vegas Aces won the game and <code>False</code> if they lost</li>
+<li><code>'PTS'</code> (<code>int</code>), the number of points Kelsey
+Plum scored in the game</li>
+<li><code>'AST'</code> (<code>int</code>), the number of assists
+(passes) Kelsey Plum made in the game</li>
+<li><code>'TOV'</code> (<code>int</code>), the number of turnovers
+Kelsey Plum made in the game (a turnover is when you lose the ball –
+turnovers are bad!) <br><br></li>
 </ul>
-<p>Consider the definition of the function <code>diff_in_group_means</code>:</p>
+<p>Consider the definition of the function
+<code>diff_in_group_means</code>:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> diff_in_group_means(df, group_col, num_col):</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    s <span class="op">=</span> df.groupby(group_col).mean().get(num_col)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> s.loc[<span class="va">False</span>] <span class="op">-</span> s.loc[<span class="va">True</span>]</span></code></pre></div>
 <p><br></p>
 <h3 id="problem-1.1">Problem 1.1</h3>
-<p>It turns out that Kelsey Plum averages 0.61 more assists in games that she wins than in games that she loses. After observing that Kelsey Plum averages more assists in winning games than in losing games, we become interested in conducting a permutation test for the following hypotheses:</p>
+<p>It turns out that Kelsey Plum averages 0.61 more assists in games
+that she wins than in games that she loses. After observing that Kelsey
+Plum averages more assists in winning games than in losing games, we
+become interested in conducting a permutation test for the following
+hypotheses:</p>
 <ul>
-<li><strong>Null Hypothesis:</strong> The number of assists Kelsey Plum makes in winning games and in losing games come from the same distribution.</li>
-<li><strong>Alternative Hypothesis:</strong> The number of assists Kelsey Plum makes in winning games is higher on average than the number of assists that she makes in losing games.</li>
+<li><strong>Null Hypothesis:</strong> The number of assists Kelsey Plum
+makes in winning games and in losing games come from the same
+distribution.</li>
+<li><strong>Alternative Hypothesis:</strong> The number of assists
+Kelsey Plum makes in winning games is higher on average than the number
+of assists that she makes in losing games.</li>
 </ul>
-<p>To conduct our permutation test, we place the following code in a <code>for</code>-loop.</p>
+<p>To conduct our permutation test, we place the following code in a
+<code>for</code>-loop.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>won <span class="op">=</span> plum.get(<span class="st">&#39;Won&#39;</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>ast <span class="op">=</span> plum.get(<span class="st">&#39;AST&#39;</span>)</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>shuffled <span class="op">=</span> plum.assign(Won_shuffled<span class="op">=</span>np.random.permutation(won)) <span class="op">\</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>               .assign(AST_shuffled<span class="op">=</span>np.random.permutation(ast))</span></code></pre></div>
-<p>Which of the following options <strong>does not</strong> compute a valid simulated test statistic for this permutation test?</p>
+<p>Which of the following options <strong>does not</strong> compute a
+valid simulated test statistic for this permutation test?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> <code>diff_in_group_means(shuffled, 'Won', 'AST')</code></p></li>
 <li><p><input type="radio" disabled="" /> <code>diff_in_group_means(shuffled, 'Won', 'AST_shuffled')</code></p></li>
 <li><p><input type="radio" disabled="" /> <code>diff_in_group_means(shuffled, 'Won_shuffled, 'AST')</code></p></li>
 <li><p><input type="radio" disabled="" /> <code>diff_in_group_means(shuffled, 'Won_shuffled, 'AST_shuffled')</code></p></li>
-<li><p><input type="radio" disabled="" /> More than one of these options do not compute a valid simulated test statistic for this permutation test</p></li>
+<li><p><input type="radio" disabled="" /> More than one of these options do not compute a valid simulated test
+statistic for this permutation test</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
@@ -164,34 +211,68 @@
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse1_1" class="accordion-collapse collapse collapse" aria-labelledby="heading1_1" data-bs-parent="#accordionExample">
+<div id="collapse1_1" class="accordion-collapse collapse collapse"
+aria-labelledby="heading1_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer:</strong> <code>diff_in_group_means(shuffled, 'Won', 'AST')</code></p>
-<p><code>diff_in_group_means(shuffled, 'Won', 'AST')</code> computes the observed test statistic, which is -0.61. There is no randomness involved in the observed test statistic; each time we run the line <code>diff_in_group_means(shuffled, 'Won', 'AST')</code> we will see the same result, so this cannot be used for simulation.</p>
-<p>To perform a permutation test here, we need to simulate under the null by randomly assigning assist counts to groups; here, the groups are “win” and “loss”.</p>
+<p><strong>Answer:</strong>
+<code>diff_in_group_means(shuffled, 'Won', 'AST')</code></p>
+<p><code>diff_in_group_means(shuffled, 'Won', 'AST')</code> computes the
+observed test statistic, which is -0.61. There is no randomness involved
+in the observed test statistic; each time we run the line
+<code>diff_in_group_means(shuffled, 'Won', 'AST')</code> we will see the
+same result, so this cannot be used for simulation.</p>
+<p>To perform a permutation test here, we need to simulate under the
+null by randomly assigning assist counts to groups; here, the groups are
+“win” and “loss”.</p>
 <ul>
-<li><strong>Option 2:</strong> Here, assist counts are shuffled and the group names are kept in the same order. The end result is a random pairing of assists to groups.</li>
-<li><strong>Option 3:</strong> Here, the group names are shuffled and the assist counts are kept in the same order. The end result is a random pairing of assist counts to groups.</li>
-<li><strong>Option 4:</strong> Here, both the group names and assist counts are shuffled, but the end result is still the same as in the previous two options.</li>
+<li><strong>Option 2:</strong> Here, assist counts are shuffled and the
+group names are kept in the same order. The end result is a random
+pairing of assists to groups.</li>
+<li><strong>Option 3:</strong> Here, the group names are shuffled and
+the assist counts are kept in the same order. The end result is a random
+pairing of assist counts to groups.</li>
+<li><strong>Option 4:</strong> Here, both the group names and assist
+counts are shuffled, but the end result is still the same as in the
+previous two options.</li>
 </ul>
-<p>As such, Options 2 through 4 are all valid, and Option 1 is the only invalid one.</p>
+<p>As such, Options 2 through 4 are all valid, and Option 1 is the only
+invalid one.</p>
+<p><br/></p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>The average score on this
+problem was 68%.</p>
 </div>
 </div>
 </div>
 </div>
 <p><br></p>
 <h3 id="problem-1.2">Problem 1.2</h3>
-<p>Suppose we generate 10,000 simulated test statistics, using one of the valid options from Question 1.1. The empirical distribution of test statistics, with a red line at <code>observed_diff</code>, is shown below.</p>
+<p>Suppose we generate 10,000 simulated test statistics, using one of
+the valid options from Question 1.1. The empirical distribution of test
+statistics, with a red line at <code>observed_diff</code>, is shown
+below.</p>
 <center><img src='../assets/images/wi22-final/quarter-hist.png' width=50%></center>
-<p>Roughly one-quarter of the area of the histogram above is to the left of the red line. What is the correct interpretation of this result?</p>
+<p>Roughly one-quarter of the area of the histogram above is to the left
+of the red line. What is the correct interpretation of this result?</p>
 <ul class="task-list">
-<li><p><input type="radio" disabled="" /> There is roughly a one quarter probability that Kelsey Plum’s number of assists in winning games and in losing games come from the same distribution.</p></li>
-<li><p><input type="radio" disabled="" /> The significance level of this hypothesis test is roughly a quarter.</p></li>
-<li><p><input type="radio" disabled="" /> Under the assumption that Kelsey Plum’s number of assists in winning games and in losing games come from the same distribution, and that she wins 22 of the 31 games she plays, the chance of her averaging <strong>at least</strong> 0.61 more assists in wins than losses is roughly a quarter.</p></li>
-<li><p><input type="radio" disabled="" /> Under the assumption that Kelsey Plum’s number of assists in winning games and in losing games come from the same distribution, and that she wins 22 of the 31 games she plays, the chance of her averaging 0.61 more assists in wins than losses is roughly a quarter.</p></li>
+<li><p><input type="radio" disabled="" /> There is roughly a one quarter probability that Kelsey Plum’s number
+of assists in winning games and in losing games come from the same
+distribution.</p></li>
+<li><p><input type="radio" disabled="" /> The significance level of this hypothesis test is roughly a
+quarter.</p></li>
+<li><p><input type="radio" disabled="" /> Under the assumption that Kelsey Plum’s number of assists in winning
+games and in losing games come from the same distribution, and that she
+wins 22 of the 31 games she plays, the chance of her averaging
+<strong>at least</strong> 0.61 more assists in wins than losses is
+roughly a quarter.</p></li>
+<li><p><input type="radio" disabled="" /> Under the assumption that Kelsey Plum’s number of assists in winning
+games and in losing games come from the same distribution, and that she
+wins 22 of the 31 games she plays, the chance of her averaging 0.61 more
+assists in wins than losses is roughly a quarter.</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
@@ -200,19 +281,55 @@ Click to view the solution.
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse1_2" class="accordion-collapse collapse collapse" aria-labelledby="heading1_2" data-bs-parent="#accordionExample">
+<div id="collapse1_2" class="accordion-collapse collapse collapse"
+aria-labelledby="heading1_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer:</strong> Under the assumption that Kelsey Plum’s number of assists in winning games and in losing games come from the same distribution, and that she wins 22 of the 31 games she plays, the chance of her averaging <strong>at least</strong> 0.61 more assists in wins than losses is roughly a quarter. (Option 3)</p>
-<p>First, we should note that the area to the left of the red line (a quarter) is the p-value of our hypothesis test. Generally, the p-value is the probability of observing an outcome as or more extreme than the observed, under the assumption that the null hypothesis is true. The direction to look in depends on the alternate hypothesis; here, since our alternative hypothesis is that the number of assists Kelsey Plum makes in winning games is higher on average than in losing games, a “more extreme” outcome is where the assists in winning games are higher than in losing games, i.e. where <span class="math inline">\text{(assists in wins)} - \text{(assists in losses)}</span> is positive or where <span class="math inline">\text{(assists in losses)} - \text{(assists in wins)}</span> is negative. As mentioned in the solution to the first subpart, our test statistic is <span class="math inline">\text{(assists in losses)} - \text{(assists in wins)}</span>, so a more extreme outcome is one where this is negative, i.e. to the left of the observed statistic.</p>
+<p><strong>Answer:</strong> Under the assumption that Kelsey Plum’s
+number of assists in winning games and in losing games come from the
+same distribution, and that she wins 22 of the 31 games she plays, the
+chance of her averaging <strong>at least</strong> 0.61 more assists in
+wins than losses is roughly a quarter. (Option 3)</p>
+<p>First, we should note that the area to the left of the red line (a
+quarter) is the p-value of our hypothesis test. Generally, the p-value
+is the probability of observing an outcome as or more extreme than the
+observed, under the assumption that the null hypothesis is true. The
+direction to look in depends on the alternate hypothesis; here, since
+our alternative hypothesis is that the number of assists Kelsey Plum
+makes in winning games is higher on average than in losing games, a
+“more extreme” outcome is where the assists in winning games are higher
+than in losing games, i.e. where <span class="math inline">\text{(assists in wins)} - \text{(assists in
+losses)}</span> is positive or where <span class="math inline">\text{(assists in losses)} - \text{(assists in
+wins)}</span> is negative. As mentioned in the solution to the first
+subpart, our test statistic is <span class="math inline">\text{(assists
+in losses)} - \text{(assists in wins)}</span>, so a more extreme outcome
+is one where this is negative, i.e. to the left of the observed
+statistic.</p>
 <p>Let’s first rule out the first two options.</p>
 <ul>
-<li><strong>Option 1:</strong> This option states that the probability that the null hypothesis (the number of assists she makes in winning and losing games comes from the same distribution) is true is roughly a quarter. However, the p-value <strong>is not</strong> the probability that the null hypothesis is true.</li>
-<li><strong>Option 2:</strong> The significance level is the formal name for the p-value “cutoff” that we specify in our hypothesis test. There is no cutoff mentioned in the problem. The <em>observed</em> significance level is another name for the p-value, but Option 2 did not contain the word <em>observed</em>.</li>
+<li><strong>Option 1:</strong> This option states that the probability
+that the null hypothesis (the number of assists she makes in winning and
+losing games comes from the same distribution) is true is roughly a
+quarter. However, the p-value <strong>is not</strong> the probability
+that the null hypothesis is true.</li>
+<li><strong>Option 2:</strong> The significance level is the formal name
+for the p-value “cutoff” that we specify in our hypothesis test. There
+is no cutoff mentioned in the problem. The <em>observed</em>
+significance level is another name for the p-value, but Option 2 did not
+contain the word <em>observed</em>.</li>
 </ul>
-<p>Now, the only difference between Options 3 and 4 is the inclusion of “at least” in Option 3. Remember, to compute a p-value we must compute the probability of observing something as <strong>or more</strong> extreme than the observed, under the null. The “or more” corresponds to “at least” in Option 3. As such, Option 3 is the correct choice.</p>
+<p>Now, the only difference between Options 3 and 4 is the inclusion of
+“at least” in Option 3. Remember, to compute a p-value we must compute
+the probability of observing something as <strong>or more</strong>
+extreme than the observed, under the null. The “or more” corresponds to
+“at least” in Option 3. As such, Option 3 is the correct choice.</p>
+<p><br/></p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>The average score on this
+problem was 70%.</p>
 </div>
 </div>
 </div>
@@ -220,17 +337,28 @@ Click to view the solution.
 <p><br></p>
 <hr />
 <h2 id="problem-2">Problem 2</h2>
-<p>Let’s suppose there are 4 different types of shots a basketball player can take – layups, midrange shots, threes, and free throws.</p>
-<p>The DataFrame <code>breakdown</code> has 4 rows and 50 columns – one row for each of the 4 shot types mentioned above, and one column for each of 50 different players. Each column of <code>breakdown</code> describes the distribution of shot types for a single player.</p>
+<p>Let’s suppose there are 4 different types of shots a basketball
+player can take – layups, midrange shots, threes, and free throws.</p>
+<p>The DataFrame <code>breakdown</code> has 4 rows and 50 columns – one
+row for each of the 4 shot types mentioned above, and one column for
+each of 50 different players. Each column of <code>breakdown</code>
+describes the distribution of shot types for a single player.</p>
 <p>The first few columns of <code>breakdown</code> are shown below.</p>
 <center><img src='../assets/images/wi22-final/head-to-head.png' width=30%></center>
-<p>For instance, 30% of Kelsey Plum’s shots are layups, 30% of her shots are midrange shots, 20% of her shots are threes, and 20% of her shots are free throws.</p>
+<p>For instance, 30% of Kelsey Plum’s shots are layups, 30% of her shots
+are midrange shots, 20% of her shots are threes, and 20% of her shots
+are free throws.</p>
 <p><br></p>
 <h3 id="problem-2.1">Problem 2.1</h3>
-<p>Below, we’ve drawn an overlaid bar chart showing the shot distributions of Kelsey Plum and Chiney Ogwumike, a player on the Los Angeles Sparks.</p>
+<p>Below, we’ve drawn an overlaid bar chart showing the shot
+distributions of Kelsey Plum and Chiney Ogwumike, a player on the Los
+Angeles Sparks.</p>
 <center><img src='../assets/images/wi22-final/tvd.png' width=50%></center>
 <p><br></p>
-<p>What is the <strong>total variation distance</strong> (TVD) between Kelsey Plum’s shot distribution and Chiney Ogwumike’s shot distribution? Give your answer as a <strong>proportion</strong> between 0 and 1 (not a percentage) rounded to three decimal places.</p>
+<p>What is the <strong>total variation distance</strong> (TVD) between
+Kelsey Plum’s shot distribution and Chiney Ogwumike’s shot distribution?
+Give your answer as a <strong>proportion</strong> between 0 and 1 (not a
+percentage) rounded to three decimal places.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading2_1">
@@ -238,29 +366,46 @@ Click to view the solution.
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse2_1" class="accordion-collapse collapse collapse" aria-labelledby="heading2_1" data-bs-parent="#accordionExample">
+<div id="collapse2_1" class="accordion-collapse collapse collapse"
+aria-labelledby="heading2_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer:</strong> 0.2</p>
-<p>Recall, the TVD is the sum of the absolute differences in proportions, divided by 2. The absolute differences in proportions for each category are as follows:</p>
+<p>Recall, the TVD is the sum of the absolute differences in
+proportions, divided by 2. The absolute differences in proportions for
+each category are as follows:</p>
 <ul>
-<li>Free Throws: <span class="math inline">|0.05 - 0.2| = 0.15</span></li>
+<li>Free Throws: <span class="math inline">|0.05 - 0.2| =
+0.15</span></li>
 <li>Threes: <span class="math inline">|0.35 - 0.2| = 0.15</span></li>
 <li>Midrange: <span class="math inline">|0.35 - 0.3| = 0.05</span></li>
 <li>Layups: <span class="math inline">|0.25 - 0.3| = 0.05</span></li>
 </ul>
 <p>Then, we have</p>
-<p><span class="math display">\text{TVD} = \frac{1}{2} (0.15 + 0.15 + 0.05 + 0.05) = 0.2</span></p>
+<p><span class="math display">\text{TVD} = \frac{1}{2} (0.15 + 0.15 +
+0.05 + 0.05) = 0.2</span></p>
+<p><br/></p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>The average score on this problem
+was 84%.</p>
 </div>
 </div>
 </div>
 </div>
 <p><br></p>
 <h3 id="problem-2.2">Problem 2.2</h3>
-<p>Recall, <code>breakdown</code> has information for 50 different players. We want to find the player whose shot distribution is the <strong>most similar to Kelsey Plum</strong>, i.e. has the lowest TVD with Kelsey Plum’s shot distribution.</p>
-<p>Fill in the blanks below so that <code>most_sim_player</code> evaluates to the name of the player with the most similar shot distribution to Kelsey Plum. Assume that the column named <code>'Kelsey Plum'</code> is the first column in <code>breakdown</code> (and again that <code>breakdown</code> has 50 columns total).</p>
+<p>Recall, <code>breakdown</code> has information for 50 different
+players. We want to find the player whose shot distribution is the
+<strong>most similar to Kelsey Plum</strong>, i.e. has the lowest TVD
+with Kelsey Plum’s shot distribution.</p>
+<p>Fill in the blanks below so that <code>most_sim_player</code>
+evaluates to the name of the player with the most similar shot
+distribution to Kelsey Plum. Assume that the column named
+<code>'Kelsey Plum'</code> is the first column in <code>breakdown</code>
+(and again that <code>breakdown</code> has 50 columns total).</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>most_sim_player <span class="op">=</span> <span class="st">&#39;&#39;</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>lowest_tvd_so_far <span class="op">=</span> __(a)__</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>other_players <span class="op">=</span> np.array(breakdown.columns).take(__(b)__)</span>
@@ -293,30 +438,98 @@ Click to view the solution.
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse2_2" class="accordion-collapse collapse collapse" aria-labelledby="heading2_2" data-bs-parent="#accordionExample">
+<div id="collapse2_2" class="accordion-collapse collapse collapse"
+aria-labelledby="heading2_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answers:</strong> 1, <code>np.arange(1, 50)</code>, <code>most_sim_player = player</code></p>
-<p>Let’s try and understand the code provided to us. It appears that we’re looping over the names of all other players, each time computing the TVD between Kelsey Plum’s shot distribution and that player’s shot distribution. If the TVD calculated in an iteration of the <code>for</code>-loop (<code>player_tvd</code>) is less than the previous lowest TVD (<code>lowest_tvd_so_far</code>), the current player (<code>player</code>) is now the most “similar” to Kelsey Plum, and so we store their TVD and name (in <code>most_sim_player</code>).</p>
-<p>Before the <code>for</code>-loop, we haven’t looked at any other players, so we don’t have values to store in <code>most_sim_player</code> and <code>lowest_tvd_so_far</code>. On the first iteration of the <code>for</code>-loop, both of these values need to be updated to reflect Kelsey Plum’s similarity with the first player in <code>other_players</code>. This is because, if we’ve only looked at one player, that player is the most similar to Kelsey Plum. <code>most_sim_player</code> is already initialized as an empty string, and we will specify how to “update” <code>most_sim_player</code> in blank (c). For blank (a), we need to pick a value of <code>lowest_tvd_so_far</code> that we can <strong>guarantee</strong> will be updated on the first iteration of the <code>for</code>-loop. Recall, TVDs range from 0 to 1, with 0 meaning “most similar” and 1 meaning “most different”. This means that no matter what, the TVD between Kelsey Plum’s distribution and the first player’s distribution will be less than 1*, and so if we initialize <code>lowest_tvd_so_far</code> to 1 before the <code>for</code>-loop, we know it will be updated on the first iteration.</p>
+<p><strong>Answers:</strong> 1, <code>np.arange(1, 50)</code>,
+<code>most_sim_player = player</code></p>
+<p>Let’s try and understand the code provided to us. It appears that
+we’re looping over the names of all other players, each time computing
+the TVD between Kelsey Plum’s shot distribution and that player’s shot
+distribution. If the TVD calculated in an iteration of the
+<code>for</code>-loop (<code>player_tvd</code>) is less than the
+previous lowest TVD (<code>lowest_tvd_so_far</code>), the current player
+(<code>player</code>) is now the most “similar” to Kelsey Plum, and so
+we store their TVD and name (in <code>most_sim_player</code>).</p>
+<p>Before the <code>for</code>-loop, we haven’t looked at any other
+players, so we don’t have values to store in
+<code>most_sim_player</code> and <code>lowest_tvd_so_far</code>. On the
+first iteration of the <code>for</code>-loop, both of these values need
+to be updated to reflect Kelsey Plum’s similarity with the first player
+in <code>other_players</code>. This is because, if we’ve only looked at
+one player, that player is the most similar to Kelsey Plum.
+<code>most_sim_player</code> is already initialized as an empty string,
+and we will specify how to “update” <code>most_sim_player</code> in
+blank (c). For blank (a), we need to pick a value of
+<code>lowest_tvd_so_far</code> that we can <strong>guarantee</strong>
+will be updated on the first iteration of the <code>for</code>-loop.
+Recall, TVDs range from 0 to 1, with 0 meaning “most similar” and 1
+meaning “most different”. This means that no matter what, the TVD
+between Kelsey Plum’s distribution and the first player’s distribution
+will be less than 1*, and so if we initialize
+<code>lowest_tvd_so_far</code> to 1 before the <code>for</code>-loop, we
+know it will be updated on the first iteration.</p>
 <ul>
-<li>It’s possible that the TVD between Kelsey Plum’s shot distribution and the first other player’s shot distribution is equal to 1, rather than being less than 1. If that were to happen, our code would still generate the correct answer, but <code>lowest_tvd_so_far</code> and <code>most_sim_player</code> wouldn’t be updated on the first iteration. Rather, they’d be updated on the first iteration where <code>player_tvd</code> is strictly less than 1. (We’d expect that the TVDs between all pairs of players are neither exactly 0 nor exactly 1, so this is not a practical issue.) To avoid this issue entirely, we could change <code>if player_tvd &lt; lowest_tvd_so_far</code> to <code>if player_tvd &lt;= lowest_tvd_so_far</code>, which would make sure that even if the first TVD is 1, both <code>lowest_tvd_so_far</code> and <code>most_sim_player</code> are updated on the first iteration.</li>
-<li>Note that we could have initialized <code>lowest_tvd_so_far</code> to a value larger than 1 as well. Suppose we initialized it to 55 (an arbitrary positive integer). On the first iteration of the <code>for</code>-loop, <code>player_tvd</code> will be less than 55, and so <code>lowest_tvd_so_far</code> will be updated.</li>
+<li>It’s possible that the TVD between Kelsey Plum’s shot distribution
+and the first other player’s shot distribution is equal to 1, rather
+than being less than 1. If that were to happen, our code would still
+generate the correct answer, but <code>lowest_tvd_so_far</code> and
+<code>most_sim_player</code> wouldn’t be updated on the first iteration.
+Rather, they’d be updated on the first iteration where
+<code>player_tvd</code> is strictly less than 1. (We’d expect that the
+TVDs between all pairs of players are neither exactly 0 nor exactly 1,
+so this is not a practical issue.) To avoid this issue entirely, we
+could change <code>if player_tvd &lt; lowest_tvd_so_far</code> to
+<code>if player_tvd &lt;= lowest_tvd_so_far</code>, which would make
+sure that even if the first TVD is 1, both
+<code>lowest_tvd_so_far</code> and <code>most_sim_player</code> are
+updated on the first iteration.</li>
+<li>Note that we could have initialized <code>lowest_tvd_so_far</code>
+to a value larger than 1 as well. Suppose we initialized it to 55 (an
+arbitrary positive integer). On the first iteration of the
+<code>for</code>-loop, <code>player_tvd</code> will be less than 55, and
+so <code>lowest_tvd_so_far</code> will be updated.</li>
 </ul>
-<p>Then, we need <code>other_players</code> to be an array containing the names of all players other than Kelsey Plum, whose name is stored at position 0 in <code>breakdown.columns</code>. We are told that there are 50 players total, i.e. that there are 50 columns in <code>breakdown</code>. We want to <code>take</code> the elements in <code>breakdown.columns</code> at positions 1, 2, 3, …, 49 (the last element), and the call to <code>np.arange</code> that generates this sequence of positions is <code>np.arange(1, 50)</code>. (Remember, <code>np.arange(a, b)</code> does not include the second integer!)</p>
-<p>In blank (c), as mentioned in the explanation for blank (a), we need to update the value of <code>most_sim_player</code>. (Note that we only arrive at this line if <code>player_tvd</code> is the lowest pairwise TVD we’ve seen so far.) All this requires is <code>most_sim_player = player</code>, since <code>player</code> contains the name of the player who we are looking at in the current iteration of the <code>for</code>-loop.</p>
+<p>Then, we need <code>other_players</code> to be an array containing
+the names of all players other than Kelsey Plum, whose name is stored at
+position 0 in <code>breakdown.columns</code>. We are told that there are
+50 players total, i.e. that there are 50 columns in
+<code>breakdown</code>. We want to <code>take</code> the elements in
+<code>breakdown.columns</code> at positions 1, 2, 3, …, 49 (the last
+element), and the call to <code>np.arange</code> that generates this
+sequence of positions is <code>np.arange(1, 50)</code>. (Remember,
+<code>np.arange(a, b)</code> does not include the second integer!)</p>
+<p>In blank (c), as mentioned in the explanation for blank (a), we need
+to update the value of <code>most_sim_player</code>. (Note that we only
+arrive at this line if <code>player_tvd</code> is the lowest pairwise
+TVD we’ve seen so far.) All this requires is
+<code>most_sim_player = player</code>, since <code>player</code>
+contains the name of the player who we are looking at in the current
+iteration of the <code>for</code>-loop.</p>
+<p><br/></p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>The average score on this
+problem was 70%.</p>
 </div>
 </div>
 </div>
 </div>
 <p><br></p>
 <h3 id="problem-2.3">Problem 2.3</h3>
-<p>Let’s again consider the shot distributions of Kelsey Plum and Cheney Ogwumike.</p>
+<p>Let’s again consider the shot distributions of Kelsey Plum and Cheney
+Ogwumike.</p>
 <center><img src='../assets/images/wi22-final/tvd.png' width=50%></center>
-<p>We define the <strong>maximum squared distance</strong> (MSD) between two categorical distributions as the <strong>largest squared difference between the proportions of any category</strong>.</p>
-<p>What is the MSD between Kelsey Plum’s shot distribution and Chiney Ogwumike’s shot distribution? Give your answer as a <strong>proportion</strong> between 0 and 1 (not a percentage) rounded to three decimal places.</p>
+<p>We define the <strong>maximum squared distance</strong> (MSD) between
+two categorical distributions as the <strong>largest squared difference
+between the proportions of any category</strong>.</p>
+<p>What is the MSD between Kelsey Plum’s shot distribution and Chiney
+Ogwumike’s shot distribution? Give your answer as a
+<strong>proportion</strong> between 0 and 1 (not a percentage) rounded
+to three decimal places.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading2_3">
@@ -324,27 +537,42 @@ Click to view the solution.
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse2_3" class="accordion-collapse collapse collapse" aria-labelledby="heading2_3" data-bs-parent="#accordionExample">
+<div id="collapse2_3" class="accordion-collapse collapse collapse"
+aria-labelledby="heading2_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer:</strong> 0.023</p>
-<p>Recall, in the solution to the first subpart of this problem, we calculated the absolute differences between the proportions of each category.</p>
+<p>Recall, in the solution to the first subpart of this problem, we
+calculated the absolute differences between the proportions of each
+category.</p>
 <ul>
-<li>Free Throws: <span class="math inline">|0.05 - 0.2| = 0.15</span></li>
+<li>Free Throws: <span class="math inline">|0.05 - 0.2| =
+0.15</span></li>
 <li>Threes: <span class="math inline">|0.35 - 0.2| = 0.15</span></li>
 <li>Midrange: <span class="math inline">|0.35 - 0.3| = 0.05</span></li>
 <li>Layups: <span class="math inline">|0.25 - 0.3| = 0.05</span></li>
 </ul>
-<p>The squared differences between the proportions of each category are computed by squaring the results in the list above (e.g. for Free Throws we’d have <span class="math inline">(0.05 - 0.2)^2 = 0.15^2</span>). To find the maximum squared difference, then, all we need to do is find the largest of <span class="math inline">0.15^2</span>, <span class="math inline">0.15^2</span>, <span class="math inline">0.05^2</span>, and <span class="math inline">0.05^2</span>. Since <span class="math inline">0.15 &gt; 0.05</span>, we have that the maximum squared distance is <span class="math inline">0.15^2 = 0.0225</span>, which rounds to <span class="math inline">0.023</span>.</p>
+<p>The squared differences between the proportions of each category are
+computed by squaring the results in the list above (e.g. for Free Throws
+we’d have <span class="math inline">(0.05 - 0.2)^2 = 0.15^2</span>). To
+find the maximum squared difference, then, all we need to do is find the
+largest of <span class="math inline">0.15^2</span>, <span class="math inline">0.15^2</span>, <span class="math inline">0.05^2</span>, and <span class="math inline">0.05^2</span>. Since <span class="math inline">0.15
+&gt; 0.05</span>, we have that the maximum squared distance is <span class="math inline">0.15^2 = 0.0225</span>, which rounds to <span class="math inline">0.023</span>.</p>
+<p><br/></p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>The average score on this problem
+was 85%.</p>
 </div>
 </div>
 </div>
 </div>
 <p><br></p>
 <h3 id="problem-2.4">Problem 2.4</h3>
-<p>For your convenience, we show the first few columns of <code>breakdown</code> again below.</p>
+<p>For your convenience, we show the first few columns of
+<code>breakdown</code> again below.</p>
 <center><img src='../assets/images/wi22-final/head-to-head.png' width=30%></center>
 <p>In basketball:</p>
 <ul>
@@ -353,8 +581,14 @@ Click to view the solution.
 <li>threes are worth 3 points, and</li>
 <li>free throws are worth 1 point</li>
 </ul>
-<p>Suppose that Kelsey Plum is guaranteed to shoot exactly 10 shots a game. The type of each shot is drawn from the <code>'Kelsey Plum'</code> column of <code>breakdown</code> (meaning that, for example, there is a 30% chance each shot is a layup).</p>
-<p>Fill in the blanks below to complete the definition of the function <code>simulate_points</code>, which simulates the number of points Kelsey Plum scores in a single game. (<code>simulate_points</code> should return a single number.)</p>
+<p>Suppose that Kelsey Plum is guaranteed to shoot exactly 10 shots a
+game. The type of each shot is drawn from the <code>'Kelsey Plum'</code>
+column of <code>breakdown</code> (meaning that, for example, there is a
+30% chance each shot is a layup).</p>
+<p>Fill in the blanks below to complete the definition of the function
+<code>simulate_points</code>, which simulates the number of points
+Kelsey Plum scores in a single game. (<code>simulate_points</code>
+should return a single number.)</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> simulate_points():</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    shots <span class="op">=</span> np.random.multinomial(__(a)__, breakdown.get(<span class="st">&#39;Kelsey Plum&#39;</span>))</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    possible_points <span class="op">=</span> np.array([<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">1</span>])</span>
@@ -370,19 +604,50 @@ Click to view the solution.
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse2_4" class="accordion-collapse collapse collapse" aria-labelledby="heading2_4" data-bs-parent="#accordionExample">
+<div id="collapse2_4" class="accordion-collapse collapse collapse"
+aria-labelledby="heading2_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answers:</strong> <code>10</code>, <code>(shots * possible_points).sum()</code></p>
-<p>To simulate the number of points Kelsey Plum scores in a single game, we need to:</p>
+<p><strong>Answers:</strong> <code>10</code>,
+<code>(shots * possible_points).sum()</code></p>
+<p>To simulate the number of points Kelsey Plum scores in a single game,
+we need to:</p>
 <ol type="1">
-<li>Simulate the number of shots she takes of each type (layups, midranges, threes, free throws).</li>
-<li>Using the simulated distribution in step 1, find the total number of points she scores – specifically, add 2 for every layup, 2 for every midrange, 3 for every three, and 1 for every free throw.</li>
+<li>Simulate the number of shots she takes of each type (layups,
+midranges, threes, free throws).</li>
+<li>Using the simulated distribution in step 1, find the total number of
+points she scores – specifically, add 2 for every layup, 2 for every
+midrange, 3 for every three, and 1 for every free throw.</li>
 </ol>
-<p>To simulate the number of shots she takes of each type, we use <code>np.random.multinomial</code>. This is because each shot, independently of all other shots, has a 30% chance of being a layup, a 30% chance of being a midrange, and so on. What goes in blank (a) is the number of shots she is taking in total; here, that is 10. <code>shots</code> will be an array of length 4 containing the number of shots of each type - for instance, <code>shots</code> may be <code>np.array([3, 4, 2, 1])</code>, which would mean she took 3 layups, 4 midranges, 2 threes, and 1 free throw.</p>
-<p>Now that we have <code>shots</code>, we need to factor in how many points each type of shot is worth. This can be accomplished by multiplying <code>shots</code> with <code>possible_points</code>, which was already defined for us. Using the example where <code>shots</code> is <code>np.array([3, 4, 2, 1])</code>, <code>shots * possible_points</code> evaluates to <code>np.array([6, 8, 6, 1])</code>, which would mean she scored 6 points from layups, 8 points from midranges, and so on. Then, to find the total number of points she scored, we need to compute the sum of this array, either using the <code>np.sum</code> function or <code>.sum()</code> method. As such, the two correct answers for blank (b) are <code>(shots * possible_points).sum()</code> and <code>np.sum(shots * possible_points)</code>.</p>
+<p>To simulate the number of shots she takes of each type, we use
+<code>np.random.multinomial</code>. This is because each shot,
+independently of all other shots, has a 30% chance of being a layup, a
+30% chance of being a midrange, and so on. What goes in blank (a) is the
+number of shots she is taking in total; here, that is 10.
+<code>shots</code> will be an array of length 4 containing the number of
+shots of each type - for instance, <code>shots</code> may be
+<code>np.array([3, 4, 2, 1])</code>, which would mean she took 3 layups,
+4 midranges, 2 threes, and 1 free throw.</p>
+<p>Now that we have <code>shots</code>, we need to factor in how many
+points each type of shot is worth. This can be accomplished by
+multiplying <code>shots</code> with <code>possible_points</code>, which
+was already defined for us. Using the example where <code>shots</code>
+is <code>np.array([3, 4, 2, 1])</code>,
+<code>shots * possible_points</code> evaluates to
+<code>np.array([6, 8, 6, 1])</code>, which would mean she scored 6
+points from layups, 8 points from midranges, and so on. Then, to find
+the total number of points she scored, we need to compute the sum of
+this array, either using the <code>np.sum</code> function or
+<code>.sum()</code> method. As such, the two correct answers for blank
+(b) are <code>(shots * possible_points).sum()</code> and
+<code>np.sum(shots * possible_points)</code>.</p>
+<p><br/></p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>The average score on this problem
+was 84%.</p>
 </div>
 </div>
 </div>
@@ -390,30 +655,63 @@ Click to view the solution.
 <p><br></p>
 <hr />
 <h2 id="problem-3">Problem 3</h2>
-<p>IKEA is a Swedish furniture company that designs and sells ready-to-assemble furniture and other home furnishings.</p>
+<p>IKEA is a Swedish furniture company that designs and sells
+ready-to-assemble furniture and other home furnishings.</p>
 <center><img src='../assets/images/sp22-final/wordless_instructions.png' width=40%></center>
-<p>An IKEA fan created an app where people can log the amount of time it took them to assemble their IKEA furniture. The DataFrame <code>app_data</code> has a row for each product build that was logged on the app. The columns are:</p>
+<p>An IKEA fan created an app where people can log the amount of time it
+took them to assemble their IKEA furniture. The DataFrame
+<code>app_data</code> has a row for each product build that was logged
+on the app. The columns are:</p>
 <ul>
-<li><code>'product'</code> (<code>str</code>): the name of the product, which includes the product line as the first word, followed by a description of the product</li>
-<li><code>'category'</code> (<code>str</code>): a categorical description of the type of product</li>
-<li><code>'assembly_time'</code> (<code>str</code>): the amount of time to assemble the product, formatted as <code>'x hr, y min'</code> where <code>x</code> and <code>y</code> represent integers, possibly zero</li>
+<li><code>'product'</code> (<code>str</code>): the name of the product,
+which includes the product line as the first word, followed by a
+description of the product</li>
+<li><code>'category'</code> (<code>str</code>): a categorical
+description of the type of product</li>
+<li><code>'assembly_time'</code> (<code>str</code>): the amount of time
+to assemble the product, formatted as <code>'x hr, y min'</code> where
+<code>x</code> and <code>y</code> represent integers, possibly zero</li>
 </ul>
-<p>The first few rows of <code>app_data</code> are shown below, though <code>app_data</code> has many more rows than pictured (5000 rows total).</p>
+<p>The first few rows of <code>app_data</code> are shown below, though
+<code>app_data</code> has many more rows than pictured (5000 rows
+total).</p>
 <center><img src='../assets/images/sp22-final/appdatadf.png' height=180></center>
 <p>&nbsp;</p>
-<p>Assume that we have already run <code>import babypandas as bpd</code> and <code>import numpy as np</code>.<br />
+<p>Assume that we have already run <code>import babypandas as bpd</code>
+and <code>import numpy as np</code>.<br />
 <br><br></p>
-<p>You are browsing the IKEA showroom, deciding whether to purchase the BILLY bookcase or the LOMMARP bookcase. You are concerned about the amount of time it will take to assemble your new bookcase, so you look up the assembly times reported in <code>app_data</code>. Thinking of the data in <code>app_data</code> as a random sample of all IKEA purchases, you want to perform a permutation test to test the following hypotheses.</p>
-<p><strong>Null Hypothesis</strong>: The assembly time for the BILLY bookcase and the assembly time for the LOMMARP bookcase come from the same distribution.</p>
-<p><strong>Alternative Hypothesis</strong>: The assembly time for the BILLY bookcase and the assembly time for the LOMMARP bookcase come from different distributions.</p>
+<p>You are browsing the IKEA showroom, deciding whether to purchase the
+BILLY bookcase or the LOMMARP bookcase. You are concerned about the
+amount of time it will take to assemble your new bookcase, so you look
+up the assembly times reported in <code>app_data</code>. Thinking of the
+data in <code>app_data</code> as a random sample of all IKEA purchases,
+you want to perform a permutation test to test the following
+hypotheses.</p>
+<p><strong>Null Hypothesis</strong>: The assembly time for the BILLY
+bookcase and the assembly time for the LOMMARP bookcase come from the
+same distribution.</p>
+<p><strong>Alternative Hypothesis</strong>: The assembly time for the
+BILLY bookcase and the assembly time for the LOMMARP bookcase come from
+different distributions.</p>
 <p><br></p>
 <h3 id="problem-3.1">Problem 3.1</h3>
-<p>Suppose we added a column to <code>app_data</code> called <code>'minutes'</code>, containing the <code>'assembly_time'</code> value for each entry converted to an integer amount of minutes. Then, we query <code>app_data</code> to keep only the BILLY bookcases, then average the <code>'minutes'</code> column. In addition, we separately query <code>app_data</code> to keep only the LOMMARP bookcases, then average the <code>'minutes'</code> column. If the null hypothesis is true, which of the following statements about these two averages is correct?</p>
+<p>Suppose we added a column to <code>app_data</code> called
+<code>'minutes'</code>, containing the <code>'assembly_time'</code>
+value for each entry converted to an integer amount of minutes. Then, we
+query <code>app_data</code> to keep only the BILLY bookcases, then
+average the <code>'minutes'</code> column. In addition, we separately
+query <code>app_data</code> to keep only the LOMMARP bookcases, then
+average the <code>'minutes'</code> column. If the null hypothesis is
+true, which of the following statements about these two averages is
+correct?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> These two averages are the same.</p></li>
-<li><p><input type="radio" disabled="" /> Any difference between these two averages is due to random chance.</p></li>
-<li><p><input type="radio" disabled="" /> Any difference between these two averages cannot be ascribed to random chance alone.</p></li>
-<li><p><input type="radio" disabled="" /> The difference between these averages is statistically significant.</p></li>
+<li><p><input type="radio" disabled="" /> Any difference between these two averages is due to random
+chance.</p></li>
+<li><p><input type="radio" disabled="" /> Any difference between these two averages cannot be ascribed to
+random chance alone.</p></li>
+<li><p><input type="radio" disabled="" /> The difference between these averages is statistically
+significant.</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
@@ -422,26 +720,63 @@ Click to view the solution.
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse3_1" class="accordion-collapse collapse collapse" aria-labelledby="heading3_1" data-bs-parent="#accordionExample">
+<div id="collapse3_1" class="accordion-collapse collapse collapse"
+aria-labelledby="heading3_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer: </strong> Any difference between these two averages is due to random chance.</p>
-<p>If the null hypothesis is true, this means that the time recorded in <code>app_data</code> for each BILLY bookcase is a random number that comes from some distribution, and the time recorded in <code>app_data</code> for each LOMMARP bookcase is a random number that comes from <em>the same</em> distribution. Each assembly time is a random number, so even if the null hypothesis is true, if we take one person who assembles a BILLY bookcase and one person who assembles a LOMMARP bookcase, there is no guarantee that their assembly times will match. Their assembly times might match, or they might be different, because assembly time is random. Randomness is the only reason that their assembly times might be different, as the null hypothesis says there is no systematic difference in assembly times between the two bookcases. Specifically, it’s not the case that one typically takes longer to assemble than the other.</p>
+<p><strong>Answer: </strong> Any difference between these two averages
+is due to random chance.</p>
+<p>If the null hypothesis is true, this means that the time recorded in
+<code>app_data</code> for each BILLY bookcase is a random number that
+comes from some distribution, and the time recorded in
+<code>app_data</code> for each LOMMARP bookcase is a random number that
+comes from <em>the same</em> distribution. Each assembly time is a
+random number, so even if the null hypothesis is true, if we take one
+person who assembles a BILLY bookcase and one person who assembles a
+LOMMARP bookcase, there is no guarantee that their assembly times will
+match. Their assembly times might match, or they might be different,
+because assembly time is random. Randomness is the only reason that
+their assembly times might be different, as the null hypothesis says
+there is no systematic difference in assembly times between the two
+bookcases. Specifically, it’s not the case that one typically takes
+longer to assemble than the other.</p>
 <p>With those points in mind, let’s go through the answer choices.</p>
-<p>The first answer choice is incorrect. Just because two sets of numbers are drawn from the same distribution, the numbers themselves might be different due to randomness, and the averages might also be different. Maybe just by chance, the people who assembled the BILLY bookcases and recorded their times in <code>app_data</code> were slower on average than the people who assembled LOMMARP bookcases. If the null hypothesis is true, this difference in average assembly time should be small, but it very likely exists to some degree.</p>
-<p>The second answer choice is correct. If the null hypothesis is true, the only reason for the difference is random chance alone.</p>
-<p>The third answer choice is incorrect for the same reason that the second answer choice is correct. If the null hypothesis is true, any difference must be explained by random chance.</p>
-<p>The fourth answer choice is incorrect. If there is a difference between the averages, it should be very small and not statistically significant. In other words, if we did a hypothesis test and the null hypothesis was true, we should fail to reject the null.</p>
+<p>The first answer choice is incorrect. Just because two sets of
+numbers are drawn from the same distribution, the numbers themselves
+might be different due to randomness, and the averages might also be
+different. Maybe just by chance, the people who assembled the BILLY
+bookcases and recorded their times in <code>app_data</code> were slower
+on average than the people who assembled LOMMARP bookcases. If the null
+hypothesis is true, this difference in average assembly time should be
+small, but it very likely exists to some degree.</p>
+<p>The second answer choice is correct. If the null hypothesis is true,
+the only reason for the difference is random chance alone.</p>
+<p>The third answer choice is incorrect for the same reason that the
+second answer choice is correct. If the null hypothesis is true, any
+difference must be explained by random chance.</p>
+<p>The fourth answer choice is incorrect. If there is a difference
+between the averages, it should be very small and not statistically
+significant. In other words, if we did a hypothesis test and the null
+hypothesis was true, we should fail to reject the null.</p>
+<p><br/></p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>The average score on this problem
+was 77%.</p>
 </div>
 </div>
 </div>
 </div>
 <p><br></p>
 <h3 id="problem-3.2">Problem 3.2</h3>
-<p>For the permutation test, we’ll use as our test statistic the average assembly time for BILLY bookcases minus the average assembly time for LOMMARP bookcases, in minutes.</p>
-<p>Complete the code below to generate one simulated value of the test statistic in a new way, without using <code>np.random.permutation</code>.</p>
+<p>For the permutation test, we’ll use as our test statistic the average
+assembly time for BILLY bookcases minus the average assembly time for
+LOMMARP bookcases, in minutes.</p>
+<p>Complete the code below to generate one simulated value of the test
+statistic in a new way, without using
+<code>np.random.permutation</code>.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>billy <span class="op">=</span> (app_data.get(<span class="st">&#39;product&#39;</span>) <span class="op">==</span> </span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>        <span class="st">&#39;BILLY Bookcase, white, 31 1/2x11x79 1/2&#39;</span>)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>lommarp <span class="op">=</span> (app_data.get(<span class="st">&#39;product&#39;</span>) <span class="op">==</span> </span>
@@ -464,32 +799,107 @@ Click to view the solution.
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse3_2" class="accordion-collapse collapse collapse" aria-labelledby="heading3_2" data-bs-parent="#accordionExample">
+<div id="collapse3_2" class="accordion-collapse collapse collapse"
+aria-labelledby="heading3_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer: </strong> <code>(billy_lommarp.get('minutes').sum() - billy_mean * billy.sum())/lommarp.sum()</code></p>
-<p>The first line of code creates a boolean Series with a True value for every BILLY bookcase, and the second line of code creates the analogous Series for the LOMMARP bookcase. The third line queries to define a DataFrame called <code>billy_lommarp</code> containing all products that are BILLY or LOMMARP bookcases. In other words, this DataFrame contains a mix of BILLY and LOMMARP bookcases.</p>
-<p>From this point, the way we would normally proceed in a permutation test would be to use <code>np.random.permutation</code> to shuffle one of the two relevant columns (either <code>'product'</code> or <code>'minutes'</code>) to create a random pairing of assembly times with products. Then we would calculate the average of all assembly times that were randomly assigned to the label BILLY. Similarly, we’d calculate the average of all assembly times that were randomly assigned to the label LOMMARP. Then we’d subtract these averages to get one simulated value of the test statistic. To run the permutation test, we’d have to repeat this process many times.</p>
-<p>In this problem, we need to generate a simulated value of the test statistic, without randomly shuffling one of the columns. The code starts us off by defining a variable called <code>billy_mean</code> that comes from using <code>np.random.choice</code>. There’s a lot going on here, so let’s break it down. Remember that the first argument to <code>np.random.choice</code> is a sequence of values to choose from, and the second is the number of random choices to make. The default behavior is to make the random choices without replacement, so that no element that has already been chosen can be chosen again. Here, we’re making our random choices from the <code>'minutes'</code> column of <code>billy_lommarp</code>. The number of choices to make from this collection of values is <code>billy.sum()</code>, which is the sum of all values in the <code>billy</code> Series defined in the first line of code. The <code>billy</code> Series contains True/False values, but in Python, True counts as 1 and False counts as 0, so <code>billy.sum()</code> evaluates to the number of True entries in <code>billy</code>, which is the number of BILLY bookcases recorded in <code>app_data</code>. It helps to think of the random process like this:</p>
+<p><strong>Answer: </strong>
+<code>(billy_lommarp.get('minutes').sum() - billy_mean * billy.sum())/lommarp.sum()</code></p>
+<p>The first line of code creates a boolean Series with a True value for
+every BILLY bookcase, and the second line of code creates the analogous
+Series for the LOMMARP bookcase. The third line queries to define a
+DataFrame called <code>billy_lommarp</code> containing all products that
+are BILLY or LOMMARP bookcases. In other words, this DataFrame contains
+a mix of BILLY and LOMMARP bookcases.</p>
+<p>From this point, the way we would normally proceed in a permutation
+test would be to use <code>np.random.permutation</code> to shuffle one
+of the two relevant columns (either <code>'product'</code> or
+<code>'minutes'</code>) to create a random pairing of assembly times
+with products. Then we would calculate the average of all assembly times
+that were randomly assigned to the label BILLY. Similarly, we’d
+calculate the average of all assembly times that were randomly assigned
+to the label LOMMARP. Then we’d subtract these averages to get one
+simulated value of the test statistic. To run the permutation test, we’d
+have to repeat this process many times.</p>
+<p>In this problem, we need to generate a simulated value of the test
+statistic, without randomly shuffling one of the columns. The code
+starts us off by defining a variable called <code>billy_mean</code> that
+comes from using <code>np.random.choice</code>. There’s a lot going on
+here, so let’s break it down. Remember that the first argument to
+<code>np.random.choice</code> is a sequence of values to choose from,
+and the second is the number of random choices to make. The default
+behavior is to make the random choices without replacement, so that no
+element that has already been chosen can be chosen again. Here, we’re
+making our random choices from the <code>'minutes'</code> column of
+<code>billy_lommarp</code>. The number of choices to make from this
+collection of values is <code>billy.sum()</code>, which is the sum of
+all values in the <code>billy</code> Series defined in the first line of
+code. The <code>billy</code> Series contains True/False values, but in
+Python, True counts as 1 and False counts as 0, so
+<code>billy.sum()</code> evaluates to the number of True entries in
+<code>billy</code>, which is the number of BILLY bookcases recorded in
+<code>app_data</code>. It helps to think of the random process like
+this:</p>
 <ol type="1">
-<li>Collect all the assembly times of any BILLY or LOMMARP bookcase in a large bag.</li>
+<li>Collect all the assembly times of any BILLY or LOMMARP bookcase in a
+large bag.</li>
 <li>Pull out a random assembly time from this bag.</li>
-<li>Repeat step 2, drawing as many times as there are BILLY bookcases, without replacement.</li>
+<li>Repeat step 2, drawing as many times as there are BILLY bookcases,
+without replacement.</li>
 </ol>
-<p>If we think of the random times we draw as being labeled BILLY, then the remaining assembly times still leftover in the bag represent the assembly times randomly labeled LOMMARP. In other words, this is a random association of assembly times to labels (BILLY or LOMMARP), which is the same thing we usually accomplish by shuffling in a permutation test.</p>
-<p>From here, we can proceed the same way as usual. First, we need to calculate the average of all assembly times that were randomly assigned to the label BILLY. This is done for us and stored in <code>billy_mean</code>. We also need to calculate the average of all assembly times that were randomly assigned the label LOMMARP. We’ll call that <code>lommarp_mean</code>. Thinking of picking times out of a large bag, this is the average of all the assembly times left in the bag. The problem is there is no easy way to access the assembly times that were not picked. We can take advantage of the fact that we can easily calculate the total assembly time of all BILLY and LOMMARP bookcases together with <code>billy_lommarp.get('minutes').sum()</code>. Then if we subtract the total assembly time of all bookcases randomly labeled BILLY, we’ll be left with the total assembly time of all bookcases randomly labeled LOMMARP. That is, <code>billy_lommarp.get('minutes').sum() - billy_mean * billy.sum()</code> represents the total assembly time of all bookcases randomly labeled LOMMARP. The count of the number of LOMMARP bookcases is given by <code>lommarp.sum()</code> so the average is <code>(billy_lommarp.get('minutes').sum() - billy_mean * billy.sum())/lommarp.sum()</code>.</p>
-<p>A common wrong answer for this question was the second answer choice, <code>np.random.choice(billy_lommarp.get('minutes'), lommarp.sum()).mean()</code>. This mimics the structure of how <code>billy_mean</code> was defined so it’s a natural guess. However, this corresponds to the following random process, which doesn’t associate each assembly with a unique label (BILLY or LOMMARP):</p>
+<p>If we think of the random times we draw as being labeled BILLY, then
+the remaining assembly times still leftover in the bag represent the
+assembly times randomly labeled LOMMARP. In other words, this is a
+random association of assembly times to labels (BILLY or LOMMARP), which
+is the same thing we usually accomplish by shuffling in a permutation
+test.</p>
+<p>From here, we can proceed the same way as usual. First, we need to
+calculate the average of all assembly times that were randomly assigned
+to the label BILLY. This is done for us and stored in
+<code>billy_mean</code>. We also need to calculate the average of all
+assembly times that were randomly assigned the label LOMMARP. We’ll call
+that <code>lommarp_mean</code>. Thinking of picking times out of a large
+bag, this is the average of all the assembly times left in the bag. The
+problem is there is no easy way to access the assembly times that were
+not picked. We can take advantage of the fact that we can easily
+calculate the total assembly time of all BILLY and LOMMARP bookcases
+together with <code>billy_lommarp.get('minutes').sum()</code>. Then if
+we subtract the total assembly time of all bookcases randomly labeled
+BILLY, we’ll be left with the total assembly time of all bookcases
+randomly labeled LOMMARP. That is,
+<code>billy_lommarp.get('minutes').sum() - billy_mean * billy.sum()</code>
+represents the total assembly time of all bookcases randomly labeled
+LOMMARP. The count of the number of LOMMARP bookcases is given by
+<code>lommarp.sum()</code> so the average is
+<code>(billy_lommarp.get('minutes').sum() - billy_mean * billy.sum())/lommarp.sum()</code>.</p>
+<p>A common wrong answer for this question was the second answer choice,
+<code>np.random.choice(billy_lommarp.get('minutes'), lommarp.sum()).mean()</code>.
+This mimics the structure of how <code>billy_mean</code> was defined so
+it’s a natural guess. However, this corresponds to the following random
+process, which doesn’t associate each assembly with a unique label
+(BILLY or LOMMARP):</p>
 <ol type="1">
-<li>Collect all the assembly times of any BILLY or LOMMARP bookcase in a large bag.</li>
+<li>Collect all the assembly times of any BILLY or LOMMARP bookcase in a
+large bag.</li>
 <li>Pull out a random assembly time from this bag.</li>
-<li>Repeat, drawing as many times as there are BILLY bookcases, without replacement.</li>
-<li>Collect all the assembly times of any BILLY or LOMMARP bookcase in a large bag.</li>
+<li>Repeat, drawing as many times as there are BILLY bookcases, without
+replacement.</li>
+<li>Collect all the assembly times of any BILLY or LOMMARP bookcase in a
+large bag.</li>
 <li>Pull out a random assembly time from this bag.</li>
-<li>Repeat step 5, drawing as many times as there are LOMMARP bookcases, without replacement.</li>
+<li>Repeat step 5, drawing as many times as there are LOMMARP bookcases,
+without replacement.</li>
 </ol>
-<p>We could easily get the same assembly time once for BILLY and once for LOMMARP, while other assembly times could get picked for neither. This process doesn’t split the data into two random groups as desired.</p>
+<p>We could easily get the same assembly time once for BILLY and once
+for LOMMARP, while other assembly times could get picked for neither.
+This process doesn’t split the data into two random groups as desired.
+<br/></p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️⭐️</h5>
+<p>The average score on this
+problem was 12%.</p>
 </div>
 </div>
 </div>
@@ -497,9 +907,20 @@ Click to view the solution.
 <p><br></p>
 <hr />
 <h2 id="problem-4">Problem 4</h2>
-<p>Researchers from the San Diego Zoo, located within Balboa Park, collected physical measurements of three species of penguins (Adelie, Chinstrap, or Gentoo) in a region of Antarctica. One piece of information they tracked for each of 330 penguins was its mass in grams. The average penguin mass is 4200 grams, and the standard deviation is 840 grams.</p>
-<p>We’re interested in investigating the differences between the masses of Adelie penguins and Chinstrap penguins. Specifically, our null hypothesis is that their masses are drawn from the same population distribution, and any observed differences are due to chance only.</p>
-<p>Below, we have a snippet of working code for this hypothesis test, for a specific test statistic. Assume that <code>adelie_chinstrap</code> is a DataFrame of only Adelie and Chinstrap penguins, with just two columns – <code>'species'</code> and <code>'mass'</code>.</p>
+<p>Researchers from the San Diego Zoo, located within Balboa Park,
+collected physical measurements of three species of penguins (Adelie,
+Chinstrap, or Gentoo) in a region of Antarctica. One piece of
+information they tracked for each of 330 penguins was its mass in grams.
+The average penguin mass is 4200 grams, and the standard deviation is
+840 grams.</p>
+<p>We’re interested in investigating the differences between the masses
+of Adelie penguins and Chinstrap penguins. Specifically, our null
+hypothesis is that their masses are drawn from the same population
+distribution, and any observed differences are due to chance only.</p>
+<p>Below, we have a snippet of working code for this hypothesis test,
+for a specific test statistic. Assume that <code>adelie_chinstrap</code>
+is a DataFrame of only Adelie and Chinstrap penguins, with just two
+columns – <code>'species'</code> and <code>'mass'</code>.</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>stats <span class="op">=</span> np.array([])</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>num_reps <span class="op">=</span> <span class="dv">500</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(num_reps):</span>
@@ -520,12 +941,20 @@ Click to view the solution.
 <span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    stats <span class="op">=</span> np.append(stats, stat)</span></code></pre></div>
 <p><br></p>
 <h3 id="problem-4.1">Problem 4.1</h3>
-<p>Which of the following statements best describe the procedure above?</p>
+<p>Which of the following statements best describe the procedure
+above?</p>
 <ul class="task-list">
-<li><p><input type="radio" disabled="" /> This is a standard hypothesis test, and our test statistic is the total variation distance between the distribution of Adelie masses and Chinstrap masses</p></li>
-<li><p><input type="radio" disabled="" /> This is a standard hypothesis test, and our test statistic is the difference between the expected proportion of Adelie penguins and the proportion of Adelie penguins in our resample</p></li>
-<li><p><input type="radio" disabled="" /> This is a permutation test, and our test statistic is the total variation distance between the distribution of Adelie masses and Chinstrap masses</p></li>
-<li><p><input type="radio" disabled="" /> This is a permutation test, and our test statistic is the difference in the mean Adelie mass and mean Chinstrap mass</p></li>
+<li><p><input type="radio" disabled="" /> This is a standard hypothesis test, and our test statistic is the
+total variation distance between the distribution of Adelie masses and
+Chinstrap masses</p></li>
+<li><p><input type="radio" disabled="" /> This is a standard hypothesis test, and our test statistic is the
+difference between the expected proportion of Adelie penguins and the
+proportion of Adelie penguins in our resample</p></li>
+<li><p><input type="radio" disabled="" /> This is a permutation test, and our test statistic is the total
+variation distance between the distribution of Adelie masses and
+Chinstrap masses</p></li>
+<li><p><input type="radio" disabled="" /> This is a permutation test, and our test statistic is the difference
+in the mean Adelie mass and mean Chinstrap mass</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
@@ -534,20 +963,43 @@ Click to view the solution.
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse4_1" class="accordion-collapse collapse collapse" aria-labelledby="heading4_1" data-bs-parent="#accordionExample">
+<div id="collapse4_1" class="accordion-collapse collapse collapse"
+aria-labelledby="heading4_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer: </strong> This is a permutation test, and our test statistic is the difference in the mean Adelie mass and mean Chinstrap mass (Option 4)</p>
-<p>Recall, a permutation test helps us decide whether two random samples come from the same distribution. This test matches our goal of testing whether the masses of Adelie penguins and Chinstrap penguins are drawn from the same population distribution. The code above are also doing steps of a permutation test. In part (a), it shuffles <code>'species'</code> and stores the shuffled series to <code>shuffled</code>. In part (b), it assign the shuffled series of values to <code>'species'</code> column. Then, it uses <code>grouped = with_shuffled.groupby('species').mean()</code> to calculate the mean of each species. In part (c), it computes the difference between mean mass of the two species by first getting the <code>'mass'</code> column and then accessing mean mass of each group (Adelie and Chinstrap) with positional index <code>0</code> and <code>1</code>.</p>
+<p><strong>Answer:</strong> This is a permutation test, and our test
+statistic is the difference in the mean Adelie mass and mean Chinstrap
+mass (Option 4)</p>
+<p>Recall, a permutation test helps us decide whether two random samples
+come from the same distribution. This test matches our goal of testing
+whether the masses of Adelie penguins and Chinstrap penguins are drawn
+from the same population distribution. The code above are also doing
+steps of a permutation test. In part (a), it shuffles
+<code>'species'</code> and stores the shuffled series to
+<code>shuffled</code>. In part (b), it assign the shuffled series of
+values to <code>'species'</code> column. Then, it uses
+<code>grouped = with_shuffled.groupby('species').mean()</code> to
+calculate the mean of each species. In part (c), it computes the
+difference between mean mass of the two species by first getting the
+<code>'mass'</code> column and then accessing mean mass of each group
+(Adelie and Chinstrap) with positional index <code>0</code> and
+<code>1</code>.</p>
+<p><br/></p>
+<hr/>
+<h5>Difficulty: ⭐️</h5>
+<p>The average score on this problem
+was 98%.</p>
 </div>
 </div>
 </div>
 </div>
 <p><br></p>
 <h3 id="problem-4.2">Problem 4.2</h3>
-<p>Currently, line (c) (marked with a comment) uses .iloc. Which of the following options compute the exact same statistic as line (c) currently does?</p>
+<p>Currently, line (c) (marked with a comment) uses .iloc. Which of the
+following options compute the exact same statistic as line (c) currently
+does?</p>
 <p>Option 1:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>stat <span class="op">=</span> grouped.get(<span class="st">&#39;mass&#39;</span>).loc[<span class="st">&#39;Adelie&#39;</span>] <span class="op">-</span> grouped.get(<span class="st">&#39;mass&#39;</span>).loc[<span class="st">&#39;Chinstrap&#39;</span>]</span></code></pre></div>
 <p>Option 2:</p>
@@ -565,21 +1017,44 @@ Click to view the solution.
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse4_2" class="accordion-collapse collapse collapse" aria-labelledby="heading4_2" data-bs-parent="#accordionExample">
+<div id="collapse4_2" class="accordion-collapse collapse collapse"
+aria-labelledby="heading4_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer: </strong> Option 1 only</p>
-<p>We use <code>df.get(column_name).iloc[positional_index]</code> to access the value in a column with <code>positional_index</code>. Similarly, we use <code>df.get(column_name).loc[index]</code> to access value in a column with its <code>index</code>. Remember <code>grouped</code> is a DataFrame that <code>groupby('species')</code>, so we have species name <code>'Adelie'</code> and <code>'Chinstrap'</code> as index for <code>grouped</code>.</p>
-<p>Option 2 is incorrect since it does subtraction in the reverse order which results in a different <code>stat</code> compared to <code>line(c)</code>. Its output will be <span class="math inline">-1 \cdot</span> <code>stat</code>. Recall, in <code>grouped = with_shuffled.groupby('species').mean()</code>, we use <code>groupby()</code> and since <code>'species'</code> is a column with string values, our index will be sorted in alphabetical order. So, <code>.iloc[0]</code> is <code>'Adelie'</code> and <code>.iloc[1]</code> is <code>'Chinstrap'</code>.</p>
+<p><strong>Answer:</strong> Option 1 only</p>
+<p>We use <code>df.get(column_name).iloc[positional_index]</code> to
+access the value in a column with <code>positional_index</code>.
+Similarly, we use <code>df.get(column_name).loc[index]</code> to access
+value in a column with its <code>index</code>. Remember
+<code>grouped</code> is a DataFrame that
+<code>groupby('species')</code>, so we have species name
+<code>'Adelie'</code> and <code>'Chinstrap'</code> as index for
+<code>grouped</code>.</p>
+<p>Option 2 is incorrect since it does subtraction in the reverse order
+which results in a different <code>stat</code> compared to
+<code>line(c)</code>. Its output will be <span class="math inline">-1
+\cdot</span> <code>stat</code>. Recall, in
+<code>grouped = with_shuffled.groupby('species').mean()</code>, we use
+<code>groupby()</code> and since <code>'species'</code> is a column with
+string values, our index will be sorted in alphabetical order. So,
+<code>.iloc[0]</code> is <code>'Adelie'</code> and <code>.iloc[1]</code>
+is <code>'Chinstrap'</code>.</p>
+<p><br/></p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>The average score on this problem
+was 81%.</p>
 </div>
 </div>
 </div>
 </div>
 <p><br></p>
 <h3 id="problem-4.3">Problem 4.3</h3>
-<p>Is it possible to re-write <code>line (c)</code> in a way that uses <code>.iloc[0]</code> twice, without any other uses of <code>.loc</code> or <code>.iloc</code>?</p>
+<p>Is it possible to re-write <code>line (c)</code> in a way that uses
+<code>.iloc[0]</code> twice, without any other uses of <code>.loc</code>
+or <code>.iloc</code>?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> Yes, it’s possible</p></li>
 <li><p><input type="radio" disabled="" /> No, it’s not possible</p></li>
@@ -591,20 +1066,28 @@ Click to view the solution.
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse4_3" class="accordion-collapse collapse collapse" aria-labelledby="heading4_3" data-bs-parent="#accordionExample">
+<div id="collapse4_3" class="accordion-collapse collapse collapse"
+aria-labelledby="heading4_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer: </strong> Yes, it’s possible</p>
-<p>There are multiple ways to achieve this. For instance <code>stat = grouped.get('mass').iloc[0] - grouped.sort_index(ascending = False).get('mass').iloc[0]</code>.</p>
+<p><strong>Answer:</strong> Yes, it’s possible</p>
+<p>There are multiple ways to achieve this. For instance
+<code>stat = grouped.get('mass').iloc[0] - grouped.sort_index(ascending = False).get('mass').iloc[0]</code>.</p>
+<p><br/></p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>The average score on this
+problem was 64%.</p>
 </div>
 </div>
 </div>
 </div>
 <p><br></p>
 <h3 id="problem-4.4">Problem 4.4</h3>
-<p>For your convenience, we copy the code for the hypothesis test below.</p>
+<p>For your convenience, we copy the code for the hypothesis test
+below.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>stats <span class="op">=</span> np.array([])</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>num_reps <span class="op">=</span> <span class="dv">500</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(num_reps):</span>
@@ -623,14 +1106,19 @@ Click to view the solution.
 <span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (c) ends ---</span></span>
 <span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>    stats <span class="op">=</span> np.append(stats, stat)</span></code></pre></div>
-<p>What would happen if we removed <code>line (a)</code>, and replaced <code>line (b)</code> with</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>with_shuffled <span class="op">=</span> adelie_chinstrap.sample(adelie_chinstrap.shape[<span class="dv">0</span>], replace<span class="op">=</span><span class="va">False</span>)</span></code></pre></div>
+<p>What would happen if we removed <code>line (a)</code>, and replaced
+<code>line (b)</code> with</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>with_shuffled <span class="op">=</span> adelie_chinstrap.sample(adelie_chinstrap.shape[<span class="dv">0</span>], replace<span class="op">=</span><span class="va">False</span>)</span></code></pre></div>
 <p>Select the best answer.</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> This would still run a valid hypothesis test</p></li>
-<li><p><input type="radio" disabled="" /> This would not run a valid hypothesis test, as all values in the <code>stats</code> array would be exactly the same</p></li>
-<li><p><input type="radio" disabled="" /> This would not run a valid hypothesis test, even though there would be several different values in the <code>stats</code> array</p></li>
-<li><p><input type="radio" disabled="" /> This would not run a valid hypothesis test, as it would incorporate information about Gentoo penguins</p></li>
+<li><p><input type="radio" disabled="" /> This would not run a valid hypothesis test, as all values in the
+<code>stats</code> array would be exactly the same</p></li>
+<li><p><input type="radio" disabled="" /> This would not run a valid hypothesis test, even though there would
+be several different values in the <code>stats</code> array</p></li>
+<li><p><input type="radio" disabled="" /> This would not run a valid hypothesis test, as it would incorporate
+information about Gentoo penguins</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
@@ -639,21 +1127,38 @@ Click to view the solution.
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse4_4" class="accordion-collapse collapse collapse" aria-labelledby="heading4_4" data-bs-parent="#accordionExample">
+<div id="collapse4_4" class="accordion-collapse collapse collapse"
+aria-labelledby="heading4_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer: </strong> This would not run a valid hypothesis test, as all values in the <code>stats</code> array would be exactly the same (Option 2)</p>
-<p>Recall, <code>DataFrame.sample(n, replace = False)</code> (or <code>DataFrame.sample(n)</code> since <code>replace = False</code> is by default) returns a DataFrame by randomly sampling <code>n</code> rows from the DataFrame, without replacement. Since our <code>n</code> is <code>adelie_chinstrap.shape[0]</code>, and we are sampling without replacement, we will get the exactly same Dataframe (though the order of rows may be different but the <code>stats</code> array would be exactly the same).</p>
+<p><strong>Answer:</strong> This would not run a valid hypothesis test,
+as all values in the <code>stats</code> array would be exactly the same
+(Option 2)</p>
+<p>Recall, <code>DataFrame.sample(n, replace = False)</code> (or
+<code>DataFrame.sample(n)</code> since <code>replace = False</code> is
+by default) returns a DataFrame by randomly sampling <code>n</code> rows
+from the DataFrame, without replacement. Since our <code>n</code> is
+<code>adelie_chinstrap.shape[0]</code>, and we are sampling without
+replacement, we will get the exactly same Dataframe (though the order of
+rows may be different but the <code>stats</code> array would be exactly
+the same).</p>
+<p><br/></p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>The average score on this problem
+was 87%.</p>
 </div>
 </div>
 </div>
 </div>
 <p><br></p>
 <h3 id="problem-4.5">Problem 4.5</h3>
-<p>For your convenience, we copy the code for the hypothesis test below.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>stats <span class="op">=</span> np.array([])</span>
+<p>For your convenience, we copy the code for the hypothesis test
+below.</p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>stats <span class="op">=</span> np.array([])</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>num_reps <span class="op">=</span> <span class="dv">500</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(num_reps):</span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (a) starts ---</span></span>
@@ -671,14 +1176,19 @@ Click to view the solution.
 <span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (c) ends ---</span></span>
 <span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>    stats <span class="op">=</span> np.append(stats, stat)</span></code></pre></div>
-<p>What would happen if we removed <code>line (a)</code>, and replaced <code>line (b)</code> with</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>with_shuffled <span class="op">=</span> adelie_chinstrap.sample(adelie_chinstrap.shape[<span class="dv">0</span>], replace<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
+<p>What would happen if we removed <code>line (a)</code>, and replaced
+<code>line (b)</code> with</p>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>with_shuffled <span class="op">=</span> adelie_chinstrap.sample(adelie_chinstrap.shape[<span class="dv">0</span>], replace<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
 <p>Select the best answer.</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> This would still run a valid hypothesis test</p></li>
-<li><p><input type="radio" disabled="" /> This would not run a valid hypothesis test, as all values in the <code>stats</code> array would be exactly the same</p></li>
-<li><p><input type="radio" disabled="" /> This would not run a valid hypothesis test, even though there would be several different values in the <code>stats</code> array</p></li>
-<li><p><input type="radio" disabled="" /> This would not run a valid hypothesis test, as it would incorporate information about Gentoo penguins</p></li>
+<li><p><input type="radio" disabled="" /> This would not run a valid hypothesis test, as all values in the
+<code>stats</code> array would be exactly the same</p></li>
+<li><p><input type="radio" disabled="" /> This would not run a valid hypothesis test, even though there would
+be several different values in the <code>stats</code> array</p></li>
+<li><p><input type="radio" disabled="" /> This would not run a valid hypothesis test, as it would incorporate
+information about Gentoo penguins</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
@@ -687,21 +1197,39 @@ Click to view the solution.
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse4_5" class="accordion-collapse collapse collapse" aria-labelledby="heading4_5" data-bs-parent="#accordionExample">
+<div id="collapse4_5" class="accordion-collapse collapse collapse"
+aria-labelledby="heading4_5" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer: </strong> This would not run a valid hypothesis test, even though there would be several different values in the <code>stats</code> array (Option 3)</p>
-<p>Recall, <code>DataFrame.sample(n, replace = True)</code> returns a new DataFrame by randomly sampling <code>n</code> rows from the DataFrame, with replacement. Since we are sampling with replacement, we will have a DataFrame which produces a <code>stats</code> array with some different values. However, recall, the key idea behind a permutation test is to shuffle the group labels. So, the above code does not meet this key requirement since we only want to shuffle the <code>"species"</code> column without changing the size of the two species. However, the code may change the size of the two species.</p>
+<p><strong>Answer:</strong> This would not run a valid hypothesis test,
+even though there would be several different values in the
+<code>stats</code> array (Option 3)</p>
+<p>Recall, <code>DataFrame.sample(n, replace = True)</code> returns a
+new DataFrame by randomly sampling <code>n</code> rows from the
+DataFrame, with replacement. Since we are sampling with replacement, we
+will have a DataFrame which produces a <code>stats</code> array with
+some different values. However, recall, the key idea behind a
+permutation test is to shuffle the group labels. So, the above code does
+not meet this key requirement since we only want to shuffle the
+<code>"species"</code> column without changing the size of the two
+species. However, the code may change the size of the two species.</p>
+<p><br/></p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>The average score on this
+problem was 66%.</p>
 </div>
 </div>
 </div>
 </div>
 <p><br></p>
 <h3 id="problem-4.6">Problem 4.6</h3>
-<p>For your convenience, we copy the code for the hypothesis test below.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>stats <span class="op">=</span> np.array([])</span>
+<p>For your convenience, we copy the code for the hypothesis test
+below.</p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>stats <span class="op">=</span> np.array([])</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>num_reps <span class="op">=</span> <span class="dv">500</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(num_reps):</span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (a) starts ---</span></span>
@@ -720,19 +1248,24 @@ Click to view the solution.
 <span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    stats <span class="op">=</span> np.append(stats, stat)</span></code></pre></div>
 <p>What would happen if we replaced <code>line (a)</code> with</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>with_shuffled <span class="op">=</span> adelie_chinstrap.assign(</span>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>with_shuffled <span class="op">=</span> adelie_chinstrap.assign(</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    species<span class="op">=</span>np.random.permutation(adelie_chinstrap.get(<span class="st">&#39;species&#39;</span>)</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <p>and replaced line (b) with</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>with_shuffled <span class="op">=</span> with_shuffled.assign(</span>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>with_shuffled <span class="op">=</span> with_shuffled.assign(</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    mass<span class="op">=</span>np.random.permutation(adelie_chinstrap.get(<span class="st">&#39;mass&#39;</span>)</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <p>Select the best answer.</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> This would still run a valid hypothesis test</p></li>
-<li><p><input type="radio" disabled="" /> This would not run a valid hypothesis test, as all values in the <code>stats</code> array would be exactly the same</p></li>
-<li><p><input type="radio" disabled="" /> This would not run a valid hypothesis test, even though there would be several different values in the <code>stats</code> array</p></li>
-<li><p><input type="radio" disabled="" /> This would not run a valid hypothesis test, as it would incorporate information about Gentoo penguins</p></li>
+<li><p><input type="radio" disabled="" /> This would not run a valid hypothesis test, as all values in the
+<code>stats</code> array would be exactly the same</p></li>
+<li><p><input type="radio" disabled="" /> This would not run a valid hypothesis test, even though there would
+be several different values in the <code>stats</code> array</p></li>
+<li><p><input type="radio" disabled="" /> This would not run a valid hypothesis test, as it would incorporate
+information about Gentoo penguins</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
@@ -741,22 +1274,36 @@ Click to view the solution.
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse4_6" class="accordion-collapse collapse collapse" aria-labelledby="heading4_6" data-bs-parent="#accordionExample">
+<div id="collapse4_6" class="accordion-collapse collapse collapse"
+aria-labelledby="heading4_6" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer: </strong> This would still run a valid hypothesis test (Option 1)</p>
-<p>Our goal for the permutation test is to randomly assign birth weights to groups, without changing group sizes. The above code shuffles <code>'species'</code> and <code>'mass'</code> columns and assigns them back to the DataFrame. This fulfills our goal.</p>
+<p><strong>Answer:</strong> This would still run a valid hypothesis test
+(Option 1)</p>
+<p>Our goal for the permutation test is to randomly assign birth weights
+to groups, without changing group sizes. The above code shuffles
+<code>'species'</code> and <code>'mass'</code> columns and assigns them
+back to the DataFrame. This fulfills our goal.</p>
+<p><br/></p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>The average score on this problem
+was 81%.</p>
 </div>
 </div>
 </div>
 </div>
 <p><br></p>
 <h3 id="problem-4.7">Problem 4.7</h3>
-<p>Suppose we run the code for the hypothesis test and see the following empirical distribution for the test statistic. In red is the observed statistic.</p>
+<p>Suppose we run the code for the hypothesis test and see the following
+empirical distribution for the test statistic. In red is the observed
+statistic.</p>
 <center><img src='../assets/images/fa21-final/measuring_up_his.png' width=40%></center>
-<p>Suppose our alternative hypothesis is that Chinstrap penguins weigh more on average than Adelie penguins. Which of the following is closest to the p-value for our hypothesis test?</p>
+<p>Suppose our alternative hypothesis is that Chinstrap penguins weigh
+more on average than Adelie penguins. Which of the following is closest
+to the p-value for our hypothesis test?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> <span class="math inline">0</span></p></li>
 <li><p><input type="radio" disabled="" /> <span class="math inline">\frac{1}{4}</span></p></li>
@@ -772,14 +1319,30 @@ Click to view the solution.
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse4_7" class="accordion-collapse collapse collapse" aria-labelledby="heading4_7" data-bs-parent="#accordionExample">
+<div id="collapse4_7" class="accordion-collapse collapse collapse"
+aria-labelledby="heading4_7" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer: </strong> <span class="math inline">\frac{1}{3}</span></p>
-<p>Recall, the p-value is the chance, under the null hypothesis, that the test statistic is equal to the value that was observed in the data or is even further in the direction of the alternative. Thus, we compute the proportion of the test statistic that is equal or less than the observed statistic. (It is less than because less than corresponds to the alternative hypothesis “Chinstrap penguins weigh more on average than Adelie penguins”. Recall, when computing the statistic, we use Adelie’s mean mass minus Chinstrap’s mean mass. If Chinstrap’s mean mass is larger, the statistic will be negative, the direction of less than the observed statistic).</p>
-<p>Thus, we look at the proportion of area less than or on the red line (which represents observed statistic), it is around <span class="math inline">\frac{1}{3}</span>.</p>
+<p><strong>Answer:</strong> <span class="math inline">\frac{1}{3}</span></p>
+<p>Recall, the p-value is the chance, under the null hypothesis, that
+the test statistic is equal to the value that was observed in the data
+or is even further in the direction of the alternative. Thus, we compute
+the proportion of the test statistic that is equal or less than the
+observed statistic. (It is less than because less than corresponds to
+the alternative hypothesis “Chinstrap penguins weigh more on average
+than Adelie penguins”. Recall, when computing the statistic, we use
+Adelie’s mean mass minus Chinstrap’s mean mass. If Chinstrap’s mean mass
+is larger, the statistic will be negative, the direction of less than
+the observed statistic).</p>
+<p>Thus, we look at the proportion of area less than or on the red line
+(which represents observed statistic), it is around <span class="math inline">\frac{1}{3}</span>.</p>
+<p><br/></p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>The average score on this problem
+was 80%.</p>
 </div>
 </div>
 </div>
@@ -787,7 +1350,11 @@ Click to view the solution.
 <p><br></p>
 <hr />
 <h2 id="section"><span class="math display"> </span></h2>
-<h4 id="feedback-find-an-error-still-confused-have-a-suggestion-let-us-know-here.">👋 Feedback: Find an error? Still confused? Have a suggestion? <a href="https://forms.gle/WZ71FchnXU1K154d7">Let us know here</u></a>.</h4>
+<h4
+id="feedback-find-an-error-still-confused-have-a-suggestion-let-us-know-here.">👋
+Feedback: Find an error? Still confused? Have a suggestion?
+<a href="https://forms.gle/WZ71FchnXU1K154d7">Let us know
+here</u></a>.</h4>
 <hr />
 </body>
 </html>
