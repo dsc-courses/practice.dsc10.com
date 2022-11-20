@@ -5,14 +5,7 @@ Answer the following questions about a basketball dataset.
 
 # BEGIN SUBPROB
 
-Lets try to a construct a 95% confidence interval for the true mean points per game by using the Central Limit Theorem.
-
-Assume that you have a random sample of size 36 of games in a basketball season with mean number of points per game = 9 and standard deviation = 4.
-
-Compute a 95% confidence interval for the true mean points per game.
-
-What are the left and right endpoints of your interval? Give your answers as numbers in mixed number notation.
-
+Suppose you have a random sample of 36 games in a basketball season. In your sample, the mean number of points per game is 9, with a standard deviation of 4 points per game. Using only this information, compute a 95% confidence interval for the true mean points per game in that season. What are the left and right endpoints of your interval?
 # BEGIN SOLN
 
 **Answer:** $[7.667, 10.333]$
@@ -31,8 +24,7 @@ $$\begin{aligned} &[\text{mean of sample} - 2 \cdot \text{SD of distribution of 
 
 # BEGIN SUBPROB
 
-Now assume that the true mean points per game in is 7, which is not in the interval you found above (if it is, check your work!).
-
+It turns out that the true mean number of points per game in that season was 7, which is not in the interval you found above (if it is, check your work!).
 Select the true statement below.
 
 ( ) The 95% confidence interval we created in the previous subpart did not contain the true mean points per game, which means that the distribution of the sample mean is not normal.

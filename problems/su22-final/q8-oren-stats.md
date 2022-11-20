@@ -163,7 +163,7 @@ Again, from our formula given by the central limit theorem, the sample STD doesn
 # BEGIN SUBPROB
 
 Write one line of code that evaluates to the **right
-endpoint** of a 92% normal theory confidence interval for the mean
+endpoint** of a 92% CLT-Based confidence interval for the mean
 dog price. The following expressions may help:
 
 ```py

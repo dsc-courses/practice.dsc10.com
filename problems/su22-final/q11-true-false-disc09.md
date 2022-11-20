@@ -3,7 +3,7 @@ Answer the following true/false questions.
 
 # BEGIN SUBPROB
 
-For a given sample, an 90% confidence interval is narrower than a
+For a given sample, a 90% confidence interval is narrower than a
 95% confidence interval.
 
 ( ) True
