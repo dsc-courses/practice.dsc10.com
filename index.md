@@ -83,7 +83,7 @@ Solutions to discussion worksheets will be made available on Monday evenings, af
     <tr>
       <th scope="row">9</th>
       <td>November 21</td>
-      <td>Normal Curve and CLT</td>
+      <td><a href="disc09/index.html">Normal Curve and CLT</a></td>
     </tr>
     
   </tbody>
