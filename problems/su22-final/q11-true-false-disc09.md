@@ -25,7 +25,7 @@ The more narrow an interval is, the less confident one is that the intervals one
 
 # BEGIN SUBPROB
 
-The distribution of sample proportions is roughly normal for large samples because of the Central Limit Theorem.
+The distribution of sample proportions is roughly normal for large samples because of the Central Limit Theorem. 
 
 ( ) True
 ( ) False
@@ -34,7 +34,7 @@ The distribution of sample proportions is roughly normal for large samples becau
 
 **Answer: ** True
 
-This is just the definition of Central Limit Theorem.
+This is just the definition of Central Limit Theorem. Remember that a proportion is a mean of 0s and 1s.
 
 <average>43</average>
 
@@ -45,7 +45,7 @@ This is just the definition of Central Limit Theorem.
 
 # BEGIN SUBPROB
 
-Chebyshev's inequality implies that we can always create a 96%
+Chebyshev's inequality implies that we can always create at least a 96%
 confidence interval from a bootstrap distribution using
 the mean of the distribution plus or minus 5 standard deviations.
 
@@ -56,7 +56,7 @@ the mean of the distribution plus or minus 5 standard deviations.
 
 **Answer: ** True
 
-By Chebyshev's theorem, at most `1 - 1 / z^2` of the data is within `z` STD of the mean. Thus `1 - 1 / 5^2 = 0.96` of the data is within 5 STD of the mean. 
+By Chebyshev's theorem, at least `1 - 1 / z^2` of the data is within `z` STD of the mean. Thus `1 - 1 / 5^2 = 0.96` of the data is within 5 STD of the mean. 
 
 <average>51</average>
 

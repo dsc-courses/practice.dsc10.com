@@ -24,7 +24,7 @@ What expression best estimates the population's standard deviation?
 
 **Answer: ** `b`
 
-The function `np.std` directly calculated the standard deviation of array `oren`. Even though `oren` is sample of the population, it's still a pretty good estimate for the std since it's a random sample. The other options don't really make sense in this context. 
+The function `np.std` directly calculated the standard deviation of array `oren`. Even though `oren` is sample of the population, its standard deviation is still a pretty good estimate for the standard deviation of the population because it is a random sample. The other options don't really make sense in this context. 
 
 <average>57</average>
 
@@ -45,7 +45,7 @@ Which expression best estimates the mean of `boots`?
 
 **Answer: ** `a`
 
-Note that `a` is equal to the mean of `oren`, which is a pretty good estimator of the mean of the overall population. The other options don't really make sense in this context. 
+Note that `a` is equal to the mean of `oren`, which is a pretty good estimator of the mean of the overall population as well as the mean of the distribution of sample means. The other options don't really make sense in this context. 
 
 <average>89</average>
 
@@ -66,7 +66,7 @@ What expression best estimates the standard deviation of `boots`?
 
 **Answer: ** `b / np.sqrt(c)`
 
-Note that we can use the central limit theorem for this problem which states that the STD of the sample distribution is equal to `(population STD) / np.sqrt(sample size)`. Since our sample is also the population in this case, we can plug our variables in to see that `b / np.sqrt(c)` is our answer.
+Note that we can use the Central Limit Theorem for this problem which states that the standard deviation (SD) of the distribution of sample means is equal to `(population SD) / np.sqrt(sample size)`. Since the SD of the sample is also the SD of the population in this case, we can plug our variables in to see that `b / np.sqrt(c)` is the answer.
 
 <average>91</average>
 
@@ -76,7 +76,7 @@ Note that we can use the central limit theorem for this problem which states tha
 
 # BEGIN SUBPROB
 
-What is the price of $560 in standard units?
+What is the dog price of $560 in standard units?
 
 ( ) `(560 - a) / b`
 ( ) `(560 - a) / (b / np.sqrt(c))`
@@ -88,7 +88,7 @@ What is the price of $560 in standard units?
 
 **Answer: ** `(560 - a) / b`
 
-To convert a value to standard units, we simply take the value, subtract it by the mean, and divide by STD, which in this case is `(560 - a) / b`.
+To convert a value to standard units, we take the value, subtract the mean from it, and divide by SD. In this case that is `(560 - a) / b`, because `a` is the mean of our dog prices sample array and `b` is the SD of the dog prices sample array. 
 
 <average>80</average>
 
@@ -108,7 +108,7 @@ Limit Theorem.
 
 **Answer: ** True
 
-True. The central limit theorem states that if you have a populations and take a sufficiently large number of random samples form the population, then the distribution of the sample means will be approximately normally distributed.
+True. The central limit theorem states that if you have a population and you take a sufficiently large number of random samples from the population, then the distribution of the sample means will be approximately normally distributed.
 
 <average>91</average>
 
@@ -152,7 +152,7 @@ If Oren took 4000 bootstrap resamples instead of 1000, the standard deviation of
 
 **Answer: ** None of the above
 
-Again, from our formula given by the central limit theorem, the sample STD doesn't depend on the number of bootstrap resamples so long as it's "sufficiently large". Thus increasing our bootstrap sample form 1000 to 4000 will have no effect on the std of `boots`
+Again, from our formula given by the central limit theorem, the sample STD doesn't depend on the number of bootstrap resamples so long as it's "sufficiently large". Thus increasing our bootstrap sample from 1000 to 4000 will have no effect on the std of `boots`
 
 <average>74</average>
 
@@ -175,7 +175,7 @@ stats.norm.cdf(1.4)  # => 0.92
 
 **Answer: ** `a + 1.75 * b / np.sqrt(c)`
 
-Recall that a 92% confidence interval means an interval that consists of the middle 92% of the distribution. In other words, we want to "chop" off 4% from either end of the ditribution. Thus to get the right endpoint, we want the value corresponding to the 96th percentile, or `mean + 1.75 * (std of population / np.sqrt(sample size)` or `a + 1.75 * b / np.sqrt(c)` (we divide by `np.sqrt(c)` due to the central limit theorem). Note, that the second line of information that was given `stats.norm.cdf(1.4)` is irrelavant to this particular problem.
+Recall that a 92% confidence interval means an interval that consists of the middle 92% of the distribution. In other words, we want to "chop" off 4% from either end of the ditribution. Thus to get the right endpoint, we want the value corresponding to the 96th percentile in the mean dog price distribution, or `mean + 1.75 * (SD of population / np.sqrt(sample size)` or `a + 1.75 * b / np.sqrt(c)` (we divide by `np.sqrt(c)` due to the central limit theorem). Note that the second line of information that was given `stats.norm.cdf(1.4)` is irrelavant to this particular problem.
 
 <average>48</average>
 
