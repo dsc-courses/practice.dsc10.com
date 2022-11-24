@@ -86,9 +86,7 @@ Below, we'll perform the hypothesis test with a different test statistic, the me
 
 Recall that the ticket counts we observed for children, adults, and seniors are stored in the array `admissions_data  = np.array([550, 1550, 400])`, and that our model is `model = np.array([0.25, 0.6, 0.15])`.
 
-For our hypothesis test to determine whether the admissions data is consistent with our model, what is the observed value of the test statistic? Input your answer as a decimal between 0 and 1. Round to three decimal places. ____
-
-Moving forward, suppose that the value you calculated above is assigned to the variable `observed_stat`.
+For our hypothesis test to determine whether the admissions data is consistent with our model, what is the observed value of the test statistic? Input your answer as a decimal between 0 and 1. Round to three decimal places. (Suppose that the value you calculated is assigned to the variable `observed_stat`, which we will use in later questions.)
 
 # BEGIN SOLUTION
 
@@ -124,10 +122,10 @@ for i in np.arange(10000):
 p_value = __(d)__
 ```
 
-What goes in blank (a)? ____
-What goes in blank (b)? ____
-What goes in blank (c)? ____
-What goes in blank (d)? ____
+What goes in blank (a)? 
+What goes in blank (b)? 
+What goes in blank (c)? 
+What goes in blank (d)? 
 
 # BEGIN SOLUTION
 

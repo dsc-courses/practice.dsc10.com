@@ -8,7 +8,7 @@ Suppose we pick one of these 330 penguins, uniformly at random, and name it Ches
 
 # BEGIN SUBPROB
 
-What is the probability that Chester comes from Dream island? Give your answer as a number between 0 and 1, rounded to three decimal places. ____
+What is the probability that Chester comes from Dream island? Give your answer as a number between 0 and 1, rounded to three decimal places. 
 
 # BEGIN SOLUTION
 
@@ -24,7 +24,7 @@ P(Chester comes from Dream island) = # of penguins in dream island $/$ # of all 
 
 # BEGIN SUBPROB
 
-If we know that Chester comes from Dream island, what is the probability that Chester is an Adelie penguin? Give your answer as a number between 0 and 1, rounded to three decimal places. ____
+If we know that Chester comes from Dream island, what is the probability that Chester is an Adelie penguin? Give your answer as a number between 0 and 1, rounded to three decimal places. 
 
 # BEGIN SOLUTION
 
@@ -40,7 +40,7 @@ P(Chester is an Adelie penguin given that Chester comes from Dream island) = # o
 
 # BEGIN SUBPROB
 
-If we know that Chester is not from Dream island, what is the probability that Chester is not an Adelie penguin? Give your answer as a number between 0 and 1, rounded to three decimal places. ____
+If we know that Chester is not from Dream island, what is the probability that Chester is not an Adelie penguin? Give your answer as a number between 0 and 1, rounded to three decimal places. 
 
 # BEGIN SOLUTION
 

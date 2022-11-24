@@ -142,8 +142,8 @@ def estimate_prob_within_50g():
     return within_50g_count / num_reps
 ```
 
-What goes in blank (a)? ____
-What goes in blank (b)? ____
+What goes in blank (a)? 
+What goes in blank (b)? 
 
 # BEGIN SOLUTION
 
@@ -213,8 +213,8 @@ left = np.percentile(boot_means, __(a)__)
 right = np.percentile(boot_means, __(b)__)
 [left, right]
 ```
-What goes in blank (a)? ____
-What goes in blank (b)? ____
+What goes in blank (a)? 
+What goes in blank (b)? 
 
 # BEGIN SOLUTION
 
