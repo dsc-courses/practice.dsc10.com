@@ -10,13 +10,7 @@ Now let's study the relationship between a penguin's bill length (in millimeters
 
 Which of the four scatter plots below describe the relationship between bill length and body mass, based on the information provided in the question?
 
-<center><img src='../assets/images/fa21-final/bills_option1.png' width=40%></center>
-
-<center><img src='../assets/images/fa21-final/bills_option2.png' width=40%></center>
-
-<center><img src='../assets/images/fa21-final/bills_option3.png' width=40%></center>
-
-<center><img src='../assets/images/fa21-final/bills_option4.png' width=40%></center>
+<center><img src='../assets/images/fa21-final/bills_scatter.png' width=40%></center>
 
 ( ) Option 1
 ( ) Option 2
@@ -39,11 +33,11 @@ Given the average bill length is 44 mm, we expect our x-axis to have 44 at the m
 
 # BEGIN SUBPROB
 
-Suppose we want to find the regression line that uses bill length, $x$, to predict body mass, $y$. The line is of the form $y = mx\+\ b$. What are $m$ and $b$?
+Suppose we want to find the regression line that uses bill length, $x$, to predict body mass, $y$. The line is of the form $y = mx +\ b$. What are $m$ and $b$?
 
-What is $m$? Give your answer as a number without any units, rounded to three decimal places. ____
+What is $m$? Give your answer as a number without any units, rounded to three decimal places.
 
-What is $b$? Give your answer as a number without units, rounded to three decimal places. ____
+What is $b$? Give your answer as a number without units, rounded to three decimal places. 
 
 # BEGIN SOLUTION
 
@@ -60,7 +54,7 @@ $$b = \text{mean of }y - m \cdot \text{mean of }x = 4200-77 \cdot 44 = 812 $$
 
 # BEGIN SUBPROB
 
-What is the predicted body mass (in grams) of a penguin whose bill length is 44 mm? Give your answer as a number without any units, rounded to three decimal places.____
+What is the predicted body mass (in grams) of a penguin whose bill length is 44 mm? Give your answer as a number without any units, rounded to three decimal places.
 
 # BEGIN SOLUTION
 
@@ -76,7 +70,7 @@ $$y = mx\ +\ b = 77 \cdot 44 + 812 = 3388 +812 = 4200$$
 
 # BEGIN SUBPROB
 
-A particular penguin had a predicted body mass of 6800 grams. What is that penguin's bill length (in mm)? Give your answer as a number without any units, rounded to three decimal places. ____
+A particular penguin had a predicted body mass of 6800 grams. What is that penguin's bill length (in mm)? Give your answer as a number without any units, rounded to three decimal places. 
 
 # BEGIN SOLUTION
 
