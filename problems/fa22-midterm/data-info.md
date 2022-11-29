@@ -5,12 +5,12 @@ fuel cell vehicles).
 
 The DataFrame evs consists of **32** rows, each of which contains information about a different EV model.
 
-* `"Brand"` (str): The vehicle’s manufacturer.
-* `"Model"` (str): The vehicle’s model name.
-* `"BodyStyle"` (str): The vehicle’s body style.
-* `"Seats"` (int): The vehicle’s number of seats.
-* `"TopSpeed"` (int): The vehicle’s top speed, in kilometers per hour.
-* `"Range"` (int): The vehicle’s range, or distance it can travel on a single charge, in kilometers.
+* `"Brand"` (str): The vehicle's manufacturer.
+* `"Model"` (str): The vehicle's model name.
+* `"BodyStyle"` (str): The vehicle's body style.
+* `"Seats"` (int): The vehicle's number of seats.
+* `"TopSpeed"` (int): The vehicle's top speed, in kilometers per hour.
+* `"Range"` (int): The vehicle's range, or distance it can travel on a single charge, in kilometers.
 
 The first few rows of evs are shown below (though remember, evs has 32 rows total).
 
