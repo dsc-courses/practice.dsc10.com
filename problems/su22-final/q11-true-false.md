@@ -203,7 +203,7 @@ the mean of the distribution plus or minus 5 standard deviations.
 
 **Answer: ** True
 
-By Chebyshev's theorem, at most `1 - 1 / z^2` of the data is within `z` STD of the mean. Thus `1 - 1 / 5^2 = 0.96` of the data is within 5 STD of the mean. 
+By Chebyshev's theorem, at least `1 - 1 / z^2` of the data is within `z` STD of the mean. Thus at least `1 - 1 / 5^2 = 0.96` of the data is within 5 STD of the mean. 
 
 <average>51</average>
 
