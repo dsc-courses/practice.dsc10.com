@@ -173,7 +173,7 @@ To better estimate the population mean, we bootstrapped our sample and plotted a
 
 <center><img src='../assets/images/fa21-final/option1.png' width=40%></center>
 
-<center><img src='../assets/images/fa21-final/option2.png' width=40%></center>
+<center><img src='../assets/images/fa21-final/q6_7_option_2.png' width=40%></center>
 
 <center><img src='../assets/images/fa21-final/option3.png' width=40%></center>
 
@@ -189,7 +189,12 @@ To better estimate the population mean, we bootstrapped our sample and plotted a
 
 **Answer:** Option 2
 
-Recall, the distribution of sample mean is roughly normal and centered at the **population mean** (which is not necessarily our sample mean which is 4200). Thus, we eliminate **Option 1**
+Recall, according to the Central Limit Theorem (CLT), the probability distribution of the sum or mean of a large random sample drawn with replacement will be roughly normal, regardless of the distribution of the population from which the sample is drawn.
+
+Thus, our graph should have a normal distribution. We eliminate **Option 4**. 
+
+Recall that the standard normal curve has inflection points at $z = +-1$, which is 68% proportion of a normal distribution.(inflection point is where a curve goes from "opening down" to "opening up")
+Since we have a confidence intervel of 68% in this question, by looking at the inflection point, we can eliminate **Option 3**
 
 To compute the SD of the sample mean's distribution, when we don't know the population's SD, we can use the sample's SD (840):
 $$\text{SD of Distribution of Possible Sample Means} \approx \frac{\text{Sample SD}}{\sqrt{\text{sample size}}} = \frac{840}{\sqrt{330}} \approx 46.24$$
@@ -202,8 +207,8 @@ Recall: proportion with $z$ SDs of the mean
 |$\text{average} \pm 2\text{SDs}$ | $\geq 75\%$ | $\approx 95\%$ |
 |$\text{average} \pm 3\text{SDs}$ | $\geq 88\%$ | $\approx 99.73\%$ |
 
-In this question, we want 68% confidence interval, given that the distribution of sample mean is roughly normal, our CI should have range $\text{population mean} \pm 1 \ \text{SD}$. Thus, the interval is approximately $46.24-(-46.24)=92.48$.
-We compare the 68% CI in Option 2, 3, 4, and we choose **Option 2** since it has a 68% CI with an interval approximately 92.48. (There is 3.5 bars between 4150 and 4200, so 1 bar is about $50/3.5 \approx 14$ width. There is about 6.5 bars within 68% CI in Option 2, so we have $6.5 \cdot 14 = 91$)
+In this question, we want 68% confidence interval, given that the distribution of sample mean is roughly normal, our CI should have range $\text{sample mean} \pm 1 \ \text{SD}$. Thus, the interval is approximately $[4200-46.24 = 4153.76, 4200+46.24=4246.24]$.
+We compare the 68% CI in Option 1, 2 and we choose **Option 2** since it has a 68% CI with approximately the same interval.
 
 <average>66</average>
 

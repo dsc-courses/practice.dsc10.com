@@ -45,14 +45,21 @@ What would the regression line predict for the admission cost (in dollars) at th
 
 **Answer:** 10.500
 
-Recall, the regression line predicts that a value of x (the independent variable) which is $n$ standard units above (or below) average $\bar{x}$ has a value of y (dependent variable) which is $rn$ standard units above (or below) average $\bar{y}$
+Recall, we can make predictions in standard units with the following formula
 
-In this question, our correlation coefficient ($r$) is 0.25. The number of visitors is x, and the admission cost is y. Given that the number of visitors at the Museum of Natural History is six standard deviations below average, $$x_{\ \text {Museum of Natural History}} = \bar{x}-6\cdot \text{SD of x}$$ we can compute how much standard deviation is admission cost (in dollars) at the Museum of Natural History below the average:$$ 6 \cdot r = 6 \cdot 0.25 = 1.5$$ 
+$$ predicted\ y_{su} = r \cdot x_{su}$$
 
-Thus, we have $$y_{\ \text {Museum of Natural History}} = \bar{y}-1.5\cdot \text{SD of y}$$
+In this question, our correlation coefficient ($r$) is 0.25. The number of visitors is x, and the admission cost is y. Given that the number of visitors at the Museum of Natural History is 6 standard deviations **below** average, 
 
-Since $\bar{y} = 15\ \text{dollars}$, $\text{SD of y} = 3\ \text{dollars}$,
-$$y_{\ \text {Museum of Natural History}} = 15\ \text{dollars} -1.5\cdot 3\ \text{dollars} = 10.500\ \text{dollars}$$
+$$predicted\ y_{su} =  r \cdot x_{su} = 0.25 \cdot -6 =  -1.5$$
+
+We then compute y, which is the admission cost (in dollars) at the Museum of Natural History.
+
+$$y_{su} = \frac{y-\bar{y}}{SD\ of\ y}\\
+-1.5 = \frac{y-15}{3}\\
+-1.5 \cdot 3 = y-15\\
+-4.5 + 15 = y\\
+y = 10.5$$
 
 <average>62</average>
 
