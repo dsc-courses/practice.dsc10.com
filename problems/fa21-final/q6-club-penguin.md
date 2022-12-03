@@ -171,18 +171,22 @@ Recall, there are 330 penguins in our dataset. Their average mass is 4200 grams,
 
 To better estimate the population mean, we bootstrapped our sample and plotted a histogram of the resample means, then took the middle 68 percent of those values to get a confidence interval. Which option below shows the histogram of the resample means and the confidence interval we found?
 
+<p align="center">
+Option 1
+</p>
 <center><img src='../assets/images/fa21-final/option1.png' width=40%></center>
-
-<center><img src='../assets/images/fa21-final/option2.png' width=40%></center>
-
+<p align="center">
+Option 2
+</p>
+ <center><img src='../assets/images/fa21-final/option2.png' width=40%></center>
+<p align="center">
+Option 3
+</p>
 <center><img src='../assets/images/fa21-final/option3.png' width=40%></center>
-
+<p align="center">
+Option 4
+</p>
 <center><img src='../assets/images/fa21-final/option4.png' width=40%></center>
-
-( ) Option 1
-( ) Option 2
-( ) Option 3
-( ) Option 4
 
 
 # BEGIN SOLUTION
