@@ -93,13 +93,20 @@ Per Chebyshev's inequality, at least what percentage of penguins have a mass bet
 
 **Answer:** 75%
 
-Recall, Chebyshev's inequality states that No matter what the shape of the distribution is, the proportion of values in the range “average ± z SDs” is  **at least** $1 - \frac{1}{z^2}$.
+Recall: proportion with $z$ SDs of the mean
 
-To approach the problem, we'll start by converting 3276 grams and 5124 grams to standard units. Doing so yields $\frac{1680 - 4200}{840} = -3$, similarly, $\frac{5880 - 4200}{840} = 2$. This means that 1680 is 3 standard deviations **below** the mean, and 5880 is 2 standard deviations **above** the mean. Thus, we are calculating the proportion of values in the range “average - 3 SDs and average + 2 SDs”. 
+|Percent in Range | All Distributions (via Chebyshev's Inequality) | Normal Distributions|
+|---|---|---|
+|$\text{average} \pm 1 \ \text{SD}$ | $\geq 0\%$ | $\approx 68\%$ |
+|$\text{average} \pm 2\text{SDs}$ | $\geq 75\%$ | $\approx 95\%$ |
+|$\text{average} \pm 3\text{SDs}$ | $\geq 88\%$ | $\approx 99.73\%$ |
 
-When $z = -3$, we have $\frac{1 - \frac{1}{z^2}}{2} = \frac{1 - \frac{1}{3^2}}{2} = \frac{1-\frac{1}{9}}{2} = \frac{4}{9}$. (Remember we have to divide the percentage by 2 since we are only computing one side of the mean. In other words, half of the range.) When $z = +2$, we have $\frac{1 - \frac{1}{z^2}}{2} = \frac{1 - \frac{1}{2^2}}{2} = \frac{1-\frac{1}{4}}{2} = \frac{3}{8}$. We sum the percentage together, $\frac{4}{9}+\frac{3}{8}=\frac{32+27}{72} \approx 0.819444$, which as a percentage rounded to one decimal places is $81.9\%$.
 
-In our options, 75% < 81.9%, 88.8% > 81.9%. Thus, **at least** 75% of the penguins have a mass between 1680 grams and 5880 grams.
+To approach the problem, we'll start by converting 3276 grams and 5124 grams to standard units. Doing so yields $\frac{1680 - 4200}{840} = -3$, similarly, $\frac{5880 - 4200}{840} = 2$. This means that 1680 is 3 standard deviations **below** the mean, and 5880 is 2 standard deviations **above** the mean. 
+
+Proportion of values in [-3 SUs, 2 SUs] >= Proportion of values in [-2 SUs, 2 SUs] >= 75% (Since we cannot assume that the distribution is normal, we look at the **All Distributions (via Chebyshev's Inequality)** column for proportion).
+
+Thus, **at least** 75% of the penguins have a mass between 1680 grams and 5880 grams.
 
 <average>72</average>
 
