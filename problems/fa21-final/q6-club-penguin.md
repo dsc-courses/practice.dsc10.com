@@ -173,7 +173,7 @@ To better estimate the population mean, we bootstrapped our sample and plotted a
 
 <center><img src='../assets/images/fa21-final/option1.png' width=40%></center>
 
-<center><img src='../assets/images/fa21-final/q6_7_option_2.png' width=40%></center>
+<center><img src='../assets/images/fa21-final/option2.png' width=40%></center>
 
 <center><img src='../assets/images/fa21-final/option3.png' width=40%></center>
 
