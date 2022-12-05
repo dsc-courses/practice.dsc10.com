@@ -317,7 +317,7 @@ def process_problem(problem_str, problem_num, show_solution):
     problem_str = re.sub(AVG_REGEXP, stars_repl, problem_str)
 
     if '# BEGIN SUBPROB' in problem_str:
-        assert problem_str.count('# BEGIN SUBPROB') == problem_str.count('# END SUBPROB'), 'Different number of # BEGIN SUBPROB and # END SUBPROB'
+        assert problem_str.count('# BEGIN SUBPROB') == problem_str.count('# END SUBPROB'), f'Different number of # BEGIN SUBPROB and # END SUBPROB in Problem {problem_num}'
         return process_problem_with_subparts(problem_str, problem_num, show_solution)
     
     else:
