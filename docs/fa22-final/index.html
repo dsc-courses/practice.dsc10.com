@@ -76,7 +76,7 @@
     code span.vs { color: #4070a0; } /* VerbatimString */
     code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../assets/theme.css" />
+  <link rel="stylesheet" href="..\assets\theme.css" />
   <script defer=""
   src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
@@ -176,7 +176,7 @@ follows.</p>
 <p>The visualization below shows the distribution of the numbers of
 dependents per applicant. Note that every applicant has 6 or fewer
 dependents.</p>
-<p>https://github.com/dsc-courses/practice.dsc10.com/blob/master/assets/images/fa22-final/dep_hist.jpg?raw=true</p>
+<center><img src='../assets/images/fa22-final/dep_hist.jpg' width=30%></center>
 <p>Use <code>dep_counts</code> and the visualization above to answer the
 following questions.</p>
 <p><br></p>
@@ -201,6 +201,278 @@ aria-labelledby="heading1_1" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer:</strong> DataFrame</p>
+<p>As usual, <code>.groupby</code> produces a new DataFrame. Then we use
+<code>.get</code> on this DataFrame with a list as the input, which
+produces a DataFrame with just one column. Remember that
+<code>.get("status")</code> produces a Series, but
+<code>.get(["status"])</code> produces a DataFrame</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-1.2">Problem 1.2</h3>
+<p>What type of data visualization is shown above?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> line plot</p></li>
+<li><p><input type="radio" disabled="" /> scatter plot</p></li>
+<li><p><input type="radio" disabled="" /> bar chart</p></li>
+<li><p><input type="radio" disabled="" /> histogram</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading1_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1_2" aria-expanded="true" aria-controls="collapse1_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse1_2" class="accordion-collapse collapse collapse"
+aria-labelledby="heading1_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> histogram</p>
+<p>This is a histogram because the number of dependents per applicant is
+a numerical variable. It makes sense, for example, to subtract the
+number of dependents for two applicants to see how many more dependents
+one applicant has than the other. Histograms show distributions of
+numerical variables.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-1.3">Problem 1.3</h3>
+<p>How many of the 1,000 applicants in <code>apps</code> have 2 or more
+dependents? Give your answer as an <strong>integer</strong>.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading1_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1_3" aria-expanded="true" aria-controls="collapse1_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse1_3" class="accordion-collapse collapse collapse"
+aria-labelledby="heading1_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> 400</p>
+<p>The bars of a density histogram have a combined total area of 1, and
+the area in any bar represents the proportion of values that fall in
+that bin.</p>
+<p>In tihs problem, we want the total area of the bins corresponding to
+2 or more dependents. Since this involves 5 bins, whose exact heights
+are unclear, we will instead calculate the proportion of all applicants
+with 0 or 1 dependents, and then subtract this proportion from 1.</p>
+<p>Since the width of each bin is 1, we have for each bin, <span class="math display">begin{align}
+\text{Area} &amp;= \text{Height} \cdot \text{Width}\\
+\text{Area} &amp;= \text{Height}.
+\end{align}</span></p>
+<p>Since the height of the first bar is 0.4, this means a proportion of
+0.4 applicants have 0 dependents. Similarly, since the height of the
+second bar is 0.2, a proportion of 0.2 applicants have 1 dependent. This
+means <span class="math inline">1-(0.4+0.2) = 0.4</span> proportion of
+applicants have 2 or more dependents. Since there are 1,000 applicants
+total, this is 400 applicants.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-1.4">Problem 1.4</h3>
+<p>Define the DataFrame <code>dependents_status</code> as follows.</p>
+<p><code>dependents_status = apps.groupby(["dependents", "status"]).count()</code></p>
+<p>What is the maximum number of rows that
+<code>dependents_status</code> could have? Give your answer as an
+<strong>integer</strong>.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading1_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1_4" aria-expanded="true" aria-controls="collapse1_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse1_4" class="accordion-collapse collapse collapse"
+aria-labelledby="heading1_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> 400</p>
+<p>When we group by multiple columns, the resulting DataFrame has one
+row for each combination of values in those columns. Since there are 7
+possible values for <code>"dependents"</code> (0, 1, 2, 3, 4, 5, 6) and
+2 possible values for <code>"status"</code> (<code>"approved"</code>,
+<code>"denied"</code>), this means there are <span class="math inline">7\cdot 2 = 14</span> possible combinations of values
+for these two columns.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-1.5">Problem 1.5</h3>
+<p>Recall that <code>dep_counts</code> is defined as follows.</p>
+<p><code>dep_counts = apps.groupby("dependents").count().get(["status"])</code></p>
+<p>Below, we define several more variables.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>variable1 <span class="op">=</span> dep_counts[dep_counts.get(<span class="st">&quot;status&quot;</span>) <span class="op">&gt;=</span> <span class="dv">2</span>].<span class="bu">sum</span>()</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>variable2 <span class="op">=</span> dep_counts[dep_counts.index <span class="op">&gt;</span> <span class="dv">2</span>].get(<span class="st">&quot;status&quot;</span>).<span class="bu">sum</span>() </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>variable3 <span class="op">=</span> (dep_counts.get(<span class="st">&quot;status&quot;</span>).<span class="bu">sum</span>() </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>            <span class="op">-</span> dep_counts[dep_counts.index <span class="op">&lt;</span> <span class="dv">2</span>].get(<span class="st">&quot;status&quot;</span>).<span class="bu">sum</span>())</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>variable4 <span class="op">=</span> dep_counts.take(np.arange(<span class="dv">2</span>, <span class="dv">7</span>)).get(<span class="st">&quot;status&quot;</span>).<span class="bu">sum</span>()</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>variable5 <span class="op">=</span> (dep_counts.get(<span class="st">&quot;status&quot;</span>).<span class="bu">sum</span>() </span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>            <span class="op">-</span> dep_counts.get(<span class="st">&quot;status&quot;</span>).loc[<span class="dv">1</span>] </span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>            <span class="op">-</span> dep_counts.get(<span class="st">&quot;status&quot;</span>).loc[<span class="dv">2</span>])</span></code></pre></div>
+<p>Which of these variables are equal to your answer from part (c)?
+Select all that apply.</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> <code>variable1</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>variable2</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>variable3</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>variable4</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>variable5</code></p></li>
+<li><p><input type="checkbox" disabled="" /> None of the above.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading1_5">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1_5" aria-expanded="true" aria-controls="collapse1_5">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse1_5" class="accordion-collapse collapse collapse"
+aria-labelledby="heading1_5" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> <code>variable3</code>,
+<code>variable4</code></p>
+<p>First, the DataFrame <code>dep_counts</code> is indexed by
+<code>"dependents"</code> and has just one column, called
+<code>"status"</code> containing the number of applicants with each
+number of dependents. For example, <code>dep_counts</code> may look like
+the DataFrame shown below.</p>
+<center><img src="../assets/images/fa22-final/dep_counts.jpg" width="10%"/></center>
+<p><code>variable1</code> does not work because it doesn’t make sense to
+query with the condition <code>dep_counts.get("status") &gt;= 2</code>.
+In the example <code>dep_counts</code> shown above, all rows would
+satisfy this condition, but not all rows correspond to applicants with 2
+or more dependents. We should be querying based on the values in the
+index instead.</p>
+<p><code>variable2</code> is close but it uses a strict inequality
+<code>&gt;</code> where it should use <code>&gt;=</code> because we want
+to include applicants with 2 dependents.</p>
+<p><code>variable3</code> is correct. It uses the same approach we used
+in part (c). That is, in order to calculate the number of applicants
+with 2 or more dependents, we calculate the total number of applicants
+minus the number of applicants with less than 2 dependents.</p>
+<p><code>variable4</code> works as well. The strategy here is to keep
+only the rows that correspond to 2 or more dependents. Recall that
+<code>np.arange(2, 7)</code> evaluates to the array
+<code>np.array([2, 3, 4, 5, 6])</code>. Since we are told that each
+applicant has 6 or fewer dependents, keeping only these rows
+correspondings to keeping all applicants with 2 or more dependents.</p>
+<p><code>variable5</code> does not work because it subtracts away the
+applicants with 1 or 2 dependents, leaving the applicants with 0, 3, 4,
+5, or 6 dependents. This is not what we want.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-1.6">Problem 1.6</h3>
+<p>Next, we define variables <code>x</code> and <code>y</code> as
+follows.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> dep_counts.index.values</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> dep_counts.get(<span class="st">&quot;status&quot;</span>)</span></code></pre></div>
+<p><em>Note</em>: If <code>idx</code> is the index of a Series or
+DataFrame, <code>idx.values</code> gives the values in <code>idx</code>
+<strong>as an array</strong>.</p>
+<p>Which of the following expressions evaluate to the mean number of
+dependents? Select all that apply.</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> <code>np.mean(x * y)</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>x.sum() / y.sum()</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>(x * y / y.sum()).sum()</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>np.mean(x)</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>(x * y).sum() / y.sum()</code></p></li>
+<li><p><input type="checkbox" disabled="" /> None of the above.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading1_6">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1_6" aria-expanded="true" aria-controls="collapse1_6">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse1_6" class="accordion-collapse collapse collapse"
+aria-labelledby="heading1_6" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> <code>(x * y / y.sum()).sum()</code>,
+<code>(x * y).sum() / y.sum()</code></p>
+<p>We know that <code>x</code> is
+<code>np.array([0, 1, 2, 3, 4, 5, 6])</code> and <code>y</code> is a
+Series containing the number of applicants with each number of
+dependents. We don’t know the exact values of the data in
+<code>y</code>, but we do know there are 7 elements that sum to 1000,
+the first two of which are 400 and 200.</p>
+<p><code>np.mean(x * y)</code> does not work because <code>x * y</code>
+has 7 elements, so <code>np.mean(x * y)</code> is equivalent to
+<code>sum(x * y) / 7</code>, but the mean number of dependents should be
+<code>sum(x * y) / 1000</code> since there are 1000 applicants.</p>
+<p><code>x.sum() / y.sum()</code> evaluates to <span class="math inline">\frac{21}{1000}</span> regardless of how many
+applicants have each number of dependents, so it must be incorrect.</p>
+<p><code>(x * y / y.sum()).sum()</code> works. We can think of
+<code>y / y.sum()</code> as a Series containing the proportion of
+applicants with each number of dependents. For example, the first two
+entries of <code>y / y.sum()</code> are 0.4 and 0.2. When we multiply
+this Series by <code>x</code> and sum up all 7 entries, the result is a
+weighted average of the different number of dependents, where the
+weights are given by the proportion of applicants with each number of
+dependents.</p>
+<p><code>np.mean(x)</code> evaluates to 3 regardless of how many
+applicants have each number of dependents, so it must be incorrect.</p>
+<p><code>(x * y).sum() / y.sum()</code> works because the numerator
+<code>(x * y).sum()</code> represents the total number of dependents
+across all 1,000 applicants and the denominator is the number of
+applicants, or 1,000. The total divided by the count gives the mean
+number of dependents.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-1.7">Problem 1.7</h3>
+<p>What does the expression <code>y.iloc[0] / y.sum()</code> evaluate
+to? Give your answer as a <strong>fully simplified
+fraction</strong>.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading1_7">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1_7" aria-expanded="true" aria-controls="collapse1_7">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse1_7" class="accordion-collapse collapse collapse"
+aria-labelledby="heading1_7" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> 0.4</p>
+<p><code>y.iloc[0]</code> represents the number of applicants with 0
+dependents, which is 400. <code>y.sum()</code> represents the total
+number of applicants, which is 1,000. So the ratio of these is 0.4.</p>
 </div>
 </div>
 </div>
@@ -208,9 +480,567 @@ aria-labelledby="heading1_1" data-bs-parent="#accordionExample">
 <p><br></p>
 <hr />
 <h2 id="problem-2">Problem 2</h2>
-<p>Question goes here</p>
+<p>For each application in <code>apps</code>, we want to assign an age
+category based on the value in the <code>"age"</code> column, according
+to the table below.</p>
+<center>
+<table class="table" style="width:30%">
+  <thead>
+    <tr>
+      <th scope="col">`"age"`</th>
+      <th scope="col">age category</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">under 25</th>
+      <td>`"young adult"`</td>
+    </tr>
+    <tr>
+      <th scope="row">at least 25, but less than 50</th>
+      <td>`"middle aged"`</td>
+    </tr>
+    <tr>
+      <th scope="row">at least 50, but less than 75</th>
+      <td>`"older adult"`</td>
+    </tr>
+    <tr>
+      <th scope="row">75 or over</th>
+      <td>`"elderly"`</td>
+    </tr>
+  </tbody>
+</table>
+</center>
+<div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>cat_names <span class="op">=</span> [<span class="st">&quot;young adult&quot;</span>, <span class="st">&quot;middle aged&quot;</span>, <span class="st">&quot;older adult&quot;</span>, <span class="st">&quot;elderly&quot;</span>]</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> age_to_bin(one_age):</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">&#39;&#39;&#39;Returns the age category corresponding to one_age.&#39;&#39;&#39;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    one_age <span class="op">=</span> __(a)__</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    bin_pos <span class="op">=</span> __(b)__</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> cat_names[bin_pos]</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>binned_ages <span class="op">=</span> __(c)__</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>apps_cat <span class="op">=</span> apps.assign(age_category <span class="op">=</span> binned_ages)</span></code></pre></div>
 <p><br></p>
 <h3 id="problem-2.1">Problem 2.1</h3>
+<p>Which of the following is a correct way to fill in blanks (a) and
+(b)?</p>
+<center>
+<table class="table" style="width:50%">
+  <thead>
+    <tr>
+      <th scope="col">Blank (a)</th>
+      <th scope="col">Blank (a)</th>
+      <th scope="col">Blank (b)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">Option 1</th>
+      <td>`75 - one_age`</td>
+      <td>`round(one_age / 25)`</td>
+    </tr>
+    <tr>
+      <th scope="row">Option 2</th>
+      <td>`min(75, one_age)`</td>
+      <td>`one_age / 25`</td>
+    </tr>
+    <tr>
+      <th scope="row">Option 3</th>
+      <td>`75 - one_age`</td>
+      <td>`int(one_age / 25)`</td>
+    </tr>
+    <tr>
+      <th scope="row">Option 4</th>
+      <td>`min(75, one_age)`</td>
+      <td>`int(one_age / 25)`</td>
+    </tr>
+    <tr>
+      <th scope="row">Option 5</th>
+      <td>`min(74, one_age)`</td>
+      <td>`round(one_age / 25)`</td>
+    </tr>
+  </tbody>
+</table>
+</center>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Option 1</p></li>
+<li><p><input type="radio" disabled="" /> Option 2</p></li>
+<li><p><input type="radio" disabled="" /> Option 3</p></li>
+<li><p><input type="radio" disabled="" /> Option 4</p></li>
+<li><p><input type="radio" disabled="" /> Option 5</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading2_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2_1" aria-expanded="true" aria-controls="collapse2_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse2_1" class="accordion-collapse collapse collapse"
+aria-labelledby="heading2_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> Option 4</p>
+<p>The line <code>one_age = min(75, one_age)</code> either leaves
+<code>one_age</code> alone or sets it equal to 75 if the age was higher
+than 75, which means anyone over age 75 is considered to be 75 years old
+for the purposes of classifying them into age categories. From the
+return statement, we know we need our value for <code>bin_pos</code> to
+be either 0, 1 ,2 or 3 since <code>cat_names</code> has a length of 4.
+When we divide <code>one_age</code> by 25, we get a decimal number that
+represents how many times 25 fits into <code>one_age</code>. We want to
+round this number <em>down</em> to get the number of whole copies of 25
+that fit into <code>one_age</code>. If that value is 0, it means the
+person is a <code>"young adult"</code>, if that value is 1, it means
+they are <code>"middle aged"</code>, and so on. The rounding down
+behavior that we want is accomplished by
+<code>int(one_age/25)</code>.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-2.2">Problem 2.2</h3>
+<p>Which of the following is a correct way to fill in blank (c)?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>age to bin(apps.get("age"))</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>apps.get("age").apply(age to bin)</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>apps.get("age").age to bin()</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>apps.get("age").apply(age to bin(one age))</code></p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading2_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2_2" aria-expanded="true" aria-controls="collapse2_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse2_2" class="accordion-collapse collapse collapse"
+aria-labelledby="heading2_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong>
+<code>apps.get("age").apply(age to bin)</code></p>
+<p>We want our result to be a Series because the next line in the code
+assigns it to a DataFrame. We also need to use the <code>.apply()</code>
+method to apply our function to the entirety of the <code>"age"</code>
+column. The <code>.apply()</code> method only takes in the name of a
+function and not its variables, as it treats the entries of the column
+as the variables directly.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-2.3">Problem 2.3</h3>
+<p>Which of the following is a correct alternate implementation of the
+age to bin function? Select all that apply.</p>
+<p>Option 1:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> age_to_bin(one_age):</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    bin_pos <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> one_age <span class="op">&lt;</span> <span class="dv">25</span>:</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        bin_pos <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> one_age <span class="op">&lt;</span> <span class="dv">50</span>:</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        bin_pos <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> one_age <span class="op">&lt;</span> <span class="dv">75</span>:</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        bin_pos <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> cat_names[bin_pos]</span></code></pre></div>
+<p>Option 2:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> age_to_bin(one_age):</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    bin_pos <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> one_age <span class="op">&lt;</span> <span class="dv">75</span>:</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        bin_pos <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> one_age <span class="op">&lt;</span> <span class="dv">50</span>:</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        bin_pos <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> one_age <span class="op">&lt;</span> <span class="dv">25</span>:</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        bin_pos <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> cat_names[bin_pos]</span></code></pre></div>
+<p>Option 3:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> age_to_bin(one_age):</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    bin_pos <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> cutoff <span class="kw">in</span> np.arange(<span class="dv">25</span>, <span class="dv">100</span>, <span class="dv">25</span>):</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> one_age <span class="op">&gt;=</span> cutoff:</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>            bin_pos <span class="op">=</span> bin_pos <span class="op">+</span> <span class="dv">1</span> </span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> cat_names[bin_pos]</span></code></pre></div>
+<p>Option 4:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> age_to_bin(one_age):</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    bin_pos <span class="op">=</span> <span class="op">-</span><span class="dv">1</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> cutoff <span class="kw">in</span> np.arange(<span class="dv">0</span>, <span class="dv">100</span>, <span class="dv">25</span>):</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> one_age <span class="op">&gt;=</span> cutoff:</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>            bin_pos <span class="op">=</span> bin_pos <span class="op">+</span> <span class="dv">1</span> </span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> cat_names[bin_pos]</span></code></pre></div>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> Option 1</p></li>
+<li><p><input type="checkbox" disabled="" /> Option 2</p></li>
+<li><p><input type="checkbox" disabled="" /> Option 3</p></li>
+<li><p><input type="checkbox" disabled="" /> Option 4</p></li>
+<li><p><input type="checkbox" disabled="" /> None of the above.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading2_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2_3" aria-expanded="true" aria-controls="collapse2_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse2_3" class="accordion-collapse collapse collapse"
+aria-labelledby="heading2_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> Option 2 and Option 3</p>
+<p>Option 1 doesn’t work for inputs less than 25. For example, on an
+input of 10, every condition is satsified, so <code>bin_pos</code> will
+be set to 0, then 1, then 2, meaning the function will return
+<code>"older adult"</code> instead of <code>"young adult"</code>.</p>
+<p>Option 2 reverses the order of the conditions, which ensures that
+even when a number satisfies many conditions, the last one it satisfies
+determines the correct <code>bin_pos</code>. For example, 27 would
+satisfy the first 2 conditions but not the last one, and the function
+would return <code>"middle aged"</code> as expected.</p>
+<p>In option 3, <code>np.arange(25, 100, 25)</code> produces
+<code>np.array([25,50,75])</code>. The <code>if</code> condition checks
+the whether the age is at least 25, then 50, then 75. For every time
+that it is, it adds to <code>bin_pos</code>, otherwise it keeps
+<code>bin_pos</code>. At the end, <code>bin_pos</code> represents the
+number of these values that the age is greater than or equal to, which
+correctly determines the age category.</p>
+<p>Option 4 is equivalent to option 3 except for two things. First,
+<code>bin_pos</code> starts at -1, but since 0 is included in the set of
+<code>cutoff</code> values, the first time through the loop will set
+<code>bin_pos</code> to 0, as in Option 3. This change doesn’t affect
+the behavior of the funtion. The other change, however, is that the
+<code>return</code> statement is inside the <code>for</code>-loop, which
+does change the behavior of the function dramatically. Now the
+<code>for</code>-loop will only run once, checking whether the age is at
+least 0 and then returning immediately. Since ages are always at least
+0, this function will return <code>"young adult"</code> on every input,
+which is clearly incorrect.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-2.4">Problem 2.4</h3>
+<p>We want to determine the number of <code>"middle aged"</code>
+applicants whose applications were denied. Fill in the blank below so
+that <code>count</code> evaluates to that number.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> apps_cat.________.reset_index()</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>count <span class="op">=</span> df[(df.get(<span class="st">&quot;age_category&quot;</span>) <span class="op">==</span> <span class="st">&quot;middle aged&quot;</span>) <span class="op">&amp;</span> </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>           (df.get(<span class="st">&quot;status&quot;</span>) <span class="op">==</span> <span class="st">&quot;denied&quot;</span>)].get(<span class="st">&quot;income&quot;</span>).iloc[<span class="dv">0</span>]</span></code></pre></div>
+<p>What goes in the blank?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading2_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2_4" aria-expanded="true" aria-controls="collapse2_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse2_4" class="accordion-collapse collapse collapse"
+aria-labelledby="heading2_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong>
+<code>groupby(["age_category", "status"]).count()</code></p>
+<p>We can tell by the line in which <code>count</code> is defined that
+<code>df</code> needs to have columns called
+<code>"age category"</code>, <code>"status"</code>, and
+<code>"income"</code> with one row such that the values in these columns
+are <code>"middle aged"</code>, <code>"denied"</code>, and the number of
+such applicants, respectively. Since there is one row corresponding to a
+possible combination of values for <code>"age category"</code> and
+<code>"status"</code>, this suggests we need to group by the pair of
+columns, since <code>.groupby</code> produces a DataFrame with one row
+for each possible combination of values in the columns we are grouping
+by. Since we want to know how many individuals have this combination of
+values for <code>"age category"</code> and <code>"status"</code>, we
+should use <code>.count()</code> as the aggregation method. Another clue
+to to use <code>.groupby</code> is the presence of
+<code>.reset_index()</code> which is needed to query based on columns
+called <code>"age category"</code> and <code>"status"</code>.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-2.5">Problem 2.5</h3>
+<p>The total variation distance between the distributions of
+<code>"age category"</code> for approved applications and denied
+applications is 0.4.</p>
+<p>One of the visualizations below shows the distributions of
+<code>"age category"</code> for approved applications and denied
+applications. Which visualization is it?</p>
+<center><img src='../assets/images/fa22-final/four_tvds_B.jpg' width=50%></center>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading2_5">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2_5" aria-expanded="true" aria-controls="collapse2_5">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse2_5" class="accordion-collapse collapse collapse"
+aria-labelledby="heading2_5" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> Option 2</p>
+<p>TVD represents the total overrepresentation of one distrubtion,
+summed across all categories. To find the TVD visually, we can estimate
+how much each bar for approved applications extends beyond the
+corresponding bar for denied applications in each bar chart.</p>
+<p>In Option 1, the approved bar extends beyond the denied bar only in
+the <code>"young adult"</code> category, and by 0.2, so the TVD for
+Option 1 is 0.2. In Option 2, the approved bar extends beyond the denied
+bar only in the <code>"older adult"</code> category, and by 0.4, so the
+TVD for Option 2 is 0.4. In Option 3, the approved bar extends beyond
+the denied bar in <code>"elderly"</code> by 0.2 and in
+<code>"young adult"</code> by 0.4, for a TVD of 0.6. In Option 4, the
+approved bar extends beyond the denied bar in
+<code>"young adult only"</code> by 0.2, for a TVD of 0.2.</p>
+<p>Note that even without knowing the exact lengths of the bars in
+Option 2, we can still conclude that Option 2 is correct by process of
+elimination, since it’s the only one whose TVD appears close to 0.4</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-3">Problem 3</h2>
+<p>In <code>apps</code>, our sample of 1,000 credit card applications,
+500 of the applications come from homeowners and 500 come from people
+who don’t own their own home. In this sample, homeowner ages have a mean
+of 40 and standard deviation of 10. We want to use the bootstrap method
+to compute a confidence interval for the mean age of a homeowner in the
+population of all credit card applicants.</p>
+<p><br></p>
+<h3 id="problem-3.1">Problem 3.1</h3>
+<p>Suppose our computer is too slow to bootstrap 10,000 times, and
+instead can only bootstrap 20 times. Here are the 20 resample means,
+sorted in ascending order: <span class="math display">
+\begin{align*}
+    &amp;37, 38, 39, 39, 40, 40, 40, 40, 41 , 41, \\
+    &amp;42, 42, 42, 42, 42, 42, 43, 43, 43 , 44
+\end{align*}
+</span> What are the left and right endpoints of a bootstrapped
+<strong>80%</strong> confidence interval for the population mean? Use
+the mathematical definition of percentile.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading3_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_1" aria-expanded="true" aria-controls="collapse3_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse3_1" class="accordion-collapse collapse collapse"
+aria-labelledby="heading3_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> Left endpoint = 38, Right endpoint = 43</p>
+<p>To find an 80% confidence interval, we need to find the 10th and 90th
+percentiles of the resample means. Using the mathematical definiton of
+percentile, the 10th percentile is at position <span class="math inline">0.1*20 = 2</span> when we count starting with 1.
+Since 38 is the second element of the sorted data, that is the left
+endpoint of our confidence interval.</p>
+<p>Similarly, the 90th percentile is at position <span class="math inline">0.9*20 = 18</span> when we count starting with 1.
+Since 43 is the 18th element of the sorted data, that is the right
+endpoint of our confidence interval.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-3.2">Problem 3.2</h3>
+<p>True or False: Using the mathematical definition of percentile, the
+50th percentile of the bootstrapped distribution above equals its
+median.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading3_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_2" aria-expanded="true" aria-controls="collapse3_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse3_2" class="accordion-collapse collapse collapse"
+aria-labelledby="heading3_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> False</p>
+<p>The 50th percentile according to the mathematial definition is the
+element at position <span class="math inline">0.5*20 10</span> when we
+count starting with 1. The 10th element is 41. However, the median of a
+data set with 20 elements is halfway between the 10th and 11th values.
+So the median in this case is 41.5.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-3.3">Problem 3.3</h3>
+<p>Consider the following three quantities: 1. <code>pop_mean</code>,
+the unknown mean age of homeowners in the population of all credit card
+applicants. 1. <code>sample_mean</code>, the mean age of homeowners in
+our sample of 500 applications in <code>apps</code>. We know this is 40.
+1.<code>resample_mean</code>, the mean age of homeowners in one
+particular resample of the applications in <code>apps</code>.</p>
+<p>Which of the following statements about the relationship between
+these three quantities are guaranteed to be true? Select all that
+apply.</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> If <code>sample_mean</code> is less than <code>pop_mean</code>, then
+<code>resample_mean</code> is also less than <code>pop_mean</code>.</p></li>
+<li><p><input type="checkbox" disabled="" /> The mean of <code>sample_mean</code> and <code>resample_mean</code>
+is closer to <code>pop_mean</code> than either of the two values
+individually.</p></li>
+<li><p><input type="checkbox" disabled="" /> <code>resample_mean</code> is closer than <code>sample_mean</code> to
+<code>pop_mean</code>.</p></li>
+<li><p><input type="checkbox" disabled="" /> <code>resample_mean</code> is further than <code>sample_mean</code>
+from <code>pop_mean</code>.</p></li>
+<li><p><input type="checkbox" disabled="" /> None of the above.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading3_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_3" aria-expanded="true" aria-controls="collapse3_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse3_3" class="accordion-collapse collapse collapse"
+aria-labelledby="heading3_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> None of the above.</p>
+<p>Whenever we take a sample from a population, there is no guaranteed
+relationship between the mean of the sample and the mean of the
+population. Sometimes the mean of the sample comes out larger than the
+population mean, sometimes smaller. We know this from the CLT which says
+that the distribution of the sample mean is <em>centered</em> at the
+population mean. Similarly, when we resample from an original mean, the
+resample mean could be larger or smaller than the original sample’s
+mean. The three quantities <code>pop_mean</code>,
+<code>sample_mean</code>, and <code>resample_mean</code> can be in any
+relative order. This means none of the statements listed here are
+necessarily true.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-4">Problem 4</h2>
+<p>In <code>apps</code>, our sample of 1,000 credit card applications,
+applicants who were approved for the credit card have fewer dependents,
+on average, than applicants who were denied. The mean number of
+dependents for approved applicants is 0.98, versus 1.07 for denied
+applicants.</p>
+<p>To test whether this difference is purely due to random chance, or
+whether the distributions of the number of dependents for approved and
+denied applicants are truly different in the population of all credit
+card applications, we decide to perform a permutation test.</p>
+<p>Consider the incomplete code block below.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> shuffle_status(df):</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    shuffled_status <span class="op">=</span> np.random.permutation(df.get(<span class="st">&quot;status&quot;</span>))</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df.assign(status<span class="op">=</span>shuffled_status).get([<span class="st">&quot;status&quot;</span>, <span class="st">&quot;dependents&quot;</span>])</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_stat(df):</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    grouped <span class="op">=</span> df.groupby(<span class="st">&quot;status&quot;</span>).mean().get(<span class="st">&quot;dependents&quot;</span>)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    approved <span class="op">=</span> grouped.loc[<span class="st">&quot;approved&quot;</span>]</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    denied <span class="op">=</span> grouped.loc[<span class="st">&quot;denied&quot;</span>]</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> __(a)__</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>stats <span class="op">=</span> np.array([])</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    shuffled_apps <span class="op">=</span> shuffle_status(apps)</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    stat <span class="op">=</span> test_stat(shuffled_apps)</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>    stats <span class="op">=</span> np.append(stats, stat)</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>p_value <span class="op">=</span> np.count_nonzero(__(b)__) <span class="op">/</span> <span class="dv">10000</span></span></code></pre></div>
+<p>Below are six options for filling in blanks (a) and (b) in the code
+above.</p>
+<p>(insert table)</p>
+<p>The correct way to fill in the blanks depends on how we choose our
+null and alternative hypotheses.</p>
+<p><br></p>
+<h3 id="problem-4.1">Problem 4.1</h3>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading4_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_1" aria-expanded="true" aria-controls="collapse4_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse4_1" class="accordion-collapse collapse collapse"
+aria-labelledby="heading4_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong></p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-4.2">Problem 4.2</h3>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading4_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_2" aria-expanded="true" aria-controls="collapse4_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse4_2" class="accordion-collapse collapse collapse"
+aria-labelledby="heading4_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong></p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-4.3">Problem 4.3</h3>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading4_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_3" aria-expanded="true" aria-controls="collapse4_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse4_3" class="accordion-collapse collapse collapse"
+aria-labelledby="heading4_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong></p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-4.4">Problem 4.4</h3>
 <p>In our implementation of this permutation test, we followed the
 procedure outlined in lecture to draw new pairs of samples under the
 null hypothesis and compute test statistics — that is, we randomly
@@ -241,22 +1071,22 @@ anywhere in your code.</p>
 <center><img src='../assets/images/fa22-final/q4_code.png' width=60%></center>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading2_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2_1" aria-expanded="true" aria-controls="collapse2_1">
+<h2 class="accordion-header" id="heading4_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_4" aria-expanded="true" aria-controls="collapse4_4">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse2_1" class="accordion-collapse collapse collapse"
-aria-labelledby="heading2_1" data-bs-parent="#accordionExample">
+<div id="collapse4_4" class="accordion-collapse collapse collapse"
+aria-labelledby="heading4_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Anwser: </strong></p>
-<p>Blank A: <code>df.sample(df.shape[0])</code></p>
-<p>Blank B: <code>df.take(np.arange(denied))</code></p>
-<p>Blank C: <code>df.take(np.arange(denied+1, df.shape[0]))</code></p>
-<p><strong>For the blank A</strong>, the function wants to return a
+<p><strong>Answer: </strong> The blanks should be filled in as follows:
+- (a): <code>df.sample(df.shape[0])</code> - (b):
+<code>df.take(np.arange(denied))</code> - (c):
+<code>df.take(np.arange(denied+1, df.shape[0]))</code></p>
+<p><strong>For blank A</strong>, the function wants to return a
 DataFrame with the same number of rows (the size of our sample), but
 wants these rows reordered. Note that the actual rows will be the same,
 so we want to sample without replacement (having only one instance of
@@ -288,7 +1118,7 @@ dataframe (which is found using <code>df.shape[0]</code>).</p>
 </div>
 <p><br></p>
 <hr />
-<h2 id="problem-3">Problem 3</h2>
+<h2 id="problem-5">Problem 5</h2>
 <p>Choose the best tool to answer each of the following questions. Note
 the following:</p>
 <ul>
@@ -299,7 +1129,7 @@ permutation testing or bootstrapping.</li>
 <strong>doesn’t</strong> involve hypothesis testing.</li>
 </ul>
 <p><br></p>
-<h3 id="problem-3.1">Problem 3.1</h3>
+<h3 id="problem-5.1">Problem 5.1</h3>
 <p>Are incomes of applicants with 2 or fewer dependents drawn randomly
 from the distribution of incomes of all applicants?</p>
 <ul class="task-list">
@@ -309,13 +1139,13 @@ from the distribution of incomes of all applicants?</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading3_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_1" aria-expanded="true" aria-controls="collapse3_1">
+<h2 class="accordion-header" id="heading5_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_1" aria-expanded="true" aria-controls="collapse5_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse3_1" class="accordion-collapse collapse collapse"
-aria-labelledby="heading3_1" data-bs-parent="#accordionExample">
+<div id="collapse5_1" class="accordion-collapse collapse collapse"
+aria-labelledby="heading5_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -332,7 +1162,7 @@ world under the null).</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-3.2">Problem 3.2</h3>
+<h3 id="problem-5.2">Problem 5.2</h3>
 <p>What is the median income of credit card applicants with 2 or fewer
 dependents?</p>
 <ul class="task-list">
@@ -342,13 +1172,13 @@ dependents?</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading3_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_2" aria-expanded="true" aria-controls="collapse3_2">
+<h2 class="accordion-header" id="heading5_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_2" aria-expanded="true" aria-controls="collapse5_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse3_2" class="accordion-collapse collapse collapse"
-aria-labelledby="heading3_2" data-bs-parent="#accordionExample">
+<div id="collapse5_2" class="accordion-collapse collapse collapse"
+aria-labelledby="heading5_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -361,7 +1191,7 @@ income), so we know boostrapping is the best choice by definition.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-3.3">Problem 3.3</h3>
+<h3 id="problem-5.3">Problem 5.3</h3>
 <p>Are credit card applications approved through a random process in
 which 50% of applications are approved?</p>
 <ul class="task-list">
@@ -371,13 +1201,13 @@ which 50% of applications are approved?</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading3_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_3" aria-expanded="true" aria-controls="collapse3_3">
+<h2 class="accordion-header" id="heading5_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_3" aria-expanded="true" aria-controls="collapse5_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse3_3" class="accordion-collapse collapse collapse"
-aria-labelledby="heading3_3" data-bs-parent="#accordionExample">
+<div id="collapse5_3" class="accordion-collapse collapse collapse"
+aria-labelledby="heading5_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -393,7 +1223,7 @@ Consequently, hypothesis testing is most suitable for this question.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-3.4">Problem 3.4</h3>
+<h3 id="problem-5.4">Problem 5.4</h3>
 <p>Is the median income of applicants with 2 or fewer dependents less
 than the median income of applicants with 3 or more dependents?</p>
 <ul class="task-list">
@@ -403,13 +1233,13 @@ than the median income of applicants with 3 or more dependents?</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading3_4">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_4" aria-expanded="true" aria-controls="collapse3_4">
+<h2 class="accordion-header" id="heading5_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_4" aria-expanded="true" aria-controls="collapse5_4">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse3_4" class="accordion-collapse collapse collapse"
-aria-labelledby="heading3_4" data-bs-parent="#accordionExample">
+<div id="collapse5_4" class="accordion-collapse collapse collapse"
+aria-labelledby="heading5_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -425,19 +1255,19 @@ or more dependents.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-3.5">Problem 3.5</h3>
+<h3 id="problem-5.5">Problem 5.5</h3>
 <p>What is the difference in median income of applicants with 2 or fewer
 dependents and applicants with 3 or more dependents? ( ) Hypothesis
 Testing ( ) Permutation Testing ( ) Bootstrapping</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading3_5">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_5" aria-expanded="true" aria-controls="collapse3_5">
+<h2 class="accordion-header" id="heading5_5">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_5" aria-expanded="true" aria-controls="collapse5_5">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse3_5" class="accordion-collapse collapse collapse"
-aria-labelledby="heading3_5" data-bs-parent="#accordionExample">
+<div id="collapse5_5" class="accordion-collapse collapse collapse"
+aria-labelledby="heading5_5" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -454,11 +1284,11 @@ testing.</p>
 </div>
 <p><br></p>
 <hr />
-<h2 id="problem-4">Problem 4</h2>
+<h2 id="problem-6">Problem 6</h2>
 <p>In this question, we’ll explore the relationship between the ages and
 incomes of credit card applicants.</p>
 <p><br></p>
-<h3 id="problem-4.1">Problem 4.1</h3>
+<h3 id="problem-6.1">Problem 6.1</h3>
 <p>The credit card company that owns the data in apps, BruinCard, has
 decided not to give us access to the entire <code>apps</code> DataFrame,
 but instead just a sample of <code>apps</code> called
@@ -472,13 +1302,13 @@ small apps? Give your answer as a <strong>fully simplified
 fraction</strong>.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading4_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_1" aria-expanded="true" aria-controls="collapse4_1">
+<h2 class="accordion-header" id="heading6_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_1" aria-expanded="true" aria-controls="collapse6_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse4_1" class="accordion-collapse collapse collapse"
-aria-labelledby="heading4_1" data-bs-parent="#accordionExample">
+<div id="collapse6_1" class="accordion-collapse collapse collapse"
+aria-labelledby="heading6_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -492,7 +1322,7 @@ solving for r, we get 12/40 which can be simplified as 3/10.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-4.2">Problem 4.2</h3>
+<h3 id="problem-6.2">Problem 6.2</h3>
 <p>Now, we want to predict the income of an applicant given their age.
 We will again use the information in small apps to find the regression
 line. The regression line predicts that an applicant whose age is 4/5
@@ -501,13 +1331,13 @@ deviations above the mean income. What is the value of <code>s</code>?
 Give your answer as a <strong>fully simplified fraction</strong>.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading4_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_2" aria-expanded="true" aria-controls="collapse4_2">
+<h2 class="accordion-header" id="heading6_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_2" aria-expanded="true" aria-controls="collapse6_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse4_2" class="accordion-collapse collapse collapse"
-aria-labelledby="heading4_2" data-bs-parent="#accordionExample">
+<div id="collapse6_2" class="accordion-collapse collapse collapse"
+aria-labelledby="heading6_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -521,7 +1351,7 @@ we compute a value of 3/10, so taking 3/10 * 4/5 we get 6/25.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-4.3">Problem 4.3</h3>
+<h3 id="problem-6.3">Problem 6.3</h3>
 <p>BruinCard has now taken away our access to both apps and small apps,
 and has instead given us access to an even smaller sample of apps called
 mini apps. In mini apps, we know the following information: - All
@@ -546,13 +1376,13 @@ to be satisfied? Select all that apply.</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading4_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_3" aria-expanded="true" aria-controls="collapse4_3">
+<h2 class="accordion-header" id="heading6_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_3" aria-expanded="true" aria-controls="collapse6_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse4_3" class="accordion-collapse collapse collapse"
-aria-labelledby="heading4_3" data-bs-parent="#accordionExample">
+<div id="collapse6_3" class="accordion-collapse collapse collapse"
+aria-labelledby="heading6_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -587,7 +1417,7 @@ units, we know that the equality must hold.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-4.4">Problem 4.4</h3>
+<h3 id="problem-6.4">Problem 6.4</h3>
 <p>Yet again, BruinCard, the company that gave us access to apps, small
 apps, and mini apps, has revoked our access to those three DataFrames
 and instead has given us micro apps, an even smaller sample of apps.
@@ -604,13 +1434,13 @@ multiple of the standard deviation of ages in micro apps. That is,
 What is the value of <code>k</code>? Give your answer as an integer.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading4_4">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_4" aria-expanded="true" aria-controls="collapse4_4">
+<h2 class="accordion-header" id="heading6_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_4" aria-expanded="true" aria-controls="collapse6_4">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse4_4" class="accordion-collapse collapse collapse"
-aria-labelledby="heading4_4" data-bs-parent="#accordionExample">
+<div id="collapse6_4" class="accordion-collapse collapse collapse"
+aria-labelledby="heading6_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -629,29 +1459,30 @@ std. of y, so k = 4.</p>
 </div>
 <p><br></p>
 <hr />
-<h2 id="problem-5">Problem 5</h2>
+<h2 id="problem-7">Problem 7</h2>
 <p>Below, we define a new <code>DataFrame</code> called
 <code>seven_apps</code> and display it fully.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>seven_apps <span class="op">=</span> apps.sample(<span class="dv">7</span>).sort_values(by<span class="op">=</span><span class="st">&quot;dependents&quot;</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>seven_apps</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>seven_apps <span class="op">=</span> apps.sample(<span class="dv">7</span>).sort_values(by<span class="op">=</span><span class="st">&quot;dependents&quot;</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>seven_apps</span></code></pre></div>
 <center><img src='../assets/images/fa22-final/seven_apps.jpg' width=45%></center>
 <p>Consider the process of <strong>resampling 7 rows</strong> from
 <code>seven_apps</code> <strong>with replacement</strong>, and computing
 the maximum number of dependents in the resample.</p>
 <p><br></p>
-<h3 id="problem-5.1">Problem 5.1</h3>
+<h3 id="problem-7.1">Problem 7.1</h3>
 <p>If we take one resample, what is the probability that the maximum
 number of dependents in the resample is <strong>less than</strong> 3?
 Leave your answer <strong>unsimplified</strong>.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading5_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_1" aria-expanded="true" aria-controls="collapse5_1">
+<h2 class="accordion-header" id="heading7_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_1" aria-expanded="true" aria-controls="collapse7_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse5_1" class="accordion-collapse collapse collapse"
-aria-labelledby="heading5_1" data-bs-parent="#accordionExample">
+<div id="collapse7_1" class="accordion-collapse collapse collapse"
+aria-labelledby="heading7_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -675,19 +1506,19 @@ less than 3 would be (<span class="math inline">\frac{6}{7}</span>)<sup>7</sup>.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-5.2">Problem 5.2</h3>
+<h3 id="problem-7.2">Problem 7.2</h3>
 <p>If we take 50 resamples, what is the probability that the maximum
 number of dependents is <strong>never</strong> 3, in any resample? Leave
 your answer <strong>unsimplified</strong>. S</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading5_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_2" aria-expanded="true" aria-controls="collapse5_2">
+<h2 class="accordion-header" id="heading7_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_2" aria-expanded="true" aria-controls="collapse7_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse5_2" class="accordion-collapse collapse collapse"
-aria-labelledby="heading5_2" data-bs-parent="#accordionExample">
+<div id="collapse7_2" class="accordion-collapse collapse collapse"
+aria-labelledby="heading7_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -709,19 +1540,19 @@ dependents that is never 3 is ((<span class="math inline">\frac{6}{7}</span>)<su
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-5.3">Problem 5.3</h3>
+<h3 id="problem-7.3">Problem 7.3</h3>
 <p>If we take 50 resamples, what is the probability that the maximum
 number of dependents is 3 in <strong>every</strong> resample? Leave your
 answer <strong>unsimplified</strong>.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading5_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_3" aria-expanded="true" aria-controls="collapse5_3">
+<h2 class="accordion-header" id="heading7_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_3" aria-expanded="true" aria-controls="collapse7_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse5_3" class="accordion-collapse collapse collapse"
-aria-labelledby="heading5_3" data-bs-parent="#accordionExample">
+<div id="collapse7_3" class="accordion-collapse collapse collapse"
+aria-labelledby="heading7_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -751,7 +1582,7 @@ is (1 - (<span class="math inline">\frac{6}{7}</span>)<sup>7</sup>)<sup>50</sup>
 </div>
 <p><br></p>
 <hr />
-<h2 id="problem-6">Problem 6</h2>
+<h2 id="problem-8">Problem 8</h2>
 <p>After you graduate, you are hired by TritonCard! On your new work
 computer, you install <code>numpy</code>, but something goes wrong with
 the installation — your copy of <code>numpy</code> doesn’t come with
@@ -773,26 +1604,27 @@ array <code>p</code>. The array returned by
 <p>For instance, to simulate flipping a coin five times, we could call
 <code>manual_multinomial(5, np.array([0.5, 0.5]))</code>, and the output
 might look like <code>array([2, 3])</code>.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> manual_multinomial(n, p):</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    values <span class="op">=</span> np.arange(<span class="bu">len</span>(p))</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    choices <span class="op">=</span> np.random.choice(values, size<span class="op">=</span>__(a)__, replace<span class="op">=</span>__(b)__, p<span class="op">=</span>p)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    value_counts <span class="op">=</span> np.array([])</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> value <span class="kw">in</span> values:</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        value_count <span class="op">=</span> __(c)__</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        value_counts <span class="op">=</span> np.append(value_counts, value_count)</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> value_counts</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> manual_multinomial(n, p):</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    values <span class="op">=</span> np.arange(<span class="bu">len</span>(p))</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    choices <span class="op">=</span> np.random.choice(values, size<span class="op">=</span>__(a)__, replace<span class="op">=</span>__(b)__, p<span class="op">=</span>p)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    value_counts <span class="op">=</span> np.array([])</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> value <span class="kw">in</span> values:</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>        value_count <span class="op">=</span> __(c)__</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>        value_counts <span class="op">=</span> np.append(value_counts, value_count)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> value_counts</span></code></pre></div>
 <p><br></p>
-<h3 id="problem-6.1">Problem 6.1</h3>
+<h3 id="problem-8.1">Problem 8.1</h3>
 <p>What goes in blank (a)?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading6_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_1" aria-expanded="true" aria-controls="collapse6_1">
+<h2 class="accordion-header" id="heading8_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_1" aria-expanded="true" aria-controls="collapse8_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse6_1" class="accordion-collapse collapse collapse"
-aria-labelledby="heading6_1" data-bs-parent="#accordionExample">
+<div id="collapse8_1" class="accordion-collapse collapse collapse"
+aria-labelledby="heading8_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -807,17 +1639,17 @@ be <code>n</code>.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-6.2">Problem 6.2</h3>
+<h3 id="problem-8.2">Problem 8.2</h3>
 <p>What goes in blank (b)?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading6_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_2" aria-expanded="true" aria-controls="collapse6_2">
+<h2 class="accordion-header" id="heading8_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_2" aria-expanded="true" aria-controls="collapse8_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse6_2" class="accordion-collapse collapse collapse"
-aria-labelledby="heading6_2" data-bs-parent="#accordionExample">
+<div id="collapse8_2" class="accordion-collapse collapse collapse"
+aria-labelledby="heading8_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -834,17 +1666,17 @@ coin. Because of this, we sample with replacement.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-6.3">Problem 6.3</h3>
+<h3 id="problem-8.3">Problem 8.3</h3>
 <p>What goes in blank (c)?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading6_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_3" aria-expanded="true" aria-controls="collapse6_3">
+<h2 class="accordion-header" id="heading8_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_3" aria-expanded="true" aria-controls="collapse8_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse6_3" class="accordion-collapse collapse collapse"
-aria-labelledby="heading6_3" data-bs-parent="#accordionExample">
+<div id="collapse8_3" class="accordion-collapse collapse collapse"
+aria-labelledby="heading8_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -864,7 +1696,7 @@ can use <code>np.count_nonzero(choices == value)</code>.</p>
 </div>
 <p><br></p>
 <hr />
-<h2 id="problem-7">Problem 7</h2>
+<h2 id="problem-9">Problem 9</h2>
 <p>The credit card company that owns the data in <code>apps</code>,
 BruinCard, has decided not to give us access to the entire
 <code>apps</code> DataFrame, but instead just a random sample of 100
@@ -874,19 +1706,19 @@ rows of apps called <code>hundred_apps</code>.</p>
 ages in <code>hundred_apps</code> have a mean of 35 and a standard
 deviation of 10.</p>
 <p><br></p>
-<h3 id="problem-7.1">Problem 7.1</h3>
+<h3 id="problem-9.1">Problem 9.1</h3>
 <p>Give the endpoints of the CLT-based 95% confidence interval for the
 mean age of all applicants in <code>apps</code>, based on the data in
 <code>hundred_apps</code>.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading7_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_1" aria-expanded="true" aria-controls="collapse7_1">
+<h2 class="accordion-header" id="heading9_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_1" aria-expanded="true" aria-controls="collapse9_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse7_1" class="accordion-collapse collapse collapse"
-aria-labelledby="heading7_1" data-bs-parent="#accordionExample">
+<div id="collapse9_1" class="accordion-collapse collapse collapse"
+aria-labelledby="heading9_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -912,19 +1744,19 @@ gives us:</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-7.2">Problem 7.2</h3>
+<h3 id="problem-9.2">Problem 9.2</h3>
 <p>Which of the following three visualizations best depict the
 distribution of <code>sample_means</code>?</p>
 <center><img src='../assets/images/fa22-final/3hist.jpg' width=45%></center>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading7_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_2" aria-expanded="true" aria-controls="collapse7_2">
+<h2 class="accordion-header" id="heading9_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_2" aria-expanded="true" aria-controls="collapse9_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse7_2" class="accordion-collapse collapse collapse"
-aria-labelledby="heading7_2" data-bs-parent="#accordionExample">
+<div id="collapse9_2" class="accordion-collapse collapse collapse"
+aria-labelledby="heading9_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -952,7 +1784,7 @@ part of the question.</li>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-7.3">Problem 7.3</h3>
+<h3 id="problem-9.3">Problem 9.3</h3>
 <p>Which of the following statements are guaranteed to be true? Select
 all that apply.</p>
 <p>[_] We used bootstrapping to compute sample means</p>
@@ -970,13 +1802,13 @@ in apps.</p>
 <p>[_] None of the above.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading7_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_3" aria-expanded="true" aria-controls="collapse7_3">
+<h2 class="accordion-header" id="heading9_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_3" aria-expanded="true" aria-controls="collapse9_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse7_3" class="accordion-collapse collapse collapse"
-aria-labelledby="heading7_3" data-bs-parent="#accordionExample">
+<div id="collapse9_3" class="accordion-collapse collapse collapse"
+aria-labelledby="heading9_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
