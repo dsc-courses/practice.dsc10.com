@@ -976,11 +976,82 @@ card applications, we decide to perform a permutation test.</p>
 <span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>p_value <span class="op">=</span> np.count_nonzero(__(b)__) <span class="op">/</span> <span class="dv">10000</span></span></code></pre></div>
 <p>Below are six options for filling in blanks (a) and (b) in the code
 above.</p>
-<p>(insert table)</p>
+<div class="center">
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th style="text-align: left;">Blank (a)</th>
+<th style="text-align: left;">Blank (b)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Option 1</td>
+<td style="text-align: left;"><code>denied - approved</code></td>
+<td
+style="text-align: left;"><code>stats &gt;= test_stat(apps)</code></td>
+</tr>
+<tr class="even">
+<td>Option 2</td>
+<td style="text-align: left;"><code>denied - approved</code></td>
+<td
+style="text-align: left;"><code>stats &lt;= test_stat(apps)</code></td>
+</tr>
+<tr class="odd">
+<td>Option 3</td>
+<td style="text-align: left;"><code>approved - denied</code></td>
+<td
+style="text-align: left;"><code>stats &gt;= test_stat(apps)</code></td>
+</tr>
+<tr class="even">
+<td>Option 4</td>
+<td
+style="text-align: left;"><code>np.abs(denied - approved)</code></td>
+<td
+style="text-align: left;"><code>stats &gt;= test_stat(apps)</code></td>
+</tr>
+<tr class="odd">
+<td>Option 5</td>
+<td
+style="text-align: left;"><code>np.abs(denied - approved)</code></td>
+<td
+style="text-align: left;"><code>stats &lt;= test_stat(apps)</code></td>
+</tr>
+<tr class="even">
+<td>Option 6</td>
+<td
+style="text-align: left;"><code>np.abs(approved - denied)</code></td>
+<td
+style="text-align: left;"><code>stats &gt;= test_stat(apps)</code></td>
+</tr>
+</tbody>
+</table>
+</div>
 <p>The correct way to fill in the blanks depends on how we choose our
 null and alternative hypotheses.</p>
 <p><br></p>
 <h3 id="problem-4.1">Problem 4.1</h3>
+<p>Suppose we choose the following pair of hypotheses.</p>
+<ul>
+<li><p><strong>Null Hypothesis</strong>: In the population, the number
+of dependents of approved and denied applicants come from the same
+distribution.</p></li>
+<li><p><strong>Alternative Hypothesis</strong>: In the population, the
+number of dependents of approved applicants and denied applicants do not
+come from the same distribution.</p></li>
+</ul>
+<p>Which of the six presented options could correctly fill in blanks (a)
+and (b) for this pair of hypotheses? Select all that apply.</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> Option 1</p></li>
+<li><p><input type="checkbox" disabled="" /> Option 2</p></li>
+<li><p><input type="checkbox" disabled="" /> Option 3</p></li>
+<li><p><input type="checkbox" disabled="" /> Option 4</p></li>
+<li><p><input type="checkbox" disabled="" /> Option 5</p></li>
+<li><p><input type="checkbox" disabled="" /> Option 6</p></li>
+<li><p><input type="checkbox" disabled="" /> None of the above.</p></li>
+</ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading4_1">
@@ -994,13 +1065,42 @@ aria-labelledby="heading4_1" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer: </strong></p>
+<p><strong>Answer: </strong> Option 4, Option 6</p>
+<p>For blank (a), we want to choose a test statistic that helps us
+distinguish between the null and alternative hypotheses. The alternative
+hypothesis says that <code>denied</code> and <code>approved</code>
+should be different, but it doesn’t say which should be larger. Options
+1 through 3 therefore won’t work, because high values and low values of
+these statistics both point to the alternative hypothesis, and moderate
+values point to the null hypothesis. Options 4 through 6 all work
+because large values point to the alternative hypothesis, and small
+values close to 0 suggest that the null hypothesis should be true.</p>
+<p>For blank (b), we want to calculate the p-value in such a way that it
+represents the proportion of trials for which the simulated test
+statistic was equal to the observed statistic or further in the
+direction of the alternative. For all of Options 4 through 6, large
+values of the test statistic indicate the alternative, so we need to
+calculate the p-value with a <code>&gt;=</code> sign, as in Options 4
+and 6.</p>
+<p>While Option 3 filled in blank (a) correctly, it did not fill in
+blank (b) correctly. Options 4 and 6 fill in both blanks correctly.</p>
 </div>
 </div>
 </div>
 </div>
 <p><br></p>
 <h3 id="problem-4.2">Problem 4.2</h3>
+<p>Now, suppose we choose the following pair of hypotheses.</p>
+<ul>
+<li><p><strong>Null Hypothesis</strong>: In the population, the number
+of dependents of approved and denied applicants come from the same
+distribution.</p></li>
+<li><p><strong>Alternative Hypothesis</strong>: In the population, the
+number of dependents of approved applicants is smaller on average than
+the number of dependents of denied applicants.</p></li>
+</ul>
+<p>Which of the six presented options could correctly fill in blanks (a)
+and (b) for this pair of hypotheses? Select all that apply.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading4_2">
@@ -1014,13 +1114,76 @@ aria-labelledby="heading4_2" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer: </strong></p>
+<p><strong>Answer: </strong> Option 1</p>
+<p>As in the previous part, we need to fill blank (a) with a test
+statistic such that large values point towards one of the hypotheses and
+small values point towards the other. Here, the alterntive hypothesis
+suggests that <code>approved</code> should be less than
+<code>denied</code>, so we can’t use Options 4 through 6 because these
+can only detect whether <code>approved</code> and <code>denied</code>
+are not different, not which is larger. Any of Options 1 through 3
+should work, however. For Options 1 and 2, large values point towards
+the alternative, and for Option 3, small values point towards the
+alternative. This means we need to calculate the p-value in blank (b)
+with a <code>&gt;=</code> symbol for the test statistic from Options 1
+and 2, and a <code>&lt;=</code> symbol for the test statistic from
+Option 3. Only Options 1 fills in blank (b) correctly based on the test
+statistic used in blank (a).</p>
 </div>
 </div>
 </div>
 </div>
 <p><br></p>
 <h3 id="problem-4.3">Problem 4.3</h3>
+<p>Option 6 from the start of this question is repeated below.</p>
+<div class="center">
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th style="text-align: left;">Blank (a)</th>
+<th style="text-align: left;">Blank (b)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Option 6</td>
+<td
+style="text-align: left;"><code>np.abs(approved - denied)</code></td>
+<td
+style="text-align: left;"><code>stats &gt;= test_stat(apps)</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>We want to create a new option, Option 7, that replicates the
+behavior of Option 6, but with blank (a) filled in as shown:</p>
+<div class="center">
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th style="text-align: left;">Blank (a)</th>
+<th style="text-align: left;">Blank (b)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Option 7</td>
+<td style="text-align: left;"><code>approved - denied</code></td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Which expression below could go in blank (b) so that Option 7 is
+equivalent to Option 6?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>np.abs(stats) &gt;= test_stat(apps)</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>stats &gt;= np.abs(test_stat(apps))</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>np.abs(stats) &gt;= np.abs(test</code>_stat(apps))`</p></li>
+<li><p><input type="radio" disabled="" /> <code>np.abs(stats &gt;= test_stat(apps))</code></p></li>
+</ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading4_3">
@@ -1034,7 +1197,8 @@ aria-labelledby="heading4_3" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer: </strong></p>
+<p><strong>Answer: </strong>
+<code>np.abs(stats) &gt;= np.abs(test</code>_stat(apps))`</p>
 </div>
 </div>
 </div>
@@ -1045,8 +1209,8 @@ aria-labelledby="heading4_3" data-bs-parent="#accordionExample">
 procedure outlined in lecture to draw new pairs of samples under the
 null hypothesis and compute test statistics — that is, we randomly
 assigned each row to a group (approved or denied) by shuffling one of
-the columns in , then computed the test statistic on this random pair of
-samples.</p>
+the columns in <code>apps</code>, then computed the test statistic on
+this random pair of samples.</p>
 <p>Let’s now explore an alternative solution to drawing pairs of samples
 under the null hypothesis and computing test statistics. Here’s the
 approach:</p>
@@ -1068,7 +1232,22 @@ dependents for denied and approved applicants, in the order
 below.</strong></p>
 <p><em>Hint:</em> <code>np.random.permutation</code> shouldn’t appear
 anywhere in your code.</p>
-<center><img src='../assets/images/fa22-final/q4_code.png' width=60%></center>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> shuffle_all(df):</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>        <span class="co">&#39;&#39;&#39;Returns a DataFrame with the same rows as df, but reordered.&#39;&#39;&#39;</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> __(a)__</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> fast_stat(df):</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>        <span class="co"># This function does not and should not contain any randomness.</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>        denied <span class="op">=</span> np.count_nonzero(df.get(<span class="st">&quot;status&quot;</span>) <span class="op">==</span> <span class="st">&quot;denied&quot;</span>)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>        mean_denied <span class="op">=</span> __(b)__.get(<span class="st">&quot;dependents&quot;</span>).mean()</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>        mean_approved <span class="op">=</span> __(c)__.get(<span class="st">&quot;dependents&quot;</span>).mean()</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> mean_denied <span class="op">-</span> mean_approved</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    stats <span class="op">=</span> np.array([])</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>        stat <span class="op">=</span> fast_stat(shuffle_all(apps))</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>        stats <span class="op">=</span> np.append(stats, stat)</span></code></pre></div>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading4_4">
@@ -1082,36 +1261,37 @@ aria-labelledby="heading4_4" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer: </strong> The blanks should be filled in as follows:
-- (a): <code>df.sample(df.shape[0])</code> - (b):
-<code>df.take(np.arange(denied))</code> - (c):
-<code>df.take(np.arange(denied+1, df.shape[0]))</code></p>
-<p><strong>For blank A</strong>, the function wants to return a
-DataFrame with the same number of rows (the size of our sample), but
-wants these rows reordered. Note that the actual rows will be the same,
-so we want to sample without replacement (having only one instance of
-each row in the old dataframe in the new dataframe). Baby Pandas
-provides the <code>.sample</code> method for this question.
-<code>.sample</code> will sample dataframe rows where the first argument
-is the amount of samples, and the second (optional) argument is whether
-or not we want to conduct sampling with replacement. As mentioned
-previously, we want the same number of rows which we can find using
-<code>df.shape[0]</code> and do this sampling without replacement (the
-default behavior so we do not have to specify).</p>
-<p><strong>For blank B</strong>, when we want to conduct a permutation
-test, the idea is to shuffle and combine the values in two different
-groups. In this function the <code>denied</code> variable is the number
-of dependents values we need to take for our new sample of “denied”
-applicants. To find the mean number of denied, we want to use
-<code>df.take(np.arange(denied))</code> to get the correct number of
-denied applicants while also conducting shuffling.</p>
-<p><strong>For blank C</strong>, the logic falls similar to the logic
-mentioned above. Instead of denied applicants, we are now looking at the
-approved applicants. To account for the number of approved applicants,
-we can use <code>df.take(np.arange(denied+1, df.shape[0]))</code> which
-accounts for the number of approved applicants (while also considering
-shuffling) since it starts at <code>denied+1</code> to the end of the
-dataframe (which is found using <code>df.shape[0]</code>).</p>
+<p><strong>Answer: </strong> The blanks should be filled in as
+follows:</p>
+<ul>
+<li>(a): <code>df.sample(df.shape[0])</code></li>
+<li>(b): <code>df.take(np.arange(denied))</code></li>
+<li>(c): <code>df.take(np.arange(denied+1, df.shape[0]))</code></li>
+</ul>
+<p>For blank (a), we are told to return a DataFrame with the same rows
+but in a different order. We can use the <code>.sample</code> method for
+this question. We want each row of the input DataFrame <code>df</code>
+to appear once, so we should sample without replacement, and we should
+have has many rows in the output as in <code>df</code>, so our sample
+should be of size <code>df.shape[0]</code>. Since sampling without
+replacement is the default behavior of <code>.sample</code>, it is
+optional to specify <code>replace=False</code>.</p>
+<p>For blank (b), we need to implement the strategy outlined, where
+after we shuffle the DataFrame, we use teh values at the top of the
+DataFrame as our new “denied sample. In a permutation test, the two
+random groups we create should have the same sizes as the two original
+groups we are given. In this case, the size of the”denied” group in our
+original data is stored in the variable <code>denied</code>. So we need
+the rows in positions <code>0</code>, <code>1</code>, <code>2</code>, …,
+<code>denied</code>, which we can get using
+<code>df.take(np.arange(denied))</code>.</p>
+<p>For blank (c), we need to get all remaining applicants, who form the
+new “approved” sample. We can <code>.take</code> the rows corresponding
+to the ones we didn’t put into the “denied” group. That is, the first
+applicant who will be put into this group is at position
+<code>denied + 1</code>, and we’ll take all applicants from there
+onwards. We should therefore fill in blank (c) with
+<code>df.take(np.arange(denied+1, df.shape[0]))</code>.</p>
 </div>
 </div>
 </div>
@@ -1462,9 +1642,9 @@ std. of y, so k = 4.</p>
 <h2 id="problem-7">Problem 7</h2>
 <p>Below, we define a new <code>DataFrame</code> called
 <code>seven_apps</code> and display it fully.</p>
-<div class="sourceCode" id="cb10"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>seven_apps <span class="op">=</span> apps.sample(<span class="dv">7</span>).sort_values(by<span class="op">=</span><span class="st">&quot;dependents&quot;</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>seven_apps</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>seven_apps <span class="op">=</span> apps.sample(<span class="dv">7</span>).sort_values(by<span class="op">=</span><span class="st">&quot;dependents&quot;</span>, ascending<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>seven_apps</span></code></pre></div>
 <center><img src='../assets/images/fa22-final/seven_apps.jpg' width=45%></center>
 <p>Consider the process of <strong>resampling 7 rows</strong> from
 <code>seven_apps</code> <strong>with replacement</strong>, and computing
@@ -1604,15 +1784,15 @@ array <code>p</code>. The array returned by
 <p>For instance, to simulate flipping a coin five times, we could call
 <code>manual_multinomial(5, np.array([0.5, 0.5]))</code>, and the output
 might look like <code>array([2, 3])</code>.</p>
-<div class="sourceCode" id="cb11"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> manual_multinomial(n, p):</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    values <span class="op">=</span> np.arange(<span class="bu">len</span>(p))</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    choices <span class="op">=</span> np.random.choice(values, size<span class="op">=</span>__(a)__, replace<span class="op">=</span>__(b)__, p<span class="op">=</span>p)</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    value_counts <span class="op">=</span> np.array([])</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> value <span class="kw">in</span> values:</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>        value_count <span class="op">=</span> __(c)__</span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>        value_counts <span class="op">=</span> np.append(value_counts, value_count)</span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> value_counts</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> manual_multinomial(n, p):</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    values <span class="op">=</span> np.arange(<span class="bu">len</span>(p))</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    choices <span class="op">=</span> np.random.choice(values, size<span class="op">=</span>__(a)__, replace<span class="op">=</span>__(b)__, p<span class="op">=</span>p)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    value_counts <span class="op">=</span> np.array([])</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> value <span class="kw">in</span> values:</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>        value_count <span class="op">=</span> __(c)__</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>        value_counts <span class="op">=</span> np.append(value_counts, value_count)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> value_counts</span></code></pre></div>
 <p><br></p>
 <h3 id="problem-8.1">Problem 8.1</h3>
 <p>What goes in blank (a)?</p>
