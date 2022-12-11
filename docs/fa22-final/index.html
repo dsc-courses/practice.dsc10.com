@@ -1935,12 +1935,12 @@ The opposite of at least one application being approved is that no
 applications are approved, or equivalently, all applications are
 denied.</p>
 <p>Consider one application. Its probability of being approved is <span class="math inline">\frac{3}{6}*\frac{1}{6} = \frac{3}{36} =
-\frac{1}{12}</span> because we need any of the three even numbers on the
-first roll, then the second roll must match the first. So one
-application has a probability of being denied equal to <span class="math inline">\frac{11}{12}</span>.</p>
+\frac{1}{12}</span> because we need to get any one of the three even
+numbers on the first roll, then the second roll must match the first. So
+one application has a probability of being denied equal to <span class="math inline">\frac{11}{12}</span>.</p>
 <p>Therefore, the probability that all <span class="math inline">k</span> applications are denied is <span class="math inline">\left(\frac{11}{12}\right)^k.</span> The probability
-that this does not happen, or at least one is approved, is given by
-<span class="math inline">1-\left(\frac{11}{12}\right)^k.</span></p>
+that this does <strong>not</strong> happen, or at least one is approved,
+is given by <span class="math inline">1-\left(\frac{11}{12}\right)^k.</span></p>
 </div>
 </div>
 </div>
@@ -1983,8 +1983,19 @@ aria-labelledby="heading8_2" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer: </strong> <span class="math inline">\frac{1}{36}</span></p>
-<p><span class="math inline">\frac{5}{10} \cdot \frac{1}{9} \cdot
-\frac{4}{8} = \frac{1}{36}</span></p>
+<p>Imagine generating a security code with three unique digits by
+selecting one digit at a time. In other words, we would need to select
+three values <strong>without replacement</strong> from the set of digits
+<span class="math inline">0, 1, 2, \dots, 9</span>. The probability that
+the first digit is odd is <span class="math inline">\frac{5}{10}</span>.
+Then, assuming the first digit is odd, the probability of the middle
+digit being 0 is <span class="math inline">\frac{1}{9}</span> since only
+nine digits are remaining, and one of them must be 0. Then, assuming we
+have chosen an odd number for the first digit and 0 or the middle digit,
+there are 8 remaining digits we could select, and only 4 of them are
+even, so the probability of the third digit being even is <span class="math inline">\frac{4}{8}</span>. Multiplying these all together
+gives the probability that all three criteria are satisfied: <span class="math display">\frac{5}{10} \cdot \frac{1}{9} \cdot \frac{4}{8} =
+\frac{1}{36}</span></p>
 </div>
 </div>
 </div>
@@ -2015,8 +2026,25 @@ aria-labelledby="heading8_3" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer: </strong> <span class="math inline">\frac{1}{40}</span></p>
-<p><span class="math inline">\frac{5}{10} \cdot \frac{1}{10} \cdot
-\frac{5}{10} = \frac{1}{40}</span></p>
+<p>We’ll use a similar strategy as in the previous part. This time,
+however, we need to select three values <strong>with
+replacement</strong> from the set of digits <span class="math inline">0,
+1, 2, \dots, 9</span>. The probability that the first digit is odd is
+<span class="math inline">\frac{5}{10}</span>. Then, assuming the first
+digit is odd, the probability of the middle digit being 0 is <span class="math inline">\frac{1}{10}</span> since any of the ten digits can
+be chosen, and one of them is 0. Then, assuming we have chosen an odd
+number for the first digit and 0 or the middle digit, the probability of
+getting an even number for the third digit is <span class="math inline">\frac{5}{10}</span>, which actually does not depend
+at all on what we selected for the other digits. In fact, when we sample
+with replacement, the probabilities of each digit satisfying the given
+criteria don’t depend on whether the other digits satisfied the given
+criteria (in other words, they are independent). This is different from
+the previous part, where knowledge of previous digits satisfying the
+criteria informed the chances of the next digit satisfying the criteria.
+So for this problem, we can really just think of each of the three
+digits separately and multiply their probabilties of meeting the desired
+criteria: <span class="math display">\frac{5}{10} \cdot \frac{1}{10}
+\cdot \frac{5}{10} = \frac{1}{40}</span></p>
 </div>
 </div>
 </div>
@@ -2165,22 +2193,21 @@ aria-labelledby="heading10_1" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer:</strong> Left Endpoint = 33, Right Endpoint = 37</p>
-<p>According to the Central Limit Theorem, we can calculate a 95%
-confidence interval for the sample mean using: <span class="math display">
+<p><strong>Answer:</strong> Left endpoint = 33, Right endpoint = 37</p>
+<p>According to the Central Limit Theorem, the standard deviation of the
+distribution of the sample mean is <span class="math inline">\frac{\text{sample SD}}{\sqrt{\text{sample size}}} =
+\frac{10}{\sqrt{100}} = 1</span>. Then using the fact that the
+distribution of the sample mean is roughly normal, since 95% of the area
+of a normal curve falls within two standard deviations of the mean, we
+can find the endpoints of the 95% CLT-based confidence interval as <span class="math inline">35 - 2 = 33</span> and <span class="math inline">35
++ 2 = 37</span>.</p>
+<p>We can think of this as using the formula below: <span class="math display">
 \left[\text{sample mean} - 2\cdot \frac{\text{sample
 SD}}{\sqrt{\text{sample size}}},
 \text{sample mean} + 2\cdot \frac{\text{sample SD}}{\sqrt{\text{sample
 size}}}
-\right]
-</span></p>
-<p>The mean, standard deviation, and sample size of the ages in
-<code>hundred_apps</code> is given to us, so plugging in those values
-gives us:</p>
-<p>[35 - 2 <span class="math inline">\cdot \frac{10}{\sqrt{100}}</span>,
-35 + 2 <span class="math inline">\cdot \frac{10}{\sqrt{100}}</span>]</p>
-<p>= [35 - 2 <span class="math inline">\cdot</span> 1, 35 + 2 <span class="math inline">\cdot</span> 1]</p>
-<p>= [33, 37]</p>
+\right].</span> Plugging in the appropriate quantities yields <span class="math inline">[35 - 2\cdot\frac{10}{\sqrt{100}}, 35 -
+2\cdot\frac{10}{\sqrt{100}}] = [33, 37]</span>.</p>
 </div>
 </div>
 </div>
@@ -2189,7 +2216,7 @@ gives us:</p>
 <h3 id="problem-10.2">Problem 10.2</h3>
 <p>Which of the following three visualizations best depict the
 distribution of <code>sample_means</code>?</p>
-<center><img src='../assets/images/fa22-final/3hist.jpg' width=45%></center>
+<center><img src='../assets/images/fa22-final/3hist.png' width=45%></center>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading10_2">
@@ -2204,23 +2231,18 @@ aria-labelledby="heading10_2" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer:</strong> Option 1</p>
-<p>Let’s examine each one of our options:</p>
-<ul>
-<li>Option 1: This histogram is centered around 35, which is the mean of
-the ages in <code>hundred_apps</code>. In the first part of this
-question, we found that the 95% confidence interval for the mean age of
-all applicants in <code>apps</code> was [33, 37]. 95% of our values
-appear to lie in this range in this histogram. Thus, option 1 is
-correct.</li>
-<li>Option 2: This histogram is centered around 35, but has a much
-larger spread than the histogram in option 1. The 95% confidence
-interval endpoints appear to be much more extreme than what is expected
-given the answer in the first part of the question.</li>
-<li>Option 3: Like the previous two options, the histogram is centered
-around 35, but the 95% confidence interval endpoints appear to be closer
-to 30 and 40, rather than 33 and 37, which is what we found in the first
-part of the question.</li>
-</ul>
+<p>As we found in the previous part, the distribution of the sample mean
+should have a standard deviation of 1. We also know it should be
+centered at the mean of our sample, at 35, but since all the options are
+centered here, that’s not too helpful. Only Option 1, however, has a
+standard deviation of 1. Remember, we can approximate the standard
+deviation of a normal curve as the distance between the mean and either
+of the inflection points. Only Option 1 looks like it has inflection
+points at 34 and 36, a distance of 1 from the mean of 35.</p>
+<p>If you chose Option 2, you probably confused the standard deviation
+of our original sample, 10, with the standard deviation of the
+distribution of the sample mean, which comes from dividing that value by
+the square root of the sample size.</p>
 </div>
 </div>
 </div>
@@ -2229,19 +2251,21 @@ part of the question.</li>
 <h3 id="problem-10.3">Problem 10.3</h3>
 <p>Which of the following statements are guaranteed to be true? Select
 all that apply.</p>
-<p>[_] We used bootstrapping to compute sample means</p>
-<p>[_] The ages of credit card applicants are roughly normally
-distributed.</p>
-<p>[_] A CLT-based 90% confidence interval for the mean age of credit
-card applicants, based on the data in hundred apps, would be narrower
-than the interval you gave in part (a).</p>
-<p>[_] The expression np.percentile(sample means, 2.5) evaluates to the
-left endpoint of the interval you gave in part (a).</p>
-<p>[_] If we used the data in hundred apps to create 1,000 CLT-based 95%
-confidence intervals for the mean age of applicants in apps,
-approximately 950 of them would contain the true mean age of applicants
-in apps.</p>
-<p>[_] None of the above.</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> We used bootstrapping to compute <code>sample_means</code>.</p></li>
+<li><p><input type="checkbox" disabled="" /> The ages of credit card applicants are roughly normally
+distributed.</p></li>
+<li><p><input type="checkbox" disabled="" /> A CLT-based 90% confidence interval for the mean age of credit card
+applicants, based on the data in hundred apps, would be narrower than
+the interval you gave in part (a).</p></li>
+<li><p><input type="checkbox" disabled="" /> The expression <code>np.percentile(sample_means, 2.5)</code>
+evaluates to the left endpoint of the interval you gave in part (a).</p></li>
+<li><p><input type="checkbox" disabled="" /> If we used the data in <code>hundred_apps</code> to create 1,000
+CLT-based 95% confidence intervals for the mean age of applicants in
+<code>apps</code>, approximately 950 of them would contain the true mean
+age of applicants in <code>apps</code>.</p></li>
+<li><p><input type="checkbox" disabled="" /> None of the above.</p></li>
+</ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading10_3">
@@ -2255,36 +2279,61 @@ aria-labelledby="heading10_3" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer:</strong> Option 3 (A CLT-based 90% confidence
-interval for the mean age of credit card applicants, based on the data
-in <code>hundred_apps</code>, would be narrower than the interval you
-gave in part (a).)</p>
+<p><strong>Answer:</strong> A CLT-based 90% confidence interval for the
+mean age of credit card applicants, based on the data in
+<code>hundred_apps</code>, would be narrower than the interval you gave
+in part (a).</p>
 <p>Let’s analyze each of the options:</p>
-<p>Option 1: We are not using bootstrapping to compute sample means
-since we are sampling from the <code>apps</code> DataFrame, which is
-from the population, rather than re-sampling from our sample DataFrame,
-<code>hundred_apps</code>.</p>
-<p>Option 2: We can’t be sure what the distribution of the ages of
-credit card applicants are. The histograms above show that the
-distribution of sample means is roughly normally distributed (by the
-Central Limit Theorem), but the histograms don’t tell us anything about
-the population distribution.</p>
-<p>Option 3: A 90% confidence interval would capture 90% of the
-resampled mean ages. 90% of the resampled mean ages is less than 95% of
-the resampled mean ages, and so the 90% confidence interval would
-capture a narrower interval than a 95% confidence interval.</p>
-<p>Option 4: The answer in the first part of the question is calculated
-using the Central Limit Theorem, whereas using
-<code>np.percentile(sample_means, 2.5)</code> is empirically (using
-resamples) calculating the endpoints of a confidence interval.
-Empirically calculating a confidence interval doesn’t necessarily always
-give the same endpoints as using the Central Limit Theorem, but it
-should give you values close to those endpoints.</p>
-<p>Option 5: A 95% confidence interval doesn’t tell us the percentage of
-our intervals that contain the true mean age in <code>apps</code>.
-Rather, a 95% confidence interval is saying that the process generates a
-good interval 95% of the time. The 95% confidence is in the process that
-generates the interval.</p>
+<ul>
+<li><p>Option 1: We are not using bootstrapping to compute sample means
+since we are sampling from the <code>apps</code> DataFrame, which is our
+population here. If we were bootstrapping, we’d need to sample from our
+first sample, which is <code>hundred_apps</code>.</p></li>
+<li><p>Option 2: We can’t be sure what the distribution of the ages of
+credit card applicants are. The Central Limit Theorem says that the
+distribution of <code>sample_means</code> is roughly normally
+distributed, but we know nothing about the population
+distribution.</p></li>
+<li><p>Option 3: The CLT-based 95% confidence interval that we
+calculated in part (a) was computed as follows: <span class="math display">\left[\text{sample mean} - 2\cdot
+\frac{\text{sample SD}}{\sqrt{\text{sample size}}},
+\text{sample mean} + 2\cdot \frac{\text{sample SD}}{\sqrt{\text{sample
+size}}}
+\right]</span> A CLT-based 90% confidence interval would be computed as
+<span class="math display">\left[\text{sample mean} - z\cdot
+\frac{\text{sample SD}}{\sqrt{\text{sample size}}},
+\text{sample mean} + z\cdot \frac{\text{sample SD}}{\sqrt{\text{sample
+size}}}
+\right]</span> for some value of <span class="math inline">z</span> less
+than 2. We know that 95% of the area of a normal curve is within two
+standard deviations of the mean, so to only pick up 90% of the area,
+we’d have to go slightly less than 2 standard deviations away. This
+means the 90% confidence interval will be narrower than the 95%
+confidence interval.</p></li>
+<li><p>Option 4: The left endpoint of the interval from part (a) was
+calculated using the Central Limit Theorem, whereas using
+<code>np.percentile(sample_means, 2.5)</code> is calculated empirically,
+using the data in <code>sample_means</code>. Empirically calculating a
+confidence interval doesn’t necessarily always give the exact same
+endpoints as using the Central Limit Theorem, but it should give you
+values close to those endpoints. These values are likely very similar
+but they are not guaranteed to be the same. One way to see this is that
+if we ran the code to generate <code>sample_means</code> again, we’d
+probably get a different value for
+<code>np.percentile(sample_means, 2.5)</code>.</p></li>
+<li><p>Option 5: The key observation is that if we used the data in
+<code>hundred_apps</code> to create 1,000 CLT-based 95% confidence
+intervals for the mean age of applicants in <code>apps</code>, all of
+these intervals would be exactly the same. Given a sample, there is only
+one CLT-based 95% confidence interval associated with it. In our case,
+given the sample <code>hundred_apps</code>, the one and only CLT-based
+95% confidence interval based on this sample is the one we found in part
+(a). Therefore if we generated 1,000 of these intervals, either they
+would all contain the parameter or none of them would. In order for a
+statement like the one here to be true, we would need to collect 1,000
+different samples, and calculate a confidence interval from each
+one.</p></li>
+</ul>
 </div>
 </div>
 </div>
