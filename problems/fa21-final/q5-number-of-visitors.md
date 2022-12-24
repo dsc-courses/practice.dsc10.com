@@ -47,19 +47,23 @@ What would the regression line predict for the admission cost (in dollars) at th
 
 Recall, we can make predictions in standard units with the following formula
 
-$$ predicted\ y_{su} = r \cdot x_{su}$$
+$$ \text{predicted}\ y_{su} = r \cdot x_{su}$$
 
-In this question, our correlation coefficient ($r$) is 0.25. The number of visitors is x, and the admission cost is y. Given that the number of visitors at the Museum of Natural History is 6 standard deviations **below** average, 
+We're given that the correlation coefficient, $r$, between visitors and admission cost is 0.25. Here, we're using the number of visitors ($x$) to predict admission cost ($y$). Given that the number of visitors at the Museum of Natural History is 6 standard deviations **below** average, 
 
-$$predicted\ y_{su} =  r \cdot x_{su} = 0.25 \cdot -6 =  -1.5$$
+$$\text{predicted}\ y_{su} =  r \cdot x_{su} = 0.25 \cdot -6 =  -1.5$$
 
 We then compute y, which is the admission cost (in dollars) at the Museum of Natural History.
 
-$$y_{su} = \frac{y-\bar{y}}{SD\ of\ y}\\
--1.5 = \frac{y-15}{3}\\
--1.5 \cdot 3 = y-15\\
--4.5 + 15 = y\\
-y = 10.5$$
+$$\begin{align*} y_{su} = \frac{y- \text{Mean of } y}{\text{SD of } y}\\
+-1.5 &= \frac{y-15}{3} \\
+-1.5 \cdot 3 &= y-15\\
+-4.5 + 15 &= y\\
+y &= \boxed{10.5}
+\end{align*}
+$$
+
+So, the regression line predicts that the admission cost at the Museum of Natural History is \$10.50.
 
 <average>62</average>
 

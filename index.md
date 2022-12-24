@@ -4,7 +4,7 @@ title: Home – DSC 10 Practice
 
 <h1><a href=''>Practice Problems</a></h1>
 
-<h3><a href='https://dsc10.com'>DSC 10, Fall 2022</a></h3>
+<h3><a href='https://dsc10.com'>DSC 10, Winter 2023</a></h3>
 
 ---
 
@@ -23,7 +23,7 @@ In all cases, you should work on these problems **on paper**, since your exams w
 
 ### Discussions
 
-Solutions to discussion worksheets will be made available on Monday evenings, after all live discussion sections have concluded.
+<!-- Solutions to discussion worksheets will be made available on Monday evenings, after all live discussion sections have concluded. -->
 
 <center>
 <table class="table" style="width:60%">
@@ -42,10 +42,10 @@ Solutions to discussion worksheets will be made available on Monday evenings, af
   <tbody>
     <tr>
       <th scope="row">1</th>
-      <td>September 26th</td>
+      <td>January 11th</td>
       <td><a href="disc01/index.html">Association and Causality</a></td>
     </tr>
-    <tr>
+    <!-- <tr>
       <th scope="row">2</th>
       <td>October 3rd</td>
       <td><a href="disc02/index.html">Python Basics, Arrays, and DataFrames</a></td>
@@ -84,7 +84,7 @@ Solutions to discussion worksheets will be made available on Monday evenings, af
     <th scope="row">9</th>
     <td>November 21</td>
     <td><a href="disc09/index.html">The Normal Distribution and the CLT</a></td>
-    </tr>
+    </tr> -->
     
   </tbody>
 </table>
@@ -116,6 +116,8 @@ Each exam linked here lists the conditions under which the exam was given, inclu
       <th scope="row">Fall 2022</th>
       <td>Suraj Rampure, Puoya Tabaghi, Janine Tiefenbruck</td>
       <td><a href='fa22-midterm/index.html'>Midterm</a>
+          <br>
+          <a href='fa22-final/index.html'>Final</a>
       </td>
     </tr>
     <tr>

@@ -1,7 +1,7 @@
 import yaml
 import os
 import glob
-import re
+import regex as re
 from bs4 import BeautifulSoup
 import lxml
 import shutil
@@ -282,23 +282,62 @@ def process_problem_no_subparts(problem_str, problem_num, show_solution, heading
 {problem_only}
 
 {solution_processed}
+
     '''
     
     return out
 
+SUBPART_REGEXP = r'# BEGIN SUBPROB([\d\D]*?)# END SUBPROB'
+# subpart_count = 0
+
+# def create_subpart_fn(problem_num, show_solution, heading):
+#     def subpart_fn(matchobj):
+#         global subpart_count
+#         subpart_count += 1
+#         match_str = re.findall(SUBPART_REGEXP, matchobj[0])[0]
+#         subprob_num = str(problem_num) + f'.{subpart_count}'
+#         return process_problem_no_subparts(match_str, subprob_num, show_solution, heading)
+#     return subpart_fn
+
 def process_problem_with_subparts(problem_str, problem_num, show_solution):
-
     # Extract any content before the first # BEGIN SUBPROB
-    preamble = problem_str[problem_str.index('# BEGIN PROB')+12:problem_str.index('# BEGIN SUBPROB')]
+    # preamble = problem_str[problem_str.index('# BEGIN PROB')+12:problem_str.index('# BEGIN SUBPROB')]
     
-    out = f'## Problem {problem_num}\n\n{preamble}<br>\n\n'
+    # out = f'## Problem {problem_num}\n\n{preamble}<br>\n\n'
 
-    parts = re.findall(r'# BEGIN SUBPROB([\d\D]*?)# END SUBPROB', problem_str)
+    problem_str = problem_str.replace('# BEGIN PROB', '').replace('# END PROB', '') \
+                             .replace('# BEGIN PROBLEM', '').replace('# END PROBLEM', '')
 
-    for i, part in enumerate(parts):
-        out += process_problem_no_subparts(part, str(problem_num) + f'.{i+1}', show_solution, heading='###') + '\n\n<br>\n\n'
+    problem_str = f'## Problem {problem_num}\n{problem_str}'
+    # other idea
+    # while the number of matches is non-zero, replace the first match
+    # while len(re.findall(SUBPART_REGEXP, out)) > 0L
+    i = 0
+    while len(re.findall(SUBPART_REGEXP, problem_str)) > 0:
+        # Find the next unprocessed question
+        top_match = re.findall(SUBPART_REGEXP, problem_str)[0]
+
+        top_match_processed = process_problem_no_subparts(top_match, 
+                                                          str(problem_num) + f'.{i+1}',
+                                                          show_solution,
+                                                          heading='###')
+
+        top_match_processed = '<br>\n' + top_match_processed.replace(r'\ '[0], r'\\ '[:-1]) + '\n<br>'
+        problem_str = re.sub(SUBPART_REGEXP, top_match_processed, problem_str, count=1)
+        i += 1
+
+    # parts = re.findall(r, problem_str)
+
+    # here, instead of adding to the output, replace each occurrence of a match with its conversion
+
+    # out += re.sub(SUBPART_REGEXP, create_subpart_fn(problem_num, show_solution, heading='###'), problem_str)
+
+    # for i, part in enumerate(parts):
+        # out += process_problem_no_subparts(part, str(problem_num) + f'.{i+1}', show_solution, heading='###') + '\n\n<br>\n\n'
         
-    return out
+    # Remove unnecessary spacing
+    problem_str = problem_str.replace('<br>\n\n<br>', '<br>')
+    return problem_str
 
 # renders gauge
 AVG_REGEXP = r'<average>(\d+)<\/average>'
@@ -308,7 +347,7 @@ def stars_repl(matchobj, exam=False):
     avg_int = int(re.findall(AVG_REGEXP, matchobj[0])[0])
     stars = get_stars_from_average(avg_int)
     kind = 'exam' if exam else 'problem'
-    return f'<br><hr><h5>Difficulty: {stars}</h5><p>The average score on this {kind} was {avg_int}%.'
+    return f'<hr><h5>Difficulty: {stars}</h5><p>The average score on this {kind} was {avg_int}%.'
 
 def process_problem(problem_str, problem_num, show_solution):
 

@@ -76,7 +76,7 @@
     code span.vs { color: #4070a0; } /* VerbatimString */
     code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="..\assets\theme.css" />
+  <link rel="stylesheet" href="../assets/theme.css" />
   <script defer=""
   src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
@@ -388,6 +388,7 @@ applicants with 1 or 2 dependents, leaving the applicants with 0, 3, 4,
 </div>
 </div>
 <p><br></p>
+<p><br></p>
 <h3 id="problem-1.6">Problem 1.6</h3>
 <p>Next, we define variables <code>x</code> and <code>y</code> as
 follows.</p>
@@ -604,6 +605,7 @@ behavior that we want is accomplished by
 </div>
 </div>
 <p><br></p>
+<p><br></p>
 <h3 id="problem-2.2">Problem 2.2</h3>
 <p>Which of the following is a correct way to fill in blank (c)?</p>
 <ul class="task-list">
@@ -637,6 +639,7 @@ as the variables directly.</p>
 </div>
 </div>
 </div>
+<p><br></p>
 <p><br></p>
 <h3 id="problem-2.3">Problem 2.3</h3>
 <p>Which of the following is a correct alternate implementation of the
@@ -1188,7 +1191,7 @@ aria-labelledby="heading4_3" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer: </strong>
-<code>np.abs(stats) &gt;= np.abs(test</code>_stat(apps))`</p>
+<code>np.abs(stats) &gt;= np.abs(test_stat(apps))</code></p>
 <p>First, we need to understand how Option 6 works. Option 6 produces
 large values of the test statistic when <code>approved</code> is very
 different from <code>denied</code>, then calculates the p-value as the
@@ -1212,6 +1215,7 @@ a pair of random samples is larger than the absolute value of
 </div>
 </div>
 </div>
+<p><br></p>
 <p><br></p>
 <h3 id="problem-4.4">Problem 4.4</h3>
 <p>In our implementation of this permutation test, we followed the
@@ -2203,15 +2207,27 @@ can find the endpoints of the 95% CLT-based confidence interval as <span class="
 + 2 = 37</span>.</p>
 <p>We can think of this as using the formula below: <span class="math display">
 \left[\text{sample mean} - 2\cdot \frac{\text{sample
-SD}}{\sqrt{\text{sample size}}},
-\text{sample mean} + 2\cdot \frac{\text{sample SD}}{\sqrt{\text{sample
-size}}}
+SD}}{\sqrt{\text{sample size}}}, \: \text{sample mean} + 2\cdot
+\frac{\text{sample SD}}{\sqrt{\text{sample size}}}
 \right].</span> Plugging in the appropriate quantities yields <span class="math inline">[35 - 2\cdot\frac{10}{\sqrt{100}}, 35 -
 2\cdot\frac{10}{\sqrt{100}}] = [33, 37]</span>.</p>
 </div>
 </div>
 </div>
 </div>
+<p><br></p>
+<p>BruinCard reinstates our access to <code>apps</code> so that we can
+now easily extract information about the ages of all applicants. We
+determine that, just like in <code>hundred_apps</code>, the ages in
+<code>apps</code> have a mean of 35 and a standard deviation of 10. This
+raises the question of how other samples of 100 rows of
+<code>apps</code> would have turned out, so we compute <span
+class="math inline">10,000</span> sample means as follows.</p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>    sample_means <span class="op">=</span> np.array([])</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>        sample_mean <span class="op">=</span> apps.sample(<span class="dv">100</span>, replace<span class="op">=</span><span class="va">True</span>).get(<span class="st">&quot;age&quot;</span>).mean()</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>        sample_means <span class="op">=</span> np.append(sample_means, sample_mean)</span></code></pre></div>
 <p><br></p>
 <h3 id="problem-10.2">Problem 10.2</h3>
 <p>Which of the following three visualizations best depict the
@@ -2334,6 +2350,306 @@ statement like the one here to be true, we would need to collect 1,000
 different samples, and calculate a confidence interval from each
 one.</p></li>
 </ul>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-11">Problem 11</h2>
+<p>Suppose variables <code>v1</code>, <code>v2</code>, <code>v3</code>,
+and <code>v4</code>, have already been initialized to specific numerical
+values. Right now, we don’t know what values they’ve been set to.</p>
+<p>The function <code>f</code> shown below takes in a number,
+<code>v</code>, and outputs an integer between -2 and 2, depending on
+the value of <code>v</code> relative to <code>v1</code>,
+<code>v2</code>, <code>v3</code>, and <code>v4</code>.</p>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f(v):</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> v <span class="op">&lt;=</span> v1:</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="op">-</span><span class="dv">2</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> v <span class="op">&lt;=</span> v2:</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> v <span class="op">&lt;=</span> v3:</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">0</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> v <span class="op">&lt;=</span> v4:</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">1</span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">2</span></span></code></pre></div>
+<p>Recall that in the previous problem, we created an array called
+<code>sample_means</code> containing 10,000 values, each of which is the
+mean of a random sample of 100 applicant ages drawn from the DataFrame
+<code>apps</code>, in which ages have a mean of 35 and a standard
+deviation of 10.</p>
+<p>When we call the function <code>f</code> on every value
+<code>v</code> in <code>sample_means</code>, we produce a collection of
+10,000 values all between -2 and 2. A density histogram of these values
+is shown below.</p>
+<center><img src='../assets/images/fa22-final/x_3x_12x.jpg' width=35%></center>
+<p><br></p>
+<p>The heights of the five bars in this histogram, reading from left to
+right, are</p>
+<p><span class="math display">x, 3x, 12x, 3x, x.</span></p>
+<p><br></p>
+<h3 id="problem-11.1">Problem 11.1</h3>
+<p>What is the value of <span class="math inline">x</span> (i.e. the
+height of the shortest bar in the histogram)? Give your answer as a
+<strong>fully simplified fraction</strong>.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading11_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11_1" aria-expanded="true" aria-controls="collapse11_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse11_1" class="accordion-collapse collapse collapse"
+aria-labelledby="heading11_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: <span class="math inline">\frac{1}{20}</span></p>
+<p>In any density histogram, the total area of all bars is 1. This
+histogram has five bars, each of which has a width of 1 (e.g. <span class="math inline">3 - 2 = 1</span>). Since <span class="math inline">\text{Area} = \text{Height} \cdot
+\text{Width}</span>, we have that the area of each bar is equal to its
+height. So, the total area of the histogram in this case is the sum of
+the heights of each bar:</p>
+<p><span class="math display">\text{Total Area} = x + 3x + 12x + 3x + x
+= 20x</span></p>
+<p>Since we know that the total area is equal to 1, we have</p>
+<p><span class="math display">20x = 1 \implies \boxed{x =
+\frac{1}{20}}</span></p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-11.2">Problem 11.2</h3>
+<p>What does the expression below evaluate to? Give your answer as an
+<strong>integer</strong>.</p>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>np.count_nonzero((sample_means <span class="op">&gt;</span> v2) <span class="op">&amp;</span> (sample_means <span class="op">&lt;=</span> v4))</span></code></pre></div>
+<p><em>Hint</em>: Don’t try to find the values of <code>v2</code> and
+<code>v4</code> – you can answer this question without them!</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading11_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11_2" aria-expanded="true" aria-controls="collapse11_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse11_2" class="accordion-collapse collapse collapse"
+aria-labelledby="heading11_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: 7,500</p>
+<p>First, it’s a good idea to understand what the integer we’re trying
+to find actually means in the context of the information provided. In
+this case, it’s the number of sample means that are greater than
+<code>v2</code> and less than or equal to <code>v4</code>. Here’s how to
+arrive at that conclusion:</p>
+<ol type="1">
+<li>First, note that <code>sample_means</code> is an array of length
+10,000.</li>
+<li><code>sample_means &gt; v2</code> and
+<code>sample_means &lt;= v4</code> are both Boolean arrays of length
+10,000.</li>
+<li><code>(sample_means &gt; v2) &amp; (sample_means &lt;= v4)</code> is
+also a Boolean array of length 10,000, which contains <code>True</code>
+for every sample mean that is greater than <code>v2</code> and less than
+or equal to <code>v4</code> and <code>False</code> for every other
+sample mean.</li>
+<li>Finally,
+<code>np.count_nonzero((sample_means &gt; v2) &amp; (sample_means &lt;= v4))</code>
+is a <strong>number</strong> between 0 and 10,000, corresponding to the
+number of <code>True</code> elements in the array
+<code>(sample_means &gt; v2) &amp; (sample_means &lt;= v4)</code>.</li>
+</ol>
+<p>Remember, the histogram we’re looking at visualizes the distribution
+of the 10,000 values that result from calling <code>f</code> on every
+value in <code>sample_means</code>. To proceed, we need to understand
+<em>how</em> the function <code>f</code> decides what value to return
+for a given input, <code>v</code>:</p>
+<ul>
+<li>If the input <code>v</code> is greater than <code>v2</code>, then
+the first two conditions (<code>v &lt;= v1</code> and
+<code>v &lt;= v2</code>) are <code>False</code>, and so the only
+possible values of <code>f(v)</code> are <code>0</code>, <code>1</code>,
+or <code>2</code>.</li>
+<li>If the input <code>v</code> is less than or equal to
+<code>v4</code>, the only possible values of <code>f(v)</code> are
+<code>-2</code>, <code>-1</code>, <code>0</code>, <code>1</code>.</li>
+<li><strong>Thus, if the input <code>v</code> is greater than
+<code>v2</code> <em>and</em> less than or equal to <code>v4</code>, the
+only possible values of <code>f(v)</code> are <code>0</code> and
+<code>1</code>.</strong></li>
+</ul>
+<p>Now, our job boils down to finding the number of values in the
+visualized distribution that are equal to 0 or 1. This is equivalent to
+finding the number of values that fall in the <span class="math inline">[0, 1)</span> and <span class="math inline">[1,
+2)</span> bins – since <code>f</code> only returns integer values, the
+only value in the <span class="math inline">[0, 1)</span> bin is 0 and
+the only value in the <span class="math inline">[1, 2)</span> bin is 1
+(remember, histogram bins are left-inclusive and right-exclusive).</p>
+<p>To do this, we need to find the <em>proportion</em> of values in
+those two bins, and multiply that proportion by the total number of
+values (10,000).</p>
+<p>We know that the area of a bar is equal to the proportion of values
+in that bin. We also know that, <strong>in this case</strong>, the area
+of each bar is equal to its height, since the width of each bin is 1.
+Thus, the proportion of values in a given bin is equal to the height of
+the corresponding bar. As such, the proportion of values in the <span class="math inline">[0, 1)</span> bin is <span class="math inline">12x</span>, and the proportion of values in the
+<span class="math inline">[1, 2)</span> bin is <span class="math inline">3x</span>, meaning the proportion of values in the
+histogram that are equal to either 0 or 1 is <span class="math inline">12x + 3x = 15x</span>.</p>
+<p>In the previous subpart, we found that <span class="math inline">x =
+\frac{1}{20}</span>, so the proportion of values in the histogram that
+are equal either 0 or 1 is <span class="math inline">15 \cdot
+\frac{1}{20} = \frac{3}{4}</span>*, and since there are 10,000 values
+being visualized in the histogram total, <span class="math inline">\frac{3}{4} \cdot 10,000 = 7,500</span> of them are
+equal to either 0 or 1.</p>
+<p>Thus, 7,500 of the values in <code>sample_means</code> are greater
+than <code>v2</code> and less than or equal to <code>v4</code>, so
+<code>np.count_nonzero((sample_means &gt; v2) &amp; (sample_means &lt;= v4))</code>
+evaluates to 7,500.</p>
+<p><em>Note: It’s possible to answer this subpart without knowing the
+value of <span class="math inline">x</span>, i.e. without answering the
+previous subpart. The area of the <span class="math inline">[0,
+1)</span> and <span class="math inline">[1, 2)</span> bars is <span class="math inline">15x</span>, and the total area of the histogram is
+<span class="math inline">20x</span>. So, the proportion of the area in
+<span class="math inline">[0, 1)</span> or <span class="math inline">[1,
+2)</span> is <span class="math inline">\frac{15x}{20x} = \frac{15}{20} =
+\frac{3}{4}</span>, which is the same value we found by substituting
+<span class="math inline">x = \frac{1}{20}</span> into <span class="math inline">15x</span>.</em></p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<p>Suppose we have run the code below.</p>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy <span class="im">import</span> stats</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> g(u):</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> stats.norm.cdf(u) <span class="op">-</span> stats.norm.cdf(<span class="op">-</span>u)</span></code></pre></div>
+<p>Several input-output pairs for the function <code>g</code> are shown
+in the table below. Some of them will be useful to you in answering the
+questions that follow.</p>
+<center>
+<table class="table" style="width:15%">
+<thead><tr><th><code>u</code></th><th><code>g(u)</code></th></tr></thead>
+<tr><td>0.84</td><td>0.60</td></tr>
+<tr><td>1.28</td><td>0.80</td></tr>
+<tr><td>1.65</td><td>0.90</td></tr>
+<tr><td>2.25</td><td>0.975</td></tr>
+</table>
+</center>
+<p><br></p>
+<h3 id="problem-11.3">Problem 11.3</h3>
+<p>What is the value of <code>v3</code>, one of the variables used in
+the function <code>f</code>? Give your answer as a number.</p>
+<p><em>Hint</em>: Use the histogram as well as one of the rows of the
+table above.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading11_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11_3" aria-expanded="true" aria-controls="collapse11_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse11_3" class="accordion-collapse collapse collapse"
+aria-labelledby="heading11_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: 35.84</p>
+<p>The table provided above tells us the proportion of values within
+<span class="math inline">u</span> standard deviations of the mean in a
+normal distribution, for various values of <span class="math inline">u</span>. For instance, it tells us that the
+proportion of values within 1.28 standard deviations of the mean in a
+normal distribution is 0.8.</p>
+<p>Let’s reflect on what we know at the moment:</p>
+<ul>
+<li>The distribution of the sample mean is roughly normal, by the
+Central Limit Theorem. Normal distributions are symmetric, and have a
+“peak” at the center. The histogram above is also symmetric and has its
+peak at its center.</li>
+<li>The proportion of values in the histogram that are equal to 0 is
+<span class="math inline">12x = 12 \cdot \frac{1}{20} = 0.6</span>.</li>
+<li>The function <code>f</code> returns 0 for all inputs that are
+greater than <code>v2</code> and less than or equal to <code>v3</code>.
+This, combined with the fact above, tells us that <strong>the proportion
+of sample means between <code>v2</code> (exclusive) and <code>v3</code>
+(inclusive) is 0.6</strong>.</li>
+<li>From the table provided, we know that in a normal distribution, the
+proportion of values within 0.84 standard deviations of the mean is
+0.6.</li>
+</ul>
+<p>Combining the facts above, we have that <code>v2</code> is 0.84
+standard deviations below the mean of the sample mean’s distribution and
+<code>v3</code> is 0.84 standard deviations above the mean of the sample
+mean’s distribution.</p>
+<p>The sample mean’s distribution has the following characteristics:</p>
+<p><span class="math display">\begin{align*}
+\text{Mean of Distribution of Possible Sample Means} &amp;=
+\text{Population Mean} = 35 \\
+\text{SD of Distribution of Possible Sample Means} &amp;=
+\frac{\text{Population SD}}{\sqrt{\text{Sample Size}}} =
+\frac{10}{\sqrt{100}} = 1
+\end{align*}
+</span></p>
+<p>0.84 standard deviations above the mean of the sample mean’s
+distribution is:</p>
+<p><span class="math display">35 + 0.84 \cdot \frac{10}{\sqrt{100}} = 35
++ 0.84 \cdot 1 = \boxed{35.84}</span></p>
+<p>So, the value of <code>v3</code> is 35.84.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-11.4">Problem 11.4</h3>
+<p>Which of the following is closest to the value of the expression
+below?</p>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>np.percentile(sample_means, <span class="dv">5</span>)</span></code></pre></div>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> 14</p></li>
+<li><p><input type="radio" disabled="" /> 14.75</p></li>
+<li><p><input type="radio" disabled="" /> 33</p></li>
+<li><p><input type="radio" disabled="" /> 33.35</p></li>
+<li><p><input type="radio" disabled="" /> 33.72</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading11_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11_4" aria-expanded="true" aria-controls="collapse11_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse11_4" class="accordion-collapse collapse collapse"
+aria-labelledby="heading11_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: 33.35</p>
+<p>The table provided tells us that in a normal distribution, 90% of
+values are within 1.65 standard deviations of the mean. Since normal
+distributions are symmetric, it also means that 5% of values are above
+1.65 standard deviations of the mean and, more importantly, <strong>5%
+of values are below 1.65 standard deviations of the mean</strong>.</p>
+<p>The 5th percentile of a distribution is the smallest value that is
+greater than or equal to 5% of values, so in this case the 5th
+percentile is 1.65 SDs below the mean. As in the previous subpart, the
+mean and SD we are referring to are the mean and SD of the distribution
+of sample means (<code>sample_means</code>), which we found to be 35 and
+1, respectively.</p>
+<p>1.65 standard deviations below this mean is</p>
+<p><span class="math display">35 - 1.65 \cdot 1 =
+\boxed{33.35}</span></p>
 </div>
 </div>
 </div>
