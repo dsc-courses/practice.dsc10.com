@@ -1,7 +1,8 @@
 # latex-to-md.py
 # Converts an exam .tex file to a set of .md files, one for each problem
 # Usage: python latex-to-md.py exam.tex out_folder
-# The result will be 
+# After running, out_folder will contain one .md file per problem in exam.tex
+# NOTE: After running, make sure that there aren't blank lines between MC options, otherwise run.py won't work. Manually fix this.
 
 import os
 import sys
@@ -23,9 +24,9 @@ def replace_tags(prob_str):
     prob_str = re.sub(r'(\[)?\(\d pts?\)(\])?', '', prob_str)
 
     # Convert correct bubbles
-    regex_map = {r'\\correctbubble{(.*)}': '(X)',
+    regex_map = {r'\\correctbubble{(.*)}': '( )',
                  r'\\bubble{(.*)}': '( )',
-                 r'\\correctsquarebubble{(.*)}': '[X]',
+                 r'\\correctsquarebubble{(.*)}': '[ ]',
                  r'\\squarebubble{(.*)}': '[ ]'}
 
     def make_repl(mc_bubble):
@@ -66,7 +67,7 @@ def write_prob_files(probs, out_dir):
         os.mkdir(out_dir)
 
     for i, prob in enumerate(probs):
-        save_file_name = os.path.join(out_dir, str(i+1).zfill(2) + '.md')
+        save_file_name = os.path.join(out_dir, 'q' + str(i+1).zfill(2) + '.md')
         with open(save_file_name, 'w') as f:
             f.write(prob)
 
