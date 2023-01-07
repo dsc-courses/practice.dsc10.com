@@ -17,8 +17,8 @@ def replace_tags(prob_str):
 
     for tag in tags.keys():
         latex_brace = '{' + tag + '}'
-        prob_str = prob_str.replace(f'\\begin{latex_brace}', f'### BEGIN {tags[tag]}\n\n' if tags[tag] else tags[tag]) \
-                           .replace(f'\\end{latex_brace}', f'\n\n### END {tags[tag]}' if tags[tag] else tags[tag])
+        prob_str = prob_str.replace(f'\\begin{latex_brace}', f'# BEGIN {tags[tag]}\n\n' if tags[tag] else tags[tag]) \
+                           .replace(f'\\end{latex_brace}', f'\n\n# END {tags[tag]}' if tags[tag] else tags[tag])
 
     # Remove point values
     prob_str = re.sub(r'(\[)?\(\d pts?\)(\])?', '', prob_str)
@@ -50,7 +50,7 @@ def pandoc_tex_to_md(prob_str_tex):
     return text
 
 def remove_leading_slash(prob_str_md):
-    prob_str_md = prob_str_md.replace('\\###', '###') \
+    prob_str_md = prob_str_md.replace('\\#', '#') \
                              .replace('\\[X\\]', '[X]') \
                              .replace('\\(X\\)', '(X)') \
                              .replace('\\[ \\]', '[ ]') \
@@ -59,7 +59,7 @@ def remove_leading_slash(prob_str_md):
     return prob_str_md
 
 def split_probs_to_files(prob_str_md):
-    probs = re.findall(r'### BEGIN PROB[\W\w]*?### END PROB', prob_str_md)
+    probs = re.findall(r'# BEGIN PROB[\W\w]*?# END PROB', prob_str_md)
     return probs
 
 def write_prob_files(probs, out_dir):
@@ -87,14 +87,14 @@ if __name__ == '__main__':
     # Step 2: Make replacements
     prob_str_tex = replace_tags(file_as_tex)
 
-    # Step 3: Call pandoc and remove leading slashes (e.g. \### -> ###, \[X\] -> [X])
+    # Step 3: Call pandoc and remove leading slashes (e.g. \# -> #, \[X\] -> [X])
     prob_str_md = pandoc_tex_to_md(prob_str_tex)
 
     # print(prob_str_md[:10000])
 
     prob_str_md = remove_leading_slash(prob_str_md)
 
-    # Step 4: Split by ### BEGIN PROB
+    # Step 4: Split by # BEGIN PROB
     probs = split_probs_to_files(prob_str_md)
 
     # Step 5: Write each prob to a separate file
