@@ -43,7 +43,7 @@ In all cases, you should work on these problems **on paper**, since your exams w
     <tr>
       <th scope="row">1</th>
       <td>January 11th</td>
-      <td><a href="disc01/index.html">Association and Causality</a></td>
+      <td>Getting Started with Jupyter Notebooks</td>
     </tr>
     <!-- <tr>
       <th scope="row">2</th>
