@@ -43,7 +43,7 @@ In all cases, you should work on these problems **on paper**, since your exams w
     <tr>
       <th scope="row">1</th>
       <td>January 11th</td>
-      <td>Getting Started with Jupyter Notebooks</td>
+      <td><a href="http://datahub.ucsd.edu/user-redirect/git-sync?repo=https://github.com/dsc-courses/dsc10-2023-wi&subPath=discussion/disc01.ipynb">Getting Started with Jupyter Notebooks</a></td>
     </tr>
     <!-- <tr>
       <th scope="row">2</th>
