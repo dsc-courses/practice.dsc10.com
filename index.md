@@ -47,42 +47,42 @@ In all cases, you should work on these problems **on paper**, since your exams w
     </tr>
     <!-- <tr>
       <th scope="row">2</th>
-      <td>October 3rd</td>
+      <td>January 18th</td>
       <td><a href="disc02/index.html">Python Basics, Arrays, and DataFrames</a></td>
     </tr>
     <tr>
       <th scope="row">3</th>
-      <td>October 10th</td>
+      <td>January 25th</td>
       <td><a href="disc03/index.html">Querying, Grouping, and Plotting</a></td>
     </tr>
     <tr>
       <th scope="row">4</th>
-      <td>October 17th</td>
+      <td>February 1st</td>
       <td><a href="disc04/index.html">Functions, Subgroups, Merge, and Control Flow</a></td>
     </tr>
     <tr>
       <th scope="row">5</th>
-      <td>October 24th</td>
+      <td>February 8th</td>
       <td><a href="disc05/index.html">Probability and Simulation</a></td>
     </tr>
     <tr>
       <th scope="row">6</th>
-      <td>October 31st 🎃</td>
+      <td>February 15th</td>
       <td><a href="disc06/index.html">Midterm Solutions and Hypothesis Testing</a></td>
     </tr>
     <tr>
       <th scope="row">7</th>
-      <td>November 7</td>
+      <td>February 22nd</td>
       <td><a href="disc07/index.html">Hypothesis Testing and Permutation Testing</a></td>
     </tr>
     <tr>
       <th scope="row">8</th>
-      <td>November 14</td>
+      <td>March 1st</td>
       <td><a href="disc08/index.html">Permutation Testing and Bootstrapping</a></td>
     </tr>
     <tr>
     <th scope="row">9</th>
-    <td>November 21</td>
+    <td>March 8th</td>
     <td><a href="disc09/index.html">The Normal Distribution and the CLT</a></td>
     </tr> -->
     
