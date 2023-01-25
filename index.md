@@ -50,12 +50,12 @@ In all cases, you should work on these problems **on paper**, since your exams w
       <td>January 18th</td>
       <td><a href="disc02/index.html">Python Basics, Arrays, and DataFrames</a></td>
     </tr>
-    <!-- <tr>
+    <tr>
       <th scope="row">3</th>
       <td>January 25th</td>
       <td><a href="disc03/index.html">Querying, Grouping, and Plotting</a></td>
     </tr>
-    <tr>
+    <!-- <tr>
       <th scope="row">4</th>
       <td>February 1st</td>
       <td><a href="disc04/index.html">Functions, Subgroups, Merge, and Control Flow</a></td>
