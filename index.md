@@ -55,12 +55,12 @@ In all cases, you should work on these problems **on paper**, since your exams w
       <td>January 25th</td>
       <td><a href="disc03/index.html">Querying, Grouping, and Plotting</a></td>
     </tr>
-    <!-- <tr>
+    <tr>
       <th scope="row">4</th>
       <td>February 1st</td>
       <td><a href="disc04/index.html">Functions, Subgroups, Merge, and Control Flow</a></td>
     </tr>
-    <tr>
+    <!-- <tr>
       <th scope="row">5</th>
       <td>February 8th</td>
       <td><a href="disc05/index.html">Probability and Simulation</a></td>
