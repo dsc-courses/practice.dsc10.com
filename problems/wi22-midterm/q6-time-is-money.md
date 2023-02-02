@@ -37,6 +37,8 @@ Recall that when we use the `.count()` aggregation method while grouping, the va
 
 # BEGIN SUBPROB
 
+<span style="color:red"><b>Note: This problem is out of scope; it covers material no longer included in the course.</b></span>
+
 Now let's look at the number of skyscrapers built each year since 1975 in New York City 🗽.
 
 <center><img src='../assets/images/wi22-midterm/ny-per-year.png' width=40%></center>

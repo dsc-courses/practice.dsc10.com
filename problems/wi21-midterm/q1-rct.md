@@ -1,5 +1,7 @@
 # BEGIN PROB
 
+<span style="color:red"><b>Note: This problem is out of scope; it covers material no longer included in the course.</b></span>
+
 Which of the following questions could not be answered by running a randomized controlled experiment?
 
 ( ) Does eating citrus fruits increase the risk of heart disease?

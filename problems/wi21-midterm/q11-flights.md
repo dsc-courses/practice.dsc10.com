@@ -1,5 +1,7 @@
 # BEGIN PROB
 
+<span style="color:red"><b>Note: This problem is out of scope; it covers material no longer included in the course.</b></span>
+
 You have a DataFrame called `flights` containing information on various plane tickets sold between US cities. The columns are `'route_length'`, which stores distance between the arrival and departure airports, in miles, and `'price'`, which stores the cost of the airline ticket, in dollars. You notice that longer flights tend to cost more, as expected.
 
 | route_length    | price |

@@ -3,6 +3,8 @@ Answer the following true/false questions.
 
 # BEGIN SUBPROB
 
+<span style="color:red"><b>Note: This problem is out of scope; it covers material no longer included in the course.</b></span>
+
 When John Snow took off the handle from the Broad Street pump, the
 number of cholera deaths decreased. Because of this, he could
 conclude that cholera was caused by dirty water.

@@ -1,5 +1,7 @@
 # BEGIN PROB
 
+<span style="color:red"><b>Note: This problem is out of scope; it covers material no longer included in the course.</b></span>
+
 In 2014, the UCSD administration made some important changes to Sun God policies, including:
 
 1. eliminating guest tickets for non-students,
