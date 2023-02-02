@@ -1,5 +1,7 @@
 # BEGIN PROB
 
+<span style=“color:red”><b>Note: This problem is out of scope; it covers material no longer included in the course.</b></span>
+
 In response to the pandemic, some airlines chose to leave middle seats empty, while others continued seating passengers in middle seats. Let's suppose Delta did not seat passengers in middle seats during the pandemic, and United did seat passengers in middle seats during the pandemic.
 
 Delta wants to know whether customers were satisfied with them for making this decision not to use middle seats. Suppose they have access to a dataset of customer satisfaction surveys, taken annually for each airline. How can Delta determine whether its new seating policy caused an increase in customer satisfaction?
