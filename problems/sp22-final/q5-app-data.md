@@ -1,4 +1,4 @@
-# BEGIN PROBLEM
+# BEGIN PROB
 
 Recall that an IKEA fan created an app for people to log the amount of time it takes them to assemble an IKEA product. We have this data in `app_data`.
 
@@ -108,4 +108,4 @@ We want to create a Series of times in minutes, since it's to be added to the `a
 
 # END SUBPROB
 
-# END PROBLEM
+# END PROB

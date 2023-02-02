@@ -1,6 +1,6 @@
 # BEGIN PROB
 
-<span style=“color:red”><b>Note: This problem is out of scope; it covers material no longer included in the course.</b></span>
+<span style="color:red"><b>Note: This problem is out of scope; it covers material no longer included in the course.</b></span>
 
 In response to the pandemic, some airlines chose to leave middle seats empty, while others continued seating passengers in middle seats. Let's suppose Delta did not seat passengers in middle seats during the pandemic, and United did seat passengers in middle seats during the pandemic.
 
