@@ -68,7 +68,7 @@ In all cases, you should work on these problems **on paper**, since your exams w
     <!-- <tr>
       <th scope="row">6</th>
       <td>February 15th</td>
-      <td><a href="disc06/index.html">Midterm Solutions and Hypothesis Testing</a></td>
+      <td><a href="disc06/index.html">Hypothesis Testing</a></td>
     </tr>
     <tr>
       <th scope="row">7</th>
