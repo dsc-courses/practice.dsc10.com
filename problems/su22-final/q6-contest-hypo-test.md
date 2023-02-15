@@ -58,7 +58,7 @@ Select the correct statement of the alternative hypothesis.
 
 The alternative hypothesis is the hypothesis we're trying to support, which in this case is that toy dogs happen to win more than other dogs.
 
-- Option 1: This is in line with our alternaticve hypothesis, since proving that the null hypothesis underestimates how often toy dogs win means that toy dogs win more than other dogs.
+- Option 1: This is in line with our alternative hypothesis, since proving that the null hypothesis underestimates how often toy dogs win means that toy dogs win more than other dogs.
 
 - Option 2: This is the opposite of what we're trying to prove.
 
@@ -80,7 +80,7 @@ Select all the test statistics that Eric can use to conduct his hypothesis.
 [ ] The number of toy dogs in his sample.
 [ ] The absolute difference of the sample proportion of toy dogs and 0.3.
 [ ] The absolute difference of the sample proportion of toy dogs and 0.5.
-[ ] The TVD between his sample and the population
+[ ] The TVD between his sample and the population.
 
 # BEGIN SOLUTION
 
@@ -90,11 +90,11 @@ Select all the test statistics that Eric can use to conduct his hypothesis.
 
 - Option 2: This option is incorrect. The raw number of toy dogs in his sample doesn't really tell us how much toy dogs are winning compared to the rest of the population. Looking back at our null hypothesis, we're trying to compare two proportions.
 
-- Option 3: This option is incorrect. The absolute difference of the sample proportion of toy dogs and 0.3 doesn't help us becuase the absolute difference won't tell us whether or not the sample proportion of toy dogs is lower than 0.3 or higher than 0.3.
+- Option 3: This option is incorrect. The absolute difference of the sample proportion of toy dogs and 0.3 doesn't help us because the absolute difference won't tell us whether or not the sample proportion of toy dogs is lower than 0.3 or higher than 0.3.
 
-- Option 4: This option is incorrect for the same reasoning as above, but also 0.5 isn't a relavent number anyways.
+- Option 4: This option is incorrect for the same reasoning as above, but also 0.5 isn't a relevant number anyways.
 
-- Option 5: This option is incorrect. Again, total variation distance won't help us tell whether or not the toy dogs have a disproportionately higher or lower winrate. 
+- Option 5: This option is incorrect. Again, total variation distance won't help us tell whether or not the toy dogs have a disproportionately higher or lower win rate. 
 
 <average>70</average>
 
@@ -171,11 +171,11 @@ stat = b - (1 - b)
 
 - Snippet 1: This is incorrect because `np.random.choice()` only chooses values that are either 0.3 or 0.7 which is simply just wrong.
 
-- Snippet 2: This is wrong because `np.random.choice()` only chooses from the values within the list. From a sanity check it's not hard to realize that `a` should be able to take on more values than the ones simply in the list.
+- Snippet 2: This is wrong because `np.random.choice()` only chooses from the values within the list. From a sanity check it's not hard to realize that `a` should be able to take on more values than the ones in the list.
 
-- Snippet 3: This option is correct. Recall, in `np.random.multinomial(n, [p_1, ..., p_k])`, `n` is the number of experiments, and `[p_1, ..., p_k]` is a sequence of probability. The method returns an array of length k in which each element contains the number of occurrences of an event, where the probability of the ith event is `p_i`. In this sinppet, `np.random.multinomial(500, [0.1, 0.2, 0.3, 0.2, 0.15, 0.05])` generates a array of length 6 (`len([0.1, 0.2, 0.3, 0.2, 0.15, 0.05])`) that contains the number of occurrences of each kinds of dogs according to the given distribution (the population distribution). We divide the first line by 500 to convert the number of counts in our resulting array into proportions. To access the proportion of toy dogs in our sample, we simply take the entry with the probability ditribution value of 0.3, which is the third entry in the array or `a[2]`. To calculate our test statistic we simply take the proportion of toy dogs minus the proportion of non-toy dogs or `a[2] - (1 - a[2])`
+- Snippet 3: This option is correct. Recall, in `np.random.multinomial(n, [p_1, ..., p_k])`, `n` is the number of experiments, and `[p_1, ..., p_k]` is a sequence of probability. The method returns an array of length k in which each element contains the number of occurrences of an event, where the probability of the ith event is `p_i`. In this snippet, `np.random.multinomial(500, [0.1, 0.2, 0.3, 0.2, 0.15, 0.05])` generates a array of length 6 (`len([0.1, 0.2, 0.3, 0.2, 0.15, 0.05])`) that contains the number of occurrences of each kinds of dogs according to the given distribution (the population distribution). We divide the first line by 500 to convert the number of counts in our resulting array into proportions. To access the proportion of toy dogs in our sample, we take the entry with the probability ditribution value of 0.3, which is the third entry in the array or `a[2]`. To calculate our test statistic we take the proportion of toy dogs minus the proportion of non-toy dogs or `a[2] - (1 - a[2])`
 
-- Snippet 4: This option is correct. This approach is similar to the one above except we're only considering the probability distribution of toy dogs vs non-toy dogs which is what we wanted in the first place. The rest of the steps are similar to the ones aboce.
+- Snippet 4: This option is correct. This approach is similar to the one above except we're only considering the probability distribution of toy dogs vs non-toy dogs, which is what we wanted in the first place. The rest of the steps are similar to the ones above.
 
 - Snippet 5: Note that `df` is simple just a dataframe containing information of the dogs, and may or may not reflect the population distribution of dogs that participate in the photo contest. 
 
