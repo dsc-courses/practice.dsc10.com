@@ -75,13 +75,13 @@ In all cases, you should work on these problems **on paper**, since your exams w
       <td>February 22nd</td>
       <td><a href="disc07/index.html">Hypothesis Testing and Permutation Testing</a></td>
     </tr>
-    <!-- <tr>
+     <tr>
       <th scope="row">8</th>
       <td>March 1st</td>
       <td><a href="disc08/index.html">Permutation Testing and Bootstrapping</a></td>
     </tr>
     <tr>
-    <th scope="row">9</th>
+    <!--<th scope="row">9</th>
     <td>March 8th</td>
     <td><a href="disc09/index.html">The Normal Distribution and the CLT</a></td>
     </tr> -->
