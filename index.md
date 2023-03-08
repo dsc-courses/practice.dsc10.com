@@ -81,9 +81,13 @@ In all cases, you should work on these problems **on paper**, since your exams w
       <td><a href="disc08/index.html">Permutation Testing and Bootstrapping</a></td>
     </tr>
     <tr>
-    <!--<th scope="row">9</th>
+    <th scope="row">9</th>
     <td>March 8th</td>
     <td><a href="disc09/index.html">The Normal Distribution and the CLT</a></td>
+    </tr> 
+    <!--<th scope="row">9</th>
+    <td>March 15th</td>
+    <td><a href="disc10/index.html">Regression</a></td>
     </tr> -->
     
   </tbody>
