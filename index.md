@@ -85,7 +85,7 @@ In all cases, you should work on these problems **on paper**, since your exams w
     <td>March 8th</td>
     <td><a href="disc09/index.html">The Normal Distribution and the CLT</a></td>
     </tr> 
-    <th scope="row">9</th>
+    <th scope="row">10</th>
     <td>March 15th</td>
     <td><a href="disc10/index.html">Regression</a></td>
     </tr>
