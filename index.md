@@ -4,7 +4,7 @@ title: Home – DSC 10 Practice
 
 <h1><a href=''>Practice Problems</a></h1>
 
-<h3><a href='https://dsc10.com'>DSC 10, Winter 2023</a></h3>
+<h3><a href='https://dsc10.com'>DSC 10, Spring 2023</a></h3>
 
 ---
 
@@ -17,7 +17,7 @@ In all cases, you should work on these problems **on paper**, since your exams w
 
 **Tip:** Keep the [DSC 10 Reference Sheet](https://drive.google.com/file/d/1ky0Np67HS2O4LO913P-ing97SJG0j27n/view) open in another tab. **You will have access to the Reference Sheet during exams (but no other resources).**
 
-<div class="alert alert-success" role="alert"><b>New</b>: In the solutions of most problems, you'll see a difficulty rating between 1 and 5 stars (⭐️ being the easiest and ⭐️⭐️⭐️⭐️⭐️ being the hardest). These ratings depend on the proportion of students that answered the problem correctly when it appeared in an exam. Measuring difficulty by student performance does not take into account the fact that different groups of students will perform differently on exams. With that said, the difficulty ratings should still help you gauge your preparedness for upcoming exams.</div>
+<!-- <div class="alert alert-success" role="alert"><b>New</b>: In the solutions of most problems, you'll see a difficulty rating between 1 and 5 stars (⭐️ being the easiest and ⭐️⭐️⭐️⭐️⭐️ being the hardest). These ratings depend on the proportion of students that answered the problem correctly when it appeared in an exam. Measuring difficulty by student performance does not take into account the fact that different groups of students will perform differently on exams. With that said, the difficulty ratings should still help you gauge your preparedness for upcoming exams.</div> -->
 
 ---
 
@@ -42,15 +42,15 @@ In all cases, you should work on these problems **on paper**, since your exams w
   <tbody>
     <tr>
       <th scope="row">1</th>
-      <td>January 11th</td>
-      <td><a href="http://datahub.ucsd.edu/user-redirect/git-sync?repo=https://github.com/dsc-courses/dsc10-2023-wi&subPath=discussion/disc01.ipynb">Getting Started with Jupyter Notebooks</a></td>
+      <td>April 5th</td>
+      <td><a href="#">Getting Started with Jupyter Notebooks</a></td>
     </tr>
     <tr>
       <th scope="row">2</th>
-      <td>January 18th</td>
-      <td><a href="disc02/index.html">Python Basics, Arrays, and DataFrames</a></td>
+      <td>January 12th</td>
+      <td>Python Basics, Arrays, and DataFrames</td>
     </tr>
-    <tr>
+    <!-- <tr>
       <th scope="row">3</th>
       <td>January 25th</td>
       <td><a href="disc03/index.html">Querying, Grouping, and Plotting</a></td>
@@ -87,8 +87,8 @@ In all cases, you should work on these problems **on paper**, since your exams w
     </tr> 
     <th scope="row">10</th>
     <td>March 15th</td>
-    <td><a href="disc10/index.html">Regression</a></td>
-    </tr>
+    <td><a href="disc10/index.html">Regression</a></td> -->
+    <!-- </tr> -->
     
   </tbody>
 </table>
