@@ -47,7 +47,7 @@ In all cases, you should work on these problems **on paper**, since your exams w
     </tr>
     <tr>
       <th scope="row">2</th>
-      <td>January 12th</td>
+      <td>April 12th</td>
       <td>Python Basics, Arrays, and DataFrames</td>
     </tr>
     <!-- <tr>
