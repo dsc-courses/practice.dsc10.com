@@ -11,16 +11,16 @@ Ocean between 1965 and 2015. Each row corresponds to a data entry describing the
 at a particular moment in time, and one storm usually has many data entries throughout
 the duration of the storm. The columns of `storms` are as follows.
 
-* `"Name"` (`str`): The name of the storm.
-* `"Date"` (`int`): The year, month, and day of the data entry, stored as an 8-digit integer.
+- `"Name"` (`str`): The name of the storm.
+- `"Date"` (`int`): The year, month, and day of the data entry, stored as an 8-digit integer.
 For example, `20151113` corresponds to November 13, 2015.
-* `"Time"` (`str`): The time of the data entry.
-* `"Status"` (`str`): A categorical variable describing the intensity of the storm at the
+- `"Time"` (`str`): The time of the data entry.
+- `"Status"` (`str`): A categorical variable describing the intensity of the storm at the
 time of the data entry. There are many possible values, for example `"TD"`stands for
 “tropical depression” and `"TS"` stands for “tropical storm.”
-* `"Latitude"` (`str`): The latitude of the center of the storm at the time of the data
+- `"Latitude"` (`str`): The latitude of the center of the storm at the time of the data
 entry. Describes the north-south location of the storm.
-* `"Longitude"` (`str`): The longitude of the center of the storm at the time of the data
+- `"Longitude"` (`str`): The longitude of the center of the storm at the time of the data
 entry. Describes the east-west location of the storm.
 
 A preview of `storms` is shown below.
