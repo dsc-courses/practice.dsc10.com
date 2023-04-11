@@ -45,12 +45,12 @@ In all cases, you should work on these problems **on paper**, since your exams w
       <td>April 5th</td>
       <td><a href="http://datahub.ucsd.edu/user-redirect/git-sync?repo=https://github.com/dsc-courses/dsc10-2023-sp&subPath=discussion/disc01/disc01.ipynb">Getting Started with Jupyter Notebooks</a></td>
     </tr>
-    <!-- tr>
+    <tr>
       <th scope="row">2</th>
       <td>April 12th</td>
-      <td><a href="disc02/index.html">Python Basics, Arrays, and DataFrames</a></td>
+      <td><a href="https://practice.dsc10.com/disc02/index.html">Python Basics, Arrays, and DataFrames</a></td>
     </tr>
-    <<tr>
+    <!-- <tr>
       <th scope="row">3</th>
       <td>January 25th</td>
       <td><a href="disc03/index.html">Querying, Grouping, and Plotting</a></td>
