@@ -380,7 +380,7 @@ def process_page(path, is_discussion=False):
     # Add information for the entire exam
     if 'data_info' in params.keys():
         info_path = os.path.join('problems', f'{params["data_info"]}.md')
-        info_file = open(info_path, 'r')
+        info_file = open(info_path, 'r', encoding='UTF-8')
         info = info_file.read()
         info_file.close()
 
