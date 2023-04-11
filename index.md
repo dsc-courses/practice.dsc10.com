@@ -48,7 +48,7 @@ In all cases, you should work on these problems **on paper**, since your exams w
     <tr>
       <th scope="row">2</th>
       <td>April 12th</td>
-      <td><a href="https://practice.dsc10.com/disc02/index.html">Python Basics, Arrays, and DataFrames</a></td>
+      <td><a href="disc02/index.html">Python Basics, Arrays, and DataFrames</a></td>
     </tr>
     <!-- <tr>
       <th scope="row">3</th>
