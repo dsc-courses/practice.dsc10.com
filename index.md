@@ -4,7 +4,7 @@ title: Home – DSC 10 Practice
 
 <h1><a href=''>Practice Problems</a></h1>
 
-<h3><a href='https://dsc10.com'>DSC 10, Spring 2023</a></h3>
+<h3><a href='https://dsc10.com'>DSC 10 at UC San Diego</a></h3>
 
 ---
 
@@ -21,9 +21,9 @@ In all cases, you should work on these problems **on paper**, since your exams w
 
 ---
 
-### Discussions
+### Discussions in Spring 2023
 
-<!-- Solutions to discussion worksheets will be made available on Wednesday evenings. -->
+Solutions to discussion worksheets will be made available on Wednesday evenings.
 
 <center>
 <table class="table" style="width:60%">
@@ -116,6 +116,12 @@ Each exam linked here lists the conditions under which the exam was given, inclu
     </tr>
   </thead>
   <tbody>
+    <tr>
+      <th scope="row">Winter 2023</th>
+      <td>Janine Tiefenbruck</td>
+      <td>Solutions coming soon!
+      </td>
+    </tr>
     <tr>
       <th scope="row">Fall 2022</th>
       <td>Suraj Rampure, Puoya Tabaghi, Janine Tiefenbruck</td>
