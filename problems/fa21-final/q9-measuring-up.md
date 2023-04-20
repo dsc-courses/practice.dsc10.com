@@ -266,6 +266,7 @@ Our goal for the permutation test is to randomly assign birth weights to groups,
 Suppose we run the code for the hypothesis test and see the following empirical distribution for the test statistic. In red is the observed statistic.
 
 <center><img src='../assets/images/fa21-final/measuring_up_his.png' width=40%></center>
+<br>
 
 Suppose our alternative hypothesis is that Chinstrap penguins weigh more on average than Adelie penguins. Which of the following is closest to the p-value for our hypothesis test?
 

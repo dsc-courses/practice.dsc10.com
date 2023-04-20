@@ -22,6 +22,7 @@ The first few rows of `apps` are shown below, though remember that
 `apps` has 1,000 rows.
 
 <center><img src='../assets/images/fa22-final/apps.jpg' width=45%></center>
+<br>
 
 **Throughout this exam, we will refer to `apps` repeatedly.**
 

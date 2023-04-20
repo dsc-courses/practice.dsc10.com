@@ -11,6 +11,7 @@ Let's study the relationship between a penguin's bill length (in millimeters) an
 Which of the four scatter plots below describe the relationship between bill length and body mass, based on the information provided in the question?
 
 <center><img src='../assets/images/fa21-final/bills_scatter.png' width=40%></center>
+<br>
 
 ( ) Option 1
 ( ) Option 2
@@ -93,6 +94,7 @@ $$x = \frac{y - b}{m} = \frac{6800 - 812}{77} = \frac{5988}{77} \approx 77.766$$
 Below is the residual plot for our regression line.
 
 <center><img src='../assets/images/fa21-final/bills_residual.png' width=40%></center>
+<br>
 
 Which of the following is a valid conclusion that we can draw solely from the residual plot above?
 

@@ -11,6 +11,7 @@ Now let's study the relationship between a penguin's bill length (in millimeters
 Which of the four scatter plots below describe the relationship between bill length and body mass, based on the information provided in the question?
 
 <center><img src='../assets/images/fa21-final/bills_scatter.png' width=40%></center>
+<br>
 
 ( ) Option 1
 ( ) Option 2

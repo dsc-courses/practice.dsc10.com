@@ -3,6 +3,7 @@
 The table below shows the average amount of revenue from different sources for art museums in 2003 and 2013. 
 
 <center><img src='../assets/images/fa21-final/means.png' width=20%></center>
+<br>
 
 # BEGIN SUBPROB
 

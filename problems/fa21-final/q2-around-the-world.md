@@ -13,6 +13,7 @@ It turns out that there's no way to answer this easily using the tools that you 
 Fill in the blanks so that the code below correctly assigns `best_per_city` to a DataFrame with one row per city, that describes the name, number of visitors, and rank of the most visited art museum in each city. `best_per_city` should be sorted in decreasing order of number of visitors. The first few rows of `best_per_city` are shown below.
 
 <center><img src='../assets/images/fa21-final/best_per_city.png' width=40%></center>
+<br>
 
 ```py
 best_per_city = __(a)__.groupby(__(b)__).last().__(c)__

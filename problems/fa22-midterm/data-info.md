@@ -2,8 +2,9 @@ In September 2020, Governor Gavin Newsom announced that by 2035, all new vehicle
 fuel cell vehicles).
 
 <center><img src='../assets/images/fa22-midterm/data22.png' width=20%></center>
+<br>
 
-The DataFrame evs consists of **32** rows, each of which contains information about a different EV model.
+The DataFrame `evs` consists of **32** rows, each of which contains information about a different EV model.
 
 * `"Brand"` (str): The vehicle's manufacturer.
 * `"Model"` (str): The vehicle's model name.
@@ -12,9 +13,10 @@ The DataFrame evs consists of **32** rows, each of which contains information ab
 * `"TopSpeed"` (int): The vehicle's top speed, in kilometers per hour.
 * `"Range"` (int): The vehicle's range, or distance it can travel on a single charge, in kilometers.
 
-The first few rows of evs are shown below (though remember, evs has 32 rows total).
+The first few rows of `evs` are shown below (though remember, `evs` has 32 rows total).
 
 <center><img src='../assets/images/fa22-midterm/form22.png' width=60%></center>
+<br>
 
 **Throughout this exam, we will refer to `evs` repeatedly.**
 

@@ -20,8 +20,8 @@ the duration of the storm. The columns of `storms` are as follows.
 
 A preview of `storms` is shown below.
 
-<center><img src='../assets/images/wi23-midterm/df.jpg' width=30%></center>
-
+<center><img src='../assets/images/wi23-midterm/df.jpg' width=45%></center>
+<br>
 
 Throughout this exam, we will refer to `storms` repeatedly. Assume that we have already
 run `import babypandas as bpd` and `import numpy as np`.
