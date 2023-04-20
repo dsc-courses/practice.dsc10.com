@@ -119,7 +119,7 @@ Each exam linked here lists the conditions under which the exam was given, inclu
     <tr>
       <th scope="row">Winter 2023</th>
       <td>Janine Tiefenbruck</td>
-      <td>Solutions coming soon!
+      <td><a href='fa23-midterm/index.html'>Midterm</a>
       </td>
     </tr>
     <tr>
