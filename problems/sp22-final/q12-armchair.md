@@ -3,6 +3,7 @@
 An IKEA chair designer is experimenting with some new ideas for armchair designs. She has the idea of making the arm rests shaped like bell curves, or normal distributions. A cross-section of the armchair design is shown below. 
 
 <center><img src='../assets/images/sp22-final/armchair.png' width=80%></center>
+<br>
 
 This was created by taking the portion of the standard normal distribution from $z=-4$ to $z=4$ and adjoining two copies of it, one centered at $z=0$ and the other centered at $z=8$. Let's call this shape the armchair curve.
 

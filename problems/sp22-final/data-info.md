@@ -4,6 +4,7 @@ Welcome to <img src='../assets/images/sp22-final/ikea_logo.png' height=15> !
 IKEA is a Swedish furniture company that designs and sells ready-to-assemble furniture and other home furnishings. IKEA has locations worldwide, including one in San Diego. IKEA is known for its cheap prices, modern designs, huge showrooms, and wordless instruction manuals. They also sell really good Swedish meatballs in their cafe!
 
 <center><img src='../assets/images/sp22-final/wordless_instructions.png' width=40%></center>
+<br>
 
 
 This exam is all about IKEA. Here are the DataFrames you'll be working with:
@@ -22,6 +23,7 @@ The `ikea` DataFrame has a row for each ready-to-assemble IKEA furniture product
 The first few rows of `ikea` are shown below, though `ikea` has many more rows than pictured.
 
 <center><img src='../assets/images/sp22-final/ikeadf.png' height=250></center>
+<br>
 
 
 2. `offers`
@@ -35,6 +37,7 @@ IKEA sometimes runs certain special offers, including coupons, sales, and promot
 The full `offers` DataFrame is shown below. All rows are pictured.
 
 <center><img src='../assets/images/sp22-final/offersdf.png' height=270></center>
+<br>
 
 
 3. `app_data`
@@ -49,6 +52,7 @@ An IKEA fan created an app where people can log the amount of time it took them 
 The first few rows of `app_data` are shown below, though `app_data` has many more rows than pictured (5000 rows total).
 
 <center><img src='../assets/images/sp22-final/appdatadf.png' height=180></center>
+<br>
 
 Assume that we have already run `import babypandas as bpd` and `import numpy as np`.
 
