@@ -9,6 +9,7 @@ One piece of information they tracked for each of 330 penguins was its mass in g
 Consider the histogram of mass below.
 
 <center><img src='../assets/images/fa21-final/mass.png' width=40%></center>
+<br>
 
 Select the true statement below.
 
@@ -56,6 +57,7 @@ Recall, a histogram has intervals on the axis, so we cannot know the frequency o
 For your convenience, we show the histogram of mass again below.
 
 <center><img src='../assets/images/fa21-final/mass.png' width=40%></center>
+<br>
 
 Recall, there are 330 penguins in our dataset. Their average mass is 4200 grams, and the standard deviation of mass is 840 grams.
 

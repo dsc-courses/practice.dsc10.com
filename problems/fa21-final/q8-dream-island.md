@@ -3,6 +3,7 @@
 Each individual penguin in our dataset is of a certain species (Adelie, Chinstrap, or Gentoo) and comes from a particular island in Antarctica (Biscoe, Dream, or Torgerson). There are 330 penguins in our dataset, grouped by species and island as shown below.
 
 <center><img src='../assets/images/fa21-final/dream_form.png' width=20%></center>
+<br>
 
 Suppose we pick one of these 330 penguins, uniformly at random, and name it Chester.
 
