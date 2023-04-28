@@ -140,6 +140,29 @@
 <li><p><input type="radio" disabled="" /> <code>['Appearance_Order', 'Year']</code></p></li>
 <li><p><input type="radio" disabled="" /> None of the above.</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse1" class="accordion-collapse collapse collapse" aria-labelledby="heading1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> <code>['Year', 'Appearance_Order']</code></p>
+<p>The fact that <code>groupby</code> automatically sorts the index in ascending order is important here. Since we want earlier years before later years, we could group by <code>'Year'</code>, however if we <em>just</em> group by year, all the artists who performed in a given year will be aggregated together, which is not what we want. Within each year, we want to organize the artists in ascending order of <code>'Appearance_Order'</code>. In other words, we need to group by <code>'Year'</code> with <code>'Appearance_Order'</code> as subgroups. Therefore, the correct way to reorder the rows of <code>sungod</code> as desired is <code>sungod.groupby(['Year', 'Appearance_Order']).max().reset_index()</code>. Note that we need to reset the index so that the resulting DataFrame has <code>'Year'</code> and <code>'Appearance_Order'</code> as columns, like in <code>sungod</code>.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 85%.</p>
+</div>
+</div>
+</div>
+</div>
 <hr />
 <h2 id="problem-2">Problem 2</h2>
 <p>Another DataFrame called <code>music</code> contains a row for every music artist that has ever released a song. The columns are:</p>
@@ -156,6 +179,29 @@
 <li><p><input type="radio" disabled="" /> <code>merged = sungod.merge(music, left_on='Artist', right_on='Name')</code></p></li>
 <li><p><input type="radio" disabled="" /> <code>merged = music.merge(sungod, left_on='Artist', right_on='Name')</code></p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="true" aria-controls="collapse2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse2" class="accordion-collapse collapse collapse" aria-labelledby="heading2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> <code>merged = sungod.merge(music, left_on='Artist', right_on='Name')</code></p>
+<p>The question we want to answer is about Sun God music artists’ genres. In order to answer, we’ll need a DataFrame consisting of rows of artists that have performed at Sun God since its inception in 1983. If we merge the <code>sungod</code> DataFrame with the <code>music</code> DataFrame based on the artist’s name, we’ll end up with a DataFrame containing one row for each artist that has ever performed at Sun God. Since the column containing artists’ names is called <code>'Artist'</code> in <code>sungod</code> and <code>'Name'</code> in <code>music</code>, the correct syntax for this merge is <code>merged = sungod.merge(music, left_on='Artist', right_on='Name')</code>. Note that we could also interchange the left DataFrame with the right DataFrame, as swapping the roles of the two DataFrames in a merge only changes the ordering of rows and columns in the output, not the data itself. This can be written in code as <code>merged = music.merge(sungod, left_on='Name', right_on='Artist')</code>, but this is not one of the answer choices.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 86%.</p>
+</div>
+</div>
+</div>
+</div>
 <hr />
 <h2 id="problem-3">Problem 3</h2>
 <p>Consider an artist that has only appeared once at Sun God. At the time of their Sun God performance, we’ll call the artist</p>
@@ -178,14 +224,66 @@
 <p><br></p>
 <h3 id="problem-3.1">Problem 3.1</h3>
 <p>What goes in blank (a)?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading3_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_1" aria-expanded="true" aria-controls="collapse3_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse3_1" class="accordion-collapse collapse collapse" aria-labelledby="heading3_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> <code>top_hit_year - year</code></p>
+<p>Before we can answer this question, we need to understand what the first three lines of the <code>classify_artist</code> function are doing. The first line creates a DataFrame with only one row, corresponding to the particular artist that’s passed in as input to the function. We know there is just one row because we are told that the artist being passed in as input has appeared exactly once at Sun God. The next two lines create two variables:</p>
+<ul>
+<li><code>year</code> contains the year in which the artist performed at Sun God, and</li>
+<li><code>top_hit_year</code> contains the year in which their top hit song was released.</li>
+</ul>
+<p>Now, we can fill in blank (a). Notice that the body of the <code>if</code> clause is <code>return 'up-and-coming'</code>. Therefore we need a condition that corresponds to up-and-coming, which we are told means the top hit came out after the artist appeared at Sun God. Using the variables that have been defined for us, this condition is <code>top_hit_year &gt; year</code>. However, the <code>if</code> statement condition is already partially set up with <code>&gt; 0</code> included. We can simply rearrange our condition <code>top_hit_year &gt; year</code> by subtracting <code>year</code> from both sides to obtain <code>top_hit_year - year &gt; 0</code>, which fits the desired format.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 89%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br> <br></p>
 <h3 id="problem-3.2">Problem 3.2</h3>
 <p>What goes in blank (b)?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading3_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_2" aria-expanded="true" aria-controls="collapse3_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse3_2" class="accordion-collapse collapse collapse" aria-labelledby="heading3_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> <code>year-top_hit_year &gt; 5</code></p>
+<p>For this part, we need a condition that corresponds to an artist being outdated which happens when their top hit came out more than five years prior to their appearance at Sun God. There are several ways to state this condition: <code>year-top_hit_year &gt; 5</code>, <code>year &gt; top_hit_year + 5</code>, or any equivalent condition would be considered correct.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 89%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <hr />
 <h2 id="problem-4">Problem 4</h2>
 <p>King Triton, UCSD’s mascot, is quite the traveler! For this question, we will be working with the <code>flights</code> DataFrame, which details several facts about each of the flights that King Triton has been on over the past few years. The first few rows of <code>flights</code> are shown below.</p>
 <center><img src='../assets/images/fa21-midterm/flights.png' width=40%></center>
+<p><br></p>
 <p>Here’s a description of the columns in <code>flights</code>:</p>
 <ul>
 <li><code>'DATE'</code>: the date on which the flight occurred. Assume that there were no “redeye” flights that spanned multiple days.</li>
@@ -197,9 +295,34 @@
 </ul>
 <p>Suppose we create a DataFrame called <code>socal</code> containing only King Triton’s flights departing from SAN, LAX, or SNA (John Wayne Airport in Orange County). <code>socal</code> has 10 rows; the bar chart below shows how many of these 10 flights departed from each airport.</p>
 <center><img src='../assets/images/fa21-midterm/socal.png' width=30%></center>
+<p><br></p>
 <p>Consider the DataFrame that results from merging <code>socal</code> with itself, as follows:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a>double_merge <span class="op">=</span> socal.merge(socal, left_on<span class="op">=</span><span class="st">&#39;FROM&#39;</span>, right_on<span class="op">=</span><span class="st">&#39;FROM&#39;</span>)</span></code></pre></div>
 <p>How many rows does <code>double_merge</code> have?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="true" aria-controls="collapse4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse4" class="accordion-collapse collapse collapse" aria-labelledby="heading4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> 38</p>
+<p>There are two flights from LAX. When we merge <code>socal</code> with itself on the <code>'FROM'</code> column, each of these flights gets paired up with each of these flights, for a total of four rows in the output. That is, the first flight from LAX gets paired with both the first and second flights from LAX. Similarly, the second flight from LAX gets paired with both the first and second flights from LAX.</p>
+<p>Following this logic, each of the five flights from SAN gets paired with each of the five flights from SAN, for an additional 25 rows in the output. For SNA, there will be 9 rows in the output. The total is therefore <span class="math inline">2^2 + 5^2 + 3^2 = 4 + 25 + 9 = 38</span> rows.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 27%.</p>
+</div>
+</div>
+</div>
+</div>
 <hr />
 <h2 id="problem-5">Problem 5</h2>
 <p>We define a “route” to be a departure and arrival airport pair. For example, all flights from <code>'SFO'</code> to <code>'SAN'</code> make up the “SFO to SAN route”. This is different from the “SAN to SFO route”.</p>
@@ -209,6 +332,29 @@
 <p><br></p>
 <h3 id="problem-5.1">Problem 5.1</h3>
 <p>What goes in blank (a)?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading5_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_1" aria-expanded="true" aria-controls="collapse5_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse5_1" class="accordion-collapse collapse collapse" aria-labelledby="heading5_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> <code>['FROM', 'TO']</code></p>
+<p>We want to organize flights by route. This means we need to group by both <code>'FROM'</code> and <code>'TO'</code> so any flights with the same pair of departure and arrival airports get grouped together. To group by multiple columns, we must use a list containing all these column names, as in <code>flights.groupby(['FROM', 'TO'])</code>.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 72%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-5.2">Problem 5.2</h3>
 <p>What goes in blank (b)?</p>
@@ -218,6 +364,30 @@
 <li><p><input type="radio" disabled="" /> <code>sum()</code></p></li>
 <li><p><input type="radio" disabled="" /> <code>max()</code></p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading5_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_2" aria-expanded="true" aria-controls="collapse5_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse5_2" class="accordion-collapse collapse collapse" aria-labelledby="heading5_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> <code>sum()</code></p>
+<p>Every <code>.groupby</code> command needs an aggregation function! Since we are asked to find the route that King Triton has spent the most time flying on, we want to total the times for all flights on a given route.</p>
+<p>Note that <code>.count()</code> would tell us how many flights King Triton has taken on each route. That’s meaningful information, but not what we need to address the question of which route he spent the most time flying on.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 58%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-5.3">Problem 5.3</h3>
 <p>What goes in blank (c)?</p>
@@ -227,6 +397,29 @@
 <li><p><input type="radio" disabled="" /> <code>by='HOURS', descending=True</code></p></li>
 <li><p><input type="radio" disabled="" /> <code>by='DIST', ascending=False</code></p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading5_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_3" aria-expanded="true" aria-controls="collapse5_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse5_3" class="accordion-collapse collapse collapse" aria-labelledby="heading5_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> <code>by='HOURS', ascending=False</code></p>
+<p>We want to know the route that King Triton spent the most time flying on. After we group flights by route, summing flights on the same route, the <code>'HOURS'</code> column contains the total amount of time spent on each route. We need <code>most_frequent.get('FROM').iloc[0]</code> and <code>most_frequent.get('TO').iloc[0]</code> to correspond with the departure and destination airports of the route that King Triton has spent the most time flying on. To do this, we need to sort in descending order of time, to bring the largest time to the top of the DataFrame. So we must sort by <code>'HOURS'</code> with <code>ascending=False</code>.</p>
+<hr/>
+<h5>Difficulty: ⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 94%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <hr />
 <h2 id="problem-6">Problem 6</h2>
@@ -259,6 +452,31 @@
 <li><p><input type="radio" disabled="" /> The number 3</p></li>
 <li><p><input type="radio" disabled="" /> An error</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_1" aria-expanded="true" aria-controls="collapse6_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_1" class="accordion-collapse collapse collapse" aria-labelledby="heading6_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> The number 3</p>
+<p><code>plum.groupby('Opp').max()</code> finds the largest value in the <code>'Date'</code>, <code>'Home'</code>, <code>'Won'</code>, <code>'PTS'</code>, <code>'AST'</code>, and <code>'TOV'</code> columns for each unique <code>'Opp'</code> (independently for each column). <code>grouped = plum.groupby('Opp').max().get(['Date', 'PTS'])</code> keeps only the <code>'Date'</code> and <code>'PTS'</code> columns. Note that in <code>grouped</code>, the index is <code>'Opp'</code>, the column we grouped on.</p>
+<p>When <code>grouped.reset_index()</code> is called, the index is switched back to the default of 0, 1, 2, 3, 4, and so on. Then, <code>grouped.reset_index().index</code> is an <code>Index</code> containing the numbers <code>[0, 1, 2, 3, 4, ...]</code>, and <code>np.array(grouped.reset_index().index)</code> is <code>np.array([0, 1, 2, 3, 4, ...])</code>. In this array, the number at position <code>i</code> is just <code>i</code>, so the number at position <code>df</code> is <code>df</code>. Here, <code>df</code> is the argument to <code>unknown</code>, and we were asked for the value of <code>unknown(3)</code>, so the correct answer is the number at position 3 in <code>np.array([0, 1, 2, 3, 4, ...])</code> which is 3.</p>
+<p>Note that if we asked for <code>unknown(50)</code> (or <code>unknown(k)</code>, where <code>k</code> is any integer above 30), the answer would be “An error”, since <code>grouped</code> could not have had 51 rows. <code>plum</code> has 31 rows, so <code>grouped</code> has at most 31 rows (but likely less, since Kelsey Plum’s team likely played the same opponent multiple times).</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 72%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-6.2">Problem 6.2</h3>
 <p>For your convenience, we show the first few rows of <code>plum</code> again below.</p>
@@ -270,6 +488,31 @@
 <li><p>How many rows does <code>home_won</code> have?</p></li>
 <li><p>How many columns does <code>home_won</code> have?</p></li>
 </ol>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_2" aria-expanded="true" aria-controls="collapse6_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_2" class="accordion-collapse collapse collapse" aria-labelledby="heading6_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> 4 rows and 5 columns.</p>
+<p><code>plum.groupby(['Home', 'Won']).mean()</code> contains one row for every unique combination of <code>'Home'</code> and <code>'Won'</code>. There are two values of <code>'Home'</code> - <code>True</code> and <code>False</code> â€“ and two values of <code>'Won'</code> â€“ <code>True</code> and <code>False</code> â€“ leading to 4 combinations. We can assume that there was at least one row in <code>plum</code> for each of these 4 combinations due to the assumption given in the problem:</p>
+<p><em>Suppose that Plum’s team, the Las Vegas Aces, won at least one game in Las Vegas and lost at least one game in Las Vegas. Also, suppose they won at least one game in an opponent’s arena and lost at least one game in an opponent’s arena.</em></p>
+<p><code>plum</code> started with 7 columns: <code>'Date'</code>, <code>'Opp'</code>, <code>'Home'</code>, <code>'Won'</code>, <code>'PTS'</code>, <code>'AST'</code>, and <code>'TOV'</code>. After grouping by <code>['Home', 'Won']</code> and using <code>.mean()</code>, <code>'Home'</code> and <code>'Won'</code> become the index. The resulting DataFrame contains all of the columns that the <code>.mean()</code> aggregation method can work on. We cannot take the mean of <code>'Date'</code> and <code>'Opp'</code>, because those columns are strings, so <code>plum.groupby(['Home', 'Won']).mean()</code> contains a <code>MultiIndex</code> with 2 “columns” â€“ <code>'Home'</code> and <code>'Won'</code> â€“ and 3 regular columns â€“ <code>'PTS'</code> <code>'AST'</code>, and <code>'TOV'</code>. Then, when using <code>.reset_index()</code>, <code>'Home'</code> and <code>'Won'</code> are restored as regular columns, meaning that <code>plum.groupby(['Home', 'Won']).mean().reset_index()</code> has <span class="math inline">2 + 3 = 5</span> columns.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 78%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-6.3">Problem 6.3</h3>
 <p>Consider the DataFrame <code>home_won</code> once again.</p>
@@ -283,6 +526,30 @@
 <li><p><input type="radio" disabled="" /> <code>home_won</code> and <code>puzzle</code> have the same number of columns, but a different number of rows</p></li>
 <li><p><input type="radio" disabled="" /> <code>home_won</code> and <code>puzzle</code> have both a different number of rows and a different number of columns</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_3" aria-expanded="true" aria-controls="collapse6_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_3" class="accordion-collapse collapse collapse" aria-labelledby="heading6_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> <code>home_won</code> and <code>puzzle</code> have the same number of rows, but a different number of columns</p>
+<p>All that changed between <code>home_won</code> and <code>puzzle</code> is the aggregation method. The aggregation method has no influence on the number of rows in the output DataFrame, as there is still one row for each of the 4 unique combinations of <code>'Home'</code> and <code>'Won'</code>.</p>
+<p>However, <code>puzzle</code> has 7 columns, instead of 5. In the solution to the above subpart, we noticed that we could not use <code>.mean()</code> on the <code>'Date'</code> and <code>'Opp'</code> columns, since they contained strings. However, we can use <code>.count()</code> (since <code>.count()</code> just determines the number of non-NA values in each group), and so the <code>'Date'</code> and <code>'Opp'</code> columns are not “lost” when aggregating. Hence, <code>puzzle</code> has 2 more columns than <code>home_won</code>.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 85%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <hr />
 <h2 id="section"><span class="math display"> </span></h2>
