@@ -60,12 +60,12 @@ Solutions to discussion worksheets will be made available on Wednesday evenings.
       <td>April 26th</td>
       <td><a href="disc04/index.html">Functions, Subgroups, Merge, and Control Flow</a></td>
     </tr>
-    <!-- tr>
+    <tr>
       <th scope="row">5</th>
-      <td>February 8th</td>
+      <td>May 3rd</td>
       <td><a href="disc05/index.html">Probability and Simulation</a></td>
     </tr>
-    <tr>
+    <!-- tr>
       <th scope="row">6</th>
       <td>February 15th</td>
       <td><a href="disc06/index.html">Hypothesis Testing</a></td>
