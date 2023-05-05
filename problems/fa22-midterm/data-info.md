@@ -1,3 +1,9 @@
+#### Video 🎥
+
+<b>In Lecture 14, we covered some of the problems from this exam. See the slides <a href="https://dsc10.com/resources/lectures/lec14/lec14-filled.pdf">here</a> and the recording <a href="https://podcast.ucsd.edu/watch/sp23/dsc10_a00/14">here</a>.</b>
+
+---
+
 In September 2020, Governor Gavin Newsom announced that by 2035, all new vehicles sold in California must be zero-emissions vehicles. Electric vehicles (EVs) are among the most popular zero-emissions vehicles (though other examples include plug-in hybrids and hydrogen
 fuel cell vehicles).
 

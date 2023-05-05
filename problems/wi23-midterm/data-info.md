@@ -1,6 +1,11 @@
+#### Video 🎥
+
+<b>In Lecture 14, we covered some of the problems from this exam. See the slides <a href="https://dsc10.com/resources/lectures/lec14/lec14-filled.pdf">here</a> and the recording <a href="https://podcast.ucsd.edu/watch/sp23/dsc10_b00/14">here</a>.</b>
+
+---
+
 Tropical cyclones, such as hurricanes, are storms characterized by high wind speeds. These
-storms can cause great devastation when they make landfall. In the US, the National Hur-
-ricane Center (NHC) is the government entity responsible for tracking and predicting these
+storms can cause great devastation when they make landfall. In the US, the National Hurricane Center (NHC) is the government entity responsible for tracking and predicting these
 tropical weather systems. The NHC names tropical storms of sufficient intensity, using a
 list of people’s names that gets reused every six years. For example, there have been many
 different storms named Cindy, all occurring in different years. We’ll assume that no tropical
