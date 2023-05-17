@@ -72,7 +72,7 @@ Solutions to discussion worksheets will be made available on Wednesday evenings.
     </tr>
     <tr>
       <th scope="row">7</th>
-      <td>May 18th</td>
+      <td>May 17th</td>
       <td><a href="disc07/index.html">Permutation Testing and Bootstrapping</a></td>
     </tr>
      <!-- tr>
