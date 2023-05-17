@@ -70,12 +70,12 @@ Solutions to discussion worksheets will be made available on Wednesday evenings.
       <td>May 10th</td>
       <td><a href="disc06/index.html">Hypothesis Testing</a></td>
     </tr>
-    <!-- tr>
+    <tr>
       <th scope="row">7</th>
-      <td>February 22nd</td>
-      <td><a href="disc07/index.html">Hypothesis Testing and Permutation Testing</a></td>
+      <td>May 18th</td>
+      <td><a href="disc07/index.html">Permutation Testing and Bootstrapping</a></td>
     </tr>
-     <tr>
+     <!-- tr>
       <th scope="row">8</th>
       <td>March 1st</td>
       <td><a href="disc08/index.html">Permutation Testing and Bootstrapping</a></td>
