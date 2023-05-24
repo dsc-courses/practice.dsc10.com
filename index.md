@@ -75,12 +75,12 @@ Solutions to discussion worksheets will be made available on Wednesday evenings.
       <td>May 17th</td>
       <td><a href="disc07/index.html">Permutation Testing and Bootstrapping</a></td>
     </tr>
-     <!-- tr>
+     <tr>
       <th scope="row">8</th>
-      <td>March 1st</td>
-      <td><a href="disc08/index.html">Permutation Testing and Bootstrapping</a></td>
+      <td>May 24th</td>
+      <td><a href="disc08/index.html">The Normal Distribution</a></td>
     </tr>
-    <tr>
+    <!-- tr>
     <th scope="row">9</th>
     <td>March 8th</td>
     <td><a href="disc09/index.html">The Normal Distribution and the CLT</a></td>

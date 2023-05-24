@@ -8,13 +8,20 @@
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
     pre > code.sourceCode { white-space: pre; position: relative; }
     pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
     div.sourceCode { margin: 1em 0; }
     pre.sourceCode { margin: 0; }
@@ -49,7 +56,7 @@
     code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
     code span.at { color: #7d9029; } /* Attribute */
     code span.bn { color: #40a070; } /* BaseN */
-    code span.bu { } /* BuiltIn */
+    code span.bu { color: #008000; } /* BuiltIn */
     code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
     code span.ch { color: #4070a0; } /* Char */
     code span.cn { color: #880000; } /* Constant */
@@ -62,7 +69,7 @@
     code span.ex { } /* Extension */
     code span.fl { color: #40a070; } /* Float */
     code span.fu { color: #06287e; } /* Function */
-    code span.im { } /* Import */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
     code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
     code span.kw { color: #007020; font-weight: bold; } /* Keyword */
     code span.op { color: #666666; } /* Operator */
@@ -75,23 +82,25 @@
     code span.vs { color: #4070a0; } /* VerbatimString */
     code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="..\assets\theme.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.js"></script>
+  <link rel="stylesheet" href="../assets/theme.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
-   var mathElements = document.getElementsByClassName("math");
-   var macros = [];
-   for (var i = 0; i < mathElements.length; i++) {
-    var texText = mathElements[i].firstChild;
-    if (mathElements[i].tagName == "SPAN") {
-     katex.render(texText.data, mathElements[i], {
-      displayMode: mathElements[i].classList.contains('display'),
-      throwOnError: false,
-      macros: macros,
-      fleqn: false
-     });
-  }}});
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
   </script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css" />
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
   <!--[if lt IE 9]>
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
@@ -100,7 +109,12 @@
 <header id="title-block-header">
 <h1 class="title">Discussion 8: The Normal Distribution</h1>
 </header>
-<p><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> <!-- add after bootstrap.min.css --> <link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css"/> <!-- add after bootstrap.min.js or bootstrap.bundle.min.js --> <script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script></p>
+<p><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<!-- add after bootstrap.min.css -->
+<link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css"/>
+<!-- add after bootstrap.min.js or bootstrap.bundle.min.js -->
+<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script></p>
 <!-- for difficulty gauges-->
 <script src="https://cdn.plot.ly/plotly-2.16.1.min.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -114,17 +128,28 @@
 </script>
 <p><a href="../index.html">← return to practice.dsc10.com</a></p>
 <hr />
-<p>The problems in this worksheet are taken from past exams. Work on them <strong>on paper</strong>, since the exams you take in this course will also be on paper. <br><br>We encourage you to complete this worksheet in a live discussion section. Solutions will be made available after all discussion sections have concluded. You don’t need to submit your answers anywhere.<br><br><b>Note: We do not plan to cover all problems here in the live discussion section</b>; the problems we don’t cover can be used for extra practice.</p>
+<p>The problems in this worksheet are taken from past exams. Work on
+them <strong>on paper</strong>, since the exams you take in this course
+will also be on paper. <br><br>We encourage you to complete this
+worksheet in a live discussion section. Solutions will be made available
+after all discussion sections have concluded. You don’t need to submit
+your answers anywhere.<br><br><b>Note: We do not plan to cover all
+problems here in the live discussion section</b>; the problems we don’t
+cover can be used for extra practice.</p>
 <hr />
 <h2 id="problem-1">Problem 1</h2>
-<p>Oren has a random sample of 200 dog prices in an array called <code>oren</code>. He has also bootstrapped his sample 1,000 times and stored the mean of each resample in an array called <code>boots</code>.</p>
+<p>Oren has a random sample of 200 dog prices in an array called
+<code>oren</code>. He has also bootstrapped his sample 1,000 times and
+stored the mean of each resample in an array called
+<code>boots</code>.</p>
 <p>In this question, assume that the following code has run:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a>a <span class="op">=</span> np.mean(oren)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>b <span class="op">=</span> np.std(oren)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>c <span class="op">=</span> <span class="bu">len</span>(oren)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> np.mean(oren)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> np.std(oren)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> <span class="bu">len</span>(oren)</span></code></pre></div>
 <p><br></p>
 <h3 id="problem-1.1">Problem 1.1</h3>
-<p>What expression best estimates the population’s standard deviation?</p>
+<p>What expression best estimates the population’s standard
+deviation?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> <code>b</code></p></li>
 <li><p><input type="radio" disabled="" /> <code>b / c</code></p></li>
@@ -142,7 +167,8 @@
 </ul>
 <p><br></p>
 <h3 id="problem-1.3">Problem 1.3</h3>
-<p>What expression best estimates the standard deviation of <code>boots</code>?</p>
+<p>What expression best estimates the standard deviation of
+<code>boots</code>?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> <code>b</code></p></li>
 <li><p><input type="radio" disabled="" /> <code>b / c</code></p></li>
@@ -161,14 +187,16 @@
 </ul>
 <p><br></p>
 <h3 id="problem-1.5">Problem 1.5</h3>
-<p>The distribution of <code>boots</code> is normal because of the Central Limit Theorem.</p>
+<p>The distribution of <code>boots</code> is normal because of the
+Central Limit Theorem.</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> True</p></li>
 <li><p><input type="radio" disabled="" /> False</p></li>
 </ul>
 <p><br></p>
 <h3 id="problem-1.6">Problem 1.6</h3>
-<p>If Oren’s sample was 400 dogs instead of 200, the standard deviation of <code>boots</code> will…</p>
+<p>If Oren’s sample was 400 dogs instead of 200, the standard deviation
+of <code>boots</code> will…</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> Increase by a factor of <span class="math inline">2</span></p></li>
 <li><p><input type="radio" disabled="" /> Increase by a factor of <span class="math inline">\sqrt{2}</span></p></li>
@@ -178,7 +206,8 @@
 </ul>
 <p><br></p>
 <h3 id="problem-1.7">Problem 1.7</h3>
-<p>If Oren took 4000 bootstrap resamples instead of 1000, the standard deviation of <code>boots</code> will…</p>
+<p>If Oren took 4000 bootstrap resamples instead of 1000, the standard
+deviation of <code>boots</code> will…</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> Increase by a factor of 4</p></li>
 <li><p><input type="radio" disabled="" /> Increase by a factor of 2</p></li>
@@ -188,35 +217,52 @@
 </ul>
 <p><br></p>
 <h3 id="problem-1.8">Problem 1.8</h3>
-<p>Write one line of code that evaluates to the <strong>right endpoint</strong> of a 92% CLT-Based confidence interval for the mean dog price. The following expressions may help:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>stats.norm.cdf(<span class="fl">1.75</span>) <span class="co"># =&gt; 0.96</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true"></a>stats.norm.cdf(<span class="fl">1.4</span>)  <span class="co"># =&gt; 0.92</span></span></code></pre></div>
+<p>Write one line of code that evaluates to the <strong>right
+endpoint</strong> of a 92% CLT-Based confidence interval for the mean
+dog price. The following expressions may help:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>stats.norm.cdf(<span class="fl">1.75</span>) <span class="co"># =&gt; 0.96</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>stats.norm.cdf(<span class="fl">1.4</span>)  <span class="co"># =&gt; 0.92</span></span></code></pre></div>
 <p><br></p>
 <hr />
 <h2 id="problem-2">Problem 2</h2>
-<p>An IKEA chair designer is experimenting with some new ideas for armchair designs. She has the idea of making the arm rests shaped like bell curves, or normal distributions. A cross-section of the armchair design is shown below.</p>
+<p>An IKEA chair designer is experimenting with some new ideas for
+armchair designs. She has the idea of making the arm rests shaped like
+bell curves, or normal distributions. A cross-section of the armchair
+design is shown below.</p>
 <center><img src='../assets/images/sp22-final/armchair.png' width=80%></center>
 <p><br></p>
-<p>This was created by taking the portion of the standard normal distribution from <span class="math inline">z=-4</span> to <span class="math inline">z=4</span> and adjoining two copies of it, one centered at <span class="math inline">z=0</span> and the other centered at <span class="math inline">z=8</span>. Let’s call this shape the armchair curve.</p>
-<p>Since the area under the standard normal curve from <span class="math inline">z=-4</span> to <span class="math inline">z=4</span> is approximately 1, the total area under the armchair curve is approximately 2.</p>
+<p>This was created by taking the portion of the standard normal
+distribution from <span class="math inline">z=-4</span> to <span
+class="math inline">z=4</span> and adjoining two copies of it, one
+centered at <span class="math inline">z=0</span> and the other centered
+at <span class="math inline">z=8</span>. Let’s call this shape the
+armchair curve.</p>
+<p>Since the area under the standard normal curve from <span
+class="math inline">z=-4</span> to <span class="math inline">z=4</span>
+is approximately 1, the total area under the armchair curve is
+approximately 2.</p>
 <p>Complete the implementation of the two functions below:</p>
 <ol type="1">
-<li><code>area_left_of(z)</code> should return the area under the armchair curve to the left of <code>z</code>, assuming <code>-4 &lt;= z &lt;= 12</code>, and</li>
-<li><code>area_between(x, y)</code> should return the area under the armchair curve between <code>x</code> and <code>y</code>, assuming <code>-4 &lt;= x &lt;= y &lt;= 12</code>.</li>
+<li><code>area_left_of(z)</code> should return the area under the
+armchair curve to the left of <code>z</code>, assuming
+<code>-4 &lt;= z &lt;= 12</code>, and</li>
+<li><code>area_between(x, y)</code> should return the area under the
+armchair curve between <code>x</code> and <code>y</code>, assuming
+<code>-4 &lt;= x &lt;= y &lt;= 12</code>.</li>
 </ol>
-<div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="im">import</span> scipy</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a><span class="kw">def</span> area_left_of(z):</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a>    <span class="co">&#39;&#39;&#39;Returns the area under the armchair curve to the left of z.</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a><span class="co">       Assume -4 &lt;= z &lt;= 12&#39;&#39;&#39;</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>    <span class="cf">if</span> ___(a)___: </span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a>        <span class="cf">return</span> ___(b)___ </span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a>    <span class="cf">return</span> scipy.stats.norm.cdf(z)</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true"></a><span class="kw">def</span> area_between(x, y):</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true"></a>    <span class="co">&#39;&#39;&#39;Returns the area under the armchair curve between x and y. </span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true"></a><span class="co">    Assume -4 &lt;= x &lt;= y &lt;= 12.&#39;&#39;&#39;</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true"></a>    <span class="cf">return</span> ___(c)___</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> area_left_of(z):</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">&#39;&#39;&#39;Returns the area under the armchair curve to the left of z.</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">       Assume -4 &lt;= z &lt;= 12&#39;&#39;&#39;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> ___(a)___: </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> ___(b)___ </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> scipy.stats.norm.cdf(z)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> area_between(x, y):</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="co">&#39;&#39;&#39;Returns the area under the armchair curve between x and y. </span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">    Assume -4 &lt;= x &lt;= y &lt;= 12.&#39;&#39;&#39;</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ___(c)___</span></code></pre></div>
 <p><br></p>
 <h3 id="problem-2.1">Problem 2.1</h3>
 <p>What goes in blank (a)?</p>
@@ -229,11 +275,16 @@
 <p><br></p>
 <hr />
 <h2 id="problem-3">Problem 3</h2>
-<p>Suppose you have correctly implemented the function <code>area_between(x, y)</code> so that it returns the area under the armchair curve between <code>x</code> and <code>y</code>, assuming the inputs satisfy <code>-4 &lt;= x &lt;= y &lt;= 12</code>.</p>
-<p><strong>Note:</strong> You can still do this question, even if you didn’t know how to do the previous one.</p>
+<p>Suppose you have correctly implemented the function
+<code>area_between(x, y)</code> so that it returns the area under the
+armchair curve between <code>x</code> and <code>y</code>, assuming the
+inputs satisfy <code>-4 &lt;= x &lt;= y &lt;= 12</code>.</p>
+<p><strong>Note:</strong> You can still do this question, even if you
+didn’t know how to do the previous one.</p>
 <p><br></p>
 <h3 id="problem-3.1">Problem 3.1</h3>
-<p>What is the approximate value of <code>area_between(-2, 10)</code>?</p>
+<p>What is the approximate value of
+<code>area_between(-2, 10)</code>?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> 1.9</p></li>
 <li><p><input type="radio" disabled="" /> 1.95</p></li>
@@ -242,7 +293,8 @@
 </ul>
 <p><br></p>
 <h3 id="problem-3.2">Problem 3.2</h3>
-<p>What is the approximate value of <code>area_between(0.37, 8.37)</code>?</p>
+<p>What is the approximate value of
+<code>area_between(0.37, 8.37)</code>?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> 0.68</p></li>
 <li><p><input type="radio" disabled="" /> 0.95</p></li>
@@ -252,7 +304,11 @@
 <p><br></p>
 <hr />
 <h2 id="section"><span class="math display"> </span></h2>
-<h4 id="feedback-find-an-error-still-confused-have-a-suggestion-let-us-know-here.">👋 Feedback: Find an error? Still confused? Have a suggestion? <a href="https://forms.gle/WZ71FchnXU1K154d7">Let us know here</u></a>.</h4>
+<h4
+id="feedback-find-an-error-still-confused-have-a-suggestion-let-us-know-here.">👋
+Feedback: Find an error? Still confused? Have a suggestion?
+<a href="https://forms.gle/WZ71FchnXU1K154d7">Let us know
+here</u></a>.</h4>
 <hr />
 </body>
 </html>
