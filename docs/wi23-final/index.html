@@ -427,11 +427,15 @@ look like: (<code>“Thematic Games”</code> Compliment
 This solution works because we are following the formula to find the
 probability of thematic complement and strategy games over the number of
 times <code>“Strategy Games”</code> are <code>True</code>. Doing
-<code>games[query_condition]’ gives us the</code>games<code>DataFrame where</code>strategy
-== True<code>and</code>thematic ==
-False<code>. Another important thing is that for (baby)pandas we always use the keyword</code>&amp;<code>and not</code>and<code>. Note that we are using</code>.shape[0]<code>to get the number of rows or times that</code>True<code>shows up for</code>“Strategy
-Games”<code>and the number of rows or times that</code>False<code>shows up for</code>“Thematic
-Games”` Compliment.</p>
+<code>games[query_condition]</code> gives us the <code>games</code>
+DataFrame where <code>strategy == True</code> and
+<code>thematic == False</code>. Another important thing is that for
+(baby)pandas we always use the keyword <code>&amp;</code> and not
+<code>and</code>. Note that we are using <code>.shape[0]</code> to get
+the number of rows or times that <code>True</code> shows up for
+<code>“Strategy Games”</code> and the number of rows or times that
+<code>False</code> shows up for <code>“Thematic Games”</code>
+Compliment.</p>
 <p>Another possible strategy would be using the complement rule: Which
 would be: P(<code>“Thematic Games”</code> Compliment) = 1 -
 P(<code>“Thematic Games”</code>). This would lead you to an answer like:
@@ -524,6 +528,610 @@ only one character. Remember when you apply <code>len()</code> to a
 string then we get the number of characters in that string. This is
 essentially counting the number of domains that have 1 letter. Thus, it
 does not tell us the number of games that belong to only one domain.</p>
+<hr/>
+<h5>Difficulty: ⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 100%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-4">Problem 4</h2>
+<p>We want to create a bootstrapped 95% confidence interval for the
+median <code>"Complexity"</code> of all cooperative games, given a
+sample of 100 cooperative games.</p>
+<p>Suppose <code>coop_sample</code> is a DataFrame containing 100 rows
+of games, all of which are cooperative games. We’ll calculate the
+endpoints <code>left</code> and <code>right</code> of our bootstrapped
+95% confidence interval as follows.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>medians <span class="op">=</span> np.array([])</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    resample <span class="op">=</span> coop_sample.sample(<span class="dv">100</span>, replace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    median <span class="op">=</span> np.median(resample.get(<span class="st">&quot;Complexity&quot;</span>))</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    medians <span class="op">=</span> np.append(medians, median)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>left <span class="op">=</span> np.percentile(medians, <span class="fl">2.5</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>right <span class="op">=</span> np.percentile(medians, <span class="fl">97.5</span>)</span></code></pre></div>
+<p><br></p>
+<h3 id="problem-4.1">Problem 4.1</h3>
+<p>Now consider the interval defined by the endpoints
+<code>left_2</code> and <code>right_2</code>, calculated as follows.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>medians_2 <span class="op">=</span> np.array([])</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    shuffle <span class="op">=</span> coop_sample.assign(shuffle<span class="op">=</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    np.random.permutation(coop_sample.get(<span class="st">&quot;Complexity&quot;</span>)))</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    resample_2 <span class="op">=</span> shuffle.sample(<span class="dv">100</span>, replace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    median_2 <span class="op">=</span> np.median(resample_2.get(<span class="st">&quot;shuffle&quot;</span>))</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    medians_2 <span class="op">=</span> np.append(medians_2, median_2)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>left_2 <span class="op">=</span> np.percentile(medians_2, <span class="fl">2.5</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>right_2 <span class="op">=</span> np.percentile(medians_2, <span class="fl">97.5</span>)</span></code></pre></div>
+<p>Which interval should be wider, <code>[left, right]</code> or
+<code>[left_2, right_2]</code>?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>[left, right]</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>[left_2, right_2]</code></p></li>
+<li><p><input type="radio" disabled="" /> Both about the same.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading4_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_1" aria-expanded="true" aria-controls="collapse4_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse4_1" class="accordion-collapse collapse"
+aria-labelledby="heading4_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> Both about the same.</p>
+<p>It’s important to understand what each code block above is doing in
+order to answer this question. Let’s take a look at the original
+<code>medians</code> code. We are sampling from the
+<code>coop_sample</code> to create a shuffled <code>coop_sample</code>,
+we then get the median of the column “Complexity” and append it to the
+<code>medians</code> array. Finally, we find the left and right
+percentiles of the <code>medians</code> array.</p>
+<p>Now we will look at what <code>medians_2</code> is doing. It looks
+like we are adding a new column called <code>“shuffle”</code> to
+<code>coop_sample</code>. The column <code>“shuffle”</code> is a
+shuffled version of <code>“Complexity”</code>. Then we are taking the
+<code>shuffle</code> DataFrame with the <code>“shuffle”</code> column
+and sampling from <code>“shuffle”</code> to randomize it again. Then we
+get the median of this shuffled column and find its percentiles.</p>
+<p>Essentially, both of these blocks of code are taking the
+<code>“Complexity”</code> column, shuffling it, finding the median of
+the shuffled column, and then finding the confidence interval. Since it
+is being done on the same column and in basically the same way both
+intervals <code>[left, right]</code> and <code>[left_2, right_2]</code>
+are about the same.</p>
+<hr/>
+<h5>Difficulty: ⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 100%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-4.2">Problem 4.2</h3>
+<p>Now consider the interval defined by the endpoints
+<code>left_3</code> and <code>right_3</code>, calculated as follows.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>medians_3 <span class="op">=</span> np.array([])</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    resample_3 <span class="op">=</span> (coop_sample.sample(<span class="dv">100</span>, replace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        .sample(<span class="dv">100</span>, replace<span class="op">=</span><span class="va">True</span>))</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    median_3 <span class="op">=</span> np.median(resample_3.get(<span class="st">&quot;Complexity&quot;</span>))</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    medians_3 <span class="op">=</span> np.append(medians_3, median_3)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>left_3 <span class="op">=</span> np.percentile(medians_3, <span class="fl">2.5</span>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>right_3 <span class="op">=</span> np.percentile(medians_3, <span class="fl">97.5</span>)</span></code></pre></div>
+<p>Which interval should be wider, <code>[left, right]</code> or
+<code>[left_3, right_3]</code>?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>[left, right]</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>[left_3, right_3]</code></p></li>
+<li><p><input type="radio" disabled="" /> Both about the same.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading4_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_2" aria-expanded="true" aria-controls="collapse4_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse4_2" class="accordion-collapse collapse"
+aria-labelledby="heading4_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> <code>[left, right]</code></p>
+<p><code>[left, right]</code> will be wider than
+<code>[left_3, right_3]</code> because we are more likely to sample the
+same elements in <code>medians_3</code>. When we
+<code>.sample(100, replace = True)</code> twice we are more likely to
+have elements that are repeating each other, which would make our
+percentiles smaller. The rest of the code is similar to
+<code>medians</code>.</p>
+<hr/>
+<h5>Difficulty: ⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 100%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-5">Problem 5</h2>
+<p>As in the previous question, let <code>coop_sample</code> be a sample
+of 100 rows of games, all corresponding to cooperative games.</p>
+<p>Define <code>samp</code> and <code>resamp</code> as follows.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>samp <span class="op">=</span> coop_sample.get(<span class="st">&quot;Complexity&quot;</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>resamp <span class="op">=</span> coop_sample.sample(<span class="dv">100</span>, replace<span class="op">=</span><span class="va">True</span>).get(<span class="st">&quot;Complexity&quot;</span>)</span></code></pre></div>
+<p><br></p>
+<h3 id="problem-5.1">Problem 5.1</h3>
+<p>Which of the following statements <strong>could</strong> evaluate to
+True? Select all that are possible.</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> <code>len(samp.unique()) &lt; len(resamp.unique())</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>len(samp.unique()) == len(resamp.unique())</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>len(samp.unique()) &gt; len(resamp.unique())</code></p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading5_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_1" aria-expanded="true" aria-controls="collapse5_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse5_1" class="accordion-collapse collapse"
+aria-labelledby="heading5_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> Options 2 and 3</p>
+<p><strong>Option 1:</strong> The reason that this is incorrect is
+because <code>samp.unique()</code> has the most possible unique elements
+inside of it. When we shuffle it using
+<code>coop_sample.sample(100, replace = True)</code> we could pull the
+same value multiple times, making it less unique.</p>
+<p><strong>Option 2:</strong> This is correct because it is possible for
+<code>resamp</code> to be shuffled in such a way that the number of
+unique elements are not the same.</p>
+<p><strong>Option 3:</strong> This is correct because it is possible for
+<code>resamp</code> to pull the same values more often making it less
+unique than <code>samp</code>.</p>
+<hr/>
+<h5>Difficulty: ⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 100%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-5.2">Problem 5.2</h3>
+<p>Which of the following statements <strong>could</strong> evaluate to
+True? Select all that are possible.</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> <code>np.count nonzero(samp == 1) &lt; np.count nonzero(resamp == 1)</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>np.count nonzero(samp == 1) == np.count nonzero(resamp == 1)</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>np.count nonzero(samp == 1) &gt; np.count nonzero(resamp == 1)</code></p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading5_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_2" aria-expanded="true" aria-controls="collapse5_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse5_2" class="accordion-collapse collapse"
+aria-labelledby="heading5_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> Options 1, 2, and 3</p>
+<p><strong>Option 1:</strong> It might be helpful to recall what exactly
+the column <code>“Complexity”</code> holds. In this case it holds the
+average complexity of the game on a scale of 1 to 5. The code is trying
+to find if the number of ones in <code>samp</code> and
+<code>resamp</code> are different. It is possible that when shuffling
+due to <code>replace = True</code> that <code>resamp</code> has more
+ones inside of it than <code>samp</code>.</p>
+<p><strong>Option 2:</strong> Once again it is possible that when
+shuffled <code>resamp</code> has the same number of ones as
+<code>samp</code> does.</p>
+<p><strong>Option 3:</strong> When we shuffle <code>coop_sample</code>
+there is no guarantee that one will sample more ones and instead other
+averages could be selected. This means it is possible for the number of
+ones in <code>samp</code> can be greater than the number of ones in
+<code>resamp</code>.</p>
+<hr/>
+<h5>Difficulty: ⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 100%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-5.3">Problem 5.3</h3>
+<p>Which of the following statements <strong>could</strong> evaluate to
+True? Select all that are possible.</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> <code>samp.min() &lt; resamp.min()</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>samp.min() == resamp.min()</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>samp.min() &gt; resamp.min()</code></p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading5_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_3" aria-expanded="true" aria-controls="collapse5_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse5_3" class="accordion-collapse collapse"
+aria-labelledby="heading5_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> Options 1 and 2</p>
+<p><strong>Option 1:</strong> It is possible when shuffled that
+<code>samp</code>’s original minimum is never sampled, making
+<code>resamp</code>’s minimum to be greater than <code>samp</code>’s
+min.</p>
+<p><strong>Option 2:</strong>: If <code>samp</code>’s original min is
+sampled then it will be the same minimum that appears inside of
+<code>resamp</code>.</p>
+<p><strong>Option 3:</strong> It is impossible for <code>resamp</code>’s
+minimum to be less than <code>samp</code>’s minimum. This is because all
+of <code>resamp</code>’s values come from <code>samp</code>. That means
+there cannot be a smaller average inside of <code>resamp</code> that
+never appears in <code>samp</code>.</p>
+<hr/>
+<h5>Difficulty: ⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 100%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-5.4">Problem 5.4</h3>
+<p>Which of the following statements <strong>could</strong> evaluate to
+True? Select all that are possible.</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> <code>np.std(samp) &lt; np.std(resamp)</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>np.std(samp) == np.std(resamp)</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>np.std(samp) &gt; np.std(resamp)</code></p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading5_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_4" aria-expanded="true" aria-controls="collapse5_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse5_4" class="accordion-collapse collapse"
+aria-labelledby="heading5_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> Options 1, 2, and 3</p>
+<p><strong>Option 1:</strong> <code>np.std()</code> gives us the
+standard deviation of the array we give it. When we do
+<code>np.std(samp)</code> we are finding the standard deviation of
+<code>“Complexity”</code>. When we do <code>np.std(resamp)</code> we are
+finding the standard deviation of <code>“Complexity”</code>, which may
+grab values multiple times. Since we are grabbing values multiple times
+it is possible to have a standard deviation become smaller if we
+continuously grab smaller values.</p>
+<p><strong>Option 2:</strong> If the <code>resamp</code> gets us the
+same values as <code>samp</code> we would end up with the same standard
+deviation, which would make
+<code>np.std(samp) == np.std(resamp)</code>.</p>
+<p><strong>Option 3:</strong> Similar to Option 1, we may grab many
+values which are on the larger end, which could increase our standard
+deviation.</p>
+<hr/>
+<h5>Difficulty: ⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 100%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-6">Problem 6</h2>
+<p>Choose the best tool to answer each of the following questions. Note
+the following:</p>
+<ul>
+<li>By “hypothesis testing,” we mean “standard” hypothesis testing,
+i.e. hypothesis testing that <strong>doesn’t</strong> involve
+permutation testing or bootstrapping.</li>
+<li>By “bootstrapping,” we mean bootstrapping that
+<strong>doesn’t</strong> involve hypothesis testing.</li>
+</ul>
+<p><br></p>
+<h3 id="problem-6.1">Problem 6.1</h3>
+<p>Are strategy games rated higher than non-strategy games?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Hypothesis testing</p></li>
+<li><p><input type="radio" disabled="" /> Permutation testing</p></li>
+<li><p><input type="radio" disabled="" /> Bootstrapping</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_1" aria-expanded="true" aria-controls="collapse6_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_1" class="accordion-collapse collapse"
+aria-labelledby="heading6_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> Permutation testing</p>
+<p>Recall that we use a permutation test when we want to determine if
+two samples are from the same population. The question is asking if
+“strategy games” are rated higher than “non-strategy games” meaning we
+have two samples and want to know if they come from the same or
+different rating populations.</p>
+<p><strong>NOT DONE</strong></p>
+<hr/>
+<h5>Difficulty: ⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 100%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-6.2">Problem 6.2</h3>
+<p>What is the mean complexity of all games?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Hypothesis testing</p></li>
+<li><p><input type="radio" disabled="" /> Permutation testing</p></li>
+<li><p><input type="radio" disabled="" /> Bootstrapping</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_2" aria-expanded="true" aria-controls="collapse6_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_2" class="accordion-collapse collapse"
+aria-labelledby="heading6_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> Bootstrapping</p>
+<p>Bootstrapping is the act of resampling from a sample. We use
+bootstrapping because the original sample looks like the population, so
+by resampling the sample we are able to quantify our uncertainty. We can
+use bootstrapping to approximate the distribution of the sample
+statistic.</p>
+<p><strong>NOT DONE</strong></p>
+<hr/>
+<h5>Difficulty: ⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 100%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-6.3">Problem 6.3</h3>
+<p>Are there an equal number of cooperative and non-cooperative
+games?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Hypothesis testing</p></li>
+<li><p><input type="radio" disabled="" /> Permutation testing</p></li>
+<li><p><input type="radio" disabled="" /> Bootstrapping</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_3" aria-expanded="true" aria-controls="collapse6_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_3" class="accordion-collapse collapse"
+aria-labelledby="heading6_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> Hypothesis Testing</p>
+<p>Recall hypothesis tests quantify how “weird” a result is. We use it
+when we have a population distribution and one sample and we are trying
+to see if that sample was drawn from the population. In this instance we
+are trying to find if there are an equal number of cooperative and
+non-cooperative games. The population distribution is our DataFrame and
+we are trying to see if the cooperative games and non-cooperative games
+in our sample come from the same population.</p>
+<p><strong>NOT DONE</strong></p>
+<hr/>
+<h5>Difficulty: ⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 100%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-6.4">Problem 6.4</h3>
+<p>Are games with more than one domain more complex than games with one
+domain?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Hypothesis testing</p></li>
+<li><p><input type="radio" disabled="" /> Permutation testing</p></li>
+<li><p><input type="radio" disabled="" /> Bootstrapping</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_4" aria-expanded="true" aria-controls="collapse6_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_4" class="accordion-collapse collapse"
+aria-labelledby="heading6_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> Permutation testing</p>
+<p>Once again we would use permutation testing to solve this problem
+because we have two samples: games with more than one domain and games
+with one domain. We do not know the population distribution.</p>
+<p><strong>NOT DONE</strong></p>
+<hr/>
+<h5>Difficulty: ⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 100%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-7">Problem 7</h2>
+<p>We use the regression line to predict a game’s <code>"Rating"</code>
+based on its <code>"Complexity"</code>. We find that for the game
+<em>Wingspan</em>, which has a <code>"Complexity"</code> that is 2
+points higher than the average, the predicted <code>"Rating"</code> is 3
+points higher than the average</p>
+<p><br></p>
+<h3 id="problem-7.1">Problem 7.1</h3>
+<p>What can you conclude about the correlation coefficient r?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <em>r</em> &lt; 0&gt;</p></li>
+<li><p><input type="radio" disabled="" /> <em>r</em> = 0</p></li>
+<li><p><input type="radio" disabled="" /> <em>r</em> &gt; 0</p></li>
+<li><p><input type="radio" disabled="" /> We cannot make any conclusions about the value of <em>r</em> based on
+this information alone.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading7_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_1" aria-expanded="true" aria-controls="collapse7_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse7_1" class="accordion-collapse collapse"
+aria-labelledby="heading7_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> <em>r</em> &gt; 0</p>
+<p><strong>NOT DONE</strong></p>
+<hr/>
+<h5>Difficulty: ⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 100%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-7.2">Problem 7.2</h3>
+<p>What can you conclude about the standard deviations of “Complexity”
+and “Rating”?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> SD of <code>"Complexity"</code> &lt; SD of <code>"Rating"</code></p></li>
+<li><p><input type="radio" disabled="" /> SD of <code>"Complexity"</code> = SD of <code>"Rating"</code></p></li>
+<li><p><input type="radio" disabled="" /> SD of <code>"Complexity"</code> &gt; SD of <code>"Rating"</code></p></li>
+<li><p><input type="radio" disabled="" /> We cannot make any conclusions about the relationship between these
+two standard deviations based on this information alone.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading7_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_2" aria-expanded="true" aria-controls="collapse7_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse7_2" class="accordion-collapse collapse"
+aria-labelledby="heading7_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> SD of <code>"Complexity"</code> &lt; SD of
+<code>"Rating"</code></p>
+<p><strong>NOT DONE</strong></p>
+<hr/>
+<h5>Difficulty: ⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 100%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-8">Problem 8</h2>
+<p><br></p>
+<h3 id="problem-8.1">Problem 8.1</h3>
+<p>Suppose that for children’s games, <code>"Play Time"</code> and
+<code>"Rating"</code> are negatively linearly associated due to children
+having short attention spans. Suppose that for children’s games, the
+standard deviation of <code>"Play Time"</code> is twice the standard
+deviation of <code>"Rating"</code>, and the average
+<code>"Play Time"</code> is 10 minutes. We use linear regression to
+predict the <code>"Rating"</code> of a children’s game based on its
+<code>"Play Time"</code>. The regression line predicts that <em>Don’t
+Break the Ice</em>, a children’s game with a <code>"Play Time"</code> of
+8 minutes will have a <code>"Rating"</code> of 4. Which of the following
+could be the average <code>"Rating"</code> for children’s games?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> 2</p></li>
+<li><p><input type="radio" disabled="" /> 2.8</p></li>
+<li><p><input type="radio" disabled="" /> 3.1</p></li>
+<li><p><input type="radio" disabled="" /> 4</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading8_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_1" aria-expanded="true" aria-controls="collapse8_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse8_1" class="accordion-collapse collapse"
+aria-labelledby="heading8_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> 3.1.</p>
+<p><strong>NOT DONE</strong></p>
 <hr/>
 <h5>Difficulty: ⭐️</h5>
 <p>
