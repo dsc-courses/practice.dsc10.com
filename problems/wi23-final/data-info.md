@@ -12,7 +12,7 @@ The columns of games are as follows.
 
 The first few rows of `games` are shown below (though `games` has many more rows thanpictured here).
 
-<center><img src='../assets/images/wi23-final/preview.jpg' width=45%></center>
+<center><img src='../assets/images/wi23-final/preview.jpg' width=65%></center>
 <br>
 
 Throughout this exam, we will refer to games repeatedly. Assume that we have already run `import babypandas as bpd` and `import numpy as np`
