@@ -1751,6 +1751,290 @@ do <code>.iloc[0]</code> to get the element inside of the Series.</p>
 </div>
 <p><br></p>
 <hr />
+<h2 id="problem-13">Problem 13</h2>
+<p>Dylan, Harshi, and Selim are playing a variant of a dice game called
+<em>Left, Center, Right</em> (<em>LCR</em>) in which there are 9 chips
+(tokens) and 9 dice. Each player starts off with 3 chips. Each die has
+the following six sides: L, C, R, Dot, Dot, Dot.</p>
+<p>During a given player’s turn, they must roll a number of dice equal
+to the number of chips they currently have. Each die determines what to
+do with one chip:</p>
+<ol type="1">
+<li>L means give the chip to the player on their left.</li>
+<li>R means give the chip to the player on their right.</li>
+<li>C means put the chip in the center of the table. This chip is now
+out of play.</li>
+<li>Dot means do nothing (or keep the chip).</li>
+</ol>
+<p>Since the number of dice rolled is the same as the number of chips
+the player has, the dice rolls determine exactly what to do with each
+chip. There is no strategy at all in this simple game.</p>
+<p>Dylan will take his turn first (we’ll call him Player 0), then at the
+end of his turn, he’ll pass the dice to his left and play will continue
+clockwise around the table. Harshi (Player 1) will go next, then Selim
+(Player 2), then back to Dylan, and so on.</p>
+<center><img src='../assets/images/wi23-final/lcr.png' width=30%></center>
+<p>Note that if someone has no chips when it’s their turn, they are
+still in the game and they still take their turn, they just roll 0 dice
+because they have 0 chips. The game ends when only one person is holding
+chips, and that person is the winner. If 300 turns have been taken (100
+turns each), the game will end and we’ll declare it a tie.</p>
+<p>The function <code>simulate_lcr</code> below simulates one full game
+of <em>Left, Center, Right</em> and returns the number of turns taken in
+that game. Some parts of the code are not provided. You will need to
+fill in the code for the parts marked with a blank. The parts marked
+with <code>...</code> are not provided, but you don’t need to fill them
+in because they are very similar to other parts that you do need to
+complete.</p>
+<p><strong>Hint:</strong> Recall that in Python, the % operator gives
+the remainder upon division. For example 12 % 5 is 2.</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> simulate_lcr():</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># stores the number of chips for players 0, 1, 2 (in that order)</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    player_chips <span class="op">=</span> np.array([<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>])</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># maximum of 300 turns allotted for the game</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">300</span>):</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>        <span class="co"># which player&#39;s turn it is currently (0, 1, or 2)</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>        current_player <span class="op">=</span> __(a)__</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>        <span class="co"># stores what the player rolled on their turn</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>        roll <span class="op">=</span> np.random.choice([<span class="st">&quot;L&quot;</span>, <span class="st">&quot;C&quot;</span>, <span class="st">&quot;R&quot;</span>, <span class="st">&quot;Dot&quot;</span>, <span class="st">&quot;Dot&quot;</span>, <span class="st">&quot;Dot&quot;</span>], __(b)__)</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>        <span class="co"># count the number of instances of L, C, and R</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>        L_count <span class="op">=</span> __(c)__</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>        C_count <span class="op">=</span> ...</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>        R_count <span class="op">=</span> ...</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> current_player <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>            <span class="co"># update player_chips based on what player 0 rolled</span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>            player_chips <span class="op">=</span> player_chips <span class="op">+</span> np.array(__(d)__)</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> current_player <span class="op">==</span> <span class="dv">1</span>:</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>            <span class="co"># update player_chips based on what player 1 rolled</span></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>            player_chips <span class="op">=</span> player_chips <span class="op">+</span> ...</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>            <span class="co"># update player_chips based on what player 2 rolled</span></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>        player_chips <span class="op">=</span> player_chips <span class="op">+</span> ...</span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>        <span class="co"># if the game is over, return the number of turns played</span></span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> __(e)__:</span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> __(f)__</span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a>    <span class="co"># if no one wins after 300 turns, return 300</span></span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">300</span></span></code></pre></div>
+<p><br></p>
+<h3 id="problem-13.1">Problem 13.1</h3>
+<p>What goes in blank (a)?</p>
+<p><left><img src='../assets/images/wi23-final/solution_box.jpg' width=35%></left></p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading13_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13_1" aria-expanded="true" aria-controls="collapse13_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse13_1" class="accordion-collapse collapse"
+aria-labelledby="heading13_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> <code>i % 3</code></p>
+<p>We are trying to find which player’s turn it is within the
+<code>for</code>-loop. We know that each player: Dylan, Harshi, and
+Selim will play a maximum of 100 turns. Notice that the
+<code>for</code>-loop goes from 0 to 299. This means we need to
+manipulate the <code>i</code> somehow to figure out whose turn it is.
+The hint here is extremely helpful. The maximum remainder we want to
+have is 2 (recall the players are called Player 0, Player 1, and Player
+2). This means we can utilize <code>%</code> to give us the remainder of
+<code>i / 3</code>, which would tell us which player’s turn it is.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 41%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-13.2">Problem 13.2</h3>
+<p>What goes in blank (b)?</p>
+<p><left><img src='../assets/images/wi23-final/solution_box.jpg' width=35%></left></p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading13_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13_2" aria-expanded="true" aria-controls="collapse13_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse13_2" class="accordion-collapse collapse"
+aria-labelledby="heading13_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong>
+<code>player_chips[current_player]</code></p>
+<p>Recall <code>np.random.choice()</code> must be given an array and can
+then optionally be given a <code>size</code> to get multiple values
+instead of one. We know that <code>player_chips</code> is an array of
+the chips for each player. To access a specific player’s chips we can
+use <code>[current_player]</code> because the 1st index of
+<code>player_chips</code> corresponds to Player 0, the 2nd index
+corresponds to Player 1, and the 3rd index corresponds to Player 2.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 51%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-13.3">Problem 13.3</h3>
+<p>What goes in blank (c)?</p>
+<p><left><img src='../assets/images/wi23-final/solution_box.jpg' width=35%></left></p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading13_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13_3" aria-expanded="true" aria-controls="collapse13_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse13_3" class="accordion-collapse collapse"
+aria-labelledby="heading13_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> `np.count_nonzero(roll == “L”)</p>
+<p>We know that if we do <code>roll == “L”</code> then we get an array
+which changes the index of each element in <code>roll</code> to
+<code>True</code> if that element equals <code>“L”</code> and
+<code>False</code> otherwise. We can then use
+<code>np.count_nonzero()</code> to count the number of <code>True</code>
+values there are.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 61%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-13.4">Problem 13.4</h3>
+<p>What goes in blank (d)?</p>
+<p><left><img src='../assets/images/wi23-final/solution_box.jpg' width=35%></left></p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading13_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13_4" aria-expanded="true" aria-controls="collapse13_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse13_4" class="accordion-collapse collapse"
+aria-labelledby="heading13_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong>
+<code>[-(L_count + C_count + R_count), L_count, R_count]</code></p>
+<p>Recall the rules of the games:</p>
+<ol type="1">
+<li>L means give the chip to the player on their left.</li>
+<li>R means give the chip to the player on their right.</li>
+<li>C means put the chip in the center of the table. This chip is now
+out of play.</li>
+<li>Dot means do nothing (or keep the chip)</li>
+</ol>
+<p>If we are Player 0 the person to our left is Player 1 and the person
+to our right is Player 2. We want to update <code>player_chips</code> to
+appropriately give the players to our left and right chips. This means
+we can add our own array with the element at index 1 be our
+<code>L_count</code> and the element at index 2 be our
+<code>R_count</code>. We need to also subtract the tokens we are giving
+away and <code>C_count</code>, so in index 0 we have:
+<code>-(L_count + C_count + R_count)</code>.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 51%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-13.5">Problem 13.5</h3>
+<p>What goes in blank (e)?</p>
+<p><left><img src='../assets/images/wi23-final/solution_box.jpg' width=35%></left></p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading13_5">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13_5" aria-expanded="true" aria-controls="collapse13_5">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse13_5" class="accordion-collapse collapse"
+aria-labelledby="heading13_5" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong>
+<code>np.count_nonzero(player_chips) == 1</code></p>
+<p>We want to stop the game early if only one person has chips. To do
+this we can use <code>np.count_nonzero(player_chips)</code> to count the
+number of elements inside <code>player_chips</code> that have chips. If
+the player does not have chips then their index would have 0 inside of
+it.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 61%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-13.6">Problem 13.6</h3>
+<p>What goes in blank (f)?</p>
+<p><left><img src='../assets/images/wi23-final/solution_box.jpg' width=35%></left></p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading13_6">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13_6" aria-expanded="true" aria-controls="collapse13_6">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse13_6" class="accordion-collapse collapse"
+aria-labelledby="heading13_6" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> <code>i + 1</code></p>
+<p>To find the number of turns played we simply need to add 1 to
+<code>i</code>. We do this because <code>i</code> starts at 0!</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 53%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
 <h2 id="section"><span class="math display"> </span></h2>
 <h4
 id="feedback-find-an-error-still-confused-have-a-suggestion-let-us-know-here.">👋
