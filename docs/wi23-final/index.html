@@ -82,7 +82,7 @@
     code span.vs { color: #4070a0; } /* VerbatimString */
     code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="..\assets\theme.css" />
+  <link rel="stylesheet" href="../assets/theme.css" />
   <script defer=""
   src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
@@ -276,20 +276,6 @@ aria-labelledby="heading2_1" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer:</strong> Options 2 and 3</p>
-<p><strong>Option 1:</strong> <code>games.get(“BGG Rank”)</code> will
-get you a Series of the <code>“BGG Rank”</code> column.
-<code>np.arange(games.shape[0])</code> will create a numpy array that
-will go from zero to <code>games.shape[0]</code>, which is the number of
-rows in the <code>games</code> DataFrame. So it would look something
-like: <code>arr([0, 1, 2, . . ., n])</code>, where <code>n</code> is the
-number of rows in <code>games</code>. By doing:
-<code>games.get(“BGG Rank”) - np.arange(games.shape[0])</code> one is
-decreasing each rank by an increasing factor of one each time. This
-essentially gives a Series of numbers, but it doesn’t actually have
-anything to do with uniqueness. We are simply finding if the difference
-between <code>“BGG Rank”</code> and the numpy array leads to a maximum
-of 1. So although the code works it does not tell us if there are
-duplicates.</p>
 <p><strong>Option 2:</strong>
 <code>games.groupby(“BGG Rank”).count()</code> gets all of the unique
 <code>“BGG Rank”</code>’s and puts them into the index. Then by using
@@ -312,6 +298,20 @@ many unique elements there are inside of <code>“BGG Rank”</code>. Recall
 of rows is the same as the number of unique elements inside of
 <code>“BGG Rank”</code>, and if they are then that means they are all
 unique and should equal 0.</p>
+<p><strong>Option 1:</strong> <code>games.get(“BGG Rank”)</code> will
+get you a Series of the <code>“BGG Rank”</code> column.
+<code>np.arange(games.shape[0])</code> will create a numpy array that
+will go from zero to <code>games.shape[0]</code>, which is the number of
+rows in the <code>games</code> DataFrame. So it would look something
+like: <code>arr([0, 1, 2, . . ., n])</code>, where <code>n</code> is the
+number of rows in <code>games</code>. By doing:
+<code>games.get(“BGG Rank”) - np.arange(games.shape[0])</code> one is
+decreasing each rank by an increasing factor of one each time. This
+essentially gives a Series of numbers, but it doesn’t actually have
+anything to do with uniqueness. We are simply finding if the difference
+between <code>“BGG Rank”</code> and the numpy array leads to a maximum
+of 1. So although the code works it does not tell us if there are
+duplicates.</p>
 <p><strong>Option 4:</strong> <code>games.get(“BGG Rank”).max()</code>
 will give us the maximum element inside of <code>“BGG Rank”</code>.
 Note, <code>games.shape[0]</code> gets us the number of rows in
@@ -698,17 +698,17 @@ aria-labelledby="heading5_1" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer:</strong> Options 2 and 3</p>
-<p><strong>Option 1:</strong> The reason that this is incorrect is
-because <code>samp.unique()</code> has the most possible unique elements
-inside of it. When we shuffle it using
-<code>coop_sample.sample(100, replace = True)</code> we could pull the
-same value multiple times, making it less unique.</p>
 <p><strong>Option 2:</strong> This is correct because it is possible for
 <code>resamp</code> to be shuffled in such a way that the number of
 unique elements are not the same.</p>
 <p><strong>Option 3:</strong> This is correct because it is possible for
 <code>resamp</code> to pull the same values more often making it less
 unique than <code>samp</code>.</p>
+<p><strong>Option 1:</strong> The reason that this is incorrect is
+because <code>samp.unique()</code> has the most possible unique elements
+inside of it. When we shuffle it using
+<code>coop_sample.sample(100, replace = True)</code> we could pull the
+same value multiple times, making it less unique.</p>
 <hr/>
 <h5>Difficulty: ⭐️</h5>
 <p>
@@ -895,7 +895,11 @@ two samples are from the same population. The question is asking if
 “strategy games” are rated higher than “non-strategy games” meaning we
 have two samples and want to know if they come from the same or
 different rating populations.</p>
-<p><strong>NOT DONE</strong></p>
+<p>We would not use hypothesis testing here because we are not trying to
+quantify how weird a test statistic between strategy games and
+non-strategy games.</p>
+<p>We would not use bootstrapping here because we are not given a single
+sample that we want to re-sample from.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -929,10 +933,13 @@ aria-labelledby="heading6_2" data-bs-parent="#accordionExample">
 <p><strong>Answer:</strong> Bootstrapping</p>
 <p>Bootstrapping is the act of resampling from a sample. We use
 bootstrapping because the original sample looks like the population, so
-by resampling the sample we are able to quantify our uncertainty. We can
-use bootstrapping to approximate the distribution of the sample
-statistic.</p>
-<p><strong>NOT DONE</strong></p>
+by resampling the sample we are able to quantify our uncertainty of the
+mean complexity of all games. We can use bootstrapping to approximate
+the distribution of the sample statistic, which is the mean.</p>
+<p>We would not use hypothesis testing here because we do not have the
+population distribution or a sample to test with.</p>
+<p>We would not use permutation testing here because we are not trying
+to find if two samples are from the same population.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -972,7 +979,11 @@ are trying to find if there are an equal number of cooperative and
 non-cooperative games. The population distribution is our DataFrame and
 we are trying to see if the cooperative games and non-cooperative games
 in our sample come from the same population.</p>
-<p><strong>NOT DONE</strong></p>
+<p>We would not use permutation testing here because we are not given
+two samples rather one sample with two sub-groups: cooperative and
+non-cooperative games.</p>
+<p>We would not use bootstrapping because we are not re-sampling from
+the sample we are given to find a test statistic.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -1008,7 +1019,10 @@ aria-labelledby="heading6_4" data-bs-parent="#accordionExample">
 <p>Once again we would use permutation testing to solve this problem
 because we have two samples: games with more than one domain and games
 with one domain. We do not know the population distribution.</p>
-<p><strong>NOT DONE</strong></p>
+<p>We would not use hypothesis testing because we were not given a
+population distribution to test the sample against.</p>
+<p>We would not use bootstrapping because we are not re-sampling from
+the sample to find a test statistic.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -2208,7 +2222,8 @@ full.</p>
 <div class="sourceCode" id="cb12"><pre
 class="sourceCode py"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>merged <span class="op">=</span> stores.merge(prices, on<span class="op">=</span><span class="st">&quot;Game&quot;</span>)</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>merged</span></code></pre></div>
-<center><img src='../assets/images/wi23-final/merged.jpg' width=20%></center>
+<center><img src='../assets/images/wi23-final/merged.jpg' width=25%></center>
+<p><br></p>
 <p>In the space below, specify what the DataFrame <code>prices</code>
 <strong>could</strong> look like. The column labels should go in the top
 row, and the row labels (index) should go in the leftmost row. You may

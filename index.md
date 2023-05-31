@@ -80,12 +80,12 @@ Solutions to discussion worksheets will be made available on Wednesday evenings.
       <td>May 24th</td>
       <td><a href="disc08/index.html">The Normal Distribution</a></td>
     </tr>
-    <!-- tr>
+    <tr>
     <th scope="row">9</th>
-    <td>March 8th</td>
-    <td><a href="disc09/index.html">The Normal Distribution and the CLT</a></td>
+    <td>May 31st</td>
+    <td><a href="disc09/index.html">The Central Limit Theorem</a></td>
     </tr> 
-    <th scope="row">10</th>
+    <!-- th scope="row">10</th>
     <td>March 15th</td>
     <td><a href="disc10/index.html">Regression</a></td> -->
     <!-- </tr> -->
