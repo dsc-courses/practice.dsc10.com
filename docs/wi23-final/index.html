@@ -8,16 +8,10 @@
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
-    ul.task-list li input[type="checkbox"] {
-      width: 0.8em;
-      margin: 0 0.8em 0.2em -1.6em;
-      vertical-align: middle;
-    }
-    /* CSS for syntax highlighting */
     pre > code.sourceCode { white-space: pre; position: relative; }
     pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -56,7 +50,7 @@
     code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
     code span.at { color: #7d9029; } /* Attribute */
     code span.bn { color: #40a070; } /* BaseN */
-    code span.bu { color: #008000; } /* BuiltIn */
+    code span.bu { } /* BuiltIn */
     code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
     code span.ch { color: #4070a0; } /* Char */
     code span.cn { color: #880000; } /* Constant */
@@ -69,7 +63,7 @@
     code span.ex { } /* Extension */
     code span.fl { color: #40a070; } /* Float */
     code span.fu { color: #06287e; } /* Function */
-    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.im { } /* Import */
     code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
     code span.kw { color: #007020; font-weight: bold; } /* Keyword */
     code span.op { color: #666666; } /* Operator */
@@ -165,16 +159,14 @@ is not publicly known, but it likely includes many factors, such as
 number of reviews.</li>
 </ul>
 <p>The first few rows of <code>games</code> are shown below (though
-<code>games</code> has many more rows thanpictured here).</p>
-<center><img src='../assets/images/wi23-final/preview.jpg' width=65%></center>
+<code>games</code> has many more rows than pictured here).</p>
+<center><img src='../assets/images/wi23-final/preview.jpg' width=100%></center>
 <p><br></p>
 <p>Throughout this exam, we will refer to games repeatedly. Assume that
 we have already run <code>import babypandas as bpd</code> and
-<code>import numpy as np</code></p>
+<code>import numpy as np</code>.</p>
 <hr />
 <h2 id="problem-1">Problem 1</h2>
-<p><br></p>
-<h3 id="problem-1.1">Problem 1.1</h3>
 <p>Let’s start by correcting the data in the <code>"Rating"</code>
 column. All the values in this column are strings of length 4. In
 addition, some strings use commas in place of a dot to represent a
@@ -190,42 +182,47 @@ Series.</p>
 <li><p><input type="checkbox" disabled="" /> <code>games.get("Rating").str.replace(",", "").apply(int)/100</code></p></li>
 <li><p><input type="checkbox" disabled="" /> <code>games.get("Rating").str.replace(",", "").apply(float)</code></p></li>
 </ul>
+<p><strong>Important!</strong> For the rest of this exam, we will assume
+that the values in the <code>"Rating"</code> column have been correctly
+changed to floats.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading1_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1_1" aria-expanded="true" aria-controls="collapse1_1">
+<h2 class="accordion-header" id="heading1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse1_1" class="accordion-collapse collapse"
-aria-labelledby="heading1_1" data-bs-parent="#accordionExample">
+<div id="collapse1" class="accordion-collapse collapse collapse"
+aria-labelledby="heading1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer:</strong> Options 2 and 3</p>
 <p><strong>Option 1:</strong> Let’s look at the code piece by piece to
-understand why this does not work. <code>games.get(“Rating”)</code>
-gives you the column <code>“Rating”</code> as a Series. As seen from the
-node, <code>.str.replace(“,”, “.”)</code> can be used on a series, and
-will replace all commas with periods. Remember, that you cannot cast a
-Series to a float with <code>float()</code> because there are many
-values. This will cause an error making this option wrong.</p>
+understand why this does not work. <code>games.get("Rating")</code>
+gives you the column <code>"Rating"</code> as a Series. As per the note,
+<code>.str.replace(",", ".")</code> can be used on a Series, and will
+replace all commas with periods. The issue is with the use of the
+<code>float</code> function; the <code>float</code> function can convert
+a single string to a float, like <code>float("3.14")</code>, but not an
+entire Series of floats. This will cause an error making this option
+wrong.</p>
 <p><strong>Option 2:</strong> Once again we are getting
-<code>“Rating”</code> as a Series and replacing the commas with periods.
-We then apply <code>float()</code> to the series, which will
+<code>"Rating"</code> as a Series and replacing the commas with periods.
+We then apply <code>float()</code> to the Series, which will
 successfully convert all of the values into floats.</p>
 <p><strong>Option 3:</strong> Following the same logic as above, we are
-getting <code>“Rating”</code> as a Series, but change it up by replacing
+getting <code>"Rating"</code> as a Series, but change it up by replacing
 the commas with an empty string, which is effectively nothing. Notice
 this makes the numbers 100 times too big. Since there are no decimals we
 can convert the Series’ strings into integers, which is done by doing
 <code>.apply(int)</code>. Finally, because the elements inside of
-<code>“Rating”</code> are 100 times too large it can be fixed by
+<code>"Rating"</code> are 100 times too large it can be fixed by
 dividing them all by 100.</p>
 <p><strong>Option 4:</strong> Again, we are getting
-<code>“Rating”</code> as a Series and replacing the commas with an empty
-string. The values inside of <code>“Rating”</code> are then converted to
+<code>"Rating"</code> as a Series and replacing the commas with an empty
+string. The values inside of <code>"Rating"</code> are then converted to
 floats, which is fine, but remember, that the numbers are 100 times too
 big. This means we have altered the actual value inappropriately, which
 makes this option incorrect.</p>
@@ -238,17 +235,11 @@ makes this option incorrect.</p>
 </div>
 </div>
 </div>
-<p><br></p>
-<p><strong>Important!</strong> For the rest of this exam, we will assume
-that the values in the <code>"Rating"</code> column have been correctly
-changed to floats.</p>
 <hr />
 <h2 id="problem-2">Problem 2</h2>
-<p><br></p>
-<h3 id="problem-2.1">Problem 2.1</h3>
 <p>You are unsure whether it would make sense to use
 <code>"BGG Rank"</code> as the index of the <code>games</code>
-DataFrame, because you are unsure whether this column can have duplicate
+DataFrame, because you are unsure whether this column has duplicate
 values. Perhaps, for example, two games are tied and both have a rank of
 6.</p>
 <p>Select all of the expressions below that evaluate to True when the
@@ -262,15 +253,17 @@ to detect the presence of duplicate values.</p>
 <li><p><input type="checkbox" disabled="" /> <code>games.shape[0] - len(np.unique(games.get("BGG Rank"))) == 0</code></p></li>
 <li><p><input type="checkbox" disabled="" /> <code>games.get("BGG Rank").max() - games.shape[0] == 0</code></p></li>
 </ul>
+<p><strong>Note:</strong> We will not set the index of
+<code>games</code>, instead we’ll leave it with the default index.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading2_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2_1" aria-expanded="true" aria-controls="collapse2_1">
+<h2 class="accordion-header" id="heading2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="true" aria-controls="collapse2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse2_1" class="accordion-collapse collapse"
-aria-labelledby="heading2_1" data-bs-parent="#accordionExample">
+<div id="collapse2" class="accordion-collapse collapse collapse"
+aria-labelledby="heading2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -331,9 +324,6 @@ unique or not, so it does not detect duplicates.</p>
 </div>
 </div>
 </div>
-<p><br></p>
-<p><strong>Note:</strong> We will not set the index of
-<code>games</code>, instead we’ll leave it with the default index.</p>
 <hr />
 <h2 id="problem-3">Problem 3</h2>
 <p>Notice that <code>"Strategy Games"</code> and
@@ -358,7 +348,7 @@ a game can belong to multiple domains.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse3_1" class="accordion-collapse collapse"
+<div id="collapse3_1" class="accordion-collapse collapse collapse"
 aria-labelledby="heading3_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -386,11 +376,10 @@ otherwise, but it will not actually change the <code>Series</code> to a
 <p>Suppose we randomly select one of the <code>"Strategy Games"</code>
 from the <code>games</code> DataFrame.</p>
 <p>What is the probability that the randomly selected game is
-<strong>not</strong> also one of the <code>"Thematic Games"</code>? In
-the space below, write a single line of Python code that evaluates to
-this probability, using the variables <code>strategy</code> and
-<code>thematic</code> in your solution.</p>
-<p><left><img src='../assets/images/wi23-final/solution_box.jpg' width=35%></left></p>
+<strong>not</strong> also one of the <code>"Thematic Games"</code>?
+Write a single line of Python code that evaluates to this probability,
+using the variables <code>strategy</code> and <code>thematic</code> in
+your solution.</p>
 <p><strong>Note:</strong> For this question and others that require one
 line of code, it’s fine if you need to write your solution on multiple
 lines, as long as it is just one line of Python code. Please do write on
@@ -403,7 +392,7 @@ provided.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse3_2" class="accordion-collapse collapse"
+<div id="collapse3_2" class="accordion-collapse collapse collapse"
 aria-labelledby="heading3_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -475,7 +464,7 @@ domains.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse3_3" class="accordion-collapse collapse"
+<div id="collapse3_3" class="accordion-collapse collapse collapse"
 aria-labelledby="heading3_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -582,7 +571,7 @@ endpoints <code>left</code> and <code>right</code> of our bootstrapped
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse4_1" class="accordion-collapse collapse"
+<div id="collapse4_1" class="accordion-collapse collapse collapse"
 aria-labelledby="heading4_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -644,7 +633,7 @@ are about the same.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse4_2" class="accordion-collapse collapse"
+<div id="collapse4_2" class="accordion-collapse collapse collapse"
 aria-labelledby="heading4_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -691,7 +680,7 @@ True? Select all that are possible.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse5_1" class="accordion-collapse collapse"
+<div id="collapse5_1" class="accordion-collapse collapse collapse"
 aria-labelledby="heading5_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -734,7 +723,7 @@ True? Select all that are possible.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse5_2" class="accordion-collapse collapse"
+<div id="collapse5_2" class="accordion-collapse collapse collapse"
 aria-labelledby="heading5_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -781,7 +770,7 @@ True? Select all that are possible.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse5_3" class="accordion-collapse collapse"
+<div id="collapse5_3" class="accordion-collapse collapse collapse"
 aria-labelledby="heading5_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -825,7 +814,7 @@ True? Select all that are possible.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse5_4" class="accordion-collapse collapse"
+<div id="collapse5_4" class="accordion-collapse collapse collapse"
 aria-labelledby="heading5_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -883,7 +872,7 @@ permutation testing or bootstrapping.</li>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse6_1" class="accordion-collapse collapse"
+<div id="collapse6_1" class="accordion-collapse collapse collapse"
 aria-labelledby="heading6_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -924,7 +913,7 @@ sample that we want to re-sample from.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse6_2" class="accordion-collapse collapse"
+<div id="collapse6_2" class="accordion-collapse collapse collapse"
 aria-labelledby="heading6_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -965,7 +954,7 @@ games?</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse6_3" class="accordion-collapse collapse"
+<div id="collapse6_3" class="accordion-collapse collapse collapse"
 aria-labelledby="heading6_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1009,7 +998,7 @@ domain?</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse6_4" class="accordion-collapse collapse"
+<div id="collapse6_4" class="accordion-collapse collapse collapse"
 aria-labelledby="heading6_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1044,11 +1033,10 @@ points higher than the average.</p>
 <h3 id="problem-7.1">Problem 7.1</h3>
 <p>What can you conclude about the correlation coefficient r?</p>
 <ul class="task-list">
-<li><p><input type="radio" disabled="" /> <em>r</em> &lt; 0</p></li>
-<li><p><input type="radio" disabled="" /> <em>r</em> = 0</p></li>
-<li><p><input type="radio" disabled="" /> <em>r</em> &gt; 0</p></li>
-<li><p><input type="radio" disabled="" /> We cannot make any conclusions about the value of <em>r</em> based on
-this information alone.</p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">r &lt; 0</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">r = 0</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">r &gt; 0</span></p></li>
+<li><p><input type="radio" disabled="" /> We cannot make any conclusions about the value of <span class="math inline">r</span> based on this information alone.</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
@@ -1057,14 +1045,29 @@ this information alone.</p></li>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse7_1" class="accordion-collapse collapse"
+<div id="collapse7_1" class="accordion-collapse collapse collapse"
 aria-labelledby="heading7_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer:</strong> <em>r</em> &gt; 0</p>
-<p><strong>NOT DONE</strong></p>
+<p><strong>Answer:</strong> <span class="math inline">r &gt;
+0</span></p>
+<p>To answer this problem, it’s useful to recall the regression line in
+standard units:</p>
+<p><span class="math display">\text{predicted } y_{\text{(su)}} = r
+\cdot x_{\text{(su)}}</span></p>
+<p>If a value is positive in standard units, it means that it is above
+the average of the distribution that it came from, and if a value is
+negative in standard units, it means that it is below the average of the
+distribution that it came from. Since we’re told that <em>Wingspan</em>
+has a <code>"Complexity"</code> that is 2 points higher than the
+average, we know that <span class="math inline">x_{\text{(su)}}</span>
+is positive. Since we’re told that the predicted <code>"Rating"</code>
+is 3 points higher than the average, we know that <span class="math inline">\text{predicted } y_{\text{(su)}}</span> must also
+be positive. As a result, <span class="math inline">r</span> must also
+be positive, since you can’t multiply a positive number (<span class="math inline">x_{\text{(su)}}</span>) by a negative number and end
+up with another positive number.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -1092,7 +1095,7 @@ two standard deviations based on this information alone.</p></li>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse7_2" class="accordion-collapse collapse"
+<div id="collapse7_2" class="accordion-collapse collapse collapse"
 aria-labelledby="heading7_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1100,7 +1103,52 @@ aria-labelledby="heading7_2" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer:</strong> SD of <code>"Complexity"</code> &lt; SD of
 <code>"Rating"</code></p>
-<p><strong>NOT DONE</strong></p>
+<p>Since the distance of the predicted <code>"Rating"</code> from its
+average is larger than the distance of the <code>"Complexity"</code>
+from its average, it might be reasonable to guess that the values in the
+<code>"Rating"</code> column are more spread out. This is true, but
+let’s see concretely why that’s the case.</p>
+<p>Let’s start with the equation of the regression line in standard
+units from the previous subpart. Remember that here, <span class="math inline">x</span> refers to <code>"Complexity"</code> and
+<span class="math inline">y</span> refers to <code>"Rating"</code>.</p>
+<p><span class="math display">\text{predicted } y_{\text{(su)}} = r
+\cdot x_{\text{(su)}}</span></p>
+<p>We know that to convert a value to standard units, we subtract the
+value by the mean of the column it came from, and divide by the standard
+deviation of the column it came from. As such, <span class="math inline">x_{\text{(su)}} = \frac{x - \text{mean of }
+x}{\text{SD of } x}</span>. We can substitute this relationship in the
+regression line above, which gives us</p>
+<p><span class="math display">\frac{\text{predicted } y - \text{mean of
+} y}{\text{SD of } y} = r \cdot \frac{x - \text{mean of } x}{\text{SD of
+} x}</span></p>
+<p>To simplify things, let’s use what we were told. We were told that
+the predicted <code>"Rating"</code> was 3 points higher than average.
+This means that the numerator of the left side, <span class="math inline">\text{predicted } y - \text{mean of } y</span>, is
+equal to 3. Similarly, we were told that the <code>"Complexity"</code>
+was 2 points higher than average, so <span class="math inline">x -
+\text{mean of } x</span> is 2. Then, we have:</p>
+<p><span class="math display">\frac{3}{\text{SD of } y} =
+\frac{2r}{\text{SD of }x}</span></p>
+<p>Note that for convenience, we included <span class="math inline">r</span> in the numerator on the right-hand
+side.</p>
+<p>Remember that our goal is to compare the SD of <code>"Rating"</code>
+(<span class="math inline">y</span>) to the SD of
+<code>"Complexity"</code> (<span class="math inline">x</span>). We now
+have an equation that relates these two quantities! Since they’re both
+currently on the denominator, which can be tricky to work with, let’s
+take the reciprocal (i.e. “flip”) both fractions.</p>
+<p><span class="math display">\frac{\text{SD of } y}{3} = \frac{\text{SD
+of }x}{2r}</span></p>
+<p>Now, re-arranging gives us</p>
+<p><span class="math display">\text{SD of } y \cdot \frac{2r}{3} =
+\text{SD of }x</span></p>
+<p>Since we know that <span class="math inline">r</span> is somewhere
+between 0 and 1, we know that <span class="math inline">\frac{2r}{3}</span> is somewhere between 0 and <span class="math inline">\frac{2}{3}</span>. This means that <span class="math inline">\text{SD of } x</span> is somewhere between 0 and
+two-thirds of the value of <span class="math inline">\text{SD of }
+y</span>, which means that no matter what, <span class="math inline">\text{SD of } x &lt; \text{SD of } y</span>.
+Remembering again that here <code>"Complexity"</code> is our <span class="math inline">x</span> and <code>"Rating"</code> is our <span class="math inline">y</span>, we have that the SD of
+<code>"Complexity"</code> is less than the SD of
+<code>"Rating"</code>.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
 <p>
@@ -1139,14 +1187,31 @@ could be the average <code>"Rating"</code> for children’s games?</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse8_1" class="accordion-collapse collapse"
+<div id="collapse8_1" class="accordion-collapse collapse collapse"
 aria-labelledby="heading8_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer:</strong> 3.1.</p>
-<p><strong>NOT DONE</strong></p>
+<p>It is important for this question to look at the information given to
+us. We know we are working with a negatively linear association. We know
+that the standard deviation of <code>“Play Time”</code> is twice the
+standard deviation of <code>“Rating”.</code> The average
+<code>“Play Time”</code> is 10 minutes The regression line predicts a
+children’s game with a “Play Time” of 8 minutes will have a “Rating” of
+4.</p>
+<p>Let’s first assume we have a perfectly negative linear association,
+which would be: r = -1. The <code>“Play Time”</code> for <em>Don’t Break
+the Ice</em> is 8 minutes, which is 2 minutes below average (<span class="math inline">10 - X = 8</span>, where we can solve for X to find
+2). Since we know <code>“Play Time”</code> is 2 minutes below average
+then we expect <code>“Rating"</code> to be one above average (because it
+has double the standard deviation and is negatively linearly
+associated). However, we cannot guarantee that r is -1, so the absolute
+minimum the average of <code>"Rating"</code> could be is 3 (<span class="math inline">4 - 1 = 3</span>). We also know that it cannot be 4
+because if it did then we would have a correlation of 0 (which is not
+negatively associated). So it has to be greater than or equal to 3. The
+only possible answer we have above is 3.1.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -1199,7 +1264,6 @@ wrong, just how to fix it.</p>
 <p>The first line that is incorrect is line number: _______</p>
 <p>Explain in one sentence how to change this line. Do not write
 code.</p>
-<p><left><img src='../assets/images/wi23-final/solution_box.jpg' width=35%></left></p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading9_1">
@@ -1207,7 +1271,7 @@ code.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse9_1" class="accordion-collapse collapse"
+<div id="collapse9_1" class="accordion-collapse collapse collapse"
 aria-labelledby="heading9_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1232,7 +1296,6 @@ to a variable called <code>df</code>.</p>
 <p>The second line that is incorrect is line number: _______</p>
 <p>Explain in one sentence how to change this line. Do not write
 code.</p>
-<p><left><img src='../assets/images/wi23-final/solution_box.jpg' width=35%></left></p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading9_2">
@@ -1240,7 +1303,7 @@ code.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse9_2" class="accordion-collapse collapse"
+<div id="collapse9_2" class="accordion-collapse collapse collapse"
 aria-labelledby="heading9_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1267,7 +1330,6 @@ instead of <code>.get(“data”)</code>.</p>
 <p>The third line that is incorrect is line number: _______</p>
 <p>Explain in one sentence how to change this line. Do not write
 code.</p>
-<p><left><img src='../assets/images/wi23-final/solution_box.jpg' width=35%></left></p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading9_3">
@@ -1275,7 +1337,7 @@ code.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse9_3" class="accordion-collapse collapse"
+<div id="collapse9_3" class="accordion-collapse collapse collapse"
 aria-labelledby="heading9_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1323,7 +1385,6 @@ column.</p>
 <code>simulated_diffs</code> containing 1000 simulated differences in
 group means for this permutation test. You should call your
 <code>perm_test</code> function here!</p>
-<p><left><img src='../assets/images/wi23-final/solution_box.jpg' width=35%></left></p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading9_4">
@@ -1331,7 +1392,7 @@ group means for this permutation test. You should call your
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse9_4" class="accordion-collapse collapse"
+<div id="collapse9_4" class="accordion-collapse collapse collapse"
 aria-labelledby="heading9_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1372,7 +1433,7 @@ blank below to find the p-value for this permutation test.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse9_5" class="accordion-collapse collapse"
+<div id="collapse9_5" class="accordion-collapse collapse collapse"
 aria-labelledby="heading9_5" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1412,15 +1473,11 @@ Rotten Egg cards in the deck based on this sample. Approximately, how
 wide is your confidence interval?</p>
 <p>Choose the closest answer, and use the following facts:</p>
 <ul>
-<li>The standard deviation of a collection of 0s and 1s is</li>
-</ul>
-<p><span style="white-space: nowrap; font-size:larger"> √<span
-style="text-decoration:overline;"> (Prop. of 0s) * (Prop. of 1s) </span>
-</span></p>
-<ul>
-<li><span style="white-space: nowrap; font-size:larger"> √<span
-style="text-decoration:overline;"> 18 </span> </span> is about <span
-class="math inline">\frac{17}{4}</span></li>
+<li><p>The standard deviation of a collection of 0s and 1s is <span
+class="math inline">\sqrt{(\text{Prop. of 0s}) \cdot (\text{Prop of
+1s})}</span>.</p></li>
+<li><p><span class="math inline">\sqrt{18}</span> is about <span
+class="math inline">\frac{17}{4}</span>.</p></li>
 </ul>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> <span class="math inline">\frac{17}{9}</span></p></li>
@@ -1435,7 +1492,7 @@ class="math inline">\frac{17}{4}</span></li>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse10_1" class="accordion-collapse collapse"
+<div id="collapse10_1" class="accordion-collapse collapse collapse"
 aria-labelledby="heading10_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1473,7 +1530,7 @@ been normally distributed.</p></li>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse10_2" class="accordion-collapse collapse"
+<div id="collapse10_2" class="accordion-collapse collapse collapse"
 aria-labelledby="heading10_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1515,7 +1572,7 @@ were made possible by Kickstarter crowdfunding campaigns.</p>
 of functions and conditional statements by answering questions about the
 function <code>wham</code>, defined below. Like players of this game,
 you’ll also need to answer questions about this function.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="kw">def</span> wham(a,b):</span>
+<div class="sourceCode" id="cb8"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="kw">def</span> wham(a, b):</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>   <span class="cf">if</span> a <span class="op">&lt;</span> b:</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>       <span class="cf">return</span> a <span class="op">+</span> <span class="dv">2</span></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span>   <span class="cf">if</span> a <span class="op">+</span> <span class="dv">2</span> <span class="op">==</span> b:</span>
@@ -1529,7 +1586,6 @@ you’ll also need to answer questions about this function.</p>
 <p><br></p>
 <h3 id="problem-11.1">Problem 11.1</h3>
 <p>What is printed when we run <code>print(wham(6, 4))</code>?</p>
-<p><left><img src='../assets/images/wi23-final/solution_box.jpg' width=35%></left></p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading11_1">
@@ -1537,7 +1593,7 @@ you’ll also need to answer questions about this function.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse11_1" class="accordion-collapse collapse"
+<div id="collapse11_1" class="accordion-collapse collapse collapse"
 aria-labelledby="heading11_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1569,8 +1625,7 @@ minus 1 is greater than <code>b</code>, 4. This is True! <span class="math inlin
 <h3 id="problem-11.2">Problem 11.2</h3>
 <p>Give an example of a pair of integers <code>a</code> and
 <code>b</code> such that <code>wham(a, b)</code> returns
-<code>a + 1</code></p>
-<center><img src='../assets/images/wi23-final/question11b.png' width=30%></center>
+<code>a + 1</code>.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading11_2">
@@ -1578,7 +1633,7 @@ minus 1 is greater than <code>b</code>, 4. This is True! <span class="math inlin
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse11_2" class="accordion-collapse collapse"
+<div id="collapse11_2" class="accordion-collapse collapse collapse"
 aria-labelledby="heading11_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1635,7 +1690,7 @@ input?</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse11_3" class="accordion-collapse collapse"
+<div id="collapse11_3" class="accordion-collapse collapse collapse"
 aria-labelledby="heading11_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1677,7 +1732,6 @@ object in both arrays.</p>
 <code>"spider"</code>. Your function must include a for loop, and it
 must take <strong>at most three lines of code</strong> (not counting the
 line with <code>def</code>).</p>
-<p><left><img src='../assets/images/wi23-final/solution_box.jpg' width=35%></left></p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading12_1">
@@ -1685,7 +1739,7 @@ line with <code>def</code>).</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse12_1" class="accordion-collapse collapse"
+<div id="collapse12_1" class="accordion-collapse collapse collapse"
 aria-labelledby="heading12_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1732,7 +1786,7 @@ code</strong> (not counting the line with <code>def</code>).</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse12_2" class="accordion-collapse collapse"
+<div id="collapse12_2" class="accordion-collapse collapse collapse"
 aria-labelledby="heading12_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1840,7 +1894,6 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href=
 <p><br></p>
 <h3 id="problem-13.1">Problem 13.1</h3>
 <p>What goes in blank (a)?</p>
-<p><left><img src='../assets/images/wi23-final/solution_box.jpg' width=35%></left></p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading13_1">
@@ -1848,7 +1901,7 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href=
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse13_1" class="accordion-collapse collapse"
+<div id="collapse13_1" class="accordion-collapse collapse collapse"
 aria-labelledby="heading13_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1876,7 +1929,6 @@ have is 2 (recall the players are called Player 0, Player 1, and Player
 <p><br></p>
 <h3 id="problem-13.2">Problem 13.2</h3>
 <p>What goes in blank (b)?</p>
-<p><left><img src='../assets/images/wi23-final/solution_box.jpg' width=35%></left></p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading13_2">
@@ -1884,7 +1936,7 @@ have is 2 (recall the players are called Player 0, Player 1, and Player
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse13_2" class="accordion-collapse collapse"
+<div id="collapse13_2" class="accordion-collapse collapse collapse"
 aria-labelledby="heading13_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1911,7 +1963,6 @@ corresponds to Player 1, and the 3rd index corresponds to Player 2.</p>
 <p><br></p>
 <h3 id="problem-13.3">Problem 13.3</h3>
 <p>What goes in blank (c)?</p>
-<p><left><img src='../assets/images/wi23-final/solution_box.jpg' width=35%></left></p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading13_3">
@@ -1919,7 +1970,7 @@ corresponds to Player 1, and the 3rd index corresponds to Player 2.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse13_3" class="accordion-collapse collapse"
+<div id="collapse13_3" class="accordion-collapse collapse collapse"
 aria-labelledby="heading13_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1944,7 +1995,6 @@ values there are.</p>
 <p><br></p>
 <h3 id="problem-13.4">Problem 13.4</h3>
 <p>What goes in blank (d)?</p>
-<p><left><img src='../assets/images/wi23-final/solution_box.jpg' width=35%></left></p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading13_4">
@@ -1952,7 +2002,7 @@ values there are.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse13_4" class="accordion-collapse collapse"
+<div id="collapse13_4" class="accordion-collapse collapse collapse"
 aria-labelledby="heading13_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1988,7 +2038,6 @@ away and <code>C_count</code>, so in index 0 we have:
 <p><br></p>
 <h3 id="problem-13.5">Problem 13.5</h3>
 <p>What goes in blank (e)?</p>
-<p><left><img src='../assets/images/wi23-final/solution_box.jpg' width=35%></left></p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading13_5">
@@ -1996,7 +2045,7 @@ away and <code>C_count</code>, so in index 0 we have:
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse13_5" class="accordion-collapse collapse"
+<div id="collapse13_5" class="accordion-collapse collapse collapse"
 aria-labelledby="heading13_5" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -2021,7 +2070,6 @@ it.</p>
 <p><br></p>
 <h3 id="problem-13.6">Problem 13.6</h3>
 <p>What goes in blank (f)?</p>
-<p><left><img src='../assets/images/wi23-final/solution_box.jpg' width=35%></left></p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading13_6">
@@ -2029,7 +2077,7 @@ it.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse13_6" class="accordion-collapse collapse"
+<div id="collapse13_6" class="accordion-collapse collapse collapse"
 aria-labelledby="heading13_6" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -2077,7 +2125,7 @@ distribution?</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse14_1" class="accordion-collapse collapse"
+<div id="collapse14_1" class="accordion-collapse collapse collapse"
 aria-labelledby="heading14_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -2116,7 +2164,7 @@ lasting 30 turns or more? Choose the closest answer below</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse14_2" class="accordion-collapse collapse"
+<div id="collapse14_2" class="accordion-collapse collapse collapse"
 aria-labelledby="heading14_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -2147,7 +2195,7 @@ center? Give your answer as a mathematical expression involving
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse14_3" class="accordion-collapse collapse"
+<div id="collapse14_3" class="accordion-collapse collapse collapse"
 aria-labelledby="heading14_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -2186,7 +2234,7 @@ your answer as a mathematical expression involving <em>n</em>.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse14_4" class="accordion-collapse collapse"
+<div id="collapse14_4" class="accordion-collapse collapse collapse"
 aria-labelledby="heading14_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -2240,7 +2288,7 @@ question.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse15_1" class="accordion-collapse collapse"
+<div id="collapse15_1" class="accordion-collapse collapse collapse"
 aria-labelledby="heading15_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -2294,7 +2342,7 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb13-1"><a href=
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse15_2" class="accordion-collapse collapse"
+<div id="collapse15_2" class="accordion-collapse collapse collapse"
 aria-labelledby="heading15_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -2318,7 +2366,6 @@ aggregation method for this would be <code>count()</code>.</p>
 <p><br></p>
 <h3 id="problem-15.3">Problem 15.3</h3>
 <p>What goes in blank (b)?</p>
-<p><left><img src='../assets/images/wi23-final/solution_box.jpg' width=35%></left></p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading15_3">
@@ -2326,7 +2373,7 @@ aggregation method for this would be <code>count()</code>.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse15_3" class="accordion-collapse collapse"
+<div id="collapse15_3" class="accordion-collapse collapse collapse"
 aria-labelledby="heading15_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -2355,7 +2402,6 @@ of each of the available games that you enjoyed at game night. How much
 money will you spend? Write <strong>one line of code</strong> that
 evaluates to the answer, using the <code>merged</code> DataFrame and no
 others.</p>
-<p><left><img src='../assets/images/wi23-final/solution_box.jpg' width=35%></left></p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading15_4">
@@ -2363,7 +2409,7 @@ others.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse15_4" class="accordion-collapse collapse"
+<div id="collapse15_4" class="accordion-collapse collapse collapse"
 aria-labelledby="heading15_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -2425,7 +2471,7 @@ takes, on average, 30 minutes to play.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse16_1" class="accordion-collapse collapse"
+<div id="collapse16_1" class="accordion-collapse collapse collapse"
 aria-labelledby="heading16_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -2471,7 +2517,6 @@ interval for the average play time of a game of <em>Chutes and
 Ladders</em>. This 95% confidence interval is [26.47, 28.47]. For the
 100 games for which we collected data, what is the mean and standard
 deviation of the play times?</p>
-<center><img src='../assets/images/wi23-final/question16a.png' width=30%></center>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading16_2">
@@ -2479,7 +2524,7 @@ deviation of the play times?</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse16_2" class="accordion-collapse collapse"
+<div id="collapse16_2" class="accordion-collapse collapse collapse"
 aria-labelledby="heading16_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -2517,21 +2562,16 @@ is roughly normal?</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse16_3" class="accordion-collapse collapse"
+<div id="collapse16_3" class="accordion-collapse collapse collapse"
 aria-labelledby="heading16_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer:</strong> No</p>
-<p>The Central Limit Theorem states that the probability distribution of
-the sum or average of a large random sample drawn with replacement will
-be roughly normal, regardless of the distribution of the population from
-which the sample was drawn.</p>
-<p>The directions do not say anywhere that the games were a random
-sample, so we cannot assume that they were. The conditions to use CLT
-is: there is a large enough sample and the sample is random (with
-replacement).</p>
+<p>The Central Limit Theorem is for means and sums. It will not ensure
+that the distribution of play times is normal because this is not a mean
+nor a sum.</p>
 <p><strong>Suraj check please</strong></p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
@@ -2557,7 +2597,7 @@ supported by the data?</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse16_4" class="accordion-collapse collapse"
+<div id="collapse16_4" class="accordion-collapse collapse collapse"
 aria-labelledby="heading16_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">

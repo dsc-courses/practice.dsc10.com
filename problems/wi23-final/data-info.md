@@ -10,9 +10,9 @@ The columns of games are as follows.
 - `"Rating"` (`str`): The average rating of the game, on a scale of 1 to 10 points, as rated by Board Game Geek community members. Note that while this data should be numerical, it is actually stored as a string, because some entries use a comma in place of a decimal point. For example 8,79 actually represents the number 8.79.
 - `"BGG Rank"` (`int`): The rank of the game in Board Game Geek’s database. The formula for how this rank is calculated is not publicly known, but it likely includes many factors, such as `"Rating"`, number of registered owners of the game, and number of reviews.
 
-The first few rows of `games` are shown below (though `games` has many more rows thanpictured here).
+The first few rows of `games` are shown below (though `games` has many more rows than pictured here).
 
-<center><img src='../assets/images/wi23-final/preview.jpg' width=65%></center>
+<center><img src='../assets/images/wi23-final/preview.jpg' width=100%></center>
 <br>
 
-Throughout this exam, we will refer to games repeatedly. Assume that we have already run `import babypandas as bpd` and `import numpy as np`
+Throughout this exam, we will refer to games repeatedly. Assume that we have already run `import babypandas as bpd` and `import numpy as np`.
