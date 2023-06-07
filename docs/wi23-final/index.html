@@ -127,9 +127,11 @@
 except students were provided a copy of the
 <a href='https://drive.google.com/file/d/1ky0Np67HS2O4LO913P-ing97SJG0j27n/view'>DSC
 10 Reference Sheet<a>. No calculators were allowed. Students had
-<strong>3 hours</strong> to take this exam.<br><strong>The solutions to
-this exam will be made available after Wednesday’s lectures. Before
-then, try the problems yourself!</strong></p>
+<strong>3 hours</strong> to take this exam.<br><br><strong>Solutions to
+this exam are now available! Take a look at <a
+href="https://dsc10.com">Lecture 27 at dsc10.com</a> to see annotated
+slides and podcasts walking through some of the problems
+here.</strong></p>
 <hr />
 <p>The DataFrame <code>games</code> contains information about a sample
 of popular games, including board games, dice games, and card games. The
@@ -187,6 +189,56 @@ Series.</p>
 <p><strong>Important!</strong> For the rest of this exam, we will assume
 that the values in the <code>"Rating"</code> column have been correctly
 changed to floats.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse1" class="accordion-collapse collapse collapse"
+aria-labelledby="heading1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> Options 2 and 3</p>
+<p><strong>Option 1:</strong> Let’s look at the code piece by piece to
+understand why this does not work. <code>games.get("Rating")</code>
+gives you the column <code>"Rating"</code> as a Series. As per the note,
+<code>.str.replace(",", ".")</code> can be used on a Series, and will
+replace all commas with periods. The issue is with the use of the
+<code>float</code> function; the <code>float</code> function can convert
+a single string to a float, like <code>float("3.14")</code>, but not an
+entire Series of floats. This will cause an error making this option
+wrong.</p>
+<p><strong>Option 2:</strong> Once again we are getting
+<code>"Rating"</code> as a Series and replacing the commas with periods.
+We then apply <code>float()</code> to the Series, which will
+successfully convert all of the values into floats.</p>
+<p><strong>Option 3:</strong> Following the same logic as above, we are
+getting <code>"Rating"</code> as a Series, but change it up by replacing
+the commas with an empty string, which is effectively nothing. Notice
+this makes the numbers 100 times too big. Since there are no decimals we
+can convert the Series’ strings into integers, which is done by doing
+<code>.apply(int)</code>. Finally, because the elements inside of
+<code>"Rating"</code> are 100 times too large it can be fixed by
+dividing them all by 100.</p>
+<p><strong>Option 4:</strong> Again, we are getting
+<code>"Rating"</code> as a Series and replacing the commas with an empty
+string. The values inside of <code>"Rating"</code> are then converted to
+floats, which is fine, but remember, that the numbers are 100 times too
+big. This means we have altered the actual value inappropriately, which
+makes this option incorrect.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 67%.</p>
+</div>
+</div>
+</div>
+</div>
 <hr />
 <h2 id="problem-2">Problem 2</h2>
 <p>You are unsure whether it would make sense to use
@@ -207,6 +259,75 @@ to detect the presence of duplicate values.</p>
 </ul>
 <p><strong>Note:</strong> We will not set the index of
 <code>games</code>, instead we’ll leave it with the default index.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="true" aria-controls="collapse2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse2" class="accordion-collapse collapse collapse"
+aria-labelledby="heading2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> Options 2 and 3</p>
+<p><strong>Option 2:</strong>
+<code>games.groupby(“BGG Rank”).count()</code> gets all of the unique
+<code>“BGG Rank”</code>’s and puts them into the index. Then by using
+the aggregate function <code>.count()</code> we are able to turn all the
+remaining columns into the number of times each <code>“BGG Rank”</code>
+appears. Since all of the columns are the same we just need to get one
+of them to access the counts. In this case we get the column “Name” by
+doing <code>.get(“Name”)</code>. Finally, when we do
+<code>.max() == 1</code> we are checking to see if the maximum count for
+the number of unique <code>“BGG Rank”</code>’s is one, which would mean
+there are no duplicates.</p>
+<p><strong>Option 3:</strong> Let’s work from the inside out for this
+line of code: <code>len(np.unique(games.get(“BGG Rank”)))</code>. Like
+all the others we are getting a Series of <code>“BGG Rank”</code>.
+<code>np.unique()</code> gives us an array with unique elements inside
+of the Series. When we do <code>len()</code> we are figuring out how
+many unique elements there are inside of <code>“BGG Rank”</code>. Recall
+<code>games.shape[0]</code> gets us the number of rows in
+<code>games</code>. This means that we are trying to see if the number
+of rows is the same as the number of unique elements inside of
+<code>“BGG Rank”</code>, and if they are then that means they are all
+unique and should equal 0.</p>
+<p><strong>Option 1:</strong> <code>games.get(“BGG Rank”)</code> will
+get you a Series of the <code>“BGG Rank”</code> column.
+<code>np.arange(games.shape[0])</code> will create a numpy array that
+will go from zero to <code>games.shape[0]</code>, which is the number of
+rows in the <code>games</code> DataFrame. So it would look something
+like: <code>arr([0, 1, 2, . . ., n])</code>, where <code>n</code> is the
+number of rows in <code>games</code>. By doing:
+<code>games.get(“BGG Rank”) - np.arange(games.shape[0])</code> one is
+decreasing each rank by an increasing factor of one each time. This
+essentially gives a Series of numbers, but it doesn’t actually have
+anything to do with uniqueness. We are simply finding if the difference
+between <code>“BGG Rank”</code> and the numpy array leads to a maximum
+of 1. So although the code works it does not tell us if there are
+duplicates.</p>
+<p><strong>Option 4:</strong> <code>games.get(“BGG Rank”).max()</code>
+will give us the maximum element inside of <code>“BGG Rank”</code>.
+Note, <code>games.shape[0]</code> gets us the number of rows in
+<code>games</code>. We should never make assumptions about what is
+inside of <code>“BGG Rank”</code>. This means we don’t know if the
+values line up nicely like: 1, 2, 3, . . . <code>games.shape[0]</code>,
+so the maximum element could be unique, but be bigger than
+<code>games.shape[0]</code>. Knowing this, when we do the whole line for
+Option 4 it is not guaranteed to be zero when <code>“BGG Rank”</code> is
+unique or not, so it does not detect duplicates.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 76%.</p>
+</div>
+</div>
+</div>
+</div>
 <hr />
 <h2 id="problem-3">Problem 3</h2>
 <p>Notice that <code>"Strategy Games"</code> and
@@ -224,6 +345,36 @@ a game can belong to multiple domains.</p>
 <li><p><input type="radio" disabled="" /> <code>Series</code></p></li>
 <li><p><input type="radio" disabled="" /> <code>DataFrame</code></p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading3_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_1" aria-expanded="true" aria-controls="collapse3_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse3_1" class="accordion-collapse collapse collapse"
+aria-labelledby="heading3_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> <code>Series</code></p>
+<p><code>strategy</code> will give you a <code>Series</code>. This is
+because <code>games.get(“Domains”)</code> will give you one column, a
+<code>Series</code>, and then
+<code>.str.contains(“Strategy Games”)</code> will convert those values
+to <code>True</code> if it contains that string and <code>False</code>
+otherwise, but it will not actually change the <code>Series</code> to a
+<code>DataFrame</code>, a <code>bool</code>, or a <code>str</code>.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 81%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-3.2">Problem 3.2</h3>
 <p>Suppose we randomly select one of the <code>"Strategy Games"</code>
@@ -238,6 +389,64 @@ line of code, it’s fine if you need to write your solution on multiple
 lines, as long as it is just one line of Python code. Please do write on
 multiple lines to make sure your answer fits within the box
 provided.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading3_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_2" aria-expanded="true" aria-controls="collapse3_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse3_2" class="accordion-collapse collapse collapse"
+aria-labelledby="heading3_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong>
+<code>(games[(strategy == True) &amp; (thematic == False)].shape[0] / games[strategy == True].shape[0])</code>
+or
+<code>1 - games[strategy &amp; thematic].shape[0] / games[strategy].shape[0]</code></p>
+<p>The problem is asking us to find the probability that a selected game
+from <code>“Strategy Games”</code> will <strong>not</strong> be in
+<code>“Thematic Games”</code>. Recall that this is the probability that
+given <code>“Strategy Games”</code> will it not be in
+<code>“Thematic Games”</code>, which would look like this:
+P(<code>“Thematic Games”</code>
+Compliment|<code>“Strategy Games”</code>). This means the formula would
+look like: (<code>“Thematic Games”</code> Compliment
+<strong>and</strong>
+<code>“Strategy Games”</code>)/<code>“Strategy Games”</code></p>
+<p>This means one possible solution for this would be:
+<code>(games[(strategy == True) &amp; (thematic == False)].shape[0] / games[strategy == True].shape[0]</code>
+This solution works because we are following the formula to find the
+probability of thematic complement and strategy games over the number of
+times <code>“Strategy Games”</code> are <code>True</code>. Doing
+<code>games[query_condition]</code> gives us the <code>games</code>
+DataFrame where <code>strategy == True</code> and
+<code>thematic == False</code>. Another important thing is that for
+(baby)pandas we always use the keyword <code>&amp;</code> and not
+<code>and</code>. Note that we are using <code>.shape[0]</code> to get
+the number of rows or times that <code>True</code> shows up for
+<code>“Strategy Games”</code> and the number of rows or times that
+<code>False</code> shows up for <code>“Thematic Games”</code>
+Compliment.</p>
+<p>Another possible strategy would be using the complement rule: Which
+would be: P(<code>“Thematic Games”</code> Compliment) = 1 -
+P(<code>“Thematic Games”</code>). This would lead you to an answer like:
+<code>(1 - games[strategy &amp; thematic].shape[0]) / games[strategy].shape[0]</code>.
+<code>games[strategy &amp; thematic].shape[0])</code> finds you the
+probability of P(<code>“Thematic Games”</code>), so when plugged into
+the equation above we are able to find P(<code>“Thematic Games”</code>
+Compliment).</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 43%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-3.3">Problem 3.3</h3>
 <p>Many of the games in the <code>games</code> DataFrame belong to more
@@ -252,6 +461,76 @@ domains.</p>
 <li><p><input type="checkbox" disabled="" /> <code>(games[games.get("Domains").str.split(",").apply(len) == 1].groupby("Domains").count().get("Name").sum())</code></p></li>
 <li><p><input type="checkbox" disabled="" /> <code>games[games.get("Domains").str.split(",").apply(len) == 1].shape[0]</code></p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading3_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_3" aria-expanded="true" aria-controls="collapse3_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse3_3" class="accordion-collapse collapse collapse"
+aria-labelledby="heading3_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> Options 3 and 4</p>
+<p>Let’s take a closer look at why <strong>Option 3</strong> and
+<strong>Option 4</strong> are correct.</p>
+<p><strong>Option 3</strong>: Option 3 first queries the
+<code>games</code> DataFrame to only keep <code>games</code> with one
+<code>“Domains”</code>.
+<code>games.get(“Domains”).str.split(“,”).apply(len) == 1</code> gets
+the <code>“Domains”</code> column and splits all of them if they contain
+a comma. If the value does have a comma then it will create a list. For
+example let’s say the domain was
+<code>“Strategy Games”, “Thematic Games”</code> then after doing
+<code>str.split(“,”)</code> we would have the <code>list</code>:
+<code>[“Strategy Games”, “Thematic Games”]</code>. Any row with a
+<code>list</code> will evaluate to <code>False</code>. This means we are
+only keeping values where there is <strong>one</strong> domain. The next
+part <code>.groupby(“Domains”).count().get(“Name”).sum()</code> makes a
+DataFrame with an index of the unique domains and the number of times
+those appear. Note that all the other columns: <code>“Name”</code>,
+<code>“Mechanics”</code>, <code>“Play Time”</code>,
+<code>“Complexity”</code>, <code>“Rating”</code>, and
+<code>“BGG Rank”</code> now evaluate to the same thing, the number of
+times a unique domain appears. That means by doing
+<code>.get(“Name”).sum()</code> we are adding up all the number of times
+a unique domain appears, which would get us the number of games that
+belong to only one domain.</p>
+<p><strong>Option 4</strong>: Option 4 starts off exactly like Option 3,
+but instead of doing <code>.groupby()</code> it gets the number of rows
+using <code>.shape[0]</code>, which will give us the number of games
+that belong to only one domain.</p>
+<p><strong>Option 1:</strong> Let’s step through why Option 1 is
+incorrect.
+<code>games.get(“Domains”).str.split(“ ”).apply(len) == 2.sum()</code>
+gives you a <code>Series</code> of the <code>“Domains”</code> column,
+then splits each domain by a space. We then get the length of that
+<code>list</code>, check if the length is equal to 2, which would mean
+there are two elements in the <code>list</code>, and finally get the sum
+of all elements in the list who had two elements because of the split.
+Remember that <code>True</code> evaluates to 1 and <code>False</code>
+evaluates to 0, so we are getting the number of elements that were split
+into two. It does not tell us the number of games that belong to only
+one domain.</p>
+<p><strong>Option 2:</strong> Let’s step through why Option 2 is also
+incorrect. <code>(games.get(“Domains”).apply(len) == 1).sum()</code>
+checks to see if each element in the column <code>“Domains”</code> has
+only one character. Remember when you apply <code>len()</code> to a
+string then we get the number of characters in that string. This is
+essentially counting the number of domains that have 1 letter. Thus, it
+does not tell us the number of games that belong to only one domain.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 86%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <hr />
 <h2 id="problem-4">Problem 4</h2>
@@ -289,6 +568,49 @@ endpoints <code>left</code> and <code>right</code> of our bootstrapped
 <li><p><input type="radio" disabled="" /> <code>[left_2, right_2]</code></p></li>
 <li><p><input type="radio" disabled="" /> Both about the same.</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading4_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_1" aria-expanded="true" aria-controls="collapse4_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse4_1" class="accordion-collapse collapse collapse"
+aria-labelledby="heading4_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> Both about the same.</p>
+<p>It’s important to understand what each code block above is doing in
+order to answer this question. Let’s take a look at the original
+<code>medians</code> code. We are sampling from the
+<code>coop_sample</code> to create a shuffled <code>coop_sample</code>,
+we then get the median of the column “Complexity” and append it to the
+<code>medians</code> array. Finally, we find the left and right
+percentiles of the <code>medians</code> array.</p>
+<p>Now we will look at what <code>medians_2</code> is doing. It looks
+like we are adding a new column called <code>“shuffle”</code> to
+<code>coop_sample</code>. The column <code>“shuffle”</code> is a
+shuffled version of <code>“Complexity”</code>. Then we are taking the
+<code>shuffle</code> DataFrame with the <code>“shuffle”</code> column
+and sampling from <code>“shuffle”</code> to randomize it again. Then we
+get the median of this shuffled column and find its percentiles.</p>
+<p>Essentially, both of these blocks of code are taking the
+<code>“Complexity”</code> column, shuffling it, finding the median of
+the shuffled column, and then finding the confidence interval. Since it
+is being done on the same column and in basically the same way both
+intervals <code>[left, right]</code> and <code>[left_2, right_2]</code>
+are about the same.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 77%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-4.2">Problem 4.2</h3>
 <p>Now consider the interval defined by the endpoints
@@ -308,6 +630,36 @@ endpoints <code>left</code> and <code>right</code> of our bootstrapped
 <li><p><input type="radio" disabled="" /> <code>[left_3, right_3]</code></p></li>
 <li><p><input type="radio" disabled="" /> Both about the same.</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading4_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_2" aria-expanded="true" aria-controls="collapse4_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse4_2" class="accordion-collapse collapse collapse"
+aria-labelledby="heading4_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> <code>[left, right]</code></p>
+<p><code>[left, right]</code> will be wider than
+<code>[left_3, right_3]</code> because we are more likely to sample the
+same elements in <code>medians_3</code>. When we
+<code>.sample(100, replace = True)</code> twice we are more likely to
+have elements that are repeating each other, which would make our
+percentiles smaller. The rest of the code is similar to
+<code>medians</code>.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 50%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <hr />
 <h2 id="problem-5">Problem 5</h2>
@@ -325,6 +677,40 @@ True? Select all that are possible.</p>
 <li><p><input type="checkbox" disabled="" /> <code>len(samp.unique()) == len(resamp.unique())</code></p></li>
 <li><p><input type="checkbox" disabled="" /> <code>len(samp.unique()) &gt; len(resamp.unique())</code></p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading5_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_1" aria-expanded="true" aria-controls="collapse5_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse5_1" class="accordion-collapse collapse collapse"
+aria-labelledby="heading5_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> Options 2 and 3</p>
+<p><strong>Option 2:</strong> This is correct because it is possible for
+<code>resamp</code> to be shuffled in such a way that the number of
+unique elements are not the same.</p>
+<p><strong>Option 3:</strong> This is correct because it is possible for
+<code>resamp</code> to pull the same values more often making it less
+unique than <code>samp</code>.</p>
+<p><strong>Option 1:</strong> The reason that this is incorrect is
+because <code>samp.unique()</code> has the most possible unique elements
+inside of it. When we shuffle it using
+<code>coop_sample.sample(100, replace = True)</code> we could pull the
+same value multiple times, making it less unique.</p>
+<hr/>
+<h5>Difficulty: ⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 91%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-5.2">Problem 5.2</h3>
 <p>Which of the following statements <strong>could</strong> evaluate to
@@ -334,6 +720,44 @@ True? Select all that are possible.</p>
 <li><p><input type="checkbox" disabled="" /> <code>np.count nonzero(samp == 1) == np.count nonzero(resamp == 1)</code></p></li>
 <li><p><input type="checkbox" disabled="" /> <code>np.count nonzero(samp == 1) &gt; np.count nonzero(resamp == 1)</code></p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading5_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_2" aria-expanded="true" aria-controls="collapse5_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse5_2" class="accordion-collapse collapse collapse"
+aria-labelledby="heading5_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> Options 1, 2, and 3</p>
+<p><strong>Option 1:</strong> It might be helpful to recall what exactly
+the column <code>“Complexity”</code> holds. In this case it holds the
+average complexity of the game on a scale of 1 to 5. The code is trying
+to find if the number of ones in <code>samp</code> and
+<code>resamp</code> are different. It is possible that when shuffling
+due to <code>replace = True</code> that <code>resamp</code> has more
+ones inside of it than <code>samp</code>.</p>
+<p><strong>Option 2:</strong> Once again it is possible that when
+shuffled <code>resamp</code> has the same number of ones as
+<code>samp</code> does.</p>
+<p><strong>Option 3:</strong> When we shuffle <code>coop_sample</code>
+there is no guarantee that one will sample more ones and instead other
+averages could be selected. This means it is possible for the number of
+ones in <code>samp</code> can be greater than the number of ones in
+<code>resamp</code>.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 83%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-5.3">Problem 5.3</h3>
 <p>Which of the following statements <strong>could</strong> evaluate to
@@ -343,6 +767,41 @@ True? Select all that are possible.</p>
 <li><p><input type="checkbox" disabled="" /> <code>samp.min() == resamp.min()</code></p></li>
 <li><p><input type="checkbox" disabled="" /> <code>samp.min() &gt; resamp.min()</code></p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading5_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_3" aria-expanded="true" aria-controls="collapse5_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse5_3" class="accordion-collapse collapse collapse"
+aria-labelledby="heading5_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> Options 1 and 2</p>
+<p><strong>Option 1:</strong> It is possible when shuffled that
+<code>samp</code>’s original minimum is never sampled, making
+<code>resamp</code>’s minimum to be greater than <code>samp</code>’s
+min.</p>
+<p><strong>Option 2:</strong>: If <code>samp</code>’s original min is
+sampled then it will be the same minimum that appears inside of
+<code>resamp</code>.</p>
+<p><strong>Option 3:</strong> It is impossible for <code>resamp</code>’s
+minimum to be less than <code>samp</code>’s minimum. This is because all
+of <code>resamp</code>’s values come from <code>samp</code>. That means
+there cannot be a smaller average inside of <code>resamp</code> that
+never appears in <code>samp</code>.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 83%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-5.4">Problem 5.4</h3>
 <p>Which of the following statements <strong>could</strong> evaluate to
@@ -352,6 +811,44 @@ True? Select all that are possible.</p>
 <li><p><input type="checkbox" disabled="" /> <code>np.std(samp) == np.std(resamp)</code></p></li>
 <li><p><input type="checkbox" disabled="" /> <code>np.std(samp) &gt; np.std(resamp)</code></p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading5_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_4" aria-expanded="true" aria-controls="collapse5_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse5_4" class="accordion-collapse collapse collapse"
+aria-labelledby="heading5_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> Options 1, 2, and 3</p>
+<p><strong>Option 1:</strong> <code>np.std()</code> gives us the
+standard deviation of the array we give it. When we do
+<code>np.std(samp)</code> we are finding the standard deviation of
+<code>“Complexity”</code>. When we do <code>np.std(resamp)</code> we are
+finding the standard deviation of <code>“Complexity”</code>, which may
+grab values multiple times. Since we are grabbing values multiple times
+it is possible to have a standard deviation become smaller if we
+continuously grab smaller values.</p>
+<p><strong>Option 2:</strong> If the <code>resamp</code> gets us the
+same values as <code>samp</code> we would end up with the same standard
+deviation, which would make
+<code>np.std(samp) == np.std(resamp)</code>.</p>
+<p><strong>Option 3:</strong> Similar to Option 1, we may grab many
+values which are on the larger end, which could increase our standard
+deviation.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 79%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <hr />
 <h2 id="problem-6">Problem 6</h2>
@@ -372,6 +869,39 @@ permutation testing or bootstrapping.</li>
 <li><p><input type="radio" disabled="" /> Permutation testing</p></li>
 <li><p><input type="radio" disabled="" /> Bootstrapping</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_1" aria-expanded="true" aria-controls="collapse6_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_1" class="accordion-collapse collapse collapse"
+aria-labelledby="heading6_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> Permutation testing</p>
+<p>Recall that we use a permutation test when we want to determine if
+two samples are from the same population. The question is asking if
+“strategy games” are rated higher than “non-strategy games” meaning we
+have two samples and want to know if they come from the same or
+different rating populations.</p>
+<p>We would not use hypothesis testing here because we are not trying to
+quantify how weird a test statistic between strategy games and
+non-strategy games.</p>
+<p>We would not use bootstrapping here because we are not given a single
+sample that we want to re-sample from.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 58%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-6.2">Problem 6.2</h3>
 <p>What is the mean complexity of all games?</p>
@@ -380,6 +910,38 @@ permutation testing or bootstrapping.</li>
 <li><p><input type="radio" disabled="" /> Permutation testing</p></li>
 <li><p><input type="radio" disabled="" /> Bootstrapping</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_2" aria-expanded="true" aria-controls="collapse6_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_2" class="accordion-collapse collapse collapse"
+aria-labelledby="heading6_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> Bootstrapping</p>
+<p>Bootstrapping is the act of resampling from a sample. We use
+bootstrapping because the original sample looks like the population, so
+by resampling the sample we are able to quantify our uncertainty of the
+mean complexity of all games. We can use bootstrapping to approximate
+the distribution of the sample statistic, which is the mean.</p>
+<p>We would not use hypothesis testing here because we do not have the
+population distribution or a sample to test with.</p>
+<p>We would not use permutation testing here because we are not trying
+to find if two samples are from the same population.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 89%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-6.3">Problem 6.3</h3>
 <p>Are there an equal number of cooperative and non-cooperative
@@ -389,6 +951,41 @@ games?</p>
 <li><p><input type="radio" disabled="" /> Permutation testing</p></li>
 <li><p><input type="radio" disabled="" /> Bootstrapping</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_3" aria-expanded="true" aria-controls="collapse6_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_3" class="accordion-collapse collapse collapse"
+aria-labelledby="heading6_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> Hypothesis Testing</p>
+<p>Recall hypothesis tests quantify how “weird” a result is. We use it
+when we have a population distribution and one sample and we are trying
+to see if that sample was drawn from the population. In this instance we
+are trying to find if there are an equal number of cooperative and
+non-cooperative games. The population distribution is our DataFrame and
+we are trying to see if the cooperative games and non-cooperative games
+in our sample come from the same population.</p>
+<p>We would not use permutation testing here because we are not given
+two samples rather one sample with two sub-groups: cooperative and
+non-cooperative games.</p>
+<p>We would not use bootstrapping because we are not re-sampling from
+the sample we are given to find a test statistic.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 75%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-6.4">Problem 6.4</h3>
 <p>Are games with more than one domain more complex than games with one
@@ -398,6 +995,36 @@ domain?</p>
 <li><p><input type="radio" disabled="" /> Permutation testing</p></li>
 <li><p><input type="radio" disabled="" /> Bootstrapping</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_4" aria-expanded="true" aria-controls="collapse6_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_4" class="accordion-collapse collapse collapse"
+aria-labelledby="heading6_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> Permutation testing</p>
+<p>Once again we would use permutation testing to solve this problem
+because we have two samples: games with more than one domain and games
+with one domain. We do not know the population distribution.</p>
+<p>We would not use hypothesis testing because we were not given a
+population distribution to test the sample against.</p>
+<p>We would not use bootstrapping because we are not re-sampling from
+the sample to find a test statistic.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 72%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <hr />
 <h2 id="problem-7">Problem 7</h2>
@@ -415,6 +1042,45 @@ points higher than the average.</p>
 <li><p><input type="radio" disabled="" /> <span class="math inline">r &gt; 0</span></p></li>
 <li><p><input type="radio" disabled="" /> We cannot make any conclusions about the value of <span class="math inline">r</span> based on this information alone.</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading7_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_1" aria-expanded="true" aria-controls="collapse7_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse7_1" class="accordion-collapse collapse collapse"
+aria-labelledby="heading7_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> <span class="math inline">r &gt;
+0</span></p>
+<p>To answer this problem, it’s useful to recall the regression line in
+standard units:</p>
+<p><span class="math display">\text{predicted } y_{\text{(su)}} = r
+\cdot x_{\text{(su)}}</span></p>
+<p>If a value is positive in standard units, it means that it is above
+the average of the distribution that it came from, and if a value is
+negative in standard units, it means that it is below the average of the
+distribution that it came from. Since we’re told that <em>Wingspan</em>
+has a <code>"Complexity"</code> that is 2 points higher than the
+average, we know that <span class="math inline">x_{\text{(su)}}</span>
+is positive. Since we’re told that the predicted <code>"Rating"</code>
+is 3 points higher than the average, we know that <span class="math inline">\text{predicted } y_{\text{(su)}}</span> must also
+be positive. As a result, <span class="math inline">r</span> must also
+be positive, since you can’t multiply a positive number (<span class="math inline">x_{\text{(su)}}</span>) by a negative number and end
+up with another positive number.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 74%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-7.2">Problem 7.2</h3>
 <p>What can you conclude about the standard deviations of “Complexity”
@@ -426,6 +1092,76 @@ and “Rating”?</p>
 <li><p><input type="radio" disabled="" /> We cannot make any conclusions about the relationship between these
 two standard deviations based on this information alone.</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading7_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_2" aria-expanded="true" aria-controls="collapse7_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse7_2" class="accordion-collapse collapse collapse"
+aria-labelledby="heading7_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> SD of <code>"Complexity"</code> &lt; SD of
+<code>"Rating"</code></p>
+<p>Since the distance of the predicted <code>"Rating"</code> from its
+average is larger than the distance of the <code>"Complexity"</code>
+from its average, it might be reasonable to guess that the values in the
+<code>"Rating"</code> column are more spread out. This is true, but
+let’s see concretely why that’s the case.</p>
+<p>Let’s start with the equation of the regression line in standard
+units from the previous subpart. Remember that here, <span class="math inline">x</span> refers to <code>"Complexity"</code> and
+<span class="math inline">y</span> refers to <code>"Rating"</code>.</p>
+<p><span class="math display">\text{predicted } y_{\text{(su)}} = r
+\cdot x_{\text{(su)}}</span></p>
+<p>We know that to convert a value to standard units, we subtract the
+value by the mean of the column it came from, and divide by the standard
+deviation of the column it came from. As such, <span class="math inline">x_{\text{(su)}} = \frac{x - \text{mean of }
+x}{\text{SD of } x}</span>. We can substitute this relationship in the
+regression line above, which gives us</p>
+<p><span class="math display">\frac{\text{predicted } y - \text{mean of
+} y}{\text{SD of } y} = r \cdot \frac{x - \text{mean of } x}{\text{SD of
+} x}</span></p>
+<p>To simplify things, let’s use what we were told. We were told that
+the predicted <code>"Rating"</code> was 3 points higher than average.
+This means that the numerator of the left side, <span class="math inline">\text{predicted } y - \text{mean of } y</span>, is
+equal to 3. Similarly, we were told that the <code>"Complexity"</code>
+was 2 points higher than average, so <span class="math inline">x -
+\text{mean of } x</span> is 2. Then, we have:</p>
+<p><span class="math display">\frac{3}{\text{SD of } y} =
+\frac{2r}{\text{SD of }x}</span></p>
+<p>Note that for convenience, we included <span class="math inline">r</span> in the numerator on the right-hand
+side.</p>
+<p>Remember that our goal is to compare the SD of <code>"Rating"</code>
+(<span class="math inline">y</span>) to the SD of
+<code>"Complexity"</code> (<span class="math inline">x</span>). We now
+have an equation that relates these two quantities! Since they’re both
+currently on the denominator, which can be tricky to work with, let’s
+take the reciprocal (i.e. “flip”) both fractions.</p>
+<p><span class="math display">\frac{\text{SD of } y}{3} = \frac{\text{SD
+of }x}{2r}</span></p>
+<p>Now, re-arranging gives us</p>
+<p><span class="math display">\text{SD of } y \cdot \frac{2r}{3} =
+\text{SD of }x</span></p>
+<p>Since we know that <span class="math inline">r</span> is somewhere
+between 0 and 1, we know that <span class="math inline">\frac{2r}{3}</span> is somewhere between 0 and <span class="math inline">\frac{2}{3}</span>. This means that <span class="math inline">\text{SD of } x</span> is somewhere between 0 and
+two-thirds of the value of <span class="math inline">\text{SD of }
+y</span>, which means that no matter what, <span class="math inline">\text{SD of } x &lt; \text{SD of } y</span>.
+Remembering again that here <code>"Complexity"</code> is our <span class="math inline">x</span> and <code>"Rating"</code> is our <span class="math inline">y</span>, we have that the SD of
+<code>"Complexity"</code> is less than the SD of
+<code>"Rating"</code>.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 42%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <hr />
 <h2 id="problem-8">Problem 8</h2>
@@ -446,6 +1182,76 @@ could be the average <code>"Rating"</code> for children’s games?</p>
 <li><p><input type="radio" disabled="" /> 3.1</p></li>
 <li><p><input type="radio" disabled="" /> 4</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading8">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8" aria-expanded="true" aria-controls="collapse8">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse8" class="accordion-collapse collapse collapse"
+aria-labelledby="heading8" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> 3.1</p>
+<p>Let’s recall the formulas for the regression line in original units,
+since we’re given information in original units in this question (such
+as the fact that for a <code>"Play Time"</code> of 8
+<strong>minutes</strong>, the predicted <code>"Rating"</code> is 4
+stars). Remember that throughout this question, <code>"Play Time"</code>
+is our <span class="math inline">x</span> and <code>"Rating"</code> is
+our <span class="math inline">y</span>.</p>
+<p>The regression line is of the form <span class="math inline">y = mx +
+b</span>, where</p>
+<p><span class="math display">m = r \cdot \frac{\text{SD of }
+y}{\text{SD of }x}, b = \text{mean of }y - m \cdot \text{mean of }
+x</span></p>
+<p>There’s a lot of information provided to us in the question – let’s
+think about what it means in the context of our <span class="math inline">x</span>s and <span class="math inline">y</span>s.</p>
+<ul>
+<li>The first piece is that <span class="math inline">r</span> is
+negative, so <span class="math inline">-1 \leq r &lt; 0</span>.</li>
+<li>The second piece is that <span class="math inline">\text{SD of } x =
+2 \cdot (\text{SD of } y)</span>. Equivalently, we can say that <span class="math inline">\frac{\text{SD of } y}{\text{SD of } x} =
+\frac{1}{2}</span>. This form is convenient, because it’s close to the
+definition of the slope of the regression line, <span class="math inline">m</span>. Using this fact, the slope of the
+regression line is <span class="math inline">m = r \cdot \frac{\text{SD
+of } y}{\text{SD of }x} = r \cdot \frac{1}{2} = \frac{r}{2}</span>.</li>
+<li>The <span class="math inline">\text{mean of } x</span> is 10. This
+means that the intercept of the regression line, <span class="math inline">b</span>, is <span class="math inline">b =
+\text{mean of }y - m \cdot \text{mean of } x = \text{mean of }y -
+\frac{r}{2} \cdot 10 = \text{mean of }y - 5r</span>.</li>
+<li>If <span class="math inline">x</span> is 8, the predicted <span class="math inline">y</span> is 4.</li>
+</ul>
+<p>Given all of this information, we need to find possible values for
+the <span class="math inline">\text{mean of } y</span>. Substituting our
+known values for <span class="math inline">m</span> and <span class="math inline">b</span> into <span class="math inline">y = mx +
+b</span> gives us</p>
+<p><span class="math display">y = \frac{r}{2} x + \text{mean of }y -
+5r</span></p>
+<p>Now, using the fact that if if <span class="math inline">x =
+8</span>, the predicted <span class="math inline">y</span> is 4, we
+have</p>
+<p><span class="math display">\begin{align*}4 &amp;= \frac{r}{2} \cdot 8
++ \text{mean of }y - 5r\\4 &amp;= 4r - 5r + \text{mean of }y\\ 4 + r
+&amp;= \text{mean of} y\end{align*}</span></p>
+<p>Cool! We now know that the <span class="math inline">\text{mean of }
+y</span> is <span class="math inline">4 + r</span>. We know that <span class="math inline">r</span> must satisfy the relationship <span class="math inline">-1 \leq r &lt; 0</span>. By adding 4 to all pieces
+of this inequality, we have that <span class="math inline">3 \leq r + 4
+&lt; 4</span>, which means that <span class="math inline">3 \leq
+\text{mean of } y &lt; 4</span>. Of the four options provided, only one
+is greater than or equal to 3 and less than 4, which is 3.1.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 55%.</p>
+</div>
+</div>
+</div>
+</div>
 <hr />
 <h2 id="problem-9">Problem 9</h2>
 <p>The function <code>perm_test</code> should take three inputs:</p>
@@ -488,16 +1294,100 @@ wrong, just how to fix it.</p>
 <p>The first line that is incorrect is line number: _______</p>
 <p>Explain in one sentence how to change this line. Do not write
 code.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading9_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_1" aria-expanded="true" aria-controls="collapse9_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse9_1" class="accordion-collapse collapse collapse"
+aria-labelledby="heading9_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> Line 4; We need to save this as
+<code>df</code>.</p>
+<p>Recall that <code>df.assign()</code> does not save the added column
+to the original <code>df</code>, which means that we need to save line 4
+to a variable called <code>df</code>.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 55%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-9.2">Problem 9.2</h3>
 <p>The second line that is incorrect is line number: _______</p>
 <p>Explain in one sentence how to change this line. Do not write
 code.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading9_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_2" aria-expanded="true" aria-controls="collapse9_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse9_2" class="accordion-collapse collapse collapse"
+aria-labelledby="heading9_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> Line 5; We need to get
+<code>"shuffled"</code> instead of <code>data</code>.</p>
+<p>Recall a permutation test is simulating if samples come from the same
+population. This means we need to shuffle the data and use it to see if
+that would change our result/view. This means in line 5 we want to use
+the shuffled data, so we need to do <code>.get(“shuffled”)</code>
+instead of <code>.get(“data”)</code>.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 50%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-9.3">Problem 9.3</h3>
 <p>The third line that is incorrect is line number: _______</p>
 <p>Explain in one sentence how to change this line. Do not write
 code.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading9_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_3" aria-expanded="true" aria-controls="collapse9_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse9_3" class="accordion-collapse collapse collapse"
+aria-labelledby="heading9_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> Line 8; Move it outside of the
+<code>for</code>-loop (unindent).</p>
+<p>If we have <code>return</code> inside of the <code>for</code>-loop it
+will terminate after it goes through the code once! This means all we
+have to do is unindent <code>return</code>, moving it outside of the
+<code>for</code>-loop.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 67%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <p>Suppose you’ve fixed all the issues with this function, as you
 described above. Now, you want to use this corrected function to run a
@@ -525,6 +1415,50 @@ column.</p>
 <code>simulated_diffs</code> containing 1000 simulated differences in
 group means for this permutation test. You should call your
 <code>perm_test</code> function here!</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading9_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_4" aria-expanded="true" aria-controls="collapse9_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse9_4" class="accordion-collapse collapse collapse"
+aria-labelledby="heading9_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong></p>
+<div id="cb1" class="sourceCode">
+<pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a>simulated diffs <span class="op">=</span> perm_test(<span class="cf">with</span> dice[<span class="cf">with</span> dice.get(<span class="st">"Domains"</span>).<span class="bu">str</span>.contains(<span class="st">"Children’s Games"</span>)], <span class="st">"isDice"</span>, <span class="st">"Play Time"</span>)</span></code></pre>
+</div>
+<p>The inputs to <code>perm_test</code>, in order, are:</p>
+<ul>
+<li>A DataFrame containing all relevant information.</li>
+<li>The name of the column in that DataFrame that contains group
+labels.</li>
+<li>The name of the column in that DataFrame that contains numbers.</li>
+</ul>
+<p>Here, the only relevant information is information on
+<code>"Children's Games"</code>, so the first argument to
+<code>perm_test</code> must be a DataFrame in which the
+<code>"Domains"</code> column contains <code>"Children's Games"</code>,
+as described in the question.</p>
+<p>Then, since we’re testing whether the distribution of
+<code>"Play Time"</code> is different for dice games and non-dice games,
+we know that the column with group labels is <code>"isDice"</code>
+(which is defined in the call to <code>.assign</code> that is provided
+to us in the question), and the column with numerical information is
+<code>"Play Time"</code>.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 60%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-9.5">Problem 9.5</h3>
 <p>Suppose we’ve stored the observed value of the test statistic for
@@ -536,6 +1470,34 @@ blank below to find the p-value for this permutation test.</p>
 <li><p><input type="radio" disabled="" /> &gt;</p></li>
 <li><p><input type="radio" disabled="" /> &gt;=</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading9_5">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_5" aria-expanded="true" aria-controls="collapse9_5">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse9_5" class="accordion-collapse collapse collapse"
+aria-labelledby="heading9_5" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> &gt;=</p>
+<p>We want to find if the <code>simulated_diffs</code> are more or as
+extreme as the <code>obs_diff</code>. To be as or more extreme that
+means it needs an equal sign. The other part of this is it cannot be
+smaller because then it is <strong>not</strong> as extreme, which means
+the answer must be &gt;=.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 57%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <hr />
 <h2 id="problem-10">Problem 10</h2>
@@ -567,6 +1529,55 @@ class="math inline">\frac{17}{4}</span>.</p></li>
 <li><p><input type="radio" disabled="" /> <span class="math inline">\frac{17}{81}</span></p></li>
 <li><p><input type="radio" disabled="" /> <span class="math inline">\frac{17}{96}</span></p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading10_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10_1" aria-expanded="true" aria-controls="collapse10_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse10_1" class="accordion-collapse collapse collapse"
+aria-labelledby="heading10_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> <span class="math inline">\frac{17}{27}</span></p>
+<p>A Central Limit Theorem-based 95% confidence interval for a
+population proportion is given by the following:</p>
+<p><span class="math display">\left[ \text{Sample Proportion} - 2 \cdot
+\frac{\text{Sample SD}}{\sqrt{\text{Sample Size}}}, \text{Sample
+Proportion} + 2 \cdot \frac{\text{Sample SD}}{\sqrt{\text{Sample Size}}}
+\right]</span></p>
+<p>Note that this interval uses the fact that (about) 95% of values in a
+normal distribution are within 2 standard deviations of the mean. It’s
+key to divide by <span class="math inline">\sqrt{\text{Sample
+Size}}</span> when computing the standard deviation because the
+distribution that is roughly normal is the distribution of the sample
+mean (and hence, sample proportion), not the distribution of the sample
+itself.</p>
+<p>The width of the above interval – that is, the right endpoint minus
+the left endpoint – is</p>
+<p><span class="math display">\text{width} = 4 \cdot \frac{\text{Sample
+SD}}{\sqrt{\text{Sample Size}}}</span></p>
+<p>From the provided hint, we have that</p>
+<p><span class="math display">\text{Sample SD} = \sqrt{(\text{Prop. of
+0s}) \cdot (\text{Prop of 1s})} = \sqrt{\frac{3}{9} \cdot \frac{6}{9}} =
+\frac{\sqrt{18}}{9}</span></p>
+<p>Then, since we know that the sample size is 9 and that <span class="math inline">\sqrt{18}</span> is about <span class="math inline">\frac{17}{4}</span>, we have</p>
+<p><span class="math display">\text{width} =  4 \cdot \frac{\text{Sample
+SD}}{\sqrt{\text{Sample Size}}} = 4 \cdot
+\frac{\frac{\sqrt{18}}{9}}{\sqrt{9}} = 4 \cdot \frac{\sqrt{18}}{9 \cdot
+3} = 4 \cdot \frac{\frac{17}{4}}{27} = \frac{17}{27}</span></p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 51%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-10.2">Problem 10.2</h3>
 <p>Which of the following are limitations of trying to use the Central
@@ -581,6 +1592,44 @@ was drawn without replacement.</p></li>
 been normally distributed.</p></li>
 <li><p><input type="checkbox" disabled="" /> The CLT is for sample means and sums, not sample proportions.</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading10_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10_2" aria-expanded="true" aria-controls="collapse10_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse10_2" class="accordion-collapse collapse collapse"
+aria-labelledby="heading10_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> Options 1 and 2</p>
+<p><strong>Option 1:</strong> We use Central Limit Theorem (CLT) for
+large random samples, and a sample of 9 is considered to be very small.
+This makes it difficult to use CLT for this problem.</p>
+<p><strong>Option 2:</strong> Recall CLT happens when our sample is
+drawn with replacement. When we are handed nine cards we are never
+replacing cards back into our deck, which means that we are sampling
+without replacement.</p>
+<p><strong>Option 3:</strong> This is wrong because CLT states that a
+large sample is approximately a normal distribution even if the data
+itself is not normally distributed. This means it doesn’t matter if our
+data had not been normally distributed if we had a large enough sample
+we could use CLT.</p>
+<p><strong>Option 4:</strong> This is wrong because CLT does apply to
+the sample proportion distribution. Recall that proportions can be
+treated like means.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 77%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <hr />
 <h2 id="problem-11">Problem 11</h2>
@@ -606,11 +1655,93 @@ you’ll also need to answer questions about this function.</p>
 <p><br></p>
 <h3 id="problem-11.1">Problem 11.1</h3>
 <p>What is printed when we run <code>print(wham(6, 4))</code>?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading11_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11_1" aria-expanded="true" aria-controls="collapse11_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse11_1" class="accordion-collapse collapse collapse"
+aria-labelledby="heading11_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> 6 8</p>
+<p>Imagine there is a pointer from <code>a</code> to 6 and from
+<code>b</code> to 4. In the function we look at the first
+<code>if</code>-statement. The <code>if</code>-statement is checking if
+<code>a</code>, which points to 6, is less than <code>b</code>, which
+points to 4. We know 6 is not less than 4, so we skip this section of
+code. Next we see the second <code>if</code>-statement which checks if
+<code>a</code>, 6, plus 2 equals <code>b</code>, 4. We know <span class="math inline">6 + 2 = 8</span>, which is not equal to 4. We then
+look at the <code>elif</code>-statement which asks if <code>a</code>, 6,
+minus 1 is greater than <code>b</code>, 4. This is True! <span class="math inline">6 - 1 = 5</span> and 5 &gt; 4. So we
+<code>print(a)</code>, which will spit out 6 and then we will
+<code>return a + 2</code>. <code>a + 2</code> is <span class="math inline">6 + 2</span>. This means the function
+<code>wham</code> will print 6 and return 8.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 81%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-11.2">Problem 11.2</h3>
 <p>Give an example of a pair of integers <code>a</code> and
 <code>b</code> such that <code>wham(a, b)</code> returns
 <code>a + 1</code>.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading11_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11_2" aria-expanded="true" aria-controls="collapse11_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse11_2" class="accordion-collapse collapse collapse"
+aria-labelledby="heading11_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> Any pair of integers <code>a</code>,
+<code>b</code> with <code>a = b</code> or with
+<code>a = b + 1</code></p>
+<p>The desired output is <code>a + 1</code>. So we want to look at the
+function <code>wham</code> and see which condition is necessary to get
+the output <code>a + 1</code>. It turns out that this can be found in
+the <code>else</code>-block, which means we need to find an
+<code>a</code> and <code>b</code> that will not satisfy any of the
+<code>if</code> or <code>elif</code>-statements.</p>
+<p>If <code>a = b</code>, so for example <code>a</code> points to 4 and
+<code>b</code> points to 4 then: <code>a</code> is not less than
+<code>b</code> (4 &lt; 4), <code>a + 2</code> is not equal to
+<code>b</code> (<span class="math inline">4 + 2 = 6</span> and 6 does
+not equal 4), and <code>a - 1</code> is not greater than <code>b</code>
+(<span class="math inline">4 - 1= 3</span>) and 3 is not greater than
+4.</p>
+<p>If <code>a = b + 1</code> this means that <code>a</code> is greater
+than <code>b</code>, so for example if <code>b</code> is 4 then
+<code>a</code> is 5 (<span class="math inline">4 + 1 = 5</span>). If we
+look at the <code>if</code>-statements then <code>a &lt; b</code> is not
+true (5 is greater than 4), <code>a + 2 == b</code> is also not true
+(<span class="math inline">5 + 2 = 7</span> and 7 does not equal 4), and
+<code>a - 1 &gt; b</code> is also not true (<span class="math inline">5
+- 1 = 4</span> and 4 is equal not greater than 4). This means it will
+trigger the <code>else</code> statement.</p>
+<hr/>
+<h5>Difficulty: ⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 94%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-11.3">Problem 11.3</h3>
 <p>Which of the following lines of code will never be executed, for any
@@ -621,6 +1752,34 @@ input?</p>
 <li><p><input type="radio" disabled="" /> 9</p></li>
 <li><p><input type="radio" disabled="" /> 11</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading11_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11_3" aria-expanded="true" aria-controls="collapse11_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse11_3" class="accordion-collapse collapse collapse"
+aria-labelledby="heading11_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> 6</p>
+<p>For this to happen: <code>a + 2 == b</code> then <code>a</code> must
+be less than <code>b</code> by 2. However if <code>a</code> is less than
+<code>b</code> it will trigger the first <code>if</code>-statement. This
+means this second <code>if</code>-statement will never run, which means
+that the <code>return</code> on line 6 never happens.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 79%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <hr />
 <h2 id="problem-12">Problem 12</h2>
@@ -642,6 +1801,43 @@ object in both arrays.</p>
 <code>"spider"</code>. Your function must include a for loop, and it
 must take <strong>at most three lines of code</strong> (not counting the
 line with <code>def</code>).</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading12_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12_1" aria-expanded="true" aria-controls="collapse12_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse12_1" class="accordion-collapse collapse collapse"
+aria-labelledby="heading12_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong></p>
+<div id="cb1" class="sourceCode">
+<pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a><span class="kw">def</span> find_match(array1, array2):</span>
+<span id="cb1-2"><a aria-hidden="true" href="#cb1-2" tabindex="-1"></a>    <span class="cf">for</span> obj <span class="kw">in</span> array1:</span>
+<span id="cb1-3"><a aria-hidden="true" href="#cb1-3" tabindex="-1"></a>        <span class="cf">if</span> obj <span class="kw">in</span> array2:</span>
+<span id="cb1-4"><a aria-hidden="true" href="#cb1-4" tabindex="-1"></a>            <span class="cf">return</span> obj</span></code></pre>
+</div>
+<p>We first need to define the function <code>find_match()</code>. We
+can gather since we are feeding in two groups of objects we are giving
+<code>find_match()</code> two parameters, which we have called
+<code>array1</code> and <code>array2</code>. The next step is utilizing
+a <code>for</code>-loop. We want to look at all the objects inside of
+<code>array1</code> and then check using an <code>if</code>-statement if
+that object exists in <code>array2</code>. If it does, we can stop the
+loop and <code>return</code> the object!</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 67%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-12.2">Problem 12.2</h3>
 <p>Now suppose the objects appearing on each card are stored in a
@@ -652,6 +1848,44 @@ object in both DataFrames.</p>
 <p>Your function may not call the previous function
 <code>find_match</code>, and it must take exactly <strong>one line of
 code</strong> (not counting the line with <code>def</code>).</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading12_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12_2" aria-expanded="true" aria-controls="collapse12_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse12_2" class="accordion-collapse collapse collapse"
+aria-labelledby="heading12_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong></p>
+<div id="cb1" class="sourceCode">
+<pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a><span class="kw">def</span> find_match_again(df1, df2)</span>
+<span id="cb1-2"><a aria-hidden="true" href="#cb1-2" tabindex="-1"></a>    <span class="cf">return</span> df1.merge(df2, on <span class="op">=</span> “object”).get(“object”).iloc[<span class="dv">0</span>]</span></code></pre>
+</div>
+<p>Once again we need to define our function and then have two
+parameters for the two DataFrames. Recall the method
+<code>.merge()</code> which will combine two DataFrames and only give us
+the elements that are shared. The directions tell us that both
+DataFrames have a single column called <code>“object”</code>. Since we
+want to combine the DataFrames on that column we do have:
+<code>df1.merge(df2, on = “object”)</code>. Once we have merged the
+DataFrames we should have only 1 row with the index and the column
+<code>“object”</code>. To isolate the element inside of this DataFrame
+we can first get a Series by doing <code>.get(“object”)</code> and then
+do <code>.iloc[0]</code> to get the element inside of the Series.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 46%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <hr />
 <h2 id="problem-13">Problem 13</h2>
@@ -718,7 +1952,7 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href=
 <span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>            player_chips <span class="op">=</span> player_chips <span class="op">+</span> ...</span>
 <span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
 <span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>            <span class="co"># update player_chips based on what player 2 rolled</span></span>
-<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>        player_chips <span class="op">=</span> player_chips <span class="op">+</span> ...</span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>            player_chips <span class="op">=</span> player_chips <span class="op">+</span> ...</span>
 <span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>        <span class="co"># if the game is over, return the number of turns played</span></span>
 <span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> __(e)__:</span>
@@ -729,21 +1963,207 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href=
 <p><br></p>
 <h3 id="problem-13.1">Problem 13.1</h3>
 <p>What goes in blank (a)?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading13_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13_1" aria-expanded="true" aria-controls="collapse13_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse13_1" class="accordion-collapse collapse collapse"
+aria-labelledby="heading13_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> <code>i % 3</code></p>
+<p>We are trying to find which player’s turn it is within the
+<code>for</code>-loop. We know that each player: Dylan, Harshi, and
+Selim will play a maximum of 100 turns. Notice that the
+<code>for</code>-loop goes from 0 to 299. This means we need to
+manipulate the <code>i</code> somehow to figure out whose turn it is.
+The hint here is extremely helpful. The maximum remainder we want to
+have is 2 (recall the players are called Player 0, Player 1, and Player
+2). This means we can utilize <code>%</code> to give us the remainder of
+<code>i / 3</code>, which would tell us which player’s turn it is.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 41%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-13.2">Problem 13.2</h3>
 <p>What goes in blank (b)?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading13_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13_2" aria-expanded="true" aria-controls="collapse13_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse13_2" class="accordion-collapse collapse collapse"
+aria-labelledby="heading13_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong>
+<code>player_chips[current_player]</code></p>
+<p>Recall <code>np.random.choice()</code> must be given an array and can
+then optionally be given a <code>size</code> to get multiple values
+instead of one. We know that <code>player_chips</code> is an array of
+the chips for each player. To access a specific player’s chips we can
+use <code>[current_player]</code> because the 1st index of
+<code>player_chips</code> corresponds to Player 0, the 2nd index
+corresponds to Player 1, and the 3rd index corresponds to Player 2.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 51%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-13.3">Problem 13.3</h3>
 <p>What goes in blank (c)?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading13_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13_3" aria-expanded="true" aria-controls="collapse13_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse13_3" class="accordion-collapse collapse collapse"
+aria-labelledby="heading13_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> `np.count_nonzero(roll == “L”)</p>
+<p>We know that if we do <code>roll == “L”</code> then we get an array
+which changes the index of each element in <code>roll</code> to
+<code>True</code> if that element equals <code>“L”</code> and
+<code>False</code> otherwise. We can then use
+<code>np.count_nonzero()</code> to count the number of <code>True</code>
+values there are.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 61%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-13.4">Problem 13.4</h3>
 <p>What goes in blank (d)?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading13_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13_4" aria-expanded="true" aria-controls="collapse13_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse13_4" class="accordion-collapse collapse collapse"
+aria-labelledby="heading13_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong>
+<code>[-(L_count + C_count + R_count), L_count, R_count]</code></p>
+<p>Recall the rules of the games:</p>
+<ol type="1">
+<li>L means give the chip to the player on their left.</li>
+<li>R means give the chip to the player on their right.</li>
+<li>C means put the chip in the center of the table. This chip is now
+out of play.</li>
+<li>Dot means do nothing (or keep the chip)</li>
+</ol>
+<p>If we are Player 0 the person to our left is Player 1 and the person
+to our right is Player 2. We want to update <code>player_chips</code> to
+appropriately give the players to our left and right chips. This means
+we can add our own array with the element at index 1 be our
+<code>L_count</code> and the element at index 2 be our
+<code>R_count</code>. We need to also subtract the tokens we are giving
+away and <code>C_count</code>, so in index 0 we have:
+<code>-(L_count + C_count + R_count)</code>.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 51%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-13.5">Problem 13.5</h3>
 <p>What goes in blank (e)?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading13_5">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13_5" aria-expanded="true" aria-controls="collapse13_5">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse13_5" class="accordion-collapse collapse collapse"
+aria-labelledby="heading13_5" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong>
+<code>np.count_nonzero(player_chips) == 1</code></p>
+<p>We want to stop the game early if only one person has chips. To do
+this we can use <code>np.count_nonzero(player_chips)</code> to count the
+number of elements inside <code>player_chips</code> that have chips. If
+the player does not have chips then their index would have 0 inside of
+it.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 61%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-13.6">Problem 13.6</h3>
 <p>What goes in blank (f)?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading13_6">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13_6" aria-expanded="true" aria-controls="collapse13_6">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse13_6" class="accordion-collapse collapse collapse"
+aria-labelledby="heading13_6" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> <code>i + 1</code></p>
+<p>To find the number of turns played we simply need to add 1 to
+<code>i</code>. We do this because <code>i</code> starts at 0!</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 53%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <hr />
 <h2 id="problem-14">Problem 14</h2>
@@ -767,6 +2187,35 @@ distribution?</p>
 <li><p><input type="radio" disabled="" /> Probability Distribution</p></li>
 <li><p><input type="radio" disabled="" /> Empirical Distribution</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading14_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse14_1" aria-expanded="true" aria-controls="collapse14_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse14_1" class="accordion-collapse collapse collapse"
+aria-labelledby="heading14_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> Empirical Distribution</p>
+<p>An index should be unique. In this case <code>'Name'</code>,
+<code>'Date'</code>, <code>'Time'</code>, and <code>'Latitude'</code>
+have repetative values, which does <strong>not</strong> make them
+unique. Remember <code>'Name'</code> will be reused every six years,
+multiple hurricanes could happen on the same date, time, or
+latitude.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 54%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-14.2">Problem 14.2</h3>
 <p>What is the probability of a game of <em>Left, Center, Right</em>
@@ -777,12 +2226,95 @@ lasting 30 turns or more? Choose the closest answer below.</p>
 <li><p><input type="radio" disabled="" /> 0.10</p></li>
 <li><p><input type="radio" disabled="" /> 0.60</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading14_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse14_2" aria-expanded="true" aria-controls="collapse14_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse14_2" class="accordion-collapse collapse collapse"
+aria-labelledby="heading14_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> 0.06</p>
+<p>We’re being asked to find the proportion of values in the histogram
+that are greater than or equal to 30, which is equal to the area of the
+histogram to the right of 30. Immediately, we can rule out 0.01 and
+0.60, because the area to the right of 30 is more than 1% of the total
+area and less than 60% of the total area.</p>
+<p>The problem then boils down to determining whether the area to the
+right of 30 is 0.06 or 0.10. While you could solve this by finding the
+areas of the three bars individually and adding them together, there’s a
+quicker solution. Notice that the <span class="math inline">x</span>-axis gridlines – the vertical lines in the
+background in white – appear every 10 units (at <span class="math inline">x = 0</span>, <span class="math inline">x =
+10</span>, <span class="math inline">x = 20</span>, <span class="math inline">x = 30</span>, and so on) and the <span class="math inline">y</span>-axis gridlines – the horizontal lines in
+the background in white – appear every 0.01 units (at <span class="math inline">y = 0</span>, <span class="math inline">y =
+0.01</span>, <span class="math inline">y = 0.02</span>, and so on).
+There’s a “box” in the grid between <span class="math inline">x =
+30</span> and <span class="math inline">x = 40</span>, and between <span class="math inline">y = 0</span> and <span class="math inline">y =
+0.01</span>. The area of that box is <span class="math inline">(40 - 30)
+\cdot 0.01 = 0.1</span>, which means that if a bar book up the entire
+box, then 10% of the values in this distribution would fall into that
+bar’s bin.</p>
+<p>So, to decide whether the area to the right of 30 is closer to 0.06
+or 0.1, we can estimate whether the three bars to the right of 30 would
+fill up the entire box described above (that is, the box from 30 to 40
+on the <span class="math inline">x</span>-axis and 0 to 0.1 on the <span class="math inline">y</span>-axis), or whether it would be much emptier.
+Visually, if you broke off the area that is to the right of 40 in the
+histogram and put it in the box we’ve just described, then quite a bit
+of the box would still be empty. As such, the area to the right of 30 is
+less than the area of the box, so it’s less than 0.1, and so the only
+valid option is 0.06.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 50%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-14.3">Problem 14.3</h3>
 <p>Suppose a player with <span class="math inline">n</span> chips takes
 their turn. What is the probability that they will have to put at least
 one chip into the center? Give your answer as a mathematical expression
 involving <span class="math inline">n</span>.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading14_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse14_3" aria-expanded="true" aria-controls="collapse14_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse14_3" class="accordion-collapse collapse collapse"
+aria-labelledby="heading14_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> <span class="math inline">1 -
+(\frac{5}{6})^n</span></p>
+<p>Recall that the die used to play this game has six sides: L, C, R,
+Dot, Dot, Dot. The chance of getting C is <span class="math inline">\frac{1}{6}</span>. So we can take the compliment of
+that to get <span class="math inline">\frac{5}{6}</span>, which is the
+probability of not putting at least one chip into the center and then
+doing (<span class="math inline">\frac{5}{6}</span>)^n. Once again we
+must use the complement rule as to convert it back to the probability of
+putting at least one chip into the center. This gives us the answer:
+<span class="math inline">1 - (\frac{5}{6})</span>^n</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 56%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-14.4">Problem 14.4</h3>
 <p>Suppose a player with <span class="math inline">n</span> chips takes
@@ -790,6 +2322,41 @@ their turn. What is the probability that they will end their turn with
 <span class="math inline">n</span> chips? Give your answer as a
 mathematical expression involving <span
 class="math inline">n</span>.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading14_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse14_4" aria-expanded="true" aria-controls="collapse14_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse14_4" class="accordion-collapse collapse collapse"
+aria-labelledby="heading14_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> <span class="math inline">\left( \frac{1}{2}
+\right)^n</span></p>
+<p>Recall, when it is a player’s turn, they roll one die for each of the
+<span class="math inline">n</span> chips they have. The die that they
+roll has six faces. In three of those faces (L, C, and R), they end up
+losing a chip, and in the other three of those faces (dot, dot, and
+dot), they keep the chip. So, for each chip, there is a <span class="math inline">\frac{3}{6} = \frac{1}{2}</span> chance that they
+get to keep it after the turn. Since each die roll is independent, there
+is a <span class="math inline">\frac{1}{2} \cdot \frac{1}{2} \cdot ...
+\cdot \frac{1}{2} = \left( \frac{1}{2} \right)^n</span> chance that they
+get to keep all <span class="math inline">n</span> chips. (Note that
+there is no way to earn more chips during a turn, so that’s not
+something we need to consider.)</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 69%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <hr />
 <h2 id="problem-15">Problem 15</h2>
@@ -820,6 +2387,41 @@ provided.</p>
 <p><strong>Note:</strong> There are several correct answers to this
 question.</p>
 <center><img src='../assets/images/wi23-final/blank_df.jpg' width=40%></center>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading15_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15_1" aria-expanded="true" aria-controls="collapse15_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse15_1" class="accordion-collapse collapse collapse"
+aria-labelledby="heading15_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong></p>
+<center><img src="../assets/images/wi23-final/filled_prices.jpg" width="40%"/></center>
+<p>We can use the <code>merged</code> DataFrame to figure out the prices
+that correlate to each game in <code>stores</code>. We see in
+<code>merged</code> the price for <em>Tickets to Ride</em> should be
+47.99, so we create a row for that game. We repeat this process to find
+the remaining rows. Since we know that <code>prices</code> have 5 rows
+we then make a game and price up. Note that in the solution above the
+last row (index 4) has <code>“Sushi Go”</code> and <code>9.99</code>.
+These can be any game or any price that is not listed in indexes 0 to 4.
+This is because <code>prices</code> has 5 rows and when we use
+<code>.merge()</code> since the game <code>“Sushi Go”</code> is not in
+<code>stores</code> it will not be added.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 84%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <p>Suppose <code>merged</code> now contains all the available games and
 their corresponding prices at each store (in particular, a given game is
@@ -839,9 +2441,66 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb13-1"><a href=
 <li><p><input type="radio" disabled="" /> count()</p></li>
 <li><p><input type="radio" disabled="" /> mean()</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading15_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15_2" aria-expanded="true" aria-controls="collapse15_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse15_2" class="accordion-collapse collapse collapse"
+aria-labelledby="heading15_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> <code>count()</code></p>
+<p>The problem asks us which store would allow us to buy as many games
+as possible. The provided code is
+<code>merge.groupby(“Store”).__a__</code>. We want to use the aggregate
+method that allows us to find the number of games in each store. The
+aggregation method for this would be <code>count()</code>.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 87%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-15.3">Problem 15.3</h3>
 <p>What goes in blank (b)?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading15_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15_3" aria-expanded="true" aria-controls="collapse15_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse15_3" class="accordion-collapse collapse collapse"
+aria-labelledby="heading15_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> <code>index[0]</code></p>
+<p>Recall <code>groupby()</code> will cause the unique values from the
+column <code>“Store”</code> to be in the index. The remaining part of
+the code sorts the DataFrame so that the store with the most games is at
+the top. This means the row at index 0 has the store and most number of
+games inside of the DataFrame. To grab the element at the 1st index we
+simply do <code>index[0]</code>.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 53%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-15.4">Problem 15.4</h3>
 <p>Suppose you go to the store <code>where_to_go</code> and buy one copy
@@ -849,6 +2508,36 @@ of each of the available games that you enjoyed at game night. How much
 money will you spend? Write <strong>one line of code</strong> that
 evaluates to the answer, using the <code>merged</code> DataFrame and no
 others.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading15_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15_4" aria-expanded="true" aria-controls="collapse15_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse15_4" class="accordion-collapse collapse collapse"
+aria-labelledby="heading15_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong>
+<code>merged[merged.get(“Store”) == where_to_go].get(“Price”).sum()</code></p>
+<p>We want to figure out how much money we would spend if we went to
+<code>where_to_go</code>, which is the store where we can buy as many
+games as possible. We can simply query the merged DataFrame to only
+contain the rows where the store is equal to <code>where_to_go</code>.
+We then can simply get the <code>“Price”</code> column and add all of
+the values up by doing <code>.sum()</code> on the Series.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 74%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <hr />
 <h2 id="problem-16">Problem 16</h2>
@@ -881,6 +2570,52 @@ takes, on average, 30 minutes to play.</p>
 <li><p><input type="radio" disabled="" /> Option 3</p></li>
 <li><p><input type="radio" disabled="" /> Option 4</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading16_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16_1" aria-expanded="true" aria-controls="collapse16_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse16_1" class="accordion-collapse collapse collapse"
+aria-labelledby="heading16_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> Option 3</p>
+<p><strong>Option 3:</strong> is the correct answer because the Null
+Hypothesis can be applicable to the real world, and thus simulated, and
+has the test statistic “equal” to our prediction of 30 minutes. The
+Alternative Hypothesis is also correctly different from the Null
+Hypothesis by saying the test statistic is “not equal” to our prediction
+of 30 minutes.</p>
+<p><strong>Option 1:</strong> We want the Null Hypothesis or Alternative
+Hypothesis to be applicable to the real world, which means that by
+having the start “In a random sample…” we are discrediting this in the
+real world.</p>
+<p><strong>Option 2:</strong> Like Option 1, we want the Null Hypothesis
+or Alternative Hypothesis to be applicable to the real world, which
+means that by having the start “In a random sample…” we are discrediting
+this in the real world.</p>
+<p><strong>Option 4:</strong> This answer is wrong because the Null
+Hypothesis should be focused on figuring out the positive test
+statistic, in this case average. In other words, let <code>u</code> be
+the average time to play <em>Chutes and Ladders</em> and let
+<code>u&lt;sub&gt;0&lt;\sub&gt;</code> be 30 minutes. The Null
+Hypothesis should be <code>u</code> =
+<code>u&lt;sub&gt;0&lt;\sub&gt;</code> and the Alternative Hypothesis
+should be something different, in this case: <code>u</code> !=
+<code>u&lt;sub&gt;0&lt;\sub&gt;</code>.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 65%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-16.2">Problem 16.2</h3>
 <p>We use our collected data to construct a 95% CLT-based confidence
@@ -888,6 +2623,59 @@ interval for the average play time of a game of <em>Chutes and
 Ladders</em>. This 95% confidence interval is [26.47, 28.47]. For the
 100 games for which we collected data, what is the mean and standard
 deviation of the play times?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading16_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16_2" aria-expanded="true" aria-controls="collapse16_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse16_2" class="accordion-collapse collapse collapse"
+aria-labelledby="heading16_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> mean = 27.47 and SD = 5</p>
+<p>One of the key properties of the normal distribution is that about
+95% of values lie within 2 standard deviations of the mean. The Central
+Limit Theorem states that the distribution of the sample mean is roughly
+normal, which means that to create this CLT-based 95% confidence
+interval, we used the 2 standard deviations rule.</p>
+<p>What we’re given, then, is the following:</p>
+<p><span class="math display">\begin{align*} \text{Sample Mean} + 2
+\cdot \text{SD of Distribution of Possible Sample Means} &amp;= 28.47 \\
+\text{Sample Mean} - 2 \cdot \text{SD of Distribution of Possible Sample
+Means} &amp;= 26.47 \end{align*}</span></p>
+<p>The sample mean is halfway between 26.47 and 28.47, which is 27.47.
+Substituting this into the first equation gives us</p>
+<p><span class="math display">\begin{align*}27.47 + 2 \cdot \text{SD of
+Distribution of Possible Sample Means} &amp;= 28.47\\2 \cdot \text{SD of
+Distribution of Possible Sample Means} &amp;= 1 \\ \text{SD of sample
+mean's distribution} &amp;= 0.5\end{align*}</span></p>
+<p>It can be tempting to conclude that the sample standard deviation is
+0.5, but it’s not – the SD of the sample mean’s distribution is 0.5.
+Remember, the SD of the sample mean’s distribution is given by the
+square root law:</p>
+<p><span class="math display">\text{SD of Distribution of Possible
+Sample Means} = \frac{\text{Population SD}}{\sqrt{\text{Sample Size}}}
+\approx \frac{\text{Sample SD}}{\sqrt{\text{Sample Size}}}</span></p>
+<p>We don’t know the population SD, so we’ve used the sample SD as an
+estimate. As such, we have that</p>
+<p><span class="math display">\text{SD of Distribution of Possible
+Sample Means} = 0.5 = \frac{\text{Sample SD}}{\sqrt{\text{Sample Size}}}
+= \frac{\text{Sample SD}}{\sqrt{100}}</span></p>
+<p>So, <span class="math inline">\text{Sample SD} = 0.5 \cdot \sqrt{100}
+= 0.5 \cdot 10 = 5</span>.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 64%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-16.3">Problem 16.3</h3>
 <p>Does the CLT say that the distribution of play times of the 100 games
@@ -896,6 +2684,34 @@ is roughly normal?</p>
 <li><p><input type="radio" disabled="" /> Yes</p></li>
 <li><p><input type="radio" disabled="" /> No</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading16_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16_3" aria-expanded="true" aria-controls="collapse16_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse16_3" class="accordion-collapse collapse collapse"
+aria-labelledby="heading16_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> No</p>
+<p>The Central Limit Theorem states that the distribution of the sample
+mean or the sample sum is roughly normal. The distribution of play times
+is a sample of size 100 drawn from the population of play times; the
+Central Limit Theorem doesn’t say anything about a population or any one
+sample.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 45%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-16.4">Problem 16.4</h3>
 <p>Of the two hypotheses you selected in part (a), which one is better
@@ -904,6 +2720,32 @@ supported by the data?</p>
 <li><p><input type="radio" disabled="" /> Null Hypothesis</p></li>
 <li><p><input type="radio" disabled="" /> Alternative Hypothesis</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading16_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16_4" aria-expanded="true" aria-controls="collapse16_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse16_4" class="accordion-collapse collapse collapse"
+aria-labelledby="heading16_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> Alternative Hypothesis</p>
+<p>To test the null hypothesis, we check whether 30 is in the confidence
+interval we constructed. 30 is not between 26.47 and 28.47, so we reject
+the null hypothesis that the average play time is 30 minutes.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 87%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <hr />
 <h2 id="section"><span class="math display"> </span></h2>

@@ -119,7 +119,7 @@ Each exam linked here lists the conditions under which the exam was given, inclu
       <td>Janine Tiefenbruck</td>
       <td><a href='wi23-midterm/index.html'>Midterm</a>
           <br>
-          <a href='wi23-final/index.html'>Final</a> (solutions available after Wednesday's lectures)
+          <a href='wi23-final/index.html'>Final</a>
       </td>
     </tr>
     <tr>
