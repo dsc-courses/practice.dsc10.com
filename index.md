@@ -83,10 +83,10 @@ Solutions to discussion worksheets will be made available on Wednesday evenings.
     <td>May 31st</td>
     <td><a href="disc09/index.html">The Central Limit Theorem</a></td>
     </tr> 
-    <!-- th scope="row">10</th>
-    <td>March 15th</td>
-    <td><a href="disc10/index.html">Regression</a></td> -->
-    <!-- </tr> -->
+    <th scope="row">10</th>
+    <td>June 7th</td>
+    <td><a href="disc10/index.html">Regression</a></td>
+    </tr>
     
   </tbody>
 </table>
