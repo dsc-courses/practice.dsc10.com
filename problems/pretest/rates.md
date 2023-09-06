@@ -11,6 +11,8 @@ Your professor can grade 150 quizzes in 50 minutes. Your TA can grade 150 quizze
 
 # BEGIN SOLUTION
 
+**Answer**: 30 minutes
+
 To actually solve this problem requires a bit of math, but it turns out we can narrow it down to the correct answer using the process of elimination and some common sense. First of all, some of these answers are tempting because they come naturally from the numbers given in the problem. For example, 125 minutes is the sum of 50 minutes and 75 minutes. Likewise, 62.5 minutes is the average of 50 minutes and 75 minutes. But does it make sense to sum or average the times? No! Think of it this way: there is a fixed amount of work to be done (grade 150 quizzes). Working alone, the professor can knock out that task in 50 minutes. With help, the professor will finish the task even faster. So the answer must be less than 50 minutes. 
 
 That leaves two options: 25 minutes and 30 minutes. Notice that 25 minutes is half the time it would take for the professor to grade the quizzes alone. If the professor were able to clone themself, then the two professors could grade the quizzes in 25 minutes, working double the speed of one professor. But the TA is not quite as fast as a second professor. So it will take more than 25 minutes for one professor and one TA to complete the grading. This leaves only one answer that can make sense, so the answer must be 30 minutes. We can solve the problem without doing any math!
