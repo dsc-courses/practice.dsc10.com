@@ -79,9 +79,9 @@ def read_html_config(path):
     f.close()
     return r + '\n\n'
 
-def create_top_info(params, is_discussion=False):
+def create_top_info(params, is_exam=True):
 
-    inst_info = f"**Instructor(s):** {params['instructors']}" if not is_discussion else ''
+    inst_info = f"**Instructor(s):** {params['instructors']}" if is_exam else ''
 
     return f'''
 [&#8592; return to practice.dsc10.com](../index.html)
@@ -339,7 +339,7 @@ def process_problem_with_subparts(problem_str, problem_num, show_solution):
     problem_str = problem_str.replace('<br>\n\n<br>', '<br>')
     return problem_str
 
-# renders gauge
+# renders stars
 AVG_REGEXP = r'<average>(\d+)<\/average>'
 def stars_repl(matchobj, exam=False):
     # global GAUGE_COUNT
@@ -348,6 +348,9 @@ def stars_repl(matchobj, exam=False):
     stars = get_stars_from_average(avg_int)
     kind = 'exam' if exam else 'problem'
     return f'<hr><h5>Difficulty: {stars}</h5><p>The average score on this {kind} was {avg_int}%.'
+
+# TOPICS_REGEXP = r'<topics>([A-Za-z ,]+)<\/topics>'
+# def topics_extraction(matchobj, exam=False):
 
 def process_problem(problem_str, problem_num, show_solution):
 
@@ -364,7 +367,7 @@ def process_problem(problem_str, problem_num, show_solution):
 
 # ---
 
-def process_page(path, is_discussion=False):
+def process_page(path, is_exam=True):
     '''Takes in a path to a YML file and returns a MD file with everything, along with the title of the page (which we access through params). Defaults to processing exams.'''
     r_file = open(path, 'r')
     r = r_file.read()
@@ -375,7 +378,7 @@ def process_page(path, is_discussion=False):
         params['show_solution'] = True
     
     out = read_html_config('include-head.html')
-    out += create_top_info(params, is_discussion=is_discussion)
+    out += create_top_info(params, is_exam=is_exam)
 
     # Add information for the entire exam
     if 'data_info' in params.keys():
@@ -415,10 +418,11 @@ def write_page(path, called_from_write_all_pages=False):
     sep = '/' if '/' in path else '\\'
     assignment_name = path.split(sep)[-1].replace('.yml', '')
 
-    is_discussion = 'disc' in path
+    # is_discussion = 'disc' in path
+    is_exam = not ('disc' in path) and not ('pretest' in path)
 
     # Generate the Markdown
-    page, title = process_page(path, is_discussion=is_discussion)
+    page, title = process_page(path, is_exam=is_exam)
 
     # Write the Markdown
     open_path = os.path.join(DST_FOLDER, f'{assignment_name}.md')

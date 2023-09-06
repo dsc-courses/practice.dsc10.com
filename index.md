@@ -2,7 +2,7 @@
 title: Home – DSC 10 Practice
 ---
 
-<h1><a href=''>Practice Problems</a></h1>
+<h1><a href=''>💪 Practice Problems</a></h1>
 
 <h3><a href='https://dsc10.com'>DSC 10 at UC San Diego</a></h3>
 
@@ -14,16 +14,22 @@ This site contains practice problems taken from old DSC 10 exams. We've organize
 1. As **practice exams**. Work through these in the weeks leading up to exams.
 
 In all cases, you should work on these problems **on paper**, since your exams will also be on paper. Even though you will see some multiple choice bubbles, you intentionally cannot select them.
-
-**Tip:** Keep the [DSC 10 Reference Sheet](https://drive.google.com/file/d/1ky0Np67HS2O4LO913P-ing97SJG0j27n/view) open in another tab. **You will have access to the Reference Sheet during exams (but no other resources).**
+<!-- 
+**Tip:** Keep the [DSC 10 Reference Sheet](https://drive.google.com/file/d/1ky0Np67HS2O4LO913P-ing97SJG0j27n/view) open in another tab. **You will have access to the Reference Sheet during exams (but no other resources).** -->
 
 ---
 
-### Discussions in Spring 2023
+### <a href="pretest/index.html">🧮 Pretest</a>
 
-Solutions to discussion worksheets will be made available on Wednesday evenings.
+DSC 10's only prerequisite is high school algebra. In order to gauge your preparedness for the type of math you'll see in this class, you should work through <b><a href="pretest/index.html">the following practice problems</a></b> on your own. You will not submit it, and it will not be graded.
 
-<center>
+---
+
+### 🗣️ Discussions in Fall 2023
+
+Coming soon! 👀
+
+<!-- <center>
 <table class="table" style="width:60%">
     <colgroup>
        <col span="1" style="width: 25%;">
@@ -90,12 +96,12 @@ Solutions to discussion worksheets will be made available on Wednesday evenings.
     
   </tbody>
 </table>
-</center>
+</center> -->
 
 
 ---
 
-### Exams
+### 📝 Exams
 
 Each exam linked here lists the conditions under which the exam was given, including the allotted amount of time and the resources allowed. For the best preparation, work through all the questions on an exam in order under these same conditions, writing down your answers on paper as you go, then check all your answers at the end.
 
