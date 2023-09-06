@@ -1,13 +1,12 @@
 # BEGIN PROB
 
-Your professor can grade 150 quizzes in 50 minutes. Your TA can grade 150 quizzes in 75 minutes. If the professor and TA work together, how many minutes will it take them to grade 150 quizzes?
+Your professor for PTS 1: _Principles of Taylor Swift_ can grade 150 quizzes in 50 minutes. The PTS 1 TA can grade 150 quizzes in 75 minutes. If the professor and TA work together, how many minutes will it take them to grade 150 quizzes?
 
 ( ) 25 minutes
 ( ) 30 minutes
 ( ) 60 minutes
 ( ) 62.5 minutes
 ( ) 125 minutes
-
 
 # BEGIN SOLUTION
 
