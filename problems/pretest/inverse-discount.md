@@ -6,6 +6,8 @@ In general, if a store marks up prices by $p$%, what percent discount does it ne
 
 # BEGIN SOLUTION
 
+**Answer**: 20%, or more generally, $\frac{p}{100+p} \cdot 100\%$
+
 Let $t$ represent the true value of an item in the furniture store. The store sells the item for $t$ + 25% of $t$, which can be expressed as $1.25t$. 
 
 Now, just to demonstrate the kind of calculation involved, let's say the store provides employees with a 25% discount. This would mean that employees pay $100\% - 25\% = 75\%$ of the sale price, which is $0.75 \cdot 1.25t$. This simplifies to $0.9375t$, which is less than $t$, which means that 25% is too much of a discount! Since the sale price is 25% more than the true value, 25% of the sale price is more than 25% of the true value; since the employee discount is taken off of the sale price, it needs to be less than 25%.
