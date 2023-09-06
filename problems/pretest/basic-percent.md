@@ -1,6 +1,6 @@
 # BEGIN PROB
 
-Express $\frac{16}{40}$ as a percent without using a calculator and without long division or multiplication.
+Express $\frac{16}{40}$ as a percentage without using a calculator and without long division or multiplication.
 
 # BEGIN SOLUTION
 
