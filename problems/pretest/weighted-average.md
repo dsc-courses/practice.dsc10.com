@@ -20,7 +20,7 @@ What is the minimum possible score you can earn on the Final Exam, **as a percen
 
 # BEGIN SOLUTION
 
-**Answer**:
+**Answer**: 87.5%
 
 Let $f$ be your Final Exam score in PTS 1, as a decimal between 0 and 1. (We'll treat $f$ as a decimal because all of your other scores are provided to us as decimals, or fractions, as well.) If we knew $f$, we could calculate your overall grade right now:
 
