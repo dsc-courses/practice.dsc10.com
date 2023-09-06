@@ -19,7 +19,7 @@ That leaves two options: 25 minutes and 30 minutes. Notice that 25 minutes is ha
 
 It’s always good to double-check that our answer is correct. Let’s actually solve this problem using math now. To start, we know that the professor grades at a rate of 150 quizzes per 50 minutes, which is 3 quizzes per minute because $\frac{150}{50} = \frac{3}{1}$. The TA grades 150 quizzes per 75 minutes, or 2 quizzes per minute. This means that in one minute, the professor can grade 3 quizzes and the TA can grade 2 quizzes, for a total of 5 quizzes. 
 
-When working together, the professor and TA grade at a rate of 5 quizzes per minute. So how much time do they need to grade 150 quizzes? 5 quizzes per minute is equivalent to 150 quizzes per 30 minutes, since $\frac{5}{1} = \frac{150}{30}$. Therefore, it takes them 30 minutes to complete their grading task, as we obtained through process of elimination.
+When working together, the professor and TA grade at a rate of 5 quizzes per minute. So how much time do they need to grade 150 quizzes? 5 quizzes per minute is equivalent to 150 quizzes per 30 minutes, since $\frac{5}{1} = \frac{150}{30}$. Therefore, it takes them 30 minutes to complete their grading task, the same result we obtained through process of elimination.
 
 # END SOLUTION
 
