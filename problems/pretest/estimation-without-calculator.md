@@ -13,7 +13,7 @@ Without using a calculator or long multiplication, choose the answer below that 
 
 **Answer**: $120{,}000$
 
-We can estimate the answer by solving a similar problem, $400\cdot300$, which has numbers close to those given, but much easier to work with. Since $400\cdot300 = 120{,}000$, we would estimate that $412\cdot289$ is similar. If you’re curious, a calculator will tell you that $412\cdot289 = 122{,}776$.
+We can estimate the answer by solving a similar problem, $400\cdot300$, which has numbers close to those given, but are much easier to work with. Since $400\cdot300 = 120{,}000$, we would estimate that $412\cdot289$ is similar. If you’re curious, a calculator will tell you that $412\cdot289 = 122{,}776$.
 
 # END SOLUTION
 

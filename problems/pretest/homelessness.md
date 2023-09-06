@@ -38,7 +38,7 @@ The actual number of individuals counted on Caltrans property in 2023 was 661, w
 
 **Answer**: The discrepancy is most likely due to rounding. Notice that when the newspaper reported the percent increases (22 and 14), it gave them as whole numbers even though the actual percent increases could not have been whole numbers. 
 
-If $x$ represents the 2022 count, then we set up the equation $1.22x = 10{,}264$. The exact solution to this equation is actually $x = 8413.1147541$, but since $x$ represents a count of people, it must be a whole number. This means the 1.22 number in this equation is an approximation, because it's easier (both to report and to interpret) a percent increase that is a whole number and not a decimal.
+If $x$ represents the 2022 count, then based on the informtion given in the question, we have $1.22x = 10{,}264$. The exact solution to this equation is actually $x = 8413.1147541$, but since $x$ represents a count of people, it must be a whole number. This means the 1.22 number in this equation is an approximation, because it's easier (both to report and to interpret) a percent increase that is a whole number and not a decimal.
 
 # END SOLUTION
 
