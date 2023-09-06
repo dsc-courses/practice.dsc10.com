@@ -2,7 +2,7 @@
 
 # BEGIN PROB
 
-Without using a calculator or long multiplication, choose the answer below that is closest to $412 \cdot 289$.
+Choose the answer below that is closest to $412 \cdot 289$, without using a calculator and without performing long multiplication.
 
 ( ) $40{,}000$
 ( ) $80{,}000$
