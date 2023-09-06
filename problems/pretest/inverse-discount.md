@@ -6,29 +6,61 @@ In general, if a store marks up prices by $p$%, what percent discount does it ne
 
 # BEGIN SOLUTION
 
-**Answer**: 20%, or more generally, $\frac{p}{100+p} \cdot 100\%$
+**Answer**: 20%, or more generally, $\frac{100p}{100+p}\%$
 
-Let $t$ represent the true value of an item in the furniture store. The store sells the item for $t$ + 25% of $t$, which can be expressed as $1.25t$. 
+Let $v$ represent the true value of an item in the furniture store. The store sells the item for $v$ + 25% of $v$, which can be expressed as $1.25v$. We'll call this the ticketed price, which is the amount that would be printed on the item's price tag.
 
-Now, just to demonstrate the kind of calculation involved, let's say the store provides employees with a 25% discount. This would mean that employees pay $100\% - 25\% = 75\%$ of the sale price, which is $0.75 \cdot 1.25t$. This simplifies to $0.9375t$, which is less than $t$, which means that 25% is too much of a discount! Since the sale price is 25% more than the true value, 25% of the sale price is more than 25% of the true value; since the employee discount is taken off of the sale price, it needs to be less than 25%.
+Now, just to demonstrate the kind of calculation involved, let's say the store provides employees with a 25% discount. This would mean that employees pay $100\% - 25\% = 75\%$ of the ticketed price, which is $0.75 \cdot 1.25v$. This simplifies to $0.9375v$, which is less than the true value $v$. This means a 25% employee discount is too much of a discount, since it allows employees to buy items at less than the true value. Since the ticketed price is 25% more than the true value, 25% of the ticketed price is larger than 25% of the true value; since the employee discount is taken off of the ticketed price, it needs to be less than 25%.
 
-The question, then, is what percentage discount should the store provide employees with so that the post-discount sale price is equal to $t$? Suppose they provide employees with a discount of $e$, where $e$ is a decimal between 0 and 1 (in the previous example, for instance, it would have been 0.25, which corresponds to 25%). Then, employees pay $(1 - e) \cdot 1.25t$. Now, we need to pick the value of $e$ that makes $(1 - e) \cdot 1.25t$ equal to $t$. This is equivalent to picking the value of $e$ that makes $(1 - e) \cdot 1.25$ equal to 1. Let's solve:
+The question, then, is what percentage discount should the store provide to employees so that the post-discount price is equal to $v$? Suppose they provide employees with a discount of $d$, where $d$ is a decimal between 0 and 1 (in the previous example, for instance, it would have been 0.25, which corresponds to 25%). Then, employees pay $(1 - d) \cdot 1.25v$. Now, we need to pick the value of $d$ that makes $(1 - d) \cdot 1.25v$ equal to $v$. Let's set up an equation:
 
-$$\begin{align*}(1 - e) \cdot 1.25 &= 1 \\ 1 - e &= \frac{1}{1.25} \\ e &= 1 - \frac{1}{1.25} \end{align*}$$
+$$(1 - d) \cdot 1.25v = v$$
+
+We need to solve this for $d$, and fortunately, if we divide both sides by $v$, this becomes an equation with just one variable, which we can solve with algebra:
+
+$$\begin{align*}(1 - d) \cdot 1.25 &= 1 \\ 1 - d &= \frac{1}{1.25} \\ d &= 1 - \frac{1}{1.25} \end{align*}$$
 
 Since $1.25 = \frac{5}{4}$, we have:
 
-$$e = 1 - \frac{1}{1.25} = 1 - \frac{1}{\frac{5}{4}} = 1 - \frac{4}{5} = \frac{1}{5}$$
+$$d = 1 - \frac{1}{1.25} = 1 - \frac{1}{\frac{5}{4}} = 1 - \frac{4}{5} = \frac{1}{5}$$
 
-This means that the store needs to give employees a discount of $\frac{1}{5} = 0.2$, or 20%, in order for their post-discount price to be equal to the true value of the item they're buying.
+This means that the store needs to give employees a discount of $d = \frac{1}{5} = 0.2$, or 20%, in order for their post-discount price to be equal to the true value of the item they're buying.
 
-More generally, if a store sells an item for $p$% more than its true value, $t$, then its sale price is $\left(1 + \frac{p}{100} \right)t$, or $\frac{100 + p}{100}t$ (for instance, if $p = 25$, then the sale price is $\frac{100 + 25}{100}t = 1.25t$, which we saw before). Then, the store would need to offer employees a discount of $e$ (where $e$ is a decimal between 0 and 1) such that $(1 - e) \cdot \frac{100 + p}{100} = 1$. Solving for $e$ gives:
+More generally, if a store sells an item for $p$% more than its true value, $v$, then the ticketed price is $\left(1 + \frac{p}{100} \right)v$, or $\left(\frac{100 + p}{100}\right)v$ (for instance, if $p = 25$, then the ticketed price is $\frac{100 + 25}{100}v = 1.25v$, which we saw before). Then, the store would need to offer employees a discount of $d$ (where $d$ is a decimal between 0 and 1) such that $(1 - d) \cdot \frac{100 + p}{100} = 1$. Solving for $d$ gives:
 
-$$\begin{align*} (1 - e) \cdot \frac{100 + p}{100} &= 1 \\ 1 - e &= \frac{100}{100 + p} \\ e &= 1 - \frac{100}{100 + p} \\ e &= \frac{100 + p}{100 + p} - \frac{100}{100 + p} \\ e &= \frac{p}{100 + p} \end{align*}$$
+$$\begin{align*} (1 - d) \cdot \frac{100 + p}{100} &= 1 \\ 1 - d &= \frac{100}{100 + p} \\ d &= 1 - \frac{100}{100 + p} \\ d &= \frac{100 + p}{100 + p} - \frac{100}{100 + p} \\ d &= \frac{p}{100 + p} \end{align*}$$
 
-$\frac{p}{100 + p}$ is a decimal between 0 and 1, so to convert it to a percentage we can multiply it by $100\%$. To conclude, if a store sells an item for $p$% more than its true value, $t$, then they must offer employees a discount of $\frac{p}{100 + p} \cdot 100\%$ in order for their post-discount price to be equal to $t$.
+$\frac{p}{100 + p}$ is a decimal between 0 and 1, so to convert it to a percentage we can multiply it by $100\%$. To conclude, if a store sells an item for $p$% more than its true value, $v$, then they must offer employees a discount of $\frac{p}{100 + p} \cdot 100\%$ in order for their post-discount price to be equal to $v$.
 
 This is a scary looking formula, but let's try it in action: if we let $p$ be 25, as it was in the first part of this question, we then have a discount of $\frac{25}{100 + 25} \cdot 100\%$, or $0.2 \cdot 100\%$, or $20\%$.
+
+**Answer**: 20%, or more generally, $\frac{p}{100+p} \cdot 100\%$
+
+Let $v$ represent the true value of an item in the furniture store. The store sells the item for $v$ + 25% of $v$, which can be expressed as $1.25v$. We'll call this the ticketed price, which is the amount that would be printed on the item's price tag.
+
+Now, just to demonstrate the kind of calculation involved, let's say the store provides employees with a 25% discount. This would mean that employees pay $100\% - 25\% = 75\%$ of the ticketed price, which is $0.75 \cdot 1.25v$. This simplifies to $0.9375v$, which is less than the true value $v$. This means a 25% employee discount is too much of a discount, since it allows employees to buy items at less than the true value. Since the ticketed price is 25% more than the true value, 25% of the ticketed price is larger than 25% of the true value; since the employee discount is taken off of the ticketed price, it needs to be less than 25%.
+
+The question, then, is what percentage discount should the store provide to employees so that the post-discount price is equal to $v$? Suppose they provide employees with a discount of $d$%. Then, employees pay $100 - d$ percent of the ticketed price, which is $\frac{100 - d}{100} \cdot 1.25v$. Now, we need to pick the value of $d$ that makes $\frac{100 - d}{100} \cdot 1.25v$ equal to $v$. Let's set up an equation:
+
+$$\frac{100 - d}{100} \cdot 1.25v = v$$
+
+We need to solve this for $d$, and fortunately, if we divide both sides by $v$, this becomes an equation with just one variable, which we can solve with algebra:
+
+$$\begin{align*}\frac{100 - d}{100} \cdot 1.25 &= 1 \\ (100 - d)\cdot 1.25 &= 100 \\ 125 - 1.25d &= 100 \\ 1.25d &= 25 \\ d &= \frac{25}{1.25} \\ d &= 20 \end{align*}$$
+
+This means that the store needs to give employees a discount of 20% in order for their post-discount price to be equal to the true value of the item they're buying.
+
+More generally, if a store sells an item for $p$% more than its true value, $v$, then the ticketed price is $\frac{100 + p}{100} \cdot v$ (for instance, if $p = 25$, then the ticketed price is $\frac{100 + 25}{100} \cdot v = 1.25v$, which we saw before). Then, the store would need to offer employees a discount of $d$% such that $\frac{100 - d}{100} \cdot \frac{100 + p}{100} \cdot v = v$. Dividing through by $v$ and solving for $d$ gives:
+
+$$\begin{align*} \frac{100 - d}{100} \cdot \frac{100 + p}{100} &= 1 \\ (100 - d)(100 + p) &= 10000 \\ 100 - d &= \frac{10000}{100 + p} \\ d &= 100 - \frac{10000}{100 + p} \\ 
+d &= 100\cdot \frac{100+p}{100+p} - \frac{10000}{100 + p} \\
+d &= \frac{10000+100p}{100+p} - \frac{10000}{100 + p} \\
+d &= \frac{10000+100p - 10000}{100+p} \\
+d &= \frac{100p}{100 + p} \end{align*}$$
+
+To conclude, if a store sells an item for $p$% more than its true value, $v$, then they must offer employees a discount of $\frac{100p}{100 + p}\%$ in order for their post-discount price to be equal to $v$.
+
+This is a scary looking formula, but let's try it in action: if we let $p$ be 25, as it was in the first part of this question, we then have a discount of $\frac{100\cdot 25}{100 + 25} \%$, or $\frac{2500}{125}\%$, which is $20\%$.
 
 # END SOLUTION
 
