@@ -2,7 +2,7 @@
 
 # BEGIN PROB
 
-A bicycle shop is going out of business and has a 30% discount on all bikes. I also have a coupon for an additional 40% off any bike. As compared to the original price, what discount will I get if I use my coupon on top of the going-out-of-business discount?
+A bicycle shop is going out of business and has a 30% discount on all bikes. I also have a coupon for an additional 40% off any bike. As compared to the original price, what discount will I get if I use my coupon on top of the going-out-of-business discount? Solve this problem without a calculator.
 
 # BEGIN SOLUTION
 

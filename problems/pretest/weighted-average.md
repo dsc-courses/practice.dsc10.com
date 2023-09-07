@@ -16,7 +16,7 @@ There are 4 homework assignments, but your lowest homework score is dropped from
 - Homework 3: $\frac{9}{10}$
 - Homework 4: $\frac{12}{13}$
 
-What is the minimum possible score you can earn on the Final Exam, **as a percentage**, to guarantee that you finish with at least an 80% overall in PTS 1? You may use a calculator (tip: you can type arithmetic expressions into Google and it'll perform calculations for you!).
+What is the minimum possible score you can earn on the Final Exam, **as a percentage**, to guarantee that you finish with at least a B grade (80% overall) in PTS 1? You may use a calculator (tip: you can type arithmetic expressions into Google and it will perform calculations for you!).
 
 # BEGIN SOLUTION
 
@@ -34,7 +34,10 @@ Now that we have your average homework score, we know most parts of your overall
 
 $$20\% \cdot \frac{98}{100} + 20\% \cdot \frac{16}{38} + 30\% \cdot \frac{1}{3} \cdot \left(\frac{3}{4} + \frac{9}{10} + \frac{12}{13}\right) + 30\% \cdot f$$
 
-Simplifying everything before $30\% \cdot f$ in a calculator gives us 53.75%. It's worth commenting on _how_ to evaluate such an expression in a calculator. It's easier to treat percentages, like 20%, as decimals, like 0.2, when using a calculator. [Here](https://www.google.com/search?q=0.2+*+(98%2F100)+%2B+0.2+*+(16%2F38)+%2B+0.3+*+(3%2F4+%2B+9%2F10+%2B+12%2F13)+%2F+3&sourceid=chrome&ie=UTF-8) you can see the exact expression we typed into a Google search (no need to use a physical calculator!); 0.5375... is the same as 53.75..%.
+Simplifying everything before $30\% \cdot f$ in a calculator gives us 53.75%. 
+
+It's worth commenting on _how_ to evaluate such an expression in a calculator. It's easier to treat percentages, like 20%, as decimals, like 0.2, when using a calculator.
+<a href="https://www.google.com/search?q=0.2+*+(98%2F100)+%2B+0.2+*+(16%2F38)+%2B+0.3+*+(3%2F4+%2B+9%2F10+%2B+12%2F13)+%2F+3&sourceid=chrome&ie=UTF-8" target="_blank">Here</a> you can see the exact expression we typed into a Google search (no need to use a physical calculator!); 0.5375... is the same as 53.75..%.
 
 Now, we have that your overall grade is
 

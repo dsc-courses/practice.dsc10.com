@@ -40,7 +40,7 @@ If we want to avoid using long multiplication, we can use a trick: to multiply b
 
 # BEGIN SUBPROB
 
-On Monday, the percentage of occupied spaces in Pangea is twice the percentage of occupied spaces in Hopkins. If Pangea has 950 parking spaces, how many parking spaces does Hopkins have?
+On Monday, the percentage of occupied spaces in Pangea is twice the percentage of occupied spaces in Hopkins. If Pangea has 950 parking spaces, how many parking spaces does Hopkins have? You may use a calculator for this part.
 
 # BEGIN SOLUTION
 

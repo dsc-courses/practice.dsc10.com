@@ -1,6 +1,6 @@
 # BEGIN PROB
 
-Your professor for PTS 1: _Principles of Taylor Swift_ can grade 150 homeworks in 50 minutes. The PTS 1 TA can grade 150 homeworks in 75 minutes. If the professor and TA work together, how many minutes will it take them to grade 150 homeworks?
+Your professor for PTS 1: _Principles of Taylor Swift_ can grade 150 homeworks in 50 minutes. The TA can grade 150 homeworks in 75 minutes. If the professor and TA work together, how many minutes will it take them to grade 150 homeworks? Solve this problem without a calculator.
 
 ( ) 25 minutes
 ( ) 30 minutes

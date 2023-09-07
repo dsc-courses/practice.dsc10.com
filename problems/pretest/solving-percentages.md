@@ -1,6 +1,6 @@
 # BEGIN PROB
 
-I just sent my friend $50 on Venmo and that used up 25% of my Venmo account balance. How much money is left in my Venmo account?
+I just sent my friend $50 on Venmo and that used up 25% of my Venmo account balance. How much money is left in my Venmo account? Solve this problem without a calculator.
 
 # BEGIN SOLUTION
 

@@ -4,6 +4,8 @@ At a furniture store, suppose every item has a "true value" that represents its 
 
 In general, if a store marks up prices by $p$%, what percent discount does it need to give to employees off the ticketed price so that they can buy things at the true value?
 
+Solve this problem without a calculator.
+
 # BEGIN SOLUTION
 
 **Answer**: 20%, or more generally, $\frac{100p}{100+p}\%$
@@ -26,13 +28,13 @@ $$d = 1 - \frac{1}{1.25} = 1 - \frac{1}{\frac{5}{4}} = 1 - \frac{4}{5} = \frac{1
 
 This means that the store needs to give employees a discount of $d = \frac{1}{5} = 0.2$, or 20%, in order for their post-discount price to be equal to the true value of the item they're buying.
 
-More generally, if a store sells an item for $p$% more than its true value, $v$, then the ticketed price is $\left(1 + \frac{p}{100} \right)v$, or $\left(\frac{100 + p}{100}\right)v$ (for instance, if $p = 25$, then the ticketed price is $\frac{100 + 25}{100}v = 1.25v$, which we saw before). Then, the store would need to offer employees a discount of $d$ (where $d$ is a decimal between 0 and 1) such that $(1 - d) \cdot \frac{100 + p}{100} = 1$. Solving for $d$ gives:
+More generally, if a store sells an item for $p$% more than its true value, $v$, then the ticketed price is $\left(1 + \frac{p}{100} \right)v$, or $\left(\frac{100 + p}{100}\right)v$. For instance, if $p = 25$, then the ticketed price is $\frac{100 + 25}{100}v = 1.25v$, which we saw before. Then, the store would need to offer employees a discount of $d$ (where $d$ is a decimal between 0 and 1) such that $(1 - d) \cdot \frac{100 + p}{100} = 1$. Solving for $d$ gives:
 
 $$\begin{align*} (1 - d) \cdot \frac{100 + p}{100} &= 1 \\ 1 - d &= \frac{100}{100 + p} \\ d &= 1 - \frac{100}{100 + p} \\ d &= \frac{100 + p}{100 + p} - \frac{100}{100 + p} \\ d &= \frac{p}{100 + p} \end{align*}$$
 
 $\frac{p}{100 + p}$ is a decimal between 0 and 1, so to convert it to a percentage we can multiply it by $100\%$. To conclude, if a store sells an item for $p$% more than its true value, $v$, then they must offer employees a discount of $\frac{p}{100 + p} \cdot 100\%$ in order for their post-discount price to be equal to $v$.
 
-This is a scary looking formula, but let's try it in action: if we let $p$ be 25, as it was in the first part of this question, we then have a discount of $\frac{25}{100 + 25} \cdot 100\%$, or $0.2 \cdot 100\%$, or $20\%$.
+This is a scary-looking formula, but let's try it in action: if we let $p$ be 25, as it was in the first part of this question, we then have a discount of $\frac{25}{100 + 25} \cdot 100\%$, or $0.2 \cdot 100\%$, or $20\%$.
 
 # END SOLUTION
 
