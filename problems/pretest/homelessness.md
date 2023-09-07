@@ -1,10 +1,10 @@
 # BEGIN PROB
 
-Every year, San Diego's Regional Task Force on Homelessness conducts a "point-in-time" count of the minimum number of homeless individuals in San Diego County. They send out a team of over a thousand volunteers to locate and count homeless people throughout the county's shelters, streets, encampments, cars, etc. In 2023, newspapers reported that the count increased by 22% from the 2022 count. Part of that increase was explained by the fact that for the first time, volunteers were able to access and count people on Caltrans property. It was also reported that if we were to exclude the people who were counted on Caltrans property, the count would have still increased by 14%, meaning that the additional area covered could not explain all of the increase from one year's count to the next. The 2023 point-in-time count was 10,264 individuals.
+Every year, San Diego's Regional Task Force on Homelessness conducts a "point-in-time" count of the number of homeless individuals in San Diego County. They send out a team of over a thousand volunteers to locate and count homeless individuals throughout the county's shelters, streets, encampments, cars, etc. In 2023, newspapers reported that the count increased by 22% from the 2022 count. Part of that increase was explained by the fact that for the first time, volunteers were able to access and count people on Caltrans property. It was also reported that if we were to exclude the people who were counted on Caltrans property, the count would have still increased by 14%, meaning that the additional area covered could not explain all of the increase from one year's count to the next. The 2023 point-in-time count was 10,264 individuals.
 
 # BEGIN SUBPROB
 
-Why is the point-in-time count considered a count of the minimum number of homeless individuals? 
+The point-in-time count is an underestimate of the true number of homeless individuals in San Diego County. Why is it always an underestimate?
 
 # BEGIN SOLUTION
 
