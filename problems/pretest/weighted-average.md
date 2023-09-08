@@ -49,7 +49,7 @@ $$53.75\% + 30\% \cdot f \geq 80\%$$
 
 Let's solve:
 
-$$\begin{align*} 53.75\% + 30\% \cdot f &\geq 80\% \\ 30\% \cdot f \geq 26.25\% \\ f &\geq \frac{26.25}{30} \\ f &\geq 0.875 \end{align*}$$
+$$\begin{align*} 53.75\% + 30\% \cdot f &\geq 80\% \\ 30\% \cdot f &\geq 26.25\% \\ f &\geq \frac{26.25}{30} \\ f &\geq 0.875 \end{align*}$$
 
 So, to earn a B in PTS 1, you'll need at least an 87.5% on the Final Exam. Good luck!
 
