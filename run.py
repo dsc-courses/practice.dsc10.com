@@ -393,6 +393,9 @@ def process_page(path, is_exam=True):
 
     out += '$$ $$' # to enable latex always
 
+    if 'footer' in params.keys():
+        out += f'\n\n {params["footer"]} \n\n'
+
     # Temporary summer add-on to collect feedback
     out += '''
 ---
