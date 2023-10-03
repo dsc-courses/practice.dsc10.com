@@ -54,7 +54,7 @@ When we divide two arrays of the same length, their corresponding elements get d
 
 # BEGIN SUBPROB
 
-True or false: `min(prices / calories)` is the same as `max(calories / price)`.
+True or False: `min(prices / calories)` is the same as `max(calories / price)`.
 
 # BEGIN SOLN
 
