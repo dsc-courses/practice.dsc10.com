@@ -4,7 +4,7 @@
 
 # BEGIN SUBPROB
 
-1. What does `type(prices[0])` evaluate to?
+What does `type(prices[0])` evaluate to?
 
 # BEGIN SOLN
 
@@ -16,7 +16,7 @@
 
 # BEGIN SUBPROB
 
-2. What does `type(calories[0])` evaluate to?
+What does `type(calories[0])` evaluate to?
 
 # BEGIN SOLN
 
@@ -28,7 +28,7 @@ Similarly, `calories[0]` represents the calories in some product at the grocery 
 
 # BEGIN SUBPROB
 
-3. When we divide two arrays of the same length, their corresponding elements get divided, and the result is a new array of the same length as the two originals. In one sentence, interpret the meaning of `min(prices / calories)`.
+When we divide two arrays of the same length, their corresponding elements get divided, and the result is a new array of the same length as the two originals. In one sentence, interpret the meaning of `min(prices / calories)`.
 
 # BEGIN SOLN
 
@@ -40,7 +40,7 @@ This is the cost per calorie of the product which has the lowest cost per calori
 
 # BEGIN SUBPROB
 
-4. True or false: `min(prices / calories)` is the same as `max(calories / price)`.
+True or false: `min(prices / calories)` is the same as `max(calories / price)`.
 
 # BEGIN SOLN
 

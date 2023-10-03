@@ -1,11 +1,15 @@
 # BEGIN PROB
 
 Suppose we have imported the `math` module using `import math`. Consider the nested expression below:
+<div align="center">
+
 `int(math.sqrt(math.pow(4 * 2 ** 4, min(9 % 4, 9 / 4, 9 - 4))))`
+
+</div>
 
 # BEGIN SUBPROB
 
-1. How many function calls are there in this expression? How many arguments does each function have?
+How many function calls are there in this expression? How many arguments does each function have?
 
 # BEGIN SOLN
 
@@ -17,7 +21,7 @@ There are four function calls. One is a call to the type-conversion function `in
 
 # BEGIN SUBPROB
 
-2. What does this expression evaluate to?
+What does this expression evaluate to?
 
 # BEGIN SOLN
 
