@@ -6,6 +6,11 @@
 
 What does `type(prices[0])` evaluate to?
 
+( ) `int`
+( ) `float`
+( ) `str`
+( ) The price of the first product.
+
 # BEGIN SOLN
 
 **Answer:** `float`
@@ -19,6 +24,11 @@ What does `type(prices[0])` evaluate to?
 # BEGIN SUBPROB
 
 What does `type(calories[0])` evaluate to?
+
+( ) `int`
+( ) `float`
+( ) `str`
+( ) The calories in the first product.
 
 # BEGIN SOLN
 
@@ -50,7 +60,7 @@ True or false: `min(prices / calories)` is the same as `max(calories / price)`.
 
 **Answer:** False
 
-False. The former is measured in dollars per calories (a very small number), whereas the latter is measured in calories per dollar (a very big number).
+The former is measured in dollars per calories (a very small number), whereas the latter is measured in calories per dollar (a very big number).
 
 However, there is a connection between these two values. The product that has the lowest price per calorie is the same product with the most calories per dollar. So these numbers refer to the same grocery store product, and we can convert one value into the other by taking the reciprocal, which swaps the numerator and denominator of a fraction. Therefore, it's true that `min(prices / calories)` is the same as `1 / max(calories / price)`.
 

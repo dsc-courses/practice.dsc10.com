@@ -13,9 +13,9 @@ How many function calls are there in this expression? How many arguments does ea
 
 # BEGIN SOLN
 
-**Answer:** Four function calls. One argument for int, math.sqrt has one, math.pow has two, and min has 3.
+**Answer:** 4 function calls: one argument for `int()`, one for `math.sqrt()`, two for `math.pow()`, three for `min()`.
 
-There are four function calls. One is a call to the type-conversion function `int`, which takes one argument. Another is a call to `math.sqrt()`, which takes one argument. Another is a call to `math.pow()`, which takes two arguments. Finally is a call to the built-in function `min()`, which in this case takes three arguments, but generally can take two or more arguments.
+There are four function calls. One is a call to the type-conversion function `int()`, which takes one argument. Another is a call to `math.sqrt()`, which takes one argument. Another is a call to `math.pow()`, which takes two arguments. Finally is a call to the built-in function `min()`, which in this case takes three arguments, but generally can take two or more arguments.
 
 # END SOLN
 
@@ -29,7 +29,13 @@ What does this expression evaluate to?
 
 **Answer:** 8
 
-For these questions, it is helpful to work from the inside out. Starting with the inner most function call, we see `min(9 % 4, 9 / 4, 9 - 4)`, which will output to 1 because 9 % 4 outputs to 1, 9 / 4 outputs to 2.25, and 9 - 4 outputs to 5, and because we would like the minimum of those three expressions, 1 is the output. Now working from the next most inner function call, we see that we are calling `math.pow(4 * 2 ** 4, min(9 % 4, 9 / 4, 9 - 4))`. Because we have already solved for the innermost function, we can rewrite this to be `math.pow(4 * 2 ** 4, 1)`. This will evaluate to 64.0, because `4 * 2 ** 4` evaluates to 64.0 (4 * 2^4), and we are raising 64.0 to the first power which is simply just 64.0 . Now working to the next most inner function, we see that we have `math.sqrt(math.pow(4 * 2 ** 4, min(9 % 4, 9 / 4, 9 - 4)))`. Again, we can rewrite the inside of `math.sqrt(math.pow(4 * 2 ** 4, min(9 % 4, 9 / 4, 9 - 4)))` to just `math.sqrt(64.0)` because we have just evaluated that `math.pow(4 * 2 ** 4, min(9 % 4, 9 / 4, 9 - 4))` outputs to 64.0 . Now solving for `math.sqrt(64.0)` we get 8.0 because the squareroot of 64.0 is 8.0 . Now to solve for the last function call, we see that we have `int(math.sqrt(math.pow(4 * 2 ** 4, min(9 % 4, 9 / 4, 9 - 4))))`. For the last time, we can rewrite that call as simply `int(8.0)` because we have just evaluated that `math.sqrt(math.pow(4 * 2 ** 4, min(9 % 4, 9 / 4, 9 - 4)))` ouputs to 8.0. Now evaluating for `int(8.0)`, it simply ouputs to 8 because we are changing the datatype of 8.0 from a float to an int. 
+For nested evaluation, it is helpful to work from the inside out. Let's evaluate some arithmetic expressions first. `9 % 4` evaluates to `1` because when we divide `9` by `4`, there is a remainder of `1`. Additionally, `9 / 4` evaluate to `2.25`, and `9 - 4` evaluates to `5`. Starting with the inner most function call, we see `min(9 % 4, 9 / 4, 9 - 4)` is equiavlent to `min(1, 2.25, 5)` which evaluates to `1`. 
+
+The next-most inner function call is the call to `math.pow()` which takes two arguments: a number for the base, and a number for the exponent. We've already evaluated the exponent, but we need to evaluate the base of `4 * 2 ** 4`.  Using the order of operations, we know we need to evaluate the exponent first. So `4 * 2 ** 4 ` is equivalent to `4 * 16` or `64`.
+
+Therefore, `math.pow(4 * 2 ** 4, min(9 % 4, 9 / 4, 9 - 4))` simplifies to `math.pow(64, 1)`, which Python evaluates to be `64.0`, a `float`. 
+
+Next, `math.sqrt(64.0)` evaluates to `8.0`. Finally, the type conversion function `int(8.0)` evaluates to `8`.
 
 # END SOLN
 
