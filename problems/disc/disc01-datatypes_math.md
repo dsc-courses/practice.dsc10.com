@@ -8,6 +8,8 @@ What does `type(prices[0])` evaluate to?
 
 # BEGIN SOLN
 
+**Answer:** `float`
+
 `prices[0]` represents the price in dollars of some product at the grocery store. The data type should be a `float` because prices are numbers but not necessarily integers.
 
 # END SOLN
@@ -19,6 +21,8 @@ What does `type(prices[0])` evaluate to?
 What does `type(calories[0])` evaluate to?
 
 # BEGIN SOLN
+
+**Answer:** `int`
 
 Similarly, `calories[0]` represents the calories in some product at the grocery store. The data type should be `int` because calories in foods are always reported as integers.
 
@@ -32,7 +36,7 @@ When we divide two arrays of the same length, their corresponding elements get d
 
 # BEGIN SOLN
 
-This is the cost per calorie of the product which has the lowest cost per calorie, which you might say is the cheapest food to fuel up on (like instant ramen or pasta).
+**Answer:** This is the cost per calorie of the product which has the lowest cost per calorie, which you might say is the cheapest food to fuel up on (like instant ramen or pasta).
 
 # END SOLN
 
@@ -43,6 +47,8 @@ This is the cost per calorie of the product which has the lowest cost per calori
 True or false: `min(prices / calories)` is the same as `max(calories / price)`.
 
 # BEGIN SOLN
+
+**Answer:** False
 
 False. The former is measured in dollars per calories (a very small number), whereas the latter is measured in calories per dollar (a very big number).
 
