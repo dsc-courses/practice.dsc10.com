@@ -29,9 +29,7 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
 
 ### 🗣️ Discussions in Fall 2023
 
-Coming soon! 👀
-
-<!-- <center>
+<center>
 <table class="table" style="width:60%">
     <colgroup>
        <col span="1" style="width: 25%;">
@@ -48,57 +46,12 @@ Coming soon! 👀
   <tbody>
     <tr>
       <th scope="row">1</th>
-      <td>April 5th</td>
-      <td><a href="http://datahub.ucsd.edu/user-redirect/git-sync?repo=https://github.com/dsc-courses/dsc10-2023-sp&subPath=discussion/disc01/disc01.ipynb">Getting Started with Jupyter Notebooks</a></td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>April 12th</td>
-      <td><a href="disc02/index.html">Python Basics, Arrays, and DataFrames</a></td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>April 19th</td>
-      <td><a href="disc03/index.html">Querying, Grouping, and Plotting</a></td>
-    </tr>
-    <tr>
-      <th scope="row">4</th>
-      <td>April 26th</td>
-      <td><a href="disc04/index.html">Functions, Subgroups, Merge, and Control Flow</a></td>
-    </tr>
-    <tr>
-      <th scope="row">5</th>
-      <td>May 3rd</td>
-      <td><a href="disc05/index.html">Probability and Simulation</a></td>
-    </tr>
-    <tr>
-      <th scope="row">6</th>
-      <td>May 10th</td>
-      <td><a href="disc06/index.html">Hypothesis Testing</a></td>
-    </tr>
-    <tr>
-      <th scope="row">7</th>
-      <td>May 17th</td>
-      <td><a href="disc07/index.html">Permutation Testing and Bootstrapping</a></td>
-    </tr>
-     <tr>
-      <th scope="row">8</th>
-      <td>May 24th</td>
-      <td><a href="disc08/index.html">The Normal Distribution</a></td>
-    </tr>
-    <tr>
-    <th scope="row">9</th>
-    <td>May 31st</td>
-    <td><a href="disc09/index.html">The Central Limit Theorem</a></td>
-    </tr> 
-    <th scope="row">10</th>
-    <td>June 7th</td>
-    <td><a href="disc10/index.html">Regression</a></td>
-    </tr>
-    
+      <td>October 4th</td>
+      <td><a href="disc01/index.html">Getting Started with Jupyter Notebooks</a></td>
+    </tr>    
   </tbody>
 </table>
-</center> -->
+</center>
 
 
 ---
