@@ -47,7 +47,7 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
     <tr>
       <th scope="row">1</th>
       <td>October 4th</td>
-      <td><a href="disc01/index.html">Getting Started with Jupyter Notebooks</a></td>
+      <td><a href="disc01/index.html">Intro + Python Basics</a></td>
     </tr>    
   </tbody>
 </table>
