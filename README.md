@@ -6,6 +6,7 @@ Repository containing practice problems for DSC 10 (past exams and discussion). 
 - BeautifulSoup4
 - pandoc
 - lxml
+- pyyaml
 ```
 
 Style guide for writing up problems:
