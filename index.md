@@ -48,7 +48,12 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
       <th scope="row">1</th>
       <td>October 4th</td>
       <td><a href="disc01/index.html">Intro + Python Basics</a></td>
-    </tr>    
+    </tr>   
+    <tr>
+      <th scope="row">2</th>
+      <td>October 11th</td>
+      <td><a href="disc02/index.html">Arrays and DataFrames</a></td>
+    </tr>   
   </tbody>
 </table>
 </center>
