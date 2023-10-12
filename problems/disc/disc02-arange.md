@@ -1,6 +1,6 @@
 # BEGIN PROB
 
-Evalute the expression `(np.arange(1, 7, 2.5) * np.arange(8, 2, -2))[2]` .
+Evaluate the expression `(np.arange(1, 7, 2.5) * np.arange(8, 2, -2))[2]` .
 
 # BEGIN SOLN
 
