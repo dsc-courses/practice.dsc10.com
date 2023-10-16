@@ -138,13 +138,54 @@ except students were provided a copy of the
 10 Reference Sheet<a>. No calculators were allowed. Students had
 <strong>50 minutes</strong> to take this exam.</p>
 <hr />
+<p>Recall, at the start of the quarter, you were asked to complete a
+Welcome Survey to tell us about your background coming into the course.
+You were also asked to share seemingly irrelevant details, like the
+number of followers you have on Instagram and the number of unread
+emails in your primary email account. Well, those details are no longer
+irrelevant in this exam, we will work with the data from this quarter’s
+Welcome Survey!</p>
+<p>Each row in the DataFrame <strong>survey</strong> represents one
+student in DSC10. The information stored in the columns of
+<strong>survey</strong> are as follows:</p>
+<ul>
+<li><code>"Section"</code> (<code>str</code>): The lecture section the
+student is enrolled in (either <code>"A"</code> or
+<code>"B"</code>).</li>
+<li><code>"IG Followers"</code> (<code>int</code>): The number of
+followers the student has on Instagram. If the student does not have an
+Instagram account, this number is 0.</li>
+<li><code>"Unread Emails"</code> (<code>int</code>): The number of
+unread emails in the student’s primary email account.</li>
+<li><code>"College"</code> (<code>str</code>): The college the student
+is a member of (either <code>"ERC"</code>, <code>"Marshall"</code>,
+<code>"Muir"</code>, <code>"Revelle"</code>, <code>"Seventh"</code>,
+<code>Sixth</code> or <code>"Warren"</code>).</li>
+<li><code>"Major"</code> (<code>str</code>): The student’s primary
+major, in major code form. For instance, the major code for the Data
+Science major is <code>"DS25"</code>.</li>
+<li><code>"Class Standing"</code> (<code>str</code>): The student’s
+class standing (either <code>"Freshman"</code>,
+<code>"Sophomore"</code>, <code>"Junior"</code>, or
+<code>"Senior"</code>).</li>
+</ul>
+<p>The first few rows of <strong>survey</strong> are shown below, though
+<strong>survey</strong> has many more rows than are pictured below
+(since there are more than 5 students in DSC 10 this quarter).</p>
+<center><img src='../assets/images/sp23-midterm/df-preview.png' width=60%></center>
+<p><br></p>
+<p><strong>Throughout this exam, we will refer to survey
+repeatedly</strong></p>
+<p>Assume that we have already run <code>import babypandas as bpd</code>
+and <code>import numpy as np</code>.</p>
+<hr />
 <h2 id="problem-1">Problem 1</h2>
 <p><br></p>
 <h3 id="problem-1.1">Problem 1.1</h3>
 <p>What is the type of the following expression?</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>(survey</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a> .sort_values(by<span class="op">=</span><span class="st">&quot;Class Standing&quot;</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a> )</span></code></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> int or float</p></li>
 <li><p><input type="radio" disabled="" /> list or array</p></li>
@@ -167,7 +208,11 @@ aria-labelledby="heading1_1" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: DataFrame</p>
-<p>TODO write solution</p>
+<p>The method <code>sort_values(by="Class Standing")</code> sorts the
+DataFrame by the <code>"Class Standing"</code> column and returns a new
+DataFrame, without modifying the original one. The resulting DataFrame
+will be sorted by class standing in ascending order unless specified
+otherwise by providing the <code>ascending=False</code> argument.</p>
 </div>
 </div>
 </div>
@@ -201,7 +246,17 @@ aria-labelledby="heading1_2" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: DataFrame</p>
-<p>TODO add explanation</p>
+<p>The method <code>sort_values(by="Class Standing")</code> sorts the
+<strong>survey</strong> DataFrame based on the entries in the
+<code>"Class Standing"</code> column, producing a new DataFrame sorted
+per the specified column. Following this,
+<code>groupby("College")</code> organizes the sorted DataFrame by
+grouping entries using the <code>"College"</code> column. Subsequently,
+applying <code>.count()</code> computes the number of non-null values
+for each column within each group. The final output, after employing
+<code>.count()</code>, is a DataFrame where the indices are the distinct
+entries from the <code>"College"</code> grouping column, and the
+corresponding column values depict the counts of non-null entries.</p>
 </div>
 </div>
 </div>
@@ -237,7 +292,20 @@ aria-labelledby="heading1_3" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: Series</p>
-<p>TODO add explanation</p>
+<p>The method <code>sort_values(by="Class Standing")</code> sorts the
+<strong>survey</strong> DataFrame according to the
+<code>"Class Standing"</code> column, yielding a new DataFrame arranged
+by the specified column. Next, <code>groupby("College")</code> organizes
+the sorted DataFrame, grouping entries based on the
+<code>"College"</code> column. Following that, <code>.count()</code>
+determines the number of non-null entries for each column within each
+group. Subsequent to utilizing <code>.count()</code>, the result is a
+DataFrame where the indices are unique entries from the
+<code>"College"</code> column, and the column values illustrate counts
+of non-null entries. Lastly, <code>.get("IG Followers")</code> retrieves
+the column labeled <code>"IG Followers"</code> from the resulting
+DataFrame. Therefore, the type of the entire expression is a Series
+since retrieving a single column from a DataFrame yields a Series.</p>
 </div>
 </div>
 </div>
@@ -274,7 +342,23 @@ aria-labelledby="heading1_4" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: int or float</p>
-<p>TODO add explanation</p>
+<p>Beginning with <code>sort_values(by="Class Standing")</code>, the
+<strong>survey</strong> DataFrame is sorted based on the
+<code>"Class Standing"</code> column, creating a newly sorted DataFrame
+according to that column. Subsequently, <code>groupby("College")</code>
+groups the sorted DataFrame using the <code>"College"</code> column,
+organizing entries accordingly. Then, <code>.count()</code> calculates
+the number of non-null entries for each column within each defined
+group. After utilizing <code>.count()</code>, we have a DataFrame where
+the indices are unique entries from the <code>"College"</code> column,
+and the associated column values denote counts of non-null entries.
+Moving forward, <code>.get("IG Followers")</code> selects the
+<code>"IG Followers"</code> column from the resulting DataFrame,
+resulting in a Pandas Series since extracting a single column from a
+DataFrame yields a Series. Lastly, <code>.iloc[0]</code> accesses the
+first element of the Series, which would be the non-null count of
+<code>"IG Followers"</code> for the first college (alphabetically) in
+the grouped data.</p>
 </div>
 </div>
 </div>
@@ -309,8 +393,25 @@ aria-labelledby="heading1_5" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer</strong>: “ERC”</p>
-<p>TODO add explanation</p>
+<p><strong>Answer</strong>: <code>"ERC"</code></p>
+<p>The method <code>.sort_values(by="Class Standing")</code> sorts the
+survey DataFrame based on <code>"Class Standing"</code>, though this
+step does not influence the order of colleges. Following this,
+<code>.groupby("College")</code> groups the DataFrame according to the
+distinct college names, which are, by default, arranged in an
+alphanumeric order in the resulting grouped object. Applying
+<code>.count()</code> next, the function computes the non-null counts
+for each column within each group, presenting a DataFrame where the
+indices are the unique college names and the columns represent counts.
+After using <code>.get("IG Followers")</code>, a Series is obtained,
+using college names as indices and counts of <code>"IG Followers"</code>
+as values. The concluding step, <code>.index[0]</code>, retrieves the
+first index label from this Series. Given the mentioned college names:
+<code>"ERC"</code>, <code>"Marshall"</code>, <code>"Muir"</code>,
+<code>"Revelle"</code>, <code>"Seventh"</code>, <code>"Sixth"</code>,
+and <code>"Warren"</code>, the alphabetically first college,
+<code>"ERC"</code>, is expected to be the first index in the Series and,
+therefore, the resultant output of the expression.</p>
 </div>
 </div>
 </div>
@@ -318,7 +419,7 @@ aria-labelledby="heading1_5" data-bs-parent="#accordionExample">
 <p><br></p>
 <p><br></p>
 <h3 id="problem-1.6">Problem 1.6</h3>
-<p>Consider again the expression from part (e). Suppose we remove the
+<p>Consider again the expression from 1.5. Suppose we remove the
 piece</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>.sort_values(by<span class="op">=</span><span class="st">&quot;Class Standing&quot;</span>)</span></code></pre></div>
 <p>but keep all other parts the same. Does this change the value the
@@ -342,7 +443,26 @@ aria-labelledby="heading1_6" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer</strong>: No, this does not change the value the
 expression evaluates to.</p>
-<p>TODO add explanation</p>
+<p>The removed part <code>.sort_values(by="Class Standing")</code> sorts
+the survey DataFrame based on the <code>"Class Standing"</code> column,
+but this action does not impact the subsequent grouping by
+<code>"College"</code>. Thus, when <code>.groupby("College")</code> is
+applied, it groups the data into subsets based on unique college names,
+and these groups are usually arranged alphanumerically by default,
+irrespective of the prior sorting. Therefore, despite omitting the
+sorting step, the groups still maintain the same order. After employing
+<code>.count()</code>, the function calculates non-null counts per
+column for each college group, and then
+<code>.get("IG Followers")</code> selects the
+<code>"IG Followers"</code> column, producing a Series with college
+names as indices and <code>"IG Followers"</code> counts as values.
+Lastly, <code>.index[0]</code> retrieves the first index label from the
+Series, which, due to the inherent alphanumeric ordering of the college
+names (<code>"ERC"</code>, <code>"Marshall"</code>, <code>"Muir"</code>,
+<code>"Revelle"</code>, <code>"Seventh"</code>, <code>"Sixth"</code>,
+and <code>"Warren"</code>), should still be <code>"ERC"</code>.
+Consequently, omitting the sorting step doesn’t modify the final value
+that the expression evaluates to.</p>
 </div>
 </div>
 </div>
@@ -354,8 +474,8 @@ expression evaluates to.</p>
 to? If you believe the expression errors, provide a one sentence
 explanation of why.</p>
 <p>For example, if you think the expression evaluates to an int, don’t
-write “int" or”the largest value in the <code>"IG Followers"</code>
-column", write the specific int, like “23".</p>
+write “int” or “the largest value in the <code>"IG Followers"</code>
+column”, write the specific int, like “23”.</p>
 <p><em>Hint: You have enough information to answer the problem; don’t
 forget to look at the data description page.</em></p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>(survey</span>
@@ -377,9 +497,21 @@ aria-labelledby="heading1_7" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer</strong>: The code errors, since the index after
-grouping there is no <code>College</code> named 0.</p>
-<p>TODO add explanation</p>
+<p><strong>Answer</strong>: The code produces an error because, after
+the grouping operation, the resulting Series uses the unique college
+names as indices, and there isn’t a college named <code>0</code>.</p>
+<p>In the context of the described operations, the expression
+(<code>survey .sort_values(by="Class Standing") .groupby("College").count() .get("IG Followers")</code>)
+yields a Series with the colleges as indices and non-null counts of
+<code>"IG Followers"</code> as the values. Here, when
+<code>.loc[0]</code> is used, it attempts to access an element with the
+label <code>0</code> from the Series. However, our indices are college
+names (strings: <code>"ERC"</code>, <code>"Marshall"</code>,
+<code>"Muir"</code>, <code>"Revelle"</code>, <code>"Seventh"</code>,
+<code>"Sixth"</code>, and <code>"Warren"</code>), not integer labels,
+leading to a KeyError as <code>0</code> is not among the labels in the
+Series’ index. This discrepancy in expected and actual index labels
+prompts the error.</p>
 </div>
 </div>
 </div>
@@ -407,8 +539,15 @@ aria-labelledby="heading2_1" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>:
-<code>survey.get('IG Followers') == 0</code></p>
-<p>TODO add explanation</p>
+<code>survey.get("IG Followers") == 0</code></p>
+<p>The method <code>get("IG Followers")</code> retrieves the
+<code>"IG Followers"</code> column from the <strong>survey</strong>
+DataFrame. When <code>== 0</code> is appended, the method effectively
+queries the dataset by identifying entries in the
+<code>"IG Followers"</code> column that are equal to <code>0</code>.
+This condition consequently fetches data where students have no
+Instagram followers, enabling further analysis or operations to be
+conducted specifically on this subset of the data.</p>
 </div>
 </div>
 </div>
@@ -419,9 +558,9 @@ aria-labelledby="heading2_1" data-bs-parent="#accordionExample">
 <p>What goes in blank (b)? Select all valid answers.</p>
 <ul class="task-list">
 <li><p><input type="checkbox" disabled="" /> <code>get("Unread Emails").apply(max)</code></p></li>
-<li><p><input type="checkbox" disabled="" /> <code>get(“Unread Emails”).max()</code></p></li>
-<li><p><input type="checkbox" disabled="" /> <code>sort_values(“Unread Emails”, ascending=False).get(“Unread Emails”).iloc[0]</code></p></li>
-<li><p><input type="checkbox" disabled="" /> <code>sort_values(“Unread Emails”, ascending=False).get(“Unread Emails”).iloc[-1]</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>get("Unread Emails").max()</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>sort_values("Unread Emails", ascending=False).get("Unread Emails").iloc[0]</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>sort_values("Unread Emails", ascending=False).get("Unread Emails").iloc[-1]</code></p></li>
 <li><p><input type="checkbox" disabled="" /> None of the above</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
@@ -438,15 +577,40 @@ aria-labelledby="heading2_2" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: Option 2 and Option 3</p>
-<p>TODO add explanation</p>
+<p><strong>Option 1</strong>:
+<code>get("Unread Emails").apply(max)</code> This option is invalid
+because the <code>apply(max)</code> is used to apply a function across
+the elements of an axis, which isn’t suitable for obtaining the maximum
+value of a column. The <code>max()</code> function, in this case,
+doesn’t produce the intended outcome because it is applied to each
+individual element rather than the column as a whole.</p>
+<p><strong>Option 2</strong>: <code>get("Unread Emails").max()</code>
+This option is valid because it directly fetches the
+<code>"Unread Emails"</code> column and utilizes the <code>max()</code>
+function to retrieve the highest value within it, aligning with the goal
+of identifying the most unread emails.</p>
+<p><strong>Option 3</strong>:
+<code>sort_values("Unread Emails", ascending=False).get("Unread Emails").iloc[0]</code>
+This option is valid. The
+<code>sort_values("Unread Emails", ascending=False)</code> part sorts
+the <code>"Unread Emails"</code> column in descending order. Following
+this, <code>.get("Unread Emails")</code> retrieves the sorted column,
+and <code>.iloc[0]</code> selects the first element, which, given the
+sorting, represents the maximum number of unread emails.</p>
+<p><strong>Option 4</strong>:
+<code>sort_values("Unread Emails", ascending=False).get("Unread Emails").iloc[-1]</code>
+This option is invalid because, although it sorts the
+<code>"Unread Emails"</code> column in descending order, it selects the
+last element with <code>.iloc[-1]</code>, which represents the smallest
+number of unread emails due to the descending sort order.</p>
 </div>
 </div>
 </div>
 </div>
 <p><br></p>
 <p>Now, consider the following block of code.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> survey.groupby([“IG Followers”, “College”]).<span class="bu">max</span>().reset_index()</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>revellian <span class="op">=</span> temp[__(c)__].get(“Unread Emails”).__(d)__</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> survey.groupby([<span class="st">&quot;IG Followers&quot;</span>, <span class="st">&quot;College&quot;</span>]).<span class="bu">max</span>().reset_index()</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>revellian <span class="op">=</span> temp[__(c)__].get(<span class="st">&quot;Unread Emails&quot;</span>).__(d)__</span></code></pre></div>
 <p>Fill in the blanks below so that <code>revellian</code> is equal to
 the most unread emails of any student in Revelle, among those with 0
 Instagram followers.</p>
@@ -467,7 +631,7 @@ aria-labelledby="heading2_3" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answers</strong>:
-<code>(temp.get(“College”) == “Revelle”) &amp; (temp.get(“IG Followers”) == 0)</code></p>
+<code>(temp.get("College") == "Revelle") &amp; (temp.get("IG Followers") == 0)</code></p>
 <p>TODO add explanation</p>
 </div>
 </div>
@@ -490,7 +654,8 @@ aria-labelledby="heading2_4" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer</strong>: <code>max()</code></p>
+<p><strong>Answer</strong>: <code>iloc[0]</code>, <code>iloc[-1]</code>,
+<code>sum()</code>, <code>max()</code>, or <code>mean()</code>.</p>
 <p>TODO add explanation</p>
 </div>
 </div>
@@ -500,9 +665,9 @@ aria-labelledby="heading2_4" data-bs-parent="#accordionExample">
 <p><br></p>
 <h3 id="problem-2.5">Problem 2.5</h3>
 <p>The student in Revelle with the most unread emails, among those with
-0 Instagram followers, is a <code>“HI25”</code> (History) major. Is the
-value <code>“HI25"</code> guaranteed to appear at least once within
-<code>temp.get(“Major”)</code>?</p>
+0 Instagram followers, is a <code>"HI25"</code> (History) major. Is the
+value <code>"HI25"</code> guaranteed to appear at least once within
+<code>temp.get("Major")</code>?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> Yes</p></li>
 <li><p><input type="radio" disabled="" /> No</p></li>
@@ -554,11 +719,12 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href=
 <p>When <code>convert_1</code> is called on an argument other than
 <code>"A"</code> or <code>"B"</code>, what does it return?</p>
 <ul class="task-list">
-<li><p><input type="radio" disabled="" /> “12PM”</p></li>
-<li><p><input type="radio" disabled="" /> “1PM”</p></li>
+<li><p><input type="radio" disabled="" /> <code>"12PM"</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>"1PM"</code></p></li>
 <li><p><input type="radio" disabled="" /> None</p></li>
 <li><p><input type="radio" disabled="" /> It errors</p></li>
 </ul>
+<p><br></p>
 <p>Consider the function <code>converter_2</code>, defined below.</p>
 <div class="sourceCode" id="cb11"><pre
 class="sourceCode py"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> converter_2(section):</span>
@@ -567,14 +733,15 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb11-1"><a href=
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>            <span class="st">&quot;B&quot;</span>: <span class="st">&quot;1PM&quot;</span></span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>        }</span>
 <span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> times_dict[section]</span></code></pre></div>
-<p>When <code>convert_2</code> is called on an argument other than “A”
-or “B”, what does it return?</p>
+<p>When <code>convert_2</code> is called on an argument other than
+<code>"A"</code> or <code>"B"</code>, what does it return?</p>
 <ul class="task-list">
-<li><p><input type="radio" disabled="" /> “12PM”</p></li>
-<li><p><input type="radio" disabled="" /> “1PM”</p></li>
+<li><p><input type="radio" disabled="" /> <code>"12PM"</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>"1PM"</code></p></li>
 <li><p><input type="radio" disabled="" /> None</p></li>
 <li><p><input type="radio" disabled="" /> It errors</p></li>
 </ul>
+<p><br></p>
 <p>Consider the function <code>converter_3</code>, defined below.</p>
 <div class="sourceCode" id="cb12"><pre
 class="sourceCode py"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> converter_3(section):</span>
@@ -584,14 +751,15 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb12-1"><a href=
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="st">&quot;1PM&quot;</span></span>
 <span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
 <span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="dv">1</span> <span class="op">/</span> <span class="dv">0</span></span></code></pre></div>
-<p>When converter_3 is called on an argument other than “A” or “B”, what
-does it return?</p>
+<p>When converter_3 is called on an argument other than <code>"A"</code>
+or <code>"B"</code>, what does it return?</p>
 <ul class="task-list">
-<li><p><input type="radio" disabled="" /> “12PM”</p></li>
-<li><p><input type="radio" disabled="" /> “1PM”</p></li>
+<li><p><input type="radio" disabled="" /> <code>"12PM"</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>"1PM"</code></p></li>
 <li><p><input type="radio" disabled="" /> None</p></li>
 <li><p><input type="radio" disabled="" /> It errors</p></li>
 </ul>
+<p><br></p>
 <p>Consider the function <code>converter_4</code>, defined below.</p>
 <div class="sourceCode" id="cb13"><pre
 class="sourceCode py"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> converter_4(section):</span>
@@ -600,11 +768,11 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb13-1"><a href=
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(sections)):</span>
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> section <span class="op">==</span> sections[i]:</span>
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>                <span class="cf">return</span> times[i]</span></code></pre></div>
-<p>When <code>converter_4</code> is called on an argument other than “A”
-or “B”, what does it return?</p>
+<p>When <code>converter_4</code> is called on an argument other than
+<code>"A"</code> or <code>"B"</code>, what does it return?</p>
 <ul class="task-list">
-<li><p><input type="radio" disabled="" /> “12PM”</p></li>
-<li><p><input type="radio" disabled="" /> “1PM”</p></li>
+<li><p><input type="radio" disabled="" /> <code>"12PM"</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>"1PM"</code></p></li>
 <li><p><input type="radio" disabled="" /> None</p></li>
 <li><p><input type="radio" disabled="" /> It errors</p></li>
 </ul>
@@ -621,7 +789,9 @@ aria-labelledby="heading3_1" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer</strong>: “1PM”, “It errors”, “It errors”, “None”</p>
+<p><strong>Answer</strong>: <code>converter_1</code>:
+<code>"1PM"</code>, <code>converter_2</code>: It errors,
+<code>converter_3</code>: It errors, <code>converter_4</code>: None</p>
 <p>TODO add explanation</p>
 </div>
 </div>
@@ -645,6 +815,7 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb14-1"><a href=
 <li><p><input type="radio" disabled="" /> Series</p></li>
 <li><p><input type="radio" disabled="" /> DataFrame</p></li>
 </ul>
+<p><br></p>
 <p>We’d then like to replace the <code>"Section"</code> column in
 <code>survey</code> with the results in <code>section_times</code>. To
 do so, we run the following line of code, after running the assignment
@@ -654,15 +825,18 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb15-1"><a href=
 <p>What is the result of running the above line of code?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> The <code>"Section"</code> column in <code>survey</code> now contains
-only the values</p></li>
+only the values <code>"12PM"</code> and <code>"1PM"</code>.</p></li>
 <li><p><input type="radio" disabled="" /> The line evaluates to a new DataFrame whose <code>"Section"</code>
-column</p></li>
+column only contains the values <code>"12PM"</code> and
+<code>"1PM"</code>, but the <code>"Section"</code> column in
+<code>survey</code> still contains the values <code>"A"</code> and
+<code>"B"</code>.</p></li>
 <li><p><input type="radio" disabled="" /> An error is raised, because we can’t use <code>.assign</code> with a
-column</p></li>
+column name that already exists.</p></li>
 <li><p><input type="radio" disabled="" /> An error is raised, because the value after the <code>=</code> needs
-to be</p></li>
+to be a list, array, or Series, not a string.</p></li>
 <li><p><input type="radio" disabled="" /> An error is raised, because the value before the <code>=</code> needs
-to be</p></li>
+to be a string, not a variable name.</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
@@ -677,9 +851,11 @@ aria-labelledby="heading3_2" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer</strong>: Series, An error is raised, because the
-value after the = needs to be a list, array, or Series, not a
-string.</p>
+<p><strong>Answer</strong>: What is the type of
+<code>section_times</code>? Series.<br/>
+What is the result of running the above line of code? An error is
+raised, because the value after the <code>=</code> needs to be a list,
+array, or Series, not a string.</p>
 <p>TODO add explanation</p>
 </div>
 </div>
@@ -748,17 +924,21 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb18-1"><a href=
 <span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    mean_3 <span class="op">=</span> X <span class="op">/</span> Y</span></code></pre></div>
 <p>Is <code>mean_2</code> equal to <code>mean_1</code>?</p>
 <ul class="task-list">
-<li><p><input type="radio" disabled="" /> Yes</p></li>
-<li><p><input type="radio" disabled="" /> Yes, if both sections have the same number of students,</p></li>
-<li><p><input type="radio" disabled="" /> Yes, if both sections have the same number of students,</p></li>
-<li><p><input type="radio" disabled="" /> No</p></li>
+<li><p><input type="radio" disabled="" /> Yes.</p></li>
+<li><p><input type="radio" disabled="" /> Yes, if both sections have the same number of students, otherwise
+maybe.</p></li>
+<li><p><input type="radio" disabled="" /> Yes, if both sections have the same number of students, otherwise
+no.</p></li>
+<li><p><input type="radio" disabled="" /> No.</p></li>
 </ul>
 <p>Is <code>mean_3</code> equal to <code>mean_1</code>?</p>
 <ul class="task-list">
-<li><p><input type="radio" disabled="" /> Yes</p></li>
-<li><p><input type="radio" disabled="" /> Yes, if both sections have the same number of students,</p></li>
-<li><p><input type="radio" disabled="" /> Yes, if both sections have the same number of students,</p></li>
-<li><p><input type="radio" disabled="" /> No</p></li>
+<li><p><input type="radio" disabled="" /> Yes.</p></li>
+<li><p><input type="radio" disabled="" /> Yes, if both sections have the same number of students, otherwise
+maybe.</p></li>
+<li><p><input type="radio" disabled="" /> Yes, if both sections have the same number of students, otherwise
+no.</p></li>
+<li><p><input type="radio" disabled="" /> No.</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
@@ -773,8 +953,10 @@ aria-labelledby="heading4_2" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer</strong>: Yes, if both sections have the same number
-of students, otherwise maybe. Yes.</p>
+<p><strong>Answer</strong>: Is <code>mean_2</code> is equal to
+<code>mean_1</code>? Yes, if both sections have the same number of
+students, otherwise maybe.</p>
+<p>Is <code>mean_3</code> is equal to <code>mean_1</code>? Yes.</p>
 <p>TODO add explanation</p>
 </div>
 </div>
@@ -787,6 +969,8 @@ of students, otherwise maybe. Yes.</p>
 decide to start flipping a UCSD-themed coin, with a picture of King
 Triton’s face as the heads side and a picture of his mermaid-like tail
 as the tails side.</p>
+<center><img src='../assets/images/sp23-midterm/king_triton.png' width=45%></center>
+<p><br></p>
 <p>Teresa flips the coin 21 times and sees 13 heads and 8 tails. She
 stores this information in a DataFrame named <code>teresa</code> that
 has 21 rows and 2 columns, such that:</p>
@@ -868,7 +1052,7 @@ aria-labelledby="heading5_2" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer</strong>: A + 1</p>
+<p><strong>Answer</strong>: <span class="math inline">A+1</span></p>
 <p>TODO add explanation</p>
 </div>
 </div>
@@ -881,6 +1065,8 @@ aria-labelledby="heading5_2" data-bs-parent="#accordionExample">
 Instagram followers each student has, measured in 100s. That is, if a
 student is represented in the first bin, they have between 0 and 200
 Instagram followers.</p>
+<center><img src='../assets/images/sp23-midterm/histogram.png' width=60%></center>
+<p><br></p>
 <p>For this question only, assume that there are exactly 200 students in
 DSC 10.</p>
 <p><br></p>
@@ -952,17 +1138,19 @@ Specialization in Machine Learning and Neural Computation). We’ll call
 these four majors “popular majors".</p>
 <p>There are 80 students in DSC 10 with a popular major. The
 distribution of popular majors is given in the bar chart below.</p>
+<center><img src='../assets/images/sp23-midterm/pop-majors.png' width=60%></center>
+<p><br></p>
 <p><br></p>
 <h3 id="problem-7.1">Problem 7.1</h3>
 <p>Fill in the blank below so that the expression outputs the bar chart
 above.</p>
 <div class="sourceCode" id="cb20"><pre
 class="sourceCode py"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>    (survey</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>     .groupby(<span class="st">&#39;Major&#39;</span>).count()</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>     .sort_values(<span class="st">&#39;College&#39;</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>     .groupby(<span class="st">&quot;Major&quot;</span>).count()</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>     .sort_values(<span class="st">&quot;College&quot;</span>)</span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>     .take(____)</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>     .get(<span class="st">&#39;Section&#39;</span>)</span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>     .plot(kind<span class="op">=</span><span class="st">&#39;barh&#39;</span>)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>     .get(<span class="st">&quot;Section&quot;</span>)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>     .plot(kind<span class="op">=</span><span class="st">&quot;barh&quot;</span>)</span>
 <span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
 <p>What goes in the blank?</p>
 <div id="accordionExample" class="accordion">
@@ -978,15 +1166,13 @@ aria-labelledby="heading7_1" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer</strong>: [-4, -3. -2, -1]</p>
+<p><strong>Answer</strong>: <code>[-4, -3. -2, -1]</code></p>
 <p>TODO add explanation</p>
 </div>
 </div>
 </div>
 </div>
 <p><br></p>
-<p>For your convenience, we show the bar chart from the last page again
-below.</p>
 <p><br></p>
 <h3 id="problem-7.2">Problem 7.2</h3>
 <p>Suppose we select <strong>two</strong> students in popular majors at
