@@ -55,7 +55,7 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
       <td><a href="disc02/index.html">Arrays and DataFrames</a></td>
     </tr>
     <tr>
-      <th scope="row">2</th>
+      <th scope="row">3</th>
       <td>October 18th</td>
       <td><a href="disc03/index.html">Querying, Grouping, and Plotting</a></td>
     </tr>    
