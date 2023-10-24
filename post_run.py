@@ -61,7 +61,7 @@ def create_tags_folder():
     new_dir = 'pages/tags'
     # new_dir = 'tags'
     folder_path = os.path.join(parent_dir, new_dir)
-    os.makedirs(folder_path)
+    os.makedirs(folder_path, exist_ok=True)
 
 def create_yaml(key, value):
     '''Create yaml page from dictionary of tags and paths.'''
@@ -83,9 +83,9 @@ def create_all_yaml(dict):
         create_yaml(key, value)
 
 if __name__ == '__main__':
-    check_tags(test)
+    check_tags(test) # what is the purpose of this function? right now it's not functioning as an assert
     files = get_all_paths()
-    d = sort_by_tag(files)
+    d = sort_by_tag(files) # I would probably call this function 'coalesce by tag'
     print(d)
     # for p in d['test1']:
     #     print(extract_problem_name(p))
