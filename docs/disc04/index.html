@@ -139,49 +139,38 @@ problems here in the live discussion section</b>; the problems we don’t
 cover can be used for extra practice.</p>
 <hr />
 <h2 id="problem-1">Problem 1</h2>
-<p><center><img src='../assets/images/sp22-midterm/cartoon.png' width=20%></center></p>
-<p>Included is a DataFrame named <code>sungod</code> that contains
-information on the artists who have performed at Sun God in years past.
-<strong>For each year that the festival was held, we have one row for
-each artist that performed that year.</strong> The columns are:</p>
+<p>King Triton, UCSD’s mascot, is quite the traveler! For this question,
+we will be working with the <code>flights</code> DataFrame, which
+details several facts about each of the flights that King Triton has
+been on over the past few years. The first few rows of
+<code>flights</code> are shown below.</p>
+<center><img src='../assets/images/fa21-midterm/flights.png' width=40%></center>
+<p><br></p>
+<p>Here’s a description of the columns in <code>flights</code>:</p>
 <ul>
-<li><code>'Year'</code> (<code>int</code>): the year of the
-festival</li>
-<li><code>'Artist'</code> (<code>str</code>): the name of the
-artist</li>
-<li><code>'Appearance_Order'</code> (<code>int</code>): the order in
-which the artist appeared in that year’s festival (1 means they came
-onstage first)</li>
+<li><code>'DATE'</code>: the date on which the flight occurred. Assume
+that there were no “redeye” flights that spanned multiple days.</li>
+<li><code>'FLIGHT'</code>: the flight number. Note that this is not
+unique; airlines reuse flight numbers on a daily basis.</li>
+<li><code>'FROM'</code> and <code>'TO'</code>: the 3-letter airport code
+for the departure and arrival airports, respectively. Note that it’s not
+possible to have a flight from and to the same airport.</li>
+<li><code>'DIST'</code>: the distance of the flight, in miles.</li>
+<li><code>'HOURS'</code>: the length of the flight, in hours.</li>
+<li><code>'SEAT'</code>: the kind of seat King Triton sat in on the
+flight; the only possible values are <code>'WINDOW'</code>,
+<code>'MIDDLE'</code>, and <code>'AISLE'</code>. <br><br></li>
 </ul>
-<p>The rows of <code>sungod</code> are arranged in <strong>no particular
-order</strong>. The first few rows of <code>sungod</code> are shown
-below (though <code>sungod</code> has <strong>many more rows</strong>
-than pictured here).</p>
-<center><img src='../assets/images/sp22-midterm/sungod.png' width=30%></center>
-<p>Assume:</p>
-<ul>
-<li><p>Only one artist ever appeared at a time (for example, we can’t
-have two separate artists with a <code>'Year'</code> of 2015 and an
-<code>'Appearance_Order'</code> of 3).</p></li>
-<li><p>An artist may appear in multiple different Sun God festivals
-(they could be invited back).</p></li>
-<li><p>We have already run <code>import babypandas as bpd</code> and
-<code>import numpy as np</code>. <br><br></p></li>
-</ul>
-<p>Fill in the blank in the code below so that
-<code>chronological</code> is a DataFrame with the same rows as
-<code>sungod</code>, but ordered chronologically by appearance on stage.
-That is, earlier years should come before later years, and within a
-single year, artists should appear in the DataFrame in the order they
-appeared on stage at Sun God. Note that <code>groupby</code>
-automatically sorts the index in ascending order.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>chronological <span class="op">=</span> sungod.groupby(___________).<span class="bu">max</span>().reset_index()</span></code></pre></div>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> <code>['Year', 'Artist', 'Appearance_Order']</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>['Year', 'Appearance_Order']</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>['Appearance_Order', 'Year']</code></p></li>
-<li><p><input type="radio" disabled="" /> None of the above.</p></li>
-</ul>
+<p>Suppose we create a DataFrame called <code>socal</code> containing
+only King Triton’s flights departing from SAN, LAX, or SNA (John Wayne
+Airport in Orange County). <code>socal</code> has 10 rows; the bar chart
+below shows how many of these 10 flights departed from each airport.</p>
+<center><img src='../assets/images/fa21-midterm/socal.png' width=30%></center>
+<p><br></p>
+<p>Consider the DataFrame that results from merging <code>socal</code>
+with itself, as follows:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>double_merge <span class="op">=</span> socal.merge(socal, left_on<span class="op">=</span><span class="st">&#39;FROM&#39;</span>, right_on<span class="op">=</span><span class="st">&#39;FROM&#39;</span>)</span></code></pre></div>
+<p>How many rows does <code>double_merge</code> have?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading1">
@@ -195,211 +184,157 @@ aria-labelledby="heading1" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer: </strong>
-<code>['Year', 'Appearance_Order']</code></p>
-<p>The fact that <code>groupby</code> automatically sorts the index in
-ascending order is important here. Since we want earlier years before
-later years, we could group by <code>'Year'</code>, however if we
-<em>just</em> group by year, all the artists who performed in a given
-year will be aggregated together, which is not what we want. Within each
-year, we want to organize the artists in ascending order of
-<code>'Appearance_Order'</code>. In other words, we need to group by
-<code>'Year'</code> with <code>'Appearance_Order'</code> as subgroups.
-Therefore, the correct way to reorder the rows of <code>sungod</code> as
-desired is
-<code>sungod.groupby(['Year', 'Appearance_Order']).max().reset_index()</code>.
-Note that we need to reset the index so that the resulting DataFrame has
-<code>'Year'</code> and <code>'Appearance_Order'</code> as columns, like
-in <code>sungod</code>.</p>
+<p><strong>Answer: </strong> 38</p>
+<p>There are two flights from LAX. When we merge <code>socal</code> with
+itself on the <code>'FROM'</code> column, each of these flights gets
+paired up with each of these flights, for a total of four rows in the
+output. That is, the first flight from LAX gets paired with both the
+first and second flights from LAX. Similarly, the second flight from LAX
+gets paired with both the first and second flights from LAX.</p>
+<p>Following this logic, each of the five flights from SAN gets paired
+with each of the five flights from SAN, for an additional 25 rows in the
+output. For SNA, there will be 9 rows in the output. The total is
+therefore <span class="math inline">2^2 + 5^2 + 3^2 = 4 + 25 + 9 =
+38</span> rows.</p>
 <hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️⭐️</h5>
 <p>
 </p>
-<p>The average score on this problem was 85%.</p>
+<p>The average score on this problem was 27%.</p>
 </div>
 </div>
 </div>
 </div>
 <hr />
 <h2 id="problem-2">Problem 2</h2>
-<p>Another DataFrame called <code>music</code> contains a row for every
-music artist that has ever released a song. The columns are:</p>
-<ul>
-<li><code>'Name'</code> (<code>str</code>): the name of the music
-artist</li>
-<li><code>'Genre'</code> (<code>str</code>): the primary genre of the
-artist</li>
-<li><code>'Top_Hit'</code> (<code>str</code>): the most popular song by
-that artist, based on sales, radio play, and streaming</li>
-<li><code>'Top_Hit_Year'</code> (<code>int</code>): the year in which
-the top hit song was released</li>
-</ul>
-<p>You want to know how many musical genres have been represented at Sun
-God since its inception in 1983. Which of the following expressions
-produces a DataFrame called <code>merged</code> that could help
-determine the answer?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> <code>merged = sungod.merge(music, left_on='Year', right_on='Top_Hit_Year')</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>merged = music.merge(sungod, left_on='Year', right_on='Top_Hit_Year')</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>merged = sungod.merge(music, left_on='Artist', right_on='Name')</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>merged = music.merge(sungod, left_on='Artist', right_on='Name')</code></p></li>
-</ul>
+<p>We define a “route” to be a departure and arrival airport pair. For
+example, all flights from <code>'SFO'</code> to <code>'SAN'</code> make
+up the “SFO to SAN route”. This is different from the “SAN to SFO
+route”.</p>
+<p>Fill in the blanks below so that
+<code>most_frequent.get('FROM').iloc[0]</code> and
+<code>most_frequent.get('TO').iloc[0]</code> correspond to the departure
+and destination airports of the route that King Triton has spent the
+<strong>most time flying on</strong>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>most_frequent <span class="op">=</span> flights.groupby(__(a)__).__(b)__</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>most_frequent <span class="op">=</span> most_frequent.reset_index().sort_values(__(c)__)</span></code></pre></div>
+<p><br></p>
+<h3 id="problem-2.1">Problem 2.1</h3>
+<p>What goes in blank (a)?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="true" aria-controls="collapse2">
+<h2 class="accordion-header" id="heading2_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2_1" aria-expanded="true" aria-controls="collapse2_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse2" class="accordion-collapse collapse"
-aria-labelledby="heading2" data-bs-parent="#accordionExample">
+<div id="collapse2_1" class="accordion-collapse collapse"
+aria-labelledby="heading2_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> <code>['FROM', 'TO']</code></p>
+<p>We want to organize flights by route. This means we need to group by
+both <code>'FROM'</code> and <code>'TO'</code> so any flights with the
+same pair of departure and arrival airports get grouped together. To
+group by multiple columns, we must use a list containing all these
+column names, as in <code>flights.groupby(['FROM', 'TO'])</code>.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 72%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-2.2">Problem 2.2</h3>
+<p>What goes in blank (b)?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>count()</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>mean()</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>sum()</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>max()</code></p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading2_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2_2" aria-expanded="true" aria-controls="collapse2_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse2_2" class="accordion-collapse collapse"
+aria-labelledby="heading2_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> <code>sum()</code></p>
+<p>Every <code>.groupby</code> command needs an aggregation function!
+Since we are asked to find the route that King Triton has spent the most
+time flying on, we want to total the times for all flights on a given
+route.</p>
+<p>Note that <code>.count()</code> would tell us how many flights King
+Triton has taken on each route. That’s meaningful information, but not
+what we need to address the question of which route he spent the most
+time flying on.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 58%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-2.3">Problem 2.3</h3>
+<p>What goes in blank (c)?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>by='HOURS', ascending=True</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>by='HOURS', ascending=False</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>by='HOURS', descending=True</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>by='DIST', ascending=False</code></p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading2_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2_3" aria-expanded="true" aria-controls="collapse2_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse2_3" class="accordion-collapse collapse"
+aria-labelledby="heading2_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer: </strong>
-<code>merged = sungod.merge(music, left_on='Artist', right_on='Name')</code></p>
-<p>The question we want to answer is about Sun God music artists’
-genres. In order to answer, we’ll need a DataFrame consisting of rows of
-artists that have performed at Sun God since its inception in 1983. If
-we merge the <code>sungod</code> DataFrame with the <code>music</code>
-DataFrame based on the artist’s name, we’ll end up with a DataFrame
-containing one row for each artist that has ever performed at Sun God.
-Since the column containing artists’ names is called
-<code>'Artist'</code> in <code>sungod</code> and <code>'Name'</code> in
-<code>music</code>, the correct syntax for this merge is
-<code>merged = sungod.merge(music, left_on='Artist', right_on='Name')</code>.
-Note that we could also interchange the left DataFrame with the right
-DataFrame, as swapping the roles of the two DataFrames in a merge only
-changes the ordering of rows and columns in the output, not the data
-itself. This can be written in code as
-<code>merged = music.merge(sungod, left_on='Name', right_on='Artist')</code>,
-but this is not one of the answer choices.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 86%.</p>
-</div>
-</div>
-</div>
-</div>
-<hr />
-<h2 id="problem-3">Problem 3</h2>
-<p>You generate a three-digit number by randomly choosing each digit to
-be a number 0 through 9, inclusive. Each digit is equally likely to be
-chosen.</p>
-<p><br></p>
-<h3 id="problem-3.1">Problem 3.1</h3>
-<p>What is the probability you produce the number <strong>027</strong>?
-Give your answer as a decimal number between 0 and 1 with no
-rounding.</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading3_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_1" aria-expanded="true" aria-controls="collapse3_1">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse3_1" class="accordion-collapse collapse"
-aria-labelledby="heading3_1" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> 0.001</p>
-<p>There is a <span class="math inline">\frac{1}{10}</span> chance that
-we get 0 as the first random number, a <span class="math inline">\frac{1}{10}</span> chance that we get 2 as the
-second random number, and a <span class="math inline">\frac{1}{10}</span> chance that we get 7 as the
-third random number. The probability of all of these events happening is
-<span class="math inline">\frac{1}{10}*\frac{1}{10}*\frac{1}{10} =
-0.001</span>.</p>
-<p>Another way to do this problem is to think about the possible
-outcomes. Any number from 000 to 999 is possible and all are equally
-likely. Since there are 1000 possible outcomes and the number 027 is
-just one of the possible outcomes, the probability of getting this
-outcome is <span class="math inline">\frac{1}{1000} = 0.001</span>.</p>
+<code>by='HOURS', ascending=False</code></p>
+<p>We want to know the route that King Triton spent the most time flying
+on. After we group flights by route, summing flights on the same route,
+the <code>'HOURS'</code> column contains the total amount of time spent
+on each route. We need <code>most_frequent.get('FROM').iloc[0]</code>
+and <code>most_frequent.get('TO').iloc[0]</code> to correspond with the
+departure and destination airports of the route that King Triton has
+spent the most time flying on. To do this, we need to sort in descending
+order of time, to bring the largest time to the top of the DataFrame. So
+we must sort by <code>'HOURS'</code> with
+<code>ascending=False</code>.</p>
 <hr/>
 <h5>Difficulty: ⭐️</h5>
 <p>
 </p>
-<p>The average score on this problem was 92%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-3.2">Problem 3.2</h3>
-<p>What is the probability you produce a number with an odd digit in the
-middle position? For example, <strong>250</strong>. Give your answer as
-a decimal number between 0 and 1 with no rounding.</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading3_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_2" aria-expanded="true" aria-controls="collapse3_2">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse3_2" class="accordion-collapse collapse"
-aria-labelledby="heading3_2" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> 0.5</p>
-<p>Because the values of the left and right positions are not important
-to us, think of the middle position only. When selecting a random number
-to go here, we are choosing randomly from the numbers 0 through 9. Since
-5 of these numbers are odd (1, 3, 5, 7, 9), the probability of getting
-an odd number is <span class="math inline">\frac{5}{10} =
-0.5</span>.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 78%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-3.3">Problem 3.3</h3>
-<p>What is the probability you produce a number with a
-<strong>7</strong> in it somewhere? Give your answer as a decimal number
-between 0 and 1 with no rounding.</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading3_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_3" aria-expanded="true" aria-controls="collapse3_3">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse3_3" class="accordion-collapse collapse"
-aria-labelledby="heading3_3" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> 0.271</p>
-<p>It’s easier to calculate the probability that the number has no 7 in
-it, and then subtract this probability from 1. To solve this problem
-directly, we’d have to consider cases where 7 appeared multiple times,
-which would be more complicated.</p>
-<p>The probability that the resulting number has no 7 is <span class="math inline">\frac{9}{10}*\frac{9}{10}*\frac{9}{10} =
-0.729</span> because in each of the three positions, there is a <span class="math inline">\frac{9}{10}</span> chance of selecting something
-other than a 7. Therefore, the probability that the number has a 7 is
-<span class="math inline">1 - 0.729 = 0.271</span>. </p>
-<hr/>
-<h5>Difficulty:
-⭐️⭐️⭐️</h5>
-<p>The average score on this problem was 69%.</p>
+<p>The average score on this problem was 94%.</p>
 </div>
 </div>
 </div>
 </div>
 <p><br></p>
 <hr />
-<h2 id="problem-4">Problem 4</h2>
+<h2 id="problem-3">Problem 3</h2>
 <p>We define the seasons as follows:</p>
 <center>
 <table class="table" style="width:30%">
@@ -430,50 +365,50 @@ other than a 7. Therefore, the probability that the number has a 7 is
 </table>
 </center>
 <p><br></p>
-<h3 id="problem-4.1">Problem 4.1</h3>
+<h3 id="problem-3.1">Problem 3.1</h3>
 <p>We want to create a function <code>date_to_season</code> that takes
 in a <code>date</code> as formatted in the <code>'DATE'</code> column of
 <code>flights</code> and returns the season corresponding to that date.
 Which of the following implementations of <code>date_to_season</code>
 works correctly? <strong>Select all that apply.</strong></p>
 <p>Option 1:</p>
-<div class="sourceCode" id="cb2"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> date_to_season(date):</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    month_as_num <span class="op">=</span> <span class="bu">int</span>(date.split(<span class="st">&#39;-&#39;</span>)[<span class="dv">1</span>])</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> month_as_num <span class="op">&gt;=</span> <span class="dv">3</span> <span class="kw">and</span> month_as_num <span class="op">&lt;</span> <span class="dv">6</span>:</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Spring&#39;</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> month_as_num <span class="op">&gt;=</span> <span class="dv">6</span> <span class="kw">and</span> month_as_num <span class="op">&lt;</span> <span class="dv">9</span>:</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Summer&#39;</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> month_as_num <span class="op">&gt;=</span> <span class="dv">9</span> <span class="kw">and</span> month_as_num <span class="op">&lt;</span> <span class="dv">12</span>:</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Fall&#39;</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Winter&#39;</span></span></code></pre></div>
-<p>Option 2:</p>
 <div class="sourceCode" id="cb3"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> date_to_season(date):</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    month_as_num <span class="op">=</span> <span class="bu">int</span>(date.split(<span class="st">&#39;-&#39;</span>)[<span class="dv">1</span>])</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> month_as_num <span class="op">&gt;=</span> <span class="dv">3</span> <span class="kw">and</span> month_as_num <span class="op">&lt;</span> <span class="dv">6</span>:</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Spring&#39;</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> month_as_num <span class="op">&gt;=</span> <span class="dv">6</span> <span class="kw">and</span> month_as_num <span class="op">&lt;</span> <span class="dv">9</span>:</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> month_as_num <span class="op">&gt;=</span> <span class="dv">6</span> <span class="kw">and</span> month_as_num <span class="op">&lt;</span> <span class="dv">9</span>:</span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Summer&#39;</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> month_as_num <span class="op">&gt;=</span> <span class="dv">9</span> <span class="kw">and</span> month_as_num <span class="op">&lt;</span> <span class="dv">12</span>:</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> month_as_num <span class="op">&gt;=</span> <span class="dv">9</span> <span class="kw">and</span> month_as_num <span class="op">&lt;</span> <span class="dv">12</span>:</span>
 <span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Fall&#39;</span></span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Winter&#39;</span></span></code></pre></div>
-<p>Option 3:</p>
+<p>Option 2:</p>
 <div class="sourceCode" id="cb4"><pre
 class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> date_to_season(date):</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    month_as_num <span class="op">=</span> <span class="bu">int</span>(date.split(<span class="st">&#39;-&#39;</span>)[<span class="dv">1</span>])</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> month_as_num <span class="op">&lt;</span> <span class="dv">3</span>:</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Winter&#39;</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> month_as_num <span class="op">&lt;</span> <span class="dv">6</span>:</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Spring&#39;</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> month_as_num <span class="op">&lt;</span> <span class="dv">9</span>:</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Summer&#39;</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> month_as_num <span class="op">&lt;</span> <span class="dv">12</span>:</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Fall&#39;</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Winter&#39;</span> </span></code></pre></div>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> month_as_num <span class="op">&gt;=</span> <span class="dv">3</span> <span class="kw">and</span> month_as_num <span class="op">&lt;</span> <span class="dv">6</span>:</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Spring&#39;</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> month_as_num <span class="op">&gt;=</span> <span class="dv">6</span> <span class="kw">and</span> month_as_num <span class="op">&lt;</span> <span class="dv">9</span>:</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Summer&#39;</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> month_as_num <span class="op">&gt;=</span> <span class="dv">9</span> <span class="kw">and</span> month_as_num <span class="op">&lt;</span> <span class="dv">12</span>:</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Fall&#39;</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Winter&#39;</span></span></code></pre></div>
+<p>Option 3:</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> date_to_season(date):</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    month_as_num <span class="op">=</span> <span class="bu">int</span>(date.split(<span class="st">&#39;-&#39;</span>)[<span class="dv">1</span>])</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> month_as_num <span class="op">&lt;</span> <span class="dv">3</span>:</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Winter&#39;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> month_as_num <span class="op">&lt;</span> <span class="dv">6</span>:</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Spring&#39;</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> month_as_num <span class="op">&lt;</span> <span class="dv">9</span>:</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Summer&#39;</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> month_as_num <span class="op">&lt;</span> <span class="dv">12</span>:</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Fall&#39;</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Winter&#39;</span> </span></code></pre></div>
 <ul class="task-list">
 <li><p><input type="checkbox" disabled="" /> Option 1</p></li>
 <li><p><input type="checkbox" disabled="" /> Option 2</p></li>
@@ -483,13 +418,13 @@ correctly</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading4_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_1" aria-expanded="true" aria-controls="collapse4_1">
+<h2 class="accordion-header" id="heading3_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_1" aria-expanded="true" aria-controls="collapse3_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse4_1" class="accordion-collapse collapse"
-aria-labelledby="heading4_1" data-bs-parent="#accordionExample">
+<div id="collapse3_1" class="accordion-collapse collapse"
+aria-labelledby="heading3_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -585,7 +520,7 @@ is extracted and checked first.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-4.2">Problem 4.2</h3>
+<h3 id="problem-3.2">Problem 3.2</h3>
 <p>Assuming we’ve defined <code>date_to_season</code> correctly in the
 previous part, which of the following lines of code correctly computes
 the season for each flight in <code>flights</code>?</p>
@@ -597,13 +532,13 @@ the season for each flight in <code>flights</code>?</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading4_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_2" aria-expanded="true" aria-controls="collapse4_2">
+<h2 class="accordion-header" id="heading3_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_2" aria-expanded="true" aria-controls="collapse3_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse4_2" class="accordion-collapse collapse"
-aria-labelledby="heading4_2" data-bs-parent="#accordionExample">
+<div id="collapse3_2" class="accordion-collapse collapse"
+aria-labelledby="heading3_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -629,196 +564,114 @@ apply to each element of the Series. Therefore, the correct answer is
 </div>
 <p><br></p>
 <hr />
-<h2 id="problem-5">Problem 5</h2>
-<p>King Triton, UCSD’s mascot, is quite the traveler! For this question,
-we will be working with the <code>flights</code> DataFrame, which
-details several facts about each of the flights that King Triton has
-been on over the past few years. The first few rows of
-<code>flights</code> are shown below.</p>
-<center><img src='../assets/images/fa21-midterm/flights.png' width=40%></center>
+<h2 id="problem-4">Problem 4</h2>
+<p>You generate a three-digit number by randomly choosing each digit to
+be a number 0 through 9, inclusive. Each digit is equally likely to be
+chosen.</p>
 <p><br></p>
-<p>Here’s a description of the columns in <code>flights</code>:</p>
-<ul>
-<li><code>'DATE'</code>: the date on which the flight occurred. Assume
-that there were no “redeye” flights that spanned multiple days.</li>
-<li><code>'FLIGHT'</code>: the flight number. Note that this is not
-unique; airlines reuse flight numbers on a daily basis.</li>
-<li><code>'FROM'</code> and <code>'TO'</code>: the 3-letter airport code
-for the departure and arrival airports, respectively. Note that it’s not
-possible to have a flight from and to the same airport.</li>
-<li><code>'DIST'</code>: the distance of the flight, in miles.</li>
-<li><code>'HOURS'</code>: the length of the flight, in hours.</li>
-<li><code>'SEAT'</code>: the kind of seat King Triton sat in on the
-flight; the only possible values are <code>'WINDOW'</code>,
-<code>'MIDDLE'</code>, and <code>'AISLE'</code>. <br><br></li>
-</ul>
-<p>Suppose we create a DataFrame called <code>socal</code> containing
-only King Triton’s flights departing from SAN, LAX, or SNA (John Wayne
-Airport in Orange County). <code>socal</code> has 10 rows; the bar chart
-below shows how many of these 10 flights departed from each airport.</p>
-<center><img src='../assets/images/fa21-midterm/socal.png' width=30%></center>
-<p><br></p>
-<p>Consider the DataFrame that results from merging <code>socal</code>
-with itself, as follows:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>double_merge <span class="op">=</span> socal.merge(socal, left_on<span class="op">=</span><span class="st">&#39;FROM&#39;</span>, right_on<span class="op">=</span><span class="st">&#39;FROM&#39;</span>)</span></code></pre></div>
-<p>How many rows does <code>double_merge</code> have?</p>
+<h3 id="problem-4.1">Problem 4.1</h3>
+<p>What is the probability you produce the number <strong>027</strong>?
+Give your answer as a decimal number between 0 and 1 with no
+rounding.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading5">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5" aria-expanded="true" aria-controls="collapse5">
+<h2 class="accordion-header" id="heading4_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_1" aria-expanded="true" aria-controls="collapse4_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse5" class="accordion-collapse collapse"
-aria-labelledby="heading5" data-bs-parent="#accordionExample">
+<div id="collapse4_1" class="accordion-collapse collapse"
+aria-labelledby="heading4_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer: </strong> 38</p>
-<p>There are two flights from LAX. When we merge <code>socal</code> with
-itself on the <code>'FROM'</code> column, each of these flights gets
-paired up with each of these flights, for a total of four rows in the
-output. That is, the first flight from LAX gets paired with both the
-first and second flights from LAX. Similarly, the second flight from LAX
-gets paired with both the first and second flights from LAX.</p>
-<p>Following this logic, each of the five flights from SAN gets paired
-with each of the five flights from SAN, for an additional 25 rows in the
-output. For SNA, there will be 9 rows in the output. The total is
-therefore <span class="math inline">2^2 + 5^2 + 3^2 = 4 + 25 + 9 =
-38</span> rows.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 27%.</p>
-</div>
-</div>
-</div>
-</div>
-<hr />
-<h2 id="problem-6">Problem 6</h2>
-<p>We define a “route” to be a departure and arrival airport pair. For
-example, all flights from <code>'SFO'</code> to <code>'SAN'</code> make
-up the “SFO to SAN route”. This is different from the “SAN to SFO
-route”.</p>
-<p>Fill in the blanks below so that
-<code>most_frequent.get('FROM').iloc[0]</code> and
-<code>most_frequent.get('TO').iloc[0]</code> correspond to the departure
-and destination airports of the route that King Triton has spent the
-<strong>most time flying on</strong>.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>most_frequent <span class="op">=</span> flights.groupby(__(a)__).__(b)__</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>most_frequent <span class="op">=</span> most_frequent.reset_index().sort_values(__(c)__)</span></code></pre></div>
-<p><br></p>
-<h3 id="problem-6.1">Problem 6.1</h3>
-<p>What goes in blank (a)?</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading6_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_1" aria-expanded="true" aria-controls="collapse6_1">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse6_1" class="accordion-collapse collapse"
-aria-labelledby="heading6_1" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> <code>['FROM', 'TO']</code></p>
-<p>We want to organize flights by route. This means we need to group by
-both <code>'FROM'</code> and <code>'TO'</code> so any flights with the
-same pair of departure and arrival airports get grouped together. To
-group by multiple columns, we must use a list containing all these
-column names, as in <code>flights.groupby(['FROM', 'TO'])</code>.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 72%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-6.2">Problem 6.2</h3>
-<p>What goes in blank (b)?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> <code>count()</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>mean()</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>sum()</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>max()</code></p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading6_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_2" aria-expanded="true" aria-controls="collapse6_2">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse6_2" class="accordion-collapse collapse"
-aria-labelledby="heading6_2" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> <code>sum()</code></p>
-<p>Every <code>.groupby</code> command needs an aggregation function!
-Since we are asked to find the route that King Triton has spent the most
-time flying on, we want to total the times for all flights on a given
-route.</p>
-<p>Note that <code>.count()</code> would tell us how many flights King
-Triton has taken on each route. That’s meaningful information, but not
-what we need to address the question of which route he spent the most
-time flying on.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 58%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-6.3">Problem 6.3</h3>
-<p>What goes in blank (c)?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> <code>by='HOURS', ascending=True</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>by='HOURS', ascending=False</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>by='HOURS', descending=True</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>by='DIST', ascending=False</code></p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading6_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_3" aria-expanded="true" aria-controls="collapse6_3">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse6_3" class="accordion-collapse collapse"
-aria-labelledby="heading6_3" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong>
-<code>by='HOURS', ascending=False</code></p>
-<p>We want to know the route that King Triton spent the most time flying
-on. After we group flights by route, summing flights on the same route,
-the <code>'HOURS'</code> column contains the total amount of time spent
-on each route. We need <code>most_frequent.get('FROM').iloc[0]</code>
-and <code>most_frequent.get('TO').iloc[0]</code> to correspond with the
-departure and destination airports of the route that King Triton has
-spent the most time flying on. To do this, we need to sort in descending
-order of time, to bring the largest time to the top of the DataFrame. So
-we must sort by <code>'HOURS'</code> with
-<code>ascending=False</code>.</p>
+<p><strong>Answer: </strong> 0.001</p>
+<p>There is a <span class="math inline">\frac{1}{10}</span> chance that
+we get 0 as the first random number, a <span class="math inline">\frac{1}{10}</span> chance that we get 2 as the
+second random number, and a <span class="math inline">\frac{1}{10}</span> chance that we get 7 as the
+third random number. The probability of all of these events happening is
+<span class="math inline">\frac{1}{10}*\frac{1}{10}*\frac{1}{10} =
+0.001</span>.</p>
+<p>Another way to do this problem is to think about the possible
+outcomes. Any number from 000 to 999 is possible and all are equally
+likely. Since there are 1000 possible outcomes and the number 027 is
+just one of the possible outcomes, the probability of getting this
+outcome is <span class="math inline">\frac{1}{1000} = 0.001</span>.</p>
 <hr/>
 <h5>Difficulty: ⭐️</h5>
 <p>
 </p>
-<p>The average score on this problem was 94%.</p>
+<p>The average score on this problem was 92%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-4.2">Problem 4.2</h3>
+<p>What is the probability you produce a number with an odd digit in the
+middle position? For example, <strong>250</strong>. Give your answer as
+a decimal number between 0 and 1 with no rounding.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading4_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_2" aria-expanded="true" aria-controls="collapse4_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse4_2" class="accordion-collapse collapse"
+aria-labelledby="heading4_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> 0.5</p>
+<p>Because the values of the left and right positions are not important
+to us, think of the middle position only. When selecting a random number
+to go here, we are choosing randomly from the numbers 0 through 9. Since
+5 of these numbers are odd (1, 3, 5, 7, 9), the probability of getting
+an odd number is <span class="math inline">\frac{5}{10} =
+0.5</span>.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 78%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-4.3">Problem 4.3</h3>
+<p>What is the probability you produce a number with a
+<strong>7</strong> in it somewhere? Give your answer as a decimal number
+between 0 and 1 with no rounding.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading4_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_3" aria-expanded="true" aria-controls="collapse4_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse4_3" class="accordion-collapse collapse"
+aria-labelledby="heading4_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> 0.271</p>
+<p>It’s easier to calculate the probability that the number has no 7 in
+it, and then subtract this probability from 1. To solve this problem
+directly, we’d have to consider cases where 7 appeared multiple times,
+which would be more complicated.</p>
+<p>The probability that the resulting number has no 7 is <span class="math inline">\frac{9}{10}*\frac{9}{10}*\frac{9}{10} =
+0.729</span> because in each of the three positions, there is a <span class="math inline">\frac{9}{10}</span> chance of selecting something
+other than a 7. Therefore, the probability that the number has a 7 is
+<span class="math inline">1 - 0.729 = 0.271</span>. </p>
+<hr/>
+<h5>Difficulty:
+⭐️⭐️⭐️</h5>
+<p>The average score on this problem was 69%.</p>
 </div>
 </div>
 </div>
