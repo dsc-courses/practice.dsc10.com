@@ -8,21 +8,12 @@
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    /* The extra [class] is a hack that increases specificity enough to
-       override a similar rule in reveal.js */
-    ul.task-list[class]{list-style: none;}
-    ul.task-list li input[type="checkbox"] {
-      font-size: inherit;
-      width: 0.8em;
-      margin: 0 0.8em 0.2em -1.6em;
-      vertical-align: middle;
-    }
-    /* CSS for syntax highlighting */
+    ul.task-list{list-style: none;}
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -59,7 +50,7 @@
     code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
     code span.at { color: #7d9029; } /* Attribute */
     code span.bn { color: #40a070; } /* BaseN */
-    code span.bu { color: #008000; } /* BuiltIn */
+    code span.bu { } /* BuiltIn */
     code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
     code span.ch { color: #4070a0; } /* Char */
     code span.cn { color: #880000; } /* Constant */
@@ -72,7 +63,7 @@
     code span.ex { } /* Extension */
     code span.fl { color: #40a070; } /* Float */
     code span.fu { color: #06287e; } /* Function */
-    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.im { } /* Import */
     code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
     code span.kw { color: #007020; font-weight: bold; } /* Keyword */
     code span.op { color: #666666; } /* Operator */
@@ -143,11 +134,11 @@ Welcome Survey to tell us about your background coming into the course.
 You were also asked to share seemingly irrelevant details, like the
 number of followers you have on Instagram and the number of unread
 emails in your primary email account. Well, those details are no longer
-irrelevant in this exam, we will work with the data from this quarter’s
-Welcome Survey!</p>
-<p>Each row in the DataFrame <strong>survey</strong> represents one
-student in DSC10. The information stored in the columns of
-<strong>survey</strong> are as follows:</p>
+irrelevant – in this exam, we will work with the data from this
+quarter’s Welcome Survey!</p>
+<p>Each row in the DataFrame <code>survey</code>represents one student
+in DSC 10. The information stored in the columns of <code>survey</code>
+are as follows:</p>
 <ul>
 <li><code>"Section"</code> (<code>str</code>): The lecture section the
 student is enrolled in (either <code>"A"</code> or
@@ -169,13 +160,13 @@ class standing (either <code>"Freshman"</code>,
 <code>"Sophomore"</code>, <code>"Junior"</code>, or
 <code>"Senior"</code>).</li>
 </ul>
-<p>The first few rows of <strong>survey</strong> are shown below, though
-<strong>survey</strong> has many more rows than are pictured below
-(since there are more than 5 students in DSC 10 this quarter).</p>
+<p>The first few rows of <code>survey</code> are shown below, though
+<code>survey</code> has many more rows than are pictured below (since
+there are more than 5 students in DSC 10 this quarter).</p>
 <center><img src='../assets/images/sp23-midterm/df-preview.png' width=60%></center>
 <p><br></p>
-<p><strong>Throughout this exam, we will refer to survey
-repeatedly</strong></p>
+<p><strong>Throughout this exam, we will refer to <code>survey</code>
+repeatedly.</strong></p>
 <p>Assume that we have already run <code>import babypandas as bpd</code>
 and <code>import numpy as np</code>.</p>
 <hr />
@@ -201,18 +192,19 @@ and <code>import numpy as np</code>.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse1_1" class="accordion-collapse collapse"
+<div id="collapse1_1" class="accordion-collapse collapse collapse"
 aria-labelledby="heading1_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: DataFrame</p>
-<p>The method <code>sort_values(by="Class Standing")</code> sorts the
-DataFrame by the <code>"Class Standing"</code> column and returns a new
-DataFrame, without modifying the original one. The resulting DataFrame
-will be sorted by class standing in ascending order unless specified
-otherwise by providing the <code>ascending=False</code> argument.</p>
+<p>The method <code>.sort_values(by="Class Standing")</code> sorts the
+<code>survey</code> DataFrame by the <code>"Class Standing"</code>
+column and returns a new DataFrame (without modifying the original one).
+The resulting DataFrame will be sorted by class standing in ascending
+order unless specified otherwise by providing the
+<code>ascending=False</code> argument.</p>
 </div>
 </div>
 </div>
@@ -239,24 +231,30 @@ otherwise by providing the <code>ascending=False</code> argument.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse1_2" class="accordion-collapse collapse"
+<div id="collapse1_2" class="accordion-collapse collapse collapse"
 aria-labelledby="heading1_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: DataFrame</p>
-<p>The method <code>sort_values(by="Class Standing")</code> sorts the
-<strong>survey</strong> DataFrame based on the entries in the
-<code>"Class Standing"</code> column, producing a new DataFrame sorted
-per the specified column. Following this,
-<code>groupby("College")</code> organizes the sorted DataFrame by
-grouping entries using the <code>"College"</code> column. Subsequently,
-applying <code>.count()</code> computes the number of non-null values
-for each column within each group. The final output, after employing
-<code>.count()</code>, is a DataFrame where the indices are the distinct
-entries from the <code>"College"</code> grouping column, and the
-corresponding column values depict the counts of non-null entries.</p>
+<p>The method <code>.sort_values(by="Class Standing")</code> sorts the
+<code>survey</code> DataFrame based on the entries in the
+<code>"Class Standing"</code> column and produces a new DataFrame.
+Following this, <code>.groupby("College")</code> organizes the sorted
+DataFrame by grouping entries using the <code>"College"</code> column.
+After that, the <code>.count()</code> aggregation method computes the
+number of rows for each <code>"College"</code>. The result is a
+DataFrame whose index contains the unique values in
+<code>"College"</code> and whose columns all contain the same values –
+the number of rows in
+<code>survey.sort_values(by="Class Standing")</code> for each
+<code>"College"</code>.</p>
+<p>Note that if we didn’t sort before grouping – that is, if our
+expression was just <code>survey.groupby("College").count()</code> – the
+resulting DataFrame would be the same! That’s because the order of the
+rows in <code>survey</code> does not impact the number of rows in
+<code>survey</code> that belong to each <code>"College"</code>.</p>
 </div>
 </div>
 </div>
@@ -285,27 +283,28 @@ corresponding column values depict the counts of non-null entries.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse1_3" class="accordion-collapse collapse"
+<div id="collapse1_3" class="accordion-collapse collapse collapse"
 aria-labelledby="heading1_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: Series</p>
-<p>The method <code>sort_values(by="Class Standing")</code> sorts the
-<strong>survey</strong> DataFrame according to the
-<code>"Class Standing"</code> column, yielding a new DataFrame arranged
-by the specified column. Next, <code>groupby("College")</code> organizes
-the sorted DataFrame, grouping entries based on the
-<code>"College"</code> column. Following that, <code>.count()</code>
-determines the number of non-null entries for each column within each
-group. Subsequent to utilizing <code>.count()</code>, the result is a
-DataFrame where the indices are unique entries from the
-<code>"College"</code> column, and the column values illustrate counts
-of non-null entries. Lastly, <code>.get("IG Followers")</code> retrieves
-the column labeled <code>"IG Followers"</code> from the resulting
-DataFrame. Therefore, the type of the entire expression is a Series
-since retrieving a single column from a DataFrame yields a Series.</p>
+<p>The above expression, before <code>.get("IG Followers")</code>, is
+the same as in the previous subpart. We know that</p>
+<div id="cb1" class="sourceCode">
+<pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a>survey.sort_values(by<span class="op">=</span><span class="st">"Class Standing"</span>).groupby(<span class="st">"College"</span>).count()</span></code></pre>
+</div>
+<p>is a DataFrame indexed by <code>"College"</code> with multiple
+columns, each of which contain the number of rows in
+<code>survey.sort_values(by="Class Standing")</code> for each
+<code>"College"</code>. Then, using <code>.get("IG Followers")</code>
+extracts just the <code>"IG Followers"</code> column from the
+aforementioned counts DataFrame, and we know that columns are stored as
+Series. We know that this column exists, because
+<code>survey.sort_values(by="Class Standing").groupby("College").count()</code>
+will have the same columns as <code>survey</code>, minus
+<code>"College"</code>, which was moved to the index.</p>
 </div>
 </div>
 </div>
@@ -335,30 +334,24 @@ since retrieving a single column from a DataFrame yields a Series.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse1_4" class="accordion-collapse collapse"
+<div id="collapse1_4" class="accordion-collapse collapse collapse"
 aria-labelledby="heading1_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: int or float</p>
-<p>Beginning with <code>sort_values(by="Class Standing")</code>, the
-<strong>survey</strong> DataFrame is sorted based on the
-<code>"Class Standing"</code> column, creating a newly sorted DataFrame
-according to that column. Subsequently, <code>groupby("College")</code>
-groups the sorted DataFrame using the <code>"College"</code> column,
-organizing entries accordingly. Then, <code>.count()</code> calculates
-the number of non-null entries for each column within each defined
-group. After utilizing <code>.count()</code>, we have a DataFrame where
-the indices are unique entries from the <code>"College"</code> column,
-and the associated column values denote counts of non-null entries.
-Moving forward, <code>.get("IG Followers")</code> selects the
-<code>"IG Followers"</code> column from the resulting DataFrame,
-resulting in a Pandas Series since extracting a single column from a
-DataFrame yields a Series. Lastly, <code>.iloc[0]</code> accesses the
-first element of the Series, which would be the non-null count of
-<code>"IG Followers"</code> for the first college (alphabetically) in
-the grouped data.</p>
+<p>In the previous subpart, we saw that</p>
+<div id="cb1" class="sourceCode">
+<pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a>survey.sort_values(by<span class="op">=</span><span class="st">"Class Standing"</span>).groupby(<span class="st">"College"</span>).count().get(<span class="st">"IG Followers"</span>)</span></code></pre>
+</div>
+<p>is a Series whose index contains the unique names of
+<code>"College"</code>s and whose values are the number of rows in
+<code>survey.sort_values(by="Class Standing")</code> for each college.
+The number of rows in
+<code>survey.sort_values(by="Class Standing")</code> for any particular
+college – say, <code>"Sixth"</code> – is a number, and so the values in
+this Series are all numbers. As such, the answer is int or float.</p>
 </div>
 </div>
 </div>
@@ -387,36 +380,37 @@ forget to look at the data description page.</em></p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse1_5" class="accordion-collapse collapse"
+<div id="collapse1_5" class="accordion-collapse collapse collapse"
 aria-labelledby="heading1_5" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: <code>"ERC"</code></p>
-<p>The method <code>.sort_values(by="Class Standing")</code> sorts the
-survey DataFrame based on <code>"Class Standing"</code>, though this
-step does not influence the order of colleges. Following this,
-<code>.groupby("College")</code> groups the DataFrame according to the
-distinct college names, which are, by default, arranged in an
-alphanumeric order in the resulting grouped object. Applying
-<code>.count()</code> next, the function computes the non-null counts
-for each column within each group, presenting a DataFrame where the
-indices are the unique college names and the columns represent counts.
-After using <code>.get("IG Followers")</code>, a Series is obtained,
-using college names as indices and counts of <code>"IG Followers"</code>
-as values. The concluding step, <code>.index[0]</code>, retrieves the
-first index label from this Series. Given the mentioned college names:
-<code>"ERC"</code>, <code>"Marshall"</code>, <code>"Muir"</code>,
+<p>From the previous subpart, we saw that</p>
+<div id="cb1" class="sourceCode">
+<pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a>survey</span>
+<span id="cb1-2"><a aria-hidden="true" href="#cb1-2" tabindex="-1"></a>.sort_values(by<span class="op">=</span><span class="st">"Class Standing"</span>)</span>
+<span id="cb1-3"><a aria-hidden="true" href="#cb1-3" tabindex="-1"></a>.groupby(<span class="st">"College"</span>).count()</span>
+<span id="cb1-4"><a aria-hidden="true" href="#cb1-4" tabindex="-1"></a>.get(<span class="st">"IG Followers"</span>)</span></code></pre>
+</div>
+<p>is a Series, indexed by <code>"College"</code>, whose values contain
+the number of rows in
+<code>survey.sort_values(by="Class Standing")</code> for each
+<code>"College"</code>. When we group by <code>"College"</code>, the
+resulting DataFrame (and hence, our Series) is sorted in ascending order
+by <code>"College"</code>. This means that the index of our Series is
+sorted alphabetically by <code>"College"</code> names. Of the
+<code>"College"</code> names mentioned in the data description
+(<code>"ERC"</code>, <code>"Marshall"</code>, <code>"Muir"</code>,
 <code>"Revelle"</code>, <code>"Seventh"</code>, <code>"Sixth"</code>,
-and <code>"Warren"</code>, the alphabetically first college,
-<code>"ERC"</code>, is expected to be the first index in the Series and,
-therefore, the resultant output of the expression.</p>
+and <code>"Warren"</code>), the first name alphabetically is
+<code>"ERC"</code>, so using <code>.index[0]</code> on the above index
+gives us <code>"ERC"</code>.</p>
 </div>
 </div>
 </div>
 </div>
-<p><br></p>
 <p><br></p>
 <h3 id="problem-1.6">Problem 1.6</h3>
 <p>Consider again the expression from 1.5. Suppose we remove the
@@ -435,7 +429,7 @@ expression evaluates to?</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse1_6" class="accordion-collapse collapse"
+<div id="collapse1_6" class="accordion-collapse collapse collapse"
 aria-labelledby="heading1_6" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -443,31 +437,18 @@ aria-labelledby="heading1_6" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer</strong>: No, this does not change the value the
 expression evaluates to.</p>
-<p>The removed part <code>.sort_values(by="Class Standing")</code> sorts
-the survey DataFrame based on the <code>"Class Standing"</code> column,
-but this action does not impact the subsequent grouping by
-<code>"College"</code>. Thus, when <code>.groupby("College")</code> is
-applied, it groups the data into subsets based on unique college names,
-and these groups are usually arranged alphanumerically by default,
-irrespective of the prior sorting. Therefore, despite omitting the
-sorting step, the groups still maintain the same order. After employing
-<code>.count()</code>, the function calculates non-null counts per
-column for each college group, and then
-<code>.get("IG Followers")</code> selects the
-<code>"IG Followers"</code> column, producing a Series with college
-names as indices and <code>"IG Followers"</code> counts as values.
-Lastly, <code>.index[0]</code> retrieves the first index label from the
-Series, which, due to the inherent alphanumeric ordering of the college
-names (<code>"ERC"</code>, <code>"Marshall"</code>, <code>"Muir"</code>,
-<code>"Revelle"</code>, <code>"Seventh"</code>, <code>"Sixth"</code>,
-and <code>"Warren"</code>), should still be <code>"ERC"</code>.
-Consequently, omitting the sorting step doesn’t modify the final value
-that the expression evaluates to.</p>
+<p>We addressed this in the second subpart of the problem:</p>
+<blockquote>
+<p>Note that if we didn’t sort before grouping – that is, if our
+expression was just <code>survey.groupby("College").count()</code> – the
+resulting DataFrame would be the same! That’s because the order of the
+rows in <code>survey</code> does not impact the number of rows in
+<code>survey</code> that belong to each <code>"College"</code>.</p>
+</blockquote>
 </div>
 </div>
 </div>
 </div>
-<p><br></p>
 <p><br></p>
 <h3 id="problem-1.7">Problem 1.7</h3>
 <p>What <strong>value</strong> does the following expression evaluate
@@ -491,7 +472,7 @@ forget to look at the data description page.</em></p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse1_7" class="accordion-collapse collapse"
+<div id="collapse1_7" class="accordion-collapse collapse collapse"
 aria-labelledby="heading1_7" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -500,18 +481,21 @@ aria-labelledby="heading1_7" data-bs-parent="#accordionExample">
 <p><strong>Answer</strong>: The code produces an error because, after
 the grouping operation, the resulting Series uses the unique college
 names as indices, and there isn’t a college named <code>0</code>.</p>
-<p>In the context of the described operations, the expression
-(<code>survey .sort_values(by="Class Standing") .groupby("College").count() .get("IG Followers")</code>)
-yields a Series with the colleges as indices and non-null counts of
-<code>"IG Followers"</code> as the values. Here, when
-<code>.loc[0]</code> is used, it attempts to access an element with the
-label <code>0</code> from the Series. However, our indices are college
-names (strings: <code>"ERC"</code>, <code>"Marshall"</code>,
-<code>"Muir"</code>, <code>"Revelle"</code>, <code>"Seventh"</code>,
-<code>"Sixth"</code>, and <code>"Warren"</code>), not integer labels,
-leading to a KeyError as <code>0</code> is not among the labels in the
-Series’ index. This discrepancy in expected and actual index labels
-prompts the error.</p>
+<p>In the previous few subparts, we’ve established that</p>
+<div id="cb1" class="sourceCode">
+<pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a>survey</span>
+<span id="cb1-2"><a aria-hidden="true" href="#cb1-2" tabindex="-1"></a>.sort_values(by<span class="op">=</span><span class="st">"Class Standing"</span>)</span>
+<span id="cb1-3"><a aria-hidden="true" href="#cb1-3" tabindex="-1"></a>.groupby(<span class="st">"College"</span>).count()</span>
+<span id="cb1-4"><a aria-hidden="true" href="#cb1-4" tabindex="-1"></a>.get(<span class="st">"IG Followers"</span>)</span></code></pre>
+</div>
+<p>is a Series, indexed by <code>"College"</code>, whose values contain
+the number of rows in
+<code>survey.sort_values(by="Class Standing")</code> for each
+<code>"College"</code>.</p>
+<p>The <code>.loc</code> accessor is used to extract a value from a
+Series given its label, or index value. However, since the index values
+in the aforementioned Series are <code>"College"</code> names, there is
+no value whose index is <code>0</code>, so this throws an error.</p>
 </div>
 </div>
 </div>
@@ -532,7 +516,7 @@ unread emails of any student that has 0 Instagram followers.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse2_1" class="accordion-collapse collapse"
+<div id="collapse2_1" class="accordion-collapse collapse collapse"
 aria-labelledby="heading2_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -570,7 +554,7 @@ conducted specifically on this subset of the data.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse2_2" class="accordion-collapse collapse"
+<div id="collapse2_2" class="accordion-collapse collapse collapse"
 aria-labelledby="heading2_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -624,7 +608,7 @@ Instagram followers.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse2_3" class="accordion-collapse collapse"
+<div id="collapse2_3" class="accordion-collapse collapse collapse"
 aria-labelledby="heading2_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -648,7 +632,7 @@ aria-labelledby="heading2_3" data-bs-parent="#accordionExample">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse2_4" class="accordion-collapse collapse"
+<div id="collapse2_4" class="accordion-collapse collapse collapse"
 aria-labelledby="heading2_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -679,7 +663,7 @@ value <code>"HI25"</code> guaranteed to appear at least once within
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse2_5" class="accordion-collapse collapse"
+<div id="collapse2_5" class="accordion-collapse collapse collapse"
 aria-labelledby="heading2_5" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -783,7 +767,7 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb13-1"><a href=
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse3_1" class="accordion-collapse collapse"
+<div id="collapse3_1" class="accordion-collapse collapse collapse"
 aria-labelledby="heading3_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -845,7 +829,7 @@ to be a string, not a variable name.</p></li>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse3_2" class="accordion-collapse collapse"
+<div id="collapse3_2" class="accordion-collapse collapse collapse"
 aria-labelledby="heading3_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -890,7 +874,7 @@ unread emails and the same number of Instagram followers.</p></li>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse4_1" class="accordion-collapse collapse"
+<div id="collapse4_1" class="accordion-collapse collapse collapse"
 aria-labelledby="heading4_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -947,7 +931,7 @@ no.</p></li>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse4_2" class="accordion-collapse collapse"
+<div id="collapse4_2" class="accordion-collapse collapse collapse"
 aria-labelledby="heading4_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1003,7 +987,7 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb19-1"><a href=
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse5_1" class="accordion-collapse collapse"
+<div id="collapse5_1" class="accordion-collapse collapse collapse"
 aria-labelledby="heading5_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1046,7 +1030,7 @@ DataFrame?</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse5_2" class="accordion-collapse collapse"
+<div id="collapse5_2" class="accordion-collapse collapse collapse"
 aria-labelledby="heading5_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1080,7 +1064,7 @@ followers? Give your answer as an integer.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse6_1" class="accordion-collapse collapse"
+<div id="collapse6_1" class="accordion-collapse collapse collapse"
 aria-labelledby="heading6_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1114,7 +1098,7 @@ assumption from the start of the problem.</em></p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse6_2" class="accordion-collapse collapse"
+<div id="collapse6_2" class="accordion-collapse collapse collapse"
 aria-labelledby="heading6_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1160,7 +1144,7 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb20-1"><a href=
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse7_1" class="accordion-collapse collapse"
+<div id="collapse7_1" class="accordion-collapse collapse collapse"
 aria-labelledby="heading7_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1186,7 +1170,7 @@ simplified fraction.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse7_2" class="accordion-collapse collapse"
+<div id="collapse7_2" class="accordion-collapse collapse collapse"
 aria-labelledby="heading7_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1220,7 +1204,7 @@ order)?</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse7_3" class="accordion-collapse collapse"
+<div id="collapse7_3" class="accordion-collapse collapse collapse"
 aria-labelledby="heading7_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1253,7 +1237,7 @@ probability that we select at least one <code>"CG35"</code> major?</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse7_4" class="accordion-collapse collapse"
+<div id="collapse7_4" class="accordion-collapse collapse collapse"
 aria-labelledby="heading7_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1302,7 +1286,7 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb21-1"><a href=
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse8_1" class="accordion-collapse collapse"
+<div id="collapse8_1" class="accordion-collapse collapse collapse"
 aria-labelledby="heading8_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1325,7 +1309,7 @@ aria-labelledby="heading8_1" data-bs-parent="#accordionExample">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse8_2" class="accordion-collapse collapse"
+<div id="collapse8_2" class="accordion-collapse collapse collapse"
 aria-labelledby="heading8_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1348,7 +1332,7 @@ aria-labelledby="heading8_2" data-bs-parent="#accordionExample">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse8_3" class="accordion-collapse collapse"
+<div id="collapse8_3" class="accordion-collapse collapse collapse"
 aria-labelledby="heading8_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1379,7 +1363,7 @@ option is correct; blank answers will receive no credit.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse8_4" class="accordion-collapse collapse"
+<div id="collapse8_4" class="accordion-collapse collapse collapse"
 aria-labelledby="heading8_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
