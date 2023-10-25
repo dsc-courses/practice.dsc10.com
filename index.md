@@ -62,7 +62,7 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
     <tr>
       <th scope="row">4</th>
       <td>October 25th</td>
-      <td><a href="disc04/index.html">Querying, Grouping, and Plotting</a></td>
+      <td><a href="disc04/index.html">DataFrames, Control Flow, and Probability</a></td>
     </tr>   
   </tbody>
 </table>
