@@ -1,6 +1,6 @@
 Recall, at the start of the quarter, you were asked to complete a Welcome Survey to tell us about your background coming into the course. You were also asked to share seemingly irrelevant details, like the number of followers you have on Instagram and the number of unread emails in your primary email account. Well, those details are no longer irrelevant – in this exam, we will work with the data from this quarter's Welcome Survey!
 
-Each row in the DataFrame `survey`represents one student in DSC 10. The information stored in the columns of `survey` are as follows:
+Each row in the DataFrame `survey` represents one student in DSC 10. The information stored in the columns of `survey` are as follows:
 
 - `"Section"` (`str`): The lecture section the student is enrolled in (either `"A"` or `"B"`).
 - `"IG Followers"` (`int`): The number of followers the student has on Instagram. If the student does not have an Instagram account, this number is 0.
