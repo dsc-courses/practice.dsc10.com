@@ -5,7 +5,7 @@ Each row in the DataFrame `survey` represents one student in DSC 10. The informa
 - `"Section"` (`str`): The lecture section the student is enrolled in (either `"A"` or `"B"`).
 - `"IG Followers"` (`int`): The number of followers the student has on Instagram. If the student does not have an Instagram account, this number is 0.
 - `"Unread Emails"` (`int`): The number of unread emails in the student's primary email account.
-- `"College"` (`str`): The college the student is a member of (either `"ERC"`, `"Marshall"`, `"Muir"`, `"Revelle"`, `"Seventh"`, `Sixth` or `"Warren"`).
+- `"College"` (`str`): The college the student is a member of (either `"ERC"`, `"Marshall"`, `"Muir"`, `"Revelle"`, `"Seventh"`, `"Sixth"` or `"Warren"`).
 - `"Major"` (`str`): The student's primary major, in major code form. For instance, the major code for the Data Science major is `"DS25"`.
 - `"Class Standing"` (`str`): The student's class standing (either `"Freshman"`, `"Sophomore"`, `"Junior"`, or `"Senior"`).
 
