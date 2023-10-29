@@ -93,7 +93,7 @@ Each exam linked here lists the conditions under which the exam was given, inclu
     <tr>
       <th scope="row">Spring 2023</th>
       <td>Suraj Rampure</td>
-      <td><a href='sp23-midterm/index.html'>Midterm</a> 🆕
+      <td><a href='sp23-midterm/index.html'>Midterm</a> 🆕 <b>now with solutions!</b>
       </td>
     </tr>
     <tr>
