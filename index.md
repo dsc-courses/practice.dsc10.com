@@ -64,6 +64,11 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
       <td>October 25th</td>
       <td><a href="disc04/index.html">DataFrames, Control Flow, and Probability</a></td>
     </tr>   
+      <tr>
+      <th scope="row">4</th>
+      <td>November 1st</td>
+      <td><a href="https://dsc10.com/resources/exams/fa23-midterm-sol.pdf">Midterm Exam Walkthrough</a></td>
+    </tr>   
   </tbody>
 </table>
 </center>
