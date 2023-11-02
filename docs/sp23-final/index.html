@@ -637,9 +637,20 @@ aria-labelledby="heading2_1" data-bs-parent="#accordionExample">
 <p><strong>Answer</strong>:<br/>
 </p>
 <p><strong>What goes in blank (a)?</strong>
-<code>sun.get("Country") == sun.get("City")</code></p>
+<code>sun.get("Country") == sun.get("City")</code><br/>
+This part of code compares the <code>"Country"</code> column to the
+<code>"City"</code> column for each row in the <code>sun</code>
+DataFrame. It returns a Boolean series where each value is
+<code>True</code> if the corresponding <code>"Country"</code> and
+<code>"City"</code> are the same (indicating a city-state) and
+<code>False</code> otherwise.</p>
 <p><strong>What goes in blank (b)?</strong>
-<code>.get("Oct").sum()</code></p>
+<code>.get("Oct").sum()</code><br/>
+This part of code retrieves the <code>"Oct"</code> column, which
+represents the sunshine hours in October, and then computes the sum of
+its values. By using this after filtering for city-states, it calculates
+the total sunshine hours for October across all city-states in the
+<code>sun</code> DataFrame.</p>
 </div>
 </div>
 </div>
@@ -668,7 +679,32 @@ aria-labelledby="heading2_2" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>:
-<code>sun, left_on = "Country", right_on = "City"</code></p>
+<code>sun, left_on = "Country", right_on = "City"</code><br/>
+</p>
+<p>Let’s break down the code:</p>
+<ul>
+<li><p><code>sun.get(["Country"])</code>: This extracts just the
+<code>"Country"</code> column from the <code>sun</code> DataFrame. The
+resulting DataFrame consists of a single column, <code>"Country"</code>,
+and as many rows as there are in the original <code>sun</code>
+DataFrame. Each row in this new DataFrame will have the name of the
+country corresponding to the respective row in the original
+<code>sun</code> DataFrame.</p></li>
+<li><p><code>.merge(sun, left_on="Country", right_on="City")</code>:
+Here, we’re using the <code>.merge()</code> function to join our
+<strong>left</strong> DataFrame (which is the DataFrame with just the
+<code>"Country"</code> column) with the entire <code>sun</code>
+DataFrame (serving as the <strong>right</strong> DataFrame). The merge
+is based on matching the <code>"Country"</code> from the left DataFrame
+with the <code>"City"</code> from the right DataFrame. This way, rows in
+the resulting DataFrame correspond to city-states, as it only contains
+entries where a country’s name is the same as a city’s name.</p></li>
+<li><p><code>.get("Oct").sum()</code>: After merging, we use the
+<code>.get("Oct")</code> to retrieve the <code>"Oct"</code> column,
+which represents the sunshine hours in October. Finally,
+<code>.sum()</code> computes the total number of sunshine hours in
+October for all the identified city-states.</p></li>
+</ul>
 </div>
 </div>
 </div>
@@ -713,7 +749,44 @@ aria-labelledby="heading3_1" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer</strong>: 12</p>
+<p><strong>Answer</strong>: 12<br/>
+</p>
+<p>We know that the area of each bin in the histogram represents the
+proportion of the data that falls within that bin’s range. In this case,
+we are looking for the bins 370-390, 390-410, and 410-430. Each bin has
+a width of 20 and their respective heights are given as 0.002. To find
+out what proportion of the data falls within a specific bin, you
+multiply the height of the bin by its width. For each of these bins:</p>
+<p><span class="math inline">\text{proportion} = \text{height} \cdot
+\text{width}</span><br/>
+<span class="math inline">\text{proportion} = 0.002 \cdot 20 =
+0.04</span></p>
+<p>This indicates that 4% (or 0.04 as a proportion) of the data falls
+within each of these bins. And the computed proportion (4%) represents
+the fraction of U.S. cities in the <code>usa</code> DataFrame that have
+sunshine hours within each bin’s range. Since there are three bins in
+the range of 370 to 430, and each has 4% of the cities, the total
+percentage of cities with sunshine hours between 370 and 430 is:</p>
+<p><span class="math inline">\text{total precentage} = 3 \cdot 4% =
+12%</span></p>
+<p>Now let’s look at the code:</p>
+<ul>
+<li><p><code>cond = (usa.get("Jul") &gt;= 370) &amp; (usa.get("Jul") &lt; 430)</code>:
+This line of code creates a Boolean condition that checks which cities
+in the <code>usa</code> DataFrame have sunshine hours in July between
+370 and 430.</p></li>
+<li><p><code>mystery = 100 * np.count_nonzero(cond) / usa.shape[0]</code>:
+This line of code calculates the percentage of cities satisfying the
+condition. <code>np.count_nonzero(cond)</code> counts the number of
+cities with sunshine hours in the specified range. Dividing this count
+by the total number of cities in <code>usa</code>
+(<code>usa.shape[0]</code>) gives the proportion, which is then
+multiplied by 100 to convert to a percentage.</p></li>
+</ul>
+<p>By interpreting the histogram and using the code provided, we can
+conclude that both methods are achieving the same goal: determining that
+12% of the cities in the <code>usa</code> DataFrame have sunshine hours
+in July between 370 and 430.</p>
 </div>
 </div>
 </div>
@@ -740,7 +813,22 @@ aria-labelledby="heading3_2" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer</strong>: 250</p>
+<p><strong>Answer</strong>: 250<br/>
+</p>
+<p>We get the proportion of cities (12%) in the <code>usa</code>
+DataFrame that have sunshine hours in July between 370 and 430 from the
+previous part. Now, we have to compute the proportion of cities in the
+<code>usa</code> DataFrame that have sunshine hours in July between 270
+and 290.</p>
+<p><span class="math inline">0.005 \cdot 20 = 0.10</span> <span class="math inline">\text{or}</span> <span class="math inline">10\%</span> <span class="math inline">\text{of
+cities}</span></p>
+<p>We are told that there are 5 more cities in the 370-430 sunshine
+hours range than there are in the 270-290 sunshine hours range. Given
+the percentages we computed above:</p>
+<p><span class="math inline">\text{Difference in percentages} = 12\% -
+10\% = 2\%</span></p>
+<p>If 2% represents 5 cities, then 100% (which represents the total
+number of cities in the <code>usa</code> DataFrame) represents <span class="math inline">5 \cdot \frac{100}{2} = 250</span> cities.</p>
 </div>
 </div>
 </div>
@@ -775,7 +863,21 @@ aria-labelledby="heading3_3" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer</strong>: <span class="math inline">m = 0</span></p>
+<p><strong>Answer</strong>: <span class="math inline">m = 0</span><br/>
+</p>
+<p>When we convert data into standard units, we are essentially
+standardizing the data. The formula to compute the standard units z for
+each data point is:</p>
+<p><span class="math display">z = \frac{x - \text{mean}}{\text{standard
+deviation}}</span></p>
+<p>Here, x is an individual data point, and <strong>mean</strong> and
+<strong>standard deviation</strong> are the mean and standard deviation
+of the entire dataset, respectively.</p>
+<p>Now, when we divide this zero by the standard deviation, we still get
+zero, regardless of the value of the standard deviation (as long as it’s
+not zero itself).</p>
+<p>Thus, the mean of the data after converting to standard units will
+always be 0.</p>
 </div>
 </div>
 </div>
