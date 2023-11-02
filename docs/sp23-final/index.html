@@ -350,7 +350,42 @@ aria-labelledby="heading1_3" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer</strong>: True</p>
+<p><strong>Answer</strong>: True<br/>
+Let’s us look at each line of code separately:</p>
+<ul>
+<li><p><code>x = sun.groupby(["Country", "Year"]).mean().shape[0]</code>:
+This line groups the <code>sun</code> DataFrame by both
+<code>"Country"</code> and <code>"Year"</code>, then computes the mean.
+As a result, each unique combination of <code>"Country"</code> and
+<code>"Year"</code> will have its own row. For instance, if there are
+three years of data for a particular country, that will result in three
+rows for that country in this grouping.</p></li>
+<li><p><code>y = sun.groupby("Country").mean().shape[0]</code>: When
+grouping by <code>"Country"</code> alone, each unique country in the
+<code>sun</code> DataFrame is represented by one row, regardless of the
+number of years of data associated with that country.</p></li>
+<li><p><code>z = (x &gt;= y)</code>: This comparison checks whether the
+number of rows produced by grouping by both <code>"Country"</code> and
+<code>"Year"</code> (which is <code>x</code>) is greater than or equal
+to the number of rows produced by grouping only by
+<code>"Country"</code> (which is <code>y</code>).</p></li>
+</ul>
+<p>Given our grouping logic:</p>
+<ul>
+<li><p>If every country in the <code>sun</code> DataFrame has data for
+only a single year, then the number of rows when grouping by both
+<code>"Country"</code> and <code>"Year"</code> will be equal to the
+number of rows when grouping by <code>"Country"</code> alone. In this
+scenario, <code>x</code> will be equal to <code>y</code>.</p></li>
+<li><p>If at least one country in the <code>sun</code> DataFrame has
+data for more than one year, then there will be more rows when grouping
+by both <code>"Country"</code> and <code>"Year"</code> compared to
+grouping by <code>"Country"</code> alone. This means <code>x</code> will
+be greater than <code>y</code>.</p></li>
+</ul>
+<p>Considering the above scenarios, there’s no situation where the value
+of <code>x</code> can be less than the value of <code>y</code>.
+Therefore, <code>z</code> will always evaluate to <code>True</code>.</p>
 </div>
 </div>
 </div>
@@ -396,7 +431,25 @@ aria-labelledby="heading1_4" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer</strong>: E</p>
+<p><strong>Answer</strong>: E. The last city, alphabetically, in the
+first country, alphabetically.<br/>
+</p>
+<p>Let’s break down the code:</p>
+<ul>
+<li><p><code>sun.groupby("Country").max()</code>: This line of code
+groups the <code>sun</code> DataFrame by the <code>"Country"</code>
+column and then determines the <strong>maximum</strong> for each column
+within each country group. For the <code>"City"</code> column, this
+means finding the city that comes last when arranged in alphabetical
+order.</p></li>
+<li><p><code>.get("City")</code>: After grouping and determining the
+maximums, <code>.get("City")</code> retrieves the <code>"City"</code>
+column.</p></li>
+<li><p><code>.iloc[0]</code>: Finally, <code>.iloc[0]</code> selects the
+value of the city from the first row, which corresponds to the first
+country alphabetically due to the inherent sorting behavior of the
+groupby operation.</p></li>
+</ul>
 </div>
 </div>
 </div>
@@ -428,7 +481,20 @@ aria-labelledby="heading1_5" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer</strong>: G</p>
+<p><strong>Answer</strong>: G. Nothing, because it errors.<br/>
+</p>
+<p>Let’s break down the code:</p>
+<ul>
+<li><p><code>sun.groupby("Country").sum()</code>: This groups the
+<code>sun</code> DataFrame by the <code>"Country"</code> column and
+computes the sum for each numeric column within each country group.
+Since <code>"City"</code> is non-numeric, it will be dropped.</p></li>
+<li><p><code>.get("City")</code>: This operation attempts to retrieve
+the <code>"City"</code> column from the resulting DataFrame. However,
+since the <code>"City"</code> column has been dropped in the previous
+step, this will raise a KeyError, indicating that the column is not
+present in the DataFrame.</p></li>
+</ul>
 </div>
 </div>
 </div>
@@ -460,7 +526,25 @@ aria-labelledby="heading1_6" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer</strong>: A</p>
+<p><strong>Answer</strong>: A. The name of the country with the most
+cities.<br/>
+</p>
+<p>Let’s break down the code:</p>
+<ul>
+<li><p><code>sun.groupby("Country").count()</code>: This groups the sun
+DataFrame by the <code>"Country"</code> column. The
+<code>.count()</code> operation then returns the number of row in each
+group for each column. Since we’re grouping by country, the count
+essentially gives the number of cities in each country.</p></li>
+<li><p><code>.sort_values("Jan")</code>: The result of the previous
+operation is a DataFrame with countries as the index and counts for each
+column. Sorting by <code>"Jan"</code> would essentially sort the
+countries based on the number of cities they have.</p></li>
+<li><p><code>.index[-1]</code>: This retrieves the last index from the
+sorted DataFrame, which, in this context, corresponds to the country
+with the most cities (because it would be the maximum count when sorted
+in ascending order by default).</p></li>
+</ul>
 </div>
 </div>
 </div>
@@ -492,7 +576,29 @@ aria-labelledby="heading1_7" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer</strong>: C</p>
+<p><strong>Answer</strong>: C. The number of cities in the country with
+the most cities.<br/>
+</p>
+<p>Let’s break down the code:</p>
+<ul>
+<li><p><code>sun.groupby("Country").count()</code>: This groups the
+<code>sun</code> DataFrame by the <code>"Country"</code> column. The
+<code>.count()</code> operation then returns the number of row in each
+group for each column. Since we’re grouping by country, the count
+essentially gives the number of cities in each country.</p></li>
+<li><p><code>.sort_values("City")</code>: The result from the previous
+step is a DataFrame with countries as the index and counts for each
+column. Sorting by <code>"City"</code> will order the countries based on
+the number of cities they have.</p></li>
+<li><p><code>.get("City")</code>: This retrieves the <code>"City"</code>
+column from the sorted DataFrame, which represents the count of cities
+for each country.</p></li>
+<li><p><code>.iloc[-1]</code>: This gets the last value from the
+retrieved <code>"City"</code> column, which, in this context,
+corresponds to the count of cities for the country with the most cities
+(because it would be the maximum count when sorted in ascending order by
+default).</p></li>
+</ul>
 </div>
 </div>
 </div>
