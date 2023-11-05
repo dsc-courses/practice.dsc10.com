@@ -1251,6 +1251,818 @@ city where the number of sunshine hours peaks gradually.</p>
 </div>
 <p><br></p>
 <hr />
+<h2 id="problem-5">Problem 5</h2>
+<p>In some cities, the number of sunshine hours per month is relatively
+consistent throughout the year. São Paulo, Brazil is one such city; in
+all months of the year, the number of sunshine hours per month is
+somewhere between 139 and 173. New York City’s, on the other hand,
+ranges from 139 to 268.</p>
+<p>Gina and Abel, both San Diego natives, are interested in assessing
+how “consistent" the number of sunshine hours per month in San Diego
+appear to be. Specifically, they’d like to test the following
+hypotheses:</p>
+<ul>
+<li><p><strong>Null Hypothesis</strong>: The number of sunshine hours
+per month in San Diego is drawn from the uniform distribution, <span
+class="math inline">\left[\frac{1}{12}, \frac{1}{12}, ...,
+\frac{1}{12}\right]</span>. (In other words, the number of sunshine
+hours per month in San Diego is equal in all 12 months of the
+year.)</p></li>
+<li><p><strong>Alternative Hypothesis</strong>: The number of sunshine
+hours per month in San Diego is not drawn from the uniform
+distribution.</p></li>
+</ul>
+<p>As their test statistic, Gina and Abel choose the total variation
+distance. To simulate samples under the null, they will sample from a
+categorical distribution with 12 categories — January, February, and so
+on, through December — each of which have an equal probability of being
+chosen.</p>
+<p><br></p>
+<h3 id="problem-5.1">Problem 5.1</h3>
+<p>In order to run their hypothesis test, Gina and Abel need a way to
+calculate their test statistic. Below is an incomplete implementation of
+a function that computes the TVD between two arrays of length 12, each
+of which represent a categorical distribution.</p>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> calculate_tvd(dist1, dist2):</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> np.mean(np.<span class="bu">abs</span>(dist1 <span class="op">-</span> dist2)) <span class="op">*</span> ____</span></code></pre></div>
+<p>Fill in the blank so that <code>calculate_tvd</code> works as
+intended.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>1 / 6</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>1 / 3</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>1 / 2</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>2</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>3</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>6</code></p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading5_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_1" aria-expanded="true" aria-controls="collapse5_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse5_1" class="accordion-collapse collapse"
+aria-labelledby="heading5_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: <code>6</code></p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<p><strong>Moving forward, assume that <code>calculate_tvd</code> works
+correctly.</strong></p>
+<p>Now, complete the implementation of the function
+<code>uniform_test</code>, which takes in an array
+<code>observed_counts</code> of length 12 containing the number of
+sunshine hours each month in a city and returns the p-value for the
+hypothesis test stated at the start of the question.</p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> uniform_test(observed_counts):</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>        <span class="co"># The values in observed_counts are counts, not proportions!</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>        total_count <span class="op">=</span> observed_counts.<span class="bu">sum</span>()</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>        uniform_dist <span class="op">=</span> __(b)__</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>        tvds <span class="op">=</span> np.array([])</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>            simulated <span class="op">=</span> __(c)__</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>            tvd <span class="op">=</span> calculate_tvd(simulated, __(d)__)</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>            tvds <span class="op">=</span> np.append(tvds, tvd)</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> np.mean(tvds __(e)__ calculate_tvd(uniform_dist, __(f)__))</span></code></pre></div>
+<p><br></p>
+<h3 id="problem-5.2">Problem 5.2</h3>
+<p>What goes in blank (b)? <em>(Hint: The function
+<code>np.ones(k)</code> returns an array of length <code>k</code> in
+which all elements are <code>1</code>.)</em></p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading5_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_2" aria-expanded="true" aria-controls="collapse5_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse5_2" class="accordion-collapse collapse"
+aria-labelledby="heading5_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: <code>np.ones(12) / 12</code></p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<p><br></p>
+<h3 id="problem-5.3">Problem 5.3</h3>
+<p>What goes in blank (c)?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>np.random.multinomial(12, uniform_dist)</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>np.random.multinomial(12, uniform_dist) / 12</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>np.random.multinomial(12, uniform_dist) / total_count</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>np.random.multinomial(total_count, uniform_dist)</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>np.random.multinomial(total_count, uniform_dist) / 12</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>np.random.multinomial(total_count, uniform_dist) / total_count</code></p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading5_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_3" aria-expanded="true" aria-controls="collapse5_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse5_3" class="accordion-collapse collapse"
+aria-labelledby="heading5_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>:
+<code>np.random.multinomial(total_count, uniform_dist) / total_count</code></p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<p><br></p>
+<h3 id="problem-5.4">Problem 5.4</h3>
+<p>What goes in blank (d)?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading5_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_4" aria-expanded="true" aria-controls="collapse5_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse5_4" class="accordion-collapse collapse"
+aria-labelledby="heading5_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: <code>uniform_dist</code></p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<p><br></p>
+<h3 id="problem-5.5">Problem 5.5</h3>
+<p>What goes in blank (e)?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>&gt;</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>&gt;=</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>&lt;</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>&lt;=</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>==</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>!=</code></p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading5_5">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_5" aria-expanded="true" aria-controls="collapse5_5">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse5_5" class="accordion-collapse collapse"
+aria-labelledby="heading5_5" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: <code>&gt;=</code></p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<p><br></p>
+<h3 id="problem-5.6">Problem 5.6</h3>
+<p>What goes in blank (f)?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading5_6">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_6" aria-expanded="true" aria-controls="collapse5_6">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse5_6" class="accordion-collapse collapse"
+aria-labelledby="heading5_6" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: <code>observed_counts / total_count</code>
+or <code>observed_counts / observed_counts.sum()</code></p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-6">Problem 6</h2>
+<p>Oren’s favorite bakery in San Diego is Wayfarer. After visiting
+frequently, he decides to learn how to make croissants and baguettes
+himself, and to do so, he books a trip to France.</p>
+<p>Oren is interested in estimating the mean number of sunshine hours in
+July across all 10,000+ cities in France. Using the 16 French cities in
+<code>sun</code>, Oren constructs a 95% Central Limit Theorem
+(CLT)-based confidence interval for the mean sunshine hours of all
+cities in France. The interval is of the form <span
+class="math inline">[L, R]</span>, where <span
+class="math inline">L</span> and <span class="math inline">R</span> are
+positive numbers.</p>
+<p><br></p>
+<h3 id="problem-6.1">Problem 6.1</h3>
+<p>Which of the following expressions is equal to the standard deviation
+of the number of sunshine hours of the 16 French cities in
+<code>sun</code>?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <span class="math inline">R - L</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">\frac{R - L}{2}</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">\frac{R - L}{4}</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">R + L</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">\frac{R + L}{2}</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">\frac{R + L}{4}</span></p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_1" aria-expanded="true" aria-controls="collapse6_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_1" class="accordion-collapse collapse"
+aria-labelledby="heading6_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: <span class="math inline">R - L</span></p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<p><br></p>
+<h3 id="problem-6.2">Problem 6.2</h3>
+<p>True or False: There is a 95% chance that the interval <span
+class="math inline">[L, R]</span> contains the mean number of sunshine
+hours in July of all 16 French cities in <code>sun</code>.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_2" aria-expanded="true" aria-controls="collapse6_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_2" class="accordion-collapse collapse"
+aria-labelledby="heading6_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: False</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<p><br></p>
+<h3 id="problem-6.3">Problem 6.3</h3>
+<p>True or False: If we collected 1,000 new samples of 16 French cities
+and computed the mean of each sample, then about 95% of the new sample
+means would be contained in <span class="math inline">[L, R]</span>.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_3" aria-expanded="true" aria-controls="collapse6_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_3" class="accordion-collapse collapse"
+aria-labelledby="heading6_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: False</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<p><br></p>
+<h3 id="problem-6.4">Problem 6.4</h3>
+<p>True or False: If we collected 1,000 new samples of 16 French cities
+and created a 95% confidence interval using each one, then chose one of
+the 1,000 new intervals at random, the chance that the randomly chosen
+interval contains the mean sunshine hours in July across all cities in
+France is approximately 95%.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_4" aria-expanded="true" aria-controls="collapse6_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_4" class="accordion-collapse collapse"
+aria-labelledby="heading6_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: True</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<p><br></p>
+<h3 id="problem-6.5">Problem 6.5</h3>
+<p>True or False: The interval <span class="math inline">[L, R]</span>
+is centered at the mean number of sunshine hours in July across all
+cities in France.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_5">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_5" aria-expanded="true" aria-controls="collapse6_5">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_5" class="accordion-collapse collapse"
+aria-labelledby="heading6_5" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: False</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<p>In addition to creating a 95% CLT-based confidence interval for the
+mean sunshine hours of all cities in France, Oren would like to create a
+72% bootstrap-based confidence interval for the mean sunshine hours of
+all cities in France.</p>
+<p>Oren resamples from the 16 French sunshine hours in <code>sun</code>
+10,000 times and creates an array named <code>french_sunshine</code>
+containing 10,000 resampled means. He wants to find the left and right
+endpoints of his 72% confidence interval:</p>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>    boot_left <span class="op">=</span> np.percentile(french_sunshine, __(a)__)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    boot_right <span class="op">=</span> np.percentile(french_sunshine, __(b)__)</span></code></pre></div>
+<p><br></p>
+<h3 id="problem-6.6">Problem 6.6</h3>
+<p>Fill in the blanks so that <code>boot_left</code> and
+<code>boot_right</code> evaluate to the left and right endpoints of a
+72% confidence interval for the mean sunshine hours in July across all
+cities in France.</p>
+<p>What goes in blank (a)?</p>
+<p>What goes in blank (b)?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_6">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_6" aria-expanded="true" aria-controls="collapse6_6">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_6" class="accordion-collapse collapse"
+aria-labelledby="heading6_6" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>:</p>
+<p>What goes in blank (a)? 14</p>
+<p>What goes in blank (b)? 86</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<p>Suppose we are interested in testing the following pair of
+hypotheses.</p>
+<ul>
+<li><p><strong>Null Hypothesis</strong>: The mean number of sunshine
+hours of all cities in France in July is equal to 225.</p></li>
+<li><p><strong>Alternative Hypothesis</strong>: The mean number of
+sunshine hours of all cities in France in July is not equal to
+225.</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-6.7">Problem 6.7</h3>
+<p>Suppose that when Oren uses <code>[boot_left, boot_right]</code>, his
+76% bootstrap-based confidence interval, he fails to reject the null
+hypothesis above. If that’s the case, then when using <span
+class="math inline">[L, R]</span>, his 95% CLT-based confidence
+interval, what is the conclusion of his hypothesis test?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Reject the null</p></li>
+<li><p><input type="radio" disabled="" /> Fail to reject the null</p></li>
+<li><p><input type="radio" disabled="" /> Impossible to tell</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_7">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_7" aria-expanded="true" aria-controls="collapse6_7">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_7" class="accordion-collapse collapse"
+aria-labelledby="heading6_7" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: Impossible to tell</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<p><br></p>
+<h3 id="problem-6.8">Problem 6.8</h3>
+<p>Suppose that Oren also creates a 76% CLT-based confidence interval
+for the mean sunshine hours of all cities in France in July using the
+same 16 French cities in <code>sun</code> he started with. When using
+his 76% CLT-based confidence interval, he fails to reject the null
+hypothesis above. If that’s the case, then when using <span
+class="math inline">[L, R]</span>, what is the conclusion of his
+hypothesis test?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Reject the null</p></li>
+<li><p><input type="radio" disabled="" /> Fail to reject the null</p></li>
+<li><p><input type="radio" disabled="" /> Impossible to tell</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_8">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_8" aria-expanded="true" aria-controls="collapse6_8">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_8" class="accordion-collapse collapse"
+aria-labelledby="heading6_8" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: Fail to reject the null</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<p><br></p>
+<h3 id="problem-6.9">Problem 6.9</h3>
+<p>True or False: The significance levels of both hypothesis tests
+described in part (h) are equal.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_9">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_9" aria-expanded="true" aria-controls="collapse6_9">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_9" class="accordion-collapse collapse"
+aria-labelledby="heading6_9" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: False</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-7">Problem 7</h2>
+<p>Gabriel is originally from Texas and is trying to convince his
+friends that Texas has better weather than California. Sophia, who is
+originally from San Diego, is determined to prove Gabriel wrong.</p>
+<p>Coincidentally, both are born in February, so they decide to look at
+the mean number of sunshine hours of all cities in California and Texas
+in February. They find that the mean number of sunshine hours for
+California cities in February is 275, while the mean number of sunshine
+hours for Texas cities in February is 250. They decide to test the
+following hypotheses:</p>
+<ul>
+<li><p><strong>Null Hypothesis</strong>: The distribution of sunshine
+hours in February for cities in California and Texas are drawn from the
+same population distribution.</p></li>
+<li><p><strong>Alternative Hypothesis</strong>: The distribution of
+sunshine hours in February for cities in California and Texas are not
+drawn from the same population distribution; rather, California cities
+see more sunshine hours in February on average than Texas
+cities.</p></li>
+</ul>
+<p>The test statistic they decide to use is:</p>
+<p><span class="math display">\text{mean sunshine hours in California
+cities – mean sunshine hours in Texas cities}</span></p>
+<p>To simulate data under the null, Sophia proposes the following
+plan:</p>
+<ol type="1">
+<li><p>Count the number of Texas cities, and call that number
+<code>t</code>. Count the total number of cities in both California and
+Texas, and call that number <code>n</code>.</p></li>
+<li><p>Find the total number of sunshine hours across all California and
+Texas cities in February, and call that number
+<code>total</code>.</p></li>
+<li><p>Take a random sample of <code>t</code> sunshine hours from the
+entire sequence of California and Texas sunshine hours in February in
+the dataset. Call this random sample <code>t_samp</code>.</p></li>
+<li><p>Find the difference between the mean of the values that are not
+in <code>t_samp</code> (the California sample) and the mean of the
+values that are in <code>t_samp</code> (the Texas sample).</p></li>
+</ol>
+<p><br></p>
+<h3 id="problem-7.1">Problem 7.1</h3>
+<p>What type of test is this?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Hypothesis test</p></li>
+<li><p><input type="radio" disabled="" /> Permutation test</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading7_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_1" aria-expanded="true" aria-controls="collapse7_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse7_1" class="accordion-collapse collapse"
+aria-labelledby="heading7_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: Permutation test</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<p>Complete the implementation of the function <code>one_stat</code>,
+which takes in a DataFrame <code>df</code> that has two columns —
+<code>"State"</code>, which is either <code>"California"</code> or
+<code>"Texas"</code>, and <code>"Feb"</code>, which contains the number
+of sunshine hours in February for each city — and returns a single
+simulated test statistic using Sophia’s plan.</p>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> one_stat(df):</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>        <span class="co"># You don&#39;t need to fill in the ...,</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>        <span class="co"># assume we&#39;ve correctly filled them in so that</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>        <span class="co"># texas_only has only the &quot;Texas&quot; rows from df.</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>        texas_only <span class="op">=</span> ...</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>        t <span class="op">=</span> texas_only.shape[<span class="dv">0</span>]</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>        n <span class="op">=</span> df.shape[<span class="dv">0</span>]</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>        total <span class="op">=</span> df.get(<span class="st">&quot;Feb&quot;</span>).<span class="bu">sum</span>()</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>        t_samp <span class="op">=</span> np.random.choice(df.get(<span class="st">&quot;Feb&quot;</span>), t, __(b)__)</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>        c_mean <span class="op">=</span> __(c)__</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>        t_mean <span class="op">=</span> t_samp.<span class="bu">sum</span>() <span class="op">/</span> t</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> c_mean <span class="op">-</span> t_mean</span></code></pre></div>
+<p><br></p>
+<h3 id="problem-7.2">Problem 7.2</h3>
+<p>What goes in blank (b)?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>replace=True</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>replace=False</code></p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading7_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_2" aria-expanded="true" aria-controls="collapse7_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse7_2" class="accordion-collapse collapse"
+aria-labelledby="heading7_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: <code>replace=False</code></p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<p><br></p>
+<h3 id="problem-7.3">Problem 7.3</h3>
+<p>What goes in blank (c)? <em>(Hint: Our solution uses 4 of the
+variables that are defined before <code>c_mean</code>.)</em></p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading7_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_3" aria-expanded="true" aria-controls="collapse7_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse7_3" class="accordion-collapse collapse"
+aria-labelledby="heading7_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>:
+<code>(total - t_samp.sum) / (n - t)</code></p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<p>Fill in the blanks below to accurately complete the provided
+statement.</p>
+<p>“If Sophia and Gabriel want to test the null hypothesis that the mean
+number of sunshine hours in February in the two states is equal using a
+different tool, they could use bootstrapping to create a confidence
+interval for the true value of the test statistic they used in the above
+test and check whether __(d)__ is in the interval."</p>
+<p><br></p>
+<h3 id="problem-7.4">Problem 7.4</h3>
+<p>What goes in blank (d)? Your answer should be a specific number.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading7_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_4" aria-expanded="true" aria-controls="collapse7_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse7_4" class="accordion-collapse collapse"
+aria-labelledby="heading7_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: 0</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-8">Problem 8</h2>
+<p>Australia is in the southern hemisphere, meaning that its summer
+season is from December through February, when we have our winter. As a
+result, January is typically one of the sunniest months in
+Australia!</p>
+<p>Arjun is a big fan of the movie Kangaroo Jack and plans on visiting
+Australia this January. In doing his research on where to go, he found
+the number of sunshine hours in January for the 15 Australian cities in
+<code>sun</code> and sorted them in <strong>descending</strong>
+order.</p>
+<p><span class="math display">356, 337, 325, 306, 294, 285, 285, 266,
+263, 257, 255, 254, 220, 210, 176</span></p>
+<p>Throughout this question, use the mathematical definition of
+percentiles presented in class.</p>
+<p><br></p>
+<h3 id="problem-8.1">Problem 8.1</h3>
+<p>What is the 80th percentile of the collection of numbers above?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> 254</p></li>
+<li><p><input type="radio" disabled="" /> 255</p></li>
+<li><p><input type="radio" disabled="" /> 294</p></li>
+<li><p><input type="radio" disabled="" /> 306</p></li>
+<li><p><input type="radio" disabled="" /> 325</p></li>
+<li><p><input type="radio" disabled="" /> 337</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading8_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_1" aria-expanded="true" aria-controls="collapse8_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse8_1" class="accordion-collapse collapse"
+aria-labelledby="heading8_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: 306</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<p><br></p>
+<h3 id="problem-8.2">Problem 8.2</h3>
+<p>What is the <strong>largest</strong> positive integer <span
+class="math inline">p</span> such that 257 is the <span
+class="math inline">p</span>th percentile of the collection of numbers
+above?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading8_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_2" aria-expanded="true" aria-controls="collapse8_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse8_2" class="accordion-collapse collapse"
+aria-labelledby="heading8_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: 40</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<p><br></p>
+<h3 id="problem-8.3">Problem 8.3</h3>
+<p>What is the <strong>smallest</strong> positive integer <span
+class="math inline">p</span> such that 257 is the <span
+class="math inline">p</span>th percentile of the collection of numbers
+above? (Make sure your answer to (c) is smaller than your answer to
+(b)!)</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading8_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_3" aria-expanded="true" aria-controls="collapse8_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse8_3" class="accordion-collapse collapse"
+aria-labelledby="heading8_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: 34</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<p>Teresa also wants to go to Australia, but can’t take time off work in
+January, and so she plans a trip to The Land Down Under (Australia) in
+February instead. She finds that the mean number of sunshine hours in
+February for all 15 Australian cities in <code>sun</code> is 250, with a
+standard deviation of 15.</p>
+<p><br></p>
+<h3 id="problem-8.4">Problem 8.4</h3>
+<p>According to Chebyshev’s inequality, at least what percentage of
+Australian cities in <code>sun</code> see between 200 and 300 sunshine
+hours in February?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> 9%</p></li>
+<li><p><input type="radio" disabled="" /> 30%</p></li>
+<li><p><input type="radio" disabled="" /> 33.3%</p></li>
+<li><p><input type="radio" disabled="" /> 91%</p></li>
+<li><p><input type="radio" disabled="" /> 95%</p></li>
+<li><p><input type="radio" disabled="" /> 99.73%</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading8_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_4" aria-expanded="true" aria-controls="collapse8_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse8_4" class="accordion-collapse collapse"
+aria-labelledby="heading8_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: 91%</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
 <h2 id="section"><span class="math display"> </span></h2>
 <h4
 id="feedback-find-an-error-still-confused-have-a-suggestion-let-us-know-here.">👋
