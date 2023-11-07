@@ -11,7 +11,7 @@ import re
 def replace_tags(prob_str):
     tags = {'probset': '', 
             'prob': 'PROB', 
-            'soln': 'SOLN', 
+            'soln': 'SOLUTION', 
             'subprob': 'SUBPROB', 
             'subprobset': ''}
 
@@ -60,7 +60,16 @@ def remove_leading_slash(prob_str_md):
 
 def split_probs_to_files(prob_str_md):
     probs = re.findall(r'# BEGIN PROB[\W\w]*?# END PROB', prob_str_md)
-    return probs
+
+    # Add # BEGIN SOLUTION, # END SOLUTION each time it's necessary
+    new_probs = []
+    for prob in probs:
+        if '# END SUBPROB' in prob:
+            new_prob = prob.replace('# END SUBPROB', '# BEGIN SOLUTION\n\n# END SOLUTION\n\n# END SUBPROB')
+        else:
+            new_prob = prob.replace('# END PROB', '# BEGIN SOLUTION\n\n# END SOLUTION\n\n# END PROB')
+        new_probs.append(new_prob)
+    return new_probs
 
 def write_prob_files(probs, out_dir):
     if not os.path.exists(out_dir):

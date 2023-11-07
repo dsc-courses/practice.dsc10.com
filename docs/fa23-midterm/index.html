@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Fall 2023 Midterm Exam</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+  </style>
+  <link rel="stylesheet" href="../assets/theme.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Fall 2023 Midterm Exam</h1>
+</header>
+<p><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<!-- add after bootstrap.min.css -->
+<link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css"/>
+<!-- add after bootstrap.min.js or bootstrap.bundle.min.js -->
+<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script></p>
+<!-- for difficulty gauges-->
+<script src="https://cdn.plot.ly/plotly-2.16.1.min.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B947E6J6H4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B947E6J6H4');
+</script>
+<p><a href="../index.html">← return to practice.dsc10.com</a></p>
+<hr />
+<p><strong>Instructor(s):</strong> Rod Albuyeh, Suraj Rampure, Janine
+Tiefenbruck</p>
+<p>This exam was administered in-person. The exam was closed-notes,
+except students were provided a copy of the
+<a href='https://drive.google.com/file/d/1ky0Np67HS2O4LO913P-ing97SJG0j27n/view'>DSC
+10 Reference Sheet<a>. No calculators were allowed. Students had
+<strong>50 minutes</strong> to take this exam.</p>
+<hr />
+<p>An area’s cost of living describes how expensive it is to live in
+that area. In this exam, we’ll work with the DataFrame
+<code>living_cost</code>, which describes the typical cost of living for
+different types of families across all <span
+class="math inline">3143</span> counties in the 50 United States. The
+first few rows of <code>living_cost</code> are shown below, but
+<code>living_cost</code> has <strong>many more rows</strong> than
+shown.</p>
+<center><img src='../assets/images/fa23-midterm/living_cost_preview.jpg' width=800></center>
+<p><br></p>
+<p>Two counties in the same state will never have the same name, but as
+rows 4 and 5 above illustrate, there are some counties in different
+states with the same name, like Lee County.</p>
+<p>The <code>"family_type"</code> column uses a code to describe the
+number of adults and children in a family. For example, a value of
+<code>"2a1c"</code> represents families with two adults and one child.
+There are ten unique values, as follows: <code>"1a0c"</code>,
+<code>"1a1c"</code>, <code>"1a2c"</code>, <code>"1a3c"</code>,
+<code>"1a4c"</code>, <code>"2a0c"</code>, <code>"2a1c"</code>,
+<code>"2a2c"</code>, <code>"2a3c"</code>, <code>"2a4c"</code>. We will
+assume that <strong>all families fall into one of these ten
+categories</strong>, and <strong>all ten family structures are present
+in each US county</strong>.</p>
+<p>Each of the <span class="math inline">31430</span> rows of the
+DataFrame represents a unique combination of <code>"state"</code>,
+<code>"county"</code>, and <code>"family_type"</code>. As a result,
+there will be more than one row with a <code>"state"</code> of
+<code>"CA"</code> and a <code>"county"</code> of
+<code>"San Diego"</code>, corresponding to different values of
+<code>"family_type"</code>. Similarly, there will be many rows such that
+<code>"family_type"</code> is <code>"2a1c"</code>, all corresponding to
+different counties. There is <strong>only one row</strong>, however,
+where <code>"state"</code> is <code>"CA"</code>, <code>"county"</code>
+is <code>"San Diego"</code>, and <code>"family_type"</code> is
+<code>"1a2c"</code></p>
+<p>In addition to the <code>"state"</code>, <code>"county"</code>, and
+<code>"family_type"</code> columns, <code>living_cost</code> includes
+the following columns.</p>
+<ul>
+<li><code>"is_metro" (bool)</code>: <code>True</code> if the county is
+part of a metropolitan (urban) area, <code>False</code> otherwise. This
+value is the same for all rows of the DataFrame corresponding to the
+same county and state.</li>
+<li><code>"avg_housing_cost" (int)</code>: The average yearly cost of
+housing, in dollars, for families of the given size in the given county
+and state.</li>
+<li><code>"avg_childcare_cost" (int)</code>: The average yearly cost of
+childcare, in dollars, for families of the given size in the given
+county and state.</li>
+<li><code>"median_income" (int)</code>: The median annual income, in
+dollars, for families of the given size in the given county and
+state.</li>
+</ul>
+<p><strong>Throughout the exam</strong>, assume we have already run
+<code>import babypandas as bpd</code> and
+<code>import numpy as np</code>.</p>
+<hr />
+<h2 id="problem-1">Problem 1</h2>
+<p>[(14 pts)]</p>
+<p><br></p>
+<h3 id="problem-1.1">Problem 1.1</h3>
+<p>You’re interested in comparing the <code>"avg_housing_cost"</code>
+across different<br />
+<code>"family_type"</code> groups for San Diego County, CA specifically.
+Which type of visualization would be most appropriate?<br />
+</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Scatter plot</p></li>
+<li><p><input type="radio" disabled="" /> Line plot</p></li>
+<li><p><input type="radio" disabled="" /> Bar chart</p></li>
+<li><p><input type="radio" disabled="" /> Histogram</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading1_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1_1" aria-expanded="true" aria-controls="collapse1_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse1_1" class="accordion-collapse collapse collapse"
+aria-labelledby="heading1_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-1.2">Problem 1.2</h3>
+<p>Suppose we run the three lines of code below.</p>
+<pre><code>families = living_cost.groupby(&quot;family_type&quot;).median()
+sorted_families = families.sort_values(by=&quot;avg_housing_cost&quot;)
+result = sorted_families.get(&quot;avg_childcare_cost&quot;).iloc[0]</code></pre>
+<p>Which of the following does <code>result</code> evaluate to?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> The median <code>"avg_childcare_cost"</code> of the
+<code>"family_type"</code> with the</p></li>
+<li><p><input type="radio" disabled="" /> The median <code>"avg_childcare_cost"</code> of the
+<code>"family_type"</code> with the</p></li>
+<li><p><input type="radio" disabled="" /> The median <code>"avg_housing_cost"</code> of the
+<code>"family_type"</code> with the</p></li>
+<li><p><input type="radio" disabled="" /> The median <code>"avg_housing_cost"</code> of the
+<code>"family_type"</code> with the</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading1_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1_2" aria-expanded="true" aria-controls="collapse1_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse1_2" class="accordion-collapse collapse collapse"
+aria-labelledby="heading1_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-1.3">Problem 1.3</h3>
+<p>Suppose we define <code>another_result</code> as follows.</p>
+<pre><code>another_result = (living_cost.groupby(&quot;state&quot;).count()
+                  .sort_values(by=&quot;median_income&quot;, ascending=False)
+                  .get(&quot;median_income&quot;).index[0])</code></pre>
+<p>What does <code>another_result</code> represent?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> The state with the highest median income.</p></li>
+<li><p><input type="radio" disabled="" /> The median income in the state with the highest median income.</p></li>
+<li><p><input type="radio" disabled="" /> The state with the most counties.</p></li>
+<li><p><input type="radio" disabled="" /> The median income in the state with the most counties.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading1_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1_3" aria-expanded="true" aria-controls="collapse1_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse1_3" class="accordion-collapse collapse collapse"
+aria-labelledby="heading1_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-1.4">Problem 1.4</h3>
+<p>Which of the following DataFrames has exactly four columns?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>living_cost.groupby("family_type").min()</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>living_cost.groupby("family_type").sum()</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>living_cost.groupby("family_type").count()</code></p></li>
+<li><p><input type="radio" disabled="" /> None of the above.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading1_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1_4" aria-expanded="true" aria-controls="collapse1_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse1_4" class="accordion-collapse collapse collapse"
+aria-labelledby="heading1_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-1.5">Problem 1.5</h3>
+<p>Suppose we define the Series <code>three_columns</code> to be the
+concatenation of three columns of the <code>living_cost</code> DataFrame
+as follows.</p>
+<pre><code>three_columns = (living_cost.get(&quot;state&quot;) + &quot; &quot; +
+                 living_cost.get(&quot;county&quot;) + &quot; &quot; + 
+                 living_cost.get(&quot;family_type&quot;))</code></pre>
+<p>For example, the first element of <code>three_columns</code> is the
+string <code>"CA San Diego County 1a2c"</code> (refer back to the first
+row of <code>living_cost</code> provided in the data overview).</p>
+<p>What does the following expression evaluate to?</p>
+<pre><code>(living_cost.assign(geo_family=three_columns)
+            .groupby(&quot;geo_family&quot;).count()
+            .shape[0])</code></pre>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <span class="math inline">10</span>, the number of distinct
+<code>"family_type"</code> values.</p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">50</span>, the number of states in the
+US.</p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">500</span>, the number of combinations of
+states in the US and</p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">3143</span>, the number of counties in the
+US.</p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">31430</span>, the number of rows in the
+<code>living_cost</code> DataFrame.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading1_5">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1_5" aria-expanded="true" aria-controls="collapse1_5">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse1_5" class="accordion-collapse collapse collapse"
+aria-labelledby="heading1_5" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-2">Problem 2</h2>
+<p>Suppose we define the three variables below.</p>
+<pre><code>J = living_cost.get(&quot;county&quot;) == &quot;Benton County&quot;
+K = living_cost.get(&quot;state&quot;) == &quot;IN&quot;
+L = living_cost.get(&quot;family_type&quot;) == &quot;1a2c&quot;</code></pre>
+<p>Feel free to use these variables in your solutions to the following
+questions.</p>
+<p><br></p>
+<h3 id="problem-2.1">Problem 2.1</h3>
+<p>Fill in the blanks so that the expression below evaluates to the
+average yearly childcare cost for families with one adult and two
+children in Benton County, IN.</p>
+<pre><code>    __(a)__.__(b)__.iloc[0]</code></pre>
+<ol type="1">
+<li><p>What goes in blank (a)?</p>
+<div class="responsebox">
+<p>0.45in <code>living_cost[J &amp; K &amp; L]</code></p>
+</div></li>
+<li><p>What goes in blank (b)?</p>
+<div class="responsebox">
+<p>0.45in <code>get("avg_childcare_cost")</code></p>
+</div></li>
+</ol>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading2_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2_1" aria-expanded="true" aria-controls="collapse2_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse2_1" class="accordion-collapse collapse collapse"
+aria-labelledby="heading2_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-2.2">Problem 2.2</h3>
+<p>Fill in the blanks so that the expression below evaluates to the
+number of states with a county named Benton County.</p>
+<pre><code>    __(c)__.__(d)__ / 10</code></pre>
+<ol type="1">
+<li><p>What goes in blank (c)?</p>
+<div class="responsebox">
+<p>0.45in <code>living_cost[J]</code></p>
+</div></li>
+<li><p>What goes in blank (d)?</p>
+<div class="responsebox">
+<p>0.45in <code>shape[0]</code></p>
+</div></li>
+</ol>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading2_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2_2" aria-expanded="true" aria-controls="collapse2_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse2_2" class="accordion-collapse collapse collapse"
+aria-labelledby="heading2_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-3">Problem 3</h2>
+<p>[(12 pts)]</p>
+<p>Suppose we want to assign a new column named
+<code>"family_size"</code> to <code>living_cost</code> that contains the
+total number of people in each family, stored as an int. We do so as
+follows.</p>
+<pre><code>living_cost = living_cost.assign(
+              family_size=living_cost.get(&quot;family_type&quot;).apply(num_people))</code></pre>
+<p>Which of the following options correctly define the function
+<code>num_people</code> such that the line above adds the
+<code>"family_size"</code> column as desired? <strong>Select all that
+apply.</strong></p>
+<p><em>Hint:</em> You can access an individual character in a string
+using the position number in square brackets. For example,
+<code>"midterm"[0]</code> evaluates to <code>"m"</code> and
+<code>"midterm"[1]</code> evaluates to <code>"i"</code>.</p>
+<pre><code># Option 1
+def num_people(fam): 
+    return int(fam[0]) + int(fam[2])
+------------------------------------
+# Option 2
+def num_people(fam):
+    return int(fam[0] + fam[2])
+------------------------------------
+# Option 3
+def num_people(fam):
+    x = int(fam[0] + fam[2])
+    return int(x / 10) + x % 10
+------------------------------------
+# Option 4
+def num_people(fam):
+    x = fam.strip(&quot;c&quot;).split(&quot;a&quot;)
+    return int(x[0]) + int(x[1])
+------------------------------------
+# Option 5
+def num_people(fam):
+    x = 0
+    for i in fam:
+        if i % 2 == 0:
+            x = x + 1
+    return x
+------------------------------------
+# Option 6
+def num_people(fam):
+    x = 0
+    for i in np.arange(len(fam)):
+        if i % 2 == 0:
+            x = x + int(fam[i])
+    return x</code></pre>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> Option 1</p></li>
+<li><p><input type="checkbox" disabled="" /> Option 2</p></li>
+<li><p><input type="checkbox" disabled="" /> Option 3</p></li>
+<li><p><input type="checkbox" disabled="" /> Option 4</p></li>
+<li><p><input type="checkbox" disabled="" /> Option 5</p></li>
+<li><p><input type="checkbox" disabled="" /> Option 6</p></li>
+<li><p><input type="checkbox" disabled="" /> None of the above.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="true" aria-controls="collapse3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse3" class="accordion-collapse collapse collapse"
+aria-labelledby="heading3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<hr />
+<h2 id="problem-4">Problem 4</h2>
+<p>For those who plan on having children, an important consideration
+when deciding whether to live in an area is the cost of raising children
+in that area. The DataFrame <code>expensive</code>, defined below,
+contains all of the rows in <code>living_cost</code> where the
+<code>"avg_childcare_cost"</code> is at least $20,000.</p>
+<pre><code>expensive = living_cost[living_cost.get(&quot;avg_childcare_cost&quot;) 
+                        &gt;= 20000]</code></pre>
+<p>We’ll call a county an “expensive county" if there is <strong>at
+least one</strong> <code>"family_type"</code> in that county with an
+<code>"avg_childcare_cost"</code> of at least $20,000. Note that all
+expensive counties appear in the <code>expensive</code> DataFrame, but
+some may appear multiple times (if they have multiple
+<code>"family_type"</code>s with an <code>"avg_childcare_cost"</code> of
+at least $20,000).</p>
+<p>Recall that the <code>"is_metro"</code> column contains Boolean
+values indicating whether or not each county is part of a metropolitan
+(urban) area. For all rows of <code>living_cost</code> (and, hence,
+<code>expensive</code>) corresponding to the same geographic location,
+the value of <code>"is_metro"</code> is the same. For instance, every
+row corresponding to San Diego County has an <code>"is_metro"</code>
+value of <code>True</code>.</p>
+<p>Fill in the blanks below so that the result is a DataFrame indexed by
+<code>"state"</code> where the <code>"is_metro"</code> column gives the
+<strong>proportion of expensive counties in each state that are part of
+a metropolitan area</strong>. For example, if New Jersey has five
+expensive counties and four of them are metropolitan, the row
+corresponding to New Jersey should have a value of 0.8 in the
+<code>"is_metro"</code> column.</p>
+<pre><code>(expensive.groupby(____(a)____).max()
+          .reset_index()
+          .groupby(____(b)____).____(c)____)</code></pre>
+<p><br></p>
+<h3 id="problem-4.1">Problem 4.1</h3>
+<p>What goes in blank (a)?</p>
+<div class="responsebox">
+<p>0.45in <code>["state", "county"]</code> or
+<code>["county", "state"]</code></p>
+</div>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading4_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_1" aria-expanded="true" aria-controls="collapse4_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse4_1" class="accordion-collapse collapse collapse"
+aria-labelledby="heading4_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-4.2">Problem 4.2</h3>
+<p>What goes in blank (b)?</p>
+<div class="responsebox">
+<p>0.45in <code>"state"</code></p>
+</div>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading4_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_2" aria-expanded="true" aria-controls="collapse4_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse4_2" class="accordion-collapse collapse collapse"
+aria-labelledby="heading4_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-4.3">Problem 4.3</h3>
+<p>What goes in blank (c)?</p>
+<div class="responsebox">
+<p>0.45in <code>mean()</code></p>
+</div>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading4_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_3" aria-expanded="true" aria-controls="collapse4_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse4_3" class="accordion-collapse collapse collapse"
+aria-labelledby="heading4_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-5">Problem 5</h2>
+<p>The rows in <code>living_cost</code> with a
+<code>"family_type"</code> value of <code>"1a0c"</code> correspond to
+families that consist of individuals living on their own. We’ll call
+such families “solo families." Below, we’ve visualized the distribution
+of the <code>"median_income"</code> column, but only for rows
+corresponding to solo families. Instead of visualizing median incomes in
+dollars, we’ve visualized them in thousands of dollars.</p>
+<center><img src='../assets/images/fa23-midterm/hist.png' width=500></center>
+<p>Suppose we’re interested in splitting the <span
+class="math inline">[50, 80)</span> bin into two separate bins — a <span
+class="math inline">[50, 70)</span> bin and a <span
+class="math inline">[70, 80)</span> bin.</p>
+<p>Let <span class="math inline">h_1</span> be the height of the new bar
+corresponding to the <span class="math inline">[50, 70)</span> bin and
+let <span class="math inline">h_2</span> be the height of the new bar
+corresponding to the <span class="math inline">[70, 80)</span> bin.</p>
+<p><br></p>
+<h3 id="problem-5.1">Problem 5.1</h3>
+<p>What are the minimum and maximum possible values of <span
+class="math inline">h_2</span>? Give your answers as <strong>decimals
+rounded to three decimal places</strong>.</p>
+<div class="center">
+<p>minimum = maximum =</p>
+</div>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading5_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_1" aria-expanded="true" aria-controls="collapse5_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse5_1" class="accordion-collapse collapse collapse"
+aria-labelledby="heading5_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-5.2">Problem 5.2</h3>
+<p>Suppose that the number of counties in which the median income of
+solo families is in the interval <span class="math inline">[50,
+70)</span> is <span class="math inline">r</span> times the number of
+counties in which the median income of solo families is in the interval
+<span class="math inline">[70, 80)</span>. Given this fact, what is the
+value of <span class="math display">\frac{h_1}{h_2},</span> the ratio of
+the heights of the two new bars?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <span class="math inline">\frac{1}{r}</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">\frac{2}{r}</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">\frac{3}{r}</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">\frac{r}{2}</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">\frac{r}{3}</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">2r</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">3r</span></p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading5_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_2" aria-expanded="true" aria-controls="collapse5_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse5_2" class="accordion-collapse collapse collapse"
+aria-labelledby="heading5_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-6">Problem 6</h2>
+<p>Recall that <code>living_cost</code> has <span
+class="math inline">31430</span> rows, one for each of the ten possible
+<code>"family_type"</code> values in each of the <span
+class="math inline">3143</span> US counties.</p>
+<p>Consider the function <code>state_merge</code>, defined below.</p>
+<pre><code>def state_merge(A, B):
+    state_A = living_cost[living_cost.get(&quot;state&quot;) == A]
+    state_B = living_cost[living_cost.get(&quot;state&quot;) == B]
+    return state_A.merge(state_B, on=&quot;family_type&quot;).shape[0]</code></pre>
+<p>Suppose Montana (<code>"MT"</code>) has 5 counties, and suppose
+<code>state_merge("MT", "NV")</code> evaluates to <code>1050</code>. How
+many counties does Nevada (<code>"NV"</code>) have? Give your answer as
+an integer.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6" aria-expanded="true" aria-controls="collapse6">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6" class="accordion-collapse collapse collapse"
+aria-labelledby="heading6" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<hr />
+<h2 id="problem-7">Problem 7</h2>
+<p>[(15 pts)]</p>
+<p>King Triton had four children, and each of his four children started
+their own families. These four families organize a Triton family reunion
+each year. The compositions of the four families are as follows:</p>
+<ul>
+<li><p>Family W: <code>"1a4c"</code></p></li>
+<li><p>Family X: <code>"2a1c"</code></p></li>
+<li><p>Family Y: <code>"2a3c"</code></p></li>
+<li><p>Family Z: <code>"1a1c"</code></p></li>
+</ul>
+<p>Suppose we choose one of the fifteen people at the Triton family
+reunion at random.</p>
+<p><br></p>
+<h3 id="problem-7.1">Problem 7.1</h3>
+<p>Given that the chosen individual is from a family with one child,
+what is the probability that they are from Family X? Give your answer as
+a simplified fraction.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading7_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_1" aria-expanded="true" aria-controls="collapse7_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse7_1" class="accordion-collapse collapse collapse"
+aria-labelledby="heading7_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-7.2">Problem 7.2</h3>
+<p>Consider the events <span class="math inline">A</span> and <span
+class="math inline">B</span>, defined below.</p>
+<ul>
+<li><p><span class="math inline">A</span>: The chosen individual is an
+adult.</p></li>
+<li><p><span class="math inline">B</span>: The chosen individual is a
+child.</p></li>
+</ul>
+<p>True or False: Events <span class="math inline">A</span> and <span
+class="math inline">B</span> are independent.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading7_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_2" aria-expanded="true" aria-controls="collapse7_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse7_2" class="accordion-collapse collapse collapse"
+aria-labelledby="heading7_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-7.3">Problem 7.3</h3>
+<p>Consider the events <span class="math inline">C</span> and <span
+class="math inline">D</span>, defined below.</p>
+<ul>
+<li><p><span class="math inline">C</span>: The chosen individual is a
+child.</p></li>
+<li><p><span class="math inline">D</span>: The chosen individual is from
+family <span class="math inline">Y</span>.</p></li>
+</ul>
+<p>True or False: Events <span class="math inline">C</span> and <span
+class="math inline">D</span> are independent.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading7_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_3" aria-expanded="true" aria-controls="collapse7_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse7_3" class="accordion-collapse collapse collapse"
+aria-labelledby="heading7_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-7.4">Problem 7.4</h3>
+<p>At the reunion, the Tritons play a game that involves placing the
+four letters into a hat (W, X, Y, and Z, corresponding to the four
+families). Then, <strong>five times</strong>, they draw a letter from
+the hat, write it down on a piece of paper, and place it back into the
+hat.</p>
+<p>Let <span class="math inline">p = \frac{1}{4}</span> in the questions
+that follow.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading7_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_4" aria-expanded="true" aria-controls="collapse7_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse7_4" class="accordion-collapse collapse collapse"
+aria-labelledby="heading7_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-8">Problem 8</h2>
+<p>[(14 pts)]</p>
+<p>After the family reunion, Family Y gets together with nine other
+families to play a game. All ten families (which we’ll number 1 through
+10) have a composition of <code>"2a3c"</code>. Within each family, the
+three children are labeled <code>"oldest"</code>, <code>"middle"</code>,
+or <code>"youngest"</code>.</p>
+<p>In this game, the numbers 1 through 10, representing the ten
+families, are placed into a hat. Then, <strong>five times</strong>, they
+draw a number from the hat, write it down on a piece of paper, and place
+it back into the hat. If a family’s number is written down on the paper
+at least twice, then two of the three children in that family are
+randomly selected to win a prize. The same child cannot be selected to
+win a prize twice.</p>
+<p>Chiachan is the middle child in Family 4. He writes a simulation,
+which is partially provided on the next page. Fill in the blanks so that
+after running the simulation,</p>
+<ul>
+<li><p><code>np.count_nonzero(outcomes == "Outcome Q") / repetitions</code>
+gives an estimate of the probability that Chiachan wins a
+prize.</p></li>
+<li><p><code>np.count_nonzero(outcomes == "Outcome R") / repetitions</code>
+gives an estimate of the probability that both of Chiachan’s siblings
+win a prize, but Chiachan does not.</p></li>
+<li><p><code>np.count_nonzero(outcomes == "Outcome S") / repetitions</code>
+gives an estimate of the probability that nobody from Chiachan’s family
+wins a prize.</p></li>
+</ul>
+<!-- -->
+<pre><code>ages = np.array([&quot;oldest&quot;, &quot;middle&quot;, &quot;youngest&quot;])
+outcomes = np.array([])
+repetitions = 10000
+for i in np.arange(repetitions):
+    fams = np.random.choice(np.arange(1, 11), 5, ____(a)____)
+    if ____(b)____:
+        children = np.random.choice(ages, 2, ____(c)____)
+        if not &quot;middle&quot; in children:
+            outcomes = np.append(outcomes, ____(d)____)
+        else:
+            outcomes = np.append(outcomes, ____(e)____)
+    else:
+        outcomes = np.append(outcomes, ____(f)____)</code></pre>
+<p><br></p>
+<h3 id="problem-8.1">Problem 8.1</h3>
+<p>What goes in blank (a)?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>replace=True</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>replace=False</code></p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading8_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_1" aria-expanded="true" aria-controls="collapse8_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse8_1" class="accordion-collapse collapse collapse"
+aria-labelledby="heading8_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-8.2">Problem 8.2</h3>
+<p>What goes in blank (b)?</p>
+<div class="responsebox">
+<p>0.8in <code>np.count_nonzero(fams == 4) &gt;= 2</code> or
+equivalent</p>
+</div>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading8_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_2" aria-expanded="true" aria-controls="collapse8_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse8_2" class="accordion-collapse collapse collapse"
+aria-labelledby="heading8_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-8.3">Problem 8.3</h3>
+<p>What goes in blank (c)?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>replace=True</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>replace=False</code></p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading8_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_3" aria-expanded="true" aria-controls="collapse8_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse8_3" class="accordion-collapse collapse collapse"
+aria-labelledby="heading8_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-8.4">Problem 8.4</h3>
+<p>What goes in blank (d)?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>"Outcome Q"</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>"Outcome R"</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>"Outcome S"</code></p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading8_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_4" aria-expanded="true" aria-controls="collapse8_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse8_4" class="accordion-collapse collapse collapse"
+aria-labelledby="heading8_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-8.5">Problem 8.5</h3>
+<p>What goes in blank (e)?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>"Outcome Q"</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>"Outcome R"</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>"Outcome S"</code></p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading8_5">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_5" aria-expanded="true" aria-controls="collapse8_5">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse8_5" class="accordion-collapse collapse collapse"
+aria-labelledby="heading8_5" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-8.6">Problem 8.6</h3>
+<p>What goes in blank (f)?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>"Outcome Q"</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>"Outcome R"</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>"Outcome S"</code></p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading8_6">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_6" aria-expanded="true" aria-controls="collapse8_6">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse8_6" class="accordion-collapse collapse collapse"
+aria-labelledby="heading8_6" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="section"><span class="math display"> </span></h2>
+<h4
+id="feedback-find-an-error-still-confused-have-a-suggestion-let-us-know-here.">👋
+Feedback: Find an error? Still confused? Have a suggestion?
+<a href="https://forms.gle/WZ71FchnXU1K154d7">Let us know
+here</u></a>.</h4>
+<hr />
+</body>
+</html>
