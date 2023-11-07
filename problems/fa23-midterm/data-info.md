@@ -1,7 +1,7 @@
 An area's cost of living describes how expensive it is to live in that
 area. In this exam, we'll work with the DataFrame `living_cost`, which
 describes the typical cost of living for different types of families
-across all $3143$ counties in the 50 United States. The first few rows
+across all 3143 counties in the 50 United States. The first few rows
 of `living_cost` are shown below, but `living_cost` has **many more
 rows** than shown.
 
@@ -21,7 +21,7 @@ follows: `"1a0c"`, `"1a1c"`, `"1a2c"`, `"1a3c"`, `"1a4c"`, `"2a0c"`,
 families fall into one of these ten categories**, and **all ten family
 structures are present in each US county**.
 
-Each of the $31430$ rows of the DataFrame represents a unique
+Each of the 31430 rows of the DataFrame represents a unique
 combination of `"state"`, `"county"`, and `"family_type"`. As a result,
 there will be more than one row with a `"state"` of `"CA"` and a
 `"county"` of `"San Diego"`, corresponding to different values of
