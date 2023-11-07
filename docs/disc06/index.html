@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>Discussion 6: Sampling, Probability vs. Empirical Distributions, Bootstrapping and Confidence Intervals</title>
+  <title>Discussion 6: Sampling, Bootstrapping, and Confidence Intervals</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -107,8 +107,8 @@
 </head>
 <body>
 <header id="title-block-header">
-<h1 class="title">Discussion 6: Sampling, Probability vs. Empirical
-Distributions, Bootstrapping and Confidence Intervals</h1>
+<h1 class="title">Discussion 6: Sampling, Bootstrapping, and Confidence
+Intervals</h1>
 </header>
 <p><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
@@ -139,16 +139,26 @@ problems here in the live discussion section</b>; the problems we don’t
 cover can be used for extra practice.</p>
 <hr />
 <h2 id="problem-1">Problem 1</h2>
-<p>For your convenience, we show the first few rows of
-<code>season</code> again below.</p>
+<p>Given below is the <code>season</code> DataFrame, which contains
+statistics on all players in the WNBA in the 2021 season. The first few
+rows of <code>season</code> are shown below:</p>
 <center><img src='../assets/images/wi22-final/seasons.png' width=40%></center>
-<p>In the past three problems, we presumed that we had access to the
-entire <code>season</code> DataFrame. Now, suppose we only have access
-to the DataFrame <code>small_season</code>, which is a random sample of
-<strong>size 36</strong> from <code>season</code>. We’re interested in
-learning about the true mean points per game of all players in
-<code>season</code> given just the information in
-<code>small_season</code>.</p>
+<p>Each row in <code>season</code> corresponds to a single player. For
+each player, we have: - <code>'Player'</code> (<code>str</code>), their
+name - <code>'Team'</code> (<code>str</code>), the three-letter code of
+the team they play on - <code>'G'</code> (<code>int</code>), the number
+of games they played in the 2021 season - <code>'PPG'</code>
+(<code>float</code>), the number of points they scored per game played -
+<code>'APG'</code> (<code>float</code>), the number of assists (passes)
+they made per game played - <code>'TPG'</code> (<code>float</code>), the
+number of turnovers they made per game played</p>
+<p>Note that all of the numerical columns in <code>season</code> must
+contain values that are greater than or equal to 0.</p>
+<p>Now, suppose we only have access to the DataFrame
+<code>small_season</code>, which is a random sample of <strong>size
+36</strong> from <code>season</code>. We’re interested in learning about
+the true mean points per game of all players in <code>season</code>
+given just the information in <code>small_season</code>.</p>
 <p>To start, we want to bootstrap <code>small_season</code> 10,000 times
 and compute the mean of the resample each time. We want to store these
 10,000 bootstrapped means in the array <code>boot_means</code>.</p>
@@ -314,23 +324,32 @@ in <code>boot_means</code>.</p>
 </div>
 <p><br></p>
 <h3 id="problem-1.4">Problem 1.4</h3>
-<p>Suppose we’ve now fixed everything that was incorrect about our
-bootstrapping implementation.</p>
-<p>Recall from earlier in the exam that, in <code>season</code>, the
-mean number of points per game is 7, with a standard deviation of 5.</p>
-<p>It turns out that when looking at just the players in
-<code>small_season</code>, the mean number of points per game is 9, with
-a standard deviation of 4. Remember that <code>small_season</code> is a
-random sample of size 36 taken from <code>season</code>.</p>
-<p>Which of the following histograms visualizes the empirical
-distribution of the sample mean, computed using the bootstrapping
-procedure above?</p>
-<center><img src='../assets/images/wi22-final/hist-grid.png' width=50%></center>
+<p>We construct a 95% confidence interval for the true mean points per
+game for all players by taking the middle 95% of the bootstrapped sample
+means.</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>left_b <span class="op">=</span> np.percentile(boot_means, <span class="fl">2.5</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>right_b <span class="op">=</span> np.percentile(boot_means, <span class="fl">97.5</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>boot_ci <span class="op">=</span> [left_b, right_b]         </span></code></pre></div>
+<p>We find that boot_ci is the interval [7.7, 10.3]. However, the mean
+points per game in season is 7, which is not in the interval we found.
+Which of the following statements is true? (Select all question)</p>
 <ul class="task-list">
-<li><p><input type="radio" disabled="" /> Option 1</p></li>
-<li><p><input type="radio" disabled="" /> Option 2</p></li>
-<li><p><input type="radio" disabled="" /> Option 3</p></li>
-<li><p><input type="radio" disabled="" /> Option 4</p></li>
+<li><p><input type="checkbox" disabled="" /> 95% of games in <code>season</code> have a number of points between
+the endpoints of the interval we found.</p></li>
+<li><p><input type="checkbox" disabled="" /> 95% of values in <code>boot_means</code> fall between the endpoints
+of the interval we found.</p></li>
+<li><p><input type="checkbox" disabled="" /> The interval we created did not contain the true mean points per
+game, but if we collected many original samples and constructed many 95%
+confidence intervals, then exactly 95% of them would contain the true
+mean points per game.</p></li>
+<li><p><input type="checkbox" disabled="" /> The interval we created did not contain the true mean points per
+game, but if we collected many original samples and constructed many 95%
+confidence intervals, then roughly 95% of them would contain the true
+mean points per game.</p></li>
+<li><p><input type="checkbox" disabled="" /> The interval we created had a 95% chance of containing the true mean
+points per game, we just got unlucky that it didn’t happen to capture
+the true mean points per game this time.</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
@@ -345,222 +364,16 @@ aria-labelledby="heading1_4" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer:</strong> Option 3</p>
-<p>The key to this problem is knowing to use the Central Limit Theorem.
-Specifically, we know that if we collect many samples from a population
-with replacement, then the distribution of the sample means will be
-roughly normal with:</p>
+<p><strong>Answers:</strong></p>
 <ul>
-<li>a mean that is equal to the mean of the population</li>
-<li>a standard deviation that is <span class="math inline">\frac{\text{SD of population}}{\sqrt{\text{sample
-size}}}</span></li>
-</ul>
-<p>Here, <strong>the “population” is <code>small_season</code></strong>,
-because that is the sample we’re repeatedly (re)sampling from. While
-<code>season</code> is actually the population, it is not seen at all in
-the bootstrapping process, so it doesn’t directly influence the
-distribution of the bootstrapped sample means.</p>
-<p>The mean of <code>small_season</code> is 9, and so is the
-distribution of bootstrapped sample means. The standard deviation of
-<code>small_season</code> is 4, so the square root law, the standard
-deviation of the distribution of bootstrapped sample means is <span class="math inline">\frac{4}{\sqrt{36}} = \frac{4}{6} =
-\frac{2}{3}</span>.</p>
-<p>The answer now boils down to choosing the histogram that looks
-roughly normally distributed with a mean of 9 and a standard deviation
-of <span class="math inline">\frac{2}{3}</span>. Options 1 and 4 can be
-ruled out right away since their means seem to be smaller than 9. To
-decide between Options 2 and 3, we can use the inflection point rule,
-which states that in a normal distribution, the inflection points occur
-at one standard deviation above and one standard deviation below the
-mean. (An inflection point is when a curve changes from opening upwards
-to opening downwards.) See the picture below for more details.</p>
-<center><img src="../assets/images/wi22-final/inflection.jpeg" width="60%"/></center>
-<p>Option 3 is the only distribution that appears to be centered at 9
-with a standard deviation of <span class="math inline">\frac{2}{3}</span> (0.7 is close to <span class="math inline">\frac{2}{3}</span>), so it must be the empirical
-distribution of the bootstrapped sample means.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 42%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-1.5">Problem 1.5</h3>
-<p>We construct a 95% confidence interval for the true mean points per
-game for all players by taking the middle 95% of the bootstrapped sample
-means.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>left_b <span class="op">=</span> np.percentile(boot_means, <span class="fl">2.5</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>right_b <span class="op">=</span> np.percentile(boot_means, <span class="fl">97.5</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>boot_ci <span class="op">=</span> [left_b, right_b]</span></code></pre></div>
-<p>Select the most correct statement below.</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> <code>(left_b + right_b) / 2</code> is exactly equal to the mean
-points per game in <code>season</code>.</p></li>
-<li><p><input type="radio" disabled="" /> <code>(left_b + right_b) / 2</code> is not necessarily equal to the
-mean points per game in <code>season</code>, but is close.</p></li>
-<li><p><input type="radio" disabled="" /> <code>(left_b + right_b) / 2</code> is exactly equal to the mean
-points per game in <code>small_season</code>.</p></li>
-<li><p><input type="radio" disabled="" /> <code>(left_b + right_b) / 2</code> is not necessarily equal to the
-mean points per game in <code>small_season</code>, but is close.</p></li>
-<li><p><input type="radio" disabled="" /> <code>(left_b _+ right_b) / 2</code> is not close to either the mean
-points per game in <code>season</code> or the mean points per game in
-<code>small_season</code>.</p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading1_5">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1_5" aria-expanded="true" aria-controls="collapse1_5">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse1_5" class="accordion-collapse collapse"
-aria-labelledby="heading1_5" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer:</strong> <code>(left_b + right_b) / 2</code> is not
-necessarily equal to the mean points per game in
-<code>small_season</code>, but is close.</p>
-<p>Normal-based confidence intervals are of the form <span class="math inline">[\text{mean} - \text{something}, \text{mean} +
-\text{something}]</span>. In such confidence intervals, it is the case
-that the average of the left and right endpoints is exactly the mean of
-the distribution used to compute the interval.</p>
-<p>However, <strong>the confidence interval we’ve created is not
-normal-based</strong>, rather it is bootstrap-based! As such, we can’t
-say that anything is <em>exactly</em> true; this rules out Options 1 and
-3.</p>
-<p>Our 95% confidence interval was created by taking the middle 95% of
-bootstrapped sample means. The distribution of bootstrapped sample means
-is <strong>roughly</strong> normal, and the normal distribution is
-symmetric (the mean and median are both equal, and represent the
-“center” of the distribution). This means that the middle of our 95%
-confidence interval should be roughly equal to the mean of the
-distribution of bootstrapped sample means. This implies that Option 4 is
-correct; the difference between Options 2 and 4 is that Option 4 uses
-<code>small_season</code>, which is the sample we bootstrapped from,
-while Option 2 uses <code>season</code>, which was not accessed at all
-in our bootstrapping procedure.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 62%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-1.6">Problem 1.6</h3>
-<p>Instead of bootstrapping, we could also construct a 95% confidence
-interval for the true mean points per game by using the Central Limit
-Theorem.</p>
-<p>Recall that, when looking at just the players in
-<code>small_season</code>, the mean number of points per game is 9, with
-a standard deviation of 4. Also remember that <code>small_season</code>
-is a random sample of size 36 taken from <code>season</code>.</p>
-<p><strong>Using only the information that we have about
-<code>small_season</code></strong> (i.e. without using any facts about
-<code>season</code>), compute a 95% confidence interval for the true
-mean points per game.</p>
-<p>What are the left and right endpoints of your interval? Give your
-answers as numbers rounded to 3 decimal places.</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading1_6">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1_6" aria-expanded="true" aria-controls="collapse1_6">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse1_6" class="accordion-collapse collapse"
-aria-labelledby="heading1_6" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer:</strong> <span class="math inline">[7.667,
-10.333]</span></p>
-<p>In a normal distribution, roughly 95% of values are within 2 standard
-deviations of the mean. The CLT tells us that the distribution of sample
-means is roughly normal, and in subpart 4 of this problem we already
-computed the SD of the distribution of sample means to be <span class="math inline">\frac{2}{3}</span>.</p>
-<p>So, our normal-based 95% confidence interval is computed as
-follows:</p>
-<p><span class="math display">\begin{aligned} &amp;[\text{mean of
-sample} - 2 \cdot \text{SD of distribution of sample means}, \text{mean
-of sample} + 2 \cdot \text{SD of distribution of sample means}] \\
-&amp;= [9 - 2 \cdot \frac{4}{\sqrt{36}}, 9 + 2 \cdot
-\frac{4}{\sqrt{36}}] \\ &amp;= [9 - \frac{4}{3}, 9 + \frac{4}{3}] \\
-&amp;\approx \boxed{[7.667, 10.333]} \end{aligned}</span></p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 87%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-1.7">Problem 1.7</h3>
-<p>Recall that the mean points per game in <code>season</code> is 7,
-which is not in the interval you found above (if it is, check your
-work!).</p>
-<p>Select the true statement below.</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> The 95% confidence interval we created in the previous subpart did
-not contain the true mean points per game, which means that the
-distribution of the sample mean is not normal.</p></li>
-<li><p><input type="radio" disabled="" /> The 95% confidence interval we created in the previous subpart did
-not contain the true mean points per game, which means that the
-distribution of points per game in <code>small_season</code> is not
-normal.</p></li>
-<li><p><input type="radio" disabled="" /> The 95% confidence interval we created in the previous subpart did
-not contain the true mean points per game. This is to be expected,
-because the Central Limit Theorem is only correct 95% of the time.</p></li>
-<li><p><input type="radio" disabled="" /> The 95% confidence interval we created in the previous subpart did
-not contain the true mean points per game, but if we collected many
-original samples and constructed many 95% confidence intervals, then
-roughly 95% of them would contain the true mean points per game.</p></li>
-<li><p><input type="radio" disabled="" /> The 95% confidence interval we created in the previous subpart did
-not contain the true mean points per game, but if we collected many
-original samples and constructed many 95% confidence intervals, then
-exactly 95% of them would contain the true mean points per game.</p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading1_7">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1_7" aria-expanded="true" aria-controls="collapse1_7">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse1_7" class="accordion-collapse collapse"
-aria-labelledby="heading1_7" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer:</strong> The 95% confidence interval we created in
-the previous subpart did not contain the true mean points per game, but
-if we collected many original samples and constructed many 95%
+<li>95% of values in <code>boot_means</code> fall between the endpoints
+of the interval we found.</li>
+<li>The interval we created did not contain the true mean points per
+game, but if we collected many original samples and constructed many 95%
 confidence intervals, then roughly 95% of them would contain the true
-mean points per game.</p>
-<p>In a confidence interval, the confidence level gives us a level of
-confidence in <strong>the process</strong> used to create the confidence
-interval. If we repeat the process of collecting a sample from the
-population and using the sample to construct a c% confidence interval
-for the population mean, then <strong>roughly</strong> c% of the
-intervals we create should contain the population mean. Option 4 is the
-only option that corresponds to this interpretation; the others are all
-incorrect in different ways.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 87%.</p>
+mean points per game.</li>
+</ul>
+<!-- <hr><h5>Difficulty: ⭐️⭐️</h5><p>The average score on this problem was 87%. -->
 </div>
 </div>
 </div>
@@ -568,6 +381,48 @@ incorrect in different ways.</p>
 <p><br></p>
 <hr />
 <h2 id="problem-2">Problem 2</h2>
+<p><strong>True or False</strong>: Suppose that from a sample, you
+compute a 95% bootstrapped confidence interval for a population
+parameter to be the interval [L, R]. Then the average of L and R is the
+mean of the original sample.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="true" aria-controls="collapse2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse2" class="accordion-collapse collapse"
+aria-labelledby="heading2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> False</p>
+<p>A 95% confidence interval indicates we are 95% confident that the
+true population parameter falls within the interval [L, R]. Note that
+the problem specifies that the confidence interval is bootstrapped.
+Since the interval is found using bootstrapping, L anr R averaged will
+not be the mean of the original sample since the mean of the original
+sample is not what is used in calculating the bootstrapped confidence
+interval. The bootstrapped confidence interval is created by re-sampling
+the data with replacement over and over again. Thus, the interval is not
+centered around the mean because bootstrapping and random sampling will
+lead to variation in the confidence interval. Additionally, L is the
+2.5th percentile of the distribution of bootstrapped means and R is the
+97.5th percentile, and these are not necessarily the same distance away
+from the mean of the sample.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 87%.</p>
+</div>
+</div>
+</div>
+</div>
+<hr />
+<h2 id="problem-3">Problem 3</h2>
 <div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> np.array([])</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10</span>):</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> np.random.choice(np.arange(<span class="dv">1000</span>), replace<span class="op">=</span><span class="va">False</span>)</span>
@@ -585,13 +440,13 @@ without replacement</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="true" aria-controls="collapse2">
+<h2 class="accordion-header" id="heading3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="true" aria-controls="collapse3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse2" class="accordion-collapse collapse"
-aria-labelledby="heading2" data-bs-parent="#accordionExample">
+<div id="collapse3" class="accordion-collapse collapse"
+aria-labelledby="heading3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -642,51 +497,29 @@ probability by default.</p>
 </div>
 </div>
 <hr />
-<h2 id="problem-3">Problem 3</h2>
-<p><strong>True or False</strong>: Suppose that from a sample, you
-compute a 95% bootstrapped confidence interval for a population
-parameter to be the interval [L, R]. Then the average of L and R is the
-mean of the original sample.</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="true" aria-controls="collapse3">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse3" class="accordion-collapse collapse"
-aria-labelledby="heading3" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> False</p>
-<p>False, a 95% confidence interval indicates we are 95% confident that
-the true population parameter falls within the interval [L, R]. Note
-that the problem specifies that the confidence interval is bootstrapped.
-Since the interval is found using bootstrapping, L anr R averaged will
-not be the mean of the original sample since the mean of the original
-sample is not what is used in calculating the bootstrapped confidence
-interval. The bootstrapped confidence interval (as noted on the
-reference sheet is created by re-sampling the data with replacement over
-and over again). Thus, the interval is not centered around the mean
-because bootstrapping and random sampling will lead to variation in the
-confidence interval.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 87%.</p>
-</div>
-</div>
-</div>
-</div>
-<hr />
 <h2 id="problem-4">Problem 4</h2>
-<p><strong>True or False</strong>: Suppose that from a sample, you
-compute a 95% normal confidence interval for a population parameter to
-be the interval [L, R]. Then the average of L and R is the mean of the
-original sample.</p>
+<p>We want to use <code>app_data</code> to estimate the average amount
+of time it takes to build an IKEA bed (any product in the ‘bed’
+category). Which of the following strategies would be an appropriate way
+to estimate this quantity? Select all that apply.</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> Query to keep only the beds. Then resample with replacement many
+times. For each resample, take the mean of the <code>'minutes'</code>
+column. Compute a 95% confidence interval based on those means.</p></li>
+<li><p><input type="checkbox" disabled="" /> Query to keep only the beds. Group by <code>'product'</code> using
+the mean aggregation function. Then resample with replacement many
+times. For each resample, take the mean of the <code>'minutes'</code>
+column. Compute a 95% confidence interval based on those means.</p></li>
+<li><p><input type="checkbox" disabled="" /> Resample with replacement many times. For each resample, first query
+to keep only the beds and then take the mean of the
+<code>'minutes'</code> column. Compute a 95% confidence interval based
+on those means.</p></li>
+<li><p><input type="checkbox" disabled="" /> Resample with replacement many times. For each resample, first query
+to keep only the beds. Then group by <code>'product'</code> using the
+mean aggregation function, and finally take the mean of the
+<code>'minutes'</code> column. Compute a 95% confidence interval based
+on those means.</p></li>
+</ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading4">
@@ -700,19 +533,51 @@ aria-labelledby="heading4" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer: </strong> True</p>
-<p>True, a 95% confidence interval indicates we are 95% confident that
-the true population parameter falls within the interval [L, R]. Looking
-at how a confidence interval is calculated is by adding/ subtracting a
-confidence level value (z) by the standard error. Since the top and
-bottom of the interval will be different from the mean by the same
-amount, the average will be the mean. (For more information, refer to
-the reference sheet)</p>
+<p><strong>Answer: </strong></p>
+<p>Only the first answer is correct. This is a question of parameter
+estimation, so our approach is to use bootstrapping to create many
+resamples of our original sample, computing the average of each
+resample. Each resample should always be the same size as the original
+sample. The first answer choice accomplishes this by querying first to
+keep only the beds, then resampling from the DataFrame of beds only.
+This means resamples will have the same size as the original sample.
+Each resample’s mean will be computed, so we will have many resample
+means from which to construct our 95% confidence interval.</p>
+<p>In the second answer choice, we are actually taking the mean twice.
+We first average the build times for all builds of the same product when
+grouping by product. This produces a DataFrame of different products
+with the average build time for each. We then resample from this
+DataFrame, computing the average of each resample. But this is a
+resample of products, not of product builds. The size of the resample is
+the number of unique products in <code>app_data</code>, not the number
+of reported product builds in <code>app_data</code>. Further, we get
+incorrect results by averaging numbers that are already averages. For
+example, if 5 people build bed A and it takes them each 1 hour, and 1
+person builds bed B and it takes them 10 hours, the average amount of
+time to build a bed is <span class="math inline">\frac{5*1+10}{6} =
+2.5</span>. But if we average the times for bed A (1 hour) and average
+the times for bed B (5 hours), then average those, we get <span class="math inline">\frac{1+5}{2} = 3</span>, which is not the same.
+More generally, grouping is not a part of the bootstrapping process
+because we want each data value to be weighted equally.</p>
+<p>The last two answer choices are incorrect because they involve
+resampling from the full <code>app_data</code> DataFrame before querying
+to keep only the beds. This is incorrect because it does not preserve
+the sample size. For example, if <code>app_data</code> contains 1000
+reported bed builds and 4000 other product builds, then the only
+relevant data is the 1000 bed build times, so when we resample, we want
+to consider another set of 1000 beds. If we resample from the full
+<code>app_data</code> DataFrame, our resample will contain 5000 rows,
+but the number of beds will be random, not necessarily 1000. If we query
+first to keep only the beds, then resample, our resample will contain
+exactly 1000 beds every time. As an added bonus, since we only care
+about beds, it’s much faster to resample from a smaller DataFrame of
+beds only than it is to resample from all <code>app_data</code> with
+plenty of rows we don’t care about.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
 </p>
-<p>The average score on this problem was 68%.</p>
+<p>The average score on this problem was 71%.</p>
 </div>
 </div>
 </div>
