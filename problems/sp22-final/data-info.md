@@ -47,6 +47,7 @@ An IKEA fan created an app where people can log the amount of time it took them 
 - `'product'` (`str`): the name of the product, which includes the product line as the first word, followed by a description of the product
 - `'category'` (`str`): a categorical description of the type of product
 - `'assembly_time'` (`str`): the amount of time to assemble the product, formatted as `'x hr, y min'` where `x` and `y` represent integers, possibly zero
+-  `'minutes'` (`int`): integer values representing the number of minutes it took to assemble each product
 
 
 The first few rows of `app_data` are shown below, though `app_data` has many more rows than pictured (5000 rows total).

@@ -1,6 +1,6 @@
 # BEGIN PROB
 
-We want to use `app_data` to estimate the average amount of time it takes to build an IKEA bed (any product in the 'bed' category). Which of the following strategies would be an appropriate way to estimate this quantity? Select all that apply.
+We want to use `app_data` to estimate the average amount of time it takes to build an IKEA bed (any product in the `'bed'` category). Which of the following strategies would be an appropriate way to estimate this quantity? Select all that apply.
 
 [ ] Query to keep only the beds. Then resample with replacement many times. For each resample, take the mean of the `'minutes'` column. Compute a 95% confidence interval based on those means.
 [ ] Query to keep only the beds. Group by `'product'` using the mean aggregation function. Then resample with replacement many times. For each resample, take the mean of the `'minutes'` column. Compute a 95% confidence interval based on those means.

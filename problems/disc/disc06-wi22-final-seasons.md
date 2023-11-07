@@ -4,15 +4,7 @@ Given below is the `season` DataFrame, which contains statistics on all players 
 
 <center><img src='../assets/images/wi22-final/seasons.png' width=40%></center>
 
-Each row in `season` corresponds to a single player. For each player, we have:
-- `'Player'` (`str`), their name
-- `'Team'` (`str`), the three-letter code of the team they play on
-- `'G'` (`int`), the number of games they played in the 2021 season
-- `'PPG'` (`float`), the number of points they scored per game played
-- `'APG'` (`float`), the number of assists (passes) they made per game played
-- `'TPG'` (`float`), the number of turnovers they made per game played
-
-Note that all of the numerical columns in `season` must contain values that are greater than or equal to 0.
+Each row in season corresponds to a single player. In this problem, we'll be looking at the `'PPG'` column, which records the number of points they scored per game played.
 
 Now, suppose we only have access to the DataFrame `small_season`, which is a random sample of **size 36** from `season`. We're interested in learning about the true mean points per game of all players in `season` given just the information in `small_season`.
 
@@ -115,7 +107,7 @@ right_b = np.percentile(boot_means, 97.5)
 boot_ci = [left_b, right_b]         
 ```
 
-We find that boot_ci is the interval [7.7, 10.3]. However, the mean points per game in season is 7, which is not in the interval we found. Which of the following statements is true? (Select all question)
+We find that boot_ci is the interval [7.7, 10.3]. However, the mean points per game in `season` is 7, which is not in the interval we found. Which of the following statements is true? (Select all question)
 
 [ ] 95% of games in `season` have a number of points between the endpoints of the interval we found.
 [ ] 95% of values in `boot_means` fall between the endpoints of the interval we found.
@@ -127,7 +119,7 @@ We find that boot_ci is the interval [7.7, 10.3]. However, the mean points per g
 
 **Answers:** 
 
-- 95% of values in `boot_means` fall between the endpoints of the interval we found.
+- 95% of values in `boot_means` fall between the endpoints of the interval we found. 
 - The interval we created did not contain the true mean points per game, but if we collected many original samples and constructed many 95% confidence intervals, then roughly 95% of them would contain the true mean points per game.
 
 <!-- <average>87</average> -->
