@@ -72,7 +72,7 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
     </tr>   
       <tr>
       <th scope="row">6</th>
-      <td>November 1st</td>
+      <td>November 8th</td>
       <td><a href="disc06/index.html">Sampling, Bootstrapping, and Confidence Intervals</a></td>
     </tr>   
   </tbody>
