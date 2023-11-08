@@ -68,7 +68,13 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
       <th scope="row">5</th>
       <td>November 1st</td>
       <td><a href="https://dsc10.com/resources/exams/fa23-midterm-sol.pdf">Midterm Exam Walkthrough</a></td>
-    </tr>  
+    </tr>
+    </tr>   
+      <tr>
+      <th scope="row">6</th>
+      <td>November 1st</td>
+      <td><a href="disc06/index.html">Sampling, Bootstrapping, and Confidence Intervals</a></td>
+    </tr>   
   </tbody>
 </table>
 </center>
