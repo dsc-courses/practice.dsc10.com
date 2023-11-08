@@ -4,7 +4,7 @@ Given below is the `season` DataFrame, which contains statistics on all players 
 
 <center><img src='../assets/images/wi22-final/seasons.png' width=40%></center>
 
-Each row in season corresponds to a single player. In this problem, we'll be looking at the `'PPG'` column, which records the number of points they scored per game played.
+Each row in season corresponds to a single player. In this problem, we'll be looking at the `'PPG'` column, which records the number of points scored per game played.
 
 Now, suppose we only have access to the DataFrame `small_season`, which is a random sample of **size 36** from `season`. We're interested in learning about the true mean points per game of all players in `season` given just the information in `small_season`.
 
@@ -107,13 +107,14 @@ right_b = np.percentile(boot_means, 97.5)
 boot_ci = [left_b, right_b]         
 ```
 
-We find that boot_ci is the interval [7.7, 10.3]. However, the mean points per game in `season` is 7, which is not in the interval we found. Which of the following statements is true? (Select all question)
+We find that `boot_ci` is the interval [7.7, 10.3]. However, the mean points per game in `season` is 7, which is not in the interval we found. Which of the following statements is true? (Select all question)
 
-[ ] 95% of games in `season` have a number of points between the endpoints of the interval we found.
-[ ] 95% of values in `boot_means` fall between the endpoints of the interval we found.
+[ ] 95% of games in `season` have a number of points between 7.7 and 10.3.
+[ ] 95% of values in `boot_means` fall between 7.7 and 10.3.
+[ ] There is a 95% chance that the true mean points per game is between 7.7 and 10.3.
 [ ] The interval we created did not contain the true mean points per game, but if we collected many original samples and constructed many 95% confidence intervals, then exactly 95% of them would contain the true mean points per game.
 [ ] The interval we created did not contain the true mean points per game, but if we collected many original samples and constructed many 95% confidence intervals, then roughly 95% of them would contain the true mean points per game.
-[ ] The interval we created had a 95% chance of containing the true mean points per game, we just got unlucky that it didn't happen to capture the true mean points per game this time.
+
 
 # BEGIN SOLN
 
@@ -121,6 +122,16 @@ We find that boot_ci is the interval [7.7, 10.3]. However, the mean points per g
 
 - 95% of values in `boot_means` fall between the endpoints of the interval we found. 
 - The interval we created did not contain the true mean points per game, but if we collected many original samples and constructed many 95% confidence intervals, then roughly 95% of them would contain the true mean points per game.
+
+The first option is incorrect because the confidence interval describes what we think the *mean* points per game could be. Individual games likely have a very large variety in the number of points scores. Probably very few have between 7.7 and 10.3 points.
+
+The second option is correct because this is precisely how we calculated the endpoints of our interval, by taking the middle 95% of values in `boot_means`.
+
+The third option is incorrect because we know the true mean points per game - it's 7. 7 does not fall in the interval 7.7 to 10.3, and we can say that with certainty. This is not a probability statement because the interval and the parameter are both fixed.
+
+The fourth option is incorrect because of the word *exactly*. We generally can't make guarantees like this when working with randomness. 
+
+The fifth option is correct, as this is the meaning of confidence. We have confidence in the process of generating 95% confidence intervals, because roughly 95% of such intervals we create will capture the parameter of interest.
 
 <!-- <average>87</average> -->
 
