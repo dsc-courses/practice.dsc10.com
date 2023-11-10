@@ -165,6 +165,8 @@ This is just the definition of Central Limit Theorem.
 
 # BEGIN SUBPROB
 
+<span style="color:red"><b>Note: This problem is out of scope; it covers material no longer included in the course.</b></span>
+
 The 20th percentile of the sequence [10, 30, 50, 40, 9, 70] is 30.
 
 ( ) True
