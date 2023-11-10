@@ -1310,6 +1310,12 @@ aria-labelledby="heading5_1" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: <code>6</code></p>
+<p>The TVD is the sum of the absolute differences in proportions,
+divided by 2. In the code to the left of the blank, we’ve computed the
+mean of the absolute differences in proportions, which is the same as
+the sum of the absolute differences in proportions, divided by 12. To
+correct the fact that we divided by 12, we multiply by 6, so that we’re
+only dividing by 2.</p>
 </div>
 </div>
 </div>
@@ -1352,6 +1358,13 @@ aria-labelledby="heading5_2" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: <code>np.ones(12) / 12</code></p>
+<p>To represent a uniform distribution of sunshine hours across the 12
+months, we need an array where each entry is the same and sums to 1
+(because we are working with probabilities). Since there are 12 months,
+each month should have an equal chance of <span class="math inline">\frac{1}{12}</span>.</p>
+<p>The <code>np.ones()</code> function can create an array filled with
+the value 1. To get a uniform distribution, we divide this array by 12
+to represent the equal probability for each month.</p>
 </div>
 </div>
 </div>
@@ -1383,6 +1396,16 @@ aria-labelledby="heading5_3" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer</strong>:
 <code>np.random.multinomial(total_count, uniform_dist) / total_count</code></p>
+<p>This line of code uses the <code>np.random.multinomial</code>
+function to simulate the allocation of <code>total_count</code> sunshine
+hours (the total observed count across all months) into the 12 months
+based on a uniform distribution, where each month has an equal
+probability of being chosen. By dividing the resulting counts by
+<code>total_count</code>, we convert these simulated counts into
+proportions. These proportions are necessary because the TVD is
+calculated using proportions, allowing for a direct comparison between
+the observed proportions and the simulated proportions under the null
+hypothesis.</p>
 </div>
 </div>
 </div>
@@ -1405,6 +1428,13 @@ aria-labelledby="heading5_4" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: <code>uniform_dist</code></p>
+<p>Each simulation generates a distribution that mimics what we would
+expect to see if the null hypothesis were true (if the actual
+distribution of sunshine hours was uniform across all months). The
+<code>calculate_tvd()</code> function is then used to calculate how much
+the simulated distribution deviates from the expected uniform
+distribution. By doing so, we measure the divergence of each simulation
+from perfect uniformity.</p>
 </div>
 </div>
 </div>
@@ -1435,6 +1465,15 @@ aria-labelledby="heading5_5" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: <code>&gt;=</code></p>
+<p>The purpose of the last line of code is to compute the p-value for
+the hypothesis test. The p-value is calculated by comparing the observed
+test statistic to the distribution of test statistics obtained under the
+null hypothesis. Specifically, it measures the proportion of simulated
+test statistics that are as extreme or more extreme than the observed
+test statistic. In this context, “as extreme or more extreme” means the
+simulated TVD is greater than or equal to the observed TVD. The
+<code>&gt;=</code> operator is used to count how many of the simulated
+TVDs meet this criterion.</p>
 </div>
 </div>
 </div>
@@ -1458,6 +1497,19 @@ aria-labelledby="heading5_6" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer</strong>: <code>observed_counts / total_count</code>
 or <code>observed_counts / observed_counts.sum()</code></p>
+<p>Blank (f) provides the observed distribution of sunshine hours (in
+proportions) that we compare against the uniform distribution to
+calculate the observed TVD. This observed TVD is then compared with the
+distribution of simulated TVDs to calculate the p-value. The observed
+counts are converted to proportions by dividing by the total count so
+that the observed distribution is on the same scale as the simulated and
+expected uniform distributions, which are also in proportions.</p>
+<p>The p-value is the probability, under the null hypothesis, of
+observing a test statistic at least as extreme as the one observed. By
+calculating the mean of the condition
+<code>tvds &gt;= calculate_tvd(uniform_dist, observed_counts / total_count)</code>,
+we find the proportion of simulations where the simulated TVD is greater
+than or equal to the observed TVD, which gives us the p-value.</p>
 </div>
 </div>
 </div>
