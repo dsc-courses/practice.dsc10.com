@@ -176,7 +176,7 @@ The new statistic that we used for this hypothesis test, the mean of the absolut
 
 **Answer:** 1.5
 
-Recall, the total variation distance (TVD) is the sum of the absolute differences in proportions, divided by 2. When we compute the mean of the absolute differences in proportions, we are computing the sum of the absolute differences in proportions, divided by the number of groups (which is 3). Thus, to get TVD, we first multiply our current statistics (the mean of the absolute differences in proportions) by 3, we get the sum of the absolute differences in proportions. Then according to the definition of TVD, we divide this value by 2. Thus, we have $\text{current statistics}\cdot 3 / 2 = \text{current statistics}\cdot 1.5$
+Recall, the total variation distance (TVD) is the sum of the absolute differences in proportions, divided by 2. When we compute the mean of the absolute differences in proportions, we are computing the sum of the absolute differences in proportions, divided by the number of groups (which is 3). Thus, to get TVD, we first multiply our current statistics (the mean of the absolute differences in proportions) by 3, we get the sum of the absolute differences in proportions. Then according to the definition of TVD, we divide this value by 2. Thus, we have $\text{current statistics}\cdot 3 / 2 = \text{current statistics}\cdot 1.5$.
 
 <average>65</average>
 
