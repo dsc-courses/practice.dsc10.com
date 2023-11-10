@@ -1,5 +1,7 @@
 # BEGIN PROB
 
+<span style="color:red"><b>Note: This problem is out of scope; it covers material no longer included in the course.</b></span>
+
 Recall the mathematical definition of percentile and how we calculate it.
 
 | Let *p* be a number between 0 and 100. The *p*th percentile of a collection is the smallest 

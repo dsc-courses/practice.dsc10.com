@@ -170,13 +170,13 @@ Recall, the p-value is the chance, under the null hypothesis, that the test stat
 
 # BEGIN SUBPROB
 
-The new statistic that we used for this hypothesis test, the mean of the absolute differences in proportions, is in fact closely related to the total variation distance. Given two arrays of length three, `array_1` and `array_2`, suppose we compute the mean of the absolute differences in proportions between `array_1` and `array_2` and store the result as madp. What value would we have to multiply `madp` by to obtain the total variation distance  `array_1` and `array_2`? Input your answer below, rounding to three decimal places.
+The new statistic that we used for this hypothesis test, the mean of the absolute differences in proportions, is in fact closely related to the total variation distance. Given two arrays of length three, `array_1` and `array_2`, suppose we compute the mean of the absolute differences in proportions between `array_1` and `array_2` and store the result as `madp`. What value would we have to multiply `madp` by to obtain the total variation distance  `array_1` and `array_2`? Input your answer below, rounding to three decimal places.
 
 # BEGIN SOLUTION
 
 **Answer:** 1.5
 
-Recall, the total variation distance (TVD) is the sum of the absolute differences in proportions, divided by 2. When we compute the mean of the absolute differences in proportions, we are computing the sum of the absolute differences in proportions, divided by the number of groups (which is 3). Thus, to get TVD, we first multiply our current statistics (the mean of the absolute differences in proportions) by 3, we get the sum of the absolute differences in proportions. Then according to the definition of TVD, we divide this value by 2. Thus, we have $\text{current statistics}\cdot 3 / 2 = \text{current statistics}\cdot 1.5$
+Recall, the total variation distance (TVD) is the sum of the absolute differences in proportions, divided by 2. When we compute the mean of the absolute differences in proportions, we are computing the sum of the absolute differences in proportions, divided by the number of groups (which is 3). Thus, to get TVD, we first multiply our current statistics (the mean of the absolute differences in proportions) by 3, we get the sum of the absolute differences in proportions. Then according to the definition of TVD, we divide this value by 2. Thus, we have $\text{current statistics}\cdot 3 / 2 = \text{current statistics}\cdot 1.5$.
 
 <average>65</average>
 

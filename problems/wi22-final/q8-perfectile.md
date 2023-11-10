@@ -26,6 +26,8 @@ When $z = 3.6$, we have $1 - \frac{1}{z^2} = 1 - \frac{1}{3.6^2} = 0.922839$, wh
 
 # BEGIN SUBPROB
 
+<span style="color:red"><b>Note: This problem is out of scope; it covers material no longer included in the course.</b></span>
+
 **Note:** This question uses the mathematical definition of percentile, not `np.percentile`.
 
 The array `aces` defined below contains the points per game scored by all members of the Las Vegas Aces. Note that it contains 14 numbers that are in sorted order.
