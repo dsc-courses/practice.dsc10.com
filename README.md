@@ -10,6 +10,8 @@ Repository containing practice problems for DSC 10 (past exams and discussion). 
 - regex
 ```
 
+**Also, make sure you install [pandoc](https://pandoc.org/installing.html) as a standalone program on your computer.**
+
 Style guide for writing up problems:
 
 - **Answer:** should be bolded followed by unbolded answer(s), comma separated if it fits on one line, or each answer on a new line if it doesn't fit on one line
