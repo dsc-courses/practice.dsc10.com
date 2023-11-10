@@ -170,7 +170,7 @@ Recall, the p-value is the chance, under the null hypothesis, that the test stat
 
 # BEGIN SUBPROB
 
-The new statistic that we used for this hypothesis test, the mean of the absolute differences in proportions, is in fact closely related to the total variation distance. Given two arrays of length three, `array_1` and `array_2`, suppose we compute the mean of the absolute differences in proportions between `array_1` and `array_2` and store the result as madp. What value would we have to multiply `madp` by to obtain the total variation distance  `array_1` and `array_2`? Input your answer below, rounding to three decimal places.
+The new statistic that we used for this hypothesis test, the mean of the absolute differences in proportions, is in fact closely related to the total variation distance. Given two arrays of length three, `array_1` and `array_2`, suppose we compute the mean of the absolute differences in proportions between `array_1` and `array_2` and store the result as `madp`. What value would we have to multiply `madp` by to obtain the total variation distance  `array_1` and `array_2`? Input your answer below, rounding to three decimal places.
 
 # BEGIN SOLUTION
 
