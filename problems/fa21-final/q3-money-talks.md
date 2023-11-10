@@ -64,6 +64,8 @@ Thus, an **overlaid bar chart** is more appropriate.
 
 # BEGIN SUBPROB
 
+<span style="color:red"><b>Note: This problem is out of scope; it covers material no longer included in the course.</b></span>
+
 Notably, there was an economic recession in 2008-2009. Which of the following can we conclude was an effect of the recession?
 
 ( ) The increase in revenue from admissions, as more people were visiting museums.
