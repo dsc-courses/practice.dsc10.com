@@ -10,7 +10,7 @@ rows** than shown.
 <br>
 
 Two counties in the same state will never have the same name, but as
-rows 4 and 5 above illustrate, there are some counties in different
+the last two rows above illustrate, there are some counties in different
 states with the same name, like Lee County.
 
 The `"family_type"` column uses a code to describe the number of adults
@@ -33,16 +33,16 @@ There is **only one row**, however, where `"state"` is `"CA"`,
 In addition to the `"state"`, `"county"`, and `"family_type"` columns,
 `living_cost` includes the following columns.
 
--   `"is_metro" (bool)`: `True` if the county is part of a metropolitan
+-   `"is_metro"` (`bool`): `True` if the county is part of a metropolitan
     (urban) area, `False` otherwise. This value is the same for all rows
     of the DataFrame corresponding to the same county and state.
--   `"avg_housing_cost" (int)`: The average yearly cost of housing, in
+-   `"avg_housing_cost"` (`int`): The average yearly cost of housing, in
     dollars, for families of the given size in the given county and
     state.
--   `"avg_childcare_cost" (int)`: The average yearly cost of childcare,
+-   `"avg_childcare_cost"` (`int`): The average yearly cost of childcare,
     in dollars, for families of the given size in the given county and
     state.
--   `"median_income" (int)`: The median annual income, in dollars, for
+-   `"median_income"` (`int`): The median annual income, in dollars, for
     families of the given size in the given county and state.
 
 **Throughout the exam**, assume we have already run
