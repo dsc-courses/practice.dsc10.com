@@ -8,12 +8,20 @@
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
   </style>
-  <link rel="stylesheet" href="..\assets\theme.css" />
+  <link rel="stylesheet" href="../assets/theme.css" />
   <script defer=""
   src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
@@ -143,7 +151,7 @@ appropriate?<br />
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse1_1" class="accordion-collapse collapse collapse"
+<div id="collapse1_1" class="accordion-collapse collapse"
 aria-labelledby="heading1_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -151,9 +159,8 @@ aria-labelledby="heading1_1" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer:</strong> Bar chart<br/>
 </p>
-<p><code>"family_type"</code> is a categorical (i.e. qualitative)
-variable, and we use bar charts to visualize the distribution of
-categorical variables.</p>
+<p><code>"family_type"</code> is a categorical variable, and we use bar
+charts to visualize the distribution of categorical variables.</p>
 <ul>
 <li>A scatter plot visualizes the relationship between two numerical
 variables, but we are only using one numerical variable here
@@ -201,7 +208,7 @@ result = sorted_families.get(&quot;avg_childcare_cost&quot;).iloc[0]</code></pre
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse1_2" class="accordion-collapse collapse collapse"
+<div id="collapse1_2" class="accordion-collapse collapse"
 aria-labelledby="heading1_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -211,12 +218,11 @@ aria-labelledby="heading1_2" data-bs-parent="#accordionExample">
 of the <code>"family_type"</code> with the lowest median
 <code>"avg_housing_cost"</code>.<br/>
 </p>
-<p>Since we grouped <code>living_cost</code> by
+<p>When we grouped <code>living_cost</code> by
 <code>"family_type"</code>, <code>families</code> is a DataFrame with
 one row per <code>"family_type"</code>. Using the <code>.median()</code>
-aggregation method took the median of all numerical columns per
-<code>"family_type"</code>. Columns that have string values are now
-dropped because we can’t take the median of strings.</p>
+aggregation method takes the median of all numerical columns per
+<code>"family_type"</code>.</p>
 <p><code>sorted_families</code> is the <code>families</code> DataFrame,
 but sorted in ascending order based on the
 <code>"avg_housing_cost"</code> column. The first row of
@@ -262,7 +268,7 @@ the lowest median <code>"avg_housing_cost"</code>.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse1_3" class="accordion-collapse collapse collapse"
+<div id="collapse1_3" class="accordion-collapse collapse"
 aria-labelledby="heading1_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -278,12 +284,12 @@ in <code>living_count</code> for each <code>"state"</code>. All of the
 columns will also be the same after using <code>.count()</code>, so they
 will all contain the distribution of <code>"state"</code>. Since
 <code>living_cost</code> has data on every county in the US, the grouped
-<code>living_cost</code> DataFrame represents the number of counties
-that each state has. We then sort the DataFrame in descending order, so
-the state with the most counties is at the top of the DataFrame. The
-last line of the expression gets a column and uses <code>.index</code>
-to get the state corresponding to the first entry, which happens to be
-the state with the most counties and the value that gets assigned to
+DataFrame represents the number of counties that each state has.</p>
+<p>We then sort the DataFrame in descending order, so the state with the
+most counties is at the top of the DataFrame. The last line of the
+expression gets a column and uses <code>.index</code> to get the state
+corresponding to the first entry, which happens to be the state with the
+most counties and the value that gets assigned to
 <code>another_result</code>.</p>
 <p>Since all the columns are the same, it doesn’t matter which column we
 pick to use in the <code>.sort_values()</code> method. In this case, we
@@ -314,7 +320,7 @@ column will produce the same result.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse1_4" class="accordion-collapse collapse collapse"
+<div id="collapse1_4" class="accordion-collapse collapse"
 aria-labelledby="heading1_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -328,11 +334,14 @@ the columns in <code>living_cost</code> that contain non-numerical data
 are dropped after we use the <code>.sum()</code> aggregation method.
 There are four columns in <code>living_cost</code> that have numerical
 data (<code>"is_metro"</code>, <code>"avg_housing_cost"</code>,
-<code>"avg_childcare_cost"</code>, and <code>"median_income"</code>), so
-the resulting DataFrame has exactly four columns.</p>
-<p>Although <code>"is_metro"</code> contains boolean values, it is still
-considered to have numerical values. The boolean value <code>True</code>
-corresponds to 1 and <code>False</code> corresponds to 0.</p>
+<code>"avg_childcare_cost"</code>, and <code>"median_income"</code>).
+Since Python can take the sum of these numerical columns, these four
+columns are kept. Therefore, the resulting DataFrame has exactly four
+columns.</p>
+<p>Although <code>"is_metro"</code> contains Boolean values, Python can
+still calculate the sum of this column. The Boolean value
+<code>True</code> corresponds to 1 and <code>False</code> corresponds to
+0.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
 <p>
@@ -376,7 +385,7 @@ US.</p></li>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse1_5" class="accordion-collapse collapse collapse"
+<div id="collapse1_5" class="accordion-collapse collapse"
 aria-labelledby="heading1_5" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -387,9 +396,10 @@ number of rows in the <code>living_cost</code> DataFrame.<br/>
 </p>
 <p>The first line of the expression creates a new column in
 <code>living_cost</code>, called <code>"geo_family"</code> that
-represents the values in <code>"three_columns"</code>. When we group the
-DataFrame by <code>living_cost</code>, we create a new DataFrame that
-contains a row for every unique value in <code>"three_columns"</code>.
+represents the concatenation of the values in
+<code>"three_columns"</code>. When we group the DataFrame by
+<code>"geo_family"</code>, we create a new DataFrame that contains a row
+for every unique value in <code>"three_columns"</code>.
 <code>"three_columns"</code> has various combinations of
 <code>"state"</code>, <code>"country"</code>, and
 <code>"family_type"</code>. Since it’s given in the DataFrame
@@ -399,8 +409,7 @@ and <code>"family_type"</code>, this means that the grouped DataFrame
 has 31430 unique combinations as well. Therefore, when we use
 <code>.shape[0]</code> to get the number of rows in the grouped
 DataFrame in the last line of the expression, we get the same value as
-the number of rows in the <code>living_cost</code> DataFrame
-(31430).</p>
+the number of rows in the <code>living_cost</code> DataFrame, 31430.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -436,7 +445,7 @@ children in Benton County, IN.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse2_1" class="accordion-collapse collapse collapse"
+<div id="collapse2_1" class="accordion-collapse collapse"
 aria-labelledby="heading2_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -493,7 +502,7 @@ number of states with a county named Benton County.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse2_2" class="accordion-collapse collapse collapse"
+<div id="collapse2_2" class="accordion-collapse collapse"
 aria-labelledby="heading2_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -605,7 +614,7 @@ def num_people(fam):
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse3" class="accordion-collapse collapse collapse"
+<div id="collapse3" class="accordion-collapse collapse"
 aria-labelledby="heading3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -699,7 +708,7 @@ corresponding to a New Jersey should have a value of 0.8 in the
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse4_1" class="accordion-collapse collapse collapse"
+<div id="collapse4_1" class="accordion-collapse collapse"
 aria-labelledby="heading4_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -732,7 +741,7 @@ state and county.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse4_2" class="accordion-collapse collapse collapse"
+<div id="collapse4_2" class="accordion-collapse collapse"
 aria-labelledby="heading4_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -763,7 +772,7 @@ only by “state,” so grouping by “state” will make “state” the index.
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse4_3" class="accordion-collapse collapse collapse"
+<div id="collapse4_3" class="accordion-collapse collapse"
 aria-labelledby="heading4_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -818,7 +827,7 @@ rounded to three decimal places</strong>.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse5_1" class="accordion-collapse collapse collapse"
+<div id="collapse5_1" class="accordion-collapse collapse"
 aria-labelledby="heading5_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -865,7 +874,7 @@ the heights of the two new bars?</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse5_2" class="accordion-collapse collapse collapse"
+<div id="collapse5_2" class="accordion-collapse collapse"
 aria-labelledby="heading5_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -904,7 +913,7 @@ an integer.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse6" class="accordion-collapse collapse collapse"
+<div id="collapse6" class="accordion-collapse collapse"
 aria-labelledby="heading6" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -945,7 +954,7 @@ a simplified fraction.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse7_1" class="accordion-collapse collapse collapse"
+<div id="collapse7_1" class="accordion-collapse collapse"
 aria-labelledby="heading7_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -990,7 +999,7 @@ class="math inline">B</span> are independent.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse7_2" class="accordion-collapse collapse collapse"
+<div id="collapse7_2" class="accordion-collapse collapse"
 aria-labelledby="heading7_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1047,7 +1056,7 @@ class="math inline">D</span> are independent.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse7_3" class="accordion-collapse collapse collapse"
+<div id="collapse7_3" class="accordion-collapse collapse"
 aria-labelledby="heading7_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1102,7 +1111,7 @@ that follow.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse7_4" class="accordion-collapse collapse collapse"
+<div id="collapse7_4" class="accordion-collapse collapse"
 aria-labelledby="heading7_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1145,7 +1154,7 @@ p</span>, which is <span class="math inline">p^5</span>.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse7_5" class="accordion-collapse collapse collapse"
+<div id="collapse7_5" class="accordion-collapse collapse"
 aria-labelledby="heading7_5" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1192,7 +1201,7 @@ the last family that is selected?</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse7_6" class="accordion-collapse collapse collapse"
+<div id="collapse7_6" class="accordion-collapse collapse"
 aria-labelledby="heading7_6" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1275,7 +1284,7 @@ for i in np.arange(repetitions):
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse8_1" class="accordion-collapse collapse collapse"
+<div id="collapse8_1" class="accordion-collapse collapse"
 aria-labelledby="heading8_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1304,7 +1313,7 @@ twice to be initialized in the <code>fams</code> array, therefore we use
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse8_2" class="accordion-collapse collapse collapse"
+<div id="collapse8_2" class="accordion-collapse collapse"
 aria-labelledby="heading8_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1341,7 +1350,7 @@ for loop.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse8_3" class="accordion-collapse collapse collapse"
+<div id="collapse8_3" class="accordion-collapse collapse"
 aria-labelledby="heading8_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1374,7 +1383,7 @@ we remove them from the pool after being selected.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse8_4" class="accordion-collapse collapse collapse"
+<div id="collapse8_4" class="accordion-collapse collapse"
 aria-labelledby="heading8_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1411,7 +1420,7 @@ being selected.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse8_5" class="accordion-collapse collapse collapse"
+<div id="collapse8_5" class="accordion-collapse collapse"
 aria-labelledby="heading8_5" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1447,7 +1456,7 @@ the corresponding situation.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse8_6" class="accordion-collapse collapse collapse"
+<div id="collapse8_6" class="accordion-collapse collapse"
 aria-labelledby="heading8_6" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
