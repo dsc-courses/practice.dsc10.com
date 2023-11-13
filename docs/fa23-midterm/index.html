@@ -727,12 +727,18 @@ aria-labelledby="heading4_1" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer:</strong> <code>["state", "county"]</code> or
 <code>["county", "state"]</code></p>
-<p>The code applies the <code>.groupby()</code> function. Then,
-<code>.max()</code> is applied to find the subsequent rows in the
-respective groups that have the highest “avg_childcare_cost.” We want to
-calculate the proportion of counties within their respective states, so
-we must group by state and county to find the max of each combination of
-state and county.</p>
+<p>When approaching this question, we know the <code>expensive</code>
+DataFrame contains multiple rows for combinations of state and county.
+If we are calculating the proportion of counties within each state, we
+want to obtain unique combinations of state and county. Since the code
+uses <code>.groupby</code>, that means there will be one row for every
+unique entry of whatever column/columns we decide to group on. At this
+point, the <code>expensive</code> DataFrame, has multiple rows for each
+state and county combination, because there could be multiple
+<code>"family_type"</code>’s with an <code>"avg_childcare_cost"</code>
+of at least $20,000. To get all the unique combinations of state and
+county in the DataFrame, we can group by
+<code>["state", "county"]</code>.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️⭐️⭐️</h5>
 <p>
@@ -759,9 +765,10 @@ aria-labelledby="heading4_2" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer:</strong> <code>"state"</code></p>
-<p>The code applies <code>.groupby</code> again, but this time it is
-only used to group by “state”. At this point, we want to know the
-proportions for each respective state, so the rows must be unique to
+<p>Now that we have all the unqiue combinations of county and state in
+the DataFrame, we want to proceed by calculating the proportions for the
+counties within each respective state. At this point, we want to know
+the proportions for each respective state, so the rows must be unique to
 each state. Additionally, we want the resulting DataFrame to be indexed
 only by “state,” so grouping by “state” will make “state” the index.</p>
 <hr/>
@@ -792,9 +799,11 @@ aria-labelledby="heading4_3" data-bs-parent="#accordionExample">
 <p><strong>Answer:</strong> <code>mean()</code></p>
 <p>Since the <code>"is_metro"</code> column consists of boolean values,
 <code>True</code> as a boolean value equates to 1, and
-<code>False</code> equates to 0. If the mean is calculated, this will
-effectively result in a proportion in the <code>"is_metro"</code>
-column, so we use the <code>.mean()</code> function.</p>
+<code>False</code> equates to 0. Since we are also grouping by
+<code>"state"</code>, if the mean is calculated, this will effectively
+result in a proportion of the counties that are metropolitan areas in
+the <code>"is_metro"</code> column. Thus, we use the
+<code>.mean()</code> function.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
 <p>
