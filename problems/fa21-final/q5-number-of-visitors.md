@@ -55,7 +55,7 @@ $$\text{predicted}\ y_{su} =  r \cdot x_{su} = 0.25 \cdot -6 =  -1.5$$
 
 We then compute y, which is the admission cost (in dollars) at the Museum of Natural History.
 
-$$\begin{align*} y_{su} = \frac{y- \text{Mean of } y}{\text{SD of } y}\\
+$$\begin{align*} y_{su} &= \frac{y- \text{Mean of } y}{\text{SD of } y}\\
 -1.5 &= \frac{y-15}{3} \\
 -1.5 \cdot 3 &= y-15\\
 -4.5 + 15 &= y\\
