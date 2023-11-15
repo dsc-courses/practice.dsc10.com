@@ -2256,6 +2256,14 @@ aria-labelledby="heading9_1" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: 0.18 or 18%</p>
+<ul>
+<li><p>The probability it is not sunny in SD on Monday is <span class="math inline">1 - \frac{7}{10} = \frac{3}{10}</span></p></li>
+<li><p>The probability it is not sunny in SD on Tuesday is <span class="math inline">1 - \frac{2}{5} = \frac{3}{5}</span><br/>
+</p></li>
+</ul>
+<p>Since these events are independent, the probability of both happening
+is: <span class="math inline">\frac{3}{10} \cdot \frac{3}{5} =
+\frac{9}{50} = \frac{18}{100} = 18\%</span></p>
 </div>
 </div>
 </div>
@@ -2287,6 +2295,14 @@ aria-labelledby="heading9_2" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: <span class="math inline">97\%</span></p>
+<p>The event that it is sunny in at least one of the three cities on
+Monday is the complement of the event that it is not sunny in all three
+cities on Monday. The probability it is not sunny in all three cities on
+Monday is: <span class="math display">(1 - \frac{7}{10}) \cdot (1 -
+\frac{3}{5}) \cdot (1 - \frac{3}{4}) = \frac{3}{10} \cdot \frac{2}{5}
+\cdot \frac{1}{4} = \frac{6}{200} = \frac{3}{100} = 0.03</span><br/>
+So the probability that it is sunny in at least one of the three cities
+on Monday is <span class="math inline">1 - 0.03 = 0.97</span></p>
 </div>
 </div>
 </div>
@@ -2318,6 +2334,26 @@ aria-labelledby="heading9_3" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: <span class="math inline">60\%</span></p>
+<p>The event that it is sunny in LA on Tuesday can happen in two
+ways:</p>
+<ul>
+<li><p>It is sunny in LA on Tuesday and on Monday.</p></li>
+<li><p>It is sunny in LA on Tuesday but not on Monday.</p></li>
+</ul>
+<p>We need to consider these cases differently given the conditions in
+the table. By the multiplication rule, the probability of the first and
+the second case is as follow.</p>
+<ul>
+<li><p>The probability of the first case is: <span class="math display">P(\text{sunny Monday and sunny Tuesday}) =
+P(\text{sunny Monday}) \cdot P(\text{sunny Tuesday given sunny Monday})
+= \frac{3}{5} \cdot \frac{3}{4} = \frac{9}{20}</span></p></li>
+<li><p>The probability of the second case is: <span class="math display">P(\text{not sunny Monday and sunny Tuesday}) =
+P(\text{not sunny Monday}) \cdot P(\text{sunny Tuesday given not sunny
+Monday}) = \frac{2}{5} \cdot \frac{3}{8} = \frac{3}{20}</span></p></li>
+</ul>
+<p>Since these events have no overlap, the probability of either one
+occurring is <span class="math inline">\frac{9}{20} + \frac{3}{20} =
+\frac{12}{20} = 60\%</span></p>
 </div>
 </div>
 </div>
@@ -2361,8 +2397,46 @@ aria-labelledby="heading9_4" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer</strong>:</p>
 <p><strong>What goes in blank (a)?</strong> 0</p>
+<p>In the <code>for</code>-loop we add the probabilities of the three
+different cases, so <code>exactly_two</code> needs to start from 0.</p>
 <p><strong>What goes in blank (b)?</strong>
 <code>(1 - monday[i]) / monday[i]</code></p>
+<p>In the context of this problem, where we want to find the probability
+that exactly two out of the three cities (San Diego, Los Angeles, and
+San Francisco) are sunny on Monday, we need to consider each possible
+combination where two cities are sunny and one is not. This is done by
+multiplying the probabilities of two cities having sunshine with the
+probability of the third city not having sunshine and add up all of the
+results.</p>
+<p>In the code above, <code>np.prod(monday)</code> calculates the
+probability of all three cities (San Diego, Los Angeles, and San
+Francisco) being sunny, based on their respective probabilities.
+However, since we’re interested in the case where exactly two cities are
+sunny, we need to adjust this calculation for each city not being sunny
+in turn. This adjustment is achieved by the term
+<code>(1-monday[i])/monday[i]</code>. Let’s break down this small piece
+of code together:</p>
+<ul>
+<li><p><code>1 - monday[i]</code>: This part calculates the probability
+of the ith city not being sunny. For each iteration of the loop, it
+represents the chance that one specific city (either San Diego, Los
+Angeles, or San Francisco, depending on the iteration) has no sunshine.
+This is essential because, for exactly two cities to be sunny, one city
+must not be sunny.</p></li>
+<li><p><code>monday[i]</code>: This part represents the original
+probability of the <code>i</code>th city being sunny, which is included
+in the <code>np.prod(monday)</code> calculation.</p></li>
+<li><p><code>(1-monday[i])/monday[i]</code>: By dividing the probability
+of the city not being sunny by the probability of it being sunny, we’re
+effectively replacing the <code>i</code>th city’s sunny probability in
+the original product <code>np.prod(monday)</code> with its not sunny
+probability. This adjusts the total probability to reflect the scenario
+where the other two cities are sunny, and the <code>i</code>th city is
+not.</p></li>
+</ul>
+<p>By adding all possible combinations, it provide the probability that
+exactly two out of San Diego, Los Angeles, and San Francisco are sunny
+on a given Monday.</p>
 </div>
 </div>
 </div>
@@ -2428,6 +2502,52 @@ aria-labelledby="heading10_1" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: Pair 2</p>
+<p>Let’s start by understanding the test statistic:</p>
+<ul>
+<li><p>This statistic calculates the difference between the count of
+sunny days and cloudy days.</p></li>
+<li><p>If the number of sunny days significantly exceeds the number of
+cloudy days, the statistic will be large. Conversely, if there are fewer
+sunny days, the statistic will be smaller or even negative.</p></li>
+</ul>
+<p>Now, let’s try to fit the test statistic into two pairs of
+hypotheses.</p>
+<p><strong>Pair 1</strong>:<br/>
+</p>
+<ul>
+<li><p>The alternative hypothesis is that the probability of a sunny day
+is not <span class="math inline">\frac{3}{4}</span>, which includes both
+greater than and less than <span class="math inline">\frac{3}{4}</span>.</p></li>
+<li><p>If the difference between sunny and cloudy days is positive and
+large, it suggests a higher probability of sunny days, potentially
+supporting the alternative hypothesis.</p></li>
+<li><p>Conversely, if this difference is negative (more cloudy days than
+sunny), it implies a lower probability of sunny days, again potentially
+supporting the alternative hypothesis.</p></li>
+<li><p>This dual consideration (both higher and lower probabilities than
+<span class="math inline">\frac{3}{4}</span>) makes it suitable for a
+two-tailed test. However, while the test statistic could theoretically
+suit Pair 1 under normal circumstances, the constraint of not using
+two-tailed tests in this question makes it inappropriate for Pair
+1.</p></li>
+</ul>
+<p><strong>Pair 2</strong>:<br/>
+</p>
+<ul>
+<li><p>Pair 2’s null hypothesis posits that the probability of a sunny
+day is <span class="math inline">\frac{3}{4}</span>, while the
+alternative hypothesis suggests that the probability is greater than
+<span class="math inline">\frac{3}{4}</span>.</p></li>
+<li><p>In this scenario, a large positive value of the test statistic
+(significantly more sunny days than cloudy days) would support the
+alternative hypothesis, indicating that sunny days are more frequent
+than what the null hypothesis suggests.</p></li>
+<li><p>Since the alternative hypothesis in Pair 2 is one-sided (only
+considering probabilities greater than <span class="math inline">\frac{3}{4}</span>), this statistic aligns well with
+testing this hypothesis.</p></li>
+</ul>
+<p>Therefore, this test statistic could be used to test pair 2, but it
+could not be used to test pair 1.</p>
 </div>
 </div>
 </div>
@@ -2457,6 +2577,50 @@ aria-labelledby="heading10_2" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: Neither</p>
+<p>Let’s start by understanding the test statistic:</p>
+<ul>
+<li>This statistic calculates the absolute value of the difference
+between the count of sunny days and cloudy days in September. Regardless
+of whether there are more sunny or cloudy days, this statistic will
+always yield a non-negative value.</li>
+</ul>
+<p>Now, let’s try to fit the test statistic into two pairs of
+hypotheses.</p>
+<p><strong>Pair 1</strong>:<br/>
+</p>
+<ul>
+<li><p>Pair 1’s null hypothesis states that the probability of a sunny
+day is <span class="math inline">\frac{3}{4}</span>, and the alternative
+hypothesis is that the probability is not <span class="math inline">\frac{3}{4}</span>.</p></li>
+<li><p>The absolute difference only indicates the magnitude of the
+discrepancy between sunny and cloudy days, but it doesn’t indicate which
+is more prevalent.</p></li>
+<li><p>To test Pair 1 effectively, we need a statistic that can
+distinguish between a probability greater than or less than <span class="math inline">\frac{3}{4}</span>. The absolute difference fails to
+provide this distinction, as it loses the directionality of the
+difference (whether there are more sunny days or more cloudy
+days).</p></li>
+<li><p>This inability to discern the direction of the discrepancy makes
+it unsuitable for a test that requires understanding whether the
+probability is above or below a certain threshold (as in Pair
+1).</p></li>
+</ul>
+<p><strong>Pair 2</strong>:<br/>
+</p>
+<ul>
+<li><p>Pair 2’s null hypothesis is the same as in Pair 1, but the
+alternative hypothesis specifically suggests that the probability of a
+sunny day is greater than <span class="math inline">\frac{3}{4}</span>.</p></li>
+<li><p>The absolute difference, being non-directional, does not inform
+us if sunny days are more frequent than cloudy days. It only tells us
+how different the counts are, not which is greater.</p></li>
+<li><p>For Pair 2, we need a statistic that can specifically identify
+when sunny days are more frequent than what the null hypothesis
+proposes. Since the absolute difference does not provide this
+information, it is not suitable for testing Pair 2.</p></li>
+</ul>
+<p>Therefore, this test statistic could not be used to test both pair 1
+and pair 2.</p>
 </div>
 </div>
 </div>
@@ -2486,6 +2650,15 @@ aria-labelledby="heading10_3" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: Pair 2</p>
+<p>Let’s start by understanding the test statistic:</p>
+<ul>
+<li><p>If the difference between the proportion of sunny days and <span class="math inline">\frac{1}{4}</span> is exactly 0.5, it aligns with
+the null hypothesis that the proportion of sunny days is <span class="math inline">\frac{3}{4}</span>.</p></li>
+<li><p>If this difference is greater than 0.5, it suggests the
+proportion of sunny days is more than <span class="math inline">\frac{3}{4}</span>.</p></li>
+<li><p>Conversely, if the difference is less than 0.5, it implies that
+the proportion of sunny days is less than <span class="math inline">\frac{3}{4}</span>.</p></li>
+</ul>
 </div>
 </div>
 </div>
@@ -2558,6 +2731,8 @@ aria-labelledby="heading11_1" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: Option 1</p>
+<p>In this case, Option 2 is too strong, Option 3 is negative, and
+Option 4 is too weak.</p>
 </div>
 </div>
 </div>
@@ -2568,7 +2743,7 @@ aria-labelledby="heading11_1" data-bs-parent="#accordionExample">
 <p>Suppose the standard deviation of the number of sunshine hours in
 January for cities in California is equal to the standard deviation of
 the number of sunshine hours in July for cities in California.</p>
-<p>Raine’s hometown of Santa Clarita saw 40 more sunshine hours in
+<p>Raine’s hometown of Santa Clarita saw 60 more sunshine hours in
 January than the average California city did. How many <strong>more
 sunshine hours than average</strong> does the regression line predict
 that Santa Clarita will have in July? Give your answer as a positive
@@ -2589,6 +2764,33 @@ aria-labelledby="heading11_2" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: 24</p>
+<p>To solve this problem, we can use the concept of linear regression,
+specifically the formula for predicting a value in a linearly correlated
+dataset. The formula we’ll use is based on the standard deviations of
+the two variables (January and July sunshine hours), their correlation,
+and how many standard deviations away from the mean the specific data
+point (Santa Clarita’s January sunshine hours) is. The general formula
+for a prediction in a simple linear regression is:<span class="math display">\frac{\text{y} - \text{mean of y}}{\text{standard
+deviation of y}} = r \cdot \frac{\text{x} - \text{mean of
+x}}{\text{standard deviation of x}}</span></p>
+<p>Given that the standard deviation of January and July sunshine hours
+are equal, we can simplifies our formula to:<span class="math display">\text{y} - \text{mean of y}= r \cdot (\text{x} -
+\text{mean of x})</span></p>
+<p>Since we’re asked how much more sunshine Santa Clarita will have in
+July compared to the average, we’re interested in the difference <span class="math inline">\text{y} - \text{mean of y}</span>. We know that
+Santa Clarita had 60 more sunshine hours in January than the average,
+and we are given the fact that the correlation between the two
+variables(correlation coefficient) is <span class="math inline">\frac{2}{5}</span>.</p>
+<ul>
+<li><p><span class="math inline">\text{x} - \text{mean of x} =
+60</span></p></li>
+<li><p><span class="math inline">r = \frac{2}{5}</span></p></li>
+</ul>
+<p>Using the information above, we can calculate the predicted sunshine
+hours:<span class="math display">\text{y} - \text{mean of y} =
+\frac{2}{5} \cdot 60 = 24</span></p>
+<p>Therefore, the regression line predicts that Santa Clarita will have
+24 more sunshine hours than the average California city in July.</p>
 </div>
 </div>
 </div>
@@ -2599,11 +2801,11 @@ generally, Anthony, another California native, feels that California is
 getting cloudier and cloudier overall.</p>
 <p>To imagine what the dataset may look like in a few years, Anthony
 subtracts 5 from the number of sunshine hours in both January and July
-for all California cities in the dataset — i.e., he subtracts 5 from
-each <span class="math inline">x</span> value and 5 from each <span
-class="math inline">y</span> value in the dataset. He then creates a
-regression line to use the new <span class="math inline">x</span>s to
-predict the new <span class="math inline">y</span>s.</p>
+for all California cities in the dataset —— i.e., he subtracts 5 from
+each <span class="math inline">x</span> value and 5 from each y value in
+the dataset. He then creates a regression line to use the new <span
+class="math inline">xs</span> to predict the new <span
+class="math inline">ys</span>.</p>
 <p><br></p>
 <h3 id="problem-11.3">Problem 11.3</h3>
 <p>What is the slope of Anthony’s new regression line?</p>
@@ -2622,6 +2824,23 @@ aria-labelledby="heading11_3" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer</strong>: <span class="math inline">\frac{2}{5}</span>
 or 0.4</p>
+<p>To determine the slope of Anthony’s new regression line, we need to
+understand how the modifications he made to the dataset (subtracting 5
+hours from each x and y value) affect the slope. In simple linear
+regression, the slope of the regression line (denoted as <span class="math inline">b</span>) is calculated using the formula:</p>
+<p><span class="math display">b = r \cdot \frac{\text{standard deviation
+of y}}{\text{standard deviation of x}}</span></p>
+<p>Where <span class="math inline">r</span> is the correlation
+coefficient between the two variables (which remains unchanged in
+Anthony’s modifications). Since Anthony’s modifications (subtracting a
+constant from all values) do not change the standard deviations of the
+datasets or their correlation coefficient, the slope of the new
+regression line will remain the same as that of the original regression
+line. Given the fact that the correlation coefficient is <span class="math inline">\frac{2}{5}</span> and the standard deviation of
+sunshine hours in January is equal to the standard deviation of sunshine
+hours in July. We can know that:<span class="math display">b = r \cdot
+\frac{\text{standard deviation of y}}{\text{standard deviation of x}} =
+\frac{2}{5} \cdot 1 = \frac{2}{5}</span></p>
 </div>
 </div>
 </div>
@@ -2656,6 +2875,25 @@ aria-labelledby="heading11_4" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: 7</p>
+<p>Let’s denote the original intercept as <span class="math inline">a</span> and the new intercept as <span class="math inline">a'</span>. The equation for the original
+regression line is: <span class="math display">y = bx + a</span></p>
+<p>Where:</p>
+<ul>
+<li><p>y is the predicted value,</p></li>
+<li><p>b is the slope of the line,</p></li>
+<li><p>x is the independent variable (sunshine hours in
+January),</p></li>
+<li><p>a is the original intercept (which is 10).</p></li>
+</ul>
+<p>When Anthony subtracts 5 from each x and y value, the new regression
+equation becomes: <span class="math display">y - 5 = b \cdot (x - 5) +
+a'</span></p>
+<p>Expanding and rearrange this equation, we get: <span class="math display">y = bx - 5b + 5 + a'</span></p>
+<p>Compare this new regression equation with the original equation, we
+can know that: <span class="math display">-5b + 5 + a' =
+a</span></p>
+<p>Therefore we get: <span class="math display">a' = 10 + 5b -5 = 10
++ 5 \cdot \frac{2}{5} - 5 = 7</span></p>
 </div>
 </div>
 </div>
@@ -2692,6 +2930,24 @@ aria-labelledby="heading11_5" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer</strong>: A distinctive pattern in the residual
 plot</p>
+<p>Chicago’s weather is characterized by clear seasonal changes, with
+significantly different weather conditions in summer and winter.
+Therefore, the number of sunshine hours in a place like Chicago
+typically follows a cyclical pattern within a year, peaking during the
+summer months and reaching its lowest during the winter months. This
+cyclical, sinusoidal pattern cannot be accurately captured by a simple
+linear regression model.</p>
+<p>In a linear regression model, residuals (the differences between
+observed and predicted values) should ideally be randomly distributed if
+the model fits the data well. However, in this case, due to the cyclical
+nature of the data, the residuals are likely to show a systematic
+pattern. For example, the model might consistently underpredict sunshine
+hours in summer (when they are at their peak) and overpredict in winter
+(when they are at their lowest), leading to a pattern in the
+residuals.</p>
+<p>Hence, a distinctive pattern in the residual plot is expected due to
+the non-linear, seasonal nature of the relationship between the month of
+the year and the number of sunshine hours in Chicago.</p>
 </div>
 </div>
 </div>
