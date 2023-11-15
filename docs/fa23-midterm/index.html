@@ -8,20 +8,12 @@
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    /* The extra [class] is a hack that increases specificity enough to
-       override a similar rule in reveal.js */
-    ul.task-list[class]{list-style: none;}
-    ul.task-list li input[type="checkbox"] {
-      font-size: inherit;
-      width: 0.8em;
-      margin: 0 0.8em 0.2em -1.6em;
-      vertical-align: middle;
-    }
+    ul.task-list{list-style: none;}
   </style>
-  <link rel="stylesheet" href="../assets/theme.css" />
+  <link rel="stylesheet" href="..\assets\theme.css" />
   <script defer=""
   src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
@@ -151,7 +143,7 @@ appropriate?<br />
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse1_1" class="accordion-collapse collapse"
+<div id="collapse1_1" class="accordion-collapse collapse collapse"
 aria-labelledby="heading1_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -208,7 +200,7 @@ result = sorted_families.get(&quot;avg_childcare_cost&quot;).iloc[0]</code></pre
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse1_2" class="accordion-collapse collapse"
+<div id="collapse1_2" class="accordion-collapse collapse collapse"
 aria-labelledby="heading1_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -268,7 +260,7 @@ the lowest median <code>"avg_housing_cost"</code>.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse1_3" class="accordion-collapse collapse"
+<div id="collapse1_3" class="accordion-collapse collapse collapse"
 aria-labelledby="heading1_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -320,7 +312,7 @@ column will produce the same result.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse1_4" class="accordion-collapse collapse"
+<div id="collapse1_4" class="accordion-collapse collapse collapse"
 aria-labelledby="heading1_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -385,7 +377,7 @@ US.</p></li>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse1_5" class="accordion-collapse collapse"
+<div id="collapse1_5" class="accordion-collapse collapse collapse"
 aria-labelledby="heading1_5" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -445,7 +437,7 @@ children in Benton County, IN.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse2_1" class="accordion-collapse collapse"
+<div id="collapse2_1" class="accordion-collapse collapse collapse"
 aria-labelledby="heading2_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -502,7 +494,7 @@ number of states with a county named Benton County.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse2_2" class="accordion-collapse collapse"
+<div id="collapse2_2" class="accordion-collapse collapse collapse"
 aria-labelledby="heading2_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -614,7 +606,7 @@ def num_people(fam):
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse3" class="accordion-collapse collapse"
+<div id="collapse3" class="accordion-collapse collapse collapse"
 aria-labelledby="heading3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -719,7 +711,7 @@ corresponding to a New Jersey should have a value of 0.8 in the
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse4_1" class="accordion-collapse collapse"
+<div id="collapse4_1" class="accordion-collapse collapse collapse"
 aria-labelledby="heading4_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -727,18 +719,27 @@ aria-labelledby="heading4_1" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer:</strong> <code>["state", "county"]</code> or
 <code>["county", "state"]</code></p>
-<p>When approaching this question, we know the <code>expensive</code>
-DataFrame contains multiple rows for combinations of state and county.
-If we are calculating the proportion of counties within each state, we
-want to obtain unique combinations of state and county. Since the code
-uses <code>.groupby</code>, that means there will be one row for every
-unique entry of whatever column/columns we decide to group on. At this
-point, the <code>expensive</code> DataFrame, has multiple rows for each
-state and county combination, because there could be multiple
-<code>"family_type"</code>’s with an <code>"avg_childcare_cost"</code>
-of at least $20,000. To get all the unique combinations of state and
-county in the DataFrame, we can group by
-<code>["state", "county"]</code>.</p>
+<p>We are told that all expensive counties appear in the
+<code>expensive</code> DataFrame, but some may appear multiple times,
+for several different <code>"family_type"</code> values. The question we
+want to answer, however, is about the proportion of expensive counties
+in each state that are part of a metropolitan area, which has nothing to
+do with <code>"family_type"</code>. In other words, we don’t want or
+need multiple rows corresponding to the same US county.</p>
+<p>To keep just one row for each US county, we can group by both
+<code>"state"</code> and <code>"county"</code> (in either order). Then
+the resulting DataFrame will have one row for each unique combination of
+<code>"state"</code> and <code>"county"</code>, or one row for each US
+county. Notice that the <code>.max()</code> aggregation method keeps the
+last alphabetical value from the <code>"is_metro"</code> column in each
+US county. If there are multiple rows in <code>expensive</code>
+corresponding to the same US county, we are told that they will all have
+the same value in the <code>"is_metro"</code> column, so taking the
+maximum just takes any one of these values, which are all the same. We
+could have just as easily taken the minimum.</p>
+<p>Notice the presence of <code>.reset_index()</code> in the provided
+code. That is a clue that we may need to group by multiple columns in
+this problem!</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️⭐️⭐️</h5>
 <p>
@@ -758,24 +759,23 @@ county in the DataFrame, we can group by
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse4_2" class="accordion-collapse collapse"
+<div id="collapse4_2" class="accordion-collapse collapse collapse"
 aria-labelledby="heading4_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer:</strong> <code>"state"</code></p>
-<p>Now that we have all the unqiue combinations of county and state in
-the DataFrame, we want to proceed by calculating the proportions for the
-counties within each respective state. At this point, we want to know
-the proportions for each respective state, so the rows must be unique to
-each state. Additionally, we want the resulting DataFrame to be indexed
-only by “state,” so grouping by “state” will make “state” the index.</p>
+<p>Now that we have one row for each US county that is considered
+expensive, we want to proceed by calculating the proportion of expensive
+counties within each state that are in a metropolitan area. Our goal is
+to organize the counties by state and create a DataFrame indexed only by
+<code>"state"</code> so we want to group by <code>"state"</code> to
+achieve this. </p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 68%.</p>
+<p>The average score on
+this problem was 68%.</p>
 </div>
 </div>
 </div>
@@ -790,20 +790,24 @@ only by “state,” so grouping by “state” will make “state” the index.
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse4_3" class="accordion-collapse collapse"
+<div id="collapse4_3" class="accordion-collapse collapse collapse"
 aria-labelledby="heading4_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer:</strong> <code>mean()</code></p>
-<p>Since the <code>"is_metro"</code> column consists of boolean values,
-<code>True</code> as a boolean value equates to 1, and
-<code>False</code> equates to 0. Since we are also grouping by
-<code>"state"</code>, if the mean is calculated, this will effectively
-result in a proportion of the counties that are metropolitan areas in
-the <code>"is_metro"</code> column. Thus, we use the
-<code>.mean()</code> function.</p>
+<p>Recall that the <code>"is_metro"</code> column consists of Boolean
+values, where <code>True</code> equals 1 and <code>False</code> equals
+0. Notice that if we take the average of the <code>"is_metro"</code>
+column for all the counties in a given state, we’ll be computing the sum
+of these 0s and 1s (or the number of <code>True</code> values) divided
+by the total number of expensive counties in that state. This gives the
+proportion of expensive counties in the state that are in a metropolitan
+area. Thus, when we group the expensive counties according to what state
+they are in, we can use the <code>.mean()</code> aggregation method to
+calculate the proportion of expensive counties in each state that are in
+a metropolitan area.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
 <p>
@@ -844,7 +848,7 @@ rounded to three decimal places</strong>.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse5_1" class="accordion-collapse collapse"
+<div id="collapse5_1" class="accordion-collapse collapse collapse"
 aria-labelledby="heading5_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -914,7 +918,7 @@ the heights of the two new bars?</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse5_2" class="accordion-collapse collapse"
+<div id="collapse5_2" class="accordion-collapse collapse collapse"
 aria-labelledby="heading5_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -929,34 +933,20 @@ data contained within the bar. Given that there are <span class="math inline">r<
 <span class="math inline">[50, 70)</span>, in comparison to the interval
 <span class="math inline">[70, 80)</span>, we know that the
 <em>area</em> of the bar corresponding to the bin <span class="math inline">[50, 70)</span> is <span class="math inline">r</span> times the area of the bar corresponding to
-the bin <span class="math inline">[70, 80)</span>. As such, we have the
-following equation and simplification:<br/></p>
-<p><span class="math inline">A_1</span> = area of the [50, 70) bar.
-<span class="math inline">A_2</span> = area of the [70, 80) bar.</p>
+the bin <span class="math inline">[70, 80)</span>. Therefore, if <span class="math inline">A_1</span> represents the area of the <span class="math inline">[50, 70)</span> bar and <span class="math inline">A_2</span> represents the area of the <span class="math inline">[70, 80)</span> bar, we have</p>
 <p><span class="math display">
-A_1 = rA_2
+A_1 = r \cdot A_2.
 </span></p>
-<p>Then, substitute base <span class="math inline">\cdot</span> height
-for each of the bars, where <span class="math inline">h_1</span> and
-<span class="math inline">b_1</span> are the height and base of the
-<span class="math inline">[50, 70)</span> bar, and <span class="math inline">h_2</span> and <span class="math inline">b_2</span>
-are the height and base of the <span class="math inline">[70, 80)</span>
-bar.</p>
+<p>Then, since each bar is a rectangle, its area comes from the product
+of its height and its base. We know the <span class="math inline">[50,
+70)</span> bar has a base of <span class="math inline">20</span> and a
+height of <span class="math inline">h_1</span>, and the <span class="math inline">[70, 80)</span> bar has a base of <span class="math inline">10</span> and a height of <span class="math inline">h_2</span>. Plugging this in gives</p>
 <p><span class="math display">
-h_1 \cdot b_1 = r \cdot h_2 \cdot b_2
-</span></p>
-<p>We are given the bases of both of the bins, and <span class="math inline">b_1</span>, <span class="math inline">[50,70)</span>, is twice the length of <span class="math inline">b_2</span>, <span class="math inline">[70,80)</span>. So, <span class="math display">b_1 =
-2b_2
-</span></p>
-<p>and</p>
-<p><span class="math display">
-h_1 \cdot 2b_2 = r \cdot h_2 \cdot b_2
+h_1 \cdot 20 = r \cdot h_2 \cdot 10.
 </span></p>
 <p>From here, we can rearrange terms to get</p>
 <p><span class="math display">
-h_1 \cdot 2  = r \cdot h_2
-</span> <span class="math display">
-\frac{h_1}{h_2} = \frac{r}{2}
+\frac{h_1}{h_2} = \frac{r}{2}.
 </span></p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
@@ -990,32 +980,28 @@ an integer.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse6" class="accordion-collapse collapse"
+<div id="collapse6" class="accordion-collapse collapse collapse"
 aria-labelledby="heading6" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong> <span class="math inline">21</span></p>
-<p>To get an idea of how this merge works, let’s look at an example. We
-are told Montana has 5 counties. For now, let’s just guess that Nevada
-has 3 counties and see how many rows the merged DataFrame would have in
-this case. If Montana has 5 counties, since there are 10
-<code>"family_type"</code> values per county, this means the
-<code>state_A</code> DataFrame has 50 rows. Similarly, if Nevada has 3
-counties, then <code>state_B</code> has 30 rows. When we merge on
-<code>"family_type"</code>, each of the 5 rows in <code>state_A</code>
-with a given <code>"family_type"</code> (say <code>"2a3c"</code>) will
-match with each of the 3 rows in <code>state_B</code> with that same
-<code>"family_type"</code>. This will lead to <span class="math inline">3*5 = 15</span> rows in the output corresponding to
-each <code>"family_type"</code>, and since there are 10 different values
-for <code>"family_type"</code>, this means the final output will have
-<span class="math inline">3*5*10 = 150</span> rows.</p>
-<p>Generalizing what we learned from the example, if <span class="math inline">A</span> is the number of counties in Montana, and
-<span class="math inline">B</span> is the number of counties in Montana,
-then the merged DataFrame will have <span class="math inline">A*B*10</span> rows. We are told that <span class="math inline">A = 5</span> and that the merged DataFrame has <span class="math inline">1050</span> rows, so we can find <span class="math inline">B</span> by solving <span class="math inline">5*B*10
-= 1050</span>, which leads to <span class="math inline">B =
-21</span>.</p>
+<p>We are told Montana has 5 counties. We don’t know how many counties
+Nevada has, but let’s call the number of counties in Nevada <span class="math inline">x</span> and see how many rows the merged DataFrame
+should have, in terms of <span class="math inline">x</span>. If Montana
+has 5 counties, since there are 10 <code>"family_type"</code> values per
+county, this means the <code>state_A</code> DataFrame has 50 rows.
+Similarly, if Nevada has <span class="math inline">x</span> counties,
+then <code>state_B</code> has <span class="math inline">10x</span> rows.
+When we merge on <code>"family_type"</code>, each of the 5 rows in
+<code>state_A</code> with a given <code>"family_type"</code> (say
+<code>"2a3c"</code>) will match with each of the <span class="math inline">x</span> rows in <code>state_B</code> with that same
+<code>"family_type"</code>. This will lead to <span class="math inline">5x</span> rows in the output corresponding to each
+<code>"family_type"</code>, and since there are 10 different values for
+<code>"family_type"</code>, this means the final output will have <span class="math inline">50x</span> rows.</p>
+<p>We are told that the merged DataFrame has <span class="math inline">1050</span> rows, so we can find <span class="math inline">x</span> by solving <span class="math inline">50x =
+1050</span>, which leads to <span class="math inline">x = 21</span>.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
 <p>
@@ -1050,7 +1036,7 @@ a simplified fraction.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse7_1" class="accordion-collapse collapse"
+<div id="collapse7_1" class="accordion-collapse collapse collapse"
 aria-labelledby="heading7_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1095,7 +1081,7 @@ class="math inline">B</span> are independent.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse7_2" class="accordion-collapse collapse"
+<div id="collapse7_2" class="accordion-collapse collapse collapse"
 aria-labelledby="heading7_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1152,7 +1138,7 @@ class="math inline">D</span> are independent.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse7_3" class="accordion-collapse collapse"
+<div id="collapse7_3" class="accordion-collapse collapse collapse"
 aria-labelledby="heading7_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1207,7 +1193,7 @@ that follow.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse7_4" class="accordion-collapse collapse"
+<div id="collapse7_4" class="accordion-collapse collapse collapse"
 aria-labelledby="heading7_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1250,7 +1236,7 @@ p</span>, which is <span class="math inline">p^5</span>.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse7_5" class="accordion-collapse collapse"
+<div id="collapse7_5" class="accordion-collapse collapse collapse"
 aria-labelledby="heading7_5" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1297,7 +1283,7 @@ the last family that is selected?</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse7_6" class="accordion-collapse collapse"
+<div id="collapse7_6" class="accordion-collapse collapse collapse"
 aria-labelledby="heading7_6" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1380,7 +1366,7 @@ for i in np.arange(repetitions):
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse8_1" class="accordion-collapse collapse"
+<div id="collapse8_1" class="accordion-collapse collapse collapse"
 aria-labelledby="heading8_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1409,7 +1395,7 @@ twice to be initialized in the <code>fams</code> array, therefore we use
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse8_2" class="accordion-collapse collapse"
+<div id="collapse8_2" class="accordion-collapse collapse collapse"
 aria-labelledby="heading8_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1446,7 +1432,7 @@ for loop.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse8_3" class="accordion-collapse collapse"
+<div id="collapse8_3" class="accordion-collapse collapse collapse"
 aria-labelledby="heading8_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1479,7 +1465,7 @@ we remove them from the pool after being selected.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse8_4" class="accordion-collapse collapse"
+<div id="collapse8_4" class="accordion-collapse collapse collapse"
 aria-labelledby="heading8_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1516,7 +1502,7 @@ being selected.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse8_5" class="accordion-collapse collapse"
+<div id="collapse8_5" class="accordion-collapse collapse collapse"
 aria-labelledby="heading8_5" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1552,7 +1538,7 @@ the corresponding situation.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse8_6" class="accordion-collapse collapse"
+<div id="collapse8_6" class="accordion-collapse collapse collapse"
 aria-labelledby="heading8_6" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
