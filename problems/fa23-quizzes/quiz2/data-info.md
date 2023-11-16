@@ -9,4 +9,4 @@ For each item, we have:
 
 The first 6 rows of `items` are below, though `items` has more rows than are shown here.
 
-<center><img src="../../assets/images/fa23-quizzes/keepers1.png" width=200></center>
+<center><img src="../../assets/images/fa23-quizzes/items.png" width=300></center>
