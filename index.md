@@ -12,7 +12,7 @@ This site contains practice problems taken from old DSC 10 exams. We've organize
 
 1. As **discussions**. Each discussion page contains problems about a particular topic. Come to in-person discussion sections to work on discussion problems with the help of our course staff.
 1. As **practice exams**. Work through these in the weeks leading up to exams.
-1. As **quizzes**. Work through these to practice for quizzes. You should attempt and try to figure out why the answers are what they are, or come to us in office hours. We know the exam questions are harder, so we have included detailed solutions.
+1. As **quizzes**. Work through these to practice for quizzes.
 
 In all cases, you should work on these problems **on paper**, since your exams will also be on paper. Even though you will see some multiple choice bubbles, you intentionally cannot select them.
 <!-- 
@@ -182,7 +182,7 @@ Each exam linked here lists the conditions under which the exam was given, inclu
 
 ### 🆕 Quizzes
 
-Starting in Fall 2023, we administer quizzes in discussion section. Below, you'll find an archive of past quizzes.
+Starting in Fall 2023, quizzes are administered in discussion section. Below, you'll find an archive of past quizzes. While you'll find the answers to all quiz questions, you won't find detailed explanations. For quizzes, you should try to figure out why the answers are what they are on your own, and come to us in office hours if you're stuck. (Exam questions are harder, hence the detailed explanations.)
 
 <center>
 <table class="table" style="width:60%">
@@ -202,7 +202,7 @@ Starting in Fall 2023, we administer quizzes in discussion section. Below, you'l
     <tr>
       <th scope="row">Fall 2023</th>
       <td>Rod Albuyeh, Suraj Rampure, Janine Tiefenbruck</td>
-      <td><a href='fa23-quiz1/index.html'>Quiz 1</a> • <a href='fa23-quiz2/index.html'>Quiz 2</a></td>
+      <td><a href='fa23-quiz1/index.html'>Quiz 1</a> • <a href='fa23-quiz2/index.html'>Quiz 2</a> • <a href='fa23-quiz3/index.html'>Quiz 3</a></td>
     </tr>
     <tr>
   </tbody>
