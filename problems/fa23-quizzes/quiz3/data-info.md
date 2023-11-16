@@ -1,0 +1,1 @@
+Ciro is an avid fan of Costco, a members-only warehouse store. On his recent trip to the Morena Boulevard location near campus, he was surprised by how full shoppers' carts were and was inspired to investigate how much people typically spend at Costco.
