@@ -8,21 +8,12 @@
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    /* The extra [class] is a hack that increases specificity enough to
-       override a similar rule in reveal.js */
-    ul.task-list[class]{list-style: none;}
-    ul.task-list li input[type="checkbox"] {
-      font-size: inherit;
-      width: 0.8em;
-      margin: 0 0.8em 0.2em -1.6em;
-      vertical-align: middle;
-    }
-    /* CSS for syntax highlighting */
+    ul.task-list{list-style: none;}
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -59,7 +50,7 @@
     code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
     code span.at { color: #7d9029; } /* Attribute */
     code span.bn { color: #40a070; } /* BaseN */
-    code span.bu { color: #008000; } /* BuiltIn */
+    code span.bu { } /* BuiltIn */
     code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
     code span.ch { color: #4070a0; } /* Char */
     code span.cn { color: #880000; } /* Constant */
@@ -72,7 +63,7 @@
     code span.ex { } /* Extension */
     code span.fl { color: #40a070; } /* Float */
     code span.fu { color: #06287e; } /* Function */
-    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.im { } /* Import */
     code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
     code span.kw { color: #007020; font-weight: bold; } /* Keyword */
     code span.op { color: #666666; } /* Operator */
@@ -138,11 +129,11 @@ except students were provided a copy of the
 10 Reference Sheet<a>. No calculators were allowed. Students had
 <strong>3 hours</strong> to take this exam.</p>
 <hr />
-<p>You may have noticed that San Diego was quite cloudy in May. In fact,
-according to the National Weather Service, San Diego was the single
-cloudiest city in the contiguous United States in May, with clouds
-covering the sky 82% of the time. (Only a remote town in Alaska was
-cloudier!)</p>
+<p>You may have noticed that San Diego was quite cloudy in May (2023).
+In fact, according to the National Weather Service, San Diego was the
+single cloudiest city in the contiguous United States in May, with
+clouds covering the sky 82% of the time. (Only a remote town in Alaska
+was cloudier!)</p>
 <p>In this exam, we will work with the DataFrame <code>sun</code>, which
 describes the number of sunshine hours per month in various cities
 around the world. Each number in <code>sun</code> is an average across
@@ -176,8 +167,7 @@ are no ties.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> most_sunshine(country, month):</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>        country_only <span class="op">=</span> __(a)__</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> country_only.__(b)__</span></code></pre></div>
-<p>What goes in blank (a)?</p>
-<p>What goes in blank (b)?</p>
+<p>What goes in blanks (a) and (b)?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading1_1">
@@ -185,22 +175,25 @@ are no ties.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse1_1" class="accordion-collapse collapse"
+<div id="collapse1_1" class="accordion-collapse collapse collapse"
 aria-labelledby="heading1_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer</strong>:<br/>
-</p>
+<p><strong>Answer</strong>: (a):
+<code>sun[sun.get("Country") == country]</code>, (b):
+<code>sort_values(month).get("City").iloc[-1]</code> or
+<code>sort_values(month, ascending=False).get("City").iloc[0]</code></p>
 <p><strong>What goes in blank (a)?</strong>
-<code>sun[sun.get("Country") == country]</code><br/>
-To identify cities only within the specified country, we need to filter
-the rows in the <code>sun</code> DataFrame where the
-<code>"Country"</code> column matches the given <code>country</code>.
-The expression <code>sun["Country"] == country</code> creates a boolean
-series, where each entry is <code>True</code> if the corresponding row’s
+<code>sun[sun.get("Country") == country]</code> To identify cities only
+within the specified country, we need to query for the rows in the
+<code>sun</code> DataFrame where the <code>"Country"</code> column
+matches the given <code>country</code>. The expression
+<code>sun.get("Country") == country</code> creates a Boolean Series,
+where each entry is <code>True</code> if the corresponding row’s
 <code>"Country"</code> column matches the provided <code>country</code>
+<<<<<<< HEAD
 and <code>False</code> otherwise. When this boolean series is used to
 index the <code>sun</code> DataFrame, it filters out only those rows
 that are true, effectively giving us only the cities from the specified
@@ -210,24 +203,31 @@ country.</p>
 <p>
 </p>
 <p>The average score on this problem was 78%. <br/><br/></p>
+=======
+and <code>False</code> otherwise. When this Boolean series is used to
+index into <code>sun</code> DataFrame, it keeps only the rows for which
+<code>sun.get("Country") == country</code> is <code>True</code>,
+effectively giving us only the cities from the specified country.</p>
+<p><br/></p>
+>>>>>>> 78cb07bfa7aaa36d2e8fa55a3a8a42b2806d6b20
 <p><strong>What goes in blank (b)?</strong>
 <code>sort_values(month).get("City").iloc[-1]</code> or
 <code>sort_values(month, ascending=False).get("City").iloc[0]</code><br/>
 To determine the city with the most sunshine hours in the specified
-month, we sort the filtered DataFrame (which only contains cities from
+month, we sort the queried DataFrame (which only contains cities from
 the specified country) based on the values in the <code>month</code>
 column. There are two ways to achieve the desired result:</p>
 <ul>
-<li><p>Sort in ascending order and then select the last item. This is
-because after sorting in ascending order, the city with the highest
-sunshine hours will be the last item. We use <code>.iloc[-1]</code> to
-get the last item after selecting the <code>"City"</code> column with
-<code>.get("City")</code>.</p></li>
-<li><p>Sort in descending order and then select the first item. After
-sorting in descending order, the city with the highest sunshine hours
-will be the first item. We use <code>.iloc[0]</code> to get the first
-item after selecting the <code>"City"</code> column with
-<code>.get("City")</code>.</p></li>
+<li>Sort in ascending (increasing) order and then select the last item.
+This is because after sorting in ascending order, the city with the most
+sunshine hours will be at the bottom of the DataFrame. We use
+<code>.iloc[-1]</code> to get the last item after selecting the
+<code>"City"</code> column with <code>.get("City")</code>.</li>
+<li>Sort in descending order and then select the first item. After
+sorting in descending order, the city with the most sunshine hours will
+be at the top of the DataFrame. We use <code>.iloc[0]</code> to get the
+first item after selecting the <code>"City"</code> column with
+<code>.get("City")</code>.</li>
 </ul>
 <p>Both methods will give us the name of the city with the most sunshine
 hours in the specified month.</p>
@@ -246,7 +246,7 @@ hours in the specified month.</p>
 <p>In this part only, assume that all <code>"City"</code> names in
 <code>sun</code> are unique.</p>
 <p>Consider the DataFrame <code>cities</code> defined below.</p>
-<pre><code>cities = sun.groupby(&quot;City&quot;).mean().reset_index()</code></pre>
+<div class="sourceCode" id="cb2"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>cities <span class="op">=</span> sun.groupby(<span class="st">&quot;City&quot;</span>).mean().reset_index()</span></code></pre></div>
 <p>Fill in the blanks so that the DataFrame that results from the
 sequence of steps described below is identical to
 <code>cities</code>.</p>
@@ -284,28 +284,34 @@ and reset the index</p></li>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse1_2" class="accordion-collapse collapse"
+<div id="collapse1_2" class="accordion-collapse collapse collapse"
 aria-labelledby="heading1_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer</strong>:<br/>
-Let’s start by understanding the code provided in the question:<br/>
+<p><strong>Answer</strong>: (c): <code>"City"</code>, (d): ascending,
+(e): drop the <code>"Country"</code> column, and reset the index</p>
+<p>Let’s start by understanding the code provided in the question:<br/>
 The <code>.groupby("City")</code> method groups the data in the
 <code>sun</code> DataFrame by unique city names. Since every city name
-in the DataFrame is unique, this essentially means that each group will
-consist of just one row corresponding to that city.</p>
+in the DataFrame is unique, this means that each group will consist of
+just one row corresponding to that city.</p>
 <p>After grouping by city, the <code>.mean()</code> method computes the
 average of each column for each group. Again, as each city name is
 unique, this operation doesn’t aggregate multiple rows but merely
-reproduces the original values for each city.</p>
+reproduces the original values for each city. (For example, the value in
+the <code>"Jan"</code> column for the row with the index
+<code>"Hamilton"</code> will just be 229.8, which we see in the first
+row of the preview of <code>sun</code>.)</p>
 <p>Finally, <code>.reset_index()</code> is used to reset the DataFrame’s
-index. When using <code>.groupby()</code>, the column we group by (in
-this case, <code>"City"</code>) becomes the index. By resetting the
-index, we’re making <code>"City"</code> a regular column again and
-adding a new integer index to the DataFrame.</p>
+index. When using <code>.groupby</code>, the column we group by (in this
+case, <code>"City"</code>) becomes the index. By resetting the index,
+we’re making <code>"City"</code> a regular column again and setting the
+index to 0, 1, 2, 3, …</p>
+<p><br/></p>
 <p><strong>What goes in blank (c)?</strong> <code>"City"</code><br/>
+<<<<<<< HEAD
 In the code, we grouped by <code>"City"</code>, and since all city names
 are unique, this operation effectively sorts the DataFrame by city
 names. To replicate the order in the resultant <code>cities</code>
@@ -346,6 +352,34 @@ structure of <code>cities</code>, we must drop the
 <p>
 </p>
 <p>The average score on this problem was 46%.</p>
+=======
+When we group on <code>"City"</code>, the index of the DataFrame is set
+to <code>"City"</code> names, sorted in ascending alphabetical order
+(this is always the behavior of <code>groupby</code>). Since all city
+names are unique, the number of rows in
+<code>sun.groupby("City").mean()</code> is the same as the number of
+rows in <code>sun</code>, and so grouping on <code>"City"</code>
+effectively sorts the DataFrame by <code>"City"</code> and sets the
+index to <code>"City"</code>. To replicate the order in
+<code>cities</code>, then, we must sort <code>sun</code> by the
+<code>"City"</code> column in ascending order.</p>
+<p><br/></p>
+<p><strong>What goes in blank (d)?</strong> ascending<br/>
+Addressed above.</p>
+<p><br/></p>
+<p><strong>What goes in blank (e)?</strong> , drop the
+<code>"Country"</code> column, and reset the index<br/>
+In the provided code, after grouping by <code>"City"</code> and
+computing the mean, we reset the index. This means the
+<code>"City"</code> column is no longer the index but a regular column,
+and the DataFrame gets a fresh integer index. To replicate this
+structure, we need to reset the index in our sorted DataFrame.
+Additionally, when we applied the <code>.mean()</code> method after
+grouping, any non-numeric columns (like <code>"Country"</code>) that we
+can’t take the mean of are automatically excluded from the resulting
+DataFrame. To match the structure of <code>cities</code>, then, we must
+drop the <code>"Country"</code> column from our sorted DataFrame.</p>
+>>>>>>> 78cb07bfa7aaa36d2e8fa55a3a8a42b2806d6b20
 </div>
 </div>
 </div>
@@ -355,9 +389,9 @@ structure of <code>cities</code>, we must drop the
 <h3 id="problem-1.3">Problem 1.3</h3>
 <p>True or False: In the code below, <code>Z</code> is guaranteed to
 evaluate to <code>True</code>.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> sun.groupby([<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Year&quot;</span>]).mean().shape[<span class="dv">0</span>]</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> sun.groupby(<span class="st">&quot;Country&quot;</span>).mean().shape[<span class="dv">0</span>]</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    z <span class="op">=</span> (x <span class="op">&gt;=</span> y)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> sun.groupby([<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Year&quot;</span>]).mean().shape[<span class="dv">0</span>]</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> sun.groupby(<span class="st">&quot;Country&quot;</span>).mean().shape[<span class="dv">0</span>]</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> (x <span class="op">&gt;=</span> y)</span></code></pre></div>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> True</p></li>
 <li><p><input type="radio" disabled="" /> False</p></li>
@@ -369,7 +403,7 @@ evaluate to <code>True</code>.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse1_3" class="accordion-collapse collapse"
+<div id="collapse1_3" class="accordion-collapse collapse collapse"
 aria-labelledby="heading1_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -383,12 +417,13 @@ This line groups the <code>sun</code> DataFrame by both
 <code>"Country"</code> and <code>"Year"</code>, then computes the mean.
 As a result, each unique combination of <code>"Country"</code> and
 <code>"Year"</code> will have its own row. For instance, if there are
-three years of data for a particular country, that will result in three
-rows for that country in this grouping.</p></li>
+three different values in the <code>"Year"</code> column for a
+particular country, that country will appear three times in the
+DataFrame <code>sun.groupby(["Country", "Year"]).mean()</code>.</p></li>
 <li><p><code>y = sun.groupby("Country").mean().shape[0]</code>: When
 grouping by <code>"Country"</code> alone, each unique country in the
-<code>sun</code> DataFrame is represented by one row, regardless of the
-number of years of data associated with that country.</p></li>
+<code>sun</code> DataFrame is represented by one row, independent of the
+information in other columns.</p></li>
 <li><p><code>z = (x &gt;= y)</code>: This comparison checks whether the
 number of rows produced by grouping by both <code>"Country"</code> and
 <code>"Year"</code> (which is <code>x</code>) is greater than or equal
@@ -397,16 +432,21 @@ to the number of rows produced by grouping only by
 </ul>
 <p>Given our grouping logic:</p>
 <ul>
-<li><p>If every country in the <code>sun</code> DataFrame has data for
-only a single year, then the number of rows when grouping by both
+<li><p>If every country in the <code>sun</code> DataFrame has only a
+single unique value in the <code>"Year"</code> column (e.g. if the
+<code>"Year"</code> value for all ciites in the United States was always
+3035.9, and if the <code>"Year"</code> value for all cities in Nigeria
+was always 1845.4, etc.), then the number of rows when grouping by both
 <code>"Country"</code> and <code>"Year"</code> will be equal to the
 number of rows when grouping by <code>"Country"</code> alone. In this
 scenario, <code>x</code> will be equal to <code>y</code>.</p></li>
-<li><p>If at least one country in the <code>sun</code> DataFrame has
-data for more than one year, then there will be more rows when grouping
-by both <code>"Country"</code> and <code>"Year"</code> compared to
-grouping by <code>"Country"</code> alone. This means <code>x</code> will
-be greater than <code>y</code>.</p></li>
+<li><p>If at least one country in the <code>sun</code> DataFrame has at
+least two different values in the <code>"Year"</code> column (e.g. if
+there are at least two cities in the United States with different values
+in the <code>"Year"</code> column), then there will be more rows when
+grouping by both <code>"Country"</code> and <code>"Year"</code> compared
+to grouping by <code>"Country"</code> alone. This means <code>x</code>
+will be greater than <code>y</code>.</p></li>
 </ul>
 <p>Considering the above scenarios, there’s no situation where the value
 of <code>x</code> can be less than the value of <code>y</code>.
@@ -438,7 +478,7 @@ alphabetically.</p></li>
 <p><br></p>
 <h3 id="problem-1.4">Problem 1.4</h3>
 <p>What does the following expression evaluate to?</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>    sun.groupby(<span class="st">&quot;Country&quot;</span>).<span class="bu">max</span>().get(<span class="st">&quot;City&quot;</span>).iloc[<span class="dv">0</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>sun.groupby(<span class="st">&quot;Country&quot;</span>).<span class="bu">max</span>().get(<span class="st">&quot;City&quot;</span>).iloc[<span class="dv">0</span>]</span></code></pre></div>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> A</p></li>
 <li><p><input type="radio" disabled="" /> B</p></li>
@@ -455,7 +495,7 @@ alphabetically.</p></li>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse1_4" class="accordion-collapse collapse"
+<div id="collapse1_4" class="accordion-collapse collapse collapse"
 aria-labelledby="heading1_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -468,17 +508,21 @@ first country, alphabetically.<br/>
 <ul>
 <li><p><code>sun.groupby("Country").max()</code>: This line of code
 groups the <code>sun</code> DataFrame by the <code>"Country"</code>
-column and then determines the <strong>maximum</strong> for each column
-within each country group. For the <code>"City"</code> column, this
-means finding the city that comes last when arranged in alphabetical
-order.</p></li>
-<li><p><code>.get("City")</code>: After grouping and determining the
-maximums, <code>.get("City")</code> retrieves the <code>"City"</code>
-column.</p></li>
+column and then determines the <strong>maximum</strong> for every other
+column within each country group. Since the values in the
+<code>"City"</code> column are stored as strings, and the maximum of a
+Series of strings is the last string alphabetically, the values in the
+<code>"City"</code> column of this DataFrame will contain the last city,
+alphabetically, of each country.</p></li>
+<li><p><code>.get("City")</code>: <code>.get("City")</code> accesses the
+<code>"City"</code> column.</p></li>
 <li><p><code>.iloc[0]</code>: Finally, <code>.iloc[0]</code> selects the
-value of the city from the first row, which corresponds to the first
-country alphabetically due to the inherent sorting behavior of the
-groupby operation.</p></li>
+<code>"City"</code> value from the first row. The first row corresponds
+to the first country alphabetically because <code>groupby</code> sorted
+the DataFrame by <code>"Country"</code> in ascending order. The value in
+the <code>"City"</code> column that <code>.iloc[0]</code> selects, then,
+is the name of the last city, alphabetically, in the first country,
+alphabetically.</p></li>
 </ul>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
@@ -493,7 +537,7 @@ groupby operation.</p></li>
 <p><br></p>
 <h3 id="problem-1.5">Problem 1.5</h3>
 <p>What does the following expression evaluate to?</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>    sun.groupby(<span class="st">&quot;Country&quot;</span>).<span class="bu">sum</span>().get(<span class="st">&quot;City&quot;</span>).iloc[<span class="dv">0</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>sun.groupby(<span class="st">&quot;Country&quot;</span>).<span class="bu">sum</span>().get(<span class="st">&quot;City&quot;</span>).iloc[<span class="dv">0</span>]</span></code></pre></div>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> A</p></li>
 <li><p><input type="radio" disabled="" /> B</p></li>
@@ -510,7 +554,7 @@ groupby operation.</p></li>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse1_5" class="accordion-collapse collapse"
+<div id="collapse1_5" class="accordion-collapse collapse collapse"
 aria-labelledby="heading1_5" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -526,9 +570,9 @@ computes the sum for each numeric column within each country group.
 Since <code>"City"</code> is non-numeric, it will be dropped.</p></li>
 <li><p><code>.get("City")</code>: This operation attempts to retrieve
 the <code>"City"</code> column from the resulting DataFrame. However,
-since the <code>"City"</code> column has been dropped in the previous
-step, this will raise a KeyError, indicating that the column is not
-present in the DataFrame.</p></li>
+since the <code>"City"</code> column was dropped in the previous step,
+this will raise a KeyError, indicating that the column is not present in
+the DataFrame.</p></li>
 </ul>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
@@ -543,7 +587,7 @@ present in the DataFrame.</p></li>
 <p><br></p>
 <h3 id="problem-1.6">Problem 1.6</h3>
 <p>What does the following expression evaluate to?</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>    sun.groupby(<span class="st">&quot;Country&quot;</span>).count().sort_values(<span class="st">&quot;Jan&quot;</span>).index[<span class="op">-</span><span class="dv">1</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>sun.groupby(<span class="st">&quot;Country&quot;</span>).count().sort_values(<span class="st">&quot;Jan&quot;</span>).index[<span class="op">-</span><span class="dv">1</span>]</span></code></pre></div>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> A</p></li>
 <li><p><input type="radio" disabled="" /> B</p></li>
@@ -560,7 +604,7 @@ present in the DataFrame.</p></li>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse1_6" class="accordion-collapse collapse"
+<div id="collapse1_6" class="accordion-collapse collapse collapse"
 aria-labelledby="heading1_6" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -573,17 +617,20 @@ cities.<br/>
 <ul>
 <li><p><code>sun.groupby("Country").count()</code>: This groups the sun
 DataFrame by the <code>"Country"</code> column. The
-<code>.count()</code> operation then returns the number of row in each
-group for each column. Since we’re grouping by country, the count
-essentially gives the number of cities in each country.</p></li>
+<code>.count()</code> method then returns the number of rows in each
+group for each column. Since we’re grouping by <code>"Country"</code>,
+and since the rows in <code>sun</code> correspond to cities, this is
+counting the number of cities in each country.</p></li>
 <li><p><code>.sort_values("Jan")</code>: The result of the previous
-operation is a DataFrame with countries as the index and counts for each
-column. Sorting by <code>"Jan"</code> would essentially sort the
-countries based on the number of cities they have.</p></li>
-<li><p><code>.index[-1]</code>: This retrieves the last index from the
-sorted DataFrame, which, in this context, corresponds to the country
-with the most cities (because it would be the maximum count when sorted
-in ascending order by default).</p></li>
+operation is a DataFrame with <code>"Country"</code> as the index and
+the number of cities per country stored in every other column. The
+<code>"City</code>, <code>"Jan"</code>, <code>"Feb"</code>,
+<code>"Mar"</code>, etc. columns in the resulting DataFrame all contain
+the same information. Sorting by <code>"Jan"</code> sorts the DataFrame
+by the number of cities each country has in ascending order.</p></li>
+<li><p><code>.index[-1]</code>: This retrieves the last index value from
+the sorted DataFrame, which corresponds to the name of the country with
+the most cities.</p></li>
 </ul>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
@@ -598,7 +645,7 @@ in ascending order by default).</p></li>
 <p><br></p>
 <h3 id="problem-1.7">Problem 1.7</h3>
 <p>What does the following expression evaluate to?</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>    sun.groupby(<span class="st">&quot;Country&quot;</span>).count().sort_values(<span class="st">&quot;City&quot;</span>).get(<span class="st">&quot;City&quot;</span>).iloc[<span class="op">-</span><span class="dv">1</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>sun.groupby(<span class="st">&quot;Country&quot;</span>).count().sort_values(<span class="st">&quot;City&quot;</span>).get(<span class="st">&quot;City&quot;</span>).iloc[<span class="op">-</span><span class="dv">1</span>]</span></code></pre></div>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> A</p></li>
 <li><p><input type="radio" disabled="" /> B</p></li>
@@ -615,7 +662,7 @@ in ascending order by default).</p></li>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse1_7" class="accordion-collapse collapse"
+<div id="collapse1_7" class="accordion-collapse collapse collapse"
 aria-labelledby="heading1_7" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -626,23 +673,26 @@ the most cities.<br/>
 </p>
 <p>Let’s break down the code:</p>
 <ul>
-<li><p><code>sun.groupby("Country").count()</code>: This groups the
-<code>sun</code> DataFrame by the <code>"Country"</code> column. The
-<code>.count()</code> operation then returns the number of row in each
-group for each column. Since we’re grouping by country, the count
-essentially gives the number of cities in each country.</p></li>
-<li><p><code>.sort_values("City")</code>: The result from the previous
-step is a DataFrame with countries as the index and counts for each
-column. Sorting by <code>"City"</code> will order the countries based on
-the number of cities they have.</p></li>
+<li><p><code>sun.groupby("Country").count()</code>: This groups the sun
+DataFrame by the <code>"Country"</code> column. The
+<code>.count()</code> method then returns the number of rows in each
+group for each column. Since we’re grouping by <code>"Country"</code>,
+and since the rows in <code>sun</code> correspond to cities, this is
+counting the number of cities in each country.</p></li>
+<li><p><code>.sort_values("City")</code>: The result of the previous
+operation is a DataFrame with <code>"Country"</code> as the index and
+the number of <code>"City"</code>s per <code>"Country"</code> stored in
+every other column. The <code>"City</code>, <code>"Jan"</code>,
+<code>"Feb"</code>, <code>"Mar"</code>, etc. columns in the resulting
+DataFrame all contain the same information. Sorting by
+<code>"City"</code> sorts the DataFrame by the number of cities each
+country has in ascending order.</p></li>
 <li><p><code>.get("City")</code>: This retrieves the <code>"City"</code>
-column from the sorted DataFrame, which represents the count of cities
-for each country.</p></li>
+column from the sorted DataFrame, which contains the number of cities in
+each country.</p></li>
 <li><p><code>.iloc[-1]</code>: This gets the last value from the
-retrieved <code>"City"</code> column, which, in this context,
-corresponds to the count of cities for the country with the most cities
-(because it would be the maximum count when sorted in ascending order by
-default).</p></li>
+<code>"City"</code> column, which corresponds to the number of cities in
+the country with the most cities.</p></li>
 </ul>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
@@ -669,8 +719,7 @@ equal.</p>
 number of sunshine hours in October of all city-states in
 <code>sun</code>.</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>    sun[__(a)__].__(b)__</span></code></pre></div>
-<p>What goes in blank (a)?</p>
-<p>What goes in blank (b)?</p>
+<p>What goes in blanks (a) and (b)?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading2_1">
@@ -678,22 +727,24 @@ number of sunshine hours in October of all city-states in
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse2_1" class="accordion-collapse collapse"
+<div id="collapse2_1" class="accordion-collapse collapse collapse"
 aria-labelledby="heading2_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer</strong>:<br/>
-</p>
+<p><strong>Answer</strong>: (a):
+<code>sun.get("Country") == sun.get("City")</code>, (b):
+<code>.get("Oct").sum()</code></p>
 <p><strong>What goes in blank (a)?</strong>
 <code>sun.get("Country") == sun.get("City")</code><br/>
-This part of code compares the <code>"Country"</code> column to the
+This expression compares the <code>"Country"</code> column to the
 <code>"City"</code> column for each row in the <code>sun</code>
-DataFrame. It returns a Boolean series where each value is
+DataFrame. It returns a Boolean Series where each value is
 <code>True</code> if the corresponding <code>"Country"</code> and
 <code>"City"</code> are the same (indicating a city-state) and
 <code>False</code> otherwise.</p>
+<<<<<<< HEAD
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -711,11 +762,20 @@ the total sunshine hours for October across all city-states in the
 <p>
 </p>
 <p>The average score on this problem was 85%.</p>
+=======
+<p><br/></p>
+<p><strong>What goes in blank (b)?</strong>
+<code>.get("Oct").sum()</code><br/>
+Here, we select the <code>"Oct"</code> column, which represents the
+sunshine hours in October, and compute the sum of its values. By using
+this after querying for city-states, we calculate the total sunshine
+hours in October across all city-states in the <code>sun</code>
+DataFrame.</p>
+>>>>>>> 78cb07bfa7aaa36d2e8fa55a3a8a42b2806d6b20
 </div>
 </div>
 </div>
 </div>
-<p><br></p>
 <p><br></p>
 <h3 id="problem-2.2">Problem 2.2</h3>
 <p>Fill in the blanks below so that the expression below is also equal
@@ -723,7 +783,7 @@ to the total number of sunshine hours in October of all city-states in
 <code>sun</code>.</p>
 <p><em>Note: What goes in blank (b) is the same as what goes in blank
 (b) above.</em></p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>    sun.get([<span class="st">&quot;Country&quot;</span>]).merge(__(c)__).__(b)__</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>sun.get([<span class="st">&quot;Country&quot;</span>]).merge(__(c)__).__(b)__</span></code></pre></div>
 <p>What goes in blank (c)?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
@@ -732,34 +792,31 @@ to the total number of sunshine hours in October of all city-states in
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse2_2" class="accordion-collapse collapse"
+<div id="collapse2_2" class="accordion-collapse collapse collapse"
 aria-labelledby="heading2_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>:
-<code>sun, left_on = "Country", right_on = "City"</code><br/>
+<code>sun, left_on="Country", right_on="City"</code><br/>
 </p>
 <p>Let’s break down the code:</p>
 <ul>
 <li><p><code>sun.get(["Country"])</code>: This extracts just the
-<code>"Country"</code> column from the <code>sun</code> DataFrame. The
-resulting DataFrame consists of a single column, <code>"Country"</code>,
-and as many rows as there are in the original <code>sun</code>
-DataFrame. Each row in this new DataFrame will have the name of the
-country corresponding to the respective row in the original
-<code>sun</code> DataFrame.</p></li>
+<code>"Country"</code> column from the <code>sun</code> DataFrame, as a
+DataFrame. (It’s extracted as a DataFrame since we passed a list to
+<code>.get</code> instead of a single string.)</p></li>
 <li><p><code>.merge(sun, left_on="Country", right_on="City")</code>:
-Here, we’re using the <code>.merge()</code> function to join our
-<strong>left</strong> DataFrame (which is the DataFrame with just the
-<code>"Country"</code> column) with the entire <code>sun</code>
-DataFrame (serving as the <strong>right</strong> DataFrame). The merge
-is based on matching the <code>"Country"</code> from the left DataFrame
-with the <code>"City"</code> from the right DataFrame. This way, rows in
-the resulting DataFrame correspond to city-states, as it only contains
+Here, we’re using the <code>.merge</code> method to merge a version of
+<code>sun</code> with just the <code>"Country"</code> column (which is
+our <em>left</em> DataFrame) with the entire <code>sun</code> DataFrame
+(which is our <em>right</em> DataFrame). The merge is done by matching
+<code>"Country"</code>s from the left DataFrame with
+<code>"City"</code>s from the right DataFrame. This way, rows in the
+resulting DataFrame correspond to city-states, as it only contains
 entries where a country’s name is the same as a city’s name.</p></li>
-<li><p><code>.get("Oct").sum()</code>: After merging, we use the
+<li><p><code>.get("Oct").sum()</code>: After merging, we use
 <code>.get("Oct")</code> to retrieve the <code>"Oct"</code> column,
 which represents the sunshine hours in October. Finally,
 <code>.sum()</code> computes the total number of sunshine hours in
@@ -808,12 +865,13 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href=
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse3_1" class="accordion-collapse collapse"
+<div id="collapse3_1" class="accordion-collapse collapse collapse"
 aria-labelledby="heading3_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
+<<<<<<< HEAD
 <p><strong>Answer</strong>: 12<br/>
 </p>
 <p>We know that the area of each bin in the histogram represents the
@@ -857,11 +915,38 @@ in July between 370 and 430.</p>
 <p>
 </p>
 <p>The average score on this problem was 83%.</p>
+=======
+<p><strong>Answer</strong>: <code>12</code></p>
+<p><code>cond</code> is a Series that contains <code>True</code> for
+each row in <code>usa</code> where <code>"Jul"</code> is greater than or
+equal to 370 and less than 430. <code>mystery</code>, then, is the
+<strong>percentage</strong> of values in <code>usa</code> in which
+<code>cond</code> is True. This is because
+<code>np.count_nonzero(cond)</code> is the number of <code>True</code>s
+in <code>cond</code>, <code>np.count_nonzero(cond) / usa.shape[0]</code>
+is the proportion of values in <code>cond</code> that are
+<code>True</code>, and
+<code>100 * np.count_nonzero(cond) / usa.shape[0]</code> is the
+percentage of values in <code>cond</code> that are <code>True</code>.
+<strong>Our goal here, then, is to use the histogram to find the
+percentage of values in the histogram between 370 (inclusive) and 430
+(exclusive).</strong></p>
+<p>We know that in histograms, the area of each bar is equal to the
+proportion of data points that fall within its bin’s range.
+Conveniently, there’s only one bar we need to look at – the one
+corresponding to the bin [370, 430). That bar has a width of <span class="math inline">430 - 370 = 60</span> and a height of 0.002. Then,
+the area of that bar – i.e. the proportion of values that are between
+370 (inclusive) and 430 (exclusive) is:</p>
+<p><span class="math display">\text{proportion} = \text{area} =
+\text{height} \cdot \text{width} = 0.002 \cdot 60 = 0.12</span></p>
+<p>This means that the proportion of values in [370, 430) is 0.12, which
+means that the percentage of values in [370, 430) is 12%, and that
+<code>mystery</code> evaluates to <code>12</code>.</p>
+>>>>>>> 78cb07bfa7aaa36d2e8fa55a3a8a42b2806d6b20
 </div>
 </div>
 </div>
 </div>
-<p><br></p>
 <p><br></p>
 <h3 id="problem-3.2">Problem 3.2</h3>
 <p>There are 5 more cities with between 370 and 430 sunshine hours in
@@ -877,12 +962,13 @@ your answer as a positive integer, rounded to the nearest multiple of 10
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse3_2" class="accordion-collapse collapse"
+<div id="collapse3_2" class="accordion-collapse collapse collapse"
 aria-labelledby="heading3_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
+<<<<<<< HEAD
 <p><strong>Answer</strong>: 250<br/>
 </p>
 <p>We get the proportion of cities (12%) in the <code>usa</code>
@@ -904,6 +990,27 @@ number of cities in the <code>usa</code> DataFrame) represents <span class="math
 <p>
 </p>
 <p>The average score on this problem was 49%.</p>
+=======
+<p><strong>Answer</strong>: 250</p>
+<p>In the previous part, we learned that the proportion of cities in the
+<code>usa</code> DataFrame in the interval [370, 430) (i.e. that have
+between 370 and 430 sunshine hours in July) is 0.12. To use the fact
+that there are 5 more cities in the interval [370, 430) than there are
+in the interval [270, 290), we need to first find the proportion of
+cities in the interval [270, 290). To do so, we look at the [270, 290)
+bin, which has a width of <span class="math inline">290 - 270 =
+20</span> and a height of 0.005:</p>
+<p><span class="math inline">\text{proportion} = 0.005 \cdot 20 =
+0.10</span></p>
+<p>We are told that there are 5 more cities in the [370, 430) interval
+than there are in the [270, 290) interval. Given the proportions we’ve
+computed, we have that:</p>
+<p><span class="math inline">\text{difference in proportions} = 0.12 -
+0.1 = 0.02</span></p>
+<p>If <span class="math inline">0.02 \cdot \text{number of
+cities}</span> is 5, then <span class="math inline">\text{number of
+cities} = 5 \cdot \frac{1}{0.02} = 5 \cdot 50 = 250</span>.</p>
+>>>>>>> 78cb07bfa7aaa36d2e8fa55a3a8a42b2806d6b20
 </div>
 </div>
 </div>
@@ -932,7 +1039,7 @@ Select the true statement below.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse3_3" class="accordion-collapse collapse"
+<div id="collapse3_3" class="accordion-collapse collapse collapse"
 aria-labelledby="heading3_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -940,6 +1047,7 @@ aria-labelledby="heading3_3" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer</strong>: <span class="math inline">m = 0</span><br/>
 </p>
+<<<<<<< HEAD
 <p>When converting data to standard units, each data point is
 transformed using the formula:</p>
 <p><span class="math display"> z = \frac{x - \text{mean}}{\text{standard
@@ -961,11 +1069,32 @@ converting to standard units will always be 0.</p>
 <p>
 </p>
 <p>The average score on this problem was 62%.</p>
+=======
+<p>When we standardize a dataset, the mean of the resulting values is
+always 0 and the standard deviation of the resulting values is always 1.
+This tells us right away that the answer is <span class="math inline">m
+= 0</span>. Intuitively, we know that a value in standard units
+represents the number of standard deviations that value is above or
+below the mean of the column it came from. <span class="math inline">m</span> is equal to the mean of the column it came
+from, so <span class="math inline">m</span> in standard units is 0.</p>
+<p>If we’d like to approach this more algebracically, we can remember
+the formula for converting a value <span class="math inline">x_i</span>
+from a column <span class="math inline">x</span> to standard units:</p>
+<p><span class="math display"> x_{i \: \text{(su)}} = \frac{x_i -
+\text{mean of } x}{\text{SD of } x} </span></p>
+<p>Let <span class="math inline">x</span> be the column (i.e. Series)
+containing the mean number of sunshine hours in July for all US cities
+in <code>sun</code>. <span class="math inline">m</span>, by definition,
+is the mean of <span class="math inline">x</span>. Then,</p>
+<p><span class="math display"> m_{\text{(su)}} = \frac{m - \text{mean of
+} x}{\text{SD of } x} = \frac{m - m}{\text{SD of }x} = 0</span></p>
+<p>Given that <span class="math inline">m</span> is the mean of column
+<span class="math inline">x</span>, the numerator of <span class="math inline">m_\text{(su)}</span> is 0, and hence <span class="math inline">m_\text{(su)}</span> is 0.</p>
+>>>>>>> 78cb07bfa7aaa36d2e8fa55a3a8a42b2806d6b20
 </div>
 </div>
 </div>
 </div>
-<p><br></p>
 <p><br></p>
 <h3 id="problem-3.4">Problem 3.4</h3>
 <p>Let <span class="math inline">s</span> be the standard deviation of
@@ -986,7 +1115,7 @@ in standard units. Select the true statement below.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse3_4" class="accordion-collapse collapse"
+<div id="collapse3_4" class="accordion-collapse collapse collapse"
 aria-labelledby="heading3_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -994,6 +1123,7 @@ aria-labelledby="heading3_4" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer</strong>: <span class="math inline">s = 1</span><br/>
 </p>
+<<<<<<< HEAD
 <p>The standard deviation of a dataset after converting it to standard
 units is always 1.</p>
 <hr/>
@@ -1001,6 +1131,11 @@ units is always 1.</p>
 <p>
 </p>
 <p>The average score on this problem was 46%.</p>
+=======
+<p>As mentioned in the previous solution, when we standardize a dataset,
+the mean of the resulting values is always 0 and the standard deviation
+of the resulting values is always 1.</p>
+>>>>>>> 78cb07bfa7aaa36d2e8fa55a3a8a42b2806d6b20
 </div>
 </div>
 </div>
@@ -1026,7 +1161,7 @@ standard units. Select the true statement below.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse3_5" class="accordion-collapse collapse"
+<div id="collapse3_5" class="accordion-collapse collapse collapse"
 aria-labelledby="heading3_5" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1035,6 +1170,7 @@ aria-labelledby="heading3_5" data-bs-parent="#accordionExample">
 <p><strong>Answer</strong>: <span class="math inline">-1 &lt; d &lt;
 0</span><br/>
 </p>
+<<<<<<< HEAD
 <p>We see that the distribution of the histogram is skewed right, or has
 a right tail, which means the mean is dragged in the direction of the
 tail and is larger than the median. Since the mean in standard units is
@@ -1047,11 +1183,21 @@ out <span class="math inline">d = -1</span>.</p>
 <p>
 </p>
 <p>The average score on this problem was 42%.</p>
+=======
+<p>In the histogram, we see that the distribution of the number of
+sunshine hours in July for all US cities in <code>sun</code>is skewed
+right, or has a right tail. This means that this distribution’s mean is
+dragged in the direction of its tail and is larger than its median.
+Since the mean in standard units is 0, and the median is less than the
+mean, the median in standard units must be negative. There’s no property
+that states that the median is exactly -1, and the median is only
+slightly less than the mean, which means that it must be the case that
+<span class="math inline">-1 &lt; d &lt; 0</span>.</p>
+>>>>>>> 78cb07bfa7aaa36d2e8fa55a3a8a42b2806d6b20
 </div>
 </div>
 </div>
 </div>
-<p><br></p>
 <p><br></p>
 <h3 id="problem-3.6">Problem 3.6</h3>
 <p>True or False: The distribution of the number of sunshine hours in
@@ -1069,7 +1215,7 @@ roughly normal.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse3_6" class="accordion-collapse collapse"
+<div id="collapse3_6" class="accordion-collapse collapse collapse"
 aria-labelledby="heading3_6" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1080,6 +1226,7 @@ aria-labelledby="heading3_6" data-bs-parent="#accordionExample">
 <p>The original histogram depicting the distribution of the number of
 sunshine hours in July for all US cities is right-skewed. When data is
 converted to standard units, the shape of the distribution does not
+<<<<<<< HEAD
 change. The process of standardizing does not alter the skewness or the
 kurtosis of the distribution. Therefore, if the original data is
 right-skewed, the standardized data will also be right-skewed.</p>
@@ -1088,6 +1235,10 @@ right-skewed, the standardized data will also be right-skewed.</p>
 <p>
 </p>
 <p>The average score on this problem was 45%.</p>
+=======
+change. Therefore, if the original data is right-skewed, the
+standardized data will also be right-skewed.</p>
+>>>>>>> 78cb07bfa7aaa36d2e8fa55a3a8a42b2806d6b20
 </div>
 </div>
 </div>
@@ -1145,7 +1296,7 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb11-1"><a href=
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse4_1" class="accordion-collapse collapse"
+<div id="collapse4_1" class="accordion-collapse collapse collapse"
 aria-labelledby="heading4_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1154,22 +1305,51 @@ aria-labelledby="heading4_1" data-bs-parent="#accordionExample">
 <p><strong>Answer</strong>: <code>5 - i - 1</code> or
 <code>4 - i</code><br/>
 </p>
-<p>For blank (a), our task is to determine the index that corresponds to
-the month preceding the current month, <code>cur_left</code>, on the
-left side of the peak (June). As we’re interested in ensuring an
-increasing trend from January to June, we need to select an index for
-<code>next_left</code> that represents the month before
-<code>cur_left</code>:</p>
+<p>Before filling in the blanks, let’s discuss the overall strategy of
+the problem. The idea is as follows</p>
 <ul>
-<li><p>At <code>i = 0</code>, <code>cur_left</code> is the sunshine
-hours for June (index 5), so <code>next_left</code> should be the
-sunshine hours for May, which is at index 5 - 1 = 4.</p></li>
-<li><p>For each subsequent increment of <code>i</code>,
-<code>cur_left</code> moves one month earlier, meaning
-<code>next_left</code> needs to follow suit. Therefore,
-<code>next_left</code> is always one month behind
-<code>cur_left</code>.</p></li>
+<li>When <span class="math inline">i = 0</span>,
+<ul>
+<li>Compare <code>cur_left</code>, which is the sunshine hours for June
+(month 5, since <span class="math inline">5 - i = 5 - 0 = 5</span>), to
+<code>next_left</code>, which is the sunshine hours for May (month <span class="math inline">5 - i - 1 = 4</span>). If
+<code>next_left &gt; cur_left</code>, it means that May has more
+sunshine hours than June, which means the sunshine hours for this city
+don’t peak gradually. (Remember, for the number of sunshine hours to
+peak gradually, we need it to be the case that each month from February
+to June has a number of sunshine hours greater than or equal to the
+month before it.)</li>
+<li>Also, compare <code>cur_right</code>, which is the sunshine hours
+for July (month 6, since <span class="math inline">6 + i = 6 + 0 =
+6</span>), to <code>next_right</code>, which is the sunshine hours for
+August (month <span class="math inline">6 + i + 1 = 7</span>). If
+<code>next_right &gt; cur_right</code>, it means that August has more
+sunshine hours than July, which means the sunshine hours for this city
+don’t peak gradually. (Remember, for the number of sunshine hours to
+peak gradually, we need it to be the case that each month from August to
+December has a number of sunshine hours less than or equal to the month
+before it.)</li>
+<li>If
+<code>next_left &gt; cur_left or next_right &gt; cur_right</code>, then
+we don’t need to look at any other pairs of months, and can just
+<code>return False</code>. Otherwise, we keep looking.</li>
+</ul></li>
+<li>When <span class="math inline">i = 1</span>, <code>cur_left</code>
+and <code>next_left</code> will “step backwards” and refer to May (month
+4, since <span class="math inline">5 - i = 5 - 1 = 4</span>) and April
+(month 3, since <span class="math inline">5 - i - 1 = 3</span>),
+respectively. Simililarly, <code>cur_right</code> and
+<code>next_right</code> will “step forwards” and refer to August and
+September, respectively. The above process is repeated.</li>
+<li>This is repeated until we check January (month 0) / February (month
+1) and November (month 10) / December (month 11); if by that point, the
+condition
+<code>next_left &gt; cur_left or next_right &gt; cur_right</code> was
+never <code>True</code>, then it must be the case that the sunshine
+hours for this city peak gradually, and we can <code>return True</code>
+outside of the <code>for</code>-loop!</li>
 </ul>
+<<<<<<< HEAD
 <p>The pattern is consistent. And since <code>cur_left</code> is set to
 <code>5 - i</code>, <code>next_left</code> uses the index
 <code>4 - i</code>, which correctly points to the sunshine hours of the
@@ -1180,6 +1360,12 @@ year.</p>
 <p>
 </p>
 <p>The average score on this problem was 62%.</p>
+=======
+<p>Focusing on blank (a) specifically, it needs to contain the position
+of <code>next_left</code>, which is the index of the month before the
+current left month. Since the current month is at <code>5 - i</code>,
+the next month needs to be at <code>5 - i - 1</code>.</p>
+>>>>>>> 78cb07bfa7aaa36d2e8fa55a3a8a42b2806d6b20
 </div>
 </div>
 </div>
@@ -1195,7 +1381,7 @@ year.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse4_2" class="accordion-collapse collapse"
+<div id="collapse4_2" class="accordion-collapse collapse collapse"
 aria-labelledby="heading4_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1203,6 +1389,7 @@ aria-labelledby="heading4_2" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer</strong>: <code>6 + i</code><br/>
 </p>
+<<<<<<< HEAD
 <p>For blank (b), we’re identifying the correct index for
 <code>cur_right</code>, which reflects the current month’s sunshine
 hours on the right side of the peak (starting from July). We’re aiming
@@ -1231,6 +1418,13 @@ gradually.</p>
 <p>
 </p>
 <p>The average score on this problem was 67%.</p>
+=======
+<p>Using the same logic as for blank (a), blank (b) needs to contain the
+position of <code>cur_right</code>, which is the index of the month
+before the next right month. Since the next right month is at
+<code>6 + i + 1</code>, the current right month is at
+<code>6 + i</code>.</p>
+>>>>>>> 78cb07bfa7aaa36d2e8fa55a3a8a42b2806d6b20
 </div>
 </div>
 </div>
@@ -1252,7 +1446,7 @@ gradually.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse4_3" class="accordion-collapse collapse"
+<div id="collapse4_3" class="accordion-collapse collapse collapse"
 aria-labelledby="heading4_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1261,6 +1455,7 @@ aria-labelledby="heading4_3" data-bs-parent="#accordionExample">
 <p><strong>Answer</strong>:
 <code>next_left &gt; cur_left or next_right &gt; cur_right</code><br/>
 </p>
+<<<<<<< HEAD
 <p>For the number of sunshine hours to peak gradually according to the
 question’s criteria:</p>
 <ul>
@@ -1280,6 +1475,9 @@ sunshine hours does not peak gradually.</p>
 <p>
 </p>
 <p>The average score on this problem was 35%.</p>
+=======
+<p>Explained in the answer to blank (a).</p>
+>>>>>>> 78cb07bfa7aaa36d2e8fa55a3a8a42b2806d6b20
 </div>
 </div>
 </div>
@@ -1299,7 +1497,7 @@ sunshine hours does not peak gradually.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse4_4" class="accordion-collapse collapse"
+<div id="collapse4_4" class="accordion-collapse collapse collapse"
 aria-labelledby="heading4_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1307,6 +1505,7 @@ aria-labelledby="heading4_4" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer</strong>: <code>return False</code><br/>
 </p>
+<<<<<<< HEAD
 <p>In the context of the function <code>peaks_gradually</code>, when the
 condition
 <code>next_left &gt; cur_left or next_right &gt; cur_right</code> is
@@ -1324,6 +1523,9 @@ not adhere to the pattern required for a gradual peak.</p>
 <p>
 </p>
 <p>The average score on this problem was 50%.</p>
+=======
+<p>Explained in the answer to blank (a).</p>
+>>>>>>> 78cb07bfa7aaa36d2e8fa55a3a8a42b2806d6b20
 </div>
 </div>
 </div>
@@ -1343,7 +1545,7 @@ not adhere to the pattern required for a gradual peak.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse4_5" class="accordion-collapse collapse"
+<div id="collapse4_5" class="accordion-collapse collapse collapse"
 aria-labelledby="heading4_5" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1351,6 +1553,7 @@ aria-labelledby="heading4_5" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer</strong>: <code>return True</code><br/>
 </p>
+<<<<<<< HEAD
 <p>After the <code>for</code>-loop has run its course without returning
 <code>False</code>, we can conclude that all the necessary comparisons
 have met the criteria: from February to June, each month has sunshine
@@ -1365,6 +1568,9 @@ city where the number of sunshine hours peaks gradually.</p>
 <p>
 </p>
 <p>The average score on this problem was 54%.</p>
+=======
+<p>Explained in the answer to blank (a).</p>
+>>>>>>> 78cb07bfa7aaa36d2e8fa55a3a8a42b2806d6b20
 </div>
 </div>
 </div>
@@ -1423,7 +1629,7 @@ intended.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse5_1" class="accordion-collapse collapse"
+<div id="collapse5_1" class="accordion-collapse collapse collapse"
 aria-labelledby="heading5_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1433,6 +1639,7 @@ aria-labelledby="heading5_1" data-bs-parent="#accordionExample">
 <p>The TVD is the sum of the absolute differences in proportions,
 divided by 2. In the code to the left of the blank, we’ve computed the
 mean of the absolute differences in proportions, which is the same as
+<<<<<<< HEAD
 the sum of the absolute differences in proportions, divided by 12. To
 correct the fact that we divided by 12, we multiply by 6, so that we’re
 only dividing by 2.</p>
@@ -1441,6 +1648,11 @@ only dividing by 2.</p>
 <p>
 </p>
 <p>The average score on this problem was 17%.</p>
+=======
+the sum of the absolute differences in proportions, divided by 12 (since
+<code>len(dist1)</code> is <code>12</code>). To correct the fact that we
+divided by 12, we multiply by 6, so that we’re only dividing by 2.</p>
+>>>>>>> 78cb07bfa7aaa36d2e8fa55a3a8a42b2806d6b20
 </div>
 </div>
 </div>
@@ -1476,13 +1688,14 @@ which all elements are <code>1</code>.)</em></p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse5_2" class="accordion-collapse collapse"
+<div id="collapse5_2" class="accordion-collapse collapse collapse"
 aria-labelledby="heading5_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: <code>np.ones(12) / 12</code></p>
+<<<<<<< HEAD
 <p>To represent a uniform distribution of sunshine hours across the 12
 months, we need an array where each entry is the same and sums to 1
 (because we are working with probabilities). Since there are 12 months,
@@ -1495,6 +1708,16 @@ to represent the equal probability for each month.</p>
 <p>
 </p>
 <p>The average score on this problem was 66%.</p>
+=======
+<p><code>uniform_dist</code> needs to be the same as the uniform
+distribution provided in the null hypothesis, <span class="math inline">\left[\frac{1}{12}, \frac{1}{12}, ...,
+\frac{1}{12}\right]</span>.</p>
+<p>In code, this is an array of length 12 in which each element is equal
+to <span class="math inline">1 / 12</span>. <code>np.ones(12)</code>
+creates an array of length 12 in which each value is <code>1</code>; for
+each value to be <code>1 / 12</code>, we divide <code>np.ones(12)</code>
+by <code>12</code>.</p>
+>>>>>>> 78cb07bfa7aaa36d2e8fa55a3a8a42b2806d6b20
 </div>
 </div>
 </div>
@@ -1518,7 +1741,7 @@ to represent the equal probability for each month.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse5_3" class="accordion-collapse collapse"
+<div id="collapse5_3" class="accordion-collapse collapse collapse"
 aria-labelledby="heading5_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1526,6 +1749,7 @@ aria-labelledby="heading5_3" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer</strong>:
 <code>np.random.multinomial(total_count, uniform_dist) / total_count</code></p>
+<<<<<<< HEAD
 <p>This line of code uses the <code>np.random.multinomial</code>
 function to simulate the allocation of <code>total_count</code> sunshine
 hours (the total observed count across all months) into the 12 months
@@ -1541,6 +1765,14 @@ hypothesis.</p>
 <p>
 </p>
 <p>The average score on this problem was 21%.</p>
+=======
+<p>The idea here is to repeatedly generate an array of proportions that
+results from distributing <code>total_count</code> hours across the 12
+months in a way that each month is equally likely to be chosen. Each
+time we generate such an array, we’ll determine its TVD from the uniform
+distribution; doing this repeatedly gives us an empirical distribution
+of the TVD under the assumption the null hypothesis is true.</p>
+>>>>>>> 78cb07bfa7aaa36d2e8fa55a3a8a42b2806d6b20
 </div>
 </div>
 </div>
@@ -1556,13 +1788,14 @@ hypothesis.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse5_4" class="accordion-collapse collapse"
+<div id="collapse5_4" class="accordion-collapse collapse collapse"
 aria-labelledby="heading5_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: <code>uniform_dist</code></p>
+<<<<<<< HEAD
 <p>Each simulation generates a distribution that mimics what we would
 expect to see if the null hypothesis were true (if the actual
 distribution of sunshine hours was uniform across all months). The
@@ -1575,6 +1808,15 @@ from perfect uniformity.</p>
 <p>
 </p>
 <p>The average score on this problem was 54%.</p>
+=======
+<p>As mentioned above:</p>
+<blockquote>
+<p>Each time we generate such an array, we’ll determine its TVD from the
+<strong>uniform distribution</strong>; doing this repeatedly gives us an
+empirical distribution of the TVD under the assumption the null
+hypothesis is true.</p>
+</blockquote>
+>>>>>>> 78cb07bfa7aaa36d2e8fa55a3a8a42b2806d6b20
 </div>
 </div>
 </div>
@@ -1598,7 +1840,7 @@ from perfect uniformity.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse5_5" class="accordion-collapse collapse"
+<div id="collapse5_5" class="accordion-collapse collapse collapse"
 aria-labelledby="heading5_5" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1606,6 +1848,7 @@ aria-labelledby="heading5_5" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer</strong>: <code>&gt;=</code></p>
 <p>The purpose of the last line of code is to compute the p-value for
+<<<<<<< HEAD
 the hypothesis test. The p-value is calculated by comparing the observed
 test statistic to the distribution of test statistics obtained under the
 null hypothesis. Specifically, it measures the proportion of simulated
@@ -1619,11 +1862,18 @@ TVDs meet this criterion.</p>
 <p>
 </p>
 <p>The average score on this problem was 77%.</p>
+=======
+the hypothesis test. Recall, the p-value of a hypothesis test is the
+proportion of simulated test statistics that are as or more extreme than
+the observed test statistic, under the assumption the null hypothesis is
+true. In this context, “as extreme or more extreme” means the simulated
+TVD is <strong>greater than or equal to</strong> the observed TVD (since
+larger TVDs mean “more different”).</p>
+>>>>>>> 78cb07bfa7aaa36d2e8fa55a3a8a42b2806d6b20
 </div>
 </div>
 </div>
 </div>
-<p><br></p>
 <p><br></p>
 <h3 id="problem-5.6">Problem 5.6</h3>
 <p>What goes in blank (f)?</p>
@@ -1634,7 +1884,7 @@ TVDs meet this criterion.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse5_6" class="accordion-collapse collapse"
+<div id="collapse5_6" class="accordion-collapse collapse collapse"
 aria-labelledby="heading5_6" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1642,6 +1892,7 @@ aria-labelledby="heading5_6" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer</strong>: <code>observed_counts / total_count</code>
 or <code>observed_counts / observed_counts.sum()</code></p>
+<<<<<<< HEAD
 <p>Blank (f) provides the observed distribution of sunshine hours (in
 proportions) that we compare against the uniform distribution to
 calculate the observed TVD. This observed TVD is then compared with the
@@ -1660,6 +1911,16 @@ than or equal to the observed TVD, which gives us the p-value.</p>
 <p>
 </p>
 <p>The average score on this problem was 27%.</p>
+=======
+<p>Blank (f) needs to contain the observed distribution of sunshine
+hours (as an array of proportions) that we compare against the uniform
+distribution to calculate the observed TVD. This observed TVD is then
+compared with the distribution of simulated TVDs to calculate the
+p-value. The observed counts are converted to proportions by dividing by
+the total count so that the observed distribution is on the same scale
+as the simulated and expected uniform distributions, which are also in
+proportions.</p>
+>>>>>>> 78cb07bfa7aaa36d2e8fa55a3a8a42b2806d6b20
 </div>
 </div>
 </div>
@@ -1698,7 +1959,7 @@ of the number of sunshine hours of the 16 French cities in
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse6_1" class="accordion-collapse collapse"
+<div id="collapse6_1" class="accordion-collapse collapse collapse"
 aria-labelledby="heading6_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1706,6 +1967,7 @@ aria-labelledby="heading6_1" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer</strong>: <span class="math inline">R - L</span></p>
 <p>Note that the 95% CI is of the form of the following:</p>
+<<<<<<< HEAD
 <p><span class="math display">[\text{Sample Mean} - 2 \cdot
 SD_{\text{Sample Mean's Distribution}}, \text{Sample Mean} + 2 \cdot
 SD_{\text{Sample Mean's Distribution}}]</span></p>
@@ -1725,6 +1987,27 @@ SD}}</span>, so the width of our confidence interval, <span class="math inline">
 <p>
 </p>
 <p>The average score on this problem was 27%.</p>
+=======
+<p><span class="math display">[\text{Sample Mean} - 2 \cdot \text{SD of
+Distribution of Possible Sample Means}, \text{Sample Mean} + 2 \cdot
+\text{SD of Distribution of Possible Sample Means}]</span></p>
+<p>This making its width <span class="math inline">4 \cdot \text{SD of
+Distribution of Possible Sample Means}</span>. We can use the square
+root law, the fact that we can use our sample’s SD as an estimate of our
+population’s SD when creating a confidence interval, and the fact that
+the sample size is 16, to re-write the width as:</p>
+<p><span class="math display">\begin{align*}\text{width} \\ &amp;= 4
+\cdot \text{SD of Distribution of Possible Sample Means} \\ &amp;= 4
+\cdot \left(\frac{\text{Population SD}}{\sqrt{\text{Sample
+Size}}}\right) \\ &amp;\approx 4 \cdot \left(\frac{\text{Sample
+SD}}{\sqrt{\text{Sample Size}}}\right) \\ &amp;= 4 \cdot
+\left(\frac{\text{Sample SD}}{4}\right) \\ &amp;= \text{Sample
+SD}</span></p>
+<p>Since <span class="math inline">\text{width} = \text{Sample
+SD}</span>, and since <span class="math inline">\text{width} = R -
+L</span>, we have that <span class="math inline">\text{Sample SD} = R -
+L</span>.</p>
+>>>>>>> 78cb07bfa7aaa36d2e8fa55a3a8a42b2806d6b20
 </div>
 </div>
 </div>
@@ -1746,26 +2029,31 @@ hours in July of all 16 French cities in <code>sun</code>.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse6_2" class="accordion-collapse collapse"
+<div id="collapse6_2" class="accordion-collapse collapse collapse"
 aria-labelledby="heading6_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: False</p>
-<p><span class="math inline">[L, R]</span>contains the sample mean for
+<p><span class="math inline">[L, R]</span> contains the sample mean for
 sure, since it is centered at the sample mean. There is no probability
+<<<<<<< HEAD
 associated with this fact.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
 </p>
 <p>The average score on this problem was 62%.</p>
+=======
+associated with this fact since neither <span class="math inline">[L,
+R]</span> nor the sample mean are random (given that our sample has
+already been drawn).</p>
+>>>>>>> 78cb07bfa7aaa36d2e8fa55a3a8a42b2806d6b20
 </div>
 </div>
 </div>
 </div>
-<p><br></p>
 <p><br></p>
 <h3 id="problem-6.3">Problem 6.3</h3>
 <p>True or False: If we collected 1,000 new samples of 16 French cities
@@ -1782,7 +2070,7 @@ means would be contained in <span class="math inline">[L, R]</span>.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse6_3" class="accordion-collapse collapse"
+<div id="collapse6_3" class="accordion-collapse collapse collapse"
 aria-labelledby="heading6_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1792,6 +2080,7 @@ aria-labelledby="heading6_3" data-bs-parent="#accordionExample">
 <p>It is true that if we collected many samples and used each one to
 make a 95% confidence interval, about 95% of those confidence intervals
 would contain the population mean. However, that’s not what this
+<<<<<<< HEAD
 question is asking about. Instead it’s asking about the one interval we
 created in particular, <span class="math inline">[L,R]</span>. It’s
 possible that the sample that we used to create <span class="math inline">[L,R]</span> was not a representative sample, and so
@@ -1802,6 +2091,14 @@ would fall in <span class="math inline">[L,R]</span>.</p>
 <p>
 </p>
 <p>The average score on this problem was 42%.</p>
+=======
+statement is addressing. Instead, it’s asking whether the one interval
+we created in particular, <span class="math inline">[L,R]</span>, would
+contain 95% of other samples’ means. In general, there’s no guarantee of
+the proportion of means of other samples that would fall in <span class="math inline">[L, R]</span>; for instance, it’s possible that the
+sample that we used to create <span class="math inline">[L, R]</span>
+was not a representative sample.</p>
+>>>>>>> 78cb07bfa7aaa36d2e8fa55a3a8a42b2806d6b20
 </div>
 </div>
 </div>
@@ -1825,7 +2122,7 @@ France is approximately 95%.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse6_4" class="accordion-collapse collapse"
+<div id="collapse6_4" class="accordion-collapse collapse collapse"
 aria-labelledby="heading6_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1834,6 +2131,7 @@ aria-labelledby="heading6_4" data-bs-parent="#accordionExample">
 <p><strong>Answer</strong>: True</p>
 <p>It is true that if we collected many samples and used each one to
 make a 95% confidence interval, about 95% of those confidence intervals
+<<<<<<< HEAD
 would contain the population mean, as we said in the answer to the above
 question. So, if we picked one of those confidence intervals at random,
 there’s an approximately 95% chance it would contain the population
@@ -1843,6 +2141,11 @@ mean.</p>
 <p>
 </p>
 <p>The average score on this problem was 57%.</p>
+=======
+would contain the population mean, as we mentioned above. So, if we
+picked one of those confidence intervals at random, there’s an
+approximately 95% chance it would contain the population mean.</p>
+>>>>>>> 78cb07bfa7aaa36d2e8fa55a3a8a42b2806d6b20
 </div>
 </div>
 </div>
@@ -1864,7 +2167,7 @@ cities in France.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse6_5" class="accordion-collapse collapse"
+<div id="collapse6_5" class="accordion-collapse collapse collapse"
 aria-labelledby="heading6_5" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1873,12 +2176,17 @@ aria-labelledby="heading6_5" data-bs-parent="#accordionExample">
 <p><strong>Answer</strong>: False</p>
 <p>It is centered at our sample mean, which is the mean sunshine hours
 in July across all cities in France in <code>sun</code>, but not
+<<<<<<< HEAD
 necessarily at the population mean.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
 </p>
 <p>The average score on this problem was 58%.</p>
+=======
+necessarily at the population mean. We don’t know where the population
+mean is!</p>
+>>>>>>> 78cb07bfa7aaa36d2e8fa55a3a8a42b2806d6b20
 </div>
 </div>
 </div>
@@ -1901,8 +2209,7 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb14-1"><a href=
 <code>boot_right</code> evaluate to the left and right endpoints of a
 72% confidence interval for the mean sunshine hours in July across all
 cities in France.</p>
-<p>What goes in blank (a)?</p>
-<p>What goes in blank (b)?</p>
+<p>What goes in blanks (a) and (b)?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading6_6">
@@ -1910,12 +2217,13 @@ cities in France.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse6_6" class="accordion-collapse collapse"
+<div id="collapse6_6" class="accordion-collapse collapse collapse"
 aria-labelledby="heading6_6" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
+<<<<<<< HEAD
 <p><strong>Answer</strong>:</p>
 <p><strong>What goes in blank (a)?</strong> 14</p>
 <hr/>
@@ -1932,6 +2240,12 @@ blank (b) will be <span class="math inline">100 - 14 = 86</span>.</p>
 <p>
 </p>
 <p>The average score on this problem was 81%.</p>
+=======
+<p><strong>Answer</strong>: (a): 14, (b): 86</p>
+<p>A 72% confidence interval is constructed by taking the middle 72% of
+the distribution of resampled means. This means we need to exclude <span class="math inline">100\% - 72\% = 28\%</span> of values – the smallest
+14% and the largest 14%. Blank (a), then, is 14, and blank (b) is <span class="math inline">100 - 14 = 86</span>.</p>
+>>>>>>> 78cb07bfa7aaa36d2e8fa55a3a8a42b2806d6b20
 </div>
 </div>
 </div>
@@ -1965,7 +2279,7 @@ interval, what is the conclusion of his hypothesis test?</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse6_7" class="accordion-collapse collapse"
+<div id="collapse6_7" class="accordion-collapse collapse collapse"
 aria-labelledby="heading6_7" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1973,7 +2287,7 @@ aria-labelledby="heading6_7" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer</strong>: Impossible to tell</p>
 <p>First, remember that we fail to reject the null whenever the
-parameter stated in the null hypothesis(225 in this case) is in the
+parameter stated in the null hypothesis (225 in this case) is in the
 interval. So we’re told 225 is in the 72% bootstrapped interval. There’s
 a possibility that the 72% bootstrapped confidence interval isn’t
 completely contained within the 95% CLT interval, since the specific
@@ -2013,7 +2327,7 @@ hypothesis test?</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse6_8" class="accordion-collapse collapse"
+<div id="collapse6_8" class="accordion-collapse collapse collapse"
 aria-labelledby="heading6_8" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -2051,7 +2365,7 @@ described in part (h) are equal.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse6_9" class="accordion-collapse collapse"
+<div id="collapse6_9" class="accordion-collapse collapse collapse"
 aria-labelledby="heading6_9" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -2125,13 +2439,14 @@ values that are in <code>t_samp</code> (the Texas sample).</p></li>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse7_1" class="accordion-collapse collapse"
+<div id="collapse7_1" class="accordion-collapse collapse collapse"
 aria-labelledby="heading7_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: Permutation test</p>
+<<<<<<< HEAD
 <p>Although Gabriel and Sophia are not physically shuffling, the process
 they’re using still embodies the permutation test’s principle. They
 combining the sunshine hours from both states into a single dataset and
@@ -2146,6 +2461,19 @@ test.</p>
 <p>
 </p>
 <p>The average score on this problem was 52%.</p>
+=======
+<p>Any time we want to decide whether two samples look like they were
+drawn from the same population distribution, we are conducting a
+permutation test. In this case, the two samples are (1) the sample of
+California sunshine hours in February and (2) the sample of Texas
+sunshine hours in February.</p>
+<p>Even though Gabriel and Sophia aren’t “shuffling” the way we normally
+do when conducting a permutation test, they’re still performing a
+permutation test. They’re combining the sunshine hours from both states
+into a single dataset and then randomly reallocating them into two new
+groups, one representing California and the other Texas, without regard
+to their original labels.</p>
+>>>>>>> 78cb07bfa7aaa36d2e8fa55a3a8a42b2806d6b20
 </div>
 </div>
 </div>
@@ -2187,7 +2515,7 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb15-1"><a href=
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse7_2" class="accordion-collapse collapse"
+<div id="collapse7_2" class="accordion-collapse collapse collapse"
 aria-labelledby="heading7_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -2218,7 +2546,7 @@ variables that are defined before <code>c_mean</code>.)</em></p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse7_3" class="accordion-collapse collapse"
+<div id="collapse7_3" class="accordion-collapse collapse collapse"
 aria-labelledby="heading7_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -2262,13 +2590,14 @@ test and check whether __(d)__ is in the interval."</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse7_4" class="accordion-collapse collapse"
+<div id="collapse7_4" class="accordion-collapse collapse collapse"
 aria-labelledby="heading7_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: 0</p>
+<<<<<<< HEAD
 <p>In the context of testing whether two means are equal, the null
 hypothesis posits no difference between the two means. Therefore, the
 test statistic under the null hypothesis would be the difference between
@@ -2283,6 +2612,20 @@ confidence level.</p>
 <p>
 </p>
 <p>The average score on this problem was 43%.</p>
+=======
+<p>To conduct a hypothesis test using a confidence interval, our null
+hypothesis must be of the form “the population parameter is equal to
+<span class="math inline">x</span>”; the test is conducted by checking
+whether <span class="math inline">x</span> is in the specified
+interval.</p>
+<p>Here, Sophia and Gabriel want to test whether the mean number of
+sunshine hours in February for the two states is equal; since the
+confidence interval they created was for the difference in mean sunshine
+hours, they really want to check whether the difference in mean sunshine
+hours is 0. (They created a confidence interval for the true value of
+<span class="math inline">a - b</span>, and want to test whether <span class="math inline">a = b</span>; this is the same as testing whether
+<span class="math inline">a - b = 0</span>.)</p>
+>>>>>>> 78cb07bfa7aaa36d2e8fa55a3a8a42b2806d6b20
 </div>
 </div>
 </div>
@@ -2303,6 +2646,9 @@ order.</p>
 263, 257, 255, 254, 220, 210, 176</span></p>
 <p>Throughout this question, use the mathematical definition of
 percentiles presented in class.</p>
+<p><span style="color:red"><b>Note: Parts 1, 2, and 3 of this problem
+are out of scope; they cover material no longer included in the course.
+Part 4 is in scope!</b></span></p>
 <p><br></p>
 <h3 id="problem-8.1">Problem 8.1</h3>
 <p>What is the 80th percentile of the collection of numbers above?</p>
@@ -2321,7 +2667,7 @@ percentiles presented in class.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse8_1" class="accordion-collapse collapse"
+<div id="collapse8_1" class="accordion-collapse collapse collapse"
 aria-labelledby="heading8_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -2329,7 +2675,7 @@ aria-labelledby="heading8_1" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer</strong>: 306</p>
 <p>First, we need to find the position of the 80th percentile using the
-following equation:</p>
+rule from class:</p>
 <p><span class="math display">h = \left(\frac{80}{100}\right) \cdot 15 =
 \frac{4}{5} \cdot 15 = 12</span></p>
 <p>Since 12 is an integer, we don’t need to round up, so <span class="math inline">k = 12</span>. Starting from the right-most number,
@@ -2345,7 +2691,6 @@ is 306.</p>
 </div>
 </div>
 <p><br></p>
-<p><br></p>
 <h3 id="problem-8.2">Problem 8.2</h3>
 <p>What is the <strong>largest</strong> positive integer <span
 class="math inline">p</span> such that 257 is the <span
@@ -2358,22 +2703,30 @@ above?</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse8_2" class="accordion-collapse collapse"
+<div id="collapse8_2" class="accordion-collapse collapse collapse"
 aria-labelledby="heading8_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: 40</p>
-<p>The first step is to find the position of 257 in the collection, when
+<p>The first step is to find the position of 257 in the collection when
 we start at position 1, which is 6. Since there are 15 values total,
 this means that 257 is the smallest value that is greater than or equal
 to 40% of the values.</p>
+<<<<<<< HEAD
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
 <p>
 </p>
 <p>The average score on this problem was 30%.</p>
+=======
+<p>If we set <span class="math inline">p</span> to be any number larger
+than 40, say, 41, then 257 won’t be larger than <span class="math inline">p\%</span> of the values in the collection; thus,
+the largest positive integer value of <span class="math inline">p</span>
+that makes 257 the <span class="math inline">p</span>th percentile is
+40.</p>
+>>>>>>> 78cb07bfa7aaa36d2e8fa55a3a8a42b2806d6b20
 </div>
 </div>
 </div>
@@ -2393,7 +2746,7 @@ above? (Make sure your answer to (c) is smaller than your answer to
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse8_3" class="accordion-collapse collapse"
+<div id="collapse8_3" class="accordion-collapse collapse collapse"
 aria-labelledby="heading8_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -2405,12 +2758,16 @@ aria-labelledby="heading8_3" data-bs-parent="#accordionExample">
 or equal to 33.333% of the values. This means the 33rd percentile is
 also 255, since 33.333 &gt; 33. However, 255 is not greater than or
 equal to 34% of the values, which makes the 34th percentile 257.
+<<<<<<< HEAD
 Therefore, 34 is the smallest percentile that is equal to 257.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️⭐️⭐️</h5>
 <p>
 </p>
 <p>The average score on this problem was 21%.</p>
+=======
+Therefore, 34 is the smallest integer value of <span class="math inline">p</span> such that the <span class="math inline">p</span>th percentile is 257.</p>
+>>>>>>> 78cb07bfa7aaa36d2e8fa55a3a8a42b2806d6b20
 </div>
 </div>
 </div>
@@ -2441,18 +2798,23 @@ hours in February?</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse8_4" class="accordion-collapse collapse"
+<div id="collapse8_4" class="accordion-collapse collapse collapse"
 aria-labelledby="heading8_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: 91%</p>
-<p><span class="math display">z = \frac{250 - 200}{15} = \frac{50}{15} =
+<p>First, we need to find the number of standard deviations above the
+mean 300 is, and the number of standard deviations below the mean 200
+is.</p>
+<p><span class="math display">z = \frac{300 - 250}{15} = \frac{50}{15} =
 \frac{10}{3}</span></p>
-<p>The above equation tells us that 200 is <span class="math inline">\frac{10}{3}</span> standard deviations below the
-mean, and 300 is the same number of standard deviations above the mean.
-Chebyshev’s inequality tells us the proportion of values within <span class="math inline">z</span> SDs of the mean is at least <span class="math inline">1 - \frac{1}{z^2}</span>, which here is:</p>
+<p>The above equation tells us that 300 is <span class="math inline">\frac{10}{3}</span> standard deviations above the
+mean; you can verify that 200 is the same number of standard deviations
+below the mean. Chebyshev’s inequality tells us the proportion of values
+within <span class="math inline">z</span> SDs of the mean is at least
+<span class="math inline">1 - \frac{1}{z^2}</span>, which here is:</p>
 <p><span class="math display">1 - \frac{1}{\left(\frac{10}{3}\right)^2}
 = 1 - \frac{9}{100} = 0.91</span></p>
 <hr/>
@@ -2476,7 +2838,7 @@ cities in California, are given below. The event that it is sunny on
 Tuesday in Los Angeles depends on the event that it is sunny on Monday
 in Los Angeles, but other than that, all other events in the table are
 independent of one another.</p>
-<center><img src='../assets/images/sp23-final/probs-table.png' width=1000></center>
+<center><img src='../assets/images/sp23-final/probs-table.png' width=500></center>
 <p><br></p>
 <h3 id="problem-9.1">Problem 9.1</h3>
 <p>What is the probability that it is not sunny in San Diego on Monday
@@ -2489,7 +2851,7 @@ and not sunny in San Diego on Tuesday? Give your answer as a
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse9_1" class="accordion-collapse collapse"
+<div id="collapse9_1" class="accordion-collapse collapse collapse"
 aria-labelledby="heading9_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -2533,7 +2895,7 @@ cities on Monday?</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse9_2" class="accordion-collapse collapse"
+<div id="collapse9_2" class="accordion-collapse collapse collapse"
 aria-labelledby="heading9_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -2577,7 +2939,7 @@ Tuesday?</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse9_3" class="accordion-collapse collapse"
+<div id="collapse9_3" class="accordion-collapse collapse collapse"
 aria-labelledby="heading9_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -2644,7 +3006,7 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb16-1"><a href=
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse9_4" class="accordion-collapse collapse"
+<div id="collapse9_4" class="accordion-collapse collapse collapse"
 aria-labelledby="heading9_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -2760,7 +3122,7 @@ days</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse10_1" class="accordion-collapse collapse"
+<div id="collapse10_1" class="accordion-collapse collapse collapse"
 aria-labelledby="heading10_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -2840,7 +3202,7 @@ of cloudy days</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse10_2" class="accordion-collapse collapse"
+<div id="collapse10_2" class="accordion-collapse collapse collapse"
 aria-labelledby="heading10_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -2918,7 +3280,7 @@ class="math inline">\frac{1}{4}</span></p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse10_3" class="accordion-collapse collapse"
+<div id="collapse10_3" class="accordion-collapse collapse collapse"
 aria-labelledby="heading10_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -2994,7 +3356,7 @@ could be used to test pair 2.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse10_4" class="accordion-collapse collapse"
+<div id="collapse10_4" class="accordion-collapse collapse collapse"
 aria-labelledby="heading10_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -3079,7 +3441,7 @@ class="math inline">\frac{2}{5}</span>.</p>
 <h3 id="problem-11.1">Problem 11.1</h3>
 <p>Which of these could be a scatter plot of number of sunshine hours in
 July vs. number of sunshine hours in January?</p>
-<center><img src='../assets/images/sp23-final/r-values.png' width=1000></center>
+<center><img src='../assets/images/sp23-final/r-values.png' width=700></center>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> Option 1</p></li>
 <li><p><input type="radio" disabled="" /> Option 2</p></li>
@@ -3093,7 +3455,7 @@ July vs. number of sunshine hours in January?</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse11_1" class="accordion-collapse collapse"
+<div id="collapse11_1" class="accordion-collapse collapse collapse"
 aria-labelledby="heading11_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -3131,7 +3493,7 @@ class="math inline">\frac{2}{5}</span>.)</em></p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse11_2" class="accordion-collapse collapse"
+<div id="collapse11_2" class="accordion-collapse collapse collapse"
 aria-labelledby="heading11_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -3195,7 +3557,7 @@ class="math inline">ys</span>.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse11_3" class="accordion-collapse collapse"
+<div id="collapse11_3" class="accordion-collapse collapse collapse"
 aria-labelledby="heading11_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -3252,7 +3614,7 @@ intercept of Anthony’s new regression line?</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse11_4" class="accordion-collapse collapse"
+<div id="collapse11_4" class="accordion-collapse collapse collapse"
 aria-labelledby="heading11_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -3311,7 +3673,7 @@ spread)</p></li>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse11_5" class="accordion-collapse collapse"
+<div id="collapse11_5" class="accordion-collapse collapse collapse"
 aria-labelledby="heading11_5" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">

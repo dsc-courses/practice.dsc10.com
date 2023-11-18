@@ -8,10 +8,11 @@ title: Home – DSC 10 Practice
 
 ---
 
-This site contains practice problems taken from old DSC 10 exams. We've organized problems in two ways:
+This site contains practice problems taken from old DSC 10 exams. We've organized problems in a few ways:
 
 1. As **discussions**. Each discussion page contains problems about a particular topic. Come to in-person discussion sections to work on discussion problems with the help of our course staff.
 1. As **practice exams**. Work through these in the weeks leading up to exams.
+1. As **quizzes**. Work through these to practice for quizzes.
 
 In all cases, you should work on these problems **on paper**, since your exams will also be on paper. Even though you will see some multiple choice bubbles, you intentionally cannot select them.
 <!-- 
@@ -108,9 +109,15 @@ Each exam linked here lists the conditions under which the exam was given, inclu
   </thead>
   <tbody>
     <tr>
+      <th scope="row">Fall 2023</th>
+      <td>Rod Albuyeh, Suraj Rampure, Janine Tiefenbruck</td>
+      <td><a href='fa23-midterm/index.html'>Midterm</a></b>
+      </td>
+    </tr>
+    <tr>
       <th scope="row">Spring 2023</th>
       <td>Suraj Rampure</td>
-      <td><a href='sp23-midterm/index.html'>Midterm</a> 🆕 <b>now with solutions!</b>
+      <td><a href='sp23-midterm/index.html'>Midterm</a></b>
       </td>
     </tr>
     <tr>
@@ -167,6 +174,37 @@ Each exam linked here lists the conditions under which the exam was given, inclu
           <a href='wi21-final/index.html'>Final</a>
       </td>
     </tr>
+  </tbody>
+</table>
+</center>
+
+---
+
+### 🆕 Quizzes
+
+Starting in Fall 2023, quizzes are administered in discussion section. Below, you'll find an archive of past quizzes. While you'll find the answers to all quiz questions, you won't find detailed explanations. For quizzes, you should try to figure out why the answers are what they are on your own, and come to us in office hours if you're stuck. (Exam questions are harder, hence the detailed explanations.)
+
+<center>
+<table class="table" style="width:60%">
+    <colgroup>
+       <col span="1" style="width: 25%;">
+       <col span="1" style="width: 35%;">
+       <col span="1" style="width: 40%;">
+    </colgroup>
+  <thead>
+    <tr>
+      <th scope="col">Quarter</th>
+      <th scope="col">Instructor(s)</th>
+      <th scope="col">Quiz</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">Fall 2023</th>
+      <td>Rod Albuyeh, Suraj Rampure, Janine Tiefenbruck</td>
+      <td><a href='fa23-quiz1/index.html'>Quiz 1</a> • <a href='fa23-quiz2/index.html'>Quiz 2</a> • <a href='fa23-quiz3/index.html'>Quiz 3</a></td>
+    </tr>
+    <tr>
   </tbody>
 </table>
 </center>
