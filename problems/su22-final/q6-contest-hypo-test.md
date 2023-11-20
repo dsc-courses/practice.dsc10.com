@@ -25,9 +25,9 @@ Select all correct statements of the null hypothesis.
 
 A null hypothesis is the hypothesis that there is no significant difference between specified populations, any observed difference being due to sampling or experimental error. Let's consider what a potential null hypothesis might look like. A potential null hypothesis would be that there is no difference between the win proportion of toy dogs compared to the proportion of toy dogs in the population.
 
-- Option 1: We're not really looking at the distribution of dogs in our sample vs. dogs in our population, rather, we're looking at whether toy dogs win more than other dogs. In other words, the only factors we're really consdiering are the proportion of toy dogs to normal dogs, as well as the win percentages of toy dogs to normal dogs; and so the distribution of the population doesn't really matter. Furthermore, this option makes no referance to win rate of toy dogs.
+- Option 1: We're not really looking at the distribution of dogs in our sample vs. dogs in our population, rather, we're looking at whether toy dogs win more than other dogs. In other words, the only factors we're really consdiering are the proportion of toy dogs to normal dogs, as well as the win percentages of toy dogs to normal dogs; and so the distribution of the population doesn't really matter. Furthermore, this option makes no reference to win rate of toy dogs.
 
-- Option 2: This isn't really even a null hypothesis, but rather more of a description of a test procedure. This option also makes no attempt to referance to win rate of toy dogs.
+- Option 2: This isn't really even a null hypothesis, but rather more of a description of a test procedure. This option also makes no attempt to reference to win rate of toy dogs.
 
 - Option 3: This statement doesn't really make sense in that it is illogical to compare the raw number of toy dogs wins to the number of toy dogs in the population, because the number of toy dogs is always at least the number of toy dogs that win. Rejecting this null hypothesis would only reject an extreme case within the subset of what we're trying to prove.
 
@@ -84,11 +84,11 @@ Select all the test statistics that Eric can use to conduct his hypothesis.
 
 # BEGIN SOLUTION
 
-**Answer: ** Option 1
+**Answer: ** Option 1 and Option 2
 
 - Option 1: This option is correct. According to our null hypothesis, we're trying to compare the proportion of toy dogs win rates to the proportion of toy dogs. Thus taking the proportion of toy dogs in Eric's sample is a perfectly valid test statistic.
 
-- Option 2: This option is incorrect. The raw number of toy dogs in his sample doesn't really tell us how much toy dogs are winning compared to the rest of the population. Looking back at our null hypothesis, we're trying to compare two proportions.
+- Option 2: This option is correct. Since the sample size is fixed at 500, so kowning the count is equivalent to knowing the proportion.
 
 - Option 3: This option is incorrect. The absolute difference of the sample proportion of toy dogs and 0.3 doesn't help us because the absolute difference won't tell us whether or not the sample proportion of toy dogs is lower than 0.3 or higher than 0.3.
 
