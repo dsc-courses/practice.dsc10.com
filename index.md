@@ -81,7 +81,13 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
       <th scope="row">7</th>
       <td>November 15th</td>
       <td><a href="disc07/index.html">Standardization and The Normal Distribution</a></td>
-    </tr>      
+    </tr>
+    </tr>   
+      <tr>
+      <th scope="row">8</th>
+      <td>November 22nd</td>
+      <td><a href="disc08/index.html">The Central Limit Theorem and Hypothesis Testing</a></td>
+    </tr>           
   </tbody>
 </table>
 </center>
