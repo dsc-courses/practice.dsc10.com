@@ -215,7 +215,7 @@ Starting in Fall 2023, quizzes are administered in discussion section. Below, yo
     <tr>
       <th scope="row">Fall 2023</th>
       <td>Rod Albuyeh, Suraj Rampure, Janine Tiefenbruck</td>
-      <td><a href='fa23-quiz1/index.html'>Quiz 1</a> • <a href='fa23-quiz2/index.html'>Quiz 2</a> • <a href='fa23-quiz3/index.html'>Quiz 3</a></td>
+      <td><a href='fa23-quiz1/index.html'>Quiz 1</a> • <a href='fa23-quiz2/index.html'>Quiz 2</a> • <a href='fa23-quiz3/index.html'>Quiz 3</a> • <a href='fa23-quiz4/index.html'>Quiz 4</a></td>
     </tr>
     <tr>
   </tbody>
