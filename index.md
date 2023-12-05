@@ -93,7 +93,13 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
       <th scope="row">9</th>
       <td>November 29th</td>
       <td><a href="disc09/index.html">Total Variation Distance and Permutation Testing</a></td>
-    </tr>            
+    </tr>
+    </tr>   
+      <tr>
+      <th scope="row">10</th>
+      <td>December 6th</td>
+      <td><a href="disc10/index.html">Regression</a></td>
+    </tr>           
   </tbody>
 </table>
 </center>
