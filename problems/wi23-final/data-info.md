@@ -1,3 +1,9 @@
+#### Video 🎥
+
+<b><a href="https://podcast.ucsd.edu/watch/sp23/dsc10_a00/28">Here's a walkthrough video</a> of Problems 6-9, and <a href="https://podcast.ucsd.edu/watch/sp23/dsc10_b00/28">here's a walkthrough video</a> of Problems 10-14.</b>
+
+---
+
 The DataFrame `games` contains information about a sample of popular games, including board games, dice games, and card games. The data comes from Board Game Geek, a popular website and vibrant online community for game enthusiasts.
 
 The columns of games are as follows.

@@ -1,6 +1,6 @@
 #### Video 🎥
 
-<b>In Lecture 14, we covered some of the problems from this exam. See the slides <a href="https://dsc10.com/resources/lectures/lec14/lec14-filled.pdf">here</a> and the recording <a href="https://podcast.ucsd.edu/watch/sp23/dsc10_a00/14">here</a>.</b>
+<b><a href="https://podcast.ucsd.edu/watch/sp23/dsc10_a00/14">Here's a walkthrough video</a> of some of the problems on the exam.</b>
 
 ---
 

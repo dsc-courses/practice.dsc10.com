@@ -136,7 +136,7 @@ Each exam linked here lists the conditions under which the exam was given, inclu
       <th scope="row">Spring 2023</th>
       <td>Suraj Rampure</td>
       <td><a href='sp23-midterm/index.html'>Midterm</a><br>
-          <a href='sp23-final/index.html'>Final</a> 🆕</b>
+          <a href='sp23-final/index.html'>Final</a> (solutions + video posted!)</b>
       </td>
     </tr>
     <tr>
