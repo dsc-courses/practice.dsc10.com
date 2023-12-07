@@ -1,3 +1,9 @@
+#### Video 🎥
+
+<b>Here are two walkthrough videos of Problems 4 through 8 on this exam: one by <a href="https://podcast.ucsd.edu/watch/fa23/dsc10_b00/13">Janine</a> and one by <a href="https://podcast.ucsd.edu/watch/fa23/dsc10_c00/13">Suraj</a>.</b>
+
+---
+
 Recall, at the start of the quarter, you were asked to complete a Welcome Survey to tell us about your background coming into the course. You were also asked to share seemingly irrelevant details, like the number of followers you have on Instagram and the number of unread emails in your primary email account. Well, those details are no longer irrelevant – in this exam, we will work with the data from this quarter's Welcome Survey!
 
 Each row in the DataFrame `survey` represents one student in DSC 10. The information stored in the columns of `survey` are as follows:

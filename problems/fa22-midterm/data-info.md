@@ -1,6 +1,6 @@
 #### Video 🎥
 
-<b>Here are two walkthrough videos of Problems 4 through 8 on this exam: one by <a href="https://podcast.ucsd.edu/watch/fa23/dsc10_b00/13">Janine</a>, and one by <a href="https://podcast.ucsd.edu/watch/fa23/dsc10_c00/13">Suraj</a>.</b>
+<b><a href="https://podcast.ucsd.edu/watch/sp23/dsc10_a00/14">Here's a walkthrough video</a> of some of the problems on the exam.</b>
 
 ---
 
