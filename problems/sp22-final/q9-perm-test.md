@@ -48,7 +48,7 @@ billy = (app_data.get('product') ==
 lommarp = (app_data.get('product') == 
           'LOMMARP Bookcase, dark blue-green, 25 5/8x78 3/8')
 billy_lommarp = app_data[billy|lommarp]
-billy_mean = np.random.choice(billy_lommarp.get('minutes'), billy.sum()).mean()
+billy_mean = np.random.choice(billy_lommarp.get('minutes'), billy.sum(), replace=False).mean()
 lommarp_mean = _________
 billy_mean - lommarp_mean
 ```
@@ -56,7 +56,7 @@ billy_mean - lommarp_mean
 What goes in the blank?
 
 ( ) `billy_lommarp[lommarp].get('minutes').mean()`
-( ) `np.random.choice(billy_lommarp.get('minutes'), lommarp.sum()).mean()`
+( ) `np.random.choice(billy_lommarp.get('minutes'), lommarp.sum(), replace=False).mean()`
 ( ) `billy_lommarp.get('minutes').mean() - billy_mean`
 ( ) `(billy_lommarp.get('minutes').sum() - billy_mean * billy.sum())/lommarp.sum()`
 
@@ -68,7 +68,7 @@ The first line of code creates a boolean Series with a True value for every BILL
 
 From this point, the way we would normally proceed in a permutation test would be to use `np.random.permutation` to shuffle one of the two relevant columns (either `'product'` or `'minutes'`) to create a random pairing of assembly times with products. Then we would calculate the average of all assembly times that were randomly assigned to the label BILLY. Similarly, we'd calculate the average of all assembly times that were randomly assigned to the label LOMMARP. Then we'd subtract these averages to get one simulated value of the test statistic. To run the permutation test, we'd have to repeat this process many times.
 
-In this problem, we need to generate a simulated value of the test statistic, without randomly shuffling one of the columns. The code starts us off by defining a variable called `billy_mean` that comes from using `np.random.choice`. There's a lot going on here, so let's break it down. Remember that the first argument to `np.random.choice` is a sequence of values to choose from, and the second is the number of random choices to make. The default behavior is to make the random choices without replacement, so that no element that has already been chosen can be chosen again. Here, we're making our random choices from the `'minutes'` column of `billy_lommarp`. The number of choices to make from this collection of values is `billy.sum()`, which is the sum of all values in the `billy` Series defined in the first line of code. The `billy` Series contains True/False values, but in Python, True counts as 1 and False counts as 0, so `billy.sum()` evaluates to the number of True entries in `billy`, which is the number of BILLY bookcases recorded in `app_data`. It helps to think of the random process like this:
+In this problem, we need to generate a simulated value of the test statistic, without randomly shuffling one of the columns. The code starts us off by defining a variable called `billy_mean` that comes from using `np.random.choice`. There's a lot going on here, so let's break it down. Remember that the first argument to `np.random.choice` is a sequence of values to choose from, and the second is the number of random choices to make. And we set `replace=False`, so that no element that has already been chosen can be chosen again. Here, we're making our random choices from the `'minutes'` column of `billy_lommarp`. The number of choices to make from this collection of values is `billy.sum()`, which is the sum of all values in the `billy` Series defined in the first line of code. The `billy` Series contains True/False values, but in Python, True counts as 1 and False counts as 0, so `billy.sum()` evaluates to the number of True entries in `billy`, which is the number of BILLY bookcases recorded in `app_data`. It helps to think of the random process like this:
 
 1. Collect all the assembly times of any BILLY or LOMMARP bookcase in a large bag.
 2. Pull out a random assembly time from this bag.
@@ -78,7 +78,7 @@ If we think of the random times we draw as being labeled BILLY, then the remaini
 
 From here, we can proceed the same way as usual. First, we need to calculate the average of all assembly times that were randomly assigned to the label BILLY. This is done for us and stored in `billy_mean`. We also need to calculate the average of all assembly times that were randomly assigned the label LOMMARP. We'll call that `lommarp_mean`. Thinking of picking times out of a large bag, this is the average of all the assembly times left in the bag. The problem is there is no easy way to access the assembly times that were not picked. We can take advantage of the fact that we can easily calculate the total assembly time of all BILLY and LOMMARP bookcases together with `billy_lommarp.get('minutes').sum()`. Then if we subtract the total assembly time of all bookcases randomly labeled BILLY, we'll be left with the total assembly time of all bookcases randomly labeled LOMMARP. That is, `billy_lommarp.get('minutes').sum() - billy_mean * billy.sum()` represents the total assembly time of all bookcases randomly labeled LOMMARP. The count of the number of LOMMARP bookcases is given by `lommarp.sum()` so the average is `(billy_lommarp.get('minutes').sum() - billy_mean * billy.sum())/lommarp.sum()`.
 
-A common wrong answer for this question was the second answer choice, `np.random.choice(billy_lommarp.get('minutes'), lommarp.sum()).mean()`. This mimics the structure of how `billy_mean` was defined so it's a natural guess. However, this corresponds to the following random process, which doesn't associate each assembly with a unique label (BILLY or LOMMARP):
+A common wrong answer for this question was the second answer choice, `np.random.choice(billy_lommarp.get('minutes'), lommarp.sum(), replace=False).mean()`. This mimics the structure of how `billy_mean` was defined so it's a natural guess. However, this corresponds to the following random process, which doesn't associate each assembly with a unique label (BILLY or LOMMARP):
 
 1. Collect all the assembly times of any BILLY or LOMMARP bookcase in a large bag.
 2. Pull out a random assembly time from this bag.
