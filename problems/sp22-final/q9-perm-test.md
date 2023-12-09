@@ -56,7 +56,7 @@ billy_mean - lommarp_mean
 What goes in the blank?
 
 ( ) `billy_lommarp[lommarp].get('minutes').mean()`
-( ) `np.random.choice(billy_lommarp.get('minutes'), lommarp.sum()).mean()`
+( ) `np.random.choice(billy_lommarp.get('minutes'), lommarp.sum(), replace=False).mean()`
 ( ) `billy_lommarp.get('minutes').mean() - billy_mean`
 ( ) `(billy_lommarp.get('minutes').sum() - billy_mean * billy.sum())/lommarp.sum()`
 
@@ -78,7 +78,7 @@ If we think of the random times we draw as being labeled BILLY, then the remaini
 
 From here, we can proceed the same way as usual. First, we need to calculate the average of all assembly times that were randomly assigned to the label BILLY. This is done for us and stored in `billy_mean`. We also need to calculate the average of all assembly times that were randomly assigned the label LOMMARP. We'll call that `lommarp_mean`. Thinking of picking times out of a large bag, this is the average of all the assembly times left in the bag. The problem is there is no easy way to access the assembly times that were not picked. We can take advantage of the fact that we can easily calculate the total assembly time of all BILLY and LOMMARP bookcases together with `billy_lommarp.get('minutes').sum()`. Then if we subtract the total assembly time of all bookcases randomly labeled BILLY, we'll be left with the total assembly time of all bookcases randomly labeled LOMMARP. That is, `billy_lommarp.get('minutes').sum() - billy_mean * billy.sum()` represents the total assembly time of all bookcases randomly labeled LOMMARP. The count of the number of LOMMARP bookcases is given by `lommarp.sum()` so the average is `(billy_lommarp.get('minutes').sum() - billy_mean * billy.sum())/lommarp.sum()`.
 
-A common wrong answer for this question was the second answer choice, `np.random.choice(billy_lommarp.get('minutes'), lommarp.sum()).mean()`. This mimics the structure of how `billy_mean` was defined so it's a natural guess. However, this corresponds to the following random process, which doesn't associate each assembly with a unique label (BILLY or LOMMARP):
+A common wrong answer for this question was the second answer choice, `np.random.choice(billy_lommarp.get('minutes'), lommarp.sum(), replace=False).mean()`. This mimics the structure of how `billy_mean` was defined so it's a natural guess. However, this corresponds to the following random process, which doesn't associate each assembly with a unique label (BILLY or LOMMARP):
 
 1. Collect all the assembly times of any BILLY or LOMMARP bookcase in a large bag.
 2. Pull out a random assembly time from this bag.
