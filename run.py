@@ -422,7 +422,7 @@ def write_page(path, called_from_write_all_pages=False):
     assignment_name = path.split(sep)[-1].replace('.yml', '')
 
     # is_discussion = 'disc' in path
-    is_exam = not ('disc' in path) and not ('pretest' in path)
+    is_exam = 'midterm' in path or 'final' in path
 
     # Generate the Markdown
     page, title = process_page(path, is_exam=is_exam)
