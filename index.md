@@ -50,7 +50,7 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
     <tr>
       <th scope="row">1</th>
       <td>Friday, January 12</td>
-      <td><a href="disc01/index.html">Python Basics</a></td>
+      <td><a href="probset01/index.html">Python Basics</a></td>
     </tr>   
 <!--    <tr>
       <th scope="row">2</th>
