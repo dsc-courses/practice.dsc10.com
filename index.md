@@ -10,7 +10,7 @@ title: Home – DSC 10 Practice
 
 This site contains practice problems taken from old DSC 10 exams. We've organized problems in a few ways:
 
-1. As **discussions**. Each discussion page contains problems about a particular topic. Come to in-person discussion sections to work on discussion problems with the help of our course staff.
+1. As **extra practice problem sets**. Each problem set contains problems about a particular topic. Come to extra practice sessions to work on these problem sets in groups, with the help of our course staff.
 1. As **practice exams**. Work through these in the weeks leading up to exams.
 1. As **quizzes**. Work through these to practice for quizzes.
 
@@ -26,9 +26,11 @@ DSC 10's only prerequisite is high school algebra.
 In order to gauge your preparedness for the type of math you'll see
 in this class, you should work through <b><a href="pretest/index.html">these practice problems</a></b> on your own. You will not submit it, and it will not be graded, but it will help you identify any gaps in your background knowledge and it will teach you some useful test-taking skills.
 
+
+
 ---
 
-### 🗣️ Discussions in Fall 2023
+### 💯 Extra Practice Problem Sets for Winter 2024
 
 <center>
 <table class="table" style="width:60%">
@@ -47,10 +49,10 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
   <tbody>
     <tr>
       <th scope="row">1</th>
-      <td>October 4th</td>
-      <td><a href="disc01/index.html">Intro + Python Basics</a></td>
+      <td>Friday, January 12</td>
+      <td><a href="disc01/index.html">Python Basics</a></td>
     </tr>   
-    <tr>
+<!--    <tr>
       <th scope="row">2</th>
       <td>October 11th</td>
       <td><a href="disc02/index.html">Arrays and DataFrames</a></td>
@@ -99,10 +101,12 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
       <th scope="row">10</th>
       <td>December 6th</td>
       <td><a href="disc10/index.html">Regression</a></td>
-    </tr>           
+    </tr>  
+-->         
   </tbody>
 </table>
 </center>
+
 
 
 ---
@@ -136,7 +140,7 @@ Each exam linked here lists the conditions under which the exam was given, inclu
       <th scope="row">Spring 2023</th>
       <td>Suraj Rampure</td>
       <td><a href='sp23-midterm/index.html'>Midterm</a><br>
-          <a href='sp23-final/index.html'>Final</a> (solutions + video posted!)</b>
+          <a href='sp23-final/index.html'>Final</a></b>
       </td>
     </tr>
     <tr>
