@@ -1,0 +1,125 @@
+# BEGIN PROB
+
+# BEGIN SUBPROB
+
+Suppose we run the three lines of code below.
+
+    families = living_cost.groupby("family_type").median()
+    sorted_families = families.sort_values(by="avg_housing_cost")
+    result = sorted_families.get("avg_childcare_cost").iloc[0]
+
+Which of the following does `result` evaluate to?
+
+( ) The median `"avg_childcare_cost"` of the `"family_type"` with the lowest median `"avg_housing_cost"`.
+( ) The median `"avg_childcare_cost"` of the `"family_type"` with the highest median `"avg_housing_cost"`.
+( ) The median `"avg_housing_cost"` of the `"family_type"` with the lowest median `"avg_childcare_cost"`.
+( ) The median `"avg_housing_cost"` of the `"family_type"` with the highest median `"avg_childcare_cost"`.
+
+# BEGIN SOLUTION
+
+**Answer:** The median `"avg_childcare_cost"` of the `"family_type"` with the lowest median `"avg_housing_cost"`.\
+
+When we grouped `living_cost` by `"family_type"`, `families` is a DataFrame with one row per `"family_type"`. Using the `.median()` aggregation method takes the median of all numerical columns per `"family_type"`.
+
+`sorted_families` is the `families` DataFrame, but sorted in ascending order based on the  `"avg_housing_cost"` column. The first row of `sorted_families` is the `"family_type"` with the lowest median  `"avg_housing_cost"`, and the last row of `sorted_families` is the `"family_type"` with the highest median  `"avg_housing_cost"`.
+
+In the last line of code, we’re getting the `"avg_childcare_cost"` column from the `sorted_families` DataFrame. We then use `iloc` to get the first entry in the `"avg_childcare_cost"` column. Since `sorted_families` is sorted in ascending order, this means that we’re getting the lowest median in the column. Therefore, `result` evaluates to the median `"avg_childcare_cost"` of the `"family_type"` with the lowest median `"avg_housing_cost"`.
+
+<average>82</average>
+
+# END SOLUTION
+
+# END SUBPROB
+
+# BEGIN SUBPROB
+
+Suppose we define `another_result` as follows.
+
+    another_result = (living_cost.groupby("state").count()
+                      .sort_values(by="median_income", ascending=False)
+                      .get("median_income").index[0])
+
+What does `another_result` represent?
+
+( ) The state with the highest median income.
+( ) The median income in the state with the highest median income.
+( ) The state with the most counties.
+( ) The median income in the state with the most counties.
+
+# BEGIN SOLUTION
+
+**Answer:** The state with the most counties.\
+
+The `living_cost` DataFrame is being grouped by the `"state"` column, so there is now one row per `"state"`. By using the `.count()` aggregation method, the columns in the DataFrame will contain the number of rows in `living_count` for each `"state"`. All of the columns will also be the same after using `.count()`, so they will all contain the distribution of `"state"`. Since `living_cost` has data on every county in the US, the grouped DataFrame represents the number of counties that each state has. 
+
+We then sort the DataFrame in descending order, so the state with the most counties is at the top of the DataFrame. The last line of the expression gets a column and uses `.index` to get the state corresponding to the first entry, which happens to be the state with the most counties and the value that gets assigned to `another_result`.
+
+Since all the columns are the same, it doesn’t matter which column we pick to use in the `.sort_values()` method. In this case, we used the `"median_income"` column, but picking any other column will produce the same result.
+
+<average>65</average>
+
+# END SOLUTION
+
+# END SUBPROB
+
+# BEGIN SUBPROB
+
+Which of the following DataFrames has exactly four columns?
+
+( ) `living_cost.groupby("family_type").min()`
+( ) `living_cost.groupby("family_type").sum()`
+( ) `living_cost.groupby("family_type").count()`
+( ) None of the above.
+
+# BEGIN SOLUTION
+
+**Answer:** `living_cost.groupby("family_type").sum()`\
+
+Since we can’t take the sum of columns with categorical data, all of the columns in `living_cost` that contain non-numerical data are dropped after we use the `.sum()` aggregation method. There are four columns in `living_cost` that have numerical data (`"is_metro"`, `"avg_housing_cost"`, `"avg_childcare_cost"`, and `"median_income"`). Since Python can take the sum of these numerical columns, these four columns are kept. Therefore, the resulting DataFrame has exactly four columns.
+
+Although `"is_metro"` contains Boolean values, Python can still calculate the sum of this column. The Boolean value `True` corresponds to 1 and `False` corresponds to 0.
+
+<average>35</average>
+
+# END SOLUTION
+
+# END SUBPROB
+
+# BEGIN SUBPROB
+
+Suppose we define the Series `three_columns` to be the concatenation of
+three columns of the `living_cost` DataFrame as follows.
+
+    three_columns = (living_cost.get("state") + " " +
+                     living_cost.get("county") + " " + 
+                     living_cost.get("family_type"))
+
+For example, the first element of `three_columns` is the string
+`"CA San Diego County 1a2c"` (refer back to the first row of
+`living_cost` provided in the data overview).
+
+What does the following expression evaluate to?
+
+    (living_cost.assign(geo_family=three_columns)
+                .groupby("geo_family").count()
+                .shape[0])
+
+( ) $10$, the number of distinct `"family_type"` values.
+( ) $50$, the number of states in the US.
+( ) $500$, the number of combinations of states in the US and `"family_type"` values.
+( ) $3143$, the number of counties in the US.
+( ) $31430$, the number of rows in the `living_cost` DataFrame.
+
+# BEGIN SOLUTION
+
+**Answer:** $31430$, the number of rows in the `living_cost` DataFrame.\
+
+The first line of the expression creates a new column in `living_cost`, called `"geo_family"` that represents the concatenation of the values in `"three_columns"`. When we group the DataFrame by `"geo_family"`, we create a new DataFrame that contains a row for every unique value in `"three_columns"`. `"three_columns"` has various combinations of `"state"`, `"country"`, and `"family_type"`. Since it’s given in the DataFrame description that each of the 31430 rows of the DataFrame represents a different combination of `"state"`, `"country"`, and `"family_type"`, this means that the grouped DataFrame has 31430 unique combinations as well. Therefore, when we use `.shape[0]` to get the number of rows in the grouped DataFrame in the last line of the expression, we get the same value as the number of rows in the `living_cost` DataFrame, 31430.
+
+<average>74</average>
+
+# END SOLUTION
+
+# END SUBPROB
+
+# END PROB
