@@ -1,0 +1,1769 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Extra Practice Session 2: Arrays, DataFrames, Querying and Grouping</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="..\assets\theme.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Extra Practice Session 2: Arrays, DataFrames, Querying
+and Grouping</h1>
+</header>
+<p><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<!-- add after bootstrap.min.css -->
+<link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css"/>
+<!-- add after bootstrap.min.js or bootstrap.bundle.min.js -->
+<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script></p>
+<!-- for difficulty gauges-->
+<script src="https://cdn.plot.ly/plotly-2.16.1.min.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B947E6J6H4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B947E6J6H4');
+</script>
+<p><a href="../index.html">← return to practice.dsc10.com</a></p>
+<hr />
+<p>Welcome! The problems shown below should be worked on <strong>on
+paper</strong>, since the quizzes and exams you take in this course will
+also be on paper. You do not need to submit your solutions anywhere.
+<br><br>We encourage you to complete this worksheet in groups during an
+extra practice session on Friday, January 19. Solutions will be posted
+after all sessions have finished. This problem set is not designed to
+take any particular amount of time - focus on understanding concepts,
+not on getting through all the questions.</p>
+<hr />
+<h2 id="problem-1">Problem 1</h2>
+<p>Consider the following assignment statement.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>puffin <span class="op">=</span> np.array([<span class="dv">5</span>, <span class="dv">9</span>, <span class="dv">13</span>, <span class="dv">17</span>, <span class="dv">21</span>])</span></code></pre></div>
+<p><br></p>
+<h3 id="problem-1.1">Problem 1.1</h3>
+<p>Provide arguments to call <code>np.arange</code> with so that the
+array <code>penguin</code> is identical to the array
+<code>puffin</code>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>penguin <span class="op">=</span> np.arange(____)</span></code></pre></div>
+<p><br></p>
+<h3 id="problem-1.2">Problem 1.2</h3>
+<p>Fill in the blanks so that the array <code>parrot</code> is also
+identical to the array <code>puffin</code>.<br />
+<em>Hint: Start by choosing</em> <code>y</code> <em>so that</em>
+<code>parrot</code> <em>has length 5.</em></p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>parrot <span class="op">=</span> __(x)__ <span class="op">*</span> np.arange(<span class="dv">0</span>, __(y)__, <span class="dv">2</span>) <span class="op">+</span> __(z)__</span></code></pre></div>
+<p><br></p>
+<hr />
+<h2 id="problem-2">Problem 2</h2>
+<p>Suppose <code>students</code> is a DataFrame of all students who took
+DSC 10 last quarter. <code>students</code> has one row per student,
+where:</p>
+<ul>
+<li><p>The index contains students’ PIDs as strings starting with
+<code>"A"</code>.</p></li>
+<li><p>The <code>"Overall"</code> column contains students’ overall
+percentage grades as floats.</p></li>
+<li><p>The <code>"Animal"</code> column contains students’ favorite
+animals as strings.</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-2.1">Problem 2.1</h3>
+<p>What type is <code>students.get("Overall")</code>? If this expression
+errors, select “this errors."</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> float</p></li>
+<li><p><input type="radio" disabled="" /> string</p></li>
+<li><p><input type="radio" disabled="" /> array</p></li>
+<li><p><input type="radio" disabled="" /> Series</p></li>
+<li><p><input type="radio" disabled="" /> this errors</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-2.2">Problem 2.2</h3>
+<p>What type is <code>students.get("PID")</code>? If this expression
+errors, select “this errors."</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> float</p></li>
+<li><p><input type="radio" disabled="" /> string</p></li>
+<li><p><input type="radio" disabled="" /> array</p></li>
+<li><p><input type="radio" disabled="" /> Series</p></li>
+<li><p><input type="radio" disabled="" /> this errors</p></li>
+</ul>
+<p><br></p>
+<p>Vanessa is one student who took DSC 10 last quarter. Her PID is
+A12345678, she earned the sixth-highest overall percentage grade in the
+class, and her favorite animal is the giraffe.</p>
+<p><br></p>
+<h3 id="problem-2.3">Problem 2.3</h3>
+<p>Supposing that <code>students</code> is already sorted by
+<code>"Overall"</code> in <strong>descending</strong> order, fill in the
+blanks so that <code>animal_one</code> and <code>animal_two</code>
+<strong>both</strong> evaluate to <code>"giraffe"</code>.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>animal_one <span class="op">=</span> students.get(__(x)__).loc[__(y)__]</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>animal_two <span class="op">=</span> students.get(__(x)__).iloc[__(z)__]</span></code></pre></div>
+<p><br></p>
+<h3 id="problem-2.4">Problem 2.4</h3>
+<p>If <code>students</code> wasn’t already sorted by
+<code>"Overall"</code> in descending order, which of your answers would
+need to change?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Neither <code>y</code> nor <code>z</code> would need to change</p></li>
+<li><p><input type="radio" disabled="" /> Both <code>y</code> and <code>z</code> would need to change</p></li>
+<li><p><input type="radio" disabled="" /> <code>y</code> only</p></li>
+<li><p><input type="radio" disabled="" /> <code>z</code> only</p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-3">Problem 3</h2>
+<p>The DataFrame <code>items</code> describes various items available to
+collect or purchase using bells, the currency used in the game _Animal
+Crossing: New Horizons.</p>
+<p>For each item, we have:</p>
+<ul>
+<li><code>"Item" (str)</code>: The name of the item.</li>
+<li><code>"Cost" (int)</code>: The cost of the item in bells. Items that
+cost 0 bells cannot be purchased and must be collected through other
+means (such as crafting).</li>
+<li><code>"Location" (str)</code>: The store or action through which the
+item can be obtained.</li>
+</ul>
+<p>The first 6 rows of <code>items</code> are below, though
+<code>items</code> has more rows than are shown here.</p>
+<center><img src="../../assets/images/fa23-quizzes/items.png" width=300></center>
+<p><br><br></p>
+<p>Fill in the blanks so that <code>count_1</code> and
+<code>count_2</code> both evaluate to the number of items in
+<code>items</code> with a <code>"Cost"</code> of 0.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>count_1 <span class="op">=</span> items.groupby(__(a)__).__(b)__().get(<span class="st">&quot;Item&quot;</span>).loc[__(c)__]</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>count_2 <span class="op">=</span> items[__(d)__].shape[<span class="dv">0</span>]</span></code></pre></div>
+<hr />
+<h2 id="problem-4">Problem 4</h2>
+<p>You are given a DataFrame called <code>sports</code>, indexed by
+<code>'Sport'</code> containing one column,
+<code>'PlayersPerTeam'</code>. The first few rows of the DataFrame are
+shown below:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Sport</th>
+<th>PlayersPerTeam</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>baseball</td>
+<td>9</td>
+</tr>
+<tr class="even">
+<td>basketball</td>
+<td>5</td>
+</tr>
+<tr class="odd">
+<td>field hockey</td>
+<td>11</td>
+</tr>
+</tbody>
+</table>
+<p><br /> Which of the following evaluates to
+<code>'basketball'</code>?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>sports.loc[1]</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>sports.iloc[1]</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>sports.index[1]</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>sports.get('Sport').iloc[1]</code></p></li>
+</ul>
+<hr />
+<h2 id="problem-5">Problem 5</h2>
+<p>Suppose you are given a DataFrame of employees for a given company.
+The DataFrame, called <code>employees</code>, is indexed by
+<code>'employee_id'</code> (string) with a column called
+<code>'years'</code> (int) that contains the number of years each
+employee has worked for the company.</p>
+<p><br></p>
+<h3 id="problem-5.1">Problem 5.1</h3>
+<p>Suppose that the code</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>employees.sort_values(by<span class="op">=</span><span class="st">&#39;years&#39;</span>, ascending<span class="op">=</span><span class="va">False</span>).index[<span class="dv">0</span>]</span></code></pre></div>
+<p>outputs <code>'2476'</code>.</p>
+<p>True or False: The number of years that employee 2476 has worked for
+the company is greater than the number of years that any other employee
+has worked for the company.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-5.2">Problem 5.2</h3>
+<p>What will be the output of the following code?</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>employees.assign(start<span class="op">=</span><span class="dv">2021</span><span class="op">-</span>employees.get(<span class="st">&#39;years&#39;</span>))</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>employees.sort_values(by<span class="op">=</span><span class="st">&#39;start&#39;</span>).index.iloc[<span class="op">-</span><span class="dv">1</span>]</span></code></pre></div>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> the employee id of an employee who has worked there for the most
+years</p></li>
+<li><p><input type="radio" disabled="" /> the employee id of an employee who has worked there for the fewest
+years</p></li>
+<li><p><input type="radio" disabled="" /> an error message complaining about <code>iloc[-1]</code></p></li>
+<li><p><input type="radio" disabled="" /> an error message complaining about something else</p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-6">Problem 6</h2>
+<p>Suppose <code>df</code> is a DataFrame and <code>b</code> is any
+boolean array whose length is the same as the number of rows of
+<code>df</code>.</p>
+<p>True or False: For any such boolean array <code>b</code>,
+<code>df[b].shape[0]</code> is less than or equal to
+<code>df.shape[0]</code>.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
+</ul>
+<hr />
+<h2 id="problem-7">Problem 7</h2>
+<p>You are given a DataFrame called <code>books</code> that contains
+columns <code>'author'</code> (string), <code>'title'</code> (string),
+<code>'num_chapters'</code> (int), and <code>'publication_year'</code>
+(int).</p>
+<p>Suppose that after doing <code>books.groupby('Author').max()</code>,
+one row says</p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>author</th>
+<th>title</th>
+<th>num_chapters</th>
+<th>publication_year</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Charles Dickens</td>
+<td>Oliver Twist</td>
+<td>53</td>
+<td>1838</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h3 id="problem-7.1">Problem 7.1</h3>
+<p>Based on this data, can you conclude that Charles Dickens is the
+alphabetically last of all author names in this dataset?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Yes</p></li>
+<li><p><input type="radio" disabled="" /> No</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-7.2">Problem 7.2</h3>
+<p>Based on this data, can you conclude that Charles Dickens wrote
+<em>Oliver Twist</em>?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Yes</p></li>
+<li><p><input type="radio" disabled="" /> No</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-7.3">Problem 7.3</h3>
+<p>Based on this data, can you conclude that <em>Oliver Twist</em> has
+53 chapters?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Yes</p></li>
+<li><p><input type="radio" disabled="" /> No</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-7.4">Problem 7.4</h3>
+<p>Based on this data, can you conclude that Charles Dickens wrote a
+book with 53 chapters that was published in 1838?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Yes</p></li>
+<li><p><input type="radio" disabled="" /> No</p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-8">Problem 8</h2>
+<p>You have a DataFrame called <code>prices</code> that contains
+information about food prices at 18 different grocery stores. There is
+column called <code>'broccoli'</code> that contains the price in dollars
+for one pound of broccoli at each grocery store. There is also a column
+called <code>'ice_cream'</code> that contains the price in dollars for a
+pint of store-brand ice cream.</p>
+<p><br></p>
+<h3 id="problem-8.1">Problem 8.1</h3>
+<p>What should <code>type(prices.get('broccoli').iloc[0])</code>
+output?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> int</p></li>
+<li><p><input type="radio" disabled="" /> float</p></li>
+<li><p><input type="radio" disabled="" /> array</p></li>
+<li><p><input type="radio" disabled="" /> Series</p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-9">Problem 9</h2>
+<p>One way to use <code>np.arange</code> to produce the sequence
+<code>[2, 6, 10, 14]</code> is <code>np.arange(2, 15, 4)</code>. This
+gives three inputs to np.arange.</p>
+<p>Fill in the blanks below to show a different way to produce the same
+sequence, this time using only one input to np.arange. Each blank below
+must be filled in with a single number only, and the final result,
+<code>x*np.arange(y)+z</code>, must produce the sequence
+<code>[2, 6, 10, 14]</code>.</p>
+<p>Using <code>x*np.arange(y)+z</code> fill in the missing values:</p>
+<p><code>x = _</code></p>
+<p><code>y = _</code></p>
+<p><code>z = _</code></p>
+<hr />
+<h2 id="problem-10">Problem 10</h2>
+<p>You are given a table called books that contains columns
+<code>'author'</code> (<code>str</code>), <code>'title'</code>
+(<code>str</code>), <code>'num_chapters'</code> (<code>int</code>), and
+<code>'publication_year'</code> (<code>int</code>). <br></p>
+<h3 id="problem-10.1">Problem 10.1</h3>
+<p>What will be the output of the following code?
+<code>books.groupby(“publication_year”).mean().shape[1]</code></p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>1</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>2</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>3</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>4</code></p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-11">Problem 11</h2>
+<p>King Triton, UCSD’s mascot, is quite the traveler! For this question,
+we will be working with the <code>flights</code> DataFrame, which
+details several facts about each of the flights that King Triton has
+been on over the past few years. The first few rows of
+<code>flights</code> are shown below.</p>
+<center><img src='../assets/images/fa21-midterm/flights.png' width=40%></center>
+<p><br></p>
+<p>Here’s a description of the columns in <code>flights</code>:</p>
+<ul>
+<li><code>'DATE'</code>: the date on which the flight occurred. Assume
+that there were no “redeye” flights that spanned multiple days.</li>
+<li><code>'FLIGHT'</code>: the flight number. Note that this is not
+unique; airlines reuse flight numbers on a daily basis.</li>
+<li><code>'FROM'</code> and <code>'TO'</code>: the 3-letter airport code
+for the departure and arrival airports, respectively. Note that it’s not
+possible to have a flight from and to the same airport.</li>
+<li><code>'DIST'</code>: the distance of the flight, in miles.</li>
+<li><code>'HOURS'</code>: the length of the flight, in hours.</li>
+<li><code>'SEAT'</code>: the kind of seat King Triton sat in on the
+flight; the only possible values are <code>'WINDOW'</code>,
+<code>'MIDDLE'</code>, and <code>'AISLE'</code>. <br><br></li>
+</ul>
+<h3 id="problem-11.1">Problem 11.1</h3>
+<p>Which of these would it make sense to use as the index of
+<code>flights</code>?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>'DATE'</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>'FLIGHT'</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>'FROM'</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>'TO'</code></p></li>
+<li><p><input type="radio" disabled="" /> None of these are good choices for the index</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-11.2">Problem 11.2</h3>
+<p>What type of variable is <code>'FLIGHT'</code>?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Categorical</p></li>
+<li><p><input type="radio" disabled="" /> Numerical</p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-12">Problem 12</h2>
+<p><br></p>
+<h3 id="problem-12.1">Problem 12.1</h3>
+<p>Which of these correctly evaluates to the number of flights King
+Triton took to San Diego (airport code <code>'SAN'</code>)?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>flights.loc['SAN'].shape[0]</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>flights[flights.get('TO') == 'SAN'].shape[0]</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>flights[flights.get('TO') == 'SAN'].shape[1]</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>len(flights.sort_values('TO', ascending=False).loc['SAN'])</code></p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-12.2">Problem 12.2</h3>
+<p>Fill in the blanks below so that the result also evaluates to the
+number of flights King Triton took to San Diego (airport code
+<code>'SAN'</code>).</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>flights.groupby(__(a)__).count().get(<span class="st">&#39;FLIGHT&#39;</span>).__(b)__            </span></code></pre></div>
+<p>What goes in blank (a)?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>'DATE'</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>'FLIGHT'</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>'FROM'</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>'TO'</code></p></li>
+</ul>
+<p>What goes in blank (b)?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>.index[0]</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>.index[-1]</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>.loc['SAN']</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>.iloc['SAN']</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>.iloc[0]</code></p></li>
+</ul>
+<p>True or False: If we change <code>.get('FLIGHT')</code> to
+<code>.get('SEAT')</code>, the results of the above code block will not
+change. (You may assume you answered the previous two subparts
+correctly.)</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-12.3">Problem 12.3</h3>
+<p>Consider the DataFrame <code>san</code>, defined below.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>san <span class="op">=</span> flights[(flights.get(<span class="st">&#39;FROM&#39;</span>) <span class="op">==</span> <span class="st">&#39;SAN&#39;</span>) <span class="op">&amp;</span> (flights.get(<span class="st">&#39;TO&#39;</span>) <span class="op">==</span> <span class="st">&#39;SAN&#39;</span>)]</span></code></pre></div>
+<p>Which of these DataFrames <strong>must</strong> have the same number
+of rows as <code>san</code>?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>flights[(flights.get('FROM') == 'SAN') and (flights.get('TO') == 'SAN')]</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>flights[(flights.get('FROM') == 'SAN') | (flights.get('TO') == 'SAN')]</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>flights[(flights.get('FROM') == 'LAX') &amp; (flights.get('TO') == 'SAN')]</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>flights[(flights.get('FROM') == 'LAX') &amp; (flights.get('TO') == 'LAX')]</code></p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-13">Problem 13</h2>
+<p>Welcome to the Final Exam! In honor of the (at the time) brand-new
+Comic-Con Museum that just opened at Balboa Park here in San Diego, this
+exam will contain questions about various museums and zoos around the
+world.</p>
+<p>In this question, we’ll work with the DataFrame
+<code>art_museums</code>, which contains the name, city, number of
+visitors in 2019, and rank (based on number of visitors) for the 100
+most visited art museums in 2019. The first few rows of
+<code>art_museums</code> are shown below.</p>
+<center><img src='../assets/images/fa21-final/art_museums.png' width=40%></center>
+<p><br> <br><br></p>
+<p>In this question, we’ll keep working with the
+<code>art_museums</code> DataFrame.</p>
+<p><br></p>
+<h3 id="problem-13.1">Problem 13.1</h3>
+<p>(Remember to keep the data description from the top of the exam open
+in another tab!)</p>
+<p><code>'Tate Modern'</code> is the most popular art museum in London.
+But what’s the most popular art museum in each city?</p>
+<p>It turns out that there’s no way to answer this easily using the
+tools that you know about so far. To help, we’ve created a new Series
+method, <code>.last()</code>. If <code>s</code> is a Series,
+<code>s.last()</code> returns the last element of <code>s</code>
+(i.e. the element at the very end of <code>s</code>).
+<code>.last()</code> works with <code>.groupby</code>, too (just like
+<code>.mean()</code> and <code>.count()</code>).</p>
+<p>Fill in the blanks so that the code below correctly assigns
+<code>best_per_city</code> to a DataFrame with one row per city, that
+describes the name, number of visitors, and rank of the most visited art
+museum in each city. <code>best_per_city</code> should be sorted in
+decreasing order of number of visitors. The first few rows of
+<code>best_per_city</code> are shown below.</p>
+<center><img src='../assets/images/fa21-final/best_per_city.png' width=40%></center>
+<p><br></p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>best_per_city <span class="op">=</span> __(a)__.groupby(__(b)__).last().__(c)__</span></code></pre></div>
+<ol type="1">
+<li>What goes in blank (a)?</li>
+<li>What goes in blank (b)?</li>
+<li>What goes in blank (c)?</li>
+</ol>
+<p><br></p>
+<h3 id="problem-13.2">Problem 13.2</h3>
+<p>Assume you’ve defined <code>best_per_city</code> correctly.</p>
+<p>Which of the following options evaluates to the number of visitors to
+the most visited art museum in Amsterdam? Select all that apply.</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> <code>best_per_city.get('Visitors').loc['Amsterdam']</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>best_per_city[best_per_city.index == 'Amsterdam'].get('Visitors').iloc[0]</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>best_per_city[best_per_city.index == 'Amsterdam'].get('Visitors').iloc[-1]</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>best_per_city[best_per_city.index == 'Amsterdam'].get('Visitors').loc['Amsterdam']</code></p></li>
+<li><p><input type="checkbox" disabled="" /> None of the above</p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-14">Problem 14</h2>
+<p>For the next several questions, we will work with a dataset
+consisting of various skyscrapers in the US, which we’ve loaded into a
+DataFrame called <code>sky</code>. The first few rows of
+<code>sky</code> are shown below (though the full DataFrame has more
+rows):</p>
+<center><img src='../assets/images/wi22-midterm/sky.png' width=60%></center>
+<p>&nbsp;</p>
+<p>Each row of <code>sky</code> corresponds to a single skyscraper. For
+each skyscraper, we have:</p>
+<ul>
+<li><p>its name, which is stored in the index of <code>sky</code>
+(string)</p></li>
+<li><p>the <code>'material'</code> it is made up of (string)</p></li>
+<li><p>the <code>'city'</code> in the US where it is located
+(string)</p></li>
+<li><p>the number of <code>'floors'</code> (levels) it contains
+(int)</p></li>
+<li><p>its <code>'height'</code> in meters (float), and</p></li>
+<li><p>the <code>'year'</code> in which it was opened (int)</p></li>
+</ul>
+<p>Note that the height of a floor may be different in each building.
+<br><br></p>
+<p>Below, identify the data type of the result of each of the following
+expressions, or select “error” if you believe the expression results in
+an error.</p>
+<p><br></p>
+<h3 id="problem-14.1">Problem 14.1</h3>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>sky.sort_values(<span class="st">&#39;height&#39;</span>)</span></code></pre></div>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> int or float</p></li>
+<li><p><input type="radio" disabled="" /> Boolean</p></li>
+<li><p><input type="radio" disabled="" /> string</p></li>
+<li><p><input type="radio" disabled="" /> array</p></li>
+<li><p><input type="radio" disabled="" /> Series</p></li>
+<li><p><input type="radio" disabled="" /> DataFrame</p></li>
+<li><p><input type="radio" disabled="" /> error</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-14.2">Problem 14.2</h3>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>sky.sort_values(<span class="st">&#39;height&#39;</span>).get(<span class="st">&#39;material&#39;</span>).loc[<span class="dv">0</span>]</span></code></pre></div>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> int or float</p></li>
+<li><p><input type="radio" disabled="" /> Boolean</p></li>
+<li><p><input type="radio" disabled="" /> string</p></li>
+<li><p><input type="radio" disabled="" /> array</p></li>
+<li><p><input type="radio" disabled="" /> Series</p></li>
+<li><p><input type="radio" disabled="" /> DataFrame</p></li>
+<li><p><input type="radio" disabled="" /> error</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-14.3">Problem 14.3</h3>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>sky.sort_values(<span class="st">&#39;height&#39;</span>).get(<span class="st">&#39;material&#39;</span>).iloc[<span class="dv">0</span>]</span></code></pre></div>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> int or float</p></li>
+<li><p><input type="radio" disabled="" /> Boolean</p></li>
+<li><p><input type="radio" disabled="" /> string</p></li>
+<li><p><input type="radio" disabled="" /> array</p></li>
+<li><p><input type="radio" disabled="" /> Series</p></li>
+<li><p><input type="radio" disabled="" /> DataFrame</p></li>
+<li><p><input type="radio" disabled="" /> error</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-14.4">Problem 14.4</h3>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>sky.get(<span class="st">&#39;floors&#39;</span>).<span class="bu">max</span>()</span></code></pre></div>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> int or float</p></li>
+<li><p><input type="radio" disabled="" /> Boolean</p></li>
+<li><p><input type="radio" disabled="" /> string</p></li>
+<li><p><input type="radio" disabled="" /> array</p></li>
+<li><p><input type="radio" disabled="" /> Series</p></li>
+<li><p><input type="radio" disabled="" /> DataFrame</p></li>
+<li><p><input type="radio" disabled="" /> error</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-14.5">Problem 14.5</h3>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>sky.groupby(<span class="st">&#39;material&#39;</span>).<span class="bu">max</span>()</span></code></pre></div>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> int or float</p></li>
+<li><p><input type="radio" disabled="" /> Boolean</p></li>
+<li><p><input type="radio" disabled="" /> string</p></li>
+<li><p><input type="radio" disabled="" /> array</p></li>
+<li><p><input type="radio" disabled="" /> Series</p></li>
+<li><p><input type="radio" disabled="" /> DataFrame</p></li>
+<li><p><input type="radio" disabled="" /> error</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-14.6">Problem 14.6</h3>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>sky.index[<span class="dv">0</span>]</span></code></pre></div>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> int or float</p></li>
+<li><p><input type="radio" disabled="" /> Boolean</p></li>
+<li><p><input type="radio" disabled="" /> string</p></li>
+<li><p><input type="radio" disabled="" /> array</p></li>
+<li><p><input type="radio" disabled="" /> Series</p></li>
+<li><p><input type="radio" disabled="" /> DataFrame</p></li>
+<li><p><input type="radio" disabled="" /> error</p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-15">Problem 15</h2>
+<p>In this question, we’ll write code to learn more about the
+skyscrapers in the beautiful city of San Diego. (Unrelated fun fact –
+since the San Diego Airport is so close to downtown, buildings in
+downtown San Diego legally cannot be taller than 152 meters.)</p>
+<p><br></p>
+<h3 id="problem-15.1">Problem 15.1</h3>
+<p>Below, fill in the blank to create a DataFrame, named
+<code>san_tall</code>, consisting of just the skyscrapers in San Diego
+that are over 100 meters tall.</p>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>condition <span class="op">=</span> ______</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>san_tall <span class="op">=</span> sky[(sky.get(<span class="st">&#39;city&#39;</span>) <span class="op">==</span> <span class="st">&#39;San Diego&#39;</span>) <span class="op">&amp;</span> condition]</span></code></pre></div>
+<p>What goes in the blank?</p>
+<p><br></p>
+<h3 id="problem-15.2">Problem 15.2</h3>
+<p>Suppose <code>san_tall</code> from the previous part was created
+correctly. Fill in the blanks so that <code>height_many_floors</code>
+evaluates to the <strong>height (in meters)</strong> of the skyscraper
+with the <strong>most floors</strong>, amongst all skyscrapers in San
+Diego that are over 100 meters tall.</p>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>height_many_floors <span class="op">=</span> san_tall.______.iloc[<span class="dv">0</span>]</span></code></pre></div>
+<p>What goes in the blank?</p>
+<p><br></p>
+<h3 id="problem-15.3">Problem 15.3</h3>
+<p><code>height_many_floors</code>, the value you computed in the
+previous part (2.2) was a number.</p>
+<p><strong>True or False:</strong> Assuming that the DataFrame
+<code>san_tall</code> contains all skyscrapers in San Diego,
+<code>height_many_floors</code> is the height (in meters) of the
+<strong>tallest</strong> skyscraper in San Diego.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-16">Problem 16</h2>
+<p>For this question, we will use data from the 2021 Women’s National
+Basketball Association (WNBA) season for the next several problems. In
+basketball, players score points by shooting the ball into a hoop. The
+team that scores the most points wins the game.</p>
+<p>Kelsey Plum, a WNBA player, attended La Jolla Country Day School,
+which is adjacent to UCSD’s campus. Her current team is the Las Vegas
+Aces (three-letter code <code>'LVA'</code>). <strong>In 2021, the Las
+Vegas Aces played 31 games, and Kelsey Plum played in all
+31.</strong></p>
+<p>The DataFrame <code>plum</code> contains her stats for all games the
+Las Vegas Aces played in 2021. The first few rows of <code>plum</code>
+are shown below (though the full DataFrame has 31 rows, not 5):</p>
+<center><img src='../assets/images/wi22-final/plum.png' width=40%></center>
+<p>Each row in <code>plum</code> corresponds to a single game. For each
+game, we have:</p>
+<ul>
+<li><code>'Date'</code> (<code>str</code>), the date on which the game
+was played</li>
+<li><code>'Opp'</code> (<code>str</code>), the three-letter code of the
+opponent team</li>
+<li><code>'Home'</code> (<code>bool</code>), <code>True</code> if the
+game was played in Las Vegas (“home”) and <code>False</code> if it was
+played at the opponent’s arena (“away”)</li>
+<li><code>'Won'</code> (<code>bool</code>), <code>True</code> if the Las
+Vegas Aces won the game and <code>False</code> if they lost</li>
+<li><code>'PTS'</code> (<code>int</code>), the number of points Kelsey
+Plum scored in the game</li>
+<li><code>'AST'</code> (<code>int</code>), the number of assists
+(passes) Kelsey Plum made in the game</li>
+<li><code>'TOV'</code> (<code>int</code>), the number of turnovers
+Kelsey Plum made in the game (a turnover is when you lose the ball –
+turnovers are bad!) <br><br></li>
+</ul>
+<h3 id="problem-16.1">Problem 16.1</h3>
+<p>There is exactly one team in the WNBA that Plum’s team did not win
+any games against during the 2021 season. Fill in the blanks below so
+that <code>never_beat</code> evaluates to a string containing the
+three-letter code of that team.</p>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>never_beat <span class="op">=</span> plum.groupby(__(a)__).<span class="bu">sum</span>().__(b)__</span></code></pre></div>
+<ol type="1">
+<li><p>What goes in blank (a)?</p></li>
+<li><p>What goes in blank (b)?</p></li>
+</ol>
+<p><br></p>
+<hr />
+<h2 id="problem-17">Problem 17</h2>
+<p>In addition to the <code>plum</code> DataFrame, we also have access
+to the <code>season</code> DataFrame, which contains statistics on all
+players in the WNBA in the 2021 season. The first few rows of
+<code>season</code> are shown below. (Remember to keep the data
+description from the top of the exam open in another tab!)</p>
+<center><img src='../assets/images/wi22-final/seasons.png' width=40%></center>
+<p>Each row in <code>season</code> corresponds to a single player. For
+each player, we have: - <code>'Player'</code> (<code>str</code>), their
+name - <code>'Team'</code> (<code>str</code>), the three-letter code of
+the team they play on - <code>'G'</code> (<code>int</code>), the number
+of games they played in the 2021 season - <code>'PPG'</code>
+(<code>float</code>), the number of points they scored per game played -
+<code>'APG'</code> (<code>float</code>), the number of assists (passes)
+they made per game played - <code>'TPG'</code> (<code>float</code>), the
+number of turnovers they made per game played</p>
+<p>Note that all of the numerical columns in <code>season</code> must
+contain values that are greater than or equal to 0.</p>
+<p><br></p>
+<h3 id="problem-17.1">Problem 17.1</h3>
+<p>Which of the following is the best choice for the index of
+<code>season</code>?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>'Player'</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>'Team'</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>'G'</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>'PPG'</code></p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-18">Problem 18</h2>
+<p><center><img src='../assets/images/sp22-midterm/cartoon.png' width=20%></center></p>
+<p>Included is a DataFrame named <code>sungod</code> that contains
+information on the artists who have performed at Sun God in years past.
+<strong>For each year that the festival was held, we have one row for
+each artist that performed that year.</strong> The columns are:</p>
+<ul>
+<li><code>'Year'</code> (<code>int</code>): the year of the
+festival</li>
+<li><code>'Artist'</code> (<code>str</code>): the name of the
+artist</li>
+<li><code>'Appearance_Order'</code> (<code>int</code>): the order in
+which the artist appeared in that year’s festival (1 means they came
+onstage first)</li>
+</ul>
+<p>The rows of <code>sungod</code> are arranged in <strong>no particular
+order</strong>. The first few rows of <code>sungod</code> are shown
+below (though <code>sungod</code> has <strong>many more rows</strong>
+than pictured here).</p>
+<center><img src='../assets/images/sp22-midterm/sungod.png' width=30%></center>
+<p>Assume:</p>
+<ul>
+<li><p>Only one artist ever appeared at a time (for example, we can’t
+have two separate artists with a <code>'Year'</code> of 2015 and an
+<code>'Appearance_Order'</code> of 3).</p></li>
+<li><p>An artist may appear in multiple different Sun God festivals
+(they could be invited back).</p></li>
+<li><p>We have already run <code>import babypandas as bpd</code> and
+<code>import numpy as np</code>. <br><br></p></li>
+</ul>
+<p>Which of the following is a valid reason <strong>not</strong> to set
+the index of <code>sungod</code> to <code>'Artist'</code>?
+<strong>Select all correct answers.</strong></p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> Two different artists have the same name.</p></li>
+<li><p><input type="checkbox" disabled="" /> An artist performed at Sun God in more than one year.</p></li>
+<li><p><input type="checkbox" disabled="" /> Several different artists performed at Sun God in the same year.</p></li>
+<li><p><input type="checkbox" disabled="" /> Many different artists share the same value of
+<code>'Appearance_Order'</code>.</p></li>
+<li><p><input type="checkbox" disabled="" /> None of the above.</p></li>
+</ul>
+<hr />
+<h2 id="problem-19">Problem 19</h2>
+<p>Suppose in a new cell, we type the following.</p>
+<div class="sourceCode" id="cb20"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>    sungod.sort_values(by<span class="op">=</span><span class="st">&#39;Year&#39;</span>)</span></code></pre></div>
+<p>After we run that cell, we type the following in a second cell.</p>
+<div class="sourceCode" id="cb21"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>    sungod.get(<span class="st">&#39;Artist&#39;</span>).iloc[<span class="dv">0</span>]</span></code></pre></div>
+<p>What is the output when we run the second cell? Note that the first
+Sun God festival was held in 1983.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>'Blues Traveler'</code></p></li>
+<li><p><input type="radio" disabled="" /> The artist who appeared on stage first in 1983.</p></li>
+<li><p><input type="radio" disabled="" /> An artist who appeared in 1983, but not necessarily the one who
+appeared first.</p></li>
+<li><p><input type="radio" disabled="" /> Not enough information to tell.</p></li>
+</ul>
+<hr />
+<h2 id="problem-20">Problem 20</h2>
+<p>Write one line of code below to create a DataFrame called
+<code>openers</code> containing the artists that appeared first on stage
+at a past Sun God festival. The DataFrame <code>openers</code> should
+have all the same columns as <code>sungod</code>.</p>
+<hr />
+<h2 id="problem-21">Problem 21</h2>
+<p>What was the largest number of artists that ever performed in a
+single Sun God festival? <strong>Select all expressions that evaluate to
+the correct answer.</strong></p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> <code>sungod.groupby('Appearance_Order').count().get('Year').max()</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>sungod.groupby('Year').count().get('Artist').max()</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>sungod.get('Appearance_Order').max()</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>sungod.groupby('Year').max().get('Year').max()</code></p></li>
+<li><p><input type="checkbox" disabled="" /> None of the above.</p></li>
+</ul>
+<hr />
+<h2 id="problem-22">Problem 22</h2>
+<p>IKEA is a Swedish furniture company that designs and sells
+ready-to-assemble furniture and other home furnishings. IKEA has
+locations worldwide, including one in San Diego. IKEA is known for its
+cheap prices, modern designs, huge showrooms, and wordless instruction
+manuals. They also sell really good Swedish meatballs in their cafe!</p>
+<p>Here are the DataFrames you’ll be working with:</p>
+<ol type="1">
+<li><code>ikea</code></li>
+</ol>
+<p>The <code>ikea</code> DataFrame has a row for each ready-to-assemble
+IKEA furniture product. The columns are:</p>
+<ul>
+<li><code>'product'</code> (<code>str</code>): the name of the product,
+which includes the product line as the first word, followed by a
+description of the product</li>
+<li><code>'category'</code> (<code>str</code>): a categorical
+description of the type of product</li>
+<li><code>'price'</code> (<code>int</code>): the current price of the
+product, in dollars</li>
+<li><code>'assembly_cost'</code> (<code>int</code>): the additional cost
+to have the product assembled, in dollars</li>
+<li><code>'packages'</code> (<code>int</code>): the number of packages
+in which the product is boxed</li>
+</ul>
+<p>The first few rows of <code>ikea</code> are shown below, though
+<code>ikea</code> has many more rows than pictured.</p>
+<center><img src='../assets/images/sp22-final/ikeadf.png' height=250></center>
+<p><br></p>
+<ol start="2" type="1">
+<li><code>app_data</code></li>
+</ol>
+<p>An IKEA fan created an app where people can log the amount of time it
+took them to assemble their IKEA furniture. The DataFrame
+<code>app_data</code> has a row for each product build that was logged
+on the app. The columns are:</p>
+<ul>
+<li><code>'product'</code> (<code>str</code>): the name of the product,
+which includes the product line as the first word, followed by a
+description of the product</li>
+<li><code>'category'</code> (<code>str</code>): a categorical
+description of the type of product</li>
+<li><code>'assembly_time'</code> (<code>str</code>): the amount of time
+to assemble the product, formatted as <code>'x hr, y min'</code> where
+<code>x</code> and <code>y</code> represent integers, possibly zero</li>
+<li><code>'minutes'</code> (<code>int</code>): integer values
+representing the number of minutes it took to assemble each product</li>
+</ul>
+<p>The first few rows of <code>app_data</code> are shown below, though
+<code>app_data</code> has many more rows than pictured (5000 rows
+total).</p>
+<center><img src='../assets/images/sp22-final/appdatadf.png' height=180></center>
+<p><br></p>
+<p>Assume that we have already run <code>import babypandas as bpd</code>
+and <code>import numpy as np</code>.</p>
+<p><br><br></p>
+<p>Complete the expression below so that it evaluates to the name of the
+product for which the average assembly cost per package is lowest.</p>
+<div class="sourceCode" id="cb22"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>(ikea.assign(assembly_per_package <span class="op">=</span> ___(a)___)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>     .sort_values(by<span class="op">=</span><span class="st">&#39;assembly_per_package&#39;</span>).___(b)___)</span></code></pre></div>
+<p><br></p>
+<h3 id="problem-22.1">Problem 22.1</h3>
+<p>What goes in blank (a)?</p>
+<p><br></p>
+<h3 id="problem-22.2">Problem 22.2</h3>
+<p>What goes in blank (b)?</p>
+<p><br></p>
+<hr />
+<h2 id="problem-23">Problem 23</h2>
+<p>Complete the expression below so that it evaluates to a DataFrame
+indexed by <code>'category'</code> with one column called
+<code>'price'</code> containing the median cost of the products in each
+category.</p>
+<div class="sourceCode" id="cb23"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>ikea.___(a)___.get(___(b)___)</span></code></pre></div>
+<p><br></p>
+<h3 id="problem-23.1">Problem 23.1</h3>
+<p>What goes in blank (a)?</p>
+<p><br></p>
+<h3 id="problem-23.2">Problem 23.2</h3>
+<p>What goes in blank (b)?</p>
+<p><br></p>
+<hr />
+<h2 id="problem-24">Problem 24</h2>
+<p>Recall that an IKEA fan created an app for people to log the amount
+of time it takes them to assemble an IKEA product. We have this data in
+<code>app_data</code>.</p>
+<p><br></p>
+<h3 id="problem-24.1">Problem 24.1</h3>
+<p>Suppose that when someone downloads the app, the app requires them to
+choose a username, which must be different from all other registered
+usernames.</p>
+<p><strong>True or False</strong>: If <code>app_data</code> had included
+a column with the username of the person who reported each product
+build, it would make sense to index <code>app_data</code> by
+username.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-24.2">Problem 24.2</h3>
+<p>What does the code below evaluate to?</p>
+<div class="sourceCode" id="cb24"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>(app_data.take(np.arange(<span class="dv">4</span>))</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>         .sort_values(by<span class="op">=</span><span class="st">&#39;assembly_time&#39;</span>)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>         .get(<span class="st">&#39;assembly_time&#39;</span>)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>         .iloc[<span class="dv">0</span>])</span></code></pre></div>
+<p><em>Hint:</em> The <code>'assembly_time'</code> column contains
+strings.</p>
+<p><br></p>
+<hr />
+<h2 id="problem-25">Problem 25</h2>
+<p>For Problem 1 we will be using this DataFrame:</p>
+<p>The American Kennel Club (AKC) organizes information about dog
+breeds. We’ve loaded their dataset into a DataFrame called
+<code>df</code>. The index of <code>df</code> contains the dog breed
+names as <code>str</code> values.</p>
+<p>The columns are:</p>
+<ul>
+<li><code>'kind' (str)</code>: the kind of dog (herding, hound, toy,
+etc.). There are six total kinds.</li>
+<li><code>'size' (str)</code>: small, medium, or large.</li>
+<li><code>'longevity' (float)</code>: typical lifetime (years).</li>
+<li><code>'price' (float)</code>: average purchase price (dollars).</li>
+<li><code>'kids' (int)</code>: suitability for children. A value of
+<code>1</code> means high suitability, <code>2</code> means medium, and
+<code>3</code> means low.</li>
+<li><code>'weight' (float)</code>: typical weight (kg).</li>
+<li><code>'height' (float)</code>: typical height (cm).</li>
+</ul>
+<p>The rows of <code>df</code> are arranged in <strong>no particular
+order</strong>. The first five rows of <code>df</code> are shown below
+(though <code>df</code> has <strong>many more rows</strong> than
+pictured here).</p>
+<center><img src='../assets/images/su22-final/df.png' width=90%></center>
+<p>Assume: - We have already run <code>import babypandas as bpd</code>
+and <code>import numpy as np</code>.</p>
+<p><br><br></p>
+<p>The following code computes the breed of the cheapest toy dog.</p>
+<div class="sourceCode" id="cb25"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>df[__(a)__].__(b)__.__(c)__</span></code></pre></div>
+<p><br></p>
+<h3 id="problem-25.1">Problem 25.1</h3>
+<p>Fill in part (a).</p>
+<p><br></p>
+<h3 id="problem-25.2">Problem 25.2</h3>
+<p>Fill in part (b).</p>
+<p><br></p>
+<h3 id="problem-25.3">Problem 25.3</h3>
+<p>Which of the following can fill in blank (c)? <strong>Select all that
+apply.</strong></p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> <code>loc[0]</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>iloc[0]</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>index[0]</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>min()</code></p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-26">Problem 26</h2>
+<p>The following code computes an array containing the unique kinds of
+dogs that are heavier than 20 kg <strong>or</strong> taller than 40 cm
+on average.</p>
+<div class="sourceCode" id="cb26"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>foo <span class="op">=</span> df.__(a)__.__(b)__</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>np.array(foo[__(c)__].__d__)</span></code></pre></div>
+<p><br></p>
+<h3 id="problem-26.1">Problem 26.1</h3>
+<p>Fill in blank (a).</p>
+<p><br></p>
+<h3 id="problem-26.2">Problem 26.2</h3>
+<p>Fill in blank (b).</p>
+<p><br></p>
+<h3 id="problem-26.3">Problem 26.3</h3>
+<p>Fill in blank (c).</p>
+<p><br></p>
+<h3 id="problem-26.4">Problem 26.4</h3>
+<p>Which of the following should fill in blank (d)?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>.index</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>.unique()</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>.get('kind')</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>.get(['kind'])</code></p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-27">Problem 27</h2>
+<p>Answer the following true/false questions.</p>
+<p><br></p>
+<h3 id="problem-27.1">Problem 27.1</h3>
+<p><code>df.groupby("kind").mean()</code> will have 5 columns.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-28">Problem 28</h2>
+<p>In September 2020, Governor Gavin Newsom announced that by 2035, all
+new vehicles sold in California must be zero-emissions vehicles.
+Electric vehicles (EVs) are among the most popular zero-emissions
+vehicles (though other examples include plug-in hybrids and hydrogen
+fuel cell vehicles).</p>
+<center><img src='../assets/images/fa22-midterm/data22.png' width=20%></center>
+<p><br></p>
+<p>The DataFrame <code>evs</code> consists of <strong>32</strong> rows,
+each of which contains information about a different EV model.</p>
+<ul>
+<li><code>"Brand"</code> (str): The vehicle’s manufacturer.</li>
+<li><code>"Model"</code> (str): The vehicle’s model name.</li>
+<li><code>"BodyStyle"</code> (str): The vehicle’s body style.</li>
+<li><code>"Seats"</code> (int): The vehicle’s number of seats.</li>
+<li><code>"TopSpeed"</code> (int): The vehicle’s top speed, in
+kilometers per hour.</li>
+<li><code>"Range"</code> (int): The vehicle’s range, or distance it can
+travel on a single charge, in kilometers.</li>
+</ul>
+<p>The first few rows of <code>evs</code> are shown below (though
+remember, <code>evs</code> has 32 rows total).</p>
+<center><img src='../assets/images/fa22-midterm/form22.png' width=60%></center>
+<p><br></p>
+<p>Assume that:</p>
+<ul>
+<li>The only four values in the <code>"Brand"</code> column are
+<code>"Tesla"</code>, <code>"BMW"</code>, <code>"Audi"</code>, and
+<code>"Nissan"</code>.</li>
+<li>We have already run <code>import babypandas as bpd</code> and
+<code>import numpy as np</code>.</li>
+</ul>
+<p><br><br></p>
+<p>Suppose we’ve run the following line of code. ​</p>
+<div class="sourceCode" id="cb27"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>counts <span class="op">=</span> evs.groupby(<span class="st">&quot;Brand&quot;</span>).count()</span></code></pre></div>
+<p><br></p>
+<h3 id="problem-28.1">Problem 28.1</h3>
+<p>What value does <code>counts.get("Range").sum()</code> evaluate
+to?</p>
+<p><br></p>
+<h3 id="problem-28.2">Problem 28.2</h3>
+<p>What value does <code>counts.index[3]</code> evaluate to?</p>
+<p><br></p>
+<hr />
+<h2 id="problem-29">Problem 29</h2>
+<p>Consider the following incomplete assignment statement.</p>
+<div class="sourceCode" id="cb28"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> evs______.mean()</span></code></pre></div>
+<p>In each part, fill in the blank above so that result evaluates to the
+specified quantity.</p>
+<p><br></p>
+<h3 id="problem-29.1">Problem 29.1</h3>
+<p>A DataFrame, indexed by <code>"Brand"</code>, whose
+<code>"Seats"</code> column contains the average number of
+<code>"Seats"</code> per <code>"Brand"</code>. (The DataFrame may have
+other columns in it as well.)</p>
+<p><br></p>
+<h3 id="problem-29.2">Problem 29.2</h3>
+<p>A number, corresponding to the average <code>"TopSpeed"</code> of all
+EVs manufactured by Audi in evs</p>
+<p><br></p>
+<hr />
+<h2 id="problem-30">Problem 30</h2>
+<p>Tropical cyclones, such as hurricanes, are storms characterized by
+high wind speeds. These storms can cause great devastation when they
+make landfall. In the US, the National Hurricane Center (NHC) is the
+government entity responsible for tracking and predicting these tropical
+weather systems. The NHC names tropical storms of sufficient intensity,
+using a list of people’s names that gets reused every six years. For
+example, there have been many different storms named Cindy, all
+occurring in different years. We’ll assume that no tropical storm has
+ever spanned more than one calendar year.</p>
+<p>The DataFrame <code>storms</code> contains information about all
+named tropical storms in the Atlantic Ocean between 1965 and 2015. Each
+row corresponds to a data entry describing the storm at a particular
+moment in time, and one storm usually has many data entries throughout
+the duration of the storm. The columns of <code>storms</code> are as
+follows.</p>
+<ul>
+<li><code>"Name"</code> (<code>str</code>): The name of the storm.</li>
+<li><code>"Date"</code> (<code>int</code>): The year, month, and day of
+the data entry, stored as an 8-digit integer. For example,
+<code>20151113</code> corresponds to November 13, 2015.</li>
+<li><code>"Time"</code> (<code>str</code>): The time of the data
+entry.</li>
+<li><code>"Status"</code> (<code>str</code>): A categorical variable
+describing the intensity of the storm at the time of the data entry.
+There are many possible values, for example <code>"TD"</code> stands for
+“tropical depression” and <code>"TS"</code> stands for “tropical
+storm.”</li>
+<li><code>"Latitude"</code> (<code>str</code>): The latitude of the
+center of the storm at the time of the data entry. Describes the
+north-south location of the storm.</li>
+<li><code>"Longitude"</code> (<code>str</code>): The longitude of the
+center of the storm at the time of the data entry. Describes the
+east-west location of the storm.</li>
+</ul>
+<p>A preview of <code>storms</code> is shown below.</p>
+<center><img src='../assets/images/wi23-midterm/df.jpg' width=45%></center>
+<p><br></p>
+<p>Assume that we have already run <code>import babypandas as bpd</code>
+and <code>import numpy as np</code>. <br><br></p>
+<h3 id="problem-30.1">Problem 30.1</h3>
+<p>Which column would be an appropriate index for storms?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>'Name'</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>'Date'</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>'Time'</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>'Latitude'</code></p></li>
+<li><p><input type="radio" disabled="" /> None of these</p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-31">Problem 31</h2>
+<p><br></p>
+<h3 id="problem-31.1">Problem 31.1</h3>
+<p>The DataFrame <code>amelia</code> was created by the code below, and
+is shown in its entirety.</p>
+<div class="sourceCode" id="cb29"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>amelia <span class="op">=</span> (storms[(storms.get(<span class="st">&quot;Name&quot;</span>) <span class="op">==</span> <span class="st">&quot;AMELIA&quot;</span>) <span class="op">&amp;</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>         (storms.get(<span class="st">&quot;Year&quot;</span>) <span class="op">==</span> <span class="dv">1978</span>)]</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>         .get([<span class="st">&quot;Year&quot;</span>, <span class="st">&quot;Month&quot;</span>, <span class="st">&quot;Day&quot;</span>, <span class="st">&quot;Time&quot;</span>,</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>         <span class="st">&quot;Status&quot;</span>, <span class="st">&quot;Latitude&quot;</span>, <span class="st">&quot;Longitude&quot;</span>]))</span></code></pre></div>
+<center><img src='../assets/images/wi23-midterm/q3_wi23-midterm.png' width=45%></center>
+<p><br></p>
+<p>Use the space provided to show the DataFrame that results from</p>
+<div class="sourceCode" id="cb30"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>        amelia.groupby(<span class="st">&quot;Status&quot;</span>).<span class="bu">max</span>()</span></code></pre></div>
+<p>The column labels should go in the top row, and the row labels
+(index) should go in the leftmost row. You may not need to use all the
+rows and columns provided.</p>
+<center><img src='../assets/images/wi23-midterm/empty_table.png' width=45%></center>
+<p><br></p>
+<p><br></p>
+<hr />
+<h2 id="problem-32">Problem 32</h2>
+<p><br></p>
+<h3 id="problem-32.1">Problem 32.1</h3>
+<p>Suppose there are <code>n</code> different storms included in
+<code>storms</code>. Say we create a new DataFrame from
+<code>storms</code> by adding a column called <code>'Duration'</code>
+that contains the number of minutes since the first data entry for that
+storm, as an <code>int</code>. The first few rows of this new DataFrame
+are shown below.</p>
+<center><img src='../assets/images/wi23-midterm/q4_wi23-midterm.png' width=60%></center>
+<p><br></p>
+<p>Next we sort this DataFrame in ascending order of
+<code>'Duration'</code> and save the result as
+<code>storms_by_duration</code>. Which of the following statements must
+be true? <strong>Select all that apply.</strong></p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> The first <code>n</code> rows of <code>storms_by_duration</code> will
+all correspond to different storms, because they will contain the first
+reading from each storm in the data set.</p></li>
+<li><p><input type="checkbox" disabled="" /> The last <code>n</code> rows of <code>storms_by_duration</code> will
+all correspond to different storms, because they will contain the last
+reading from each storm in the data set.</p></li>
+<li><p><input type="checkbox" disabled="" /> <code>storms_by_duration</code> will contain exactly n rows.</p></li>
+<li><p><input type="checkbox" disabled="" /> <code>len(storms_by_duration.take(np.arange(n)).get("Name").unique())</code>
+will evaluate to <code>n</code>.</p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-33">Problem 33</h2>
+<p>The DataFrame <code>games</code> contains information about a sample
+of popular games, including board games, dice games, and card games. The
+data comes from Board Game Geek, a popular website and vibrant online
+community for game enthusiasts.</p>
+<p>The columns of games are as follows.</p>
+<ul>
+<li><code>"Name"</code> (<code>str</code>): The name of the game.</li>
+<li><code>"Mechanics"</code> (<code>str</code>): A sequence of
+descriptors for how the game is played. A game can have several
+descriptors, each of which is separated by a comma.</li>
+<li><code>"Domains"</code> (<code>str</code>): A sequence of domains to
+which the game belongs. A game can belong to multiple domains.</li>
+<li><code>"Play Time"</code> (<code>int</code>): The average play time
+of the game, in minutes, as suggested by the game’s creators.</li>
+<li><code>"Complexity"</code> (<code>float</code>): The average
+complexity of the game, on a scale of 1 to 5 points, as reported by
+Board Game Geek community members.</li>
+<li><code>"Rating"</code> (<code>str</code>): The average rating of the
+game, on a scale of 1 to 10 points, as rated by Board Game Geek
+community members. Note that while this data should be numerical, it is
+actually stored as a string, because some entries use a comma in place
+of a decimal point. For example 8,79 actually represents the number
+8.79.</li>
+<li><code>"BGG Rank"</code> (<code>int</code>): The rank of the game in
+Board Game Geek’s database. The formula for how this rank is calculated
+is not publicly known, but it likely includes many factors, such as
+<code>"Rating"</code>, number of registered owners of the game, and
+number of reviews.</li>
+</ul>
+<p>The first few rows of <code>games</code> are shown below (though
+<code>games</code> has many more rows than pictured here).</p>
+<center><img src='../assets/images/wi23-final/preview.jpg' width=100%></center>
+<p><br></p>
+<p>Assume that we have already run <code>import babypandas as bpd</code>
+and <code>import numpy as np</code>. <br><br></p>
+<p>You are unsure whether it would make sense to use
+<code>"BGG Rank"</code> as the index of the <code>games</code>
+DataFrame, because you are unsure whether this column has duplicate
+values. Perhaps, for example, two games are tied and both have a rank of
+6.</p>
+<p>Select all of the expressions below that evaluate to True when the
+<code>"BGG Rank"</code> column could be used as the index (no
+duplicates), and False when it could not be used as the index
+(duplicates). In other words, these are the expressions that can be used
+to detect the presence of duplicate values.</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> <code>(games.get("BGG Rank") - np.arange(games.shape[0])).max() == 1</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>games.groupby("BGG Rank").count().get("Name").max() == 1</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>games.shape[0] - len(np.unique(games.get("BGG Rank"))) == 0</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>games.get("BGG Rank").max() - games.shape[0] == 0</code></p></li>
+</ul>
+<p><strong>Note:</strong> We will not set the index of
+<code>games</code>, instead we’ll leave it with the default index.</p>
+<hr />
+<h2 id="problem-34">Problem 34</h2>
+<p>Recall, at the start of the quarter, you were asked to complete a
+Welcome Survey to tell us about your background coming into the course.
+You were also asked to share seemingly irrelevant details, like the
+number of followers you have on Instagram and the number of unread
+emails in your primary email account. Well, those details are no longer
+irrelevant – in this exam, we will work with the data from this
+quarter’s Welcome Survey!</p>
+<p>Each row in the DataFrame <code>survey</code> represents one student
+in DSC 10. The information stored in the columns of <code>survey</code>
+are as follows:</p>
+<ul>
+<li><code>"Section"</code> (<code>str</code>): The lecture section the
+student is enrolled in (either <code>"A"</code> or
+<code>"B"</code>).</li>
+<li><code>"IG Followers"</code> (<code>int</code>): The number of
+followers the student has on Instagram. If the student does not have an
+Instagram account, this number is 0.</li>
+<li><code>"Unread Emails"</code> (<code>int</code>): The number of
+unread emails in the student’s primary email account.</li>
+<li><code>"College"</code> (<code>str</code>): The college the student
+is a member of (either <code>"ERC"</code>, <code>"Marshall"</code>,
+<code>"Muir"</code>, <code>"Revelle"</code>, <code>"Seventh"</code>,
+<code>"Sixth"</code> or <code>"Warren"</code>).</li>
+<li><code>"Major"</code> (<code>str</code>): The student’s primary
+major, in major code form. For instance, the major code for the Data
+Science major is <code>"DS25"</code>.</li>
+<li><code>"Class Standing"</code> (<code>str</code>): The student’s
+class standing (either <code>"Freshman"</code>,
+<code>"Sophomore"</code>, <code>"Junior"</code>, or
+<code>"Senior"</code>).</li>
+</ul>
+<p>The first few rows of <code>survey</code> are shown below, though
+<code>survey</code> has many more rows than are pictured below (since
+there are more than 5 students in DSC 10 this quarter).</p>
+<center><img src='../assets/images/sp23-midterm/df-preview.png' width=60%></center>
+<p><br></p>
+<p>Assume that we have already run <code>import babypandas as bpd</code>
+and <code>import numpy as np</code>. <br><br></p>
+<h3 id="problem-34.1">Problem 34.1</h3>
+<p>What is the type of the following expression?</p>
+<div class="sourceCode" id="cb31"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>(survey</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a> .sort_values(by<span class="op">=</span><span class="st">&quot;Class Standing&quot;</span>)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> int or float</p></li>
+<li><p><input type="radio" disabled="" /> list or array</p></li>
+<li><p><input type="radio" disabled="" /> Boolean</p></li>
+<li><p><input type="radio" disabled="" /> Series</p></li>
+<li><p><input type="radio" disabled="" /> string</p></li>
+<li><p><input type="radio" disabled="" /> DataFrame</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-34.2">Problem 34.2</h3>
+<p>What is the type of the following expression?</p>
+<div class="sourceCode" id="cb32"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>(survey</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a> .sort_values(by<span class="op">=</span><span class="st">&quot;Class Standing&quot;</span>)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a> .groupby(<span class="st">&quot;College&quot;</span>).count()</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> int or float</p></li>
+<li><p><input type="radio" disabled="" /> list or array</p></li>
+<li><p><input type="radio" disabled="" /> Boolean</p></li>
+<li><p><input type="radio" disabled="" /> Series</p></li>
+<li><p><input type="radio" disabled="" /> string</p></li>
+<li><p><input type="radio" disabled="" /> DataFrame</p></li>
+</ul>
+<p><br></p>
+<p><br></p>
+<h3 id="problem-34.3">Problem 34.3</h3>
+<p>What is the type of the following expression?</p>
+<div class="sourceCode" id="cb33"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>(survey</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a> .sort_values(by<span class="op">=</span><span class="st">&quot;Class Standing&quot;</span>)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a> .groupby(<span class="st">&quot;College&quot;</span>).count()</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a> .get(<span class="st">&quot;IG Followers&quot;</span>)</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> int or float</p></li>
+<li><p><input type="radio" disabled="" /> list or array</p></li>
+<li><p><input type="radio" disabled="" /> Boolean</p></li>
+<li><p><input type="radio" disabled="" /> Series</p></li>
+<li><p><input type="radio" disabled="" /> string</p></li>
+<li><p><input type="radio" disabled="" /> DataFrame</p></li>
+</ul>
+<p><br></p>
+<p><br></p>
+<h3 id="problem-34.4">Problem 34.4</h3>
+<p>What is the type of the following expression?</p>
+<div class="sourceCode" id="cb34"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>(survey</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a> .sort_values(by<span class="op">=</span><span class="st">&quot;Class Standing&quot;</span>)</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a> .groupby(<span class="st">&quot;College&quot;</span>).count()</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a> .get(<span class="st">&quot;IG Followers&quot;</span>)</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a> .iloc[<span class="dv">0</span>]</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> int or float</p></li>
+<li><p><input type="radio" disabled="" /> list or array</p></li>
+<li><p><input type="radio" disabled="" /> Boolean</p></li>
+<li><p><input type="radio" disabled="" /> Series</p></li>
+<li><p><input type="radio" disabled="" /> string</p></li>
+<li><p><input type="radio" disabled="" /> DataFrame</p></li>
+</ul>
+<p><br></p>
+<p><br></p>
+<h3 id="problem-34.5">Problem 34.5</h3>
+<p>What <strong>value</strong> does the following expression evaluate
+to? If you believe the expression errors, provide a one sentence
+explanation of why.</p>
+<p>For example, if you think the expression evaluates to an int, don’t
+write “int" or”the largest value in the <code>"IG Followers"</code>
+column", write the specific int, like “23".</p>
+<p><em>Hint: You have enough information to answer the problem; don’t
+forget to look at the data description page.</em></p>
+<div class="sourceCode" id="cb35"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>(survey</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>.sort_values(by<span class="op">=</span><span class="st">&quot;Class Standing&quot;</span>)</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>.groupby(<span class="st">&quot;College&quot;</span>).count()</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>.get(<span class="st">&quot;IG Followers&quot;</span>)</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>.index[<span class="dv">0</span>]</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p><br></p>
+<h3 id="problem-34.6">Problem 34.6</h3>
+<p>Consider again the expression from 1.5. Suppose we remove the
+piece</p>
+<div class="sourceCode" id="cb36"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>.sort_values(by<span class="op">=</span><span class="st">&quot;Class Standing&quot;</span>)</span></code></pre></div>
+<p>but keep all other parts the same. Does this change the value the
+expression evaluates to?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Yes, this changes the value the expression evaluates to.</p></li>
+<li><p><input type="radio" disabled="" /> No, this does not change the value the expression evaluates to.</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-34.7">Problem 34.7</h3>
+<p>What <strong>value</strong> does the following expression evaluate
+to? If you believe the expression errors, provide a one sentence
+explanation of why.</p>
+<p>For example, if you think the expression evaluates to an int, don’t
+write “int” or “the largest value in the <code>"IG Followers"</code>
+column”, write the specific int, like “23”.</p>
+<p><em>Hint: You have enough information to answer the problem; don’t
+forget to look at the data description page.</em></p>
+<div class="sourceCode" id="cb37"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>(survey</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a> .sort_values(by<span class="op">=</span><span class="st">&quot;Class Standing&quot;</span>)</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a> .groupby(<span class="st">&quot;College&quot;</span>).count()</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a> .get(<span class="st">&quot;IG Followers&quot;</span>)</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a> .loc[<span class="dv">0</span>]</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p><br></p>
+<hr />
+<h2 id="problem-35">Problem 35</h2>
+<p><br></p>
+<h3 id="problem-35.1">Problem 35.1</h3>
+<p>We’d like to find the mean number of Instagram followers of all
+students in DSC 10. One <strong>correct</strong> way to do so is given
+below.</p>
+<div class="sourceCode" id="cb38"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>    mean_1 <span class="op">=</span> survey.get(<span class="st">&quot;IG Followers&quot;</span>).mean()</span></code></pre></div>
+<p>Another two <strong>possible</strong> ways to do this are given
+below.</p>
+<div class="sourceCode" id="cb39"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Possible method 1.</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>    mean_2 <span class="op">=</span> survey.groupby(<span class="st">&quot;Section&quot;</span>).mean().get(<span class="st">&quot;IG Followers&quot;</span>).mean()</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Possible method 2.</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>    X <span class="op">=</span> survey.groupby(<span class="st">&quot;Section&quot;</span>).<span class="bu">sum</span>().get(<span class="st">&quot;IG Followers&quot;</span>).<span class="bu">sum</span>()</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>    Y <span class="op">=</span> survey.groupby(<span class="st">&quot;Section&quot;</span>).count().get(<span class="st">&quot;IG Followers&quot;</span>).<span class="bu">sum</span>()</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>    mean_3 <span class="op">=</span> X <span class="op">/</span> Y</span></code></pre></div>
+<p>Is <code>mean_2</code> equal to <code>mean_1</code>?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Yes.</p></li>
+<li><p><input type="radio" disabled="" /> Yes, if both sections have the same number of students, otherwise
+maybe.</p></li>
+<li><p><input type="radio" disabled="" /> Yes, if both sections have the same number of students, otherwise
+no.</p></li>
+<li><p><input type="radio" disabled="" /> No.</p></li>
+</ul>
+<p>Is <code>mean_3</code> equal to <code>mean_1</code>?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Yes.</p></li>
+<li><p><input type="radio" disabled="" /> Yes, if both sections have the same number of students, otherwise
+maybe.</p></li>
+<li><p><input type="radio" disabled="" /> Yes, if both sections have the same number of students, otherwise
+no.</p></li>
+<li><p><input type="radio" disabled="" /> No.</p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-36">Problem 36</h2>
+<p>You may have noticed that San Diego was quite cloudy in May (2023).
+In fact, according to the National Weather Service, San Diego was the
+single cloudiest city in the contiguous United States in May, with
+clouds covering the sky 82% of the time. (Only a remote town in Alaska
+was cloudier!)</p>
+<p>We will work with the DataFrame <code>sun</code>, which describes the
+number of sunshine hours per month in various cities around the world.
+Each number in <code>sun</code> is an average across multiple years and
+multiple sensors.</p>
+<p>The first 2 columns in <code>sun</code> are <code>"Country"</code>
+and <code>"City"</code>, which are strings describing a particular city.
+The next 12 columns are <code>"Jan"</code>, <code>"Feb"</code>,
+<code>"Mar"</code>, …, <code>"Dec"</code>, which describe the number of
+sunshine hours seen each month. The last column, <code>"Year"</code>, is
+the sum of the month-specific columns.</p>
+<p>The first few rows of <code>sun</code> are shown below, though
+<code>sun</code> has many more rows than are shown below.</p>
+<center><img src='../assets/images/sp23-final/sun.png' width=1000></center>
+<p><br></p>
+<p>For instance, we see that Tashkent, Uzbekistan sees 164.3 sunshine
+hours in March.</p>
+<p>Assume that we have already run <code>import babypandas as bpd</code>
+and <code>import numpy as np</code>. <br><br></p>
+<p>In the next few parts, consider the following answer choices.</p>
+<ol type="A">
+<li><p>The name of the country with the most cities.</p></li>
+<li><p>The name of the country with the fewest cities.</p></li>
+<li><p>The number of cities in the country with the most
+cities.</p></li>
+<li><p>The number of cities in the country with the fewest
+cities.</p></li>
+<li><p>The last city, alphabetically, in the first country,
+alphabetically.</p></li>
+<li><p>The first city, alphabetically, in the first country,
+alphabetically.</p></li>
+<li><p>Nothing, because it errors.</p></li>
+</ol>
+<p><br></p>
+<h3 id="problem-36.1">Problem 36.1</h3>
+<p>What does the following expression evaluate to?</p>
+<div class="sourceCode" id="cb40"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>sun.groupby(<span class="st">&quot;Country&quot;</span>).<span class="bu">max</span>().get(<span class="st">&quot;City&quot;</span>).iloc[<span class="dv">0</span>]</span></code></pre></div>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> A</p></li>
+<li><p><input type="radio" disabled="" /> B</p></li>
+<li><p><input type="radio" disabled="" /> C</p></li>
+<li><p><input type="radio" disabled="" /> D</p></li>
+<li><p><input type="radio" disabled="" /> E</p></li>
+<li><p><input type="radio" disabled="" /> F</p></li>
+<li><p><input type="radio" disabled="" /> G</p></li>
+</ul>
+<p><br></p>
+<p><br></p>
+<h3 id="problem-36.2">Problem 36.2</h3>
+<p>What does the following expression evaluate to?</p>
+<div class="sourceCode" id="cb41"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>sun.groupby(<span class="st">&quot;Country&quot;</span>).<span class="bu">sum</span>().get(<span class="st">&quot;City&quot;</span>).iloc[<span class="dv">0</span>]</span></code></pre></div>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> A</p></li>
+<li><p><input type="radio" disabled="" /> B</p></li>
+<li><p><input type="radio" disabled="" /> C</p></li>
+<li><p><input type="radio" disabled="" /> D</p></li>
+<li><p><input type="radio" disabled="" /> E</p></li>
+<li><p><input type="radio" disabled="" /> F</p></li>
+<li><p><input type="radio" disabled="" /> G</p></li>
+</ul>
+<p><br></p>
+<p><br></p>
+<h3 id="problem-36.3">Problem 36.3</h3>
+<p>What does the following expression evaluate to?</p>
+<div class="sourceCode" id="cb42"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>sun.groupby(<span class="st">&quot;Country&quot;</span>).count().sort_values(<span class="st">&quot;Jan&quot;</span>).index[<span class="op">-</span><span class="dv">1</span>]</span></code></pre></div>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> A</p></li>
+<li><p><input type="radio" disabled="" /> B</p></li>
+<li><p><input type="radio" disabled="" /> C</p></li>
+<li><p><input type="radio" disabled="" /> D</p></li>
+<li><p><input type="radio" disabled="" /> E</p></li>
+<li><p><input type="radio" disabled="" /> F</p></li>
+<li><p><input type="radio" disabled="" /> G</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-36.4">Problem 36.4</h3>
+<p>What does the following expression evaluate to?</p>
+<div class="sourceCode" id="cb43"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>sun.groupby(<span class="st">&quot;Country&quot;</span>).count().sort_values(<span class="st">&quot;City&quot;</span>).get(<span class="st">&quot;City&quot;</span>).iloc[<span class="op">-</span><span class="dv">1</span>]</span></code></pre></div>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> A</p></li>
+<li><p><input type="radio" disabled="" /> B</p></li>
+<li><p><input type="radio" disabled="" /> C</p></li>
+<li><p><input type="radio" disabled="" /> D</p></li>
+<li><p><input type="radio" disabled="" /> E</p></li>
+<li><p><input type="radio" disabled="" /> F</p></li>
+<li><p><input type="radio" disabled="" /> G</p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-37">Problem 37</h2>
+<p>Vanessa is a big Formula 1 racing fan, and wants to plan a trip to
+Monaco, where the Monaco Grand Prix is held. Monaco is an example of a
+“city-state” — that is, a city that is its own country. Singapore is
+another example of a city-state.</p>
+<p>We’ll say that a row of <code>sun</code> corresponds to a city-state
+if its <code>"Country"</code> and <code>"City"</code> values are
+equal.</p>
+<p><br></p>
+<h3 id="problem-37.1">Problem 37.1</h3>
+<p>Fill in the blanks so that the expression below is equal to the total
+number of sunshine hours in October of all city-states in
+<code>sun</code>.</p>
+<div class="sourceCode" id="cb44"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>    sun[__(a)__].__(b)__</span></code></pre></div>
+<p>What goes in blanks (a) and (b)?</p>
+<p><br></p>
+<hr />
+<h2 id="problem-38">Problem 38</h2>
+<p>An area’s cost of living describes how expensive it is to live in
+that area. In this exam, we’ll work with the DataFrame
+<code>living_cost</code>, which describes the typical cost of living for
+different types of families across all 3143 counties in the 50 United
+States. The first few rows of <code>living_cost</code> are shown below,
+but <code>living_cost</code> has <strong>many more rows</strong> than
+shown.</p>
+<center><img src='../assets/images/fa23-midterm/living_cost_preview.jpg' width=800></center>
+<p><br></p>
+<p>Two counties in the same state will never have the same name, but as
+the last two rows above illustrate, there are some counties in different
+states with the same name, like Lee County.</p>
+<p>The <code>"family_type"</code> column uses a code to describe the
+number of adults and children in a family. For example, a value of
+<code>"2a1c"</code> represents families with two adults and one child.
+There are ten unique values, as follows: <code>"1a0c"</code>,
+<code>"1a1c"</code>, <code>"1a2c"</code>, <code>"1a3c"</code>,
+<code>"1a4c"</code>, <code>"2a0c"</code>, <code>"2a1c"</code>,
+<code>"2a2c"</code>, <code>"2a3c"</code>, <code>"2a4c"</code>. We will
+assume that <strong>all families fall into one of these ten
+categories</strong>, and <strong>all ten family structures are present
+in each US county</strong>.</p>
+<p>Each of the 31430 rows of the DataFrame represents a unique
+combination of <code>"state"</code>, <code>"county"</code>, and
+<code>"family_type"</code>. As a result, there will be more than one row
+with a <code>"state"</code> of <code>"CA"</code> and a
+<code>"county"</code> of <code>"San Diego"</code>, corresponding to
+different values of <code>"family_type"</code>. Similarly, there will be
+many rows such that <code>"family_type"</code> is <code>"2a1c"</code>,
+all corresponding to different counties. There is <strong>only one
+row</strong>, however, where <code>"state"</code> is <code>"CA"</code>,
+<code>"county"</code> is <code>"San Diego"</code>, and
+<code>"family_type"</code> is <code>"1a2c"</code></p>
+<p>In addition to the <code>"state"</code>, <code>"county"</code>, and
+<code>"family_type"</code> columns, <code>living_cost</code> includes
+the following columns.</p>
+<ul>
+<li><code>"is_metro"</code> (<code>bool</code>): <code>True</code> if
+the county is part of a metropolitan (urban) area, <code>False</code>
+otherwise. This value is the same for all rows of the DataFrame
+corresponding to the same county and state.</li>
+<li><code>"avg_housing_cost"</code> (<code>int</code>): The average
+yearly cost of housing, in dollars, for families of the given size in
+the given county and state.</li>
+<li><code>"avg_childcare_cost"</code> (<code>int</code>): The average
+yearly cost of childcare, in dollars, for families of the given size in
+the given county and state.</li>
+<li><code>"median_income"</code> (<code>int</code>): The median annual
+income, in dollars, for families of the given size in the given county
+and state.</li>
+</ul>
+<p>Assume we have already run <code>import babypandas as bpd</code> and
+<code>import numpy as np</code>. <br><br></p>
+<h3 id="problem-38.1">Problem 38.1</h3>
+<p>Suppose we run the three lines of code below.</p>
+<pre><code>families = living_cost.groupby(&quot;family_type&quot;).median()
+sorted_families = families.sort_values(by=&quot;avg_housing_cost&quot;)
+result = sorted_families.get(&quot;avg_childcare_cost&quot;).iloc[0]</code></pre>
+<p>Which of the following does <code>result</code> evaluate to?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> The median <code>"avg_childcare_cost"</code> of the
+<code>"family_type"</code> with the lowest median
+<code>"avg_housing_cost"</code>.</p></li>
+<li><p><input type="radio" disabled="" /> The median <code>"avg_childcare_cost"</code> of the
+<code>"family_type"</code> with the highest median
+<code>"avg_housing_cost"</code>.</p></li>
+<li><p><input type="radio" disabled="" /> The median <code>"avg_housing_cost"</code> of the
+<code>"family_type"</code> with the lowest median
+<code>"avg_childcare_cost"</code>.</p></li>
+<li><p><input type="radio" disabled="" /> The median <code>"avg_housing_cost"</code> of the
+<code>"family_type"</code> with the highest median
+<code>"avg_childcare_cost"</code>.</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-38.2">Problem 38.2</h3>
+<p>Suppose we define <code>another_result</code> as follows.</p>
+<pre><code>another_result = (living_cost.groupby(&quot;state&quot;).count()
+                  .sort_values(by=&quot;median_income&quot;, ascending=False)
+                  .get(&quot;median_income&quot;).index[0])</code></pre>
+<p>What does <code>another_result</code> represent?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> The state with the highest median income.</p></li>
+<li><p><input type="radio" disabled="" /> The median income in the state with the highest median income.</p></li>
+<li><p><input type="radio" disabled="" /> The state with the most counties.</p></li>
+<li><p><input type="radio" disabled="" /> The median income in the state with the most counties.</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-38.3">Problem 38.3</h3>
+<p>Which of the following DataFrames has exactly four columns?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>living_cost.groupby("family_type").min()</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>living_cost.groupby("family_type").sum()</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>living_cost.groupby("family_type").count()</code></p></li>
+<li><p><input type="radio" disabled="" /> None of the above.</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-38.4">Problem 38.4</h3>
+<p>Suppose we define the Series <code>three_columns</code> to be the
+concatenation of three columns of the <code>living_cost</code> DataFrame
+as follows.</p>
+<pre><code>three_columns = (living_cost.get(&quot;state&quot;) + &quot; &quot; +
+                 living_cost.get(&quot;county&quot;) + &quot; &quot; + 
+                 living_cost.get(&quot;family_type&quot;))</code></pre>
+<p>For example, the first element of <code>three_columns</code> is the
+string <code>"CA San Diego County 1a2c"</code> (refer back to the first
+row of <code>living_cost</code> provided in the data overview).</p>
+<p>What does the following expression evaluate to?</p>
+<pre><code>(living_cost.assign(geo_family=three_columns)
+            .groupby(&quot;geo_family&quot;).count()
+            .shape[0])</code></pre>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <span class="math inline">10</span>, the number of distinct
+<code>"family_type"</code> values.</p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">50</span>, the number of states in the
+US.</p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">500</span>, the number of combinations of
+states in the US and <code>"family_type"</code> values.</p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">3143</span>, the number of counties in the
+US.</p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">31430</span>, the number of rows in the
+<code>living_cost</code> DataFrame.</p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-39">Problem 39</h2>
+<p>Suppose we define the three variables below.</p>
+<pre><code>J = living_cost.get(&quot;county&quot;) == &quot;Benton County&quot;
+K = living_cost.get(&quot;state&quot;) == &quot;IN&quot;
+L = living_cost.get(&quot;family_type&quot;) == &quot;1a2c&quot;</code></pre>
+<p>Feel free to use these variables in your solutions to the following
+questions.</p>
+<p><br></p>
+<h3 id="problem-39.1">Problem 39.1</h3>
+<p>Fill in the blanks so that the expression below evaluates to the
+average yearly childcare cost for families with one adult and two
+children in Benton County, IN.</p>
+<pre><code>    __(a)__.__(b)__.iloc[0]</code></pre>
+<ol type="1">
+<li><p>What goes in blank (a)?</p></li>
+<li><p>What goes in blank (b)?</p></li>
+</ol>
+<p><br></p>
+<h3 id="problem-39.2">Problem 39.2</h3>
+<p>Fill in the blanks so that the expression below evaluates to the
+number of states with a county named Benton County.</p>
+<pre><code>    __(c)__.__(d)__ / 10</code></pre>
+<ol type="1">
+<li><p>What goes in blank (c)?</p></li>
+<li><p>What goes in blank (d)?</p></li>
+</ol>
+<p><br></p>
+<hr />
+<h2 id="section"><span class="math display"> </span></h2>
+<h4
+id="feedback-find-an-error-still-confused-have-a-suggestion-let-us-know-here.">👋
+Feedback: Find an error? Still confused? Have a suggestion?
+<a href="https://forms.gle/WZ71FchnXU1K154d7">Let us know
+here</u></a>.</h4>
+<hr />
+</body>
+</html>
