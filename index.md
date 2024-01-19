@@ -55,7 +55,7 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
     <tr>
       <th scope="row">2</th>
       <td>Friday, January 19</td>
-      <td><a href="probset/index.html"> Arrays, DataFrames, Querying, and Grouping</a></td>
+      <td><a href="probset02/index.html"> Arrays, DataFrames, Querying, and Grouping</a></td>
     </tr>
 <!--    <tr>
       <th scope="row">3</th>
