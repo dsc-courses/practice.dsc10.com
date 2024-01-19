@@ -1,4 +1,4 @@
-The DataFrame `items` describes various items available to collect or purchase using bells, the currency used in the game _Animal Crossing: New Horizons.
+The DataFrame `items` describes various items available to collect or purchase using bells, the currency used in the game _Animal Crossing: New Horizons_.
 
 For each item, we have:
 

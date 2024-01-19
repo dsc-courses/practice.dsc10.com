@@ -52,7 +52,7 @@ Fill in blank (c).
 
 # BEGIN SOLUTION
 
-**Answer: ** `(foo.get('weight') > 20 | foo.get(`height`) > 40)`
+**Answer: ** `(foo.get('weight') > 20 | foo.get('height') > 40)`
 
 Once we have grouped the dogs by `'kind'` and have calculated the average 
 stats of each kind of dog, we can do some querying with two conditionals:
