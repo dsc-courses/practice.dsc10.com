@@ -18,9 +18,8 @@ The rows of `df` are arranged in **no particular
  order**. The first five rows of `df` are shown below (though
 `df` has **many more rows** than pictured here).
 
-<center><img src='../assets/images/su22-final/df.png' width=90%></center>
+<center><img src='../assets/images/su22-final/df.png' width=50%></center>
 
-Assume:
-  - We have already run `import babypandas as bpd` and
+Assume we have already run `import babypandas as bpd` and
   `import numpy as np`.
   
