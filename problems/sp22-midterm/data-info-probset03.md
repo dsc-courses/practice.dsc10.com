@@ -2,7 +2,7 @@ Welcome to Sun God!
 
 <center><img src='../assets/images/sp22-midterm/cartoon.png' width=20%></center>
 
-After a two-year hiatus due to the pandemic, UCSD's annual music festival, the Sun God festival, is back this year! In this exam, we'll be looking at a DataFrame named `sungod` that contains information on the artists who have performed at Sun God in years past. The columns are:
+In this problem, we'll be looking at a DataFrame named `sungod` that contains information on the artists who have performed at Sun God, UCSD's annual music festival, in years past. The columns are:
 
 - `'Year'` (`int`): the year of the festival
 - `'Artist'` (`str`): the name of the artist
