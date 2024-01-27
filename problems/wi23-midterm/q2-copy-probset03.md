@@ -1,0 +1,98 @@
+# BEGIN PROB
+
+# BEGIN SUBPROB
+
+The `"Date"` column stores the year, month, and day together in a single 8-digit `int`. The first
+four digits represent the year, the next two represent the month, and the last two represent
+the day. For example, `19500812` corresponds to August 12, 1950.
+The `get month` function below takes one such 8-digit `int`, and **only** returns the month as an int.
+For example, `get month`(`19500812`) evaluates to 8.
+
+```py
+def get_month(date):
+    return int((date % 10000) / 100)
+```
+
+Similarily, the `get year` and `get day` functions below should each take as input an 8-digit `int`
+representing a date, and return an `int` representing the year and day, respectively. Choose
+the correct code to fill in the blanks.
+
+```py
+def get_year(date):
+    return ____(a)____
+```
+
+```py
+def get_day(date):
+    return ____(b)____
+```
+
+What goes in blank (a)?
+
+( ) `date / 10000`
+( ) `int(date / 10000)`
+( ) `int(date % 10000)`
+( ) `int((date % 10000) / 10000)`
+
+# BEGIN SOLUTION
+
+**Answer:** `int(date/10000)`
+
+ The problem is asking us to find the code for blank (a) and `get_year` is asking us to find the year. Let's use `19500812` as an example, so we need to convert `19500812` to 1950. If we plug in **Option 2** for (a) we will get 1950. This is because $\frac{19500812}{10000} = 1950.0812$, and when `int()` is applied to 1950.0812 then it will drop the decimal, which returns 1950.
+
+**Option A:** `date / 10000`
+If we plugged in Option 1 into blank (a) we would get: $\frac{19500812}{10000} = 1950.0812$. This is a float and is not equal to 1950.
+
+**Option C:** `int(date % 10000)`
+If we plugged in Option 3 into blank (a) we would get: 812. Remember, `%` is the operation to find the remainder. We can manually find the remainder by doing $\frac{19500812}{10000} = 1950.0812$, then looking at the decimal, and noticing 812 cannot be divided by 10000 evenly. This is an int, but not the year.
+
+**Option D:** `int((date % 10000) / 10000)`
+If we plugged in Option 4 into blank (a) we would get: 0.0812. We get this number by once again looking at the remainder of $\frac{19500812}{10000} = 1950.0812$, which is 812, and then dividing 812 by 10000. This is a float and is not equal to 1950.
+
+<average>67</average>
+
+# END SOLUTION
+
+# END SUBPROB
+
+
+
+# BEGIN SUBPROB
+
+What goes in blank (b)?
+
+( ) `int(date / 100)`
+( ) `int(date / 1000000)`
+( ) `int((date % 100) / 10000)`
+( ) `date % 100`
+
+
+```py
+storms = storms.assign(Year = storms.get("Date").apply(get_year),
+                       Month = storms.get("Date").apply(get_month),
+                       Day = storms.get("Date").apply(get_day))
+```
+
+# BEGIN SOLUTION
+
+**Answer:** `date % 100`
+
+The problem is asking us to find the code for blank (b) and `get_day` is asking us to get the day. Let's use `19500812` as the example again, so we need to convert `19500812` to 12. Remember, `%` is the operation to find the remainder. If we plug in **Option 4** for (b) we will get 12. This is because $\frac{19500812}{100} = 195008.12$ and by looking at the decimal place we notice 12 cannot be divided by 100 evenly, making the remainder 12.
+
+**Option 1:** `int(date / 100)`
+If we plugged in Option 1 into blank (b) we would get 195008. This is because Python would do: $\frac{19500812}{100} = 195008.12$ then would drop the decimal due to the `int()` function. This is not the day.
+
+**Option 2:** `int(date / 1000000)`
+If we plugged in Option 2 into blank (b) we would get 19. This is because Python would do: $\frac{19500812}{1000000} = 19.500812$ then would drop the decimal due to the `int()` function. This is a day, *but* not the one we are looking for.
+
+**Option 3:** `int((date % 100) / 10000)`
+If we plugged in Option 3 into blank (b) we would get 0. This is because Python works from the inside out, so it will first evaluate the remainder: $\frac{19500812}{100} = 195008.12$, by looking at the decimal place we notice 12 cannot be divided by 100 evenly, making the remainder 12. Python then does $\frac{12}{10000} = 0.0012$. Remember that `int()` drops the decimal, so by plugging a date into this code it will return 0, which is not a day.
+
+<average>56</average>
+
+# END SOLUTION
+
+# END SUBPROB
+
+# END PROB
+

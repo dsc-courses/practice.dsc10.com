@@ -11,7 +11,7 @@ Which of the following best describes the input and output types of the `.apply`
 
 **Answer: ** input: function, output: Series
 
-It helps to think of an example of how we typically use `.apply`. Consider the `books` DataFrame from Problem 6 and a function called `year_to_century` that converts a year to the century it belongs to. We might use `.apply` as follows:
+It helps to think of an example of how we typically use `.apply`. Consider a DataFrame called `books` and a function called `year_to_century` that converts a year to the century it belongs to. We might use `.apply` as follows:
 
 `books.assign(publication_century = books.get('publication_year').apply(year_to_century))`
 

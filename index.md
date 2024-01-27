@@ -57,12 +57,12 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
       <td>Friday, January 19</td>
       <td><a href="probset02/index.html"> Arrays, DataFrames, Querying, and Grouping</a></td>
     </tr>
-<!--    <tr>
+   <tr>
       <th scope="row">3</th>
-      <td>October 18th</td>
-      <td><a href="disc03/index.html">Querying, Grouping, and Plotting</a></td>
+      <td>January 26</td>
+      <td><a href="probset03/index.html">Data Visualizations, Functions, and Applying</a></td>
     </tr>
-    <tr>
+<!--     <tr>
       <th scope="row">4</th>
       <td>October 25th</td>
       <td><a href="disc04/index.html">DataFrames, Control Flow, and Probability</a></td>
