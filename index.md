@@ -236,7 +236,7 @@ Starting in Fall 2023, quizzes are administered in discussion section. Below, yo
       <th scope="row">Winter 2024</th>
       <td>Janine Tiefenbruck</td>
       <td>
-        <a href='wi24-quiz1/index.html'>Quiz 1</a> •
+        <a href='wi24-quiz1/index.html'>Quiz 1</a> 
         <a href='wi24-quiz2/index.html'>Quiz 2</a>
         <!-- <a href='fa23-quiz2/index.html'>Quiz 2</a>
         <a href='fa23-quiz3/index.html'>Quiz 3</a>
