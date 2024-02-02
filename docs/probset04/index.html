@@ -180,304 +180,255 @@ aria-labelledby="heading1" data-bs-parent="#accordionExample">
 </div>
 <hr />
 <h2 id="problem-2">Problem 2</h2>
-<p>King Triton had four children, and each of his four children started
-their own families. These four families organize a Triton family reunion
-each year. The compositions of the four families are as follows:</p>
-<ul>
-<li><p>Family W: <code>"1a4c"</code></p></li>
-<li><p>Family X: <code>"2a1c"</code></p></li>
-<li><p>Family Y: <code>"2a3c"</code></p></li>
-<li><p>Family Z: <code>"1a1c"</code></p></li>
-</ul>
-<p>Suppose we choose one of the fifteen people at the Triton family
-reunion at random.</p>
+<p>The DataFrame <code>evs</code> consists of 32 rows, each of which
+contains information about a different EV model.</p>
+<p>The first few rows of <code>evs</code> are shown below.</p>
+<center><img src='../assets/images/fa22-midterm/form22.png' width=60%></center>
 <p><br></p>
-<h3 id="problem-2.1">Problem 2.1</h3>
-<p>Given that the chosen individual is from a family with one child,
-what is the probability that they are from Family X? Give your answer as
-a simplified fraction.</p>
+<p><br><br></p>
+<p>We also have a DataFrame that contains the distribution of
+“BodyStyle” for all “Brands” in <code>evs</code>, other than Nissan.</p>
+<center><img src='../assets/images/fa22-midterm/midq6.png' width=50%></center>
+<p>Suppose we’ve run the following few lines of code.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>tesla <span class="op">=</span> evs[evs.get(<span class="st">&quot;Brand&quot;</span>) <span class="op">==</span> <span class="st">&quot;Tesla&quot;</span>]</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>bmw <span class="op">=</span> evs[evs.get(<span class="st">&quot;Brand&quot;</span>) <span class="op">==</span> <span class="st">&quot;BMW&quot;</span>]</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>audi <span class="op">=</span> evs[evs.get(<span class="st">&quot;Brand&quot;</span>) <span class="op">==</span> <span class="st">&quot;Audi&quot;</span>]</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>combo <span class="op">=</span> tesla.merge(bmw, on<span class="op">=</span><span class="st">&quot;BodyStyle&quot;</span>).merge(audi, on<span class="op">=</span><span class="st">&quot;BodyStyle&quot;</span>)</span></code></pre></div>
+<p>How many rows does the DataFrame <code>combo</code> have?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> 21</p></li>
+<li><p><input type="radio" disabled="" /> 24</p></li>
+<li><p><input type="radio" disabled="" /> 35</p></li>
+<li><p><input type="radio" disabled="" /> 65</p></li>
+<li><p><input type="radio" disabled="" /> 72</p></li>
+<li><p><input type="radio" disabled="" /> 96</p></li>
+</ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading2_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2_1" aria-expanded="true" aria-controls="collapse2_1">
+<h2 class="accordion-header" id="heading2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="true" aria-controls="collapse2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse2_1" class="accordion-collapse collapse collapse"
-aria-labelledby="heading2_1" data-bs-parent="#accordionExample">
+<div id="collapse2" class="accordion-collapse collapse collapse"
+aria-labelledby="heading2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer:</strong> <span class="math inline">\frac{3}{5}</span></p>
-<p>Given that the chosen individual is from a family with one child, we
-know that they must be from either Family X or Family Z. There are three
-individuals in Family X, and there are a total of five individuals from
-these two families. Thus, the probability of choosing any one of the
-three individuals from Family X out of the five individuals from both
-families is <span class="math inline">\frac{3}{5}</span>.</p>
+<p><strong>Answer:</strong> 35</p>
+<p>Let’s attempt this problem step-by-step. We’ll first determine the
+number of rows in <code>tesla.merge(bmw, on="BodyStyle")</code>, and
+then determine the number of rows in <code>combo</code>. <strong>For the
+purposes of the solution, let’s use <code>temp</code> to refer to the
+first merged DataFrame,
+<code>tesla.merge(bmw, on="BodyStyle")</code>.</strong></p>
+<p>Recall, when we <code>merge</code> two DataFrames, the resulting
+DataFrame contains a single row for every match between the two columns,
+and rows in either DataFrame without a match disappear. In this problem,
+the column that we’re looking for matches in is
+<code>"BodyStyle"</code>.</p>
+<p>To determine the number of rows of <code>temp</code>, we need to
+determine which rows of <code>tesla</code> have a
+<code>"BodyStyle"</code> that matches a row in <code>bmw</code>. From
+the DataFrame provided, we can see that the only
+<code>"BodyStyle"</code>s in both <code>tesla</code> and
+<code>bmw</code> are SUV and sedan. When we merge <code>tesla</code> and
+<code>bmw</code> on <code>"BodyStyle"</code>:</p>
+<ul>
+<li>The 4 SUV rows in <code>tesla</code> each match the 1 SUV row in
+<code>bmw</code>. This will create 4 SUV rows in <code>temp</code>.</li>
+<li>The 3 sedan rows in <code>tesla</code> each match the 1 sedan row in
+<code>bmw</code>. This will create 3 sedan rows in
+<code>temp</code>.</li>
+</ul>
+<p>So, <code>temp</code> is a DataFrame with a total of 7 rows, with 4
+rows for SUVs and 3 rows for sedans (in the <code>"BodyStyle"</code>)
+column. Now, when we merge <code>temp</code> and <code>audi</code> on
+<code>"BodyStyle"</code>:</p>
+<ul>
+<li>The 4 SUV rows in <code>temp</code> each match the 8 SUV rows in
+<code>audi</code>. This will create <span class="math inline">4 \cdot 8
+= 32</span> SUV rows in <code>combo</code>.</li>
+<li>The 3 sedan rows in <code>temp</code> each match the 1 sedan row in
+<code>audi</code>. This will create <span class="math inline">3 \cdot 1
+= 3</span> sedan rows in <code>combo</code>.</li>
+</ul>
+<p>Thus, the total number of rows in <code>combo</code> is <span class="math inline">32 + 3 = 35</span>.</p>
+<p>Note: You may notice that 35 is the result of multiplying the
+<code>"SUV"</code> and <code>"Sedan"</code> columns in the DataFrame
+provided, and adding up the results. This problem is similar to <a href="../fa21-midterm/index.html#problem-5">Problem 5 from the Fall 2021
+Midterm</a>.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
 <p>
 </p>
-<p>The average score on this problem was 43%.</p>
+<p>The average score on this problem was 45%.</p>
 </div>
 </div>
 </div>
 </div>
+<hr />
+<h2 id="problem-3">Problem 3</h2>
+<p>The <code>sums</code> function takes in an array of numbers and
+outputs the cumulative sum for each item in the array. The cumulative
+sum for an element is the current element plus the sum of all the
+previous elements in the array.</p>
+<p>For example:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> sums(np.array([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]))</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>array([<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">10</span>, <span class="dv">15</span>])</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> sums(np.array([<span class="dv">100</span>, <span class="dv">1</span>, <span class="dv">1</span>]))</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>array([<span class="dv">100</span>, <span class="dv">101</span>, <span class="dv">102</span>])</span></code></pre></div>
+<p>The incomplete definition of <code>sums</code> is shown below.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> sums(arr):</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    res <span class="op">=</span> _________</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>             (a)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    res <span class="op">=</span> np.append(res, arr[<span class="dv">0</span>])</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> _________:</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>                (b)</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>        res <span class="op">=</span> np.append(res, _________)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>                                (c)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> res</span></code></pre></div>
 <p><br></p>
-<h3 id="problem-2.2">Problem 2.2</h3>
-<p>Consider the events <span class="math inline">A</span> and <span
-class="math inline">B</span>, defined below.</p>
-<ul>
-<li><p><span class="math inline">A</span>: The chosen individual is an
-adult.</p></li>
-<li><p><span class="math inline">B</span>: The chosen individual is a
-child.</p></li>
-</ul>
-<p>True or False: Events <span class="math inline">A</span> and <span
-class="math inline">B</span> are independent.</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> True</p></li>
-<li><p><input type="radio" disabled="" /> False</p></li>
-</ul>
+<h3 id="problem-3.1">Problem 3.1</h3>
+<p>Fill in blank (a).</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading2_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2_2" aria-expanded="true" aria-controls="collapse2_2">
+<h2 class="accordion-header" id="heading3_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_1" aria-expanded="true" aria-controls="collapse3_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse2_2" class="accordion-collapse collapse collapse"
-aria-labelledby="heading2_2" data-bs-parent="#accordionExample">
+<div id="collapse3_1" class="accordion-collapse collapse collapse"
+aria-labelledby="heading3_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer:</strong> False</p>
-<p>If two events are independent, knowledge of one event happening does
-not change the probability of the other event happening. In this case,
-events <span class="math inline">A</span> and <span class="math inline">B</span> are not independent because knowledge of
-one event gives complete knowledge of the other.</p>
-<p>To see this, note that the probability of choosing a child randomly
-out of the fifteen individuals is <span class="math inline">\frac{9}{15}</span>. That is, <span class="math inline">P(B) = \frac{9}{15}</span>.</p>
-<p>Suppose now that we know that the chosen individual is an adult. In
-this case, the probability that the chosen individual is a child is
-<span class="math inline">0</span>, because nobody is both a child and
-an adult. That is, <span class="math inline">P(B \text{ given } A) =
-0</span>, which is not the same as <span class="math inline">P(B) =
-\frac{9}{15}</span>.</p>
-<p>This problem illustrates the difference between mutually exclusive
-events and independent events. In this case <span class="math inline">A</span> and <span class="math inline">B</span> are
-mutually exclusive, because they cannot both happen. But that forces
-them to be dependent events, because knowing that someone is an adult
-completely determines the probability that they are a child (it’s
-zero!)</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 33%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-2.3">Problem 2.3</h3>
-<p>Consider the events <span class="math inline">C</span> and <span
-class="math inline">D</span>, defined below.</p>
-<ul>
-<li><p><span class="math inline">C</span>: The chosen individual is a
-child.</p></li>
-<li><p><span class="math inline">D</span>: The chosen individual is from
-family <span class="math inline">Y</span>.</p></li>
-</ul>
-<p>True or False: Events <span class="math inline">C</span> and <span
-class="math inline">D</span> are independent.</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> True</p></li>
-<li><p><input type="radio" disabled="" /> False</p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading2_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2_3" aria-expanded="true" aria-controls="collapse2_3">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse2_3" class="accordion-collapse collapse collapse"
-aria-labelledby="heading2_3" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer:</strong> True</p>
-<p>If two events are independent, the probability of one event happening
-does not change when we know that the other event happens. In this case,
-events <span class="math inline">C</span> and <span class="math inline">D</span> are indeed independent.</p>
-<p>If we know that the chosen individual is a child, the probability
-that they come from Family Y is <span class="math inline">\frac{3}{9}</span>, which simplifies to <span class="math inline">\frac{1}{3}</span>. That is <span class="math inline">P(D \text{ given } C) = \frac{1}{3}</span>.</p>
-<p>On the other hand, without any prior knowledge, when we select
-someone randomly from all fifteen individuals, the probability they come
-from Family Y is <span class="math inline">\frac{5}{15}</span>, which
-also simplifies to <span class="math inline">\frac{1}{3}</span>. This
-says <span class="math inline">P(D) = \frac{1}{3}</span>.</p>
-<p>In other words, knowledge of <span class="math inline">C</span> is
-irrelevant to the probability of <span class="math inline">D</span>
-occurring, which means <span class="math inline">C</span> and <span class="math inline">D</span> are independent.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 35%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-2.4">Problem 2.4</h3>
-<p>At the reunion, the Tritons play a game that involves placing the
-four letters into a hat (W, X, Y, and Z, corresponding to the four
-families). Then, <strong>five times</strong>, they draw a letter from
-the hat, write it down on a piece of paper, and place it back into the
-hat.</p>
-<p>Let <span class="math inline">p = \frac{1}{4}</span> in the questions
-that follow.</p>
-<p>What is the probability that Family W is selected all 5 times?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> <span class="math inline">p^5</span></p></li>
-<li><p><input type="radio" disabled="" /> <span class="math inline">1 - p^5</span></p></li>
-<li><p><input type="radio" disabled="" /> <span class="math inline">1 - (1 - p)^5</span></p></li>
-<li><p><input type="radio" disabled="" /> <span class="math inline">(1 - p)^5</span></p></li>
-<li><p><input type="radio" disabled="" /> <span class="math inline">p \cdot (1 - p)^4</span></p></li>
-<li><p><input type="radio" disabled="" /> <span class="math inline">p^4 (1 - p)</span></p></li>
-<li><p><input type="radio" disabled="" /> None of these.</p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading2_4">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2_4" aria-expanded="true" aria-controls="collapse2_4">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse2_4" class="accordion-collapse collapse collapse"
-aria-labelledby="heading2_4" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer:</strong> <span class="math inline">p^5</span></p>
-<p>The probability of selecting Family W in the first round is <span class="math inline">p</span>, which is the same for the second round,
-the third round, and so on. Each of the chosen letters is drawn
-independently from the others because the result of one draw does not
-affect the result of the next. We can apply the multiplication rule here
-and multiply the probabilities of choosing Family W in each round. This
-comes out to be <span class="math inline">p\cdot p\cdot p\cdot p\cdot
-p</span>, which is <span class="math inline">p^5</span>.</p>
+<p><strong>Answer: </strong> <code>np.array([])</code> or
+<code>[]</code></p>
+<p><code>res</code> is the list in which we’ll be storing each
+cumulative sum. Thus we start by initializing <code>res</code> to an
+empty array or list.</p>
 <hr/>
 <h5>Difficulty: ⭐️</h5>
 <p>
 </p>
-<p>The average score on this problem was 91%.</p>
+<p>The average score on this problem was 100%.</p>
 </div>
 </div>
 </div>
 </div>
 <p><br></p>
-<p><br></p>
-<h3 id="problem-2.5">Problem 2.5</h3>
-<p>What is the probability that Family W is selected at least once?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> <span class="math inline">p^5</span></p></li>
-<li><p><input type="radio" disabled="" /> <span class="math inline">1 - p^5</span></p></li>
-<li><p><input type="radio" disabled="" /> <span class="math inline">1 - (1 - p)^5</span></p></li>
-<li><p><input type="radio" disabled="" /> <span class="math inline">(1 - p)^5</span></p></li>
-<li><p><input type="radio" disabled="" /> <span class="math inline">p \cdot (1 - p)^4</span></p></li>
-<li><p><input type="radio" disabled="" /> <span class="math inline">p^4 (1 - p)</span></p></li>
-<li><p><input type="radio" disabled="" /> None of these.</p></li>
-</ul>
+<h3 id="problem-3.2">Problem 3.2</h3>
+<p>Fill in blank (b).</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading2_5">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2_5" aria-expanded="true" aria-controls="collapse2_5">
+<h2 class="accordion-header" id="heading3_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_2" aria-expanded="true" aria-controls="collapse3_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse2_5" class="accordion-collapse collapse collapse"
-aria-labelledby="heading2_5" data-bs-parent="#accordionExample">
+<div id="collapse3_2" class="accordion-collapse collapse collapse"
+aria-labelledby="heading3_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer:</strong> <span class="math inline">1 - (1 -
-p)^5</span></p>
-<p>Since there are too many ways that Family W can be selected to meet
-the condition that it is selected at least once, it is easier if we
-calculate the probability that Family W is never selected and subtract
-that from 1. The probability that Family W is not selected in the first
-round is <span class="math inline">1-p</span>, which is the same for the
-second round, the third round, and so on. We want this to happen for all
-five rounds, and since the events are independent, we can multiply their
-probabilities all together. This comes out to be <span class="math inline">(1-p)^5</span>, which represents the probability
-that Family W is never selected. Finally, we subtract <span class="math inline">(1-p)^5</span> from 1 to find the probability that
-Family W is selected at least once, giving the answer <span class="math inline">1 - (1-p)^5</span>.</p>
+<p><strong>Answer: </strong> <code>range(1, len(arr))</code> or
+<code>np.arange(1, len(arr))</code></p>
+<p>We’re trying to loop through the indices of <code>arr</code> and
+calculate the cumulative sum corresponding to each entry. To access each
+index in sequential order, we simply use <code>range()</code> or
+<code>np.arange()</code>. However, notice that we have already appended
+the first entry of <code>arr</code> to <code>res</code> on line 3 of the
+code snippet. (Note that the first entry of <code>arr</code> is the same
+as the first cumulative sum.) Thus the lower bound of
+<code>range()</code> (or <code>np.arange()</code>) actually starts at 1,
+not 0. The upper bound is still <code>len(arr)</code> as usual.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
 </p>
-<p>The average score on this problem was 62%.</p>
+<p>The average score on this problem was 64%.</p>
 </div>
 </div>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-2.6">Problem 2.6</h3>
-<p>What is the probability that Family W is selected exactly once, as
-the last family that is selected?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> <span class="math inline">p^5</span></p></li>
-<li><p><input type="radio" disabled="" /> <span class="math inline">1 - p^5</span></p></li>
-<li><p><input type="radio" disabled="" /> <span class="math inline">1 - (1 - p)^5</span></p></li>
-<li><p><input type="radio" disabled="" /> <span class="math inline">(1 - p)^5</span></p></li>
-<li><p><input type="radio" disabled="" /> <span class="math inline">p \cdot (1 - p)^4</span></p></li>
-<li><p><input type="radio" disabled="" /> <span class="math inline">p^4 (1 - p)</span></p></li>
-<li><p><input type="radio" disabled="" /> None of these.</p></li>
-</ul>
+<h3 id="problem-3.3">Problem 3.3</h3>
+<p>Fill in blank (c).</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading2_6">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2_6" aria-expanded="true" aria-controls="collapse2_6">
+<h2 class="accordion-header" id="heading3_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_3" aria-expanded="true" aria-controls="collapse3_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse2_6" class="accordion-collapse collapse collapse"
-aria-labelledby="heading2_6" data-bs-parent="#accordionExample">
+<div id="collapse3_3" class="accordion-collapse collapse collapse"
+aria-labelledby="heading3_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer:</strong> <span class="math inline">p \cdot (1 -
-p)^4</span></p>
-<p>We want to find the probability of Family W being selected only as
-the last draw, and not in the first four draws. The probability that
-Family W is not selected in the first draw is <span class="math inline">(1-p)</span>, which is the same for the second,
-third, and fourth draws. For the fifth draw, the probability of choosing
-Family W is <span class="math inline">p</span>. Since the draws are
-independent, we can multiply these probabilities together, which comes
-out to be <span class="math inline">(1-p)^4 \cdot p = p\cdot
-(1-p)^4</span>.</p>
+<p><strong>Answer: </strong> <code>res[i - 1] + arr[i]</code> or
+<code>sum(arr[:i + 1])</code></p>
+<p>Looking at the syntax of the problem, the blank we have to fill
+essentially requires us to calculate the current cumulative sum, since
+the rest of line will already append the blank to <code>res</code> for
+us. One way to think of a cumulative sum is to add the “current”
+<code>arr</code> element to the previous cumulative sum, since the
+previous cumulative sum encapsulates all the previous elements. Because
+we have access to both of those values, we can easily represent it as
+<code>res[i - 1] + arr[i]</code>. The second answer is more a more
+direct approach. Because the cumulative sum is just the sum of all the
+previous elements up to the current element, we can directly compute it
+with <code>sum(arr[:i + 1])</code></p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
 </p>
-<p>The average score on this problem was 67%.</p>
+<p>The average score on this problem was 71%.</p>
 </div>
 </div>
 </div>
 </div>
 <p><br></p>
 <hr />
-<h2 id="problem-3">Problem 3</h2>
+<h2 id="problem-4">Problem 4</h2>
+<p><strong>True or False</strong>: If you roll two dice, the probability
+of rolling two fives is the same as the probability of rolling a six and
+a three.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="true" aria-controls="collapse4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse4" class="accordion-collapse collapse collapse"
+aria-labelledby="heading4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> False</p>
+<p>The probability of rolling two fives can be found with 1/6 * 1/6 =
+1/36. The probability of rolling a six and a three can be found with 2/6
+(can roll either a 3 or 6) * 1/6 (roll a different side form 3 or 6,
+depending on what you rolled first) = 1/18. Therefore, the probabilities
+are not the same. </p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
+<p>The average score
+on this problem was 33%.</p>
+</div>
+</div>
+</div>
+</div>
+<hr />
+<h2 id="problem-5">Problem 5</h2>
 <p>Below, we’ve defined four functions, named <code>converter_1</code>,
 <code>converter_2</code>, <code>converter_3</code>, and
 <code>converter_4</code>. All four functions return <code>"12PM"</code>
@@ -488,13 +439,13 @@ arguments other than <code>"A"</code> and <code>"B"</code>.</p>
 <p>Note: In the answer choices below, by <code>None</code> we mean that
 the function call doesn’t return anything, but doesn’t error either.</p>
 <p><br></p>
-<h3 id="problem-3.1">Problem 3.1</h3>
+<h3 id="problem-5.1">Problem 5.1</h3>
 <p>Consider the function <code>converter_1</code>, defined below.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> converter_1(section):</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> section <span class="op">==</span> <span class="st">&quot;A&quot;</span>:</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="st">&quot;12PM&quot;</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="st">&quot;1PM&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> converter_1(section):</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> section <span class="op">==</span> <span class="st">&quot;A&quot;</span>:</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="st">&quot;12PM&quot;</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="st">&quot;1PM&quot;</span></span></code></pre></div>
 <p>When <code>convert_1</code> is called on an argument other than
 <code>"A"</code> or <code>"B"</code>, what does it return?</p>
 <ul class="task-list">
@@ -505,12 +456,12 @@ the function call doesn’t return anything, but doesn’t error either.</p>
 </ul>
 <p><br></p>
 <p>Consider the function <code>converter_2</code>, defined below.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> converter_2(section):</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>        time_dict <span class="op">=</span> {</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>            <span class="st">&quot;A&quot;</span>: <span class="st">&quot;12PM&quot;</span>,</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>            <span class="st">&quot;B&quot;</span>: <span class="st">&quot;1PM&quot;</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        }</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> times_dict[section]</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> converter_2(section):</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>        time_dict <span class="op">=</span> {</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>            <span class="st">&quot;A&quot;</span>: <span class="st">&quot;12PM&quot;</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>            <span class="st">&quot;B&quot;</span>: <span class="st">&quot;1PM&quot;</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> times_dict[section]</span></code></pre></div>
 <p>When <code>convert_2</code> is called on an argument other than
 <code>"A"</code> or <code>"B"</code>, what does it return?</p>
 <ul class="task-list">
@@ -521,13 +472,13 @@ the function call doesn’t return anything, but doesn’t error either.</p>
 </ul>
 <p><br></p>
 <p>Consider the function <code>converter_3</code>, defined below.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> converter_3(section):</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> section <span class="op">==</span> <span class="st">&quot;A&quot;</span>:</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="st">&quot;12PM&quot;</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> section <span class="op">==</span> <span class="st">&quot;B&quot;</span>:</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="st">&quot;1PM&quot;</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="dv">1</span> <span class="op">/</span> <span class="dv">0</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> converter_3(section):</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> section <span class="op">==</span> <span class="st">&quot;A&quot;</span>:</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="st">&quot;12PM&quot;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> section <span class="op">==</span> <span class="st">&quot;B&quot;</span>:</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="st">&quot;1PM&quot;</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="dv">1</span> <span class="op">/</span> <span class="dv">0</span></span></code></pre></div>
 <p>When converter_3 is called on an argument other than <code>"A"</code>
 or <code>"B"</code>, what does it return?</p>
 <ul class="task-list">
@@ -538,12 +489,12 @@ or <code>"B"</code>, what does it return?</p>
 </ul>
 <p><br></p>
 <p>Consider the function <code>converter_4</code>, defined below.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> converter_4(section):</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>        sections <span class="op">=</span> [<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>]</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>        times <span class="op">=</span> [<span class="st">&quot;12PM&quot;</span>, <span class="st">&quot;1PM&quot;</span>]</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="bu">len</span>(sections)):</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> section <span class="op">==</span> sections[i]:</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>                <span class="cf">return</span> times[i]</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> converter_4(section):</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>        sections <span class="op">=</span> [<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>]</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>        times <span class="op">=</span> [<span class="st">&quot;12PM&quot;</span>, <span class="st">&quot;1PM&quot;</span>]</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="bu">len</span>(sections)):</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> section <span class="op">==</span> sections[i]:</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>                <span class="cf">return</span> times[i]</span></code></pre></div>
 <p>When <code>converter_4</code> is called on an argument other than
 <code>"A"</code> or <code>"B"</code>, what does it return?</p>
 <ul class="task-list">
@@ -554,13 +505,13 @@ or <code>"B"</code>, what does it return?</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading3_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_1" aria-expanded="true" aria-controls="collapse3_1">
+<h2 class="accordion-header" id="heading5_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_1" aria-expanded="true" aria-controls="collapse5_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse3_1" class="accordion-collapse collapse collapse"
-aria-labelledby="heading3_1" data-bs-parent="#accordionExample">
+<div id="collapse5_1" class="accordion-collapse collapse collapse"
+aria-labelledby="heading5_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -640,7 +591,7 @@ inputs other than <code>"A"</code> or <code>"B"</code>,
 </div>
 <p><br></p>
 <hr />
-<h2 id="problem-4">Problem 4</h2>
+<h2 id="problem-6">Problem 6</h2>
 <p>Teresa and Sophia are bored while waiting in line at Bistro and
 decide to start flipping a UCSD-themed coin, with a picture of King
 Triton’s face as the heads side and a picture of his mermaid-like tail
@@ -666,20 +617,20 @@ times and <code>"Tails"</code> 7 times.</p></li>
 times.</p></li>
 </ul>
 <p><br></p>
-<h3 id="problem-4.1">Problem 4.1</h3>
+<h3 id="problem-6.1">Problem 6.1</h3>
 <p>How many rows are in the following DataFrame? Give your answer as an
 integer.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>    teresa.merge(sophia, on<span class="op">=</span><span class="st">&quot;flips&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>    teresa.merge(sophia, on<span class="op">=</span><span class="st">&quot;flips&quot;</span>)</span></code></pre></div>
 <p><em>Hint: The answer is less than 200.</em></p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading4_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_1" aria-expanded="true" aria-controls="collapse4_1">
+<h2 class="accordion-header" id="heading6_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_1" aria-expanded="true" aria-controls="collapse6_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse4_1" class="accordion-collapse collapse collapse"
-aria-labelledby="heading4_1" data-bs-parent="#accordionExample">
+<div id="collapse6_1" class="accordion-collapse collapse collapse"
+aria-labelledby="heading6_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -724,7 +675,7 @@ in <span class="math inline">8 \cdot 7 = 56</span> rows with
 </div>
 <p><br></p>
 <p><br></p>
-<h3 id="problem-4.2">Problem 4.2</h3>
+<h3 id="problem-6.2">Problem 6.2</h3>
 <p>Let <span class="math inline">A</span> be your answer to the previous
 part. Now, suppose that:</p>
 <ul>
@@ -748,13 +699,13 @@ DataFrame?</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading4_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_2" aria-expanded="true" aria-controls="collapse4_2">
+<h2 class="accordion-header" id="heading6_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_2" aria-expanded="true" aria-controls="collapse6_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse4_2" class="accordion-collapse collapse collapse"
-aria-labelledby="heading4_2" data-bs-parent="#accordionExample">
+<div id="collapse6_2" class="accordion-collapse collapse collapse"
+aria-labelledby="heading6_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -781,7 +732,7 @@ the total number of rows in the new merged DataFrame will be <span class="math i
 </div>
 <p><br></p>
 <hr />
-<h2 id="problem-5">Problem 5</h2>
+<h2 id="problem-7">Problem 7</h2>
 <p>In recent years, there has been an explosion of board games that
 teach computer programming skills, including <em>CoderMindz</em>,
 <em>Robot Turtles</em>, and <em>Code Monkey Island</em>. Many such games
@@ -790,29 +741,30 @@ were made possible by Kickstarter crowdfunding campaigns.</p>
 of functions and conditional statements by answering questions about the
 function <code>wham</code>, defined below. Like players of this game,
 you’ll also need to answer questions about this function.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="kw">def</span> wham(a, b):</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>   <span class="cf">if</span> a <span class="op">&lt;</span> b:</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>       <span class="cf">return</span> a <span class="op">+</span> <span class="dv">2</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span>   <span class="cf">if</span> a <span class="op">+</span> <span class="dv">2</span> <span class="op">==</span> b:</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span>       <span class="bu">print</span>(a <span class="op">+</span> <span class="dv">3</span>)</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span>       <span class="cf">return</span> b <span class="op">+</span> <span class="dv">1</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span>   <span class="cf">elif</span> a <span class="op">-</span> <span class="dv">1</span> <span class="op">&gt;</span> b:</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="dv">8</span>       <span class="bu">print</span>(a)</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="dv">9</span>       <span class="cf">return</span> a <span class="op">+</span> <span class="dv">2</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span>  <span class="cf">else</span>:</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="dv">11</span>      <span class="cf">return</span> a <span class="op">+</span> <span class="dv">1</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="kw">def</span> wham(a, b):</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>   <span class="cf">if</span> a <span class="op">&lt;</span> b:</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>       <span class="cf">return</span> a <span class="op">+</span> <span class="dv">2</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span>   <span class="cf">if</span> a <span class="op">+</span> <span class="dv">2</span> <span class="op">==</span> b:</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span>       <span class="bu">print</span>(a <span class="op">+</span> <span class="dv">3</span>)</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span>       <span class="cf">return</span> b <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span>   <span class="cf">elif</span> a <span class="op">-</span> <span class="dv">1</span> <span class="op">&gt;</span> b:</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="dv">8</span>       <span class="bu">print</span>(a)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="dv">9</span>       <span class="cf">return</span> a <span class="op">+</span> <span class="dv">2</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span>  <span class="cf">else</span>:</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="dv">11</span>      <span class="cf">return</span> a <span class="op">+</span> <span class="dv">1</span></span></code></pre></div>
 <p><br></p>
-<h3 id="problem-5.1">Problem 5.1</h3>
+<h3 id="problem-7.1">Problem 7.1</h3>
 <p>What is printed when we run <code>print(wham(6, 4))</code>?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading5_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_1" aria-expanded="true" aria-controls="collapse5_1">
+<h2 class="accordion-header" id="heading7_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_1" aria-expanded="true" aria-controls="collapse7_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse5_1" class="accordion-collapse collapse collapse"
-aria-labelledby="heading5_1" data-bs-parent="#accordionExample">
+<div id="collapse7_1" class="accordion-collapse collapse collapse"
+aria-labelledby="heading7_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -840,19 +792,19 @@ minus 1 is greater than <code>b</code>, 4. This is True! <span class="math inlin
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-5.2">Problem 5.2</h3>
+<h3 id="problem-7.2">Problem 7.2</h3>
 <p>Give an example of a pair of integers <code>a</code> and
 <code>b</code> such that <code>wham(a, b)</code> returns
 <code>a + 1</code>.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading5_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_2" aria-expanded="true" aria-controls="collapse5_2">
+<h2 class="accordion-header" id="heading7_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_2" aria-expanded="true" aria-controls="collapse7_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse5_2" class="accordion-collapse collapse collapse"
-aria-labelledby="heading5_2" data-bs-parent="#accordionExample">
+<div id="collapse7_2" class="accordion-collapse collapse collapse"
+aria-labelledby="heading7_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -892,7 +844,7 @@ trigger the <code>else</code> statement.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-5.3">Problem 5.3</h3>
+<h3 id="problem-7.3">Problem 7.3</h3>
 <p>Which of the following lines of code will never be executed, for any
 input?</p>
 <ul class="task-list">
@@ -903,13 +855,13 @@ input?</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading5_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_3" aria-expanded="true" aria-controls="collapse5_3">
+<h2 class="accordion-header" id="heading7_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_3" aria-expanded="true" aria-controls="collapse7_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse5_3" class="accordion-collapse collapse collapse"
-aria-labelledby="heading5_3" data-bs-parent="#accordionExample">
+<div id="collapse7_3" class="accordion-collapse collapse collapse"
+aria-labelledby="heading7_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -931,225 +883,305 @@ that the <code>return</code> on line 6 never happens.</p>
 </div>
 <p><br></p>
 <hr />
-<h2 id="problem-6">Problem 6</h2>
-<p>The DataFrame <code>evs</code> consists of 32 rows, each of which
-contains information about a different EV model.</p>
-<p>The first few rows of <code>evs</code> are shown below.</p>
-<center><img src='../assets/images/fa22-midterm/form22.png' width=60%></center>
-<p><br></p>
-<p><br><br></p>
-<p>We also have a DataFrame that contains the distribution of
-“BodyStyle” for all “Brands” in <code>evs</code>, other than Nissan.</p>
-<center><img src='../assets/images/fa22-midterm/midq6.png' width=50%></center>
-<p>Suppose we’ve run the following few lines of code.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>tesla <span class="op">=</span> evs[evs.get(<span class="st">&quot;Brand&quot;</span>) <span class="op">==</span> <span class="st">&quot;Tesla&quot;</span>]</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>bmw <span class="op">=</span> evs[evs.get(<span class="st">&quot;Brand&quot;</span>) <span class="op">==</span> <span class="st">&quot;BMW&quot;</span>]</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>audi <span class="op">=</span> evs[evs.get(<span class="st">&quot;Brand&quot;</span>) <span class="op">==</span> <span class="st">&quot;Audi&quot;</span>]</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>combo <span class="op">=</span> tesla.merge(bmw, on<span class="op">=</span><span class="st">&quot;BodyStyle&quot;</span>).merge(audi, on<span class="op">=</span><span class="st">&quot;BodyStyle&quot;</span>)</span></code></pre></div>
-<p>How many rows does the DataFrame <code>combo</code> have?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> 21</p></li>
-<li><p><input type="radio" disabled="" /> 24</p></li>
-<li><p><input type="radio" disabled="" /> 35</p></li>
-<li><p><input type="radio" disabled="" /> 65</p></li>
-<li><p><input type="radio" disabled="" /> 72</p></li>
-<li><p><input type="radio" disabled="" /> 96</p></li>
+<h2 id="problem-8">Problem 8</h2>
+<p>King Triton had four children, and each of his four children started
+their own families. These four families organize a Triton family reunion
+each year. The compositions of the four families are as follows:</p>
+<ul>
+<li><p>Family W: <code>"1a4c"</code></p></li>
+<li><p>Family X: <code>"2a1c"</code></p></li>
+<li><p>Family Y: <code>"2a3c"</code></p></li>
+<li><p>Family Z: <code>"1a1c"</code></p></li>
 </ul>
+<p>Suppose we choose one of the fifteen people at the Triton family
+reunion at random.</p>
+<p><br></p>
+<h3 id="problem-8.1">Problem 8.1</h3>
+<p>Given that the chosen individual is from a family with one child,
+what is the probability that they are from Family X? Give your answer as
+a simplified fraction.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading6">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6" aria-expanded="true" aria-controls="collapse6">
+<h2 class="accordion-header" id="heading8_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_1" aria-expanded="true" aria-controls="collapse8_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse6" class="accordion-collapse collapse collapse"
-aria-labelledby="heading6" data-bs-parent="#accordionExample">
+<div id="collapse8_1" class="accordion-collapse collapse collapse"
+aria-labelledby="heading8_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer:</strong> 35</p>
-<p>Let’s attempt this problem step-by-step. We’ll first determine the
-number of rows in <code>tesla.merge(bmw, on="BodyStyle")</code>, and
-then determine the number of rows in <code>combo</code>. <strong>For the
-purposes of the solution, let’s use <code>temp</code> to refer to the
-first merged DataFrame,
-<code>tesla.merge(bmw, on="BodyStyle")</code>.</strong></p>
-<p>Recall, when we <code>merge</code> two DataFrames, the resulting
-DataFrame contains a single row for every match between the two columns,
-and rows in either DataFrame without a match disappear. In this problem,
-the column that we’re looking for matches in is
-<code>"BodyStyle"</code>.</p>
-<p>To determine the number of rows of <code>temp</code>, we need to
-determine which rows of <code>tesla</code> have a
-<code>"BodyStyle"</code> that matches a row in <code>bmw</code>. From
-the DataFrame provided, we can see that the only
-<code>"BodyStyle"</code>s in both <code>tesla</code> and
-<code>bmw</code> are SUV and sedan. When we merge <code>tesla</code> and
-<code>bmw</code> on <code>"BodyStyle"</code>:</p>
-<ul>
-<li>The 4 SUV rows in <code>tesla</code> each match the 1 SUV row in
-<code>bmw</code>. This will create 4 SUV rows in <code>temp</code>.</li>
-<li>The 3 sedan rows in <code>tesla</code> each match the 1 sedan row in
-<code>bmw</code>. This will create 3 sedan rows in
-<code>temp</code>.</li>
-</ul>
-<p>So, <code>temp</code> is a DataFrame with a total of 7 rows, with 4
-rows for SUVs and 3 rows for sedans (in the <code>"BodyStyle"</code>)
-column. Now, when we merge <code>temp</code> and <code>audi</code> on
-<code>"BodyStyle"</code>:</p>
-<ul>
-<li>The 4 SUV rows in <code>temp</code> each match the 8 SUV rows in
-<code>audi</code>. This will create <span class="math inline">4 \cdot 8
-= 32</span> SUV rows in <code>combo</code>.</li>
-<li>The 3 sedan rows in <code>temp</code> each match the 1 sedan row in
-<code>audi</code>. This will create <span class="math inline">3 \cdot 1
-= 3</span> sedan rows in <code>combo</code>.</li>
-</ul>
-<p>Thus, the total number of rows in <code>combo</code> is <span class="math inline">32 + 3 = 35</span>.</p>
-<p>Note: You may notice that 35 is the result of multiplying the
-<code>"SUV"</code> and <code>"Sedan"</code> columns in the DataFrame
-provided, and adding up the results. This problem is similar to <a href="../fa21-midterm/index.html#problem-5">Problem 5 from the Fall 2021
-Midterm</a>.</p>
+<p><strong>Answer:</strong> <span class="math inline">\frac{3}{5}</span></p>
+<p>Given that the chosen individual is from a family with one child, we
+know that they must be from either Family X or Family Z. There are three
+individuals in Family X, and there are a total of five individuals from
+these two families. Thus, the probability of choosing any one of the
+three individuals from Family X out of the five individuals from both
+families is <span class="math inline">\frac{3}{5}</span>.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
 <p>
 </p>
-<p>The average score on this problem was 45%.</p>
+<p>The average score on this problem was 43%.</p>
 </div>
 </div>
 </div>
 </div>
-<hr />
-<h2 id="problem-7">Problem 7</h2>
-<p>The <code>sums</code> function takes in an array of numbers and
-outputs the cumulative sum for each item in the array. The cumulative
-sum for an element is the current element plus the sum of all the
-previous elements in the array.</p>
-<p>For example:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> sums(np.array([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]))</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>array([<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">10</span>, <span class="dv">15</span>])</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> sums(np.array([<span class="dv">100</span>, <span class="dv">1</span>, <span class="dv">1</span>]))</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>array([<span class="dv">100</span>, <span class="dv">101</span>, <span class="dv">102</span>])</span></code></pre></div>
-<p>The incomplete definition of <code>sums</code> is shown below.</p>
-<div class="sourceCode" id="cb10"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> sums(arr):</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    res <span class="op">=</span> _________</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>             (a)</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    res <span class="op">=</span> np.append(res, arr[<span class="dv">0</span>])</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> _________:</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>                (b)</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>        res <span class="op">=</span> np.append(res, _________)</span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>                                (c)</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> res</span></code></pre></div>
 <p><br></p>
-<h3 id="problem-7.1">Problem 7.1</h3>
-<p>Fill in blank (a).</p>
+<h3 id="problem-8.2">Problem 8.2</h3>
+<p>Consider the events <span class="math inline">A</span> and <span
+class="math inline">B</span>, defined below.</p>
+<ul>
+<li><p><span class="math inline">A</span>: The chosen individual is an
+adult.</p></li>
+<li><p><span class="math inline">B</span>: The chosen individual is a
+child.</p></li>
+</ul>
+<p>True or False: Events <span class="math inline">A</span> and <span
+class="math inline">B</span> are independent.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
+</ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading7_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_1" aria-expanded="true" aria-controls="collapse7_1">
+<h2 class="accordion-header" id="heading8_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_2" aria-expanded="true" aria-controls="collapse8_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse7_1" class="accordion-collapse collapse collapse"
-aria-labelledby="heading7_1" data-bs-parent="#accordionExample">
+<div id="collapse8_2" class="accordion-collapse collapse collapse"
+aria-labelledby="heading8_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer: </strong> <code>np.array([])</code> or
-<code>[]</code></p>
-<p><code>res</code> is the list in which we’ll be storing each
-cumulative sum. Thus we start by initializing <code>res</code> to an
-empty array or list.</p>
+<p><strong>Answer:</strong> False</p>
+<p>If two events are independent, knowledge of one event happening does
+not change the probability of the other event happening. In this case,
+events <span class="math inline">A</span> and <span class="math inline">B</span> are not independent because knowledge of
+one event gives complete knowledge of the other.</p>
+<p>To see this, note that the probability of choosing a child randomly
+out of the fifteen individuals is <span class="math inline">\frac{9}{15}</span>. That is, <span class="math inline">P(B) = \frac{9}{15}</span>.</p>
+<p>Suppose now that we know that the chosen individual is an adult. In
+this case, the probability that the chosen individual is a child is
+<span class="math inline">0</span>, because nobody is both a child and
+an adult. That is, <span class="math inline">P(B \text{ given } A) =
+0</span>, which is not the same as <span class="math inline">P(B) =
+\frac{9}{15}</span>.</p>
+<p>This problem illustrates the difference between mutually exclusive
+events and independent events. In this case <span class="math inline">A</span> and <span class="math inline">B</span> are
+mutually exclusive, because they cannot both happen. But that forces
+them to be dependent events, because knowing that someone is an adult
+completely determines the probability that they are a child (it’s
+zero!)</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 33%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-8.3">Problem 8.3</h3>
+<p>Consider the events <span class="math inline">C</span> and <span
+class="math inline">D</span>, defined below.</p>
+<ul>
+<li><p><span class="math inline">C</span>: The chosen individual is a
+child.</p></li>
+<li><p><span class="math inline">D</span>: The chosen individual is from
+family <span class="math inline">Y</span>.</p></li>
+</ul>
+<p>True or False: Events <span class="math inline">C</span> and <span
+class="math inline">D</span> are independent.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading8_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_3" aria-expanded="true" aria-controls="collapse8_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse8_3" class="accordion-collapse collapse collapse"
+aria-labelledby="heading8_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> True</p>
+<p>If two events are independent, the probability of one event happening
+does not change when we know that the other event happens. In this case,
+events <span class="math inline">C</span> and <span class="math inline">D</span> are indeed independent.</p>
+<p>If we know that the chosen individual is a child, the probability
+that they come from Family Y is <span class="math inline">\frac{3}{9}</span>, which simplifies to <span class="math inline">\frac{1}{3}</span>. That is <span class="math inline">P(D \text{ given } C) = \frac{1}{3}</span>.</p>
+<p>On the other hand, without any prior knowledge, when we select
+someone randomly from all fifteen individuals, the probability they come
+from Family Y is <span class="math inline">\frac{5}{15}</span>, which
+also simplifies to <span class="math inline">\frac{1}{3}</span>. This
+says <span class="math inline">P(D) = \frac{1}{3}</span>.</p>
+<p>In other words, knowledge of <span class="math inline">C</span> is
+irrelevant to the probability of <span class="math inline">D</span>
+occurring, which means <span class="math inline">C</span> and <span class="math inline">D</span> are independent.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 35%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-8.4">Problem 8.4</h3>
+<p>At the reunion, the Tritons play a game that involves placing the
+four letters into a hat (W, X, Y, and Z, corresponding to the four
+families). Then, <strong>five times</strong>, they draw a letter from
+the hat, write it down on a piece of paper, and place it back into the
+hat.</p>
+<p>Let <span class="math inline">p = \frac{1}{4}</span> in the questions
+that follow.</p>
+<p>What is the probability that Family W is selected all 5 times?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <span class="math inline">p^5</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">1 - p^5</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">1 - (1 - p)^5</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">(1 - p)^5</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">p \cdot (1 - p)^4</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">p^4 (1 - p)</span></p></li>
+<li><p><input type="radio" disabled="" /> None of these.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading8_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_4" aria-expanded="true" aria-controls="collapse8_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse8_4" class="accordion-collapse collapse collapse"
+aria-labelledby="heading8_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> <span class="math inline">p^5</span></p>
+<p>The probability of selecting Family W in the first round is <span class="math inline">p</span>, which is the same for the second round,
+the third round, and so on. Each of the chosen letters is drawn
+independently from the others because the result of one draw does not
+affect the result of the next. We can apply the multiplication rule here
+and multiply the probabilities of choosing Family W in each round. This
+comes out to be <span class="math inline">p\cdot p\cdot p\cdot p\cdot
+p</span>, which is <span class="math inline">p^5</span>.</p>
 <hr/>
 <h5>Difficulty: ⭐️</h5>
 <p>
 </p>
-<p>The average score on this problem was 100%.</p>
+<p>The average score on this problem was 91%.</p>
 </div>
 </div>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-7.2">Problem 7.2</h3>
-<p>Fill in blank (b).</p>
+<p><br></p>
+<h3 id="problem-8.5">Problem 8.5</h3>
+<p>What is the probability that Family W is selected at least once?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <span class="math inline">p^5</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">1 - p^5</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">1 - (1 - p)^5</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">(1 - p)^5</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">p \cdot (1 - p)^4</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">p^4 (1 - p)</span></p></li>
+<li><p><input type="radio" disabled="" /> None of these.</p></li>
+</ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading7_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_2" aria-expanded="true" aria-controls="collapse7_2">
+<h2 class="accordion-header" id="heading8_5">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_5" aria-expanded="true" aria-controls="collapse8_5">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse7_2" class="accordion-collapse collapse collapse"
-aria-labelledby="heading7_2" data-bs-parent="#accordionExample">
+<div id="collapse8_5" class="accordion-collapse collapse collapse"
+aria-labelledby="heading8_5" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer: </strong> <code>range(1, len(arr))</code> or
-<code>np.arange(1, len(arr))</code></p>
-<p>We’re trying to loop through the indices of <code>arr</code> and
-calculate the cumulative sum corresponding to each entry. To access each
-index in sequential order, we simply use <code>range()</code> or
-<code>np.arange()</code>. However, notice that we have already appended
-the first entry of <code>arr</code> to <code>res</code> on line 3 of the
-code snippet. (Note that the first entry of <code>arr</code> is the same
-as the first cumulative sum.) Thus the lower bound of
-<code>range()</code> (or <code>np.arange()</code>) actually starts at 1,
-not 0. The upper bound is still <code>len(arr)</code> as usual.</p>
+<p><strong>Answer:</strong> <span class="math inline">1 - (1 -
+p)^5</span></p>
+<p>Since there are too many ways that Family W can be selected to meet
+the condition that it is selected at least once, it is easier if we
+calculate the probability that Family W is never selected and subtract
+that from 1. The probability that Family W is not selected in the first
+round is <span class="math inline">1-p</span>, which is the same for the
+second round, the third round, and so on. We want this to happen for all
+five rounds, and since the events are independent, we can multiply their
+probabilities all together. This comes out to be <span class="math inline">(1-p)^5</span>, which represents the probability
+that Family W is never selected. Finally, we subtract <span class="math inline">(1-p)^5</span> from 1 to find the probability that
+Family W is selected at least once, giving the answer <span class="math inline">1 - (1-p)^5</span>.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
 </p>
-<p>The average score on this problem was 64%.</p>
+<p>The average score on this problem was 62%.</p>
 </div>
 </div>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-7.3">Problem 7.3</h3>
-<p>Fill in blank (c).</p>
+<h3 id="problem-8.6">Problem 8.6</h3>
+<p>What is the probability that Family W is selected exactly once, as
+the last family that is selected?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <span class="math inline">p^5</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">1 - p^5</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">1 - (1 - p)^5</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">(1 - p)^5</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">p \cdot (1 - p)^4</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">p^4 (1 - p)</span></p></li>
+<li><p><input type="radio" disabled="" /> None of these.</p></li>
+</ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading7_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_3" aria-expanded="true" aria-controls="collapse7_3">
+<h2 class="accordion-header" id="heading8_6">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_6" aria-expanded="true" aria-controls="collapse8_6">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse7_3" class="accordion-collapse collapse collapse"
-aria-labelledby="heading7_3" data-bs-parent="#accordionExample">
+<div id="collapse8_6" class="accordion-collapse collapse collapse"
+aria-labelledby="heading8_6" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer: </strong> <code>res[i - 1] + arr[i]</code> or
-<code>sum(arr[:i + 1])</code></p>
-<p>Looking at the syntax of the problem, the blank we have to fill
-essentially requires us to calculate the current cumulative sum, since
-the rest of line will already append the blank to <code>res</code> for
-us. One way to think of a cumulative sum is to add the “current”
-<code>arr</code> element to the previous cumulative sum, since the
-previous cumulative sum encapsulates all the previous elements. Because
-we have access to both of those values, we can easily represent it as
-<code>res[i - 1] + arr[i]</code>. The second answer is more a more
-direct approach. Because the cumulative sum is just the sum of all the
-previous elements up to the current element, we can directly compute it
-with <code>sum(arr[:i + 1])</code></p>
+<p><strong>Answer:</strong> <span class="math inline">p \cdot (1 -
+p)^4</span></p>
+<p>We want to find the probability of Family W being selected only as
+the last draw, and not in the first four draws. The probability that
+Family W is not selected in the first draw is <span class="math inline">(1-p)</span>, which is the same for the second,
+third, and fourth draws. For the fifth draw, the probability of choosing
+Family W is <span class="math inline">p</span>. Since the draws are
+independent, we can multiply these probabilities together, which comes
+out to be <span class="math inline">(1-p)^4 \cdot p = p\cdot
+(1-p)^4</span>.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
 </p>
-<p>The average score on this problem was 71%.</p>
+<p>The average score on this problem was 67%.</p>
 </div>
 </div>
 </div>
 </div>
 <p><br></p>
 <hr />
-<h2 id="problem-8">Problem 8</h2>
+<h2 id="problem-9">Problem 9</h2>
 <p>We’ll be looking at a DataFrame named <code>sungod</code> that
 contains information on the artists who have performed at Sun God in
 years past. <strong>For each year that the festival was held, we have
@@ -1196,13 +1228,13 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb11-1"><a href=
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading8">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8" aria-expanded="true" aria-controls="collapse8">
+<h2 class="accordion-header" id="heading9">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9" aria-expanded="true" aria-controls="collapse9">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse8" class="accordion-collapse collapse collapse"
-aria-labelledby="heading8" data-bs-parent="#accordionExample">
+<div id="collapse9" class="accordion-collapse collapse collapse"
+aria-labelledby="heading9" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -1233,7 +1265,7 @@ in <code>sungod</code>.</p>
 </div>
 </div>
 <hr />
-<h2 id="problem-9">Problem 9</h2>
+<h2 id="problem-10">Problem 10</h2>
 <p>Another DataFrame called <code>music</code> contains a row for every
 music artist that has ever released a song. The columns are:</p>
 <ul>
@@ -1258,13 +1290,13 @@ determine the answer?</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading9">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9" aria-expanded="true" aria-controls="collapse9">
+<h2 class="accordion-header" id="heading10">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10" aria-expanded="true" aria-controls="collapse10">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse9" class="accordion-collapse collapse collapse"
-aria-labelledby="heading9" data-bs-parent="#accordionExample">
+<div id="collapse10" class="accordion-collapse collapse collapse"
+aria-labelledby="heading10" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -1297,7 +1329,7 @@ but this is not one of the answer choices.</p>
 </div>
 </div>
 <hr />
-<h2 id="problem-10">Problem 10</h2>
+<h2 id="problem-11">Problem 11</h2>
 <p>Consider an artist that has only appeared once at Sun God. At the
 time of their Sun God performance, we’ll call the artist</p>
 <ul>
@@ -1322,17 +1354,17 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb12-1"><a href=
 <span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
 <span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;trending&#39;</span></span></code></pre></div>
 <p><br></p>
-<h3 id="problem-10.1">Problem 10.1</h3>
+<h3 id="problem-11.1">Problem 11.1</h3>
 <p>What goes in blank (a)?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading10_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10_1" aria-expanded="true" aria-controls="collapse10_1">
+<h2 class="accordion-header" id="heading11_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11_1" aria-expanded="true" aria-controls="collapse11_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse10_1" class="accordion-collapse collapse collapse"
-aria-labelledby="heading10_1" data-bs-parent="#accordionExample">
+<div id="collapse11_1" class="accordion-collapse collapse collapse"
+aria-labelledby="heading11_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -1372,17 +1404,17 @@ fits the desired format.</p>
 </div>
 </div>
 <p><br> <br></p>
-<h3 id="problem-10.2">Problem 10.2</h3>
+<h3 id="problem-11.2">Problem 11.2</h3>
 <p>What goes in blank (b)?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading10_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10_2" aria-expanded="true" aria-controls="collapse10_2">
+<h2 class="accordion-header" id="heading11_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11_2" aria-expanded="true" aria-controls="collapse11_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse10_2" class="accordion-collapse collapse collapse"
-aria-labelledby="heading10_2" data-bs-parent="#accordionExample">
+<div id="collapse11_2" class="accordion-collapse collapse collapse"
+aria-labelledby="heading11_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -1405,9 +1437,9 @@ would be considered correct.</p>
 </div>
 <p><br></p>
 <hr />
-<h2 id="problem-11">Problem 11</h2>
+<h2 id="problem-12">Problem 12</h2>
 <p><br></p>
-<h3 id="problem-11.1">Problem 11.1</h3>
+<h3 id="problem-12.1">Problem 12.1</h3>
 <p>You’re definitely going to Sun God 2022, but you don’t want to go
 alone! Fortunately, you have <span class="math inline">n</span> friends
 who promise to go with you. Unfortunately, your friends are somewhat
@@ -1417,13 +1449,13 @@ you wind up going alone? Give your answer in terms of <span
 class="math inline">p</span> and <span class="math inline">n</span>.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading11_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11_1" aria-expanded="true" aria-controls="collapse11_1">
+<h2 class="accordion-header" id="heading12_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12_1" aria-expanded="true" aria-controls="collapse12_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse11_1" class="accordion-collapse collapse collapse"
-aria-labelledby="heading11_1" data-bs-parent="#accordionExample">
+<div id="collapse12_1" class="accordion-collapse collapse collapse"
+aria-labelledby="heading12_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -1445,7 +1477,7 @@ not coming is <span class="math inline">(1-p)^n</span>.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-11.2">Problem 11.2</h3>
+<h3 id="problem-12.2">Problem 12.2</h3>
 <p>In past Sun God festivals, sometimes artists that were part of the
 lineup have failed to show up! Let’s say there are <span
 class="math inline">n</span> artists scheduled for Sun God 2022, and
@@ -1457,13 +1489,13 @@ answer in terms of <span class="math inline">p</span> and <span
 class="math inline">n</span>.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading11_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11_2" aria-expanded="true" aria-controls="collapse11_2">
+<h2 class="accordion-header" id="heading12_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12_2" aria-expanded="true" aria-controls="collapse12_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse11_2" class="accordion-collapse collapse collapse"
-aria-labelledby="heading11_2" data-bs-parent="#accordionExample">
+<div id="collapse12_2" class="accordion-collapse collapse collapse"
+aria-labelledby="heading12_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -1487,7 +1519,7 @@ showing up is <span class="math inline">1-p^n</span>.</p>
 </div>
 <p><br></p>
 <hr />
-<h2 id="problem-12">Problem 12</h2>
+<h2 id="problem-13">Problem 13</h2>
 <p>For each offer currently available, the DataFrame <code>offers</code>
 has a separate row for each category of products to which the offer can
 be applied. The columns are:</p>
@@ -1508,17 +1540,17 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb13-1"><a href=
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>                       .merge(offers, left_on<span class="op">=</span><span class="st">&#39;category&#39;</span>,  </span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>                                      right_on<span class="op">=</span><span class="st">&#39;eligible_category&#39;</span>))</span></code></pre></div>
 <p><br></p>
-<h3 id="problem-12.1">Problem 12.1</h3>
+<h3 id="problem-13.1">Problem 13.1</h3>
 <p>How many rows does <code>with_offers</code> have?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading12_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12_1" aria-expanded="true" aria-controls="collapse12_1">
+<h2 class="accordion-header" id="heading13_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13_1" aria-expanded="true" aria-controls="collapse13_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse12_1" class="accordion-collapse collapse collapse"
-aria-labelledby="heading12_1" data-bs-parent="#accordionExample">
+<div id="collapse13_1" class="accordion-collapse collapse collapse"
+aria-labelledby="heading13_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -1554,18 +1586,18 @@ here</a>.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-12.2">Problem 12.2</h3>
+<h3 id="problem-13.2">Problem 13.2</h3>
 <p>How many rows of <code>with_offers</code> have a value of 20 in the
 <code>'percent_off'</code> column?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading12_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12_2" aria-expanded="true" aria-controls="collapse12_2">
+<h2 class="accordion-header" id="heading13_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13_2" aria-expanded="true" aria-controls="collapse13_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse12_2" class="accordion-collapse collapse collapse"
-aria-labelledby="heading12_2" data-bs-parent="#accordionExample">
+<div id="collapse13_2" class="accordion-collapse collapse collapse"
+aria-labelledby="heading13_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -1594,7 +1626,7 @@ rows 0 and 2 of the output DataFrame.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-12.3">Problem 12.3</h3>
+<h3 id="problem-13.3">Problem 13.3</h3>
 <p>If you can use just one offer per product, you’d want to use the one
 that saves you the most money, which we’ll call the best offer.</p>
 <p><strong>True or False</strong>: The expression below evaluates to a
@@ -1609,13 +1641,13 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb14-1"><a href=
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading12_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12_3" aria-expanded="true" aria-controls="collapse12_3">
+<h2 class="accordion-header" id="heading13_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13_3" aria-expanded="true" aria-controls="collapse13_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse12_3" class="accordion-collapse collapse collapse"
-aria-labelledby="heading12_3" data-bs-parent="#accordionExample">
+<div id="collapse13_3" class="accordion-collapse collapse collapse"
+aria-labelledby="heading13_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -1656,7 +1688,7 @@ code</a>.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-12.4">Problem 12.4</h3>
+<h3 id="problem-13.4">Problem 13.4</h3>
 <p>You want to add a column to <code>with_offers</code> containing the
 price after the offer discount is applied.</p>
 <div class="sourceCode" id="cb15"><pre
@@ -1672,13 +1704,13 @@ apply.</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading12_4">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12_4" aria-expanded="true" aria-controls="collapse12_4">
+<h2 class="accordion-header" id="heading13_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13_4" aria-expanded="true" aria-controls="collapse13_4">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse12_4" class="accordion-collapse collapse collapse"
-aria-labelledby="heading12_4" data-bs-parent="#accordionExample">
+<div id="collapse13_4" class="accordion-collapse collapse collapse"
+aria-labelledby="heading13_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -1730,7 +1762,7 @@ original price!</p>
 </div>
 <p><br></p>
 <hr />
-<h2 id="problem-13">Problem 13</h2>
+<h2 id="problem-14">Problem 14</h2>
 <p>The HAUGA bedroom furniture set includes two items, a bed frame and a
 bedside table. Suppose the amount of time it takes someone to assemble
 the bed frame is a random quantity drawn from the probability
@@ -1787,19 +1819,19 @@ bed frame, drawn from the probability distribution below.</p>
 </table>
 </center>
 <p><br></p>
-<h3 id="problem-13.1">Problem 13.1</h3>
+<h3 id="problem-14.1">Problem 14.1</h3>
 <p>What is the probability that Stella assembles the bed frame in 10
 minutes if we know it took her less than 30 minutes to assemble? Give
 your answer as a decimal between 0 and 1.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading13_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13_1" aria-expanded="true" aria-controls="collapse13_1">
+<h2 class="accordion-header" id="heading14_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse14_1" aria-expanded="true" aria-controls="collapse14_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse13_1" class="accordion-collapse collapse collapse"
-aria-labelledby="heading13_1" data-bs-parent="#accordionExample">
+<div id="collapse14_1" class="accordion-collapse collapse collapse"
+aria-labelledby="heading14_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -1850,19 +1882,19 @@ happens with a probability of 0.5. We’d get the same answer, <span class="math
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-13.2">Problem 13.2</h3>
+<h3 id="problem-14.2">Problem 14.2</h3>
 <p>What is the probability that Ryland assembles the bedside table in 40
 minutes if we know that it took him 30 minutes to assemble the bed
 frame? Give your answer as a decimal between 0 and 1</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading13_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13_2" aria-expanded="true" aria-controls="collapse13_2">
+<h2 class="accordion-header" id="heading14_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse14_2" aria-expanded="true" aria-controls="collapse14_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse13_2" class="accordion-collapse collapse collapse"
-aria-labelledby="heading13_2" data-bs-parent="#accordionExample">
+<div id="collapse14_2" class="accordion-collapse collapse collapse"
+aria-labelledby="heading14_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -1883,18 +1915,18 @@ assembling the bedside table in 40 minutes is 0.4. </p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-13.3">Problem 13.3</h3>
+<h3 id="problem-14.3">Problem 14.3</h3>
 <p>What is the probability that Jin assembles the complete HAUGA set in
 at most 60 minutes? Give your answer as a decimal between 0 and 1.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading13_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13_3" aria-expanded="true" aria-controls="collapse13_3">
+<h2 class="accordion-header" id="heading14_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse14_3" aria-expanded="true" aria-controls="collapse14_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse13_3" class="accordion-collapse collapse collapse"
-aria-labelledby="heading13_3" data-bs-parent="#accordionExample">
+<div id="collapse14_3" class="accordion-collapse collapse collapse"
+aria-labelledby="heading14_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -1928,282 +1960,6 @@ cases, we get <span class="math inline">0.1+0.28+0.15 = 0.53</span>.
 </div>
 </div>
 <p><br></p>
-<hr />
-<h2 id="problem-14">Problem 14</h2>
-<p><br></p>
-<h3 id="problem-14.1">Problem 14.1</h3>
-<p>The DataFrame <code>plum</code> contains Kelsey Plum’s stats for all
-games the Las Vegas Aces played in 2021. The first few rows of
-<code>plum</code> are shown below (though the full DataFrame has 31
-rows, not 5):</p>
-<center><img src='../assets/images/wi22-final/plum.png' width=40%></center>
-<p>Each row in <code>plum</code> corresponds to a single game. For each
-game, we have:</p>
-<ul>
-<li><code>'Date'</code> (<code>str</code>), the date on which the game
-was played</li>
-<li><code>'Opp'</code> (<code>str</code>), the three-letter code of the
-opponent team</li>
-<li><code>'Home'</code> (<code>bool</code>), <code>True</code> if the
-game was played in Las Vegas (“home”) and <code>False</code> if it was
-played at the opponent’s arena (“away”)</li>
-<li><code>'Won'</code> (<code>bool</code>), <code>True</code> if the Las
-Vegas Aces won the game and <code>False</code> if they lost</li>
-<li><code>'PTS'</code> (<code>int</code>), the number of points Kelsey
-Plum scored in the game</li>
-<li><code>'AST'</code> (<code>int</code>), the number of assists
-(passes) Kelsey Plum made in the game</li>
-<li><code>'TOV'</code> (<code>int</code>), the number of turnovers
-Kelsey Plum made in the game (a turnover is when you lose the ball –
-turnovers are bad!)</li>
-</ul>
-<p>Suppose that Plum’s team, the Las Vegas Aces, won at least one game
-in Las Vegas and lost at least one game in Las Vegas. Also, suppose they
-won at least one game in an opponent’s arena and lost at least one game
-in an opponent’s arena.</p>
-<p>Consider the DataFrame <code>home_won</code>, defined below.</p>
-<div class="sourceCode" id="cb16"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>home_won <span class="op">=</span> plum.groupby([<span class="st">&#39;Home&#39;</span>, <span class="st">&#39;Won&#39;</span>]).mean().reset_index()</span></code></pre></div>
-<ol type="1">
-<li><p>How many rows does <code>home_won</code> have?</p></li>
-<li><p>How many columns does <code>home_won</code> have?</p></li>
-</ol>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading14_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse14_1" aria-expanded="true" aria-controls="collapse14_1">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse14_1" class="accordion-collapse collapse collapse"
-aria-labelledby="heading14_1" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer:</strong> 4 rows and 5 columns.</p>
-<p><code>plum.groupby(['Home', 'Won']).mean()</code> contains one row
-for every unique combination of <code>'Home'</code> and
-<code>'Won'</code>. There are two values of <code>'Home'</code> -
-<code>True</code> and <code>False</code> – and two values of
-<code>'Won'</code> – <code>True</code> and <code>False</code> – leading
-to 4 combinations. We can assume that there was at least one row in
-<code>plum</code> for each of these 4 combinations due to the assumption
-given in the problem:</p>
-<p><em>Suppose that Plum’s team, the Las Vegas Aces, won at least one
-game in Las Vegas and lost at least one game in Las Vegas. Also, suppose
-they won at least one game in an opponent’s arena and lost at least one
-game in an opponent’s arena.</em></p>
-<p><code>plum</code> started with 7 columns: <code>'Date'</code>,
-<code>'Opp'</code>, <code>'Home'</code>, <code>'Won'</code>,
-<code>'PTS'</code>, <code>'AST'</code>, and <code>'TOV'</code>. After
-grouping by <code>['Home', 'Won']</code> and using <code>.mean()</code>,
-<code>'Home'</code> and <code>'Won'</code> become the index. The
-resulting DataFrame contains all of the columns that the
-<code>.mean()</code> aggregation method can work on. We cannot take the
-mean of <code>'Date'</code> and <code>'Opp'</code>, because those
-columns are strings, so
-<code>plum.groupby(['Home', 'Won']).mean()</code> contains a
-<code>MultiIndex</code> with 2 “columns” – <code>'Home'</code> and
-<code>'Won'</code> – and 3 regular columns – <code>'PTS'</code>
-<code>'AST'</code>, and <code>'TOV'</code>. Then, when using
-<code>.reset_index()</code>, <code>'Home'</code> and <code>'Won'</code>
-are restored as regular columns, meaning that
-<code>plum.groupby(['Home', 'Won']).mean().reset_index()</code> has
-<span class="math inline">2 + 3 = 5</span> columns.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 78%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<hr />
-<h2 id="problem-15">Problem 15</h2>
-<p>King Triton, UCSD’s mascot, is quite the traveler! For this question,
-we will be working with the <code>flights</code> DataFrame, which
-details several facts about each of the flights that King Triton has
-been on over the past few years. The first few rows of
-<code>flights</code> are shown below.</p>
-<center><img src='../assets/images/fa21-midterm/flights.png' width=40%></center>
-<p><br></p>
-<p>Here’s a description of the columns in <code>flights</code>:</p>
-<ul>
-<li><code>'DATE'</code>: the date on which the flight occurred. Assume
-that there were no “redeye” flights that spanned multiple days.</li>
-<li><code>'FLIGHT'</code>: the flight number. Note that this is not
-unique; airlines reuse flight numbers on a daily basis.</li>
-<li><code>'FROM'</code> and <code>'TO'</code>: the 3-letter airport code
-for the departure and arrival airports, respectively. Note that it’s not
-possible to have a flight from and to the same airport.</li>
-<li><code>'DIST'</code>: the distance of the flight, in miles.</li>
-<li><code>'HOURS'</code>: the length of the flight, in hours.</li>
-<li><code>'SEAT'</code>: the kind of seat King Triton sat in on the
-flight; the only possible values are <code>'WINDOW'</code>,
-<code>'MIDDLE'</code>, and <code>'AISLE'</code>. <br><br></li>
-</ul>
-<p>We define a “route” to be a departure and arrival airport pair. For
-example, all flights from <code>'SFO'</code> to <code>'SAN'</code> make
-up the “SFO to SAN route”. This is different from the “SAN to SFO
-route”.</p>
-<p>Fill in the blanks below so that
-<code>most_frequent.get('FROM').iloc[0]</code> and
-<code>most_frequent.get('TO').iloc[0]</code> correspond to the departure
-and destination airports of the route that King Triton has spent the
-<strong>most time flying on</strong>.</p>
-<div class="sourceCode" id="cb17"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>most_frequent <span class="op">=</span> flights.groupby(__(a)__).__(b)__</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>most_frequent <span class="op">=</span> most_frequent.reset_index().sort_values(__(c)__)</span></code></pre></div>
-<p><br></p>
-<h3 id="problem-15.1">Problem 15.1</h3>
-<p>What goes in blank (a)?</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading15_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15_1" aria-expanded="true" aria-controls="collapse15_1">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse15_1" class="accordion-collapse collapse collapse"
-aria-labelledby="heading15_1" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> <code>['FROM', 'TO']</code></p>
-<p>We want to organize flights by route. This means we need to group by
-both <code>'FROM'</code> and <code>'TO'</code> so any flights with the
-same pair of departure and arrival airports get grouped together. To
-group by multiple columns, we must use a list containing all these
-column names, as in <code>flights.groupby(['FROM', 'TO'])</code>.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 72%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-15.2">Problem 15.2</h3>
-<p>What goes in blank (b)?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> <code>count()</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>mean()</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>sum()</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>max()</code></p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading15_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15_2" aria-expanded="true" aria-controls="collapse15_2">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse15_2" class="accordion-collapse collapse collapse"
-aria-labelledby="heading15_2" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> <code>sum()</code></p>
-<p>Every <code>.groupby</code> command needs an aggregation function!
-Since we are asked to find the route that King Triton has spent the most
-time flying on, we want to total the times for all flights on a given
-route.</p>
-<p>Note that <code>.count()</code> would tell us how many flights King
-Triton has taken on each route. That’s meaningful information, but not
-what we need to address the question of which route he spent the most
-time flying on.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 58%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-15.3">Problem 15.3</h3>
-<p>What goes in blank (c)?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> <code>by='HOURS', ascending=True</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>by='HOURS', ascending=False</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>by='HOURS', descending=True</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>by='DIST', ascending=False</code></p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading15_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15_3" aria-expanded="true" aria-controls="collapse15_3">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse15_3" class="accordion-collapse collapse collapse"
-aria-labelledby="heading15_3" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong>
-<code>by='HOURS', ascending=False</code></p>
-<p>We want to know the route that King Triton spent the most time flying
-on. After we group flights by route, summing flights on the same route,
-the <code>'HOURS'</code> column contains the total amount of time spent
-on each route. We need <code>most_frequent.get('FROM').iloc[0]</code>
-and <code>most_frequent.get('TO').iloc[0]</code> to correspond with the
-departure and destination airports of the route that King Triton has
-spent the most time flying on. To do this, we need to sort in descending
-order of time, to bring the largest time to the top of the DataFrame. So
-we must sort by <code>'HOURS'</code> with
-<code>ascending=False</code>.</p>
-<hr/>
-<h5>Difficulty: ⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 94%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<hr />
-<h2 id="problem-16">Problem 16</h2>
-<p><strong>True or False</strong>: If you roll two dice, the probability
-of rolling two fives is the same as the probability of rolling a six and
-a three.</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading16">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16" aria-expanded="true" aria-controls="collapse16">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse16" class="accordion-collapse collapse collapse"
-aria-labelledby="heading16" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> False</p>
-<p>The probability of rolling two fives can be found with 1/6 * 1/6 =
-1/36. The probability of rolling a six and a three can be found with 2/6
-(can roll either a 3 or 6) * 1/6 (roll a different side form 3 or 6,
-depending on what you rolled first) = 1/18. Therefore, the probabilities
-are not the same. </p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
-<p>The average score
-on this problem was 33%.</p>
-</div>
-</div>
-</div>
-</div>
 <hr />
 <h2 id="section"><span class="math display"> </span></h2>
 <h4
