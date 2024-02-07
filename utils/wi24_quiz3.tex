@@ -1,7 +1,7 @@
 \documentclass[twoside,12pt]{article}
 
 \usepackage{dsctemplate}
-\usepackage[margin=1in]{geometry}
+\usepackage[margin=0.9in]{geometry}
 \usepackage{amsmath}
 \usepackage{amssymb,amsthm}
 \usepackage{fancyhdr}
@@ -39,7 +39,7 @@
 \vspace{-5.5in}
 
 \pstitle{%
-    Quiz 2
+    Quiz 3
 }{DSC 10, Winter 2024}
 
 \vspace{-.3in}
@@ -92,127 +92,156 @@ Please do not open your quiz until instructed to do so.
 
 \newpage
 
-\noindent The \texttt{laptops} DataFrame contains information on various factors that influence the pricing of laptops. Each row represents a laptop, and the columns are 
+\begin{center}
+    \includegraphics[width=2in]{quiz_images/plane.jpg}
+\end{center}
+
+\noindent In the DataFrame \texttt{flights}, each row corresponds to a recent flight. The columns are:
+
 \begin{itemize}
-    \item \texttt{"Mfr" (str)}: the company that manufactures the laptop, like \texttt{"Apple"} or \texttt{"Dell"}. \vspace{-0.1in}
-    \item \texttt{"Model" (str)}: the model name of the laptop, such as \texttt{"MacBook Pro"}. \vspace{-0.1in}
-    \item \texttt{"OS" (str)}: the operating system, such as \texttt{"macOS"} or \texttt{"Windows 11"}.
-    \vspace{-0.1in}
-    \item \texttt{"Screen Size" (float)}: the diagonal length of the screen, in inches.
-    \vspace{-0.1in}
-    \item \texttt{"Price" (float)}: the price of the laptop, in dollars.
+    \item \texttt{flight\_num} (\texttt{str}): The unique code of the flight, consisting of a \textbf{two-character airline designator} followed by 1 to 4 digits (e.g. \texttt{"UA1989"}).
+    \item \texttt{airline} (\texttt{str}): The airline name (e.g. \texttt{"United"}).
+    \item \texttt{departure} (\texttt{str}): The code for the airport from which the flight departs (e.g. \texttt{"SAN"}). 
+    \item \texttt{arrival} (\texttt{str}): The code for the airport at which the flight arrives (e.g. \texttt{"LAX"}).
 \end{itemize}
 
 \begin{probset}
 
 \begin{prob}
+Suppose the function \texttt{first\_two} takes as input a string and returns a string with the first two characters only. For example \texttt{first\_two("panda")} is \texttt{"pa"}. Using this function, write an expression that evaluates to a Series containing the \textbf{two-character airline designator} for each flight in \texttt{flights}.
 
-We'd like to visualize the distribution of the \texttt{"Mfr"} column in the \texttt{laptops} DataFrame. Fill in the blanks so that the code below draws an appropriate plot.
-
-\begin{verbatim}
-laptops.groupby(__(a)__).__(b)__.get([__(c)__]).plot(kind=__(d)__)
-\end{verbatim}
-
-\texttt{a}: \inlineresponsebox[3in]{\texttt{"Mfr"}}{}, \texttt{b}: \inlineresponsebox[3in]{\texttt{count()}}{}
-
-\texttt{c}: \inlineresponsebox[3in]{\texttt{"Model"}, \texttt{"OS"}, \texttt{"Screen Size"}, or \texttt{"Price"}}{}, \texttt{d}: \inlineresponsebox[3in]{\texttt{"bar"} or \texttt{"barh"}}{}
-
-\end{prob}
-
-\begin{prob}
-Fill in the blanks so that \texttt{rotten\_apple} evaluates to the number of laptops manufactured by \texttt{"Apple"} that are priced below the median price of all laptops.
-
-\begin{verbatim}
-x = __(a)__
-y = __(b)__
-rotten_apple = laptops[x __(c)__ y].__(d)__
-\end{verbatim}
-
-\texttt{a}: \biginlineresponsebox[6.36in]{\texttt{laptops.get("Mfr") == "Apple"}}{}
-
-\texttt{b}: \biginlineresponsebox[6.36in]{\texttt{laptops.get("Price") < laptops.get("Price").median()}}{}
-
-\texttt{c}: \inlineresponsebox[3in]{\texttt{\&}}{}, \texttt{d}: \inlineresponsebox[3in]{\texttt{shape[0]}}{}
-\end{prob}
-
-\newpage
-
-\begin{prob}
-
-Select all the true statements below.
-
-\squarebubble{When you set the index of a DataFrame, the specified column becomes the index, and \\\hspace*{0.25in}the old index becomes a column.}
-
-\correctsquarebubble{After grouping a DataFrame, the resulting number of rows is less than or equal to the \\\hspace*{0.25in}original number of rows.}
-
-\correctsquarebubble{The area of a density histogram is always equal to 1.}
-
-%\squarebubble{Histograms shows the distribution of a categorical variable.}
-
-\squarebubble{A scatter plot has one numerical axis and one categorical axis.}
-
-%\correctsquarebubble{It is possible to draw a histogram from a DataFrame that contains just one numerical column.}
-
-\squarebubble{The height of the tallest bar in a density histogram is always less than 1.}
-
-%\squarebubble{After grouping a DataFrame, the index of remains unchanged}.
-
+\begin{responsebox}{0.45in}
+    \texttt{flights.get("flight\_num").apply(first\_two)}
+\end{responsebox}
 \end{prob}
 
 \begin{prob}
 
-A density histogram of \texttt{"Screen Size"} is shown below.
-
-\vspace{-0.2in}
-\begin{minipage}[t]{4.25in}
-\noindent 
-\begin{center}
-    \includegraphics[width=\textwidth]{quiz_images/histogram.png}   
-\end{center}
-\end{minipage} \hspace{0.25in}
-\begin{minipage}[t]{2.25in}
-\vspace{0.3in}
-\noindent What \textbf{percentage} of computer models have a \texttt{"Screen Size"} of at least 16 inches but less than 18 inches? Give your answer as an integer rounded to the \textbf{nearest multiple of 5}.
-
-\begin{center}
-\tikz[baseline=-.5em]{
-        \node[
-            draw, rectangle, inner sep=0, text centered, minimum height=3em, 
-            text width=1in, align=center
-        ] at (0,0) {
-            \phantom{8888888}\%
-
-        };
-        \useasboundingbox 
-            ([shift={(1mm,1mm)}]current bounding box.north east)
-            rectangle 
-            ([shift={(-1mm,-1mm)}]current bounding box.south west);
-    }%
-\end{center}
-
-\end{minipage}
-
-\end{prob}
-\vspace{-0.2in}
-\begin{prob}
-\vspace{-0.1in}
 \begin{subprobset}
-\begin{subprob}
-\textbf{Using \texttt{groupby}}, write an expression that evaluates to the average price of laptops with the \texttt{"macOS"} operating system.
 
-\begin{responsebox}{0.75in}      
-   \texttt{laptops.groupby("OS").mean().get("Price").loc["macOS"]}
-\end{responsebox}
-\end{subprob}
 \begin{subprob}
-\textbf{Without using \texttt{groupby}}, write an expression that evaluates to the average price of laptops with the \texttt{"macOS"} operating system (the same quantity as above).
 
-\begin{responsebox}{0.75in}
-    \texttt{laptops[laptops.get("OS") == "macOS"].get("Price").mean()}
-\end{responsebox}
+Fill in the blanks below so that \texttt{grouped} is a DataFrame showing how many flights on each airline departed from each airport.
+
+ \begin{verbatim}
+grouped = flights.groupby(___(x)___).___(y)___.get(['flight_num'])
+\end{verbatim}   
+
+\texttt{(x)}: \inlineresponsebox[3.8in]{\texttt{["departure", "airline"]} or \texttt{["airline", "departure"]}}{}
+\texttt{(y)}: \inlineresponsebox[1.5in]{\texttt{count()}}{} 
+
 \end{subprob}
+
+\begin{subprob}
+Suppose the expression \texttt{grouped.shape[0] == flights.shape[0]} evaluates to \texttt{True}. \\Select all true statements below.
+
+\squarebubble{No two flights in \texttt{flights} were on the same airline.} 
+
+\squarebubble{No two flights in \texttt{flights} had the same departure and arrival airports.} 
+
+\correctsquarebubble{Among all flights in \texttt{flights} that were on the same airline, no two had the same \\\hspace*{0.25in}departure airport.} 
+
+\correctsquarebubble{Among all flights in \texttt{flights} from the same departure airport, no two were on the  \\\hspace*{0.25in}same airline.} 
+
+\end{subprob}
+  
 \end{subprobset}
 
+\end{prob}
+\newpage
+\vspace{-0.2in}
+\begin{prob}
+
+Suppose we have another DataFrame \texttt{more\_flights} which contains the same columns as \texttt{flights}, but different rows. Define \texttt{merged} as follows.
+
+\begin{verbatim}
+    merged = flights.merge(more_flights, on = "airline")
+\end{verbatim}  
+Suppose that in \texttt{merged}, there are 108 flights where the airline is \texttt{"United"}, and in \texttt{more\_flights}, there are 12 flights where the airline is \texttt{"United"}. If \texttt{flights} has 15 rows in total, how many of these rows are \textbf{not} for \texttt{"United"} flights? Give your answer as an integer.
+\begin{center}
+\inlineresponsebox[1in]{\texttt{6}}{} 
+\end{center}
+
+
+
+
+\end{prob}
+
+\vspace{-0.2in}
+\begin{prob}
+
+\begin{subprobset}
+
+\begin{subprob}
+Fill in the blanks below so that \texttt{prob} evaluates to the probability that a randomly selected flight from the \texttt{flights} DataFrame arrives at \texttt{"SAN"} given that it departs from \texttt{"LAX"}.
+
+\begin{verbatim}
+san = flights.get("arrival") == "SAN"
+lax = flights.get("departure") == "LAX"
+prob = flights[san___(x)___lax].shape[0] / ___(y)___
+\end{verbatim}
+
+\texttt{(x)}: \inlineresponsebox[5.85in]{\texttt{\&}}{}\\
+\texttt{(y)}: \inlineresponsebox[5.85in]{\texttt{flights[lax].shape[0]}}{}
+
+\end{subprob}
+
+\begin{subprob}
+
+Write an expression that evaluates to the probability that a randomly selected flight from the \texttt{flights} DataFrame is \textbf{not} on the airline \texttt{"Delta"}.
+
+\begin{responsebox}{0.5in}
+\texttt{1 - flights[flights.get("airline") == "Delta"].shape[0] / flights.shape[0]} or 
+\texttt{flights[flights.get("airline") != "Delta"].shape[0] / flights.shape[0]} or
+\texttt{(flights.get("airline") != "Delta").mean()}
+\end{responsebox}
+
+\end{subprob}
+\end{subprobset}
+\end{prob}
+\vspace{-0.15in}
+\begin{prob}
+
+Use the function defined below to answer the questions on the right.
+
+
+
+\begin{minipage}[t]{2.8in}
+\begin{verbatim}
+def discount(duration, price):
+    if duration > 6:
+        price = price * 0.9
+    if duration > 4:
+        price = price * 0.95 
+    elif duration > 3:
+        price = price * 0.98
+    else:
+        price = price * 0.99 
+    price = price - 5 
+    return price
+\end{verbatim}
+\end{minipage} \hspace{0.25in}
+\begin{minipage}[t]{3.5in}
+\begin{subprobset}
+    \begin{subprob}
+    What is the output of \texttt{discount(7, 100)}?
+
+\bubble{\texttt{100 * 0.9 * 0.95 * 0.98 - 5}} 
+
+\correctbubble{\texttt{100 * 0.9 * 0.95 - 5}} 
+
+\bubble{\texttt{100 * 0.9 - 5}} 
+
+\bubble{\texttt{100 * 0.9}}
+    \end{subprob}
+    \begin{subprob}
+        Find \texttt{x} and \texttt{y} such that \texttt{discount(x, y)} evaluates to \texttt{97 * 0.98 - 5}.
+    \end{subprob}
+    
+    \texttt{x}: \inlineresponsebox[1in]{anything in \texttt{(3, 4]}}{}
+\texttt{y}: \inlineresponsebox[1 in]{\texttt{97}}{}
+\end{subprobset}
+\end{minipage}
 \end{prob}
 
 \end{probset}
@@ -225,20 +254,52 @@ A density histogram of \texttt{"Screen Size"} is shown below.
 
 \end{document}
 
-% save for next time
-
 \begin{prob}
-What does the following expression represent:  
-\begin{center}
-    \texttt{items.shape[0] * items.shape[1]}
-\end{center}
 
-\bubble{The total number of columns in the DataFrame}
+\begin{subprobset}
 
-\bubble{The sum of the elements in the DataFrame}
+\begin{subprob}
+    Bill is interested in predicting the class of airline tickets based on their cost. He establishes the following price ranges for different classes:
 
-\bubble{The total number of rows in the DataFrame}
+    \begin{itemize}
+        \item \texttt{"Economy"}: Less than or equal to \$200
+        \item \texttt{"Business"}: \$200 to \$400 (inclusive)
+        \item \texttt{"First Class"}: above \$400
+    \end{itemize}
 
-\bubble{The total number of elements in the DataFrame}
+    Fill in the lines of code for the following function, which takes in a ticket price and outputs the predicted class based on Bill's ranges.
+    
+\begin{verbatim}
+def predict_plane_class(cost):
+    _____(x)_____:
+        return 'First Class'
+    _____(y)_____:
+        return 'Business'
+    _____(z)_____:
+        return 'Economy'
+\end{verbatim}
+
+\texttt{(x)}: \inlineresponsebox[1.75 in]{\texttt{if cost > 400}}{}
+\texttt{(y)}: \inlineresponsebox[1.75 in]{\texttt{elif cost > 200}}{}
+\texttt{(z)}: \inlineresponsebox[1.75 in]{\texttt{else}}{}
+
+\end{subprob}
+
+\newpage
+
+\begin{subprob}
+    Create a new column \texttt{"plane\_class"} in the \texttt{passengers} DataFrame using the function defined in part \textbf{a} by completing the following code:
+
+\begin{verbatim}
+passengers = passengers.___(x)___(plane_class = ___(y)___.___(z)___)
+\end{verbatim}
+
+\texttt{(x)}: \inlineresponsebox[5.85 in]{\texttt{assign}}{}
+\texttt{(y)}: \inlineresponsebox[5.85 in]{\texttt{passengers.get("price")}}{}
+\texttt{(z)}: \inlineresponsebox[5.85 in]{\texttt{apply(predict\_plane\_class)}}{}
+
+\end{subprob}
+    
+\end{subprobset}
 
 \end{prob}
