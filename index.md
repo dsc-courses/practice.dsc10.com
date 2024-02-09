@@ -62,17 +62,17 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
       <td>January 26</td>
       <td><a href="probset03/index.html">Data Visualizations, Functions, and Applying</a></td>
     </tr>
-<!--     <tr>
+    <tr>
       <th scope="row">4</th>
-      <td>October 25th</td>
-      <td><a href="disc04/index.html">DataFrames, Control Flow, and Probability</a></td>
+      <td>February 2</td>
+      <td><a href="probset04/index.html">Grouping on Multiple Columns, Merging, Conditional Statements, Iteration, Probability</a></td>
     </tr>   
       <tr>
       <th scope="row">5</th>
-      <td>November 1st</td>
-      <td><a href="https://dsc10.com/resources/exams/fa23-midterm-sol.pdf">Midterm Exam Walkthrough</a></td>
+      <td>February 9</td>
+      <td><a href="probset05/index.html">Simulation and Sampling; Midterm Review</a></td>
     </tr>
-    </tr>   
+<!--     </tr>   
       <tr>
       <th scope="row">6</th>
       <td>November 8th</td>
