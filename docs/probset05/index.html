@@ -133,8 +133,10 @@ take any particular amount of time - focus on understanding concepts,
 not on getting through all the questions. <br><br>The questions below
 focus on simulation and sampling. To review for the midterm more
 generally, we recommend working through past midterm exams, especially
-Winter 2023 <a href='https://dsc10.com'>DSC 10 at UC San Diego</a> and
-Fall 2023.</p>
+<a href='https://practice.dsc10.com/wi23-midterm/index.html'>Winter
+2023</a> and
+<a href='https://practice.dsc10.com/fa23-midterm/index.html'>Fall
+2023</a>.</p>
 <hr />
 <h2 id="problem-1">Problem 1</h2>
 <p>King Triton has boarded a Southwest flight. For in-flight
@@ -463,10 +465,182 @@ trials, which is 10,000.</p>
 <p><br></p>
 <hr />
 <h2 id="problem-3">Problem 3</h2>
-<div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> np.array([])</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10</span>):</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> np.random.choice(np.arange(<span class="dv">1000</span>), replace<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    results <span class="op">=</span> np.append(results, result)</span></code></pre></div>
+<p>Billina Records, a new record company focused on creating new TikTok
+audios, has its offices on the 23rd floor of a skyscraper with 75 floors
+(numbered 1 through 75). The owners of the building promised that 10
+different random floors will be selected to be renovated.</p>
+<p><br></p>
+<h3 id="problem-3.1">Problem 3.1</h3>
+<p>Below, fill in the blanks to complete a simulation that will estimate
+the probability that Billina Records’ floor will be renovated.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>total <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>repetitions <span class="op">=</span> <span class="dv">10000</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(repetitions):</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    choices <span class="op">=</span> np.random.choice(__(a)__, <span class="dv">10</span>, __(b)__)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> __(c)__:</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        total <span class="op">=</span> total <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>prob_renovate <span class="op">=</span> total <span class="op">/</span> repetitions</span></code></pre></div>
+<p>What goes in blank (a)?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>np.arange(1, 75)</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>np.arange(10, 75)</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>np.arange(0, 76)</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>np.arange(1, 76)</code></p></li>
+</ul>
+<p>What goes in blank (b)?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>replace=True</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>replace=False</code></p></li>
+</ul>
+<p>What goes in blank (c)?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>choices == 23</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>choices is 23</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>np.count_nonzero(choices == 23) &gt; 0</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>np.count_nonzero(choices) == 23</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>choices.str.contains(23)</code></p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading3_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_1" aria-expanded="true" aria-controls="collapse3_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse3_1" class="accordion-collapse collapse collapse"
+aria-labelledby="heading3_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> <code>np.arange(1, 76)</code>,
+<code>replace=False</code>,
+<code>np.count_nonzero(choices == 23) &gt; 0</code></p>
+<p>Here, the idea is to randomly choose 10 <strong>different</strong>
+floors repeatedly, and each time, check if floor 23 was selected.</p>
+<p>Blank (a): The first argument to <code>np.random.choice</code> needs
+to be an array/list containing the options we want to choose from,
+i.e. an array/list containing the values 1, 2, 3, 4, …, 75, since those
+are the numbers of the floors. <code>np.arange(a, b)</code> returns an
+array of integers spaced out by 1 starting from <code>a</code> and
+ending at <code>b-1</code>. As such, the correct call to
+<code>np.arange</code> is <code>np.arange(1, 76)</code>.</p>
+<p>Blank (b): Since we want to select 10 different floors, we need to
+specify <code>replace=False</code> (the default behavior is
+<code>replace=True</code>).</p>
+<p>Blank (c): The <code>if</code> condition needs to check if 23 was one
+of the 10 numbers that were selected, i.e. if 23 is in
+<code>choices</code>. It needs to evaluate to a single Boolean value,
+i.e. <code>True</code> (if 23 was selected) or <code>False</code> (if 23
+was not selected). Let’s go through each incorrect option to see why
+it’s wrong:</p>
+<ul>
+<li>Option 1, <code>choices == 23</code>, does not evaluate to a single
+Boolean value; rather, it evaluates to an array of length 10, containing
+multiple <code>True</code>s and <code>False</code>s.</li>
+<li>Option 2, <code>choices is 23</code>, does not evaluate to what we
+want – it checks to see if the array <code>choices</code> is the same
+Python object as the number 23, which it is not (and will never be,
+since an array cannot be a single number).</li>
+<li>Option 4, <code>np.count_nonzero(choices) == 23</code>, does
+evaluate to a single Boolean, however it is not quite correct.
+<code>np.count_nonzero(choices)</code> will always evaluate to 10, since
+<code>choices</code> is made up of 10 integers randomly selected from 1,
+2, 3, 4, …, 75, none of which are 0. As such,
+<code>np.count_nonzero(choices) == 23</code> is the same as
+<code>10 == 23</code>, which is always False, regardless of whether or
+not 23 is in <code>choices</code>.</li>
+<li>Option 5, <code>choices.str.contains(23)</code>, errors, since
+<code>choices</code> is not a Series (and <code>.str</code> can only
+follow a Series). If <code>choices</code> were a Series, this would
+still error, since the argument to <code>.str.contains</code> must be a
+string, not an int.</li>
+</ul>
+<p>By process of elimination, Option 3,
+<code>np.count_nonzero(choices == 23) &gt; 0</code>, must be the correct
+answer. Let’s look at it piece-by-piece:</p>
+<ul>
+<li>As we saw in Option 1, <code>choices == 23</code> is a Boolean array
+that contains <code>True</code> each time the selected floor was floor
+23 and <code>False</code> otherwise. (Since we’re sampling without
+replacement, floor 23 can only be selected at most once, and so
+<code>choices == 23</code> can only contain the value <code>True</code>
+at most once.)</li>
+<li><code>np.count_nonzero(choices == 23)</code> evaluates to the number
+of <code>True</code>s in <code>choices == 23</code>. If it is positive
+(i.e. 1), it means that floor 23 was selected. If it is 0, it means
+floor 23 was not selected.</li>
+<li>Thus, <code>np.count_nonzero(choices == 23) &gt; 0</code> evaluates
+to <code>True</code> if (and only if) floor 23 was selected.</li>
+</ul>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 75%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-3.2">Problem 3.2</h3>
+<p>In the previous subpart of this question, your answer to blank (c)
+contained the number 23, and the simulated probability was stored in the
+variable <code>prob_renovate</code>.</p>
+<p>Suppose, in blank (c), we change the number 23 to the number 46, and
+we store the new simulated probability in the variable name
+<code>other_prob</code>. (<code>prob_renovate</code> is unchanged from
+the previous part.)</p>
+<p>With these changes, which of the following is the most accurate
+representation of the relationship between <code>other_prob</code> and
+<code>prob_renovate</code>?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>other_prob</code> will be roughly half of
+<code>prob_renovate</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>other_prob</code> will be roughly equal to
+<code>prob_renovate</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>other_prob</code> will be roughly double
+<code>prob_renovate</code></p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading3_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_2" aria-expanded="true" aria-controls="collapse3_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse3_2" class="accordion-collapse collapse collapse"
+aria-labelledby="heading3_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> <code>other_prob</code> will be roughly
+equal to <code>prob_renovate</code></p>
+<p>The calculation we did in the previous subpart was not specific to
+the number 23. That is, we could have replaced 23 with any integer
+between 1 and 75 inclusive and the simulation would have been just as
+valid. The probability we estimated is the probability that <strong>any
+one floor</strong> was randomly selected; there is nothing special about
+23.</p>
+<p>(We say “roughly equal” because the result may turn out slightly
+different due to randomness.)</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 89%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-4">Problem 4</h2>
+<div class="sourceCode" id="cb4"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> np.array([])</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10</span>):</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> np.random.choice(np.arange(<span class="dv">1000</span>), replace<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    results <span class="op">=</span> np.append(results, result)</span></code></pre></div>
 <p>After this code executes, <code>results</code> contains:</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> a simple random sample of size 9, chosen from a set of size 999 with
@@ -480,13 +654,13 @@ without replacement</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="true" aria-controls="collapse3">
+<h2 class="accordion-header" id="heading4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="true" aria-controls="collapse4">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse3" class="accordion-collapse collapse collapse"
-aria-labelledby="heading3" data-bs-parent="#accordionExample">
+<div id="collapse4" class="accordion-collapse collapse collapse"
+aria-labelledby="heading4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -537,7 +711,7 @@ probability by default.</p>
 </div>
 </div>
 <hr />
-<h2 id="problem-4">Problem 4</h2>
+<h2 id="problem-5">Problem 5</h2>
 <p>Suppose we take a uniform random sample with replacement from a
 population, and use the sample mean as an estimate for the population
 mean. Which of the following is correct?</p>
@@ -553,13 +727,13 @@ close to the population mean than if we take a larger sample.</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading4">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="true" aria-controls="collapse4">
+<h2 class="accordion-header" id="heading5">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5" aria-expanded="true" aria-controls="collapse5">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse4" class="accordion-collapse collapse collapse"
-aria-labelledby="heading4" data-bs-parent="#accordionExample">
+<div id="collapse5" class="accordion-collapse collapse collapse"
+aria-labelledby="heading5" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
