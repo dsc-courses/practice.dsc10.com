@@ -8,12 +8,21 @@
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span { line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -50,7 +59,7 @@
     code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
     code span.at { color: #7d9029; } /* Attribute */
     code span.bn { color: #40a070; } /* BaseN */
-    code span.bu { } /* BuiltIn */
+    code span.bu { color: #008000; } /* BuiltIn */
     code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
     code span.ch { color: #4070a0; } /* Char */
     code span.cn { color: #880000; } /* Constant */
@@ -63,7 +72,7 @@
     code span.ex { } /* Extension */
     code span.fl { color: #40a070; } /* Float */
     code span.fu { color: #06287e; } /* Function */
-    code span.im { } /* Import */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
     code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
     code span.kw { color: #007020; font-weight: bold; } /* Keyword */
     code span.op { color: #666666; } /* Operator */
@@ -76,7 +85,7 @@
     code span.vs { color: #4070a0; } /* VerbatimString */
     code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="..\assets\theme.css" />
+  <link rel="stylesheet" href="../assets/theme.css" />
   <script defer=""
   src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
@@ -178,9 +187,94 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a hr
 <li><p><input type="radio" disabled="" /> <code>cookie_box, 2, replace=False</code></p></li>
 <li><p><input type="radio" disabled="" /> <code>cookie_box, 2</code></p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading1_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1_1" aria-expanded="true" aria-controls="collapse1_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse1_1" class="accordion-collapse collapse"
+aria-labelledby="heading1_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong>
+<code>cookie_box, 2, replace=False</code></p>
+<p>We are told that King Triton grabs two cookies out of the box without
+looking. Since this is a random choice, we use the function
+<code>np.random.choice</code> to simulate this. The first input to this
+function is a sequence of values to choose from. We already have an
+array of values to choose from in the variable <code>cookie_box</code>.
+Calling <code>np.random.choice(cookie_box)</code> would select one
+cookie from the cookie box, but we want to select two, so we use an
+optional second parameter to specify the number of items to randomly
+select. Finally, we should consider whether we want to select with or
+without replacement. Since <code>cookie_box</code> contains individual
+cookies and King Triton is selecting two of them, he cannot choose the
+same exact cookie twice. This means we should sample without
+replacement, by specifying <code>replace=False</code>. Note that
+omitting the <code>replace</code> parameter would use the default option
+of sampling with replacement.</p>
+<hr/>
+<h5>Difficulty: ⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 92%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-1.2">Problem 1.2</h3>
 <p>What goes in blank (b)?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading1_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1_2" aria-expanded="true" aria-controls="collapse1_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse1_2" class="accordion-collapse collapse"
+aria-labelledby="heading1_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> <code>grab[0] == grab[1]</code></p>
+<p>The idea of a simulation is to do some random process many times. We
+can use the results to approximate a probability by counting up the
+number of times some event occurred, and dividing that by the number of
+times we did the random process. Here, the random process is selecting
+two cookies from the cookie box, and we are doing this 10,000 times. The
+approximate probability will be the number of times in which both
+cookies are the same divided by 10,000. So we need to count up the
+number of times that both randomly selected cookies are the same. We do
+this by having an accumulator variable that starts out at 0 and gets
+incremented, or increased by 1, every time both cookies are the same.
+The code has such a variable, called <code>prob_both_same</code>, that
+is initialized to 0 and gets incremented when some condition is met.</p>
+<p>We need to fill in the condition, which is that both randomly
+selected cookies are the same. We’ve already randomly selected the
+cookies and stored the results in <code>grab</code>, which is an array
+of length 2 that comes from the output of a call to
+<code>np.random.choice</code>. To check if both elements of the
+<code>grab</code> array are the same, we access the individual elements
+using brackets with the position number, and compare using the
+<code>==</code> symbol to check equality. Note that at the end of the
+<code>for</code> loop, the variable <code>prob_both_same</code> will
+contain a count of the number of trials out of 10,000 in which both of
+King Triton’s cookies were the same flavor.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 79%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-1.3">Problem 1.3</h3>
 <p>What goes in blank (c)?</p>
@@ -190,6 +284,37 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a hr
 <li><p><input type="radio" disabled="" /> <code>np.mean(prob_both_same)</code></p></li>
 <li><p><input type="radio" disabled="" /> <code>prob_both_same.mean()</code></p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading1_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1_3" aria-expanded="true" aria-controls="collapse1_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse1_3" class="accordion-collapse collapse"
+aria-labelledby="heading1_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong>
+<code>prob_both_same / repetitions</code></p>
+<p>After the <code>for</code> loop, <code>prob_both_same</code> contains
+the number of trials out of 10,000 in which both of King Triton’s
+cookies were the same flavor. We’d like it to represent the approximate
+probability of both cookies being the same flavor, so we need to divide
+the current value by the total number of trials, 10,000. Since this
+value is stored in the variable <code>repetitions</code>, we can divide
+<code>prob_both_same</code> by <code>repetitions</code>.</p>
+<hr/>
+<h5>Difficulty: ⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 93%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <hr />
 <h2 id="problem-2">Problem 2</h2>
@@ -223,12 +348,129 @@ this probability.</p>
 <li><p><input type="radio" disabled="" /> <code>attending.sum() &gt; 20000</code></p></li>
 <li><p><input type="radio" disabled="" /> <code>np.count_nonzero(attending) &gt; num_angry</code></p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading2_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2_1" aria-expanded="true" aria-controls="collapse2_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse2_1" class="accordion-collapse collapse"
+aria-labelledby="heading2_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> <code>attending.sum() &gt; 20000</code></p>
+<p>Let’s look at the variable <code>attending</code>. Since we’re
+choosing 21,000 elements from the list <code>[True, False]</code> and
+there are 21,000 tickets distributed, this code is randomly determining
+whether each ticket holder will actually attend the festival. There’s a
+95% chance of each ticket holder attending, which is reflected in the
+<code>p=[0.95, 0.05]</code> argument. Remember that
+<code>np.random.choice</code> returns an array of random choices, which
+in this case means it will contain 21,000 elements, each of which is
+<code>True</code> or <code>False</code>.</p>
+<p>We want to figure out the probability of at least one ticket holder
+showing up and not being admitted. Another way to say this is we want to
+find the probability that more than 20,000 ticket holders show up to
+attend the festival. The way we approximate a probability through
+simulation is we repeat a process many times and see how often some
+event occured. The event we’re interested in this case is that more than
+20,000 ticket holders came to Sun God. Since we have an array of
+<code>True</code> and <code>False</code> values corresponding to whether
+each ticket holder actually came, we just need to determine if there are
+more than 20,000 <code>True</code> values in the <code>attending</code>
+array.</p>
+<p>There are several ways to count the number of <code>True</code>
+values in a Boolean array. One way is to sum the array since in Python
+<code>True</code> counts as 1 and <code>False</code> counts as 0.
+Therefore, <code>attending.sum() &gt; 20000</code> is the condition we
+need to check here.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 67%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-2.2">Problem 2.2</h3>
 <p>What goes in the <strong>second</strong> blank?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading2_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2_2" aria-expanded="true" aria-controls="collapse2_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse2_2" class="accordion-collapse collapse"
+aria-labelledby="heading2_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> <code>num_angry = num_angry + 1</code></p>
+<p>Remember our goal in simulation is to repeat a process many times to
+see how often some event occurs. The repetition comes from the
+<code>for</code> loop which runs 10,000 times. Each time, we are
+simulating the process of 21,000 students each randomly deciding whether
+to show up to Sun God or not. We want to know, out of these 10,000
+trials, how frequently more than 20,000 of the students will show up. So
+when this happens, we want to record that it happened. The standard way
+to do that is to keep a counter variable that starts at 0 and gets
+incremented, or increased by one, each time we had more than 20,000
+attendees in our simulation.</p>
+<p>The framework to do this is already set up because a variable called
+<code>num_angry</code> is initialized to 0 before the <code>for</code>
+loop. This variable is our counter variable, meant to count the number
+of trials, out of 10,000, that resulted in at least one student being
+angry because they showed up to Sun God with a ticket and were denied
+entrance. So all we need to do when there are more than 20,000
+<code>True</code> values in the <code>attending</code> array is
+increment this counter by one via the code
+<code>num_angry = num_angry + 1</code>, sometimes abbreviated as
+<code>num_angry += 1</code>.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 59%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-2.3">Problem 2.3</h3>
 <p>What goes in the <strong>third</strong> blank?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading2_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2_3" aria-expanded="true" aria-controls="collapse2_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse2_3" class="accordion-collapse collapse"
+aria-labelledby="heading2_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> <code>num_angry/10000</code></p>
+<p>To calculate the approximate probability, all we need to do is divide
+the number of trials in which a student was angry by the total number of
+trials, which is 10,000.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 68%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <hr />
 <h2 id="problem-3">Problem 3</h2>
@@ -267,6 +509,88 @@ the probability that Billina Records’ floor will be renovated.</p>
 <li><p><input type="radio" disabled="" /> <code>np.count_nonzero(choices) == 23</code></p></li>
 <li><p><input type="radio" disabled="" /> <code>choices.str.contains(23)</code></p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading3_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_1" aria-expanded="true" aria-controls="collapse3_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse3_1" class="accordion-collapse collapse"
+aria-labelledby="heading3_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> <code>np.arange(1, 76)</code>,
+<code>replace=False</code>,
+<code>np.count_nonzero(choices == 23) &gt; 0</code></p>
+<p>Here, the idea is to randomly choose 10 <strong>different</strong>
+floors repeatedly, and each time, check if floor 23 was selected.</p>
+<p>Blank (a): The first argument to <code>np.random.choice</code> needs
+to be an array/list containing the options we want to choose from,
+i.e. an array/list containing the values 1, 2, 3, 4, …, 75, since those
+are the numbers of the floors. <code>np.arange(a, b)</code> returns an
+array of integers spaced out by 1 starting from <code>a</code> and
+ending at <code>b-1</code>. As such, the correct call to
+<code>np.arange</code> is <code>np.arange(1, 76)</code>.</p>
+<p>Blank (b): Since we want to select 10 different floors, we need to
+specify <code>replace=False</code> (the default behavior is
+<code>replace=True</code>).</p>
+<p>Blank (c): The <code>if</code> condition needs to check if 23 was one
+of the 10 numbers that were selected, i.e. if 23 is in
+<code>choices</code>. It needs to evaluate to a single Boolean value,
+i.e. <code>True</code> (if 23 was selected) or <code>False</code> (if 23
+was not selected). Let’s go through each incorrect option to see why
+it’s wrong:</p>
+<ul>
+<li>Option 1, <code>choices == 23</code>, does not evaluate to a single
+Boolean value; rather, it evaluates to an array of length 10, containing
+multiple <code>True</code>s and <code>False</code>s.</li>
+<li>Option 2, <code>choices is 23</code>, does not evaluate to what we
+want – it checks to see if the array <code>choices</code> is the same
+Python object as the number 23, which it is not (and will never be,
+since an array cannot be a single number).</li>
+<li>Option 4, <code>np.count_nonzero(choices) == 23</code>, does
+evaluate to a single Boolean, however it is not quite correct.
+<code>np.count_nonzero(choices)</code> will always evaluate to 10, since
+<code>choices</code> is made up of 10 integers randomly selected from 1,
+2, 3, 4, …, 75, none of which are 0. As such,
+<code>np.count_nonzero(choices) == 23</code> is the same as
+<code>10 == 23</code>, which is always False, regardless of whether or
+not 23 is in <code>choices</code>.</li>
+<li>Option 5, <code>choices.str.contains(23)</code>, errors, since
+<code>choices</code> is not a Series (and <code>.str</code> can only
+follow a Series). If <code>choices</code> were a Series, this would
+still error, since the argument to <code>.str.contains</code> must be a
+string, not an int.</li>
+</ul>
+<p>By process of elimination, Option 3,
+<code>np.count_nonzero(choices == 23) &gt; 0</code>, must be the correct
+answer. Let’s look at it piece-by-piece:</p>
+<ul>
+<li>As we saw in Option 1, <code>choices == 23</code> is a Boolean array
+that contains <code>True</code> each time the selected floor was floor
+23 and <code>False</code> otherwise. (Since we’re sampling without
+replacement, floor 23 can only be selected at most once, and so
+<code>choices == 23</code> can only contain the value <code>True</code>
+at most once.)</li>
+<li><code>np.count_nonzero(choices == 23)</code> evaluates to the number
+of <code>True</code>s in <code>choices == 23</code>. If it is positive
+(i.e. 1), it means that floor 23 was selected. If it is 0, it means
+floor 23 was not selected.</li>
+<li>Thus, <code>np.count_nonzero(choices == 23) &gt; 0</code> evaluates
+to <code>True</code> if (and only if) floor 23 was selected.</li>
+</ul>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 75%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-3.2">Problem 3.2</h3>
 <p>In the previous subpart of this question, your answer to blank (c)
@@ -287,6 +611,38 @@ representation of the relationship between <code>other_prob</code> and
 <li><p><input type="radio" disabled="" /> <code>other_prob</code> will be roughly double
 <code>prob_renovate</code></p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading3_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_2" aria-expanded="true" aria-controls="collapse3_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse3_2" class="accordion-collapse collapse"
+aria-labelledby="heading3_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> <code>other_prob</code> will be roughly
+equal to <code>prob_renovate</code></p>
+<p>The calculation we did in the previous subpart was not specific to
+the number 23. That is, we could have replaced 23 with any integer
+between 1 and 75 inclusive and the simulation would have been just as
+valid. The probability we estimated is the probability that <strong>any
+one floor</strong> was randomly selected; there is nothing special about
+23.</p>
+<p>(We say “roughly equal” because the result may turn out slightly
+different due to randomness.)</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 89%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <hr />
 <h2 id="problem-4">Problem 4</h2>
@@ -305,6 +661,64 @@ with replacement</p></li>
 <li><p><input type="radio" disabled="" /> a simple random sample of size 10, chosen from a set of size 1000
 without replacement</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="true" aria-controls="collapse4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse4" class="accordion-collapse collapse"
+aria-labelledby="heading4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> a simple random sample of size 10, chosen
+from a set of size 1000 with replacement</p>
+<p>Let’s see what the code is doing. The first line initializes an empty
+array called <code>results</code>. The for loop runs 10 times. Each
+time, it creates a value called <code>result</code> by some process
+we’ll inspect shortly and appends this value to the end of the
+<code>results</code> array. At the end of the code snippet,
+<code>results</code> will be an array containing 10 elements.</p>
+<p>Now, let’s look at the process by which each element
+<code>result</code> is generated. Each <code>result</code> is a random
+element chosen from <code>np.arange(1000)</code> which is the numbers
+from 0 to 999, inclusive. That’s 1000 possible numbers. Each time
+<code>np.random.choice</code> is called, just one value is chosen from
+this set of 1000 possible numbers.</p>
+<p>When we sample just one element from a set of values, sampling with
+replacement is the same as sampling without replacement, because
+sampling with or without replacement concerns whether subsequent draws
+can be the same as previous ones. When we’re just sampling one element,
+it really doesn’t matter whether our process involves putting that
+element back, as we’re not going to draw again!</p>
+<p>Therefore, <code>result</code> is just one random number chosen from
+the 1000 possible numbers. Each time the <code>for</code> loop executes,
+<code>result</code> gets set to a random number chosen from the 1000
+possible numbers. It is possible (though unlikely) that the random
+<code>result</code> of the first execution of the loop matches the
+<code>result</code> of the second execution of the loop. More generally,
+there can be repeated values in the <code>results</code> array since
+each entry of this array is independently drawn from the same set of
+possibilities. Since repetitions are possible, this means the sample is
+drawn with replacement.</p>
+<p>Therefore, the <code>results</code> array contains a sample of size
+10 chosen from a set of size 1000 with replacement. This is called a
+“simple random sample” because each possible sample of 10 values is
+equally likely, which comes from the fact that
+<code>np.random.choice</code> chooses each possible value with equal
+probability by default.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 11%.</p>
+</div>
+</div>
+</div>
+</div>
 <hr />
 <h2 id="problem-5">Problem 5</h2>
 <p>Suppose we take a uniform random sample with replacement from a
@@ -320,6 +734,48 @@ close to the population mean than if we take a smaller sample.</p></li>
 <li><p><input type="radio" disabled="" /> If we take a smaller sample, our sample mean is more likely to be
 close to the population mean than if we take a larger sample.</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading5">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5" aria-expanded="true" aria-controls="collapse5">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse5" class="accordion-collapse collapse"
+aria-labelledby="heading5" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> If we take a larger sample, our sample mean
+is more likely to be close to the population mean than if we take a
+smaller sample.</p>
+<p>Larger samples tend to give better estimates of the population mean
+than smaller samples. That’s because large samples are more like the
+population than small samples. We can see this in the extreme. Imagine a
+sample of 1 element from a population. The sample might vary a lot,
+depending on the distribution of the population. On the other extreme,
+if we sample the whole population, our sample mean will be exactly the
+same as the population mean.</p>
+<p>Notice that the correct answer choice uses the words “is more likely
+to be close to” as opposed to “will be closer to.” We’re talking about a
+general phenomenon here: larger samples tend to give better estimates of
+the population mean than smaller samples. We cannot say that if we take
+a larger sample our sample mean “will be closer to” the population mean,
+since it’s always possible to get lucky with a small sample and unlucky
+with a large sample. That is, one particular small sample may happen to
+have a mean very close to the population mean, and one particular large
+sample may happen to have a mean that’s not so close to the population
+mean. This <em>can</em> happen, it’s just not likely to.</p>
+<hr/>
+<h5>Difficulty: ⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 100%.</p>
+</div>
+</div>
+</div>
+</div>
 <hr />
 <h2 id="section"><span class="math display"> </span></h2>
 <h4
