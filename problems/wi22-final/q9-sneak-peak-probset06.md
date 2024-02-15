@@ -1,5 +1,14 @@
 # BEGIN PROB
 
+The `season` DataFrame contains statistics on all players in the WNBA in the 2021 season. The first few rows of `season` are shown below.
+
+<center><img src='../assets/images/wi22-final/seasons.png' width=40%></center>
+
+Each row in `season` corresponds to a single player.
+
+- `'Player'` (`str`), their name
+- `'PPG'` (`float`), the number of points they scored per game played
+
 Suppose we only have access to the DataFrame `small_season`, which is a random sample of **size 36** from `season`. We're interested in learning about the true mean points per game of all players in `season` given just the information in `small_season`.
 
 To start, we want to bootstrap `small_season` 10,000 times and compute the mean of the resample each time. We want to store these 10,000 bootstrapped means in the array `boot_means`.
