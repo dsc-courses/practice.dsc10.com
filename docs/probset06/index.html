@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>Extra Practice Session 6: Confidence Intervals, Center, Spread, Standardization, Normal Distribution</title>
+  <title>Extra Practice Session 6: Bootstrapping, Confidence Intervals, Center, Spread, and Standardization</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -110,8 +110,8 @@
 </head>
 <body>
 <header id="title-block-header">
-<h1 class="title">Extra Practice Session 6: Confidence Intervals,
-Center, Spread, Standardization, Normal Distribution</h1>
+<h1 class="title">Extra Practice Session 6: Bootstrapping, Confidence
+Intervals, Center, Spread, and Standardization</h1>
 </header>
 <p><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
@@ -142,16 +142,174 @@ designed to take any particular amount of time - focus on understanding
 concepts, not on getting through all the questions.</p>
 <hr />
 <h2 id="problem-1">Problem 1</h2>
+<p>An IKEA fan created an app where people can log the amount of time it
+took them to assemble their IKEA furniture. The DataFrame
+<code>app_data</code> has a row for each product build that was logged
+on the app. The columns are:</p>
+<ul>
+<li><code>'product'</code> (<code>str</code>): the name of the product,
+which includes the product line as the first word, followed by a
+description of the product</li>
+<li><code>'category'</code> (<code>str</code>): a categorical
+description of the type of product</li>
+<li><code>'assembly_time'</code> (<code>str</code>): the amount of time
+to assemble the product, formatted as <code>'x hr, y min'</code> where
+<code>x</code> and <code>y</code> represent integers, possibly zero</li>
+<li><code>'minutes'</code> (<code>int</code>): integer values
+representing the number of minutes it took to assemble each product
+<br><br></li>
+</ul>
+<p>We want to use <code>app_data</code> to estimate the average amount
+of time it takes to build an IKEA bed (any product in the
+<code>'bed'</code> category). Which of the following strategies would be
+an appropriate way to estimate this quantity? Select all that apply.</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> Query to keep only the beds. Then resample with replacement many
+times. For each resample, take the mean of the <code>'minutes'</code>
+column. Compute a 95% confidence interval based on those means.</p></li>
+<li><p><input type="checkbox" disabled="" /> Query to keep only the beds. Group by <code>'product'</code> using
+the mean aggregation function. Then resample with replacement many
+times. For each resample, take the mean of the <code>'minutes'</code>
+column. Compute a 95% confidence interval based on those means.</p></li>
+<li><p><input type="checkbox" disabled="" /> Resample with replacement many times. For each resample, first query
+to keep only the beds and then take the mean of the
+<code>'minutes'</code> column. Compute a 95% confidence interval based
+on those means.</p></li>
+<li><p><input type="checkbox" disabled="" /> Resample with replacement many times. For each resample, first query
+to keep only the beds. Then group by <code>'product'</code> using the
+mean aggregation function, and finally take the mean of the
+<code>'minutes'</code> column. Compute a 95% confidence interval based
+on those means.</p></li>
+</ul>
+<hr />
+<h2 id="problem-2">Problem 2</h2>
+<p>Suppose we only have access to the DataFrame
+<code>small_season</code>, which is a random sample of <strong>size
+36</strong> from <code>season</code>. We’re interested in learning about
+the true mean points per game of all players in <code>season</code>
+given just the information in <code>small_season</code>.</p>
+<p>To start, we want to bootstrap <code>small_season</code> 10,000 times
+and compute the mean of the resample each time. We want to store these
+10,000 bootstrapped means in the array <code>boot_means</code>.</p>
+<p>Here is a broken implementation of this procedure.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>boot_means <span class="op">=</span> np.array([])                                           </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):                                          </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    resample <span class="op">=</span> small_season.sample(season.shape[<span class="dv">0</span>], replace<span class="op">=</span><span class="va">False</span>)  <span class="co"># Line 1</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    resample_mean <span class="op">=</span> small_season.get(<span class="st">&#39;PPG&#39;</span>).mean()                  <span class="co"># Line 2</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    np.append(boot_means, new_mean)                                 <span class="co"># Line 3</span></span></code></pre></div>
+<p>For each of the 3 lines of code above (marked by comments), specify
+what is incorrect about the line by selecting one or more of the
+corresponding options below. Or, select “Line _ is correct as-is” if you
+believe there’s nothing that needs to be changed about the line in order
+for the above code to run properly.</p>
+<p><br></p>
+<h3 id="problem-2.1">Problem 2.1</h3>
+<p>What is incorrect about Line 1? Select all that apply.</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> Currently the procedure samples from <code>small_season</code>, when
+it should be sampling from <code>season</code></p></li>
+<li><p><input type="checkbox" disabled="" /> The sample size is <code>season.shape[0]</code>, when it should be
+<code>small_season.shape[0]</code></p></li>
+<li><p><input type="checkbox" disabled="" /> Sampling is currently being done without replacement, when it should
+be done with replacement</p></li>
+<li><p><input type="checkbox" disabled="" /> Line 1 is correct as-is</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-2.2">Problem 2.2</h3>
+<p>What is incorrect about Line 2? Select all that apply.</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> Currently it is taking the mean of the <code>'PPG'</code> column in
+<code>small_season</code>, when it should be taking the mean of the
+<code>'PPG'</code> column in <code>season</code></p></li>
+<li><p><input type="checkbox" disabled="" /> Currently it is taking the mean of the <code>'PPG'</code> column in
+<code>small_season</code>, when it should be taking the mean of the
+<code>'PPG'</code> column in <code>resample</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>.mean()</code> is not a valid Series method, and should be
+replaced with a call to the function <code>np.mean</code></p></li>
+<li><p><input type="checkbox" disabled="" /> Line 2 is correct as-is</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-2.3">Problem 2.3</h3>
+<p>What is incorrect about Line 3? Select all that apply.</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> The result of calling <code>np.append</code> is not being reassigned
+to <code>boot_means</code>, so <code>boot_means</code> will be an empty
+array after running this procedure</p></li>
+<li><p><input type="checkbox" disabled="" /> The indentation level of the line is incorrect –
+<code>np.append</code> should be outside of the <code>for</code>-loop
+(and aligned with <code>for i</code>)</p></li>
+<li><p><input type="checkbox" disabled="" /> <code>new_mean</code> is not a defined variable name, and should be
+replaced with <code>resample_mean</code></p></li>
+<li><p><input type="checkbox" disabled="" /> Line 3 is correct as-is</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-2.4">Problem 2.4</h3>
+<p>We construct a 95% confidence interval for the true mean points per
+game for all players by taking the middle 95% of the bootstrapped sample
+means.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>left_b <span class="op">=</span> np.percentile(boot_means, <span class="fl">2.5</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>right_b <span class="op">=</span> np.percentile(boot_means, <span class="fl">97.5</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>boot_ci <span class="op">=</span> [left_b, right_b]</span></code></pre></div>
+<p>Select the most correct statement below.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>(left_b + right_b) / 2</code> is exactly equal to the mean
+points per game in <code>season</code>.</p></li>
+<li><p><input type="radio" disabled="" /> <code>(left_b + right_b) / 2</code> is not necessarily equal to the
+mean points per game in <code>season</code>, but is close.</p></li>
+<li><p><input type="radio" disabled="" /> <code>(left_b + right_b) / 2</code> is exactly equal to the mean
+points per game in <code>small_season</code>.</p></li>
+<li><p><input type="radio" disabled="" /> <code>(left_b + right_b) / 2</code> is not necessarily equal to the
+mean points per game in <code>small_season</code>, but is close.</p></li>
+<li><p><input type="radio" disabled="" /> <code>(left_b _+ right_b) / 2</code> is not close to either the mean
+points per game in <code>season</code> or the mean points per game in
+<code>small_season</code>.</p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-3">Problem 3</h2>
+<ul>
+<li>Hector earned a 77 on an exam where the mean was 70 and the standard
+deviation was 5.</li>
+<li>Clara earned an 80 on an exam where the mean was 75 and the standard
+deviation was 3.</li>
+<li>Vivek earned an 83 on an exam where the mean was a 75 and the
+standard deviation was 6.</li>
+</ul>
+<p>Rank these three students in <strong>ascending</strong> order of
+their exam performance relative to their classmates.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Hector, Clara, Vivek</p></li>
+<li><p><input type="radio" disabled="" /> Vivek, Hector, Clara</p></li>
+<li><p><input type="radio" disabled="" /> Clara, Hector, Vivek</p></li>
+<li><p><input type="radio" disabled="" /> Vivek, Clara, Hector</p></li>
+</ul>
+<hr />
+<h2 id="problem-4">Problem 4</h2>
+<p>The data visualization below shows all Olympic gold medals for
+women’s gymnastics, broken down by the age of the gymnast.</p>
+<center><img src='../assets/images/wi21-final/gymnastics.png' width=50%></center>
+<p>Based on this data, rank the following three quantities in
+<strong>ascending</strong> order: the median age at which gold medals
+are earned, the mean age at which gold medals are earned, the standard
+deviation of the age at which gold medals are earned.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> mean, median, SD</p></li>
+<li><p><input type="radio" disabled="" /> median, mean, SD</p></li>
+<li><p><input type="radio" disabled="" /> SD, mean, median</p></li>
+<li><p><input type="radio" disabled="" /> SD, median, mean</p></li>
+</ul>
+<hr />
+<h2 id="problem-5">Problem 5</h2>
 <p>Among all Costco members in San Diego, the average monthly spending
 in October 2023 was <strong>$350</strong> with a standard deviation of
 <strong>$40</strong>.</p>
 <p><br></p>
-<h3 id="problem-1.1">Problem 1.1</h3>
+<h3 id="problem-5.1">Problem 5.1</h3>
 <p>The amount Ciro spent at Costco in October 2023 was
 <strong>-1.5</strong> in standard units. What is this amount in dollars?
 Give your answer as an integer.</p>
 <p><br></p>
-<h3 id="problem-1.2">Problem 1.2</h3>
+<h3 id="problem-5.2">Problem 5.2</h3>
 <p>What is the minimum possible percentage of San Diego members that
 spent between <strong>$250</strong> and <strong>$450</strong> in October
 2023?</p>
@@ -164,7 +322,7 @@ spent between <strong>$250</strong> and <strong>$450</strong> in October
 <li><p><input type="radio" disabled="" /> 82%</p></li>
 </ul>
 <p><br></p>
-<h3 id="problem-1.3">Problem 1.3</h3>
+<h3 id="problem-5.3">Problem 5.3</h3>
 <p>Now, suppose we’re given that the distribution of monthly spending in
 October 2023 for all San Diego members is roughly normal. Given this
 fact, fill in the blanks:</p>
@@ -177,24 +335,24 @@ between __(m)__ dollars and __(n)__ dollars."
 nearest multiple of 10.</p>
 <p><br></p>
 <hr />
-<h2 id="problem-2">Problem 2</h2>
+<h2 id="problem-6">Problem 6</h2>
 <p>Suppose we have access to a simple random sample of all US Costco
 members of size <strong>145</strong>. Our sample is stored in a
 DataFrame named <code>us_sample</code>, in which the
 <code>"Spend"</code> column contains the October 2023 spending of each
 sampled member in dollars.</p>
 <p><br></p>
-<h3 id="problem-2.1">Problem 2.1</h3>
+<h3 id="problem-6.1">Problem 6.1</h3>
 <p>Fill in the blanks below so that <code>us_left</code> and
 <code>us_right</code> are the left and right endpoints of a
 <strong>46%</strong> confidence interval for the average October 2023
 spending of all US members.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>costco_means <span class="op">=</span> np.array([])</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">5000</span>):</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    resampled_spends <span class="op">=</span> __(x)__</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    costco_means <span class="op">=</span> np.append(costco_means, resampled_spends.mean())</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>left <span class="op">=</span> np.percentile(costco_means, __(y)__)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>right <span class="op">=</span> np.percentile(costco_means, __(z)__)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>costco_means <span class="op">=</span> np.array([])</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">5000</span>):</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    resampled_spends <span class="op">=</span> __(x)__</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    costco_means <span class="op">=</span> np.append(costco_means, resampled_spends.mean())</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>left <span class="op">=</span> np.percentile(costco_means, __(y)__)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>right <span class="op">=</span> np.percentile(costco_means, __(z)__)</span></code></pre></div>
 <p>Which of the following could go in blank (x)? <strong>Select all that
 apply.</strong></p>
 <ul class="task-list">
@@ -207,7 +365,7 @@ apply.</strong></p>
 </ul>
 <p>What goes in blanks (y) and (z)? Give your answers as integers.</p>
 <p><br></p>
-<h3 id="problem-2.2">Problem 2.2</h3>
+<h3 id="problem-6.2">Problem 6.2</h3>
 <p>True or False: <strong>46%</strong> of all US members in
 <code>us_sample</code> spent between <code>us_left</code> and
 <code>us_right</code> in October 2023.</p>
@@ -216,7 +374,7 @@ apply.</strong></p>
 <li><p><input type="radio" disabled="" /> False</p></li>
 </ul>
 <p><br></p>
-<h3 id="problem-2.3">Problem 2.3</h3>
+<h3 id="problem-6.3">Problem 6.3</h3>
 <p>True or False: If we repeat the code from part (b) 200 times, each
 time bootstrapping from a new random sample of 145 members drawn from
 all US members, then about <strong>92</strong> of the intervals we
@@ -227,7 +385,7 @@ members.</p>
 <li><p><input type="radio" disabled="" /> False</p></li>
 </ul>
 <p><br></p>
-<h3 id="problem-2.4">Problem 2.4</h3>
+<h3 id="problem-6.4">Problem 6.4</h3>
 <p>True or False: If we repeat the code from part (b) 200 times, each
 time bootstrapping from <code>us_sample</code>, then about
 <strong>92</strong> of the intervals we create will contain the average
@@ -238,57 +396,7 @@ October 2023 spending of all US members.</p>
 </ul>
 <p><br></p>
 <hr />
-<h2 id="problem-3">Problem 3</h2>
-<p>An IKEA chair designer is experimenting with some new ideas for
-armchair designs. She has the idea of making the arm rests shaped like
-bell curves, or normal distributions. A cross-section of the armchair
-design is shown below.</p>
-<center><img src='../assets/images/sp22-final/armchair.png' width=80%></center>
-<p><br></p>
-<p>This was created by taking the portion of the standard normal
-distribution from <span class="math inline">z=-4</span> to <span
-class="math inline">z=4</span> and adjoining two copies of it, one
-centered at <span class="math inline">z=0</span> and the other centered
-at <span class="math inline">z=8</span>. Let’s call this shape the
-armchair curve.</p>
-<p>Since the area under the standard normal curve from <span
-class="math inline">z=-4</span> to <span class="math inline">z=4</span>
-is approximately 1, the total area under the armchair curve is
-approximately 2.</p>
-<p>Complete the implementation of the two functions below:</p>
-<ol type="1">
-<li><code>area_left_of(z)</code> should return the area under the
-armchair curve to the left of <code>z</code>, assuming
-<code>-4 &lt;= z &lt;= 12</code>, and</li>
-<li><code>area_between(x, y)</code> should return the area under the
-armchair curve between <code>x</code> and <code>y</code>, assuming
-<code>-4 &lt;= x &lt;= y &lt;= 12</code>.</li>
-</ol>
-<div class="sourceCode" id="cb2"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> area_left_of(z):</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">&#39;&#39;&#39;Returns the area under the armchair curve to the left of z.</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">       Assume -4 &lt;= z &lt;= 12&#39;&#39;&#39;</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> ___(a)___: </span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> ___(b)___ </span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> scipy.stats.norm.cdf(z)</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> area_between(x, y):</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="co">&#39;&#39;&#39;Returns the area under the armchair curve between x and y. </span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">    Assume -4 &lt;= x &lt;= y &lt;= 12.&#39;&#39;&#39;</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ___(c)___</span></code></pre></div>
-<p><br></p>
-<h3 id="problem-3.1">Problem 3.1</h3>
-<p>What goes in blank (a)?</p>
-<p><br></p>
-<h3 id="problem-3.2">Problem 3.2</h3>
-<p>What goes in blank (b)?</p>
-<p><br></p>
-<h3 id="problem-3.3">Problem 3.3</h3>
-<p>What goes in blank (c)?</p>
-<p><br></p>
-<hr />
-<h2 id="problem-4">Problem 4</h2>
+<h2 id="problem-7">Problem 7</h2>
 <p>Researchers from the San Diego Zoo, located within Balboa Park,
 collected physical measurements of several species of penguins in a
 region of Antarctica.</p>
@@ -296,7 +404,7 @@ region of Antarctica.</p>
 its mass in grams. The average penguin mass is 4200 grams, and the
 standard deviation is 840 grams.</p>
 <p><br></p>
-<h3 id="problem-4.1">Problem 4.1</h3>
+<h3 id="problem-7.1">Problem 7.1</h3>
 <p>Consider the histogram of mass below.</p>
 <center><img src='../assets/images/fa21-final/mass.png' width=40%></center>
 <p><br></p>
@@ -312,7 +420,7 @@ penguins</p></li>
 average mass of penguins just by looking at the above histogram</p></li>
 </ul>
 <p><br></p>
-<h3 id="problem-4.2">Problem 4.2</h3>
+<h3 id="problem-7.2">Problem 7.2</h3>
 <p>For your convenience, we show the histogram of mass again below.</p>
 <center><img src='../assets/images/fa21-final/mass.png' width=40%></center>
 <p><br></p>
@@ -323,7 +431,7 @@ a mass between 3276 grams and 5124 grams? Input your answer as a
 percentage between 0 and 100, without the % symbol. Round to three
 decimal places.</p>
 <p><br></p>
-<h3 id="problem-4.3">Problem 4.3</h3>
+<h3 id="problem-7.3">Problem 7.3</h3>
 <p>Per Chebyshev’s inequality, at least what percentage of penguins have
 a mass between 1680 grams and 5880 grams?</p>
 <ul class="task-list">
@@ -336,7 +444,7 @@ a mass between 1680 grams and 5880 grams?</p>
 <li><p><input type="radio" disabled="" /> 95%</p></li>
 </ul>
 <p><br></p>
-<h3 id="problem-4.4">Problem 4.4</h3>
+<h3 id="problem-7.4">Problem 7.4</h3>
 <p>The distribution of mass in grams is not roughly normal. Is the
 distribution of mass in standard units roughly normal?</p>
 <ul class="task-list">
@@ -345,16 +453,16 @@ distribution of mass in standard units roughly normal?</p>
 <li><p><input type="radio" disabled="" /> Impossible to tell</p></li>
 </ul>
 <p><br></p>
-<h3 id="problem-4.5">Problem 4.5</h3>
+<h3 id="problem-7.5">Problem 7.5</h3>
 <p>Suppose <code>boot_means</code> is an array of the resampled means.
 Fill in the blanks below so that <code>[left, right]</code> is a 68%
 confidence interval for the true mean mass of penguins.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>left <span class="op">=</span> np.percentile(boot_means, __(a)__)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>right <span class="op">=</span> np.percentile(boot_means, __(b)__)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>[left, right]</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>left <span class="op">=</span> np.percentile(boot_means, __(a)__)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>right <span class="op">=</span> np.percentile(boot_means, __(b)__)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>[left, right]</span></code></pre></div>
 <p>What goes in blank (a)? What goes in blank (b)?</p>
 <p><br></p>
-<h3 id="problem-4.6">Problem 4.6</h3>
+<h3 id="problem-7.6">Problem 7.6</h3>
 <p>Which of the following is a correct interpretation of this confidence
 interval? Select all that apply.</p>
 <ul class="task-list">
