@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Extra Practice Session 6: Confidence Intervals, Center, Spread, Standardization, Normal Distribution</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="../assets/theme.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Extra Practice Session 6: Confidence Intervals,
+Center, Spread, Standardization, Normal Distribution</h1>
+</header>
+<p><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<!-- add after bootstrap.min.css -->
+<link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css"/>
+<!-- add after bootstrap.min.js or bootstrap.bundle.min.js -->
+<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script></p>
+<!-- for difficulty gauges-->
+<script src="https://cdn.plot.ly/plotly-2.16.1.min.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B947E6J6H4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B947E6J6H4');
+</script>
+<p><a href="../index.html">← return to practice.dsc10.com</a></p>
+<hr />
+<p>Welcome! The problems shown below should be worked on <strong>on
+paper</strong>, since the quizzes and exams you take in this course will
+also be on paper. You do not need to submit your solutions anywhere.
+<br><br>We encourage you to complete this worksheet in groups during an
+extra practice session on Friday, February 16th. Solutions will be
+posted after all sessions have finished. This problem set is not
+designed to take any particular amount of time - focus on understanding
+concepts, not on getting through all the questions.</p>
+<hr />
+<h2 id="problem-1">Problem 1</h2>
+<p>Among all Costco members in San Diego, the average monthly spending
+in October 2023 was <strong>$350</strong> with a standard deviation of
+<strong>$40</strong>.</p>
+<p><br></p>
+<h3 id="problem-1.1">Problem 1.1</h3>
+<p>The amount Ciro spent at Costco in October 2023 was
+<strong>-1.5</strong> in standard units. What is this amount in dollars?
+Give your answer as an integer.</p>
+<p><br></p>
+<h3 id="problem-1.2">Problem 1.2</h3>
+<p>What is the minimum possible percentage of San Diego members that
+spent between <strong>$250</strong> and <strong>$450</strong> in October
+2023?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> 16%</p></li>
+<li><p><input type="radio" disabled="" /> 22%</p></li>
+<li><p><input type="radio" disabled="" /> 36%</p></li>
+<li><p><input type="radio" disabled="" /> 60%</p></li>
+<li><p><input type="radio" disabled="" /> 78%</p></li>
+<li><p><input type="radio" disabled="" /> 82%</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-1.3">Problem 1.3</h3>
+<p>Now, suppose we’re given that the distribution of monthly spending in
+October 2023 for all San Diego members is roughly normal. Given this
+fact, fill in the blanks:</p>
+<center>
+"In October 2023, 95% of San Diego members spent
+between __(m)__ dollars and __(n)__ dollars."
+</center>
+<p><br></p>
+<p>What are m and n? Give your answers as integers rounded to the
+nearest multiple of 10.</p>
+<p><br></p>
+<hr />
+<h2 id="problem-2">Problem 2</h2>
+<p>Suppose we have access to a simple random sample of all US Costco
+members of size <strong>145</strong>. Our sample is stored in a
+DataFrame named <code>us_sample</code>, in which the
+<code>"Spend"</code> column contains the October 2023 spending of each
+sampled member in dollars.</p>
+<p><br></p>
+<h3 id="problem-2.1">Problem 2.1</h3>
+<p>Fill in the blanks below so that <code>us_left</code> and
+<code>us_right</code> are the left and right endpoints of a
+<strong>46%</strong> confidence interval for the average October 2023
+spending of all US members.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>costco_means <span class="op">=</span> np.array([])</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">5000</span>):</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    resampled_spends <span class="op">=</span> __(x)__</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    costco_means <span class="op">=</span> np.append(costco_means, resampled_spends.mean())</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>left <span class="op">=</span> np.percentile(costco_means, __(y)__)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>right <span class="op">=</span> np.percentile(costco_means, __(z)__)</span></code></pre></div>
+<p>Which of the following could go in blank (x)? <strong>Select all that
+apply.</strong></p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> <code>us_sample.sample(145, replace=True).get("Spend")</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>us_sample.sample(145, replace=False).get("Spend")</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>np.random.choice(us_sample.get("Spend"), 145)</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>np.random.choice(us_sample.get("Spend"), 145, replace=True)</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>np.random.choice(us_sample.get("Spend"), 145, replace=False)</code></p></li>
+<li><p><input type="checkbox" disabled="" /> None of the above.</p></li>
+</ul>
+<p>What goes in blanks (y) and (z)? Give your answers as integers.</p>
+<p><br></p>
+<h3 id="problem-2.2">Problem 2.2</h3>
+<p>True or False: <strong>46%</strong> of all US members in
+<code>us_sample</code> spent between <code>us_left</code> and
+<code>us_right</code> in October 2023.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-2.3">Problem 2.3</h3>
+<p>True or False: If we repeat the code from part (b) 200 times, each
+time bootstrapping from a new random sample of 145 members drawn from
+all US members, then about <strong>92</strong> of the intervals we
+create will contain the average October 2023 spending of all US
+members.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-2.4">Problem 2.4</h3>
+<p>True or False: If we repeat the code from part (b) 200 times, each
+time bootstrapping from <code>us_sample</code>, then about
+<strong>92</strong> of the intervals we create will contain the average
+October 2023 spending of all US members.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-3">Problem 3</h2>
+<p>An IKEA chair designer is experimenting with some new ideas for
+armchair designs. She has the idea of making the arm rests shaped like
+bell curves, or normal distributions. A cross-section of the armchair
+design is shown below.</p>
+<center><img src='../assets/images/sp22-final/armchair.png' width=80%></center>
+<p><br></p>
+<p>This was created by taking the portion of the standard normal
+distribution from <span class="math inline">z=-4</span> to <span
+class="math inline">z=4</span> and adjoining two copies of it, one
+centered at <span class="math inline">z=0</span> and the other centered
+at <span class="math inline">z=8</span>. Let’s call this shape the
+armchair curve.</p>
+<p>Since the area under the standard normal curve from <span
+class="math inline">z=-4</span> to <span class="math inline">z=4</span>
+is approximately 1, the total area under the armchair curve is
+approximately 2.</p>
+<p>Complete the implementation of the two functions below:</p>
+<ol type="1">
+<li><code>area_left_of(z)</code> should return the area under the
+armchair curve to the left of <code>z</code>, assuming
+<code>-4 &lt;= z &lt;= 12</code>, and</li>
+<li><code>area_between(x, y)</code> should return the area under the
+armchair curve between <code>x</code> and <code>y</code>, assuming
+<code>-4 &lt;= x &lt;= y &lt;= 12</code>.</li>
+</ol>
+<div class="sourceCode" id="cb2"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> area_left_of(z):</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">&#39;&#39;&#39;Returns the area under the armchair curve to the left of z.</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">       Assume -4 &lt;= z &lt;= 12&#39;&#39;&#39;</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> ___(a)___: </span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> ___(b)___ </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> scipy.stats.norm.cdf(z)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> area_between(x, y):</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="co">&#39;&#39;&#39;Returns the area under the armchair curve between x and y. </span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">    Assume -4 &lt;= x &lt;= y &lt;= 12.&#39;&#39;&#39;</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ___(c)___</span></code></pre></div>
+<p><br></p>
+<h3 id="problem-3.1">Problem 3.1</h3>
+<p>What goes in blank (a)?</p>
+<p><br></p>
+<h3 id="problem-3.2">Problem 3.2</h3>
+<p>What goes in blank (b)?</p>
+<p><br></p>
+<h3 id="problem-3.3">Problem 3.3</h3>
+<p>What goes in blank (c)?</p>
+<p><br></p>
+<hr />
+<h2 id="problem-4">Problem 4</h2>
+<p>Researchers from the San Diego Zoo, located within Balboa Park,
+collected physical measurements of several species of penguins in a
+region of Antarctica.</p>
+<p>One piece of information they tracked for each of 330 penguins was
+its mass in grams. The average penguin mass is 4200 grams, and the
+standard deviation is 840 grams.</p>
+<p><br></p>
+<h3 id="problem-4.1">Problem 4.1</h3>
+<p>Consider the histogram of mass below.</p>
+<center><img src='../assets/images/fa21-final/mass.png' width=40%></center>
+<p><br></p>
+<p>Select the true statement below.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> The median mass of penguins is larger than the average mass of
+penguins</p></li>
+<li><p><input type="radio" disabled="" /> The median mass of penguins is roughly equal to the average mass of
+penguins (within 50 grams)</p></li>
+<li><p><input type="radio" disabled="" /> The median mass of penguins is less than the average mass of
+penguins</p></li>
+<li><p><input type="radio" disabled="" /> It is impossible to determine the relationship between the median and
+average mass of penguins just by looking at the above histogram</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-4.2">Problem 4.2</h3>
+<p>For your convenience, we show the histogram of mass again below.</p>
+<center><img src='../assets/images/fa21-final/mass.png' width=40%></center>
+<p><br></p>
+<p>Recall, there are 330 penguins in our dataset. Their average mass is
+4200 grams, and the standard deviation of mass is 840 grams.</p>
+<p>Per Chebyshev’s inequality, at least what percentage of penguins have
+a mass between 3276 grams and 5124 grams? Input your answer as a
+percentage between 0 and 100, without the % symbol. Round to three
+decimal places.</p>
+<p><br></p>
+<h3 id="problem-4.3">Problem 4.3</h3>
+<p>Per Chebyshev’s inequality, at least what percentage of penguins have
+a mass between 1680 grams and 5880 grams?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> 50%</p></li>
+<li><p><input type="radio" disabled="" /> 55.5%</p></li>
+<li><p><input type="radio" disabled="" /> 65.25%</p></li>
+<li><p><input type="radio" disabled="" /> 68%</p></li>
+<li><p><input type="radio" disabled="" /> 75%</p></li>
+<li><p><input type="radio" disabled="" /> 88.8%</p></li>
+<li><p><input type="radio" disabled="" /> 95%</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-4.4">Problem 4.4</h3>
+<p>The distribution of mass in grams is not roughly normal. Is the
+distribution of mass in standard units roughly normal?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Yes</p></li>
+<li><p><input type="radio" disabled="" /> No</p></li>
+<li><p><input type="radio" disabled="" /> Impossible to tell</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-4.5">Problem 4.5</h3>
+<p>Suppose <code>boot_means</code> is an array of the resampled means.
+Fill in the blanks below so that <code>[left, right]</code> is a 68%
+confidence interval for the true mean mass of penguins.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>left <span class="op">=</span> np.percentile(boot_means, __(a)__)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>right <span class="op">=</span> np.percentile(boot_means, __(b)__)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>[left, right]</span></code></pre></div>
+<p>What goes in blank (a)? What goes in blank (b)?</p>
+<p><br></p>
+<h3 id="problem-4.6">Problem 4.6</h3>
+<p>Which of the following is a correct interpretation of this confidence
+interval? Select all that apply.</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> There is an approximately 68% chance that mean weight of all penguins
+in Antarctica falls within the bounds of this confidence interval.</p></li>
+<li><p><input type="checkbox" disabled="" /> Approximately 68% of penguin weights in our sample fall within the
+bounds of this confidence interval.</p></li>
+<li><p><input type="checkbox" disabled="" /> Approximately 68% of penguin weights in the population fall within
+the bounds of this interval.</p></li>
+<li><p><input type="checkbox" disabled="" /> If we created many confidence intervals using the same method,
+approximately 68% of them would contain the mean weight of all penguins
+in Antarctica.</p></li>
+<li><p><input type="checkbox" disabled="" /> None of the above</p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="section"><span class="math display"> </span></h2>
+<h4
+id="feedback-find-an-error-still-confused-have-a-suggestion-let-us-know-here.">👋
+Feedback: Find an error? Still confused? Have a suggestion?
+<a href="https://forms.gle/WZ71FchnXU1K154d7">Let us know
+here</u></a>.</h4>
+<hr />
+</body>
+</html>
