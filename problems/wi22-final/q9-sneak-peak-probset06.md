@@ -4,10 +4,7 @@ The `season` DataFrame contains statistics on all players in the WNBA in the 202
 
 <center><img src='../assets/images/wi22-final/seasons.png' width=40%></center>
 
-Each row in `season` corresponds to a single player.
-
-- `'Player'` (`str`), their name
-- `'PPG'` (`float`), the number of points they scored per game played
+Each row in `season` corresponds to a single player. In this problem, we'll be working with the `'PPG'` column, which contains the number of points scored per game played.
 
 Suppose we only have access to the DataFrame `small_season`, which is a random sample of **size 36** from `season`. We're interested in learning about the true mean points per game of all players in `season` given just the information in `small_season`.
 
