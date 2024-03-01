@@ -235,7 +235,7 @@ conclude?
 
 - Option 3: We didn't accept the alternative since we failed to reject the null.
 
-- Option 4: This option is correct becuase our p-value was larger than our cutoff.
+- Option 4: This option is correct because our p-value was larger than our cutoff.
 
 <average>86</average>
 
