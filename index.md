@@ -239,7 +239,7 @@ Starting in Fall 2023, quizzes are administered in discussion section. Below, yo
         <a href='wi24-quiz1/index.html'>Quiz 1</a> •
         <a href='wi24-quiz2/index.html'>Quiz 2</a> •
         <a href='wi24-quiz3/index.html'>Quiz 3</a> •
-        <a href='wi24-quiz4/index.html'>Quiz 4</a>
+        <a href='wi24-quiz4/index.html'>Quiz 4</a> 
       </td>
     </tr>
   </tbody>
