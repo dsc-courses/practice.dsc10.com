@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Extra Practice Session 9: Permutation Test and Regression</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="../assets/theme.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Extra Practice Session 9: Permutation Test and
+Regression</h1>
+</header>
+<p><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<!-- add after bootstrap.min.css -->
+<link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css"/>
+<!-- add after bootstrap.min.js or bootstrap.bundle.min.js -->
+<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script></p>
+<!-- for difficulty gauges-->
+<script src="https://cdn.plot.ly/plotly-2.16.1.min.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B947E6J6H4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B947E6J6H4');
+</script>
+<p><a href="../index.html">← return to practice.dsc10.com</a></p>
+<hr />
+<p>Welcome! The problems shown below should be worked on <strong>on
+paper</strong>, since the quizzes and exams you take in this course will
+also be on paper. You do not need to submit your solutions anywhere.
+<br><br>We encourage you to complete this worksheet in groups during an
+extra practice session on Friday, March 8th. Solutions will be posted
+after all sessions have finished. This problem set is not designed to
+take any particular amount of time - focus on understanding concepts,
+not on getting through all the questions.</p>
+<hr />
+<h2 id="problem-1">Problem 1</h2>
+<p>An IKEA fan created an app where people can log the amount of time it
+took them to assemble their IKEA furniture. The DataFrame
+<code>app_data</code> has a row for each product build that was logged
+on the app. The column <code>'product'</code> contains the name of the
+product, and the column <code>'minutes'</code> contains integer values
+representing the number of minutes it took to assemble each product.
+<br><br></p>
+<p>You are browsing the IKEA showroom, deciding whether to purchase the
+BILLY bookcase or the LOMMARP bookcase. You are concerned about the
+amount of time it will take to assemble your new bookcase, so you look
+up the assembly times reported in <code>app_data</code>. Thinking of the
+data in <code>app_data</code> as a random sample of all IKEA purchases,
+you want to perform a permutation test to test the following
+hypotheses.</p>
+<p><strong>Null Hypothesis</strong>: The assembly time for the BILLY
+bookcase and the assembly time for the LOMMARP bookcase come from the
+same distribution.</p>
+<p><strong>Alternative Hypothesis</strong>: The assembly time for the
+BILLY bookcase and the assembly time for the LOMMARP bookcase come from
+different distributions.</p>
+<p><br></p>
+<h3 id="problem-1.1">Problem 1.1</h3>
+<p>Suppose we query <code>app_data</code> to keep only the BILLY
+bookcases, then average the <code>'minutes'</code> column. In addition,
+we separately query <code>app_data</code> to keep only the LOMMARP
+bookcases, then average the <code>'minutes'</code> column. If the null
+hypothesis is true, which of the following statements about these two
+averages is correct?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> These two averages are the same.</p></li>
+<li><p><input type="radio" disabled="" /> Any difference between these two averages is due to random
+chance.</p></li>
+<li><p><input type="radio" disabled="" /> Any difference between these two averages cannot be ascribed to
+random chance alone.</p></li>
+<li><p><input type="radio" disabled="" /> The difference between these averages is statistically
+significant.</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-1.2">Problem 1.2</h3>
+<p>For the permutation test, we’ll use as our test statistic the average
+assembly time for BILLY bookcases minus the average assembly time for
+LOMMARP bookcases, in minutes.</p>
+<p>Complete the code below to generate one simulated value of the test
+statistic in a new way, without using
+<code>np.random.permutation</code>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>billy <span class="op">=</span> (app_data.get(<span class="st">&#39;product&#39;</span>) <span class="op">==</span> </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>        <span class="st">&#39;BILLY Bookcase, white, 31 1/2x11x79 1/2&#39;</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>lommarp <span class="op">=</span> (app_data.get(<span class="st">&#39;product&#39;</span>) <span class="op">==</span> </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>          <span class="st">&#39;LOMMARP Bookcase, dark blue-green, 25 5/8x78 3/8&#39;</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>billy_lommarp <span class="op">=</span> app_data[billy<span class="op">|</span>lommarp]</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>billy_mean <span class="op">=</span> np.random.choice(billy_lommarp.get(<span class="st">&#39;minutes&#39;</span>), billy.<span class="bu">sum</span>(), replace<span class="op">=</span><span class="va">False</span>).mean()</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>lommarp_mean <span class="op">=</span> _________</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>billy_mean <span class="op">-</span> lommarp_mean</span></code></pre></div>
+<p>What goes in the blank?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>billy_lommarp[lommarp].get('minutes').mean()</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>np.random.choice(billy_lommarp.get('minutes'), lommarp.sum(), replace=False).mean()</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>billy_lommarp.get('minutes').mean() - billy_mean</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>(billy_lommarp.get('minutes').sum() - billy_mean * billy.sum())/lommarp.sum()</code></p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-2">Problem 2</h2>
+<p>For this question, we will use data from the 2021 Women’s National
+Basketball Association (WNBA) season for the next several problems. In
+basketball, players score points by shooting the ball into a hoop. The
+team that scores the most points wins the game.</p>
+<p>Kelsey Plum, a WNBA player, attended La Jolla Country Day School,
+which is adjacent to UCSD’s campus. Her current team is the Las Vegas
+Aces (three-letter code <code>'LVA'</code>). <strong>In 2021, the Las
+Vegas Aces played 31 games, and Kelsey Plum played in all
+31.</strong></p>
+<p>The DataFrame <code>plum</code> contains her stats for all games the
+Las Vegas Aces played in 2021. The first few rows of <code>plum</code>
+are shown below (though the full DataFrame has 31 rows, not 5):</p>
+<center><img src='../assets/images/wi22-final/plum.png' width=40%></center>
+<p>Each row in <code>plum</code> corresponds to a single game. For each
+game, we have:</p>
+<ul>
+<li><code>'Date'</code> (<code>str</code>), the date on which the game
+was played</li>
+<li><code>'Opp'</code> (<code>str</code>), the three-letter code of the
+opponent team</li>
+<li><code>'Home'</code> (<code>bool</code>), <code>True</code> if the
+game was played in Las Vegas (“home”) and <code>False</code> if it was
+played at the opponent’s arena (“away”)</li>
+<li><code>'Won'</code> (<code>bool</code>), <code>True</code> if the Las
+Vegas Aces won the game and <code>False</code> if they lost</li>
+<li><code>'PTS'</code> (<code>int</code>), the number of points Kelsey
+Plum scored in the game</li>
+<li><code>'AST'</code> (<code>int</code>), the number of assists
+(passes) Kelsey Plum made in the game</li>
+<li><code>'TOV'</code> (<code>int</code>), the number of turnovers
+Kelsey Plum made in the game (a turnover is when you lose the ball –
+turnovers are bad!) <br><br></li>
+</ul>
+<p>Consider the definition of the function
+<code>diff_in_group_means</code>:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> diff_in_group_means(df, group_col, num_col):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    s <span class="op">=</span> df.groupby(group_col).mean().get(num_col)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> s.loc[<span class="va">False</span>] <span class="op">-</span> s.loc[<span class="va">True</span>]</span></code></pre></div>
+<p><br></p>
+<h3 id="problem-2.1">Problem 2.1</h3>
+<p>It turns out that Kelsey Plum averages 0.61 more assists in games
+that she wins (“winning games”) than in games that she loses (“losing
+games”). Fill in the blanks below so that <code>observed_diff</code>
+evaluates to -0.61.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>observed_diff <span class="op">=</span> diff_in_group_means(plum, __(a)__, __(b)__)</span></code></pre></div>
+<ol type="1">
+<li><p>What goes in blank (a)?</p></li>
+<li><p>What goes in blank (b)?</p></li>
+</ol>
+<p><br></p>
+<h3 id="problem-2.2">Problem 2.2</h3>
+<p>After observing that Kelsey Plum averages more assists in winning
+games than in losing games, we become interested in conducting a
+permutation test for the following hypotheses:</p>
+<ul>
+<li><strong>Null Hypothesis:</strong> The number of assists Kelsey Plum
+makes in winning games and in losing games come from the same
+distribution.</li>
+<li><strong>Alternative Hypothesis:</strong> The number of assists
+Kelsey Plum makes in winning games is higher on average than the number
+of assists that she makes in losing games.</li>
+</ul>
+<p>To conduct our permutation test, we place the following code in a
+<code>for</code>-loop.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>won <span class="op">=</span> plum.get(<span class="st">&#39;Won&#39;</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>ast <span class="op">=</span> plum.get(<span class="st">&#39;AST&#39;</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>shuffled <span class="op">=</span> plum.assign(Won_shuffled<span class="op">=</span>np.random.permutation(won)) <span class="op">\</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>               .assign(AST_shuffled<span class="op">=</span>np.random.permutation(ast))</span></code></pre></div>
+<p>Which of the following options <strong>does not</strong> compute a
+valid simulated test statistic for this permutation test?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>diff_in_group_means(shuffled, 'Won', 'AST')</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>diff_in_group_means(shuffled, 'Won', 'AST_shuffled')</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>diff_in_group_means(shuffled, 'Won_shuffled, 'AST')</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>diff_in_group_means(shuffled, 'Won_shuffled, 'AST_shuffled')</code></p></li>
+<li><p><input type="radio" disabled="" /> More than one of these options do not compute a valid simulated test
+statistic for this permutation test</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-2.3">Problem 2.3</h3>
+<p>Suppose we generate 10,000 simulated test statistics, using one of
+the valid options from part 1. The empirical distribution of test
+statistics, with a red line at <code>observed_diff</code>, is shown
+below.</p>
+<center><img src='../assets/images/wi22-final/quarter-hist.png' width=50%></center>
+<p>Roughly one-quarter of the area of the histogram above is to the left
+of the red line. What is the correct interpretation of this result?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> There is roughly a one quarter probability that Kelsey Plum’s number
+of assists in winning games and in losing games come from the same
+distribution.</p></li>
+<li><p><input type="radio" disabled="" /> The significance level of this hypothesis test is roughly a
+quarter.</p></li>
+<li><p><input type="radio" disabled="" /> Under the assumption that Kelsey Plum’s number of assists in winning
+games and in losing games come from the same distribution, and that she
+wins 22 of the 31 games she plays, the chance of her averaging
+<strong>at least</strong> 0.61 more assists in wins than losses is
+roughly a quarter.</p></li>
+<li><p><input type="radio" disabled="" /> Under the assumption that Kelsey Plum’s number of assists in winning
+games and in losing games come from the same distribution, and that she
+wins 22 of the 31 games she plays, the chance of her averaging 0.61 more
+assists in wins than losses is roughly a quarter.</p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-3">Problem 3</h2>
+<p>The DataFrame <code>apps</code> contains application data for a
+random sample of 1,000 applicants for a particular credit card from the
+1990s. The columns are:</p>
+<ul>
+<li><p><code>"status" (str)</code>: Whether the credit card application
+was approved: <code>"approved"</code> or <code>"denied"</code> values
+only.</p></li>
+<li><p><code>"age" (float)</code>: The applicant’s age, in years, to the
+nearest twelfth of a year.</p></li>
+<li><p><code>"income" (float)</code>: The applicant’s annual income, in
+tens of thousands of dollars.</p></li>
+<li><p><code>"homeowner" (str)</code>: Whether the credit card applicant
+owns their own home: <code>"yes"</code> or <code>"no"</code> values
+only.</p></li>
+<li><p><code>"dependents" (int)</code>: The number of dependents, or
+individuals that rely on the applicant as a primary source of income,
+such as children.</p></li>
+</ul>
+<p>The first few rows of <code>apps</code> are shown below, though
+remember that <code>apps</code> has 1,000 rows.</p>
+<center><img src='../assets/images/fa22-final/apps.jpg' width=45%></center>
+<p><br> <br><br></p>
+<p>In <code>apps</code>, our sample of 1,000 credit card applications,
+applicants who were approved for the credit card have fewer dependents,
+on average, than applicants who were denied. The mean number of
+dependents for approved applicants is 0.98, versus 1.07 for denied
+applicants.</p>
+<p>To test whether this difference is purely due to random chance, or
+whether the distributions of the number of dependents for approved and
+denied applicants are truly different in the population of all credit
+card applications, we decide to perform a permutation test.</p>
+<p>Consider the incomplete code block below.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> shuffle_status(df):</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    shuffled_status <span class="op">=</span> np.random.permutation(df.get(<span class="st">&quot;status&quot;</span>))</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df.assign(status<span class="op">=</span>shuffled_status).get([<span class="st">&quot;status&quot;</span>, <span class="st">&quot;dependents&quot;</span>])</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_stat(df):</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    grouped <span class="op">=</span> df.groupby(<span class="st">&quot;status&quot;</span>).mean().get(<span class="st">&quot;dependents&quot;</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    approved <span class="op">=</span> grouped.loc[<span class="st">&quot;approved&quot;</span>]</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    denied <span class="op">=</span> grouped.loc[<span class="st">&quot;denied&quot;</span>]</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> __(a)__</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>stats <span class="op">=</span> np.array([])</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    shuffled_apps <span class="op">=</span> shuffle_status(apps)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    stat <span class="op">=</span> test_stat(shuffled_apps)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    stats <span class="op">=</span> np.append(stats, stat)</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>p_value <span class="op">=</span> np.count_nonzero(__(b)__) <span class="op">/</span> <span class="dv">10000</span></span></code></pre></div>
+<p>Below are six options for filling in blanks (a) and (b) in the code
+above.</p>
+<center>
+<table class="table" style="width:50%">
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">Blank (a)</th>
+      <th scope="col">Blank (b)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">Option 1</th>
+      <td><code>denied - approved</code></td>
+      <td><code>stats >= test_stat(apps)</code></td>
+    </tr>
+    <tr>
+      <th scope="row">Option 2</th>
+      <td><code>denied - approved</code></td>
+      <td><code>stats <= test_stat(apps)</code></td>
+    </tr>
+    <tr>
+      <th scope="row">Option 3</th>
+      <td><code>approved - denied</code></td>
+      <td><code>stats >= test_stat(apps)</code></td>
+    </tr>
+    <tr>
+      <th scope="row">Option 4</th>
+      <td><code>np.abs(denied - approved)</code></td>
+      <td><code>stats >= test_stat(apps)</code></td>
+    </tr>
+    <tr>
+      <th scope="row">Option 5</th>
+      <td><code>np.abs(denied - approved)</code></td>
+      <td><code>stats <= test_stat(apps)</code></td>
+    </tr>
+    <tr>
+      <th scope="row">Option 6</th>
+      <td><code>np.abs(approved - denied)</code></td>
+      <td><code>stats >= test_stat(apps)</code></td>
+    </tr>
+  </tbody>
+</table>
+</center>
+<p>The correct way to fill in the blanks depends on how we choose our
+null and alternative hypotheses.</p>
+<p><br></p>
+<h3 id="problem-3.1">Problem 3.1</h3>
+<p>Suppose we choose the following pair of hypotheses.</p>
+<ul>
+<li><p><strong>Null Hypothesis</strong>: In the population, the number
+of dependents of approved and denied applicants come from the same
+distribution.</p></li>
+<li><p><strong>Alternative Hypothesis</strong>: In the population, the
+number of dependents of approved applicants and denied applicants do not
+come from the same distribution.</p></li>
+</ul>
+<p>Which of the six presented options could correctly fill in blanks (a)
+and (b) for this pair of hypotheses? Select all that apply.</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> Option 1</p></li>
+<li><p><input type="checkbox" disabled="" /> Option 2</p></li>
+<li><p><input type="checkbox" disabled="" /> Option 3</p></li>
+<li><p><input type="checkbox" disabled="" /> Option 4</p></li>
+<li><p><input type="checkbox" disabled="" /> Option 5</p></li>
+<li><p><input type="checkbox" disabled="" /> Option 6</p></li>
+<li><p><input type="checkbox" disabled="" /> None of the above.</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-3.2">Problem 3.2</h3>
+<p>Now, suppose we choose the following pair of hypotheses.</p>
+<ul>
+<li><p><strong>Null Hypothesis</strong>: In the population, the number
+of dependents of approved and denied applicants come from the same
+distribution.</p></li>
+<li><p><strong>Alternative Hypothesis</strong>: In the population, the
+number of dependents of approved applicants is smaller on average than
+the number of dependents of denied applicants.</p></li>
+</ul>
+<p>Which of the six presented options could correctly fill in blanks (a)
+and (b) for this pair of hypotheses? Select all that apply.</p>
+<p><br></p>
+<h3 id="problem-3.3">Problem 3.3</h3>
+<p>Option 6 from the start of this question is repeated below.</p>
+<center>
+<table class="table" style="width:50%">
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">Blank (a)</th>
+      <th scope="col">Blank (b)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">Option 6</th>
+      <td><code>np.abs(approved - denied)</code></td>
+      <td><code>stats >= test_stat(apps)</code></td>
+    </tr>
+  </tbody>
+</table>
+</center>
+<p>We want to create a new option, Option 7, that replicates the
+behavior of Option 6, but with blank (a) filled in as shown:</p>
+<center>
+<table class="table" style="width:50%">
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">Blank (a)</th>
+      <th scope="col">Blank (b)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">Option 7</th>
+      <td><code>approved - denied</code></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+</center>
+<p>Which expression below could go in blank (b) so that Option 7 is
+equivalent to Option 6?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>np.abs(stats) &gt;= test_stat(apps)</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>stats &gt;= np.abs(test_stat(apps))</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>np.abs(stats) &gt;= np.abs(test_stat(apps))</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>np.abs(stats &gt;= test_stat(apps))</code></p></li>
+</ul>
+<p><br></p>
+<p><br></p>
+<h3 id="problem-3.4">Problem 3.4</h3>
+<p>In our implementation of this permutation test, we followed the
+procedure outlined in lecture to draw new pairs of samples under the
+null hypothesis and compute test statistics — that is, we randomly
+assigned each row to a group (approved or denied) by shuffling one of
+the columns in <code>apps</code>, then computed the test statistic on
+this random pair of samples.</p>
+<p>Let’s now explore an alternative solution to drawing pairs of samples
+under the null hypothesis and computing test statistics. Here’s the
+approach:</p>
+<ol type="1">
+<li>Shuffle, i.e. re-order, the rows of the DataFrame.</li>
+<li>Use the values at the top of the resulting <code>"dependents"</code>
+column as the new “denied” sample, and the values at the at the bottom
+of the resulting <code>"dependents"</code> column as the new “approved”
+sample. Note that we don’t necessarily split the DataFrame exactly in
+half — the sizes of these new samples depend on the number of “denied”
+and “approved” values in the original DataFrame!</li>
+</ol>
+<p>Once we generate our pair of random samples in this way, we’ll
+compute the test statistic on the random pair, as usual. Here, we’ll use
+as our test statistic the difference between the mean number of
+dependents for denied and approved applicants, in the order
+<strong>denied minus approved</strong>.</p>
+<p><strong>Fill in the blanks to complete the simulation
+below.</strong></p>
+<p><em>Hint:</em> <code>np.random.permutation</code> shouldn’t appear
+anywhere in your code.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> shuffle_all(df):</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>        <span class="co">&#39;&#39;&#39;Returns a DataFrame with the same rows as df, but reordered.&#39;&#39;&#39;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> __(a)__</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> fast_stat(df):</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        <span class="co"># This function does not and should not contain any randomness.</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>        denied <span class="op">=</span> np.count_nonzero(df.get(<span class="st">&quot;status&quot;</span>) <span class="op">==</span> <span class="st">&quot;denied&quot;</span>)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>        mean_denied <span class="op">=</span> __(b)__.get(<span class="st">&quot;dependents&quot;</span>).mean()</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        mean_approved <span class="op">=</span> __(c)__.get(<span class="st">&quot;dependents&quot;</span>).mean()</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> mean_denied <span class="op">-</span> mean_approved</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    stats <span class="op">=</span> np.array([])</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>        stat <span class="op">=</span> fast_stat(shuffle_all(apps))</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>        stats <span class="op">=</span> np.append(stats, stat)</span></code></pre></div>
+<p><br></p>
+<hr />
+<h2 id="problem-4">Problem 4</h2>
+<p>Choose the best tool to answer each of the following questions. Note
+the following:</p>
+<ul>
+<li>By “hypothesis testing”, we mean “standard” hypothesis testing,
+i.e. hypothesis testing that <strong>doesn’t</strong> involve
+permutation testing or bootstrapping.</li>
+<li>By “bootstrapping”, we mean bootstrapping that
+<strong>doesn’t</strong> involve hypothesis testing.</li>
+</ul>
+<p><br></p>
+<h3 id="problem-4.1">Problem 4.1</h3>
+<p>Are incomes of applicants with 2 or fewer dependents drawn randomly
+from the distribution of incomes of all applicants?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Hypothesis Testing</p></li>
+<li><p><input type="radio" disabled="" /> Permutation Testing</p></li>
+<li><p><input type="radio" disabled="" /> Bootstrapping</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-4.2">Problem 4.2</h3>
+<p>What is the median income of credit card applicants with 2 or fewer
+dependents?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Hypothesis Testing</p></li>
+<li><p><input type="radio" disabled="" /> Permutation Testing</p></li>
+<li><p><input type="radio" disabled="" /> Bootstrapping</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-4.3">Problem 4.3</h3>
+<p>Are credit card applications approved through a random process in
+which 50% of applications are approved?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Hypothesis Testing</p></li>
+<li><p><input type="radio" disabled="" /> Permutation Testing</p></li>
+<li><p><input type="radio" disabled="" /> Bootstrapping</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-4.4">Problem 4.4</h3>
+<p>Is the median income of applicants with 2 or fewer dependents less
+than the median income of applicants with 3 or more dependents?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Hypothesis Testing</p></li>
+<li><p><input type="radio" disabled="" /> Permutation Testing</p></li>
+<li><p><input type="radio" disabled="" /> Bootstrapping</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-4.5">Problem 4.5</h3>
+<p>What is the difference in median income of applicants with 2 or fewer
+dependents and applicants with 3 or more dependents?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Hypothesis Testing</p></li>
+<li><p><input type="radio" disabled="" /> Permutation Testing</p></li>
+<li><p><input type="radio" disabled="" /> Bootstrapping</p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-5">Problem 5</h2>
+<p>In this question, we’ll explore the relationship between the ages and
+incomes of credit card applicants.</p>
+<p><br></p>
+<h3 id="problem-5.1">Problem 5.1</h3>
+<p>The credit card company that owns the data in apps, BruinCard, has
+decided not to give us access to the entire <code>apps</code> DataFrame,
+but instead just a sample of <code>apps</code> called
+<code>small apps</code>. We’ll start by using the information in
+<code>small_apps</code> to compute the regression line that predicts the
+age of an applicant given their income.</p>
+<p>For an applicant with an income that is <span
+class="math inline">\frac{8}{3}</span> standard deviations above the
+mean income, we predict their age to be <span
+class="math inline">\frac{4}{5}</span> standard deviations above the
+mean age. What is the correlation coefficient, <span
+class="math inline">r</span>, between incomes and ages in
+<code>small_apps</code>? Give your answer as a <strong>fully simplified
+fraction</strong>.</p>
+<p><br></p>
+<h3 id="problem-5.2">Problem 5.2</h3>
+<p>Now, we want to predict the income of an applicant given their age.
+We will again use the information in <code>small_apps</code> to find the
+regression line. The regression line predicts that an applicant whose
+age is <span class="math inline">\frac{4}{5}</span> standard deviations
+above the mean age has an income that is <span
+class="math inline">s</span> standard deviations above the mean income.
+What is the value of <span class="math inline">s</span>? Give your
+answer as a <strong>fully simplified fraction</strong>.</p>
+<p><br></p>
+<h3 id="problem-5.3">Problem 5.3</h3>
+<p>BruinCard has now taken away our access to both <code>apps</code> and
+<code>small_apps</code>, and has instead given us access to an even
+smaller sample of <code>apps</code> called <code>mini_apps</code>. In
+<code>mini_apps</code>, we know the following information: - All incomes
+and ages are positive numbers. - There is a positive linear association
+between incomes and ages.</p>
+<p>We use the data in <code>mini_apps</code> to find the regression line
+that will allow us to predict the income of an applicant given their
+age. Just to test the limits of this regression line, we use it to
+predict the income of an applicant who is <strong>-2 years old</strong>,
+even though it doesn’t make sense for a person to have a negative
+age.</p>
+<p>Let <span class="math inline">I</span> be the regression line’s
+prediction of this applicant’s income. Which of the following
+inequalities are guaranteed to be satisfied? Select all that apply.</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> <span class="math inline">I &lt; 0</span></p></li>
+<li><p><input type="checkbox" disabled="" /> <span class="math inline">I &lt; \text{mean income}</span></p></li>
+<li><p><input type="checkbox" disabled="" /> <span class="math inline">| I - \text{mean income}| \leq | \text{mean
+age} + 2 |</span></p></li>
+<li><p><input type="checkbox" disabled="" /> <span class="math inline">\dfrac{| I - \text{mean
+income}|}{\text{standard deviation of incomes}} \leq \dfrac{| \text{mean
+age} + 2 |}{\text{standard deviation of ages}}</span></p></li>
+<li><p><input type="checkbox" disabled="" /> None of the above.</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-5.4">Problem 5.4</h3>
+<p>Yet again, BruinCard, the company that gave us access to
+<code>apps</code>, <code>small_apps</code>, and <code>mini_apps</code>,
+has revoked our access to those three DataFrames and instead has given
+us <code>micro_apps</code>, an even smaller sample of
+<code>apps</code>.</p>
+<p>Using <code>micro_apps</code>, we are again interested in finding the
+regression line that will allow us to predict the income of an applicant
+given their age. We are given the following information:</p>
+<ul>
+<li>The correlation coefficient, <span class="math inline">r</span>,
+between ages and incomes is <span
+class="math inline">-\frac{1}{3}</span> (note the negative sign).</li>
+<li>The mean income is <span class="math inline">\frac{7}{2}</span>
+(remember, incomes are measured in tens of thousands of dollars).</li>
+<li>The mean age is 33.</li>
+<li>The regression line predicts that a 24 year old applicant has an
+income of <span class="math inline">\frac{31}{2}</span>.</li>
+</ul>
+<p>Suppose the standard deviation of incomes in <code>micro_apps</code>
+is an integer multiple of the standard deviation of ages in
+<code>micro_apps</code>. That is,</p>
+<p><span class="math display">\text{standard deviation of income} = k
+\cdot \text{standard deviation of age}.</span></p>
+<p>What is the value of <span class="math inline">k</span>? Give your
+answer as an <strong>integer</strong>.</p>
+<p><br></p>
+<hr />
+<h2 id="problem-6">Problem 6</h2>
+<p>Raine is helping settle a debate between two friends on the
+“superior" season — winter or summer. In doing so, they try to
+understand the relationship between the number of sunshine hours per
+month in January and the number of sunshine hours per month in July
+across all cities in California in <code>sun</code>.</p>
+<p>Raine finds the regression line that predicts the number of sunshine
+hours in July (<span class="math inline">y</span>) for a city given its
+number of sunshine hours in January (<span
+class="math inline">x</span>). In doing so, they find that the
+correlation between the two variables is <span
+class="math inline">\frac{2}{5}</span>.</p>
+<p><br></p>
+<h3 id="problem-6.1">Problem 6.1</h3>
+<p>Which of these could be a scatter plot of number of sunshine hours in
+July vs. number of sunshine hours in January?</p>
+<center><img src='../assets/images/sp23-final/r-values.png' width=550></center>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Option 1</p></li>
+<li><p><input type="radio" disabled="" /> Option 2</p></li>
+<li><p><input type="radio" disabled="" /> Option 3</p></li>
+<li><p><input type="radio" disabled="" /> Option 4</p></li>
+</ul>
+<p><br></p>
+<p><br></p>
+<h3 id="problem-6.2">Problem 6.2</h3>
+<p>Suppose the standard deviation of the number of sunshine hours in
+January for cities in California is equal to the standard deviation of
+the number of sunshine hours in July for cities in California.</p>
+<p>Raine’s hometown of Santa Clarita saw 60 more sunshine hours in
+January than the average California city did. How many <strong>more
+sunshine hours than average</strong> does the regression line predict
+that Santa Clarita will have in July? Give your answer as a positive
+integer. <em>(Hint: You’ll need to use the fact that the correlation
+between the two variables is <span
+class="math inline">\frac{2}{5}</span>.)</em></p>
+<p><br></p>
+<p>As we know, San Diego was particularly cloudy this May. More
+generally, Anthony, another California native, feels that California is
+getting cloudier and cloudier overall.</p>
+<p>To imagine what the dataset may look like in a few years, Anthony
+subtracts 5 from the number of sunshine hours in both January and July
+for all California cities in the dataset – i.e., he subtracts 5 from
+each <span class="math inline">x</span> value and 5 from each <span
+class="math inline">y</span> value in the dataset. He then creates a
+regression line to use the new <span class="math inline">xs</span> to
+predict the new <span class="math inline">ys</span>.</p>
+<p><br></p>
+<h3 id="problem-6.3">Problem 6.3</h3>
+<p>What is the slope of Anthony’s new regression line?</p>
+<p><br></p>
+<p><br></p>
+<h3 id="problem-6.4">Problem 6.4</h3>
+<p>Suppose the intercept of Raine’s original regression line – that is,
+before Anthony subtracted 5 from each <span class="math inline">x</span>
+and each <span class="math inline">y</span> – was 10. What is the
+intercept of Anthony’s new regression line?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> -7</p></li>
+<li><p><input type="radio" disabled="" /> -5</p></li>
+<li><p><input type="radio" disabled="" /> -3</p></li>
+<li><p><input type="radio" disabled="" /> 0</p></li>
+<li><p><input type="radio" disabled="" /> 3</p></li>
+<li><p><input type="radio" disabled="" /> 5</p></li>
+<li><p><input type="radio" disabled="" /> 7</p></li>
+</ul>
+<p><br></p>
+<p>Jasmine is trying to get as far away from Anthony as possible and has
+a trip to Chicago planned after finals. Chicago is known for being very
+warm and sunny in the summer but cold, rainy, and snowy in the winter.
+She decides to build a regression line that uses month of the year
+(where 1 is January, 2 is February, 12 is December, etc.) to predict the
+number of sunshine hours in Chicago.</p>
+<hr />
+<h2 id="problem-7">Problem 7</h2>
+<p>The DataFrame <code>games</code> contains information about a sample
+of popular games. Besides other columns, there is a column
+<code>"Complexity"</code> that contains the average complexity of the
+game, a column <code>"Rating"</code> that contains the average rating of
+the game, and a column <code>"Play Time"</code> that contains the
+average play time of the game. <br><br></p>
+<p>We use the regression line to predict a game’s <code>"Rating"</code>
+based on its <code>"Complexity"</code>. We find that for the game
+<em>Wingspan</em>, which has a <code>"Complexity"</code> that is 2
+points higher than the average, the predicted <code>"Rating"</code> is 3
+points higher than the average.</p>
+<p><br></p>
+<h3 id="problem-7.1">Problem 7.1</h3>
+<p>What can you conclude about the correlation coefficient r?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <span class="math inline">r &lt; 0</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">r = 0</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">r &gt; 0</span></p></li>
+<li><p><input type="radio" disabled="" /> We cannot make any conclusions about the value of <span class="math inline">r</span> based on this information alone.</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-7.2">Problem 7.2</h3>
+<p>What can you conclude about the standard deviations of “Complexity”
+and “Rating”?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> SD of <code>"Complexity"</code> &lt; SD of <code>"Rating"</code></p></li>
+<li><p><input type="radio" disabled="" /> SD of <code>"Complexity"</code> = SD of <code>"Rating"</code></p></li>
+<li><p><input type="radio" disabled="" /> SD of <code>"Complexity"</code> &gt; SD of <code>"Rating"</code></p></li>
+<li><p><input type="radio" disabled="" /> We cannot make any conclusions about the relationship between these
+two standard deviations based on this information alone.</p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-8">Problem 8</h2>
+<p>Suppose that for children’s games, <code>"Play Time"</code> and
+<code>"Rating"</code> are negatively linearly associated due to children
+having short attention spans. Suppose that for children’s games, the
+standard deviation of <code>"Play Time"</code> is twice the standard
+deviation of <code>"Rating"</code>, and the average
+<code>"Play Time"</code> is 10 minutes. We use linear regression to
+predict the <code>"Rating"</code> of a children’s game based on its
+<code>"Play Time"</code>. The regression line predicts that <em>Don’t
+Break the Ice</em>, a children’s game with a <code>"Play Time"</code> of
+8 minutes will have a <code>"Rating"</code> of 4. Which of the following
+could be the average <code>"Rating"</code> for children’s games?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> 2</p></li>
+<li><p><input type="radio" disabled="" /> 2.8</p></li>
+<li><p><input type="radio" disabled="" /> 3.1</p></li>
+<li><p><input type="radio" disabled="" /> 4</p></li>
+</ul>
+<hr />
+<h2 id="problem-9">Problem 9</h2>
+<p>The American Kennel Club (AKC) organizes information about dog
+breeds. We’ve loaded their dataset into a DataFrame called
+<code>df</code>. The index of <code>df</code> contains the dog breed
+names as <code>str</code> values. Besides other columns, there is a
+column <code>'weight' (float)</code> that contains typical weight (kg)
+and a column <code>'height' (float)</code> that contains typical height
+(cm). <br><br> Sam wants to fit a linear model to predict a dog’s height
+using its weight.</p>
+<p>He first runs the following code:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> df.get(<span class="st">&#39;weight&#39;</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> df.get(<span class="st">&#39;height&#39;</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> su(vals):</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (vals <span class="op">-</span> vals.mean()) <span class="op">/</span> np.std(vals)</span></code></pre></div>
+<p><br></p>
+<h3 id="problem-9.1">Problem 9.1</h3>
+<p>Select all of the Python snippets that correctly compute the
+correlation coefficient into the variable <code>r</code>.</p>
+<p>Snippet 1:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> (su(x) <span class="op">*</span> su(y)).mean()</span></code></pre></div>
+<p>Snippet 2:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> su(x <span class="op">*</span> y).mean()</span></code></pre></div>
+<p>Snippet 3:</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(x)):</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    t <span class="op">=</span> t <span class="op">+</span> su(x[i]) <span class="op">*</span> su(y[i])</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> t <span class="op">/</span> <span class="bu">len</span>(x)</span></code></pre></div>
+<p>Snippet 4:</p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> np.array([])</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(x)):</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    t <span class="op">=</span> np.append(t, su(x)[i] <span class="op">*</span> su(y)[i])</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> t.mean()</span></code></pre></div>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> Snippet 1</p></li>
+<li><p><input type="checkbox" disabled="" /> Snippet 2</p></li>
+<li><p><input type="checkbox" disabled="" /> Snippet 3</p></li>
+<li><p><input type="checkbox" disabled="" /> Snippet 4</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-9.2">Problem 9.2</h3>
+<p>Sam computes the following statistics for his sample:</p>
+<center><img src='../assets/images/su22-final/q10_b.png' width=30%></center>
+<p>The best-fit line predicts that a dog with a weight of 10 kg has a
+height of 45 cm.</p>
+<p>What is the SD of dog heights?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> 2</p></li>
+<li><p><input type="radio" disabled="" /> 4.5</p></li>
+<li><p><input type="radio" disabled="" /> 10</p></li>
+<li><p><input type="radio" disabled="" /> 25</p></li>
+<li><p><input type="radio" disabled="" /> 45</p></li>
+<li><p><input type="radio" disabled="" /> None of the above</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-9.3">Problem 9.3</h3>
+<p>Assume that the statistics in part b) still hold. Select all of the
+statements below that are true. (You don’t need to finish part b) in
+order to solve this question.)</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> The relationship between dog weight and height is linear.</p></li>
+<li><p><input type="checkbox" disabled="" /> The root mean squared error of the best-fit line is smaller than
+5.</p></li>
+<li><p><input type="checkbox" disabled="" /> The best-fit line predicts that a dog that weighs 15 kg will be 50 cm
+tall.</p></li>
+<li><p><input type="checkbox" disabled="" /> The best-fit line predicts that a dog that weighs 10 kg will be
+shorter than 50 cm.</p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="section"><span class="math display"> </span></h2>
+<h4
+id="feedback-find-an-error-still-confused-have-a-suggestion-let-us-know-here.">👋
+Feedback: Find an error? Still confused? Have a suggestion?
+<a href="https://forms.gle/WZ71FchnXU1K154d7">Let us know
+here</u></a>.</h4>
+<hr />
+</body>
+</html>

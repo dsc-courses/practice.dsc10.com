@@ -1,0 +1,1 @@
+An IKEA fan created an app where people can log the amount of time it took them to assemble their IKEA furniture. The DataFrame `app_data` has a row for each product build that was logged on the app. The column `'product'` contains the name of the product, and the column `'minutes'` contains integer values representing the number of minutes it took to assemble each product.

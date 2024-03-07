@@ -1,0 +1,1 @@
+The DataFrame `games` contains information about a sample of popular games. Besides other columns, there is a column `"Complexity"` that contains the average complexity of the game, a column `"Rating"` that contains the average rating of the game, and a column `"Play Time"` that contains the average play time of the game.
