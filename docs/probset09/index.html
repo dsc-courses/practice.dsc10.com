@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>Extra Practice Session 9: Permutation Test and Regression</title>
+  <title>Extra Practice Session 9: Permutation Testing and Regression</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -110,7 +110,7 @@
 </head>
 <body>
 <header id="title-block-header">
-<h1 class="title">Extra Practice Session 9: Permutation Test and
+<h1 class="title">Extra Practice Session 9: Permutation Testing and
 Regression</h1>
 </header>
 <p><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -142,69 +142,6 @@ take any particular amount of time - focus on understanding concepts,
 not on getting through all the questions.</p>
 <hr />
 <h2 id="problem-1">Problem 1</h2>
-<p>An IKEA fan created an app where people can log the amount of time it
-took them to assemble their IKEA furniture. The DataFrame
-<code>app_data</code> has a row for each product build that was logged
-on the app. The column <code>'product'</code> contains the name of the
-product, and the column <code>'minutes'</code> contains integer values
-representing the number of minutes it took to assemble each product.
-<br><br></p>
-<p>You are browsing the IKEA showroom, deciding whether to purchase the
-BILLY bookcase or the LOMMARP bookcase. You are concerned about the
-amount of time it will take to assemble your new bookcase, so you look
-up the assembly times reported in <code>app_data</code>. Thinking of the
-data in <code>app_data</code> as a random sample of all IKEA purchases,
-you want to perform a permutation test to test the following
-hypotheses.</p>
-<p><strong>Null Hypothesis</strong>: The assembly time for the BILLY
-bookcase and the assembly time for the LOMMARP bookcase come from the
-same distribution.</p>
-<p><strong>Alternative Hypothesis</strong>: The assembly time for the
-BILLY bookcase and the assembly time for the LOMMARP bookcase come from
-different distributions.</p>
-<p><br></p>
-<h3 id="problem-1.1">Problem 1.1</h3>
-<p>Suppose we query <code>app_data</code> to keep only the BILLY
-bookcases, then average the <code>'minutes'</code> column. In addition,
-we separately query <code>app_data</code> to keep only the LOMMARP
-bookcases, then average the <code>'minutes'</code> column. If the null
-hypothesis is true, which of the following statements about these two
-averages is correct?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> These two averages are the same.</p></li>
-<li><p><input type="radio" disabled="" /> Any difference between these two averages is due to random
-chance.</p></li>
-<li><p><input type="radio" disabled="" /> Any difference between these two averages cannot be ascribed to
-random chance alone.</p></li>
-<li><p><input type="radio" disabled="" /> The difference between these averages is statistically
-significant.</p></li>
-</ul>
-<p><br></p>
-<h3 id="problem-1.2">Problem 1.2</h3>
-<p>For the permutation test, we’ll use as our test statistic the average
-assembly time for BILLY bookcases minus the average assembly time for
-LOMMARP bookcases, in minutes.</p>
-<p>Complete the code below to generate one simulated value of the test
-statistic in a new way, without using
-<code>np.random.permutation</code>.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>billy <span class="op">=</span> (app_data.get(<span class="st">&#39;product&#39;</span>) <span class="op">==</span> </span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>        <span class="st">&#39;BILLY Bookcase, white, 31 1/2x11x79 1/2&#39;</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>lommarp <span class="op">=</span> (app_data.get(<span class="st">&#39;product&#39;</span>) <span class="op">==</span> </span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>          <span class="st">&#39;LOMMARP Bookcase, dark blue-green, 25 5/8x78 3/8&#39;</span>)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>billy_lommarp <span class="op">=</span> app_data[billy<span class="op">|</span>lommarp]</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>billy_mean <span class="op">=</span> np.random.choice(billy_lommarp.get(<span class="st">&#39;minutes&#39;</span>), billy.<span class="bu">sum</span>(), replace<span class="op">=</span><span class="va">False</span>).mean()</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>lommarp_mean <span class="op">=</span> _________</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>billy_mean <span class="op">-</span> lommarp_mean</span></code></pre></div>
-<p>What goes in the blank?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> <code>billy_lommarp[lommarp].get('minutes').mean()</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>np.random.choice(billy_lommarp.get('minutes'), lommarp.sum(), replace=False).mean()</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>billy_lommarp.get('minutes').mean() - billy_mean</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>(billy_lommarp.get('minutes').sum() - billy_mean * billy.sum())/lommarp.sum()</code></p></li>
-</ul>
-<p><br></p>
-<hr />
-<h2 id="problem-2">Problem 2</h2>
 <p>For this question, we will use data from the 2021 Women’s National
 Basketball Association (WNBA) season for the next several problems. In
 basketball, players score points by shooting the ball into a hoop. The
@@ -240,22 +177,22 @@ turnovers are bad!) <br><br></li>
 </ul>
 <p>Consider the definition of the function
 <code>diff_in_group_means</code>:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> diff_in_group_means(df, group_col, num_col):</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    s <span class="op">=</span> df.groupby(group_col).mean().get(num_col)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> s.loc[<span class="va">False</span>] <span class="op">-</span> s.loc[<span class="va">True</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> diff_in_group_means(df, group_col, num_col):</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    s <span class="op">=</span> df.groupby(group_col).mean().get(num_col)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> s.loc[<span class="va">False</span>] <span class="op">-</span> s.loc[<span class="va">True</span>]</span></code></pre></div>
 <p><br></p>
-<h3 id="problem-2.1">Problem 2.1</h3>
+<h3 id="problem-1.1">Problem 1.1</h3>
 <p>It turns out that Kelsey Plum averages 0.61 more assists in games
 that she wins (“winning games”) than in games that she loses (“losing
 games”). Fill in the blanks below so that <code>observed_diff</code>
 evaluates to -0.61.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>observed_diff <span class="op">=</span> diff_in_group_means(plum, __(a)__, __(b)__)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>observed_diff <span class="op">=</span> diff_in_group_means(plum, __(a)__, __(b)__)</span></code></pre></div>
 <ol type="1">
 <li><p>What goes in blank (a)?</p></li>
 <li><p>What goes in blank (b)?</p></li>
 </ol>
 <p><br></p>
-<h3 id="problem-2.2">Problem 2.2</h3>
+<h3 id="problem-1.2">Problem 1.2</h3>
 <p>After observing that Kelsey Plum averages more assists in winning
 games than in losing games, we become interested in conducting a
 permutation test for the following hypotheses:</p>
@@ -269,11 +206,11 @@ of assists that she makes in losing games.</li>
 </ul>
 <p>To conduct our permutation test, we place the following code in a
 <code>for</code>-loop.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>won <span class="op">=</span> plum.get(<span class="st">&#39;Won&#39;</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>ast <span class="op">=</span> plum.get(<span class="st">&#39;AST&#39;</span>)</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>shuffled <span class="op">=</span> plum.assign(Won_shuffled<span class="op">=</span>np.random.permutation(won)) <span class="op">\</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>               .assign(AST_shuffled<span class="op">=</span>np.random.permutation(ast))</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>won <span class="op">=</span> plum.get(<span class="st">&#39;Won&#39;</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>ast <span class="op">=</span> plum.get(<span class="st">&#39;AST&#39;</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>shuffled <span class="op">=</span> plum.assign(Won_shuffled<span class="op">=</span>np.random.permutation(won)) <span class="op">\</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>               .assign(AST_shuffled<span class="op">=</span>np.random.permutation(ast))</span></code></pre></div>
 <p>Which of the following options <strong>does not</strong> compute a
 valid simulated test statistic for this permutation test?</p>
 <ul class="task-list">
@@ -285,7 +222,7 @@ valid simulated test statistic for this permutation test?</p>
 statistic for this permutation test</p></li>
 </ul>
 <p><br></p>
-<h3 id="problem-2.3">Problem 2.3</h3>
+<h3 id="problem-1.3">Problem 1.3</h3>
 <p>Suppose we generate 10,000 simulated test statistics, using one of
 the valid options from part 1. The empirical distribution of test
 statistics, with a red line at <code>observed_diff</code>, is shown
@@ -308,6 +245,69 @@ roughly a quarter.</p></li>
 games and in losing games come from the same distribution, and that she
 wins 22 of the 31 games she plays, the chance of her averaging 0.61 more
 assists in wins than losses is roughly a quarter.</p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-2">Problem 2</h2>
+<p>An IKEA fan created an app where people can log the amount of time it
+took them to assemble their IKEA furniture. The DataFrame
+<code>app_data</code> has a row for each product build that was logged
+on the app. The column <code>'product'</code> contains the name of the
+product, and the column <code>'minutes'</code> contains integer values
+representing the number of minutes it took to assemble each product.
+<br><br></p>
+<p>You are browsing the IKEA showroom, deciding whether to purchase the
+BILLY bookcase or the LOMMARP bookcase. You are concerned about the
+amount of time it will take to assemble your new bookcase, so you look
+up the assembly times reported in <code>app_data</code>. Thinking of the
+data in <code>app_data</code> as a random sample of all IKEA purchases,
+you want to perform a permutation test to test the following
+hypotheses.</p>
+<p><strong>Null Hypothesis</strong>: The assembly time for the BILLY
+bookcase and the assembly time for the LOMMARP bookcase come from the
+same distribution.</p>
+<p><strong>Alternative Hypothesis</strong>: The assembly time for the
+BILLY bookcase and the assembly time for the LOMMARP bookcase come from
+different distributions.</p>
+<p><br></p>
+<h3 id="problem-2.1">Problem 2.1</h3>
+<p>Suppose we query <code>app_data</code> to keep only the BILLY
+bookcases, then average the <code>'minutes'</code> column. In addition,
+we separately query <code>app_data</code> to keep only the LOMMARP
+bookcases, then average the <code>'minutes'</code> column. If the null
+hypothesis is true, which of the following statements about these two
+averages is correct?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> These two averages are the same.</p></li>
+<li><p><input type="radio" disabled="" /> Any difference between these two averages is due to random
+chance.</p></li>
+<li><p><input type="radio" disabled="" /> Any difference between these two averages cannot be ascribed to
+random chance alone.</p></li>
+<li><p><input type="radio" disabled="" /> The difference between these averages is statistically
+significant.</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-2.2">Problem 2.2</h3>
+<p>For the permutation test, we’ll use as our test statistic the average
+assembly time for BILLY bookcases minus the average assembly time for
+LOMMARP bookcases, in minutes.</p>
+<p>Complete the code below to generate one simulated value of the test
+statistic in a new way, without using
+<code>np.random.permutation</code>.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>billy <span class="op">=</span> (app_data.get(<span class="st">&#39;product&#39;</span>) <span class="op">==</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>        <span class="st">&#39;BILLY Bookcase, white, 31 1/2x11x79 1/2&#39;</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>lommarp <span class="op">=</span> (app_data.get(<span class="st">&#39;product&#39;</span>) <span class="op">==</span> </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>          <span class="st">&#39;LOMMARP Bookcase, dark blue-green, 25 5/8x78 3/8&#39;</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>billy_lommarp <span class="op">=</span> app_data[billy<span class="op">|</span>lommarp]</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>billy_mean <span class="op">=</span> np.random.choice(billy_lommarp.get(<span class="st">&#39;minutes&#39;</span>), billy.<span class="bu">sum</span>(), replace<span class="op">=</span><span class="va">False</span>).mean()</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>lommarp_mean <span class="op">=</span> _________</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>billy_mean <span class="op">-</span> lommarp_mean</span></code></pre></div>
+<p>What goes in the blank?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>billy_lommarp[lommarp].get('minutes').mean()</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>np.random.choice(billy_lommarp.get('minutes'), lommarp.sum(), replace=False).mean()</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>billy_lommarp.get('minutes').mean() - billy_mean</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>(billy_lommarp.get('minutes').sum() - billy_mean * billy.sum())/lommarp.sum()</code></p></li>
 </ul>
 <p><br></p>
 <hr />
