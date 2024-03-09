@@ -191,6 +191,45 @@ evaluates to -0.61.</p>
 <li><p>What goes in blank (a)?</p></li>
 <li><p>What goes in blank (b)?</p></li>
 </ol>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading1_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1_1" aria-expanded="true" aria-controls="collapse1_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse1_1" class="accordion-collapse collapse"
+aria-labelledby="heading1_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answers:</strong> <code>'Won'</code>, <code>'AST'</code></p>
+<p>To compute the number of assists Kelsey Plum averages in winning and
+losing games, we need to group by <code>'Won'</code>. Once doing so, and
+using the <code>.mean()</code> aggregation method, we need to access
+elements in the <code>'AST'</code> column.</p>
+<p>The second argument to <code>diff_in_group_means</code>,
+<code>group_col</code>, is the column we’re grouping by, and so blank
+(a) must be filled by <code>'Won'</code>. Then, the second argument,
+<code>num_col</code>, must be <code>'AST'</code>.</p>
+<p>Note that after extracting the Series containing the average number
+of assists in wins and losses, we are returning the value with the index
+<code>False</code> (“loss”) minus the value with the index
+<code>True</code> (“win”). So, throughout this problem, keep in mind
+that we are computing “losses minus wins”. Since our observation was
+that she averaged 0.61 more assists in wins than in losses, it makes
+sense that <code>diff_in_group_means(plum, 'Won', 'AST')</code> is -0.61
+(rather than +0.61).</p>
+<hr/>
+<h5>Difficulty: ⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 94%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-1.2">Problem 1.2</h3>
 <p>After observing that Kelsey Plum averages more assists in winning
@@ -221,6 +260,52 @@ valid simulated test statistic for this permutation test?</p>
 <li><p><input type="radio" disabled="" /> More than one of these options do not compute a valid simulated test
 statistic for this permutation test</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading1_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1_2" aria-expanded="true" aria-controls="collapse1_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse1_2" class="accordion-collapse collapse"
+aria-labelledby="heading1_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong>
+<code>diff_in_group_means(shuffled, 'Won', 'AST')</code></p>
+<p>As we saw in the previous subpart,
+<code>diff_in_group_means(shuffled, 'Won', 'AST')</code> computes the
+observed test statistic, which is -0.61. There is no randomness involved
+in the observed test statistic; each time we run the line
+<code>diff_in_group_means(shuffled, 'Won', 'AST')</code> we will see the
+same result, so this cannot be used for simulation.</p>
+<p>To perform a permutation test here, we need to simulate under the
+null by randomly assigning assist counts to groups; here, the groups are
+“win” and “loss”.</p>
+<ul>
+<li><strong>Option 2:</strong> Here, assist counts are shuffled and the
+group names are kept in the same order. The end result is a random
+pairing of assists to groups.</li>
+<li><strong>Option 3:</strong> Here, the group names are shuffled and
+the assist counts are kept in the same order. The end result is a random
+pairing of assist counts to groups.</li>
+<li><strong>Option 4:</strong> Here, both the group names and assist
+counts are shuffled, but the end result is still the same as in the
+previous two options.</li>
+</ul>
+<p>As such, Options 2 through 4 are all valid, and Option 1 is the only
+invalid one.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 68%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-1.3">Problem 1.3</h3>
 <p>Suppose we generate 10,000 simulated test statistics, using one of
@@ -246,6 +331,66 @@ games and in losing games come from the same distribution, and that she
 wins 22 of the 31 games she plays, the chance of her averaging 0.61 more
 assists in wins than losses is roughly a quarter.</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading1_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1_3" aria-expanded="true" aria-controls="collapse1_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse1_3" class="accordion-collapse collapse"
+aria-labelledby="heading1_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> Under the assumption that Kelsey Plum’s
+number of assists in winning games and in losing games come from the
+same distribution, and that she wins 22 of the 31 games she plays, the
+chance of her averaging <strong>at least</strong> 0.61 more assists in
+wins than losses is roughly a quarter. (Option 3)</p>
+<p>First, we should note that the area to the left of the red line (a
+quarter) is the p-value of our hypothesis test. Generally, the p-value
+is the probability of observing an outcome as or more extreme than the
+observed, under the assumption that the null hypothesis is true. The
+direction to look in depends on the alternate hypothesis; here, since
+our alternative hypothesis is that the number of assists Kelsey Plum
+makes in winning games is higher on average than in losing games, a
+“more extreme” outcome is where the assists in winning games are higher
+than in losing games, i.e. where <span class="math inline">\text{(assists in wins)} - \text{(assists in
+losses)}</span> is positive or where <span class="math inline">\text{(assists in losses)} - \text{(assists in
+wins)}</span> is negative. As mentioned in the solution to the first
+subpart, our test statistic is <span class="math inline">\text{(assists
+in losses)} - \text{(assists in wins)}</span>, so a more extreme outcome
+is one where this is negative, i.e. to the left of the observed
+statistic.</p>
+<p>Let’s first rule out the first two options.</p>
+<ul>
+<li><strong>Option 1:</strong> This option states that the probability
+that the null hypothesis (the number of assists she makes in winning and
+losing games comes from the same distribution) is true is roughly a
+quarter. However, the p-value <strong>is not</strong> the probability
+that the null hypothesis is true.</li>
+<li><strong>Option 2:</strong> The significance level is the formal name
+for the p-value “cutoff” that we specify in our hypothesis test. There
+is no cutoff mentioned in the problem. The <em>observed</em>
+significance level is another name for the p-value, but Option 2 did not
+contain the word <em>observed</em>.</li>
+</ul>
+<p>Now, the only difference between Options 3 and 4 is the inclusion of
+“at least” in Option 3. Remember, to compute a p-value we must compute
+the probability of observing something as <strong>or more</strong>
+extreme than the observed, under the null. The “or more” corresponds to
+“at least” in Option 3. As such, Option 3 is the correct choice.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 70%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <hr />
 <h2 id="problem-2">Problem 2</h2>
@@ -286,6 +431,62 @@ random chance alone.</p></li>
 <li><p><input type="radio" disabled="" /> The difference between these averages is statistically
 significant.</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading2_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2_1" aria-expanded="true" aria-controls="collapse2_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse2_1" class="accordion-collapse collapse"
+aria-labelledby="heading2_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> Any difference between these two averages
+is due to random chance.</p>
+<p>If the null hypothesis is true, this means that the time recorded in
+<code>app_data</code> for each BILLY bookcase is a random number that
+comes from some distribution, and the time recorded in
+<code>app_data</code> for each LOMMARP bookcase is a random number that
+comes from <em>the same</em> distribution. Each assembly time is a
+random number, so even if the null hypothesis is true, if we take one
+person who assembles a BILLY bookcase and one person who assembles a
+LOMMARP bookcase, there is no guarantee that their assembly times will
+match. Their assembly times might match, or they might be different,
+because assembly time is random. Randomness is the only reason that
+their assembly times might be different, as the null hypothesis says
+there is no systematic difference in assembly times between the two
+bookcases. Specifically, it’s not the case that one typically takes
+longer to assemble than the other.</p>
+<p>With those points in mind, let’s go through the answer choices.</p>
+<p>The first answer choice is incorrect. Just because two sets of
+numbers are drawn from the same distribution, the numbers themselves
+might be different due to randomness, and the averages might also be
+different. Maybe just by chance, the people who assembled the BILLY
+bookcases and recorded their times in <code>app_data</code> were slower
+on average than the people who assembled LOMMARP bookcases. If the null
+hypothesis is true, this difference in average assembly time should be
+small, but it very likely exists to some degree.</p>
+<p>The second answer choice is correct. If the null hypothesis is true,
+the only reason for the difference is random chance alone.</p>
+<p>The third answer choice is incorrect for the same reason that the
+second answer choice is correct. If the null hypothesis is true, any
+difference must be explained by random chance.</p>
+<p>The fourth answer choice is incorrect. If there is a difference
+between the averages, it should be very small and not statistically
+significant. In other words, if we did a hypothesis test and the null
+hypothesis was true, we should fail to reject the null.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 77%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-2.2">Problem 2.2</h3>
 <p>For the permutation test, we’ll use as our test statistic the average
@@ -309,6 +510,118 @@ statistic in a new way, without using
 <li><p><input type="radio" disabled="" /> <code>billy_lommarp.get('minutes').mean() - billy_mean</code></p></li>
 <li><p><input type="radio" disabled="" /> <code>(billy_lommarp.get('minutes').sum() - billy_mean * billy.sum())/lommarp.sum()</code></p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading2_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2_2" aria-expanded="true" aria-controls="collapse2_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse2_2" class="accordion-collapse collapse"
+aria-labelledby="heading2_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong>
+<code>(billy_lommarp.get('minutes').sum() - billy_mean * billy.sum())/lommarp.sum()</code></p>
+<p>The first line of code creates a boolean Series with a True value for
+every BILLY bookcase, and the second line of code creates the analogous
+Series for the LOMMARP bookcase. The third line queries to define a
+DataFrame called <code>billy_lommarp</code> containing all products that
+are BILLY or LOMMARP bookcases. In other words, this DataFrame contains
+a mix of BILLY and LOMMARP bookcases.</p>
+<p>From this point, the way we would normally proceed in a permutation
+test would be to use <code>np.random.permutation</code> to shuffle one
+of the two relevant columns (either <code>'product'</code> or
+<code>'minutes'</code>) to create a random pairing of assembly times
+with products. Then we would calculate the average of all assembly times
+that were randomly assigned to the label BILLY. Similarly, we’d
+calculate the average of all assembly times that were randomly assigned
+to the label LOMMARP. Then we’d subtract these averages to get one
+simulated value of the test statistic. To run the permutation test, we’d
+have to repeat this process many times.</p>
+<p>In this problem, we need to generate a simulated value of the test
+statistic, without randomly shuffling one of the columns. The code
+starts us off by defining a variable called <code>billy_mean</code> that
+comes from using <code>np.random.choice</code>. There’s a lot going on
+here, so let’s break it down. Remember that the first argument to
+<code>np.random.choice</code> is a sequence of values to choose from,
+and the second is the number of random choices to make. And we set
+<code>replace=False</code>, so that no element that has already been
+chosen can be chosen again. Here, we’re making our random choices from
+the <code>'minutes'</code> column of <code>billy_lommarp</code>. The
+number of choices to make from this collection of values is
+<code>billy.sum()</code>, which is the sum of all values in the
+<code>billy</code> Series defined in the first line of code. The
+<code>billy</code> Series contains True/False values, but in Python,
+True counts as 1 and False counts as 0, so <code>billy.sum()</code>
+evaluates to the number of True entries in <code>billy</code>, which is
+the number of BILLY bookcases recorded in <code>app_data</code>. It
+helps to think of the random process like this:</p>
+<ol type="1">
+<li>Collect all the assembly times of any BILLY or LOMMARP bookcase in a
+large bag.</li>
+<li>Pull out a random assembly time from this bag.</li>
+<li>Repeat step 2, drawing as many times as there are BILLY bookcases,
+without replacement.</li>
+</ol>
+<p>If we think of the random times we draw as being labeled BILLY, then
+the remaining assembly times still leftover in the bag represent the
+assembly times randomly labeled LOMMARP. In other words, this is a
+random association of assembly times to labels (BILLY or LOMMARP), which
+is the same thing we usually accomplish by shuffling in a permutation
+test.</p>
+<p>From here, we can proceed the same way as usual. First, we need to
+calculate the average of all assembly times that were randomly assigned
+to the label BILLY. This is done for us and stored in
+<code>billy_mean</code>. We also need to calculate the average of all
+assembly times that were randomly assigned the label LOMMARP. We’ll call
+that <code>lommarp_mean</code>. Thinking of picking times out of a large
+bag, this is the average of all the assembly times left in the bag. The
+problem is there is no easy way to access the assembly times that were
+not picked. We can take advantage of the fact that we can easily
+calculate the total assembly time of all BILLY and LOMMARP bookcases
+together with <code>billy_lommarp.get('minutes').sum()</code>. Then if
+we subtract the total assembly time of all bookcases randomly labeled
+BILLY, we’ll be left with the total assembly time of all bookcases
+randomly labeled LOMMARP. That is,
+<code>billy_lommarp.get('minutes').sum() - billy_mean * billy.sum()</code>
+represents the total assembly time of all bookcases randomly labeled
+LOMMARP. The count of the number of LOMMARP bookcases is given by
+<code>lommarp.sum()</code> so the average is
+<code>(billy_lommarp.get('minutes').sum() - billy_mean * billy.sum())/lommarp.sum()</code>.</p>
+<p>A common wrong answer for this question was the second answer choice,
+<code>np.random.choice(billy_lommarp.get('minutes'), lommarp.sum(), replace=False).mean()</code>.
+This mimics the structure of how <code>billy_mean</code> was defined so
+it’s a natural guess. However, this corresponds to the following random
+process, which doesn’t associate each assembly with a unique label
+(BILLY or LOMMARP):</p>
+<ol type="1">
+<li>Collect all the assembly times of any BILLY or LOMMARP bookcase in a
+large bag.</li>
+<li>Pull out a random assembly time from this bag.</li>
+<li>Repeat, drawing as many times as there are BILLY bookcases, without
+replacement.</li>
+<li>Collect all the assembly times of any BILLY or LOMMARP bookcase in a
+large bag.</li>
+<li>Pull out a random assembly time from this bag.</li>
+<li>Repeat step 5, drawing as many times as there are LOMMARP bookcases,
+without replacement.</li>
+</ol>
+<p>We could easily get the same assembly time once for BILLY and once
+for LOMMARP, while other assembly times could get picked for neither.
+This process doesn’t split the data into two random groups as
+desired.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 12%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <hr />
 <h2 id="problem-3">Problem 3</h2>
@@ -430,6 +743,47 @@ and (b) for this pair of hypotheses? Select all that apply.</p>
 <li><p><input type="checkbox" disabled="" /> Option 6</p></li>
 <li><p><input type="checkbox" disabled="" /> None of the above.</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading3_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_1" aria-expanded="true" aria-controls="collapse3_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse3_1" class="accordion-collapse collapse"
+aria-labelledby="heading3_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> Option 4, Option 6</p>
+<p>For blank (a), we want to choose a test statistic that helps us
+distinguish between the null and alternative hypotheses. The alternative
+hypothesis says that <code>denied</code> and <code>approved</code>
+should be different, but it doesn’t say which should be larger. Options
+1 through 3 therefore won’t work, because high values and low values of
+these statistics both point to the alternative hypothesis, and moderate
+values point to the null hypothesis. Options 4 through 6 all work
+because large values point to the alternative hypothesis, and small
+values close to 0 suggest that the null hypothesis should be true.</p>
+<p>For blank (b), we want to calculate the p-value in such a way that it
+represents the proportion of trials for which the simulated test
+statistic was equal to the observed statistic or further in the
+direction of the alternative. For all of Options 4 through 6, large
+values of the test statistic indicate the alternative, so we need to
+calculate the p-value with a <code>&gt;=</code> sign, as in Options 4
+and 6.</p>
+<p>While Option 3 filled in blank (a) correctly, it did not fill in
+blank (b) correctly. Options 4 and 6 fill in both blanks correctly.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 78%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-3.2">Problem 3.2</h3>
 <p>Now, suppose we choose the following pair of hypotheses.</p>
@@ -443,6 +797,43 @@ the number of dependents of denied applicants.</p></li>
 </ul>
 <p>Which of the six presented options could correctly fill in blanks (a)
 and (b) for this pair of hypotheses? Select all that apply.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading3_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_2" aria-expanded="true" aria-controls="collapse3_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse3_2" class="accordion-collapse collapse"
+aria-labelledby="heading3_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> Option 1</p>
+<p>As in the previous part, we need to fill blank (a) with a test
+statistic such that large values point towards one of the hypotheses and
+small values point towards the other. Here, the alterntive hypothesis
+suggests that <code>approved</code> should be less than
+<code>denied</code>, so we can’t use Options 4 through 6 because these
+can only detect whether <code>approved</code> and <code>denied</code>
+are not different, not which is larger. Any of Options 1 through 3
+should work, however. For Options 1 and 2, large values point towards
+the alternative, and for Option 3, small values point towards the
+alternative. This means we need to calculate the p-value in blank (b)
+with a <code>&gt;=</code> symbol for the test statistic from Options 1
+and 2, and a <code>&lt;=</code> symbol for the test statistic from
+Option 3. Only Options 1 fills in blank (b) correctly based on the test
+statistic used in blank (a).</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 83%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-3.3">Problem 3.3</h3>
 <p>Option 6 from the start of this question is repeated below.</p>
@@ -492,6 +883,49 @@ equivalent to Option 6?</p>
 <li><p><input type="radio" disabled="" /> <code>np.abs(stats) &gt;= np.abs(test_stat(apps))</code></p></li>
 <li><p><input type="radio" disabled="" /> <code>np.abs(stats &gt;= test_stat(apps))</code></p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading3_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_3" aria-expanded="true" aria-controls="collapse3_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse3_3" class="accordion-collapse collapse"
+aria-labelledby="heading3_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong>
+<code>np.abs(stats) &gt;= np.abs(test_stat(apps))</code></p>
+<p>First, we need to understand how Option 6 works. Option 6 produces
+large values of the test statistic when <code>approved</code> is very
+different from <code>denied</code>, then calculates the p-value as the
+proportion of trials for which the simulated test statistic was larger
+than the observed statistic. In other words, Option 6 calculates the
+proportion of trials in which <code>approved</code> and
+<code>denied</code> are more different in a pair of random samples than
+they are in the original samples.</p>
+<p>For Option 7, the test statistic for a pair of random samples may
+come out very large or very small when <code>approved</code> is very
+different from <code>denied</code>. Similarly, the observed statistic
+may come out very large or very small when <code>approved</code> and
+<code>denied</code> are very different in the original samples. We want
+to find the proportion of trials in which <code>approved</code> and
+<code>denied</code> are more different in a pair of random samples than
+they are in the original samples, which means we want the proportion of
+trials in which the absolute value of <code>approved - denied</code> in
+a pair of random samples is larger than the absolute value of
+<code>approved - denied</code> in the original samples.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 56%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <p><br></p>
 <h3 id="problem-3.4">Problem 3.4</h3>
@@ -537,6 +971,78 @@ anywhere in your code.</p>
 <span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
 <span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>        stat <span class="op">=</span> fast_stat(shuffle_all(apps))</span>
 <span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>        stats <span class="op">=</span> np.append(stats, stat)</span></code></pre></div>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading3_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_4" aria-expanded="true" aria-controls="collapse3_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse3_4" class="accordion-collapse collapse"
+aria-labelledby="heading3_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> The blanks should be filled in as
+follows:</p>
+<ul>
+<li><ol type="a">
+<li><code>df.sample(df.shape[0])</code></li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><code>df.take(np.arange(denied))</code></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li><code>df.take(np.arange(denied, df.shape[0]))</code></li>
+</ol></li>
+</ul>
+<p>For blank (a), we are told to return a DataFrame with the same rows
+but in a different order. We can use the <code>.sample</code> method for
+this question. We want each row of the input DataFrame <code>df</code>
+to appear once, so we should sample without replacement, and we should
+have has many rows in the output as in <code>df</code>, so our sample
+should be of size <code>df.shape[0]</code>. Since sampling without
+replacement is the default behavior of <code>.sample</code>, it is
+optional to specify <code>replace=False</code>.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 59%. <br/><br/></p>
+<p>For blank (b), we need to implement the strategy outlined, where
+after we shuffle the DataFrame, we use the values at the top of the
+DataFrame as our new “denied sample. In a permutation test, the two
+random groups we create should have the same sizes as the two original
+groups we are given. In this case, the size of the”denied” group in our
+original data is stored in the variable <code>denied</code>. So we need
+the rows in positions 0, 1, 2, …, <code>denied - 1</code>, which we can
+get using <code>df.take(np.arange(denied))</code>.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 39%. <br/><br/></p>
+<p>For blank (c), we need to get all remaining applicants, who form the
+new “approved” sample. We can <code>.take</code> the rows corresponding
+to the ones we didn’t put into the “denied” group. That is, the first
+applicant who will be put into this group is at position
+<code>denied</code>, and we’ll take all applicants from there onwards.
+We should therefore fill in blank (c) with
+<code>df.take(np.arange(denied, df.shape[0]))</code>.</p>
+<p>For example, if <code>apps</code> had only 10 rows, 7 of them
+corresponding to denied applications, we would shuffle the rows of
+<code>apps</code>, then take rows 0, 1, 2, 3, 4, 5, 6 as our new
+“denied” sample and rows 7, 8, 9 as our new “approved” sample.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 38%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <hr />
 <h2 id="problem-4">Problem 4</h2>
@@ -558,6 +1064,34 @@ from the distribution of incomes of all applicants?</p>
 <li><p><input type="radio" disabled="" /> Permutation Testing</p></li>
 <li><p><input type="radio" disabled="" /> Bootstrapping</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading4_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_1" aria-expanded="true" aria-controls="collapse4_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse4_1" class="accordion-collapse collapse"
+aria-labelledby="heading4_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Anwser:</strong> Hypothesis Testing</p>
+<p>This is a question of whether a certain set of incomes (corresponding
+to applicants with 2 or fewer dependents) are drawn randomly from a
+certain population (incomes of all applicants). We need to use
+hypothesis testing to determine whether this model for how samples are
+drawn from a population seems plausible.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 47%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-4.2">Problem 4.2</h3>
 <p>What is the median income of credit card applicants with 2 or fewer
@@ -567,6 +1101,32 @@ dependents?</p>
 <li><p><input type="radio" disabled="" /> Permutation Testing</p></li>
 <li><p><input type="radio" disabled="" /> Bootstrapping</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading4_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_2" aria-expanded="true" aria-controls="collapse4_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse4_2" class="accordion-collapse collapse"
+aria-labelledby="heading4_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Anwser:</strong> Bootstrapping</p>
+<p>The question is looking for an estimate a specific parameter (the
+median income of applicants with 2 or fewer dependents), so we know
+boostrapping is the best tool.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 88%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-4.3">Problem 4.3</h3>
 <p>Are credit card applications approved through a random process in
@@ -576,6 +1136,35 @@ which 50% of applications are approved?</p>
 <li><p><input type="radio" disabled="" /> Permutation Testing</p></li>
 <li><p><input type="radio" disabled="" /> Bootstrapping</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading4_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_3" aria-expanded="true" aria-controls="collapse4_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse4_3" class="accordion-collapse collapse"
+aria-labelledby="heading4_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Anwser:</strong> Hypothesis Testing</p>
+<p>The question asks about the validity of a model in which applications
+are approved randomly such that each application has a 50% chance of
+being approved. To determine whether this model is plausible, we should
+use a standard hypothesis test to simulate this random process many
+times and see if the data generated according to this model is
+consistent with our observed data.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 74%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-4.4">Problem 4.4</h3>
 <p>Is the median income of applicants with 2 or fewer dependents less
@@ -585,6 +1174,34 @@ than the median income of applicants with 3 or more dependents?</p>
 <li><p><input type="radio" disabled="" /> Permutation Testing</p></li>
 <li><p><input type="radio" disabled="" /> Bootstrapping</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading4_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_4" aria-expanded="true" aria-controls="collapse4_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse4_4" class="accordion-collapse collapse"
+aria-labelledby="heading4_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Anwser:</strong> Permutation Testing</p>
+<p>Recall, a permutation test helps us decide whether two random samples
+come from the same distribution. This question is about whether two
+random samples for different groups of applicants have the same
+distribution of incomes or whether they don’t because one group’s median
+incomes is less than the other.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 57%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-4.5">Problem 4.5</h3>
 <p>What is the difference in median income of applicants with 2 or fewer
@@ -594,6 +1211,33 @@ dependents and applicants with 3 or more dependents?</p>
 <li><p><input type="radio" disabled="" /> Permutation Testing</p></li>
 <li><p><input type="radio" disabled="" /> Bootstrapping</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading4_5">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_5" aria-expanded="true" aria-controls="collapse4_5">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse4_5" class="accordion-collapse collapse"
+aria-labelledby="heading4_5" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Anwser:</strong> Bootstrapping</p>
+<p>The question at hand is looking for a specific parameter value (the
+difference in median incomes for two different subsets of the
+applicants). Since this is a question of estimating an unknown
+parameter, bootstrapping is the best tool.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 63%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <hr />
 <h2 id="problem-5">Problem 5</h2>
@@ -615,6 +1259,40 @@ mean age. What is the correlation coefficient, <span
 class="math inline">r</span>, between incomes and ages in
 <code>small_apps</code>? Give your answer as a <strong>fully simplified
 fraction</strong>.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading5_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_1" aria-expanded="true" aria-controls="collapse5_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse5_1" class="accordion-collapse collapse"
+aria-labelledby="heading5_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> <span class="math inline">r =
+\frac{3}{10}</span></p>
+<p>To find the correlation coefficient <span class="math inline">r</span> we use the equation of the regression line
+in standard units and solve for <span class="math inline">r</span> as
+follows. <span class="math display">
+\begin{align*}
+\text{predicted } y_{\text{(su)}} &amp;= r \cdot x_{\text{(su)}} \\
+\frac{4}{5} &amp;= r \cdot \frac{8}{3} \\
+r &amp;= \frac{4}{5} \cdot \frac{3}{8} \\
+r &amp;= \frac{3}{10}
+\end{align*}
+</span></p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 52%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-5.2">Problem 5.2</h3>
 <p>Now, we want to predict the income of an applicant given their age.
@@ -625,6 +1303,52 @@ above the mean age has an income that is <span
 class="math inline">s</span> standard deviations above the mean income.
 What is the value of <span class="math inline">s</span>? Give your
 answer as a <strong>fully simplified fraction</strong>.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading5_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_2" aria-expanded="true" aria-controls="collapse5_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse5_2" class="accordion-collapse collapse"
+aria-labelledby="heading5_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> <span class="math inline">s =
+\frac{6}{25}</span></p>
+<p>We again use the equation of the regression line in standard units,
+with the value of <span class="math inline">r</span> we found in the
+previous part. <span class="math display">
+\begin{align*}
+\text{predicted } y_{\text{(su)}} &amp;= r \cdot x_{\text{(su)}} \\
+s &amp;= \frac{3}{10} \cdot \frac{4}{5} \\
+s &amp;= \frac{6}{25}
+\end{align*}
+</span></p>
+<p>Notice that when we predict income based on age, our predictions are
+different than when we predict age based on income. That is, the answer
+to this question is <strong>not</strong> <span class="math inline">\frac{8}{3}</span>. We can think of this phenomenon
+as a consequence of <em>regression to the mean</em> which means that the
+predicted variable is always closer to average than the original
+variable. In part (a), we start with an income of <span class="math inline">\frac{8}{3}</span> standard units and predict an age
+of <span class="math inline">\frac{4}{5}</span> standard units, which is
+closer to average than <span class="math inline">\frac{8}{3}</span>
+standard units. Then in part (b), we start with an age of <span class="math inline">\frac{4}{5}</span> and predict an income of <span class="math inline">\frac{6}{25}</span> standard units, which is closer
+to average than <span class="math inline">\frac{4}{5}</span> standard
+units. This happens because whenever we make a prediction, we multiply
+by <span class="math inline">r</span> which is less than one in
+magnitude.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 21%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-5.3">Problem 5.3</h3>
 <p>BruinCard has now taken away our access to both <code>apps</code> and
@@ -652,6 +1376,85 @@ income}|}{\text{standard deviation of incomes}} \leq \dfrac{| \text{mean
 age} + 2 |}{\text{standard deviation of ages}}</span></p></li>
 <li><p><input type="checkbox" disabled="" /> None of the above.</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading5_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_3" aria-expanded="true" aria-controls="collapse5_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse5_3" class="accordion-collapse collapse"
+aria-labelledby="heading5_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> <span class="math inline">I &lt; \text{mean
+income}</span>, <span class="math inline">\dfrac{| I - \text{mean
+income}|}{\text{standard deviation of incomes}} \leq \dfrac{| \text{mean
+age} + 2 |}{\text{standard deviation of ages}}</span></p>
+<p>To understand this answer, we will investigate each option.</p>
+<ul>
+<li><span class="math inline">I &lt; 0</span>:</li>
+</ul>
+<p>This option asks whether income is guaranteed to be negative. This is
+not necessarily true. For example, it’s possible that the slope of the
+regression line is <span class="math inline">2</span> and the intercept
+is <span class="math inline">10</span>, in which case the income
+associated with a <span class="math inline">-2</span> year old would be
+<span class="math inline">6</span>, which is positive.</p>
+<ul>
+<li><span class="math inline">I &lt; \text{mean income}</span>:</li>
+</ul>
+<p>This option asks whether the predicted income is guaranteed to be
+lower than the mean income. It helps to think in standard units. In
+standard units, the regression line goes through the point <span class="math inline">(0, 0)</span> and has slope <span class="math inline">r</span>, which we are told is positive. This means
+that for a below-average <span class="math inline">x</span>, the
+predicted <span class="math inline">y</span> is also below average. So
+this statement must be true.</p>
+<ul>
+<li><span class="math inline">| I - \text{mean income}| \leq |
+\text{mean age} + 2 |</span>:</li>
+</ul>
+<p>First, notice that <span class="math inline">| \text{mean age} + 2 |
+= | -2 - \text{mean age}|</span>, which represents the horizontal
+distance betweeen these two points on the regression line: <span class="math inline">(\text{mean age}, \text{mean income})</span>, <span class="math inline">(-2, I)</span>. Likewise, <span class="math inline">| I - \text{mean income}|</span> represents the
+vertical distance between those same two points. So the inequality can
+be interpreted as a question of whether the <em>rise</em> of the
+regression line is less than or equal to the <em>run</em>, or whether
+the slope is at most 1. That’s not guaranteed when we’re working in
+original units, as we are here, so this option is not necessarily
+true.</p>
+<ul>
+<li><span class="math inline">\dfrac{| I - \text{mean
+income}|}{\text{standard deviation of incomes}} \leq \dfrac{| \text{mean
+age} + 2 |}{\text{standard deviation of ages}}</span>:</li>
+</ul>
+<p>Since standard deviation cannot be negative, we have <span class="math display">\dfrac{| I - \text{mean income}|}{\text{standard
+deviation of incomes}} = \left| \dfrac{I - \text{mean
+income}}{\text{standard deviation of incomes}} \right| =
+I_{\text{(su)}}.</span> Similarly, <span class="math display">\dfrac{|\text{mean age} + 2|}{\text{standard
+deviation of ages}} = \left| \dfrac{-2 - \text{mean age}}{\text{standard
+deviation of ages}} \right| = -2_{\text{(su)}}.</span> So this option is
+asking about whether the predicted income, in standard units, is
+guaranteed to be less (in absolute value) than the age. Since we make
+predictions in standard units using the equation of the regression line
+<span class="math inline">\text{predicted } y_{\text{(su)}} = r \cdot
+x_{\text{(su)}}</span> and we know <span class="math inline">|r|\leq
+1</span>, this means <span class="math inline">|\text{predicted }
+y_{\text{(su)}}| \leq | x_{\text{(su)}}|</span>. Applying this to ages
+(<span class="math inline">x</span>) and incomes (<span class="math inline">y</span>), this says exactly what the given
+inequality says. This is the phenomenon we call <em>regression to the
+mean</em>.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 69%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-5.4">Problem 5.4</h3>
 <p>Yet again, BruinCard, the company that gave us access to
@@ -679,6 +1482,71 @@ is an integer multiple of the standard deviation of ages in
 \cdot \text{standard deviation of age}.</span></p>
 <p>What is the value of <span class="math inline">k</span>? Give your
 answer as an <strong>integer</strong>.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading5_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_4" aria-expanded="true" aria-controls="collapse5_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse5_4" class="accordion-collapse collapse"
+aria-labelledby="heading5_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> <span class="math inline">k = 4</span></p>
+<p>To find this answer, we’ll use the definition of the regression line
+in original units, which is <span class="math inline">\text{predicted }
+y = mx+b</span>, where <span class="math display">m = r \cdot
+\frac{\text{SD of } y}{\text{SD of }x}, \: \: b = \text{mean of } y - m
+\cdot \text{mean of } x</span></p>
+<p>Next we substitute these value for <span class="math inline">m</span>
+and <span class="math inline">b</span> into <span class="math inline">\text{predicted } y = mx + b</span>, interpret <span class="math inline">x</span> as age and <span class="math inline">y</span> as income, and use the given information to
+find <span class="math inline">k</span>. <span class="math display">
+\begin{align*}
+\text{predicted } y &amp;= mx+b \\
+\text{predicted } y &amp;= r \cdot \frac{\text{SD of } y}{\text{SD of
+}x} \cdot x+ \text{mean of } y - r \cdot \frac{\text{SD of } y}{\text{SD
+of }x} \cdot \text{mean of } x\\
+\text{predicted income}&amp;= r \cdot \frac{\text{SD of
+income}}{\text{SD of age}} \cdot \text{age}+ \text{mean income} - r
+\cdot \frac{\text{SD of income}}{\text{SD of age}} \cdot \text{mean age}
+\\
+\frac{31}{2}&amp;= -\frac{1}{3} \cdot k \cdot 24+ \frac{7}{2} +
+\frac{1}{3} \cdot k \cdot 33 \\
+\frac{31}{2}&amp;= -8k+ \frac{7}{2} + 11k \\
+\frac{31}{2}&amp;= 3k+ \frac{7}{2}  \\
+3k &amp;= \frac{31}{2} - \frac{7}{2} \\
+3k &amp;= 12 \\
+k &amp;= 4
+\end{align*}
+</span></p>
+<p>Another way to solve this problem uses the equation of the regression
+line in standard units and the definition of standard units.</p>
+<p><span class="math display">
+\begin{align*}
+\text{predicted } y_{\text{(su)}} &amp;= r \cdot x_{\text{(su)}} \\
+\frac{\text{predicted income} - \text{mean income}}{\text{SD of income}}
+&amp;= r \cdot \frac{\text{age} - \text{mean age}}{\text{SD of age}} \\
+\frac{\frac{31}{2} - \frac{7}{2}}{k\cdot \text{SD of age}} &amp;=
+-\frac{1}{3} \cdot \frac{24 - 33}{\text{SD of age}} \\
+\frac{12}{k\cdot \text{SD of age}} &amp;= -\frac{1}{3} \cdot
+\frac{-9}{\text{SD of age}} \\
+\frac{12}{k\cdot \text{SD of age}} &amp;= \frac{3}{\text{SD of age}} \\
+\frac{k\cdot \text{SD of age}}{\text{SD of age}}  &amp;= \frac{12}{3}\\
+k &amp;= 4
+\end{align*}
+</span></p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 45%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <hr />
 <h2 id="problem-6">Problem 6</h2>
@@ -704,6 +1572,37 @@ July vs. number of sunshine hours in January?</p>
 <li><p><input type="radio" disabled="" /> Option 3</p></li>
 <li><p><input type="radio" disabled="" /> Option 4</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_1" aria-expanded="true" aria-controls="collapse6_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_1" class="accordion-collapse collapse"
+aria-labelledby="heading6_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: Option 1</p>
+<p>Since <span class="math inline">r = \frac{2}{5}</span>, the correct
+option must be a scatter plot with a mild positive (up and to the right)
+linear association. Option 3 can be ruled out immediately, since the
+linear association in it is negative (down and to the right). Option 2’s
+linear association is too strong for <span class="math inline">r =
+\frac{2}{5}</span>, and Option 4’s linear association is too weak for
+<span class="math inline">r = \frac{2}{5}</span>, which leaves Option
+1.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 57%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <p><br></p>
 <h3 id="problem-6.2">Problem 6.2</h3>
@@ -717,6 +1616,62 @@ that Santa Clarita will have in July? Give your answer as a positive
 integer. <em>(Hint: You’ll need to use the fact that the correlation
 between the two variables is <span
 class="math inline">\frac{2}{5}</span>.)</em></p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_2" aria-expanded="true" aria-controls="collapse6_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_2" class="accordion-collapse collapse"
+aria-labelledby="heading6_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: 24</p>
+<p>At a high level, we’ll start with the formula for the regression line
+in standard units, and re-write it in a form that will allow us to use
+the information provided to us in the question.</p>
+<p>Recall, the regression line in standard units is</p>
+<p><span class="math display">\text{predicted }y_{\text{(su)}} = r \cdot
+x_{\text{(su)}}</span></p>
+<p>Using the definitions of <span class="math inline">\text{predicted
+}y_{\text{(su)}}</span> and <span class="math inline">x_{\text{(su)}}</span> gives us</p>
+<p><span class="math display">\frac{\text{predicted } y - \text{mean of
+}y}{\text{SD of }y} = r \cdot \frac{x - \text{mean of }x}{\text{SD of
+}x}</span></p>
+<p>Here, the <span class="math inline">x</span> variable is sunshine
+hours in January and the <span class="math inline">y</span> variable is
+sunshine hours in July. Given that the standard deviation of January and
+July sunshine hours are equal, we can simplifies our formula to</p>
+<p><span class="math display">\text{predicted } y - \text{mean of }y = r
+\cdot (x - \text{mean of }x)</span></p>
+<p>Since we’re asked how much more sunshine Santa Clarita will have in
+July compared to the average, we’re interested in the difference <span class="math inline">y - \text{mean of} y</span>. We were given that
+Santa Clarita had 60 more sunshine hours in January than the average,
+and that the correlation between the two variables(correlation
+coefficient) is <span class="math inline">\frac{2}{5}</span>. In terms
+of the variables above, then, we know:</p>
+<ul>
+<li><p><span class="math inline">x - \text{mean of }x =
+60</span>.</p></li>
+<li><p><span class="math inline">r = \frac{2}{5}</span>.</p></li>
+</ul>
+<p>Then,</p>
+<p><span class="math display">\text{predicted } y - \text{mean of }y = r
+\cdot (x - \text{mean of }x) = \frac{2}{5} \cdot 60 = 24</span></p>
+<p>Therefore, the regression line predicts that Santa Clarita will have
+24 more sunshine hours than the average California city in July.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 68%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <p>As we know, San Diego was particularly cloudy this May. More
 generally, Anthony, another California native, feels that California is
@@ -731,6 +1686,59 @@ predict the new <span class="math inline">ys</span>.</p>
 <p><br></p>
 <h3 id="problem-6.3">Problem 6.3</h3>
 <p>What is the slope of Anthony’s new regression line?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_3" aria-expanded="true" aria-controls="collapse6_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_3" class="accordion-collapse collapse"
+aria-labelledby="heading6_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: <span class="math inline">\frac{2}{5}</span></p>
+<p>To determine the slope of Anthony’s new regression line, we need to
+understand how the modifications he made to the dataset (subtracting 5
+hours from each x and y value) affect the slope. In simple linear
+regression, the slope of the regression line (<span class="math inline">m</span> in <span class="math inline">y = mx +
+b</span>) is calculated using the formula:</p>
+<p><span class="math display">m = r \cdot \frac{\text{SD of y}}{\text{SD
+of x}}</span></p>
+<p><span class="math inline">r</span>, the correlation coefficient
+between the two variables, remains unchanged in Anthony’s modifications.
+Remember, the correlation coefficient is the mean of the product of the
+<span class="math inline">x</span> values and <span class="math inline">y</span> values when both are measured in standard
+units; by subtracting the same constant amount from each <span class="math inline">x</span> value, we aren’t changing what the <span class="math inline">x</span> values convert to in standard units. If
+you’re not convinced, convert the following two arrays in Python to
+standard units; you’ll see that the results are the same.</p>
+<div id="cb1" class="sourceCode">
+<pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a>x1 <span class="op">=</span> np.array([<span class="dv">5</span>, <span class="dv">8</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">9</span>])</span>
+<span id="cb1-2"><a aria-hidden="true" href="#cb1-2" tabindex="-1"></a>x2 <span class="op">=</span> x1 <span class="op">-</span> <span class="dv">5</span></span></code></pre>
+</div>
+<p>Furthermore, Anthony’s modifications also don’t change the standard
+deviations of the <span class="math inline">x</span> values or <span class="math inline">y</span> values, since the <span class="math inline">x</span>s and <span class="math inline">y</span>s
+aren’t any more or less spread out after being shifted “down” by 5. So,
+since <span class="math inline">r</span>, <span class="math inline">\text{SD of }y</span>, and <span class="math inline">\text{SD of }x</span> are all unchanged, the slope
+of the new regression line is the same as the slope of the old
+regression line, pre-modification!</p>
+<p>Given the fact that the correlation coefficient is <span class="math inline">\frac{2}{5}</span> and the standard deviation of
+sunshine hours in January (<span class="math inline">\text{SD of
+}x</span>) is equal to the standard deviation of sunshine hours in July
+(<span class="math inline">\text{SD of }y</span>), we have</p>
+<p><span class="math display">m = r \cdot \frac{\text{SD of }y}{\text{SD
+of }x} = \frac{2}{5} \cdot 1 = \frac{2}{5}</span></p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 73%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <p><br></p>
 <h3 id="problem-6.4">Problem 6.4</h3>
@@ -747,6 +1755,59 @@ intercept of Anthony’s new regression line?</p>
 <li><p><input type="radio" disabled="" /> 5</p></li>
 <li><p><input type="radio" disabled="" /> 7</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_4" aria-expanded="true" aria-controls="collapse6_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_4" class="accordion-collapse collapse"
+aria-labelledby="heading6_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: 7</p>
+<p>Let’s denote the original intercept as <span class="math inline">b</span> and the new intercept in the new dataset as
+<span class="math inline">b'</span>. The equation for the original
+regression line is <span class="math inline">y = mx + b</span>,
+where:</p>
+<ul>
+<li><span class="math inline">y</span> is a predicted number of sunshine
+hours in July, before 5 was subtracted from each number of hours.</li>
+<li><span class="math inline">m</span> is the slope of the line, which
+we know is <span class="math inline">\frac{2}{5}</span> from the
+previous part.</li>
+<li><span class="math inline">x</span> is a number of sunshine hours in
+January, before 5 was subtracted from each number of hours.</li>
+<li><span class="math inline">b</span> is the original intercept. This
+is 10.</li>
+</ul>
+<p>When Anthony subtracts 5 from each <span class="math inline">x</span>
+and <span class="math inline">y</span> value, the new regression line
+becomes <span class="math display">y - 5 = m \cdot (x - 5) +
+b'</span></p>
+<p>Expanding and rearrange this equation, we have</p>
+<p><span class="math display">y = mx - 5m + 5 + b'</span></p>
+<p>Remember, <span class="math inline">x</span> and <span class="math inline">y</span> here represent the number of sunshine hours
+in January and July, respectively, <em>before</em> Anthony subtracted 5
+from each number of hours. This means that the equation for <span class="math inline">y</span> above is equivalent to <span class="math inline">y = mx + b</span>. Comparing, we see that</p>
+<p><span class="math display">-5m + 5 + b' = b</span></p>
+<p>Since <span class="math inline">m = \frac{2}{5}</span> (from the
+previous part) and <span class="math inline">b = 10</span>, we have</p>
+<p><span class="math display">-5 \cdot \frac{2}{5} + 5 + b' = 10
+\implies b' = 10 - 5 + 2 = 7</span></p>
+<p>Therefore, the intercept of Anthony’s new regression line is 7.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 34%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <p>Jasmine is trying to get as far away from Anthony as possible and has
 a trip to Chicago planned after finals. Chicago is known for being very
@@ -776,6 +1837,45 @@ points higher than the average.</p>
 <li><p><input type="radio" disabled="" /> <span class="math inline">r &gt; 0</span></p></li>
 <li><p><input type="radio" disabled="" /> We cannot make any conclusions about the value of <span class="math inline">r</span> based on this information alone.</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading7_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_1" aria-expanded="true" aria-controls="collapse7_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse7_1" class="accordion-collapse collapse"
+aria-labelledby="heading7_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> <span class="math inline">r &gt;
+0</span></p>
+<p>To answer this problem, it’s useful to recall the regression line in
+standard units:</p>
+<p><span class="math display">\text{predicted } y_{\text{(su)}} = r
+\cdot x_{\text{(su)}}</span></p>
+<p>If a value is positive in standard units, it means that it is above
+the average of the distribution that it came from, and if a value is
+negative in standard units, it means that it is below the average of the
+distribution that it came from. Since we’re told that <em>Wingspan</em>
+has a <code>"Complexity"</code> that is 2 points higher than the
+average, we know that <span class="math inline">x_{\text{(su)}}</span>
+is positive. Since we’re told that the predicted <code>"Rating"</code>
+is 3 points higher than the average, we know that <span class="math inline">\text{predicted } y_{\text{(su)}}</span> must also
+be positive. As a result, <span class="math inline">r</span> must also
+be positive, since you can’t multiply a positive number (<span class="math inline">x_{\text{(su)}}</span>) by a negative number and end
+up with another positive number.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 74%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-7.2">Problem 7.2</h3>
 <p>What can you conclude about the standard deviations of “Complexity”
@@ -787,6 +1887,76 @@ and “Rating”?</p>
 <li><p><input type="radio" disabled="" /> We cannot make any conclusions about the relationship between these
 two standard deviations based on this information alone.</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading7_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_2" aria-expanded="true" aria-controls="collapse7_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse7_2" class="accordion-collapse collapse"
+aria-labelledby="heading7_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> SD of <code>"Complexity"</code> &lt; SD of
+<code>"Rating"</code></p>
+<p>Since the distance of the predicted <code>"Rating"</code> from its
+average is larger than the distance of the <code>"Complexity"</code>
+from its average, it might be reasonable to guess that the values in the
+<code>"Rating"</code> column are more spread out. This is true, but
+let’s see concretely why that’s the case.</p>
+<p>Let’s start with the equation of the regression line in standard
+units from the previous subpart. Remember that here, <span class="math inline">x</span> refers to <code>"Complexity"</code> and
+<span class="math inline">y</span> refers to <code>"Rating"</code>.</p>
+<p><span class="math display">\text{predicted } y_{\text{(su)}} = r
+\cdot x_{\text{(su)}}</span></p>
+<p>We know that to convert a value to standard units, we subtract the
+value by the mean of the column it came from, and divide by the standard
+deviation of the column it came from. As such, <span class="math inline">x_{\text{(su)}} = \frac{x - \text{mean of }
+x}{\text{SD of } x}</span>. We can substitute this relationship in the
+regression line above, which gives us</p>
+<p><span class="math display">\frac{\text{predicted } y - \text{mean of
+} y}{\text{SD of } y} = r \cdot \frac{x - \text{mean of } x}{\text{SD of
+} x}</span></p>
+<p>To simplify things, let’s use what we were told. We were told that
+the predicted <code>"Rating"</code> was 3 points higher than average.
+This means that the numerator of the left side, <span class="math inline">\text{predicted } y - \text{mean of } y</span>, is
+equal to 3. Similarly, we were told that the <code>"Complexity"</code>
+was 2 points higher than average, so <span class="math inline">x -
+\text{mean of } x</span> is 2. Then, we have:</p>
+<p><span class="math display">\frac{3}{\text{SD of } y} =
+\frac{2r}{\text{SD of }x}</span></p>
+<p>Note that for convenience, we included <span class="math inline">r</span> in the numerator on the right-hand
+side.</p>
+<p>Remember that our goal is to compare the SD of <code>"Rating"</code>
+(<span class="math inline">y</span>) to the SD of
+<code>"Complexity"</code> (<span class="math inline">x</span>). We now
+have an equation that relates these two quantities! Since they’re both
+currently on the denominator, which can be tricky to work with, let’s
+take the reciprocal (i.e. “flip”) both fractions.</p>
+<p><span class="math display">\frac{\text{SD of } y}{3} = \frac{\text{SD
+of }x}{2r}</span></p>
+<p>Now, re-arranging gives us</p>
+<p><span class="math display">\text{SD of } y \cdot \frac{2r}{3} =
+\text{SD of }x</span></p>
+<p>Since we know that <span class="math inline">r</span> is somewhere
+between 0 and 1, we know that <span class="math inline">\frac{2r}{3}</span> is somewhere between 0 and <span class="math inline">\frac{2}{3}</span>. This means that <span class="math inline">\text{SD of } x</span> is somewhere between 0 and
+two-thirds of the value of <span class="math inline">\text{SD of }
+y</span>, which means that no matter what, <span class="math inline">\text{SD of } x &lt; \text{SD of } y</span>.
+Remembering again that here <code>"Complexity"</code> is our <span class="math inline">x</span> and <code>"Rating"</code> is our <span class="math inline">y</span>, we have that the SD of
+<code>"Complexity"</code> is less than the SD of
+<code>"Rating"</code>.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 42%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <hr />
 <h2 id="problem-8">Problem 8</h2>
@@ -807,6 +1977,76 @@ could be the average <code>"Rating"</code> for children’s games?</p>
 <li><p><input type="radio" disabled="" /> 3.1</p></li>
 <li><p><input type="radio" disabled="" /> 4</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading8">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8" aria-expanded="true" aria-controls="collapse8">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse8" class="accordion-collapse collapse"
+aria-labelledby="heading8" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> 3.1</p>
+<p>Let’s recall the formulas for the regression line in original units,
+since we’re given information in original units in this question (such
+as the fact that for a <code>"Play Time"</code> of 8
+<strong>minutes</strong>, the predicted <code>"Rating"</code> is 4
+stars). Remember that throughout this question, <code>"Play Time"</code>
+is our <span class="math inline">x</span> and <code>"Rating"</code> is
+our <span class="math inline">y</span>.</p>
+<p>The regression line is of the form <span class="math inline">y = mx +
+b</span>, where</p>
+<p><span class="math display">m = r \cdot \frac{\text{SD of }
+y}{\text{SD of }x}, b = \text{mean of }y - m \cdot \text{mean of }
+x</span></p>
+<p>There’s a lot of information provided to us in the question – let’s
+think about what it means in the context of our <span class="math inline">x</span>s and <span class="math inline">y</span>s.</p>
+<ul>
+<li>The first piece is that <span class="math inline">r</span> is
+negative, so <span class="math inline">-1 \leq r &lt; 0</span>.</li>
+<li>The second piece is that <span class="math inline">\text{SD of } x =
+2 \cdot (\text{SD of } y)</span>. Equivalently, we can say that <span class="math inline">\frac{\text{SD of } y}{\text{SD of } x} =
+\frac{1}{2}</span>. This form is convenient, because it’s close to the
+definition of the slope of the regression line, <span class="math inline">m</span>. Using this fact, the slope of the
+regression line is <span class="math inline">m = r \cdot \frac{\text{SD
+of } y}{\text{SD of }x} = r \cdot \frac{1}{2} = \frac{r}{2}</span>.</li>
+<li>The <span class="math inline">\text{mean of } x</span> is 10. This
+means that the intercept of the regression line, <span class="math inline">b</span>, is <span class="math inline">b =
+\text{mean of }y - m \cdot \text{mean of } x = \text{mean of }y -
+\frac{r}{2} \cdot 10 = \text{mean of }y - 5r</span>.</li>
+<li>If <span class="math inline">x</span> is 8, the predicted <span class="math inline">y</span> is 4.</li>
+</ul>
+<p>Given all of this information, we need to find possible values for
+the <span class="math inline">\text{mean of } y</span>. Substituting our
+known values for <span class="math inline">m</span> and <span class="math inline">b</span> into <span class="math inline">y = mx +
+b</span> gives us</p>
+<p><span class="math display">y = \frac{r}{2} x + \text{mean of }y -
+5r</span></p>
+<p>Now, using the fact that if if <span class="math inline">x =
+8</span>, the predicted <span class="math inline">y</span> is 4, we
+have</p>
+<p><span class="math display">\begin{align*}4 &amp;= \frac{r}{2} \cdot 8
++ \text{mean of }y - 5r\\4 &amp;= 4r - 5r + \text{mean of }y\\ 4 + r
+&amp;= \text{mean of} y\end{align*}</span></p>
+<p>Cool! We now know that the <span class="math inline">\text{mean of }
+y</span> is <span class="math inline">4 + r</span>. We know that <span class="math inline">r</span> must satisfy the relationship <span class="math inline">-1 \leq r &lt; 0</span>. By adding 4 to all pieces
+of this inequality, we have that <span class="math inline">3 \leq r + 4
+&lt; 4</span>, which means that <span class="math inline">3 \leq
+\text{mean of } y &lt; 4</span>. Of the four options provided, only one
+is greater than or equal to 3 and less than 4, which is 3.1.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 55%.</p>
+</div>
+</div>
+</div>
+</div>
 <hr />
 <h2 id="problem-9">Problem 9</h2>
 <p>The American Kennel Club (AKC) organizes information about dog
@@ -849,6 +2089,44 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb11-1"><a href=
 <li><p><input type="checkbox" disabled="" /> Snippet 3</p></li>
 <li><p><input type="checkbox" disabled="" /> Snippet 4</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading9_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_1" aria-expanded="true" aria-controls="collapse9_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse9_1" class="accordion-collapse collapse"
+aria-labelledby="heading9_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> Snippet 1 &amp; 4</p>
+<ul>
+<li><p>Snippet 1: Recall from the reference sheet, the correlation
+coefficient is <code>r = (su(x) * su(y)).mean()</code>.</p></li>
+<li><p>Snippet 2: We have to standardize each variable seperately so
+this snippet doesnt work.</p></li>
+<li><p>Snippet 3: Note that for this snippet we’re standardizing each
+data point within each variable seperately, and so we’re not really
+standardizing the entire variable correctly. In other words, applying
+<code>su(x[i])</code> to a singular data point is just going to convert
+this data point to zero, since we’re only inputting one data point into
+<code>su()</code>.</p></li>
+<li><p>Snippet 4: Note that this code is just the same as Snippet 1,
+except we’re now directly computing the product of each corresponding
+data points individually. Hence this Snippet works.</p></li>
+</ul>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 81%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-9.2">Problem 9.2</h3>
 <p>Sam computes the following statistics for his sample:</p>
@@ -864,6 +2142,37 @@ height of 45 cm.</p>
 <li><p><input type="radio" disabled="" /> 45</p></li>
 <li><p><input type="radio" disabled="" /> None of the above</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading9_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_2" aria-expanded="true" aria-controls="collapse9_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse9_2" class="accordion-collapse collapse"
+aria-labelledby="heading9_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> Option 3: 10</p>
+<p>The best fit line in original units are given by
+<code>y = mx + b</code> where <code>m = r * (SD of y) / (SD of x)</code>
+and <code>b = (mean of y) - m * (mean of x)</code> (refer to reference
+sheet). Let <code>c</code> be the STD of y, which we’re trying to find,
+then our best fit line is now <span class="math inline">y = (0.8*c/8)x +
+(50-(0.8*c/8)*15)</span>. Plugging the two values they gave us into our
+best fit line and simplifying gives <span class="math inline">45 =
+0.1*c*10 + (50 - 1.5*c)</span> which simplifies to <span class="math inline">45 = 50 - 0.5*c</span> which gives us an answer of
+<code>c = 10</code>. </p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>The average score
+on this problem was 89%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-9.3">Problem 9.3</h3>
 <p>Assume that the statistics in part b) still hold. Select all of the
@@ -878,6 +2187,45 @@ tall.</p></li>
 <li><p><input type="checkbox" disabled="" /> The best-fit line predicts that a dog that weighs 10 kg will be
 shorter than 50 cm.</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading9_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_3" aria-expanded="true" aria-controls="collapse9_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse9_3" class="accordion-collapse collapse"
+aria-labelledby="heading9_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> Option 3 &amp; 4</p>
+<ul>
+<li><p>Option 1: We cannot determine whether two variables are linear
+simply from a line of best fit. The line of best fit just happens to
+find the best linear relationship between two varaibles, not whether or
+not the variables have a linear relationship.</p></li>
+<li><p>Option 2: To calculate the root mean squared error, we need the
+actual data points so we can calculate residual values. Seeing that we
+don’t have access to the data points, we cannot say that the root mean
+squared error of the best-fit line is smaller than 5.</p></li>
+<li><p>Option 3: This is true accrding to the problem statement given in
+part b</p></li>
+<li><p>Option 4: This is true since we expect there to be a positive
+correlation between dog height and weight. So dogs that are lighter will
+also most likely be shorter. (ie a dog that is lighter than 15 kg will
+most likely be shorter than 50cm)</p></li>
+</ul>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 72%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <hr />
 <h2 id="section"><span class="math display"> </span></h2>
