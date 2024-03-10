@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Fall 2023 Final Exam</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/theme.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Fall 2023 Final Exam</h1>
+</header>
+<p><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<!-- add after bootstrap.min.css -->
+<link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css"/>
+<!-- add after bootstrap.min.js or bootstrap.bundle.min.js -->
+<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script></p>
+<!-- for difficulty gauges-->
+<script src="https://cdn.plot.ly/plotly-2.16.1.min.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B947E6J6H4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B947E6J6H4');
+</script>
+<p><a href="../index.html">← return to practice.dsc10.com</a></p>
+<hr />
+<p><strong>Instructor(s):</strong> Rod Albuyeh, Suraj Rampure, Janine
+Tiefenbruck</p>
+<p>This exam was administered in-person. The exam was closed-notes,
+except students were provided a copy of the <a
+href="https://drive.google.com/file/d/1ky0Np67HS2O4LO913P-ing97SJG0j27n/view">DSC
+10 Reference Sheet</a>. No calculators were allowed. Students had
+<strong>3 hours</strong> to take this exam.</p>
+<hr />
+<h1 id="data-overview-fraudulent-transactions">Data Overview: Fraudulent
+Transactions</h1>
+<p>Today, we’re diving into the high-stakes world of fraud detection.
+Each row in the DataFrame <code>txn</code> represents one online
+transaction, or purchase. The <code>txn</code> DataFrame is indexed by
+<code>"transaction_id"</code> (int), which is a unique identifier for a
+transaction. The columns of <code>txn</code> are as follows:</p>
+<ul>
+<li><code>"is_fraud" (bool)</code>: <code>True</code> if the transaction
+was fraudulent and <code>False</code> if not.</li>
+<li><code>"amount" (float)</code>: The dollar amount of the
+transaction.</li>
+<li><code>"product_code" (str)</code>: A code for the product purchased
+in the transaction; either <code>"H"</code> for household,
+<code>"C"</code> for consumer goods, <code>"S"</code> for services, or
+<code>"R"</code> for recreation.</li>
+<li><code>"method" (str)</code>: The payment method; either
+<code>"debit"</code> or <code>"credit"</code>.</li>
+<li><code>"card" (str)</code>: The payment network of the card used for
+the transaction; either <code>"visa"</code>, <code>"mastercard"</code>,
+<code>"american express"</code>, or <code>"discover"</code>.</li>
+<li><code>"three_days" (int)</code>: The number of transactions made by
+the card in the last three days.</li>
+<li><code>"lifetime" (float)</code>: The total transaction amount of all
+transactions made with this card over its lifetime.</li>
+<li><code>"browser" (str)</code>: The web browser used for the online
+transaction. There are 100 distinct browser types in this column; some
+examples include <code>"samsung browser 6.2"</code>,
+<code>"mobile safari 11.0"</code>, and <code>"chrome 62.0"</code>.</li>
+<li><code>"device_type" (str)</code>: The type of device used for the
+online transaction; either <code>"mobile"</code> or
+<code>"desktop"</code>.</li>
+</ul>
+<p>The first few rows of <code>txn</code> are shown below, though
+<code>txn</code> has 140,000 rows in total. Assume that the data in
+<code>txn</code> is a simple random sample from the much larger
+population of <strong>all</strong> online transactions.</p>
+<center><img src='../assets/images/fa23-final/final-data-info.png' width=800></center>
+<p>Throughout this exam, assume that we have already run
+<code>import babypandas as bpd</code> and
+<code>import numpy as np</code>.</p>
+<hr />
+<h2 id="problem-1">Problem 1</h2>
+<p><br></p>
+<h3 id="problem-1.1">Problem 1.1</h3>
+<p>Nate’s favorite number is 5. He calls a number “lucky" if it’s
+greater than 500 or if it contains a 5 anywhere in its representation.
+For example, <code>1000.04</code> and <code>5.23</code> are both lucky
+numbers.</p>
+<p>Complete the implementation of the function <code>check_lucky</code>,
+which takes in a number as a float and returns <code>True</code> if it
+is lucky and <code>False</code> otherwise. Then, add a column named
+<code>"is_lucky"</code> to <code>txn</code> that contains
+<code>True</code> for lucky transaction amounts and <code>False</code>
+for all other transaction amounts, and save the resulting DataFrame to
+the variable <code>luck</code>.</p>
+<pre><code>    def check_lucky(x):
+        return __(a)__
+
+    luck = txn.assign(is_lucky = __(b)__)</code></pre>
+<ol type="1">
+<li><p>What goes in blank (a)?</p></li>
+<li><p>What goes in blank (b)?</p></li>
+</ol>
+<p><br></p>
+<h3 id="problem-1.2">Problem 1.2</h3>
+<p>Fill in the blanks below so that <code>lucky_prop</code> evaluates to
+the proportion of fraudulent <code>"visa"</code> card transactions whose
+transaction amounts are lucky.</p>
+<pre><code>visa_fraud = __(a)__
+lucky_prop = visa_fraud.__(b)__.mean()</code></pre>
+<ol type="1">
+<li><p>What goes in blank (a)?</p></li>
+<li><p>What goes in blank (b)?</p></li>
+</ol>
+<p><br></p>
+<h3 id="problem-1.3">Problem 1.3</h3>
+<p>Fill in the blanks below so that <code>lucky_prop</code> is one value
+in the Series <code>many_props</code>.</p>
+<pre><code>many_props = luck.groupby(__(a)__).mean().get(__(b)__)</code></pre>
+<ol type="1">
+<li><p>What goes in blank (a)?</p></li>
+<li><p>What goes in blank (b)?</p></li>
+</ol>
+<p><br></p>
+<hr />
+<h2 id="problem-2">Problem 2</h2>
+<p>Consider the DataFrame <code>combo</code>, defined below.</p>
+<pre><code>combo = txn.groupby([&quot;is_fraud&quot;, &quot;method&quot;, &quot;card&quot;]).mean()</code></pre>
+<p><br></p>
+<h3 id="problem-2.1">Problem 2.1</h3>
+<p>What is the maximum possible value of <code>combo.shape[0]</code>?
+Give your answer as an integer.</p>
+<p><br></p>
+<h3 id="problem-2.2">Problem 2.2</h3>
+<p>What is the value of <code>combo.shape[1]</code>?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>1</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>2</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>3</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>4</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>5</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>6</code></p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-3">Problem 3</h2>
+<p>Consider the variable <code>is_fraud_mean</code>, defined below.</p>
+<pre><code>is_fraud_mean = txn.get(&quot;is_fraud&quot;).mean()</code></pre>
+<p>Which of the following expressions are equivalent to
+<code>is_fraud_mean</code>? <strong>Select all that apply.</strong></p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> <code>txn.groupby("is_fraud").mean()</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>txn.get("is_fraud").sum() / txn.shape[0]</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>np.count_nonzero(txn.get("is_fraud")) / txn.shape[0]</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>(txn.get("is_fraud") &gt; 0.8).mean()</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>1 - (txn.get("is_fraud") == 0).mean()</code></p></li>
+<li><p><input type="checkbox" disabled="" /> None of the above.</p></li>
+</ul>
+<hr />
+<h2 id="problem-4">Problem 4</h2>
+<p>The following code block produces a bar chart, which is shown
+directly beneath it.</p>
+<pre><code>(txn.groupby(&quot;browser&quot;).mean()
+    .sort_values(by=&quot;is_fraud&quot;, ascending=False)
+    .take(np.arange(10))
+    .plot(kind=&quot;barh&quot;, y=&quot;is_fraud&quot;));</code></pre>
+<center><img src='../assets/images/fa23-final/top_ten.jpg' width=800></center>
+<p><br></p>
+<h3 id="problem-4.1">Problem 4.1</h3>
+<p>Based on the above bar chart, what can we conclude about the browser
+<code>"icedragon"</code>? <strong>Select all that apply.</strong></p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> In our dataset, <code>"icedragon"</code> is the most frequently used
+browser</p></li>
+<li><p><input type="checkbox" disabled="" /> In our dataset, <code>"icedragon"</code> is the most frequently used
+browser</p></li>
+<li><p><input type="checkbox" disabled="" /> In our dataset, every transaction made with <code>"icedragon"</code>
+is</p></li>
+<li><p><input type="checkbox" disabled="" /> In our dataset, there are more fraudulent transactions made with</p></li>
+<li><p><input type="checkbox" disabled="" /> None of the above.</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-4.2">Problem 4.2</h3>
+<p>How can we modify the provided code block so that the bar chart
+displays the same information, but with the bars sorted in the opposite
+order (i.e. with the longest bar at the top)?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Change <code>ascending=False</code> to
+<code>ascending=True</code>.</p></li>
+<li><p><input type="radio" disabled="" /> Add <code>.sort_values(by="is_fraud", ascending=True)</code>
+immediately</p></li>
+<li><p><input type="radio" disabled="" /> Add <code>.sort_values(by="is_fraud", ascending=True)</code>
+immediately after<br/>
+</p></li>
+<li><p><input type="radio" disabled="" /> None of the above.</p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-5">Problem 5</h2>
+<p>The DataFrame <code>seven</code>, shown below to the
+<strong>left</strong>, consists of a simple random sample of 7 rows from
+<code>txn</code>, with just the <code>"is_fraud"</code> and
+<code>"amount"</code> columns selected.</p>
+<p>The DataFrame <code>locations</code>, shown below to the
+<strong>right</strong>, is missing some values in its
+<code>"is_fraud"</code> column.</p>
+<center><img src='../assets/images/fa23-final/final-merge.png' width=1000></center>
+<p><br></p>
+<h3 id="problem-5.1">Problem 5.1</h3>
+<p>Below, fill in the blanks to complete the <code>"is_fraud"</code>
+column of <code>locations</code> so that the DataFrame
+<code>seven.merge(locations, on="is_fraud")</code> has
+<strong>19</strong> rows.</p>
+<p>Index 0: <code>___</code></p>
+<p>Index 1: <code>___</code></p>
+<p>Index 2: <code>___</code></p>
+<p>Index 3: <code>___</code></p>
+<p>Index 4: <code>___</code></p>
+<p><br></p>
+<h3 id="problem-5.2">Problem 5.2</h3>
+<p>True or False: It is possible to fill in the four blanks in the
+<code>"is_fraud"</code> column of <code>locations</code> so that the
+DataFrame <code>seven.merge(locations, on="is_fraud")</code> has
+<strong>14</strong> rows.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-6">Problem 6</h2>
+<p>Aaron wants to explore the discrepancy in fraud rates between
+<code>"discover"</code> transactions and <code>"mastercard"</code>
+transactions. To do so, he creates the DataFrame <code>ds_mc</code>,
+which only contains the rows in <code>txn</code> corresponding to
+<code>"mastercard"</code> or <code>"discover"</code> transactions.</p>
+<p>After he creates <code>ds_mc</code>, Aaron groups <code>ds_mc</code>
+on the <code>"card"</code> column using two different aggregation
+methods. The relevant columns in the resulting DataFrames are shown
+below.</p>
+<center><img src='../assets/images/fa23-final/ds_mc.png' width=800></center>
+<p><br></p>
+<p>Aaron decides to perform a test of the following pair of
+hypotheses:</p>
+<ul>
+<li><p><strong>Null Hypothesis</strong>: The proportion of fraudulent
+<code>"mastercard"</code> transactions is <strong>the same as</strong>
+the proportion of fraudulent <code>"discover"</code>
+transactions.</p></li>
+<li><p><strong>Alternative Hypothesis</strong>: The proportion of
+fraudulent <code>"mastercard"</code> transactions is <strong>less
+than</strong> the proportion of fraudulent <code>"discover"</code>
+transactions.</p></li>
+</ul>
+<p>As his test statistic, Aaron chooses the <strong>difference in
+proportion of transactions that are fraudulent</strong>, in the order
+<code>"mastercard"</code> minus <code>"discover"</code>.</p>
+<p><br></p>
+<h3 id="problem-6.1">Problem 6.1</h3>
+<p>What type of statistical test is Aaron performing?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Standard hypothesis test</p></li>
+<li><p><input type="radio" disabled="" /> Permutation test</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-6.2">Problem 6.2</h3>
+<p>What is the value of the observed statistic? Give your answer either
+as an exact decimal or simplified fraction.</p>
+<p>observed statistic = <code>___</code></p>
+<p><br></p>
+<p>The empirical distribution of Aaron’s chosen test statistic is shown
+below.</p>
+<center><img src='../assets/images/fa23-final/null-hyp-dist.png' width=800></center>
+<p><br></p>
+<h3 id="problem-6.3">Problem 6.3</h3>
+<p>Which of the following is closest to the p-value of Aaron’s test?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> 0.001</p></li>
+<li><p><input type="radio" disabled="" /> 0.37</p></li>
+<li><p><input type="radio" disabled="" /> 0.63</p></li>
+<li><p><input type="radio" disabled="" /> 0.94</p></li>
+<li><p><input type="radio" disabled="" /> 0.999</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-6.4">Problem 6.4</h3>
+<p>What is the conclusion of Aaron’s test?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> The proportion of fraudulent <code>"mastercard"</code> transactions
+is **less</p></li>
+<li><p><input type="radio" disabled="" /> The proportion of fraudulent <code>"mastercard"</code> transactions
+is</p></li>
+<li><p><input type="radio" disabled="" /> The test results are inconclusive.</p></li>
+<li><p><input type="radio" disabled="" /> None of the above.</p></li>
+</ul>
+<p><br></p>
+<p>Aaron now decides to test a slightly different pair of
+hypotheses.</p>
+<ul>
+<li><p><strong>Null Hypothesis</strong>: The proportion of fraudulent
+<code>"mastercard"</code> transactions is <strong>the same as</strong>
+the proportion of fraudulent <code>"discover"</code>
+transactions.</p></li>
+<li><p><strong>Alternative Hypothesis</strong>: The proportion of
+fraudulent <code>"mastercard"</code> transactions is <strong>greater
+than</strong> the proportion of fraudulent <code>"discover"</code>
+transactions.</p></li>
+</ul>
+<p>He uses the same test statistic as before.</p>
+<p><br></p>
+<h3 id="problem-6.5">Problem 6.5</h3>
+<p>Which of the following is closest to the p-value of Aaron’s new
+test?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> 0.001</p></li>
+<li><p><input type="radio" disabled="" /> 0.06</p></li>
+<li><p><input type="radio" disabled="" /> 0.37</p></li>
+<li><p><input type="radio" disabled="" /> 0.63</p></li>
+<li><p><input type="radio" disabled="" /> 0.94</p></li>
+<li><p><input type="radio" disabled="" /> 0.999</p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-7">Problem 7</h2>
+<p>Jason is interested in exploring the relationship between the browser
+and payment method used for a transaction. To do so, he uses
+<code>txn</code> to create create three tables, each of which contain
+the distribution of browsers used for credit card transactions and the
+distribution of browsers used for debit card transactions, but with
+different combinations of browsers combined in a single category in each
+table.</p>
+<div class="center">
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;"><strong>Browser</strong></th>
+<th style="text-align: center;"><strong>Credit</strong></th>
+<th style="text-align: center;"><strong>Debit</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Chrome</td>
+<td style="text-align: center;">?</td>
+<td style="text-align: center;">?</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Safari</td>
+<td style="text-align: center;">?</td>
+<td style="text-align: center;">?</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Firefox</td>
+<td style="text-align: center;">?</td>
+<td style="text-align: center;">?</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Edge</td>
+<td style="text-align: center;">?</td>
+<td style="text-align: center;">?</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Other</td>
+<td style="text-align: center;">?</td>
+<td style="text-align: center;">?</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Table 1</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;"><strong>Browser</strong></th>
+<th style="text-align: center;"><strong>Credit</strong></th>
+<th style="text-align: center;"><strong>Debit</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Chrome</td>
+<td style="text-align: center;">?</td>
+<td style="text-align: center;">?</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Safari or Firefox</td>
+<td style="text-align: center;">?</td>
+<td style="text-align: center;">?</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Edge</td>
+<td style="text-align: center;">?</td>
+<td style="text-align: center;">?</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Other</td>
+<td style="text-align: center;">?</td>
+<td style="text-align: center;">?</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Table 2</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;"><strong>Browser</strong></th>
+<th style="text-align: center;"><strong>Credit</strong></th>
+<th style="text-align: center;"><strong>Debit</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Chrome</td>
+<td style="text-align: center;">?</td>
+<td style="text-align: center;">?</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Safari, Firefox, or Edge</td>
+<td style="text-align: center;">?</td>
+<td style="text-align: center;">?</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Other</td>
+<td style="text-align: center;">?</td>
+<td style="text-align: center;">?</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Table 3</strong></p>
+</div>
+<p>Jason calculates the total variation distance (TVD) between the two
+distributions in each of his three tables, but he does not record which
+TVD goes with which table. He computed TVDs of 0.14, 0.36, and 0.38.</p>
+<p><br></p>
+<h3 id="problem-7.1">Problem 7.1</h3>
+<p>In which table do the two distributions have a TVD of 0.14?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Table 1</p></li>
+<li><p><input type="radio" disabled="" /> Table 3</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-7.2">Problem 7.2</h3>
+<p>In which table do the two distributions have a TVD of 0.36?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Table 1</p></li>
+<li><p><input type="radio" disabled="" /> Table 2</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-7.3">Problem 7.3</h3>
+<p>In which table do the two distributions have a TVD of 0.38?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Table 1</p></li>
+<li><p><input type="radio" disabled="" /> Table 2</p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-8">Problem 8</h2>
+<p>Since <code>txn</code> has 140,000 rows, Jack wants to get a quick
+glimpse at the data by looking at a simple random sample of 10 rows from
+<code>txn</code>. He defines the DataFrame <code>ten_txns</code> as
+follows:</p>
+<pre><code>    ten_txns = txn.sample(10, replace=False)</code></pre>
+<p>Which of the following code blocks also assign <code>ten_txns</code>
+to a simple random sample of 10 rows from <code>txn</code>?</p>
+<p>Option 1:</p>
+<pre><code>all_rows = np.arange(txn.shape[0])
+perm = np.random.permutation(all_rows)
+positions = np.random.choice(perm, size=10, replace=False)
+ten_txn = txn.take(positions)</code></pre>
+<p>Option 2:</p>
+<pre><code>all_rows = np.arange(txn.shape[0])
+choice = np.random.choice(all_rows, size=10, replace=False)
+positions = np.random.permutation(choice)
+ten_txn = txn.take(positions)</code></pre>
+<p>Option 3:</p>
+<pre><code>all_rows = np.arange(txn.shape[0])
+positions = np.random.permutation(all_rows).take(np.arange(10))
+ten_txn = txn.take(positions)</code></pre>
+<p>Option 4:</p>
+<pre><code>all_rows = np.arange(txn.shape[0])
+positions = np.random.permutation(all_rows.take(np.arange(10)))
+ten_txn = txn.take(positions)</code></pre>
+<p><strong>Select all that apply.</strong></p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> Option 1</p></li>
+<li><p><input type="checkbox" disabled="" /> Option 2</p></li>
+<li><p><input type="checkbox" disabled="" /> Option 3</p></li>
+<li><p><input type="checkbox" disabled="" /> Option 4</p></li>
+<li><p><input type="checkbox" disabled="" /> None of the above.</p></li>
+</ul>
+<hr />
+<h2 id="problem-9">Problem 9</h2>
+<p>The DataFrame <code>ten_txns</code>, <strong>displayed in its
+entirety below</strong>, contains a simple random sample of 10 rows from
+<code>txn</code>.</p>
+<center><img src='../assets/images/fa23-final/ten_txns.png' width=800></center>
+<p><br></p>
+<h3 id="problem-9.1">Problem 9.1</h3>
+<p>Suppose we randomly select one transaction from
+<code>ten_txns</code>. What is the probability that the selected
+transaction is made with a <code>"card"</code> of
+<code>"mastercard"</code> or a <code>"method"</code> of
+<code>"debit"</code>? Give your answer either as an exact decimal or a
+simplified fraction.</p>
+<p><br></p>
+<h3 id="problem-9.2">Problem 9.2</h3>
+<p>Suppose we randomly select two transactions from
+<code>"ten_txns"</code>, without replacement, and learn that neither of
+the selected transactions is for an amount of 100 dollars. Given this
+information, what is the probability that:</p>
+<ul>
+<li><p>the first transaction is made with a <code>"card"</code> of
+<code>"visa"</code> and a <code>"method"</code> of <code>"debit"</code>,
+and</p></li>
+<li><p>the second transaction is made with a <code>"card"</code> of
+<code>"visa"</code> and a <code>"method"</code> of
+<code>"credit"</code>?</p></li>
+</ul>
+<p>Give your answer either as an exact decimal or a simplified
+fraction.</p>
+<p><br></p>
+<p>For your convenience, we show <code>ten_txns</code> again below.</p>
+<center><img src='../assets/images/fa23-final/ten_txns.png' width=800></center>
+<p><br></p>
+<h3 id="problem-9.3">Problem 9.3</h3>
+<p>Suppose we randomly select 15 rows, with replacement, from
+<code>ten_txns</code>. What’s the probability that in our selection of
+15 rows, the maximum transaction amount is less than 25 dollars?</p>
+<p><br></p>
+<hr />
+<h2 id="problem-10">Problem 10</h2>
+<p>As a senior suffering from senioritis, Weiyue has plenty of time on
+his hands. 1,000 times, he repeats the following process, creating 1,000
+confidence intervals:</p>
+<ol type="1">
+<li><p>Collect a simple random sample of 100 rows from
+<code>txn</code>.</p></li>
+<li><p>Resample from his sample 10,000 times, computing the mean
+transaction amount in each resample.</p></li>
+<li><p>Create a 95% confidence interval by taking the middle 95% of
+resample means.</p></li>
+</ol>
+<p>He then computes the width of each confidence interval by subtracting
+its left endpoint from its right endpoint; e.g. if <span
+class="math inline">[2, 5]</span> is a confidence interval, its width is
+3. This gives him 1,000 widths. Let <span class="math inline">M</span>
+be the mean of these 1,000 widths.</p>
+<p><br></p>
+<h3 id="problem-10.1">Problem 10.1</h3>
+<p>Select the true statement below.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> About 950 of Weiyue’s intervals will contain the mean transaction</p></li>
+<li><p><input type="radio" disabled="" /> About 950 of Weiyue’s intervals will contain the mean transaction</p></li>
+<li><p><input type="radio" disabled="" /> About 950 of Weiyue’s intervals will contain the mean transaction</p></li>
+<li><p><input type="radio" disabled="" /> About 950 of Weiyue’s intervals will contain <span class="math inline">M</span>.</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-10.2">Problem 10.2</h3>
+<p>Weiyue repeats his entire process, except this time, he changes his
+sample size in step 1 from 100 to 400. Let <span
+class="math inline">B</span> be the mean of the widths of the 1,000 new
+confidence intervals he creates.</p>
+<p>What is the relationship between <span class="math inline">M</span>
+and <span class="math inline">B</span>?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <span class="math inline">M &lt; B</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">M \approx B</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">M &gt; B</span></p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-10.3">Problem 10.3</h3>
+<p>Weiyue repeats his entire process once again. This time, he still
+uses a sample size of 100 in step 1, but instead of creating 95%
+confidence intervals in step 3, he creates 99% confidence intervals. Let
+<span class="math inline">C</span> be the mean of the widths of the
+1,000 new confidence intervals he generates.</p>
+<p>What is the relationship between <span class="math inline">M</span>
+and <span class="math inline">C</span>?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <span class="math inline">M &lt; C</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">M \approx C</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">M &gt; C</span></p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-10.4">Problem 10.4</h3>
+<p>Weiyue repeats his entire process one last time. This time, he still
+uses a sample size of 100 in step 1, and creates 95% confidence
+intervals in step 3, but instead of bootstrapping, he uses the Central
+Limit Theorem to generate his confidence intervals. Let <span
+class="math inline">D</span> be the mean of the widths of the 1,000 new
+confidence intervals he creates.</p>
+<p>What is the relationship between <span class="math inline">M</span>
+and <span class="math inline">D</span>?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <span class="math inline">M &lt; D</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">M \approx D</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">M &gt; D</span></p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-11">Problem 11</h2>
+<p>On Reddit, Yutian read that 22% of all online transactions are
+fraudulent. She decides to test the following hypotheses:</p>
+<ul>
+<li><p><strong>Null Hypothesis</strong>: The proportion of online
+transactions that are fraudulent is <strong>0.22</strong>.</p></li>
+<li><p><strong>Alternative Hypothesis</strong>: The proportion of online
+transactions that are fraudulent is not <strong>0.22</strong>.</p></li>
+</ul>
+<p>To test her hypotheses, she decides to create a <strong>95%</strong>
+confidence interval for the proportion of online transactions that are
+fraudulent using the Central Limit Theorem.</p>
+<p>Unfortunately, she doesn’t have access to the entire <code>txn</code>
+DataFrame; rather, she has access to a simple random sample of
+<code>txn</code> of size <span class="math inline">n</span>. In her
+sample, the proportion of transactions that are fraudulent is
+<strong>0.2</strong> (or equivalently, <span
+class="math inline">\frac{1}{5}</span>).</p>
+<p><br></p>
+<h3 id="problem-11.1">Problem 11.1</h3>
+<p>The width of Yutian’s confidence interval is of the form <span
+class="math display">\frac{c}{5 \sqrt{n}}</span></p>
+<p>where <span class="math inline">n</span> is the size of her sample
+and <span class="math inline">c</span> is some positive integer. What is
+the value of <span class="math inline">c</span>? Give your answer as an
+integer.</p>
+<p><em>Hint: Use the fact that in a collection of 0s and 1s, if the
+proportion of values that are 1 is <span class="math inline">p</span>,
+the standard deviation of the collection is <span
+class="math inline">\sqrt{p(1-p)}</span>.</em></p>
+<p><span class="math inline">c = `___`</span></p>
+<p><br></p>
+<h3 id="problem-11.2">Problem 11.2</h3>
+<p>There is a positive integer <span class="math inline">J</span> such
+that:</p>
+<ul>
+<li><p>If <span class="math inline">n &lt; J</span>, Yutian will fail to
+reject her null hypothesis at the <strong>0.05</strong> significance
+level.</p></li>
+<li><p>If <span class="math inline">n &gt; J</span>, Yutian will reject
+her null hypothesis at the <strong>0.05</strong> significance
+level.</p></li>
+</ul>
+<p>What is the value of <span class="math inline">J</span>? Give your
+answer as an integer.</p>
+<p><span class="math inline">J = `___`</span></p>
+<p><br></p>
+<hr />
+<h2 id="problem-12">Problem 12</h2>
+<p>On Reddit, Keenan also read that 22% of all online transactions are
+fraudulent. He decides to test the following hypotheses at the
+<strong>0.16 significance level</strong>:</p>
+<ul>
+<li><p><strong>Null Hypothesis</strong>: The proportion of online
+transactions that are fraudulent is <strong>0.22</strong>.</p></li>
+<li><p><strong>Alternative Hypothesis</strong>: The proportion of online
+transactions that are fraudulent is not <strong>0.22</strong>.</p></li>
+</ul>
+<p>Keenan has access to a simple random sample of <code>txn</code> of
+size <strong>500</strong>. In his sample, the proportion of transactions
+that are fraudulent is <strong>0.23</strong>.</p>
+<p>Below is an incomplete implementation of the function
+<code>reject_null</code>, which creates a bootstrap-based confidence
+interval and returns <strong>True</strong> if the conclusion of Keenan’s
+test is to <strong>reject</strong> the null hypothesis, and
+<strong>False</strong> if the conclusion is to <strong>fail to
+reject</strong> the null hypothesis, all at the <strong>0.16</strong>
+significance level.</p>
+<pre><code>def reject_null():
+    fraud_counts = np.array([])
+    for i in np.arange(10000):
+        fraud_count = np.random.multinomial(500, __(a)__)[0] 
+        fraud_counts = np.append(fraud_counts, fraud_count)
+        
+    L = np.percentile(fraud_counts, __(b)__)
+    R = np.percentile(fraud_counts, __(c)__)
+
+    if __(d)__ &lt; L or __(d)__ &gt; R:
+        # Return True if we REJECT the null.
+        return True
+    else:
+        # Return False if we FAIL to reject the null.
+        return False</code></pre>
+<p>Fill in the blanks below so that <code>reject_null</code> works as
+intended.</p>
+<p><code>a</code>:</p>
+<p><code>b</code>:</p>
+<p><code>c</code>:</p>
+<p><code>d</code>:</p>
+<p><em>Hint: Your answer to (d) should be an integer greater than
+50.</em></p>
+<hr />
+<h2 id="problem-13">Problem 13</h2>
+<p>Ashley doesn’t have access to the entire <code>txn</code> DataFrame;
+instead, she has access to a simple random sample of
+<strong>400</strong> rows of <code>txn</code>.</p>
+<p>She draws two histograms, each of which depicts the distribution of
+the <code>"amount"</code> column in her sample, using different
+bins.</p>
+<center><img src='../assets/images/fa23-final/hist-final.png' width=800></center>
+<p><br></p>
+<p>Unfortunately, DataHub is being finicky and so two of the bars in
+Histogram A are deleted after it is created.</p>
+<p><br></p>
+<h3 id="problem-13.1">Problem 13.1</h3>
+<p>In Histogram A, which of the following bins contains approximately 60
+transactions?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <span class="math inline">[30, 60)</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">[90, 120)</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">[120, 150)</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">[180, 210)</span></p></li>
+</ul>
+<p><br></p>
+<p><br></p>
+<h3 id="problem-13.2">Problem 13.2</h3>
+<p>Let <span class="math inline">w</span>, <span
+class="math inline">x</span>, <span class="math inline">y</span>, and
+<span class="math inline">z</span> be the heights of bars <span
+class="math inline">W</span>, <span class="math inline">X</span>, <span
+class="math inline">Y</span>, and <span class="math inline">Z</span>,
+respectively. For instance, <span class="math inline">y</span> is about
+0.01.</p>
+<p>Which of the following expressions gives the height of the bar
+corresponding to the <span class="math inline">[60, 90)</span> bin in
+Histogram A?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <span class="math inline">( y + z ) - ( w + x )</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">( w + x ) - ( y + z )</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">\frac{3}{2}( y + z ) - ( w + x )</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">( y + z ) - \frac{3}{2}( w + x )</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">3( y + z ) - 2( w + x )</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">2( y + z ) - 3( w + x )</span></p></li>
+<li><p><input type="radio" disabled="" /> None of the above.</p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-14">Problem 14</h2>
+<p>As mentioned in the previous problem, Ashley has sample of 400 rows
+of <code>txn</code>. Coincidentally, in Ashley’s sample of 400
+transactions, the mean and standard deviation of the
+<code>"amount"</code> column both come out to 70 dollars.</p>
+<p><br></p>
+<h3 id="problem-14.1">Problem 14.1</h3>
+<p>Fill in the blank:</p>
+<div class="center">
+<p>“According to Chebyshev’s inequality, at most 25 transactions in
+Ashley’s sample<br />
+are above ____ dollars; the rest must be below ____ dollars."</p>
+</div>
+<p>What goes in the blank? Give your answer as an
+<strong>integer</strong>. Both blanks are filled in with the same
+number.</p>
+<p><br></p>
+<p><br></p>
+<h3 id="problem-14.2">Problem 14.2</h3>
+<p>Now, we’re given that the mean and standard deviation of the
+<code>"lifetime"</code> column in Ashley’s sample are both equal to
+<span class="math inline">c</span> dollars. We’re also given that the
+correlation between transaction amounts and lifetime spending in
+Ashley’s sample is <span class="math inline">-\frac{1}{4}</span>.</p>
+<p>Which of the four options could be a scatter plot of lifetime
+spending vs. transaction amount?</p>
+<center><img src='../assets/images/fa23-final/scatter-options.png' width=800></center>
+<p><br></p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Option A</p></li>
+<li><p><input type="radio" disabled="" /> Option B</p></li>
+<li><p><input type="radio" disabled="" /> Option C</p></li>
+<li><p><input type="radio" disabled="" /> Option D</p></li>
+</ul>
+<p><br></p>
+<p>Ashley decides to use linear regression to predict the lifetime
+spending of a card given a transaction amount.</p>
+<p><br></p>
+<h3 id="problem-14.3">Problem 14.3</h3>
+<p>The predicted lifetime spending, in <strong>dollars</strong>, of a
+card with a transaction amount of 280 dollars is of the form <span
+class="math inline">f \cdot c</span>, where <span
+class="math inline">f</span> is a fraction. What is the value of <span
+class="math inline">f</span>? Give your answer as a simplified
+fraction.</p>
+<p><span class="math inline">f = `___`</span></p>
+<p><br></p>
+<h3 id="problem-14.4">Problem 14.4</h3>
+<p>Suppose the intercept of the regression line, when both transaction
+amounts and lifetime spending are measured in <strong>dollars</strong>,
+is 40. What is the value of <span class="math inline">c</span>? Give
+your answer as an integer.</p>
+<p><span class="math inline">c = `___`</span></p>
+<p><br></p>
+<hr />
+<h2 id="section"><span class="math display"> </span></h2>
+<h4
+id="feedback-find-an-error-still-confused-have-a-suggestion-let-us-know-here.">👋
+Feedback: Find an error? Still confused? Have a suggestion?
+<a href="https://forms.gle/WZ71FchnXU1K154d7">Let us know
+here</u></a>.</h4>
+<hr />
+</body>
+</html>
