@@ -72,35 +72,35 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
       <td>February 9</td>
       <td><a href="probset05/index.html">Simulation and Sampling; Midterm Review</a></td>
     </tr>
-<!--     </tr>   
+    </tr>   
       <tr>
       <th scope="row">6</th>
-      <td>November 8th</td>
-      <td><a href="disc06/index.html">Sampling, Bootstrapping, and Confidence Intervals</a></td>
+      <td>February 16</td>
+      <td><a href="probset06/index.html">Bootstrapping, Confidence Intervals, Center, Spread, and Standardization</a></td>
     </tr>
     </tr>   
       <tr>
       <th scope="row">7</th>
-      <td>November 15th</td>
-      <td><a href="disc07/index.html">Standardization and The Normal Distribution</a></td>
+      <td>February 23</td>
+      <td><a href="probset07/index.html">Normal Distribution, Central Limit Theorem, and Sample Sizes</a></td>
     </tr>
     </tr>   
       <tr>
       <th scope="row">8</th>
-      <td>November 22nd</td>
-      <td><a href="disc08/index.html">The Central Limit Theorem and Hypothesis Testing</a></td>
+      <td>March 1</td>
+      <td><a href="probset08/index.html">The Central Limit Theorem and Hypothesis Testing</a></td>
     </tr>
     </tr>   
       <tr>
       <th scope="row">9</th>
-      <td>November 29th</td>
-      <td><a href="disc09/index.html">Total Variation Distance and Permutation Testing</a></td>
+      <td>March 8</td>
+      <td><a href="probset09/index.html">Hypothesis Testing and Total Variation Distance</a></td>
     </tr>
     </tr>   
-      <tr>
+<!--      <tr>
       <th scope="row">10</th>
       <td>December 6th</td>
-      <td><a href="disc10/index.html">Regression</a></td>
+      <td><a href="disc10/index.html">Permutation Testing and Regression</a></td>
     </tr>  
 -->         
   </tbody>
@@ -133,7 +133,9 @@ Each exam linked here lists the conditions under which the exam was given, inclu
     <tr>
       <th scope="row">Fall 2023</th>
       <td>Rod Albuyeh, Suraj Rampure, Janine Tiefenbruck</td>
-      <td><a href='fa23-midterm/index.html'>Midterm</a></b>
+      <td><a href='fa23-midterm/index.html'>Midterm</a>
+          <br>
+          <a href='fa23-final/index.html'>Final</a>
       </td>
     </tr>
     <tr>
