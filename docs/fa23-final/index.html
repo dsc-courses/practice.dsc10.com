@@ -200,6 +200,46 @@ the variable <code>luck</code>.</p>
 <li><p>What goes in blank (a)?</p></li>
 <li><p>What goes in blank (b)?</p></li>
 </ol>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading1_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1_1" aria-expanded="true" aria-controls="collapse1_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse1_1" class="accordion-collapse collapse"
+aria-labelledby="heading1_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> (a):
+<code>x &gt; 500 or "5" in str(x)</code> (b):
+<code>txn.get("amount").apply(check_lucky)</code></p>
+<p><strong>What goes in blank (a)?</strong>
+<code>x &gt; 500 or "5" in str(x)</code> We want this function to return
+<code>True</code> if the number is lucky (greater than 500 or if it has
+a 5 in it). Checking the first condition is easy, we can simply use x
+&gt; 500. To check the second condition, we’ll convert the number to a
+string so that we can check whether it contains “5” using the
+<code>in</code> keyword. Once we have these two conditions written out,
+we can combine them with the <code>or</code> keyword, since either one
+is enough for the number to be considered lucky. This gives us the full
+statement <code>x &gt; 500 or “5” in str(x)</code>. Since this will
+evaluate to <code>True</code> if and only if the number is lucky, this
+is all we need in the return statement.</p>
+<p><br/><br/></p>
+<p><strong>What goes in blank (b)?</strong>
+<code>txn.get("amount").apply(check_lucky)</code> Now that we have the
+i<code>s_lucky</code> function, we want to use it to find if each number
+in the <code>amount</code> column is lucky or not. To do this, we can
+use <code>.apply()</code> to apply the function elementwise (row-by-row)
+to the <code>amount</code> column, which will create a new Series of
+Booleans indicating if each element in the “amount” column is lucky.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-1.2">Problem 1.2</h3>
 <p>Fill in the blanks below so that <code>lucky_prop</code> evaluates to
@@ -211,6 +251,63 @@ transaction amounts are lucky.</p>
 <li><p>What goes in blank (a)?</p></li>
 <li><p>What goes in blank (b)?</p></li>
 </ol>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading1_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1_2" aria-expanded="true" aria-controls="collapse1_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse1_2" class="accordion-collapse collapse"
+aria-labelledby="heading1_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> (a):
+<code>luck[(luck.get("card")=="visa") &amp;</code><br/>
+<code>(luck.get("is_fraud"))]</code> (b):
+<code>get("is_lucky")</code><br/>
+<strong>What goes in blank (a)?</strong>
+<code>luck[(luck.get("card")=="visa") &amp;</code><br/>
+<code>(luck.get("is_fraud"))]</code> The first step in this question is
+to query the DataFrame so that we have only the rows which are
+fraudulent transactions from “visa” cards.
+<code>luck.get("card")=="visa"</code> evaluates to <code>True</code> if
+and only if the transaction was from a Visa card, so this is the first
+part of our condition. To find transactions which were fraudulent, we
+can simply find the rows with a value of <code>True</code> in the
+<code>is_fraud</code> column. We can do this with
+<code>luck.get("is_fraud")</code>, which is equivalent to
+<code>luck.get("is_fraud") == True</code> in this case since the
+<code>is_fraud</code> column only contains Trues and Falses. Since we
+want only the rows where both of these conditions hold, we can combine
+these two conditions with the logical <code>&amp;</code> operator, and
+place this inside of square brackets to query the luck DataFrame for
+only the rows where both conditions are true, giving us
+<code>luck[(luck.get("card")=="visa") &amp; (luck.get("is fraud") ]</code>.
+Note that we use the <code>&amp;</code> instead of the keyword
+<code>and</code> since <code>&amp;</code> is used for elementwise
+comparisons between two series, like we’re doing here. and the
+<code>and</code> keyword is used for comparing two booleans (not two
+Series containing booleans).</p>
+<p><strong>What goes in blank (b)?</strong> <code>get("is_lucky")</code>
+We already have a Boolean column <code>is_lucky</code> indicating if
+each transaction had a lucky amount. Recall that booleans are equivalent
+to 1s and 0s, where 1 represents true and 0 represents false, so to find
+the proportion of lucky amounts we can simply take the mean of the
+is_lucky column. The reason that taking the mean is equivalent to
+finding the proportion of lucky amounts comes from the definition of the
+mean: the sum of all values divided by the number of entries. If all
+entries are ones and zeros, then summing the values is equivalent to
+counting the number of ones (Trues) in the Series. Therefore, the mean
+will be given by the number of Trues divided by the length of the
+Series, which is exactly the proportion of lucky numbers in the
+column.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-1.3">Problem 1.3</h3>
 <p>Fill in the blanks below so that <code>lucky_prop</code> is one value
@@ -220,6 +317,45 @@ in the Series <code>many_props</code>.</p>
 <li><p>What goes in blank (a)?</p></li>
 <li><p>What goes in blank (b)?</p></li>
 </ol>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading1_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1_3" aria-expanded="true" aria-controls="collapse1_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse1_3" class="accordion-collapse collapse"
+aria-labelledby="heading1_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> (a): <code>["is_fraud", "“card”"]</code> or
+<code>["“card”", "is_fraud"]</code> (b): <code>"is_lucky"</code></p>
+<p><strong>What goes in blank (a)?</strong>
+<code>["is_fraud", "“card”"]</code> or
+<code>["“card”", "is_fraud"]</code> <code>lucky_prop</code> is the
+proportion of fraudulent “visa” card transactions that have a lucky
+amount. The idea is to create a Series with the proportions of
+fraudulent or non_fraudulent transactions from each card type that have
+a lucky amount. To do this, we’ll want to group by the column that
+describes the card type (<code>card</code>), and the column that
+describes whether a transaction is fraudulent (<code>is_fraud</code>).
+Putting this in the proper syntax for a <code>groupby</code> with
+multiple columns, we have <code>[“card”, “is_fraud”]</code></p>
+<p><strong>What goes in blank (b)?</strong> <code>"is_lucky"</code> Once
+we have this grouped DataFrame, we know that the entry in each column
+will be the mean of that column for some combination of
+<code>is_fraud</code> and <code>method</code>. And, since
+<code>is_lucky</code> contains Booleans, we know that this mean is
+equivalent to the proportion of transactions which were lucky for each
+<code>is_fraud</code> and <code>method</code> combination. One such
+combination is “visa” and fraudulent, so lucky_prop is one element of
+this Series.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <hr />
 <h2 id="problem-2">Problem 2</h2>
@@ -229,6 +365,34 @@ in the Series <code>many_props</code>.</p>
 <h3 id="problem-2.1">Problem 2.1</h3>
 <p>What is the maximum possible value of <code>combo.shape[0]</code>?
 Give your answer as an integer.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading2_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2_1" aria-expanded="true" aria-controls="collapse2_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse2_1" class="accordion-collapse collapse"
+aria-labelledby="heading2_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> 16</p>
+<p><code>combo.shape[0]</code> will give us the number of rows of the
+<code>combo</code> DataFrame. Since we’re grouping by
+<code>is_fraud</code>, <code>method</code>, and <code>card</code>, we
+will have one row for each unique combination of values in these
+columns. There are 2 possible values for <code>is_fraud</code>, 2
+possible values for <code>method</code>, and 2 possible values for
+<code>card</code>, so the total number of possibilities is 2 * 2 * 4 =
+16. This is the maximum number possible because 16 combinations of
+<code>is_fraud</code>, <code>method</code>, and <code>card</code> are
+possible, but they may not all exist in the data.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-2.2">Problem 2.2</h3>
 <p>What is the value of <code>combo.shape[1]</code>?</p>
@@ -240,6 +404,31 @@ Give your answer as an integer.</p>
 <li><p><input type="radio" disabled="" /> <code>5</code></p></li>
 <li><p><input type="radio" disabled="" /> <code>6</code></p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading2_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2_2" aria-expanded="true" aria-controls="collapse2_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse2_2" class="accordion-collapse collapse"
+aria-labelledby="heading2_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> 2</p>
+<p><code>combo.shape[1]</code> will give us the number of columns of the
+DataFrame. In this case, we’re using <code>.mean()</code> as our
+aggregation function, so the resulting DataFrame will only have columns
+with numeric types (since BabyPandas automatically ignores columns which
+have a data type incompatible with the aggregation function). In this
+case, <code>amount</code> and <code>lifetime</code> are the only numeric
+columns, so <code>combo</code> will have 2 columns.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <hr />
 <h2 id="problem-3">Problem 3</h2>
@@ -255,6 +444,63 @@ Give your answer as an integer.</p>
 <li><p><input type="checkbox" disabled="" /> <code>1 - (txn.get("is_fraud") == 0).mean()</code></p></li>
 <li><p><input type="checkbox" disabled="" /> None of the above.</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="true" aria-controls="collapse3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse3" class="accordion-collapse collapse"
+aria-labelledby="heading3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> B, C, D, and E.</p>
+<p>The correct responses are B, C, D, and E. First, we must see that
+<code>txn.get(“is_fraud”).mean()</code> will calculate the mean of the
+<code>is_fraud</code> column, which is a float representing the
+proportion of values in the <code>is_fraud</code> column that are True.
+With this in mind, we can consider each option: - Option A: This
+operation will result in a DataFrame. We first group by
+<code>is_fraud</code>, creating one row for fraudulent transactions and
+one row for non-fraudulent ones. We then take the mean of each numerical
+column, which will determine the entries of the DataFrame. Since this
+results in a DataFrame and not a float, this answer choice cannot be
+correct. - Option B: Here we simply take the mean of the
+<code>is_fraud</code> column using the definition of the mean as the sum
+of the values divided by the nuber of values. This is equivalent to the
+original. - Option C: <code>np.count_nonzero</code> will return the
+number of nonzero values in a sequence. Since we only have True and
+False values in the <code>is_fraud</code> column, and Python considers
+<code>True</code> to be 1 and <code>False</code> to be 0, this means
+counting the number of ones is equivalent to the sum of all the values.
+So, we end up with an expression equivalent to the formula for the mean
+which we saw in part B. - Option D: Recall that <code>is_fraud</code>
+contains Boolean values, and that <code>True</code> evaluates to 1 and
+<code>False</code> evaluates to 0.
+<code>txn.get(“is_fraud”) &gt; 0.8</code> conducts an elementwise
+comparison, evaluating if each value in the column is greater than 0.8,
+and returning the resulting Series of Booleans. Any <code>True</code>
+(1) value in the column will be greater than 0.8, so this expression
+will evaluate to <code>True</code>. Any <code>False</code> (0) value
+will still evaluate to <code>False</code>, so the values in the
+resulting Series will be identical to the original column. Therefore,
+taking the mean of either will give the same value.<br/>
+- Option E: <code>txn.get(“is_fraud”) == 0</code> performs an
+elementwise comparison, returning a series which has the value
+<code>True</code> where <code>is_fraud</code> is <code>False</code> (0),
+and <code>False</code> where <code>is_fraud</code> is <code>True</code>.
+Therefore the mean of this Series represents the proportion of values in
+the <code>is_fraud</code> column that are <code>False</code>. Since
+every value in that column is either <code>False</code> or
+<code>True</code>, the proportion of <code>True</code> values is
+equivalent to one minus the proportion of <code>False</code> values.</p>
+</div>
+</div>
+</div>
+</div>
 <hr />
 <h2 id="problem-4">Problem 4</h2>
 <p>The following code block produces a bar chart, which is shown
@@ -279,6 +525,37 @@ is fraudulent.</p></li>
 <code>"icedragon"</code> than with any other browser.</p></li>
 <li><p><input type="checkbox" disabled="" /> None of the above.</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading4_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_1" aria-expanded="true" aria-controls="collapse4_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse4_1" class="accordion-collapse collapse"
+aria-labelledby="heading4_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> C</p>
+<p>First, let’s take a look at what the code is doing. We start by
+grouping by browser and taking the mean, so each column will have the
+average value of that column for each browser (where each browser is a
+row). We then sort in descending order by the <code>”is_fraud”</code>
+column, so the browser which has the highest proportion of fraudulent
+transactions will be first, and we take first the ten browsers, or those
+with the most fraud. Finally, we plot the <code>”is_fraud”</code> column
+in a horizontal bar chart. So, our plot shows the proportion of
+fraudulent transactions for each browser, and we see that
+<code>icedragon</code> has a proportion of 1.0, implying that every
+transaction is fraudulent. This makes the third option correct. Since we
+don’t have enough information to conclude any of the other options, the
+third option is the only correct one.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-4.2">Problem 4.2</h3>
 <p>How can we modify the provided code block so that the bar chart
@@ -293,6 +570,35 @@ immediately before <code>.take(np.arange(10))</code>.</p></li>
 immediately after <code>.take(np.arange(10))</code>.</p></li>
 <li><p><input type="radio" disabled="" /> None of the above.</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading4_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_2" aria-expanded="true" aria-controls="collapse4_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse4_2" class="accordion-collapse collapse"
+aria-labelledby="heading4_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> C</p>
+<p>Let’s analyze each option A: This isn’t correct, because we must
+remember that <code>np.take(np.arange(10))</code> takes the rows indexed
+0 through 10. And if we change <code>ascending = False</code> to
+<code>ascending = True</code>, the rows indexed 0 through 10 won’t be
+the same in the resulting DataFrame (since now they’ll be the 10
+browsers with the <strong>lowest</strong> fraud rate). B: This will have
+the same effect as option A, since it’s being applied before the
+<code>np.take()</code> operation C: Once we have the 10 rows with the
+highest fraud rate, we can sort them in ascending order in order to
+reverse the order of the bars. Since we already have the 10 rows from
+the original plot, this option is correct.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <hr />
 <h2 id="problem-5">Problem 5</h2>
@@ -310,6 +616,52 @@ immediately after <code>.take(np.arange(10))</code>.</p></li>
 <code>locations</code> so that the DataFrame
 <code>seven.merge(locations, on="is_fraud")</code> has
 <strong>19</strong> rows.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading5_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_1" aria-expanded="true" aria-controls="collapse5_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse5_1" class="accordion-collapse collapse"
+aria-labelledby="heading5_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong> A correct answer has one <code>True</code>
+and three <code>False</code> rows.</p>
+<p>We’re merging on the <code>is_fraud</code> column, so we want to look
+at which rows have which values for <code>is_fraud</code>. There are
+only two possible values (<code>True</code> and <code>False</code>), and
+we see that there are two <code>True</code>s and 5 <code>False</code>s
+in <code>seven</code>. Now, think about what happens “under the hood”
+for this merge, and how many rows are created when it occurs. Python
+will match each <code>True</code> in <code>seven</code> with each
+<code>True</code> in the <code>is_fraud</code> column of
+<code>location</code>, and make a new row for each such pair. For
+example, since Toronto’s row in <code>location</code> has a
+<code>True</code> value in <code>location</code>, the merged DataFrame
+will have one row where Toronto is matched with the transaction of
+$34.92 and one where Toronto is matched with the transaction of $25.07.
+More broadly, each <code>True</code> in <code>locations</code> creates 2
+rows in the merged DataFrame, and each <code>False</code> in
+<code>locations</code> creates 5 rows in the merged DataFrame. The
+question now boils down to creating 19 by summing 2s and 5s. Notice that
+$ 19 = 3 * 5+2 * 2 $. This means we can achieve the desired 19 rows by
+making sure the <code>locations</code> DataFrame has three
+<code>False</code> rows and two <code>True</code> rows. Since
+<code>location</code> already has one <code>True</code>, we can fill in
+the remaining spots with three <code>False</code>s and one
+<code>True</code>. It doesn’t matter which rows we make
+<code>True</code> and which ones we make <code>False</code>, since
+either way the merge will produce the same number of rows for each (5
+each for every <code>False</code> and 2 each for every
+<code>True</code>).</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-5.2">Problem 5.2</h3>
 <p>True or False: It is possible to fill in the four blanks in the
@@ -320,6 +672,34 @@ DataFrame <code>seven.merge(locations, on="is_fraud")</code> has
 <li><p><input type="radio" disabled="" /> True</p></li>
 <li><p><input type="radio" disabled="" /> False</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading5_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_2" aria-expanded="true" aria-controls="collapse5_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse5_2" class="accordion-collapse collapse"
+aria-labelledby="heading5_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> False</p>
+<p>As we discovered by solving problem 5.1, each <code>False</code>
+value in <code>locations</code> gives rise to 5 rows of the merged
+DataFrame, and each <code>True</code> value gives rise to 2 rows. This
+means that the number of rows in the merged DataFrame will be $ m * 5 +
+n * 2 $, where m is the number of Falses in <code>location</code> and n
+is the number of <code>Trues</code> in <code>location</code>. Namely, m
+and n are integers that add up to 5. There’s only a few possibilities so
+we can try them all, and see that none add up 14: - 0 * 5 + 5 * 2 = 10 -
+1 * 5 + 4 * 2 = 13 - 2 * 5 + 3 * 2 = 16 - 3 * 5 + 2 * 2 = 19 - 4 * 5 + 1
+* 2 = 22</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <hr />
 <h2 id="problem-6">Problem 6</h2>
@@ -356,11 +736,65 @@ proportion of transactions that are fraudulent</strong>, in the order
 <li><p><input type="radio" disabled="" /> Standard hypothesis test</p></li>
 <li><p><input type="radio" disabled="" /> Permutation test</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_1" aria-expanded="true" aria-controls="collapse6_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_1" class="accordion-collapse collapse"
+aria-labelledby="heading6_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> Permutation test</p>
+<p>Permutation tests are used to ascertain whether two samples were
+drawn from the same population. Hypothesis testing is used when we have
+a single sample and a known population, and want to determine whether
+the sample appears to have been drawn from that population. Here, we
+have two samples (<code>“mastercard”</code> and <code>“discover”</code>)
+and no known population distribution, so a permutation test is the
+appropriate test.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-6.2">Problem 6.2</h3>
 <p>What is the value of the observed statistic? Give your answer either
 as an exact decimal or simplified fraction.</p>
 <p>observed statistic = <code>___</code></p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_2" aria-expanded="true" aria-controls="collapse6_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_2" class="accordion-collapse collapse"
+aria-labelledby="heading6_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> <span class="math inline">\frac{4000}{40000}
+- \frac{160}{2000} = \frac{1}{10} - \frac{8}{100} = 0.1 - 0.08 =
+0.02</span></p>
+<p>We simply take the difference in fraudulent proportion of
+<code>"mastercard"</code> transactions and fraudulent proportion of
+discover transactions. There are 4,000 fraudulent
+<code>"mastercard"</code> transactions and 40,000 total
+<code>"mastercard"</code> transactions, making this proportion for
+<code>"mastercard"</code>. Similarly, the proportion of fraudulent
+<code>"discover"</code> transactions is <span class="math inline">\frac{160}(2000}</span>. Simplifying these
+fractions, the difference between them is <span class="math inline">\frac{1}{10} - \frac{8}{100} = 0.1 - 0.08 =
+0.02</span>.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <p>The empirical distribution of Aaron’s chosen test statistic is shown
 below.</p>
@@ -375,6 +809,35 @@ below.</p>
 <li><p><input type="radio" disabled="" /> 0.94</p></li>
 <li><p><input type="radio" disabled="" /> 0.999</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_3" aria-expanded="true" aria-controls="collapse6_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_3" class="accordion-collapse collapse"
+aria-labelledby="heading6_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> 0.999</p>
+<p>Informally, the p-value is the area of the histogram at or past the
+observed statistic, further in the direction of the alternative
+hypothesis. In this case, the alternative hypothesis is that the
+<code>"mastercard"</code> proportion is less than the discover
+proportion, and our test statistic is computed in the order
+<code>"mastercard"</code> minus <code>"discover"</code>, so low
+(negative) values correspond to the alternative. This means when
+calculating the p-value, we look at the area to the left of 0.02 (the
+observed value). We see that essentially all of the test statistics fall
+to the left of this value, so the p-value should be closest to
+0.999.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-6.4">Problem 6.4</h3>
 <p>What is the conclusion of Aaron’s test?</p>
@@ -388,6 +851,38 @@ is <strong>greater than</strong> the proportion of fraudulent
 <li><p><input type="radio" disabled="" /> The test results are inconclusive.</p></li>
 <li><p><input type="radio" disabled="" /> None of the above.</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_4" aria-expanded="true" aria-controls="collapse6_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_4" class="accordion-collapse collapse"
+aria-labelledby="heading6_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> None of the above</p>
+<ul>
+<li>Option A: Since the p-value was so high, it’s unlikely that the
+proportion of fraudulent <code>"mastercard"</code> transactions is less
+than the proportion of fraudulent <code>"discover"</code> transactions,
+so we cannot conclude A.</li>
+<li>Option B: The test does not allow us to conclude this, because it
+was not one of the hypotheses. All we can say is that we don’t think the
+alternative hypothesis is true - we can’t say whether any other
+statement is true.</li>
+<li>Option C: The test did give us valuable information about the
+difference in fraud rates: we failed to reject the null hypothesis. So,
+the test is conclusive, making option C incorrect. Therefore, option D
+(none of the above) is correct.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <p>Aaron now decides to test a slightly different pair of
 hypotheses.</p>
@@ -414,6 +909,34 @@ test?</p>
 <li><p><input type="radio" disabled="" /> 0.94</p></li>
 <li><p><input type="radio" disabled="" /> 0.999</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_5">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_5" aria-expanded="true" aria-controls="collapse6_5">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_5" class="accordion-collapse collapse"
+aria-labelledby="heading6_5" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong></p>
+<p>Now, we have switched the alternative hypothesis to “
+<code>"mastercard"</code> fraud rate is greater than
+<code>"discover"</code> fraud rate”, whereas before our alternative
+hypothesis was that the <code>"mastercard"</code> fraud rate was less
+than <code>"discover"</code>’s fraud rate. We have not changed the way
+we calculate the test statistic (<code>"mastercard"</code> minus
+<code>"discover"</code>), so now large values of the test statistic
+correspond to the alternative hypothesis. So, the area of interest is
+the area to the right of 0.02, which is very small, close to 0.001. Note
+that this is one minus the p-value we computed before.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <hr />
 <h2 id="problem-7">Problem 7</h2>
@@ -463,6 +986,35 @@ TVD goes with which table. He computed TVDs of 0.14, 0.36, and 0.38.</p>
 <li><p><input type="radio" disabled="" /> Table 2</p></li>
 <li><p><input type="radio" disabled="" /> Table 3</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading7_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_1" aria-expanded="true" aria-controls="collapse7_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse7_1" class="accordion-collapse collapse"
+aria-labelledby="heading7_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p>Without values in any of the tables, there’s no way to do this
+problem computationally. We are told that the three TVDs come out to
+0.14, 0.36, and 0.38. The exact numbers are not important but their
+relative order is. The key to this problem is noticing that when we
+combine two categories into one, the TVD can only decrease, it cannot
+increase. One way to see this is to think about combining categories
+repeatedly until there’s just one category. Then both distributions must
+have a value of 1 in that category so they are identical distributions
+with the smallest possible TVD of 0. As we collapse categories, we can
+only decrease the TVD. This tells us that Table 1 has the largest TVD,
+then Table 2 has the middle TVD, and Table 3 has the smallest, since
+each time we are combining categories and shrinking the TVD.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-7.2">Problem 7.2</h3>
 <p>In which table do the two distributions have a TVD of 0.36?</p>
@@ -471,6 +1023,24 @@ TVD goes with which table. He computed TVDs of 0.14, 0.36, and 0.38.</p>
 <li><p><input type="radio" disabled="" /> Table 2</p></li>
 <li><p><input type="radio" disabled="" /> Table 3</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading7_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_2" aria-expanded="true" aria-controls="collapse7_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse7_2" class="accordion-collapse collapse"
+aria-labelledby="heading7_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p>See the solution to 7.1</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-7.3">Problem 7.3</h3>
 <p>In which table do the two distributions have a TVD of 0.38?</p>
@@ -479,6 +1049,24 @@ TVD goes with which table. He computed TVDs of 0.14, 0.36, and 0.38.</p>
 <li><p><input type="radio" disabled="" /> Table 2</p></li>
 <li><p><input type="radio" disabled="" /> Table 3</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading7_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_3" aria-expanded="true" aria-controls="collapse7_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse7_3" class="accordion-collapse collapse"
+aria-labelledby="heading7_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p>See the solution to 7.1</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <hr />
 <h2 id="problem-8">Problem 8</h2>
@@ -517,6 +1105,57 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb11-1"><a href=
 <li><p><input type="checkbox" disabled="" /> Option 4</p></li>
 <li><p><input type="checkbox" disabled="" /> None of the above.</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading8">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8" aria-expanded="true" aria-controls="collapse8">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse8" class="accordion-collapse collapse"
+aria-labelledby="heading8" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> Option 1, Option 2, and Option 3. - Option
+1: First, <code>all_rows</code> is defined as an array containing the
+integer positions of all the rows in the DataFrame. Then, we randomly
+shuffle the elements in this array and store it in the array
+<code>permutations</code>. Finally, we select 10 integers randomly
+(without replacement), and use <code>.take()</code> to select the rows
+from the DataFrame with the corresponding integer locations. In other
+words, we are randomly selecting ten row numbers and taking those
+randomly selected. This gives a simple random sample of 10 rows from the
+DataFrame txn, so option 1 is correct. - Option 2: Option 2 is similar
+to option 1, except that the order of the <code>np.random.choice</code>
+and the <code>np.random.permutation</code> operations are switched. This
+doesn’t affect the output, since the choice we made was, by definition,
+random. Therefore, it doesn’t matter if we shuffle the rows before or
+after (or not at all), since the most this will do is change the order
+of a sample which was already randomly selected. So, option 2 is
+correct. - Option 3: Here, we randomly shuffle the elements of
+<code>all_rows</code>, and then we select the first 10 elements with
+<code>np.take</code>. Since the shuffling of elements from
+<code>all_rows</code> was random, we don’t know which elements are in
+the first 10 positions of this new shuffled array (in other words, the
+first 10 elements are random). So, when we select the rows from
+<code>txn</code> which have the corresponding integer locations in the
+next step, we’ve simply selected 10 rows with random integer locations.
+Therefore, this is a valid random sample from <code>txn</code>, and
+option 3 is correct. - Option 4: The difference between this option and
+option 3 is the order in which <code>np.random.permutation</code> and
+<code>np.take</code> are executed. Here, we select the first 10 elements
+before the permutation (inside the parentheses). As a result, the array
+which we’re shuffling with <code>np.random.permutation</code> does not
+include all the integer locations like <code>all_rows</code> does, it’s
+simply the first ten elements. Therefore, this code produces a random
+shuffling of the first 10 rows of <code>txn</code>, which is not a
+random sample.</p>
+</div>
+</div>
+</div>
+</div>
 <hr />
 <h2 id="problem-9">Problem 9</h2>
 <p>The DataFrame <code>ten_txns</code>, <strong>displayed in its
@@ -531,6 +1170,33 @@ transaction is made with a <code>"card"</code> of
 <code>"mastercard"</code> or a <code>"method"</code> of
 <code>"debit"</code>? Give your answer either as an exact decimal or a
 simplified fraction.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading9_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_1" aria-expanded="true" aria-controls="collapse9_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse9_1" class="accordion-collapse collapse"
+aria-labelledby="heading9_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> 0.7</p>
+<p>We can simply count the number of transactions meeting at least one
+of the two criteria. More easily, there are only 3 rows that do not meet
+either of the criteria (the rows that are <code>“visa”</code> and
+<code>“credit”</code> transactions). Therefore, the probability is 7 out
+of 10, or 0.7. Note that we cannot simply add up the probability of
+<code>“mastercard”</code> (0.3) and the probability of
+<code>“debit”</code> (0.6) since there is overlap between these. That
+is, some transactions are both <code>“mastercard”</code> and
+<code>“debit”</code>.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-9.2">Problem 9.2</h3>
 <p>Suppose we randomly select two transactions from
@@ -547,6 +1213,38 @@ and</p></li>
 </ul>
 <p>Give your answer either as an exact decimal or a simplified
 fraction.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading9_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_2" aria-expanded="true" aria-controls="collapse9_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse9_2" class="accordion-collapse collapse"
+aria-labelledby="heading9_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> <span class="math inline">\frac{2}{15}</span></p>
+<p>We know that the sample space here doesn’t have any of the $100
+transactions, so we can ignore the first 4 rows when calculating the
+probability. In the remaining 6 rows, there are exactly 2 debit
+transactions with <code>"visa"</code> cards, so the probability of our
+first transaction being of the specified type is <span class="math inline">\frac{2}{6}</span>. There are also two credit
+transactions with <code>"visa"</code> cards, but the denominator of the
+probability of the second transaction is 5 (not 6), since the sample
+space was reduced by one after the first transaction. We’re choosing
+without replacement, so you can’t have the same transaction in your
+sample twice. Thus, the probability of the second transaction being a
+visa credit card is $frac{2}{5}$. Now, we can apply the multiplication
+rule, and we have that the probability of both transactions being as
+described is <span class="math inline">\frac[2}{6} * \frac{2}{5} =
+\frac{4}{30} = \frac{2}{15}</span>.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <p>For your convenience, we show <code>ten_txns</code> again below.</p>
 <center><img src='../assets/images/fa23-final/ten_txns.png' width=800></center>
@@ -555,6 +1253,36 @@ fraction.</p>
 <p>Suppose we randomly select 15 rows, with replacement, from
 <code>ten_txns</code>. What’s the probability that in our selection of
 15 rows, the maximum transaction amount is less than 25 dollars?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading9_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_3" aria-expanded="true" aria-controls="collapse9_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse9_3" class="accordion-collapse collapse"
+aria-labelledby="heading9_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> <span class="math inline">\frac{3}{10})^{15}</span></p>
+<p>There are only 3 rows in the sample with a transaction amount under
+$25, so the chance of choosing one transaction with such a low value is
+<span class="math inline">\frac{3}{10}</span>. For the maximum
+transaction amount to be less than 25 dollars, this means all
+transaction amounts in our sample have to be less than 25 dollars. To
+find the chance that all transactions are for less than $25, we can
+apply the multiplication rule and multiply the probability of each of
+the 15 transactions being less than $25. Since we’re choosing 15 times
+with replacement, the events are independent (choosing a certain
+transaction on the first try won’t affect the probability of choosing it
+again later), so all the terms in our product are <span class="math display">\frac{3}{10}</span>. Thus, the probability is <span class="math display">\frac{3}{10} * \frac{3}{10} * …. * \frac{3}{10} =
+\frac{3}{10})^{15}</span>.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <hr />
 <h2 id="problem-10">Problem 10</h2>
@@ -583,6 +1311,40 @@ be the mean of these 1,000 widths.</p>
 <li><p><input type="radio" disabled="" /> About 950 of Weiyue’s intervals will contain the mean transaction</p></li>
 <li><p><input type="radio" disabled="" /> About 950 of Weiyue’s intervals will contain <span class="math inline">M</span>.</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading10_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10_1" aria-expanded="true" aria-controls="collapse10_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse10_1" class="accordion-collapse collapse"
+aria-labelledby="heading10_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> B</p>
+<p>By the definition of a 95% confidence interval, 95% of our 1000
+confidence intervals will contain the true mean transaction amount in
+the population from which our samples were drawn. In this case, the
+population is the <code>txn</code> DataFrame. So, 950 of the confidence
+intervals will contain the mean transaction amount of all transactions
+in <code>txn</code>, making B correct. We can’t conclude that A is
+correct because our original sample was taken from <code>txn</code>, not
+from all transactions ever. We don’t know whether our resamples will be
+representative of all transactions ever. Option C is incorrect because
+we have no way of knowing what the first random sample looks like from a
+statistical standpoint. Option D is not true because M concerns the
+width of the confidence interval, and therefore is unrelated to the
+statistics computed in each resample. For example, if the mean of each
+resample is around 100, but the width of each confidence interval is
+around 5, we shouldn’t expect M to be in any of the confidence
+intervals.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-10.2">Problem 10.2</h3>
 <p>Weiyue repeats his entire process, except this time, he changes his
@@ -596,6 +1358,27 @@ and <span class="math inline">B</span>?</p>
 <li><p><input type="radio" disabled="" /> <span class="math inline">M \approx B</span></p></li>
 <li><p><input type="radio" disabled="" /> <span class="math inline">M &gt; B</span></p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading10_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10_2" aria-expanded="true" aria-controls="collapse10_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse10_2" class="accordion-collapse collapse"
+aria-labelledby="heading10_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> <span class="math inline">M &gt;
+B</span></p>
+<p>As the sample size increases, the width of the confidence intervals
+will decrease, so M &gt; B.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-10.3">Problem 10.3</h3>
 <p>Weiyue repeats his entire process once again. This time, he still
@@ -610,6 +1393,28 @@ and <span class="math inline">C</span>?</p>
 <li><p><input type="radio" disabled="" /> <span class="math inline">M \approx C</span></p></li>
 <li><p><input type="radio" disabled="" /> <span class="math inline">M &gt; C</span></p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading10_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10_3" aria-expanded="true" aria-controls="collapse10_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse10_3" class="accordion-collapse collapse"
+aria-labelledby="heading10_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> <span class="math inline">M &lt;
+C</span></p>
+<p>All else equal (note that the sample size is the same as it was in
+part A), 99% confidence intervals will always be wider than 95%
+confidence intervals on the same data, so M &lt; C.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-10.4">Problem 10.4</h3>
 <p>Weiyue repeats his entire process one last time. This time, he still
@@ -625,6 +1430,28 @@ and <span class="math inline">D</span>?</p>
 <li><p><input type="radio" disabled="" /> <span class="math inline">M \approx D</span></p></li>
 <li><p><input type="radio" disabled="" /> <span class="math inline">M &gt; D</span></p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading10_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10_4" aria-expanded="true" aria-controls="collapse10_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse10_4" class="accordion-collapse collapse"
+aria-labelledby="heading10_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> <span class="math inline">M \approx
+D</span></p>
+<p>Confidence intervals generated from the Central Limit Theorem will be
+approximately the same as those generated from bootstrapping, so M is
+approximately equal to D.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <hr />
 <h2 id="problem-11">Problem 11</h2>
@@ -657,6 +1484,37 @@ integer.</p>
 proportion of values that are 1 is <span class="math inline">p</span>,
 the standard deviation of the collection is <span
 class="math inline">\sqrt{p(1-p)}</span>.</em></p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading11_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11_1" aria-expanded="true" aria-controls="collapse11_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse11_1" class="accordion-collapse collapse"
+aria-labelledby="heading11_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> 8</p>
+<p>First, we can calculate the standard deviation of the sample using
+the given formula: <span class="math inline">\sqrt{0.2\cdot(1-0.2)} =
+\sqrt{0.16}= 0.4</span>. Additionally, we know that the width of a 95%
+confidence interval for a population mean (including a proportion) is
+approximately <span class="math inline">\frac{4 * sample standard
+deviation}{\sqrt{n}}</span>, since 95% of the data of a normal
+distribution falls within two standard deviations of the mean on either
+side. Now, plugging the sample standard deviation into this formula, we
+can set this expression equal to the given formula for the width of the
+confidence interval: <span class="math inline">\frac{c}{5 \sqrt{n}} =
+\frac{4 * 0.4}{\sqrt{n}}</span>. We can multiply both sides by <span class="math inline">\sqrt{n}</span>, and we’re left with <span class="math inline">\frac{c}{5} = 4 * (0.4)</span>. Now, all we have to
+do is solve for C by multiplying both sides by 5, and we have $ C = 1.6
+* 5 = 8 $.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-11.2">Problem 11.2</h3>
 <p>There is a positive integer <span class="math inline">J</span> such
@@ -671,6 +1529,42 @@ level.</p></li>
 </ul>
 <p>What is the value of <span class="math inline">J</span>? Give your
 answer as an integer.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading11_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11_2" aria-expanded="true" aria-controls="collapse11_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse11_2" class="accordion-collapse collapse"
+aria-labelledby="heading11_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> 1600</p>
+<p>Here, we have to use the formula for the endpoints of the 95%
+confidence interval to see what the largest value of n is such that 0.22
+will be contained in the interval. The endpoints are given by sample
+mean <span class="math inline">\pm 2 * \frac[sample sd}{\sqrt{sample
+size}}</span>. Since the null hypothesis is that the proportion is 0.22
+(which is greater than our sample mean), we only need to work with the
+right endpoint for this question. Plugging in the values that we have,
+the right endpoint is given by <span class="math inline">0.2 + 2 *
+\frac{0.4}{\sqrt{n}}</span>. Now we must find a value of n which
+satisfies the inequality <span class="math inline">0.2 + 2 *
+\frac{0.4}{\sqrt{n}} \geq 0.22</span>, and since we’re looking for the
+smallest such value of n (i.e, the last n for which this inequality
+holds), we can simply set the two sides equal to each other, and solve
+for n. From <span class="math inline">0.2 + 2 * \frac{0.4}{\sqrt{n}} =
+0.22</span>, we can subtract 0.2 from both sides, then multiply both
+sides by <span class="math inline">\sqrt{n}</span>, and divide both
+sides by 0.02 (from 0.22 - 0.2). This yields <span class="math inline">\sqrt{n} = \frac{2 * 0.4){0.02} = \sqrt{n} =
+40</span>, which implies that n is 1600.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <hr />
 <h2 id="problem-12">Problem 12</h2>
@@ -713,6 +1607,50 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb12-1"><a href=
 intended.</p>
 <p><em>Hint: Your answer to (d) should be an integer greater than
 50.</em></p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading12">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12" aria-expanded="true" aria-controls="collapse12">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse12" class="accordion-collapse collapse"
+aria-labelledby="heading12" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> (a): <code>[0, 23]</code> (b):
+<code>8</code> (c): <code>92</code> (d): <code>110</code></p>
+<p><strong>What goes in blank (a)?</strong> <code>[0, 23]</code> We know
+that the proportion of fraudulent transactions in the sample is 0.23
+(and therefore the non-fraudulent proportion is 0.77), so we use these
+as the probabilities for <code>np.random.multinomial</code> in our
+bootstrapping simulation. The syntax for this function requires us to
+pass in the probabilities as a list, so the answer is
+<code>[0.23, 0.77]</code>.</p>
+<p><strong>What goes in blank (b)?</strong> <code>8</code> Since we’re
+testing at the 0.16 significance level, we know that the proportion of
+data lying outside either of our endpoints is 0.16, or 0.8 on each side.
+So, the left endpoint is given by the 8th percentile, which means that
+the argument to <code>np.percentile</code> must be 8.</p>
+<p><strong>What goes in blank (c)?</strong> <code>92</code> Similar to
+part B, we know that 0.08 of the data must lie to the right of the right
+endpoint, so the argument to <code>np.percentile</code> here is <span class="math inline">(1 - 0.08)</span> = 0.92.</p>
+<p><strong>What goes in blank (d)?</strong> <code>110</code> To test our
+hypothesis, we must compare the left and right endpoints to the observed
+value. If the observed value is less than the left endpoint or greater
+than the right endpoint, we will reject the null hypothesis. Otherwise
+we fail to reject it. Since the left and right endpoints give the count
+of fraudulent transactions (not the proportion), we must convert our
+null hypothesis to similar terms. We can simply multiply the sample size
+by the proportion of fraudulent transactions to obtain the count that
+the null hypothesis would suggest given the sample size of 500, which
+gives us $ 500 * 0.22 = 110 $.</p>
+</div>
+</div>
+</div>
+</div>
 <hr />
 <h2 id="problem-13">Problem 13</h2>
 <p>Ashley doesn’t have access to the entire <code>txn</code> DataFrame;
@@ -735,6 +1673,34 @@ transactions?</p>
 <li><p><input type="radio" disabled="" /> <span class="math inline">[120, 150)</span></p></li>
 <li><p><input type="radio" disabled="" /> <span class="math inline">[180, 210)</span></p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading13_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13_1" aria-expanded="true" aria-controls="collapse13_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse13_1" class="accordion-collapse collapse"
+aria-labelledby="heading13_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> <span class="math inline">[90,
+120)</span></p>
+<p>The number of transactions contained in the bin is given by the area
+of the bin times the total number of transactions, since the area of a
+bin represents the proportion of transactions that are contained in that
+bin. We are asked which bin contains about 60 transactions, or <span class="math inline">\frac{60}{400} = \frac{3}{20} = 0.15</span>
+proportion of the total area. All the bins in Histogram A have a width
+of 30, so for the area to be 0.15, we need the height <span class="math inline">h</span> to satisfy <span class="math inline">h\cdot
+30 = 0.15</span>. This means <span class="math inline">h =
+\frac{0.15}{30} = 0.005</span>. The bin <span class="math inline">[90,
+120)</span> is closest to this height.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <p><br></p>
 <h3 id="problem-13.2">Problem 13.2</h3>
@@ -757,6 +1723,33 @@ Histogram A?</p>
 <li><p><input type="radio" disabled="" /> <span class="math inline">2( y + z ) - 3( w + x )</span></p></li>
 <li><p><input type="radio" disabled="" /> None of the above.</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading13_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13_2" aria-expanded="true" aria-controls="collapse13_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse13_2" class="accordion-collapse collapse"
+aria-labelledby="heading13_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> <span class="math inline">\frac{3}{2}( y + z
+) - ( w + x )</span></p>
+<p>The idea is that the first three bars in Histogram A represent the
+same set of transactions as the first three bars of Histogram B. Setting
+these areas equals gives <span class="math inline">30w+30x+30u=
+45y+45z</span>, where <span class="math inline">u</span> is the unknown
+height of the bar corresponding to the <span class="math inline">[60,
+90)</span> bin. Solving this for <span class="math inline">u</span>
+gives <span class="math inline">u = \frac{(45y + 45 z - 30w - 30x)}{30}
+= \frac{3}{2}(y+z) - (w+x)</span>.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <hr />
 <h2 id="problem-14">Problem 14</h2>
@@ -775,6 +1768,40 @@ are above ____ dollars; the rest must be below ____ dollars."</p>
 <p>What goes in the blank? Give your answer as an
 <strong>integer</strong>. Both blanks are filled in with the same
 number.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading14_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse14_1" aria-expanded="true" aria-controls="collapse14_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse14_1" class="accordion-collapse collapse"
+aria-labelledby="heading14_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> 350</p>
+<p>Chebyshev’s inequality says something about how much data falls
+within a given number of standard deviations. The data that doesn’t fall
+in that range could be entirely below that range, entirely above that
+range, or split some below and some above. So the idea is that we should
+figure out the endpoints of the range for which Chebyshev guarantees
+that at least 375 transactions must fall. Then at most 25 might fall
+above that range. So we’ll fill in the blank with the upper limit of
+that range. Now, since there are 400 transactions, 375 as a proportion
+becomes <span class="math inline">frac{375}{400} = \frac{15}{16}</span>.
+That’s <span class="math inline">1 - 1/16</span> or $1 - ^2 $, so we
+should use z=4 in the statement of Chebyshev’s inequality. That is,
+<span class="math inline">/frac{15}{16}</span> proportion of the data
+falls within 4 standard deviations of the mean. The upper endpoint of
+that range is 70 (the mean) plus <span class="math inline">4 * 70
+(\text{four standard deviations})</span>, or <span class="math inline">5
+* 70 = 350</span>.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <p><br></p>
 <h3 id="problem-14.2">Problem 14.2</h3>
@@ -793,6 +1820,32 @@ spending vs. transaction amount?</p>
 <li><p><input type="radio" disabled="" /> Option C</p></li>
 <li><p><input type="radio" disabled="" /> Option D</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading14_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse14_2" aria-expanded="true" aria-controls="collapse14_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse14_2" class="accordion-collapse collapse"
+aria-labelledby="heading14_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> Option B</p>
+<p>Here, the main factor which we can use to identify the correct plot
+is the correlation coefficient. A correlation coefficient of <span class="math inline">-\frac{1}{4}</span> indicates that the data will
+have a slight downward trend (values on the y axis will be lower as we
+go further right). This narrows it down to option A or option B, but
+option A appears to have too strong of a linear trend. We want the data
+to look more like a cloud than a line since the correlation is
+relatively close to zero, which suggests that option B is the more
+viable choice.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <p>Ashley decides to use linear regression to predict the lifetime
 spending of a card given a transaction amount.</p>
@@ -804,12 +1857,77 @@ class="math inline">f \cdot c</span>, where <span
 class="math inline">f</span> is a fraction. What is the value of <span
 class="math inline">f</span>? Give your answer as a simplified
 fraction.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading14_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse14_3" aria-expanded="true" aria-controls="collapse14_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse14_3" class="accordion-collapse collapse"
+aria-labelledby="heading14_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> <span class="math inline">f =
+\frac{1}{4}</span></p>
+<p>This problem requires us to make a prediction using the regression
+line for a given <span class="math inline">x = 280</span>. We can solve
+this problem using original units or standard units. Since 280 is a
+multiple of 70, and the mean and standard deviation are both 70, it’s
+pretty straightforward to convert 280 to 3 standard units, as $ = = 3.
+To make a prediction in standard units, all we need to do is multiply by
+<span class="math inline">r=-\frac{1}{4}</span>, resulting in a
+predicted lifetime spending of <span class="math inline">=-\frac{3}{4}</span> in standard units. Since we are
+told in the previous subpart that both the mean and standard deviation
+of lifetime spending are <span class="math inline">c</span> dollars,
+then converting to original units gives <span class="math inline">c +
+-\frac{3}{4} \cdot c = \frac{1}{4} \cdot c</span>, so <span class="math inline">f = \frac{1}{4}</span>.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-14.4">Problem 14.4</h3>
 <p>Suppose the intercept of the regression line, when both transaction
 amounts and lifetime spending are measured in <strong>dollars</strong>,
 is 40. What is the value of <span class="math inline">c</span>? Give
 your answer as an integer.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading14_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse14_4" aria-expanded="true" aria-controls="collapse14_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse14_4" class="accordion-collapse collapse"
+aria-labelledby="heading14_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> <span class="math inline">c = 32</span></p>
+<p>We start with the formulas for the mean and intercept of the
+regression line, then set the mean and SD of x both to 70, and the mean
+and SD of y both to c, as well as the intercept b to 40. Then we can
+solve for c.</p>
+<p><span class="math display">\begin{align*}
+
+m = r \cdot \frac{\text{SD of } y}{\text{SD of }x} \\
+b = \text{mean of } y - m \cdot \text{mean of } x \\
+m = -1/4 \cdot \frac{c}{70} \\
+40 = c - (-\frac{1}{4} \cdot \frac{c}{70}) \cdot 70 \\
+40 = c + \frac{1}{4} c \\
+40 = 5/4 c \\
+c= 40 \cdot \frac{4}{5} \\
+c=32
+
+\end{align*}</span></p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <hr />
 <h2 id="section"><span class="math display"> </span></h2>
