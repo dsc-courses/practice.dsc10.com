@@ -1,6 +1,6 @@
 # Data Overview: Fraudulent Transactions
 
-Today, we're diving into the high-stakes world of fraud detection. Each row in the DataFrame `txn` represents one online transaction, or purchase. The `txn` DataFrame is indexed by `"transaction_id"` (int), which is a unique identifier for a transaction. The columns of `txn` are as follows:
+Today, we're diving into the high-stakes world of fraud detection. Each row in the DataFrame `txn` represents one online transaction, or purchase. The `txn` DataFrame is indexed by `"transaction_id" (int)`, which is a unique identifier for a transaction. The columns of `txn` are as follows:
 
 - `"is_fraud" (bool)`: `True` if the transaction was fraudulent and `False` if not.
 - `"amount" (float)`: The dollar amount of the transaction.
