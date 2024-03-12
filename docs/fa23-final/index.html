@@ -8,21 +8,12 @@
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    /* The extra [class] is a hack that increases specificity enough to
-       override a similar rule in reveal.js */
-    ul.task-list[class]{list-style: none;}
-    ul.task-list li input[type="checkbox"] {
-      font-size: inherit;
-      width: 0.8em;
-      margin: 0 0.8em 0.2em -1.6em;
-      vertical-align: middle;
-    }
-    /* CSS for syntax highlighting */
+    ul.task-list{list-style: none;}
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -33,7 +24,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -59,7 +50,7 @@
     code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
     code span.at { color: #7d9029; } /* Attribute */
     code span.bn { color: #40a070; } /* BaseN */
-    code span.bu { color: #008000; } /* BuiltIn */
+    code span.bu { } /* BuiltIn */
     code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
     code span.ch { color: #4070a0; } /* Char */
     code span.cn { color: #880000; } /* Constant */
@@ -72,7 +63,7 @@
     code span.ex { } /* Extension */
     code span.fl { color: #40a070; } /* Float */
     code span.fu { color: #06287e; } /* Function */
-    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.im { } /* Import */
     code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
     code span.kw { color: #007020; font-weight: bold; } /* Keyword */
     code span.op { color: #666666; } /* Operator */
@@ -85,7 +76,7 @@
     code span.vs { color: #4070a0; } /* VerbatimString */
     code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../assets/theme.css" />
+  <link rel="stylesheet" href="..\assets\theme.css" />
   <script defer=""
   src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
@@ -104,6 +95,9 @@
   </script>
   <link rel="stylesheet"
   href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
 </head>
 <body>
 <header id="title-block-header">
@@ -181,7 +175,7 @@ population of <strong>all</strong> online transactions.</p>
 <h2 id="problem-1">Problem 1</h2>
 <p><br></p>
 <h3 id="problem-1.1">Problem 1.1</h3>
-<p>Nate’s favorite number is 5. He calls a number “lucky" if it’s
+<p>Nate’s favorite number is 5. He calls a number “lucky” if it’s
 greater than 500 or if it contains a 5 anywhere in its representation.
 For example, <code>1000.04</code> and <code>5.23</code> are both lucky
 numbers.</p>
@@ -207,35 +201,32 @@ the variable <code>luck</code>.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse1_1" class="accordion-collapse collapse"
+<div id="collapse1_1" class="accordion-collapse collapse collapse"
 aria-labelledby="heading1_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer:</strong> (a):
-<code>x &gt; 500 or "5" in str(x)</code> (b):
+<code>x &gt; 500 or "5" in str(x)</code>, (b):
 <code>txn.get("amount").apply(check_lucky)</code></p>
-<p><strong>What goes in blank (a)?</strong>
-<code>x &gt; 500 or "5" in str(x)</code> We want this function to return
-<code>True</code> if the number is lucky (greater than 500 or if it has
-a 5 in it). Checking the first condition is easy, we can simply use x
-&gt; 500. To check the second condition, we’ll convert the number to a
-string so that we can check whether it contains “5” using the
-<code>in</code> keyword. Once we have these two conditions written out,
-we can combine them with the <code>or</code> keyword, since either one
-is enough for the number to be considered lucky. This gives us the full
-statement <code>x &gt; 500 or “5” in str(x)</code>. Since this will
-evaluate to <code>True</code> if and only if the number is lucky, this
-is all we need in the return statement.</p>
-<p><br/><br/></p>
-<p><strong>What goes in blank (b)?</strong>
-<code>txn.get("amount").apply(check_lucky)</code> Now that we have the
-i<code>s_lucky</code> function, we want to use it to find if each number
-in the <code>amount</code> column is lucky or not. To do this, we can
-use <code>.apply()</code> to apply the function elementwise (row-by-row)
-to the <code>amount</code> column, which will create a new Series of
-Booleans indicating if each element in the “amount” column is lucky.</p>
+<p>(a): We want this function to return <code>True</code> if the number
+is lucky (greater than 500 or if it has a 5 in it). Checking the first
+condition is easy, we can simply use x &gt; 500. To check the second
+condition, we’ll convert the number to a string so that we can check
+whether it contains <code>"5"</code> using the <code>in</code> keyword.
+Once we have these two conditions written out, we can combine them with
+the <code>or</code> keyword, since either one is enough for the number
+to be considered lucky. This gives us the full statement
+<code>x &gt; 500 or "5" in str(x)</code>. Since this will evaluate to
+<code>True</code> if and only if the number is lucky, this is all we
+need in the return statement.</p>
+<p>(b): Now that we have the i<code>s_lucky</code> function, we want to
+use it to find if each number in the <code>amount</code> column is lucky
+or not. To do this, we can use <code>.apply()</code> to apply the
+function elementwise (row-by-row) to the <code>"amount"</code> column,
+which will create a new Series of Booleans indicating if each element in
+the <code>"amount"</code> column is lucky.</p>
 </div>
 </div>
 </div>
@@ -258,29 +249,25 @@ transaction amounts are lucky.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse1_2" class="accordion-collapse collapse"
+<div id="collapse1_2" class="accordion-collapse collapse collapse"
 aria-labelledby="heading1_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer:</strong> (a):
-<code>luck[(luck.get("card")=="visa") &amp;</code><br/>
-<code>(luck.get("is_fraud"))]</code> (b):
-<code>get("is_lucky")</code><br/>
-<strong>What goes in blank (a)?</strong>
-<code>luck[(luck.get("card")=="visa") &amp;</code><br/>
-<code>(luck.get("is_fraud"))]</code> The first step in this question is
-to query the DataFrame so that we have only the rows which are
-fraudulent transactions from “visa” cards.
-<code>luck.get("card")=="visa"</code> evaluates to <code>True</code> if
-and only if the transaction was from a Visa card, so this is the first
-part of our condition. To find transactions which were fraudulent, we
-can simply find the rows with a value of <code>True</code> in the
-<code>is_fraud</code> column. We can do this with
-<code>luck.get("is_fraud")</code>, which is equivalent to
+<code>luck[(luck.get("card")=="visa") &amp; (luck.get("is_fraud"))]</code>,
+(b): <code>get("is_lucky")</code></p>
+<p>(a): The first step in this question is to query the DataFrame so
+that we have only the rows which are fraudulent transactions from “visa”
+cards. <code>luck.get("card")=="visa"</code> evaluates to
+<code>True</code> if and only if the transaction was from a Visa card,
+so this is the first part of our condition. To find transactions which
+were fraudulent, we can simply find the rows with a value of
+<code>True</code> in the <code>"is_fraud"</code> column. We can do this
+with <code>luck.get("is_fraud")</code>, which is equivalent to
 <code>luck.get("is_fraud") == True</code> in this case since the
-<code>is_fraud</code> column only contains Trues and Falses. Since we
+<code>"is_fraud"</code> column only contains Trues and Falses. Since we
 want only the rows where both of these conditions hold, we can combine
 these two conditions with the logical <code>&amp;</code> operator, and
 place this inside of square brackets to query the luck DataFrame for
@@ -291,19 +278,18 @@ Note that we use the <code>&amp;</code> instead of the keyword
 comparisons between two series, like we’re doing here. and the
 <code>and</code> keyword is used for comparing two booleans (not two
 Series containing booleans).</p>
-<p><strong>What goes in blank (b)?</strong> <code>get("is_lucky")</code>
-We already have a Boolean column <code>is_lucky</code> indicating if
-each transaction had a lucky amount. Recall that booleans are equivalent
-to 1s and 0s, where 1 represents true and 0 represents false, so to find
-the proportion of lucky amounts we can simply take the mean of the
-is_lucky column. The reason that taking the mean is equivalent to
-finding the proportion of lucky amounts comes from the definition of the
-mean: the sum of all values divided by the number of entries. If all
-entries are ones and zeros, then summing the values is equivalent to
-counting the number of ones (Trues) in the Series. Therefore, the mean
-will be given by the number of Trues divided by the length of the
-Series, which is exactly the proportion of lucky numbers in the
-column.</p>
+<p>(b): We already have a Boolean column <code>is_lucky</code>
+indicating if each transaction had a lucky amount. Recall that booleans
+are equivalent to 1s and 0s, where 1 represents true and 0 represents
+false, so to find the proportion of lucky amounts we can simply take the
+mean of the is_lucky column. The reason that taking the mean is
+equivalent to finding the proportion of lucky amounts comes from the
+definition of the mean: the sum of all values divided by the number of
+entries. If all entries are ones and zeros, then summing the values is
+equivalent to counting the number of ones (Trues) in the Series.
+Therefore, the mean will be given by the number of Trues divided by the
+length of the Series, which is exactly the proportion of lucky numbers
+in the column.</p>
 </div>
 </div>
 </div>
@@ -324,34 +310,34 @@ in the Series <code>many_props</code>.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse1_3" class="accordion-collapse collapse"
+<div id="collapse1_3" class="accordion-collapse collapse collapse"
 aria-labelledby="heading1_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer:</strong> (a): <code>["is_fraud", "“card”"]</code> or
-<code>["“card”", "is_fraud"]</code> (b): <code>"is_lucky"</code></p>
-<p><strong>What goes in blank (a)?</strong>
-<code>["is_fraud", "“card”"]</code> or
-<code>["“card”", "is_fraud"]</code> <code>lucky_prop</code> is the
-proportion of fraudulent “visa” card transactions that have a lucky
-amount. The idea is to create a Series with the proportions of
-fraudulent or non_fraudulent transactions from each card type that have
-a lucky amount. To do this, we’ll want to group by the column that
-describes the card type (<code>card</code>), and the column that
-describes whether a transaction is fraudulent (<code>is_fraud</code>).
-Putting this in the proper syntax for a <code>groupby</code> with
-multiple columns, we have <code>[“card”, “is_fraud”]</code></p>
-<p><strong>What goes in blank (b)?</strong> <code>"is_lucky"</code> Once
-we have this grouped DataFrame, we know that the entry in each column
-will be the mean of that column for some combination of
-<code>is_fraud</code> and <code>method</code>. And, since
-<code>is_lucky</code> contains Booleans, we know that this mean is
+<p><strong>Answer:</strong> (a): <code>[""card"", "is_fraud"]</code>,
+(b): <code>"is_lucky"</code></p>
+<p>(a): <code>lucky_prop</code> is the proportion of fraudulent “visa”
+card transactions that have a lucky amount. The idea is to create a
+Series with the proportions of fraudulent or non-fraudulent transactions
+from each card type that have a lucky amount. To do this, we’ll want to
+group by the column that describes the card type (<code>"card"</code>),
+and the column that describes whether a transaction is fraudulent
+(<code>"is_fraud"</code>). Putting this in the proper syntax for a
+<code>groupby</code> with multiple columns, we have
+<code>["card", "is_fraud"]</code>. The order doesn’t matter, so
+<code>["is_fraud", ""card""]</code> is also correct.</p>
+<ol start="2" type="a">
+<li>Once we have this grouped DataFrame, we know that the entry in each
+column will be the mean of that column for some combination of
+<code>"is_fraud"</code> and <code>"method"</code>. And, since
+<code>"is_lucky"</code> contains Booleans, we know that this mean is
 equivalent to the proportion of transactions which were lucky for each
-<code>is_fraud</code> and <code>method</code> combination. One such
-combination is “visa” and fraudulent, so lucky_prop is one element of
-this Series.</p>
+<code>"is_fraud"</code> and <code>"method"</code> combination. One such
+combination is fraudulent “visa” transactions, so
+<code>lucky_prop</code> is one element of this Series.</li>
+</ol>
 </div>
 </div>
 </div>
@@ -372,7 +358,7 @@ Give your answer as an integer.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse2_1" class="accordion-collapse collapse"
+<div id="collapse2_1" class="accordion-collapse collapse collapse"
 aria-labelledby="heading2_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -381,14 +367,14 @@ aria-labelledby="heading2_1" data-bs-parent="#accordionExample">
 <p><strong>Answer:</strong> 16</p>
 <p><code>combo.shape[0]</code> will give us the number of rows of the
 <code>combo</code> DataFrame. Since we’re grouping by
-<code>is_fraud</code>, <code>method</code>, and <code>card</code>, we
-will have one row for each unique combination of values in these
-columns. There are 2 possible values for <code>is_fraud</code>, 2
-possible values for <code>method</code>, and 2 possible values for
-<code>card</code>, so the total number of possibilities is 2 * 2 * 4 =
+<code>"is_fraud"</code>, <code>"method"</code>, and <code>"card"</code>,
+we will have one row for each unique combination of values in these
+columns. There are 2 possible values for <code>"is_fraud"</code>, 2
+possible values for <code>"method"</code>, and 2 possible values for
+<code>"card"</code>, so the total number of possibilities is 2 * 2 * 4 =
 16. This is the maximum number possible because 16 combinations of
-<code>is_fraud</code>, <code>method</code>, and <code>card</code> are
-possible, but they may not all exist in the data.</p>
+<code>"is_fraud"</code>, <code>"method"</code>, and <code>"card"</code>
+are possible, but they may not all exist in the data.</p>
 </div>
 </div>
 </div>
@@ -397,12 +383,12 @@ possible, but they may not all exist in the data.</p>
 <h3 id="problem-2.2">Problem 2.2</h3>
 <p>What is the value of <code>combo.shape[1]</code>?</p>
 <ul class="task-list">
-<li><p><input type="radio" disabled="" /> <code>1</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>2</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>3</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>4</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>5</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>6</code></p></li>
+<li><p><input type="radio" disabled="" /> 1</p></li>
+<li><p><input type="radio" disabled="" /> 2</p></li>
+<li><p><input type="radio" disabled="" /> 3</p></li>
+<li><p><input type="radio" disabled="" /> 4</p></li>
+<li><p><input type="radio" disabled="" /> 5</p></li>
+<li><p><input type="radio" disabled="" /> 6</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
@@ -411,7 +397,7 @@ possible, but they may not all exist in the data.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse2_2" class="accordion-collapse collapse"
+<div id="collapse2_2" class="accordion-collapse collapse collapse"
 aria-labelledby="heading2_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -423,8 +409,8 @@ DataFrame. In this case, we’re using <code>.mean()</code> as our
 aggregation function, so the resulting DataFrame will only have columns
 with numeric types (since BabyPandas automatically ignores columns which
 have a data type incompatible with the aggregation function). In this
-case, <code>amount</code> and <code>lifetime</code> are the only numeric
-columns, so <code>combo</code> will have 2 columns.</p>
+case, <code>"amount"</code> and <code>"lifetime"</code> are the only
+numeric columns, so <code>combo</code> will have 2 columns.</p>
 </div>
 </div>
 </div>
@@ -451,7 +437,7 @@ columns, so <code>combo</code> will have 2 columns.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse3" class="accordion-collapse collapse"
+<div id="collapse3" class="accordion-collapse collapse collapse"
 aria-labelledby="heading3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -459,44 +445,50 @@ aria-labelledby="heading3" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer:</strong> B, C, D, and E.</p>
 <p>The correct responses are B, C, D, and E. First, we must see that
-<code>txn.get(“is_fraud”).mean()</code> will calculate the mean of the
-<code>is_fraud</code> column, which is a float representing the
-proportion of values in the <code>is_fraud</code> column that are True.
-With this in mind, we can consider each option: - Option A: This
-operation will result in a DataFrame. We first group by
-<code>is_fraud</code>, creating one row for fraudulent transactions and
-one row for non-fraudulent ones. We then take the mean of each numerical
-column, which will determine the entries of the DataFrame. Since this
-results in a DataFrame and not a float, this answer choice cannot be
-correct. - Option B: Here we simply take the mean of the
-<code>is_fraud</code> column using the definition of the mean as the sum
-of the values divided by the nuber of values. This is equivalent to the
-original. - Option C: <code>np.count_nonzero</code> will return the
-number of nonzero values in a sequence. Since we only have True and
-False values in the <code>is_fraud</code> column, and Python considers
+<code>txn.get("is_fraud").mean()</code> will calculate the mean of the
+<code>"is_fraud"</code> column, which is a float representing the
+proportion of values in the <code>"is_fraud"</code> column that are
+True. With this in mind, we can consider each option:</p>
+<ul>
+<li><p>Option A: This operation will result in a DataFrame. We first
+group by <code>"is_fraud"</code>, creating one row for fraudulent
+transactions and one row for non-fraudulent ones. We then take the mean
+of each numerical column, which will determine the entries of the
+DataFrame. Since this results in a DataFrame and not a float, this
+answer choice cannot be correct.</p></li>
+<li><p>Option B: Here we simply take the mean of the
+<code>"is_fraud"</code> column using the definition of the mean as the
+sum of the values divided by the nuber of values. This is equivalent to
+the original.</p></li>
+<li><p>Option C: <code>np.count_nonzero</code> will return the number of
+nonzero values in a sequence. Since we only have True and False values
+in the <code>"is_fraud"</code> column, and Python considers
 <code>True</code> to be 1 and <code>False</code> to be 0, this means
 counting the number of ones is equivalent to the sum of all the values.
 So, we end up with an expression equivalent to the formula for the mean
-which we saw in part B. - Option D: Recall that <code>is_fraud</code>
-contains Boolean values, and that <code>True</code> evaluates to 1 and
-<code>False</code> evaluates to 0.
-<code>txn.get(“is_fraud”) &gt; 0.8</code> conducts an elementwise
-comparison, evaluating if each value in the column is greater than 0.8,
-and returning the resulting Series of Booleans. Any <code>True</code>
-(1) value in the column will be greater than 0.8, so this expression
-will evaluate to <code>True</code>. Any <code>False</code> (0) value
-will still evaluate to <code>False</code>, so the values in the
-resulting Series will be identical to the original column. Therefore,
-taking the mean of either will give the same value.<br/>
-- Option E: <code>txn.get(“is_fraud”) == 0</code> performs an
+which we saw in part B.</p></li>
+<li><p>Option D: Recall that <code>"is_fraud"</code> contains Boolean
+values, and that <code>True</code> evaluates to 1 and <code>False</code>
+evaluates to 0. <code>txn.get("is_fraud") &gt; 0.8</code> conducts an
+elementwise comparison, evaluating if each value in the column is
+greater than 0.8, and returning the resulting Series of Booleans. Any
+<code>True</code> (1) value in the column will be greater than 0.8, so
+this expression will evaluate to <code>True</code>. Any
+<code>False</code> (0) value will still evaluate to <code>False</code>,
+so the values in the resulting Series will be identical to the original
+column. Therefore, taking the mean of either will give the same
+value.</p></li>
+<li><p>Option E: <code>txn.get("is_fraud") == 0</code> performs an
 elementwise comparison, returning a series which has the value
-<code>True</code> where <code>is_fraud</code> is <code>False</code> (0),
-and <code>False</code> where <code>is_fraud</code> is <code>True</code>.
-Therefore the mean of this Series represents the proportion of values in
-the <code>is_fraud</code> column that are <code>False</code>. Since
-every value in that column is either <code>False</code> or
-<code>True</code>, the proportion of <code>True</code> values is
-equivalent to one minus the proportion of <code>False</code> values.</p>
+<code>True</code> where <code>"is_fraud"</code> is <code>False</code>
+(0), and <code>False</code> where <code>"is_fraud"</code> is
+<code>True</code>. Therefore the mean of this Series represents the
+proportion of values in the <code>"is_fraud"</code> column that are
+<code>False</code>. Since every value in that column is either
+<code>False</code> or <code>True</code>, the proportion of
+<code>True</code> values is equivalent to one minus the proportion of
+<code>False</code> values.</p></li>
+</ul>
 </div>
 </div>
 </div>
@@ -532,7 +524,7 @@ is fraudulent.</p></li>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse4_1" class="accordion-collapse collapse"
+<div id="collapse4_1" class="accordion-collapse collapse collapse"
 aria-labelledby="heading4_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -542,10 +534,10 @@ aria-labelledby="heading4_1" data-bs-parent="#accordionExample">
 <p>First, let’s take a look at what the code is doing. We start by
 grouping by browser and taking the mean, so each column will have the
 average value of that column for each browser (where each browser is a
-row). We then sort in descending order by the <code>”is_fraud”</code>
+row). We then sort in descending order by the <code>"is_fraud"</code>
 column, so the browser which has the highest proportion of fraudulent
 transactions will be first, and we take first the ten browsers, or those
-with the most fraud. Finally, we plot the <code>”is_fraud”</code> column
+with the most fraud. Finally, we plot the <code>"is_fraud"</code> column
 in a horizontal bar chart. So, our plot shows the proportion of
 fraudulent transactions for each browser, and we see that
 <code>icedragon</code> has a proportion of 1.0, implying that every
@@ -577,7 +569,7 @@ immediately after <code>.take(np.arange(10))</code>.</p></li>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse4_2" class="accordion-collapse collapse"
+<div id="collapse4_2" class="accordion-collapse collapse collapse"
 aria-labelledby="heading4_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -623,7 +615,7 @@ the original plot, this option is correct.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse5_1" class="accordion-collapse collapse"
+<div id="collapse5_1" class="accordion-collapse collapse collapse"
 aria-labelledby="heading5_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -631,14 +623,14 @@ aria-labelledby="heading5_1" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer</strong> A correct answer has one <code>True</code>
 and three <code>False</code> rows.</p>
-<p>We’re merging on the <code>is_fraud</code> column, so we want to look
-at which rows have which values for <code>is_fraud</code>. There are
-only two possible values (<code>True</code> and <code>False</code>), and
-we see that there are two <code>True</code>s and 5 <code>False</code>s
-in <code>seven</code>. Now, think about what happens “under the hood”
-for this merge, and how many rows are created when it occurs. Python
-will match each <code>True</code> in <code>seven</code> with each
-<code>True</code> in the <code>is_fraud</code> column of
+<p>We’re merging on the <code>"is_fraud"</code> column, so we want to
+look at which rows have which values for <code>"is_fraud"</code>. There
+are only two possible values (<code>True</code> and <code>False</code>),
+and we see that there are two <code>True</code>s and 5
+<code>False</code>s in <code>seven</code>. Now, think about what happens
+“under the hood” for this merge, and how many rows are created when it
+occurs. Python will match each <code>True</code> in <code>seven</code>
+with each <code>True</code> in the <code>"is_fraud"</code> column of
 <code>location</code>, and make a new row for each such pair. For
 example, since Toronto’s row in <code>location</code> has a
 <code>True</code> value in <code>location</code>, the merged DataFrame
@@ -679,7 +671,7 @@ DataFrame <code>seven.merge(locations, on="is_fraud")</code> has
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse5_2" class="accordion-collapse collapse"
+<div id="collapse5_2" class="accordion-collapse collapse collapse"
 aria-labelledby="heading5_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -743,7 +735,7 @@ proportion of transactions that are fraudulent</strong>, in the order
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse6_1" class="accordion-collapse collapse"
+<div id="collapse6_1" class="accordion-collapse collapse collapse"
 aria-labelledby="heading6_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -773,7 +765,7 @@ as an exact decimal or simplified fraction.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse6_2" class="accordion-collapse collapse"
+<div id="collapse6_2" class="accordion-collapse collapse collapse"
 aria-labelledby="heading6_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -816,7 +808,7 @@ below.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse6_3" class="accordion-collapse collapse"
+<div id="collapse6_3" class="accordion-collapse collapse collapse"
 aria-labelledby="heading6_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -858,7 +850,7 @@ is <strong>greater than</strong> the proportion of fraudulent
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse6_4" class="accordion-collapse collapse"
+<div id="collapse6_4" class="accordion-collapse collapse collapse"
 aria-labelledby="heading6_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -916,7 +908,7 @@ test?</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse6_5" class="accordion-collapse collapse"
+<div id="collapse6_5" class="accordion-collapse collapse collapse"
 aria-labelledby="heading6_5" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -993,7 +985,7 @@ TVD goes with which table. He computed TVDs of 0.14, 0.36, and 0.38.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse7_1" class="accordion-collapse collapse"
+<div id="collapse7_1" class="accordion-collapse collapse collapse"
 aria-labelledby="heading7_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1030,7 +1022,7 @@ each time we are combining categories and shrinking the TVD.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse7_2" class="accordion-collapse collapse"
+<div id="collapse7_2" class="accordion-collapse collapse collapse"
 aria-labelledby="heading7_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1056,7 +1048,7 @@ aria-labelledby="heading7_2" data-bs-parent="#accordionExample">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse7_3" class="accordion-collapse collapse"
+<div id="collapse7_3" class="accordion-collapse collapse collapse"
 aria-labelledby="heading7_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1112,7 +1104,7 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb11-1"><a href=
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse8" class="accordion-collapse collapse"
+<div id="collapse8" class="accordion-collapse collapse collapse"
 aria-labelledby="heading8" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1177,7 +1169,7 @@ simplified fraction.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse9_1" class="accordion-collapse collapse"
+<div id="collapse9_1" class="accordion-collapse collapse collapse"
 aria-labelledby="heading9_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1220,7 +1212,7 @@ fraction.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse9_2" class="accordion-collapse collapse"
+<div id="collapse9_2" class="accordion-collapse collapse collapse"
 aria-labelledby="heading9_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1260,7 +1252,7 @@ described is <span class="math inline">\frac[2}{6} * \frac{2}{5} =
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse9_3" class="accordion-collapse collapse"
+<div id="collapse9_3" class="accordion-collapse collapse collapse"
 aria-labelledby="heading9_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1322,7 +1314,7 @@ amount of all transactions in the first random sample of 100 rows of
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse10_1" class="accordion-collapse collapse"
+<div id="collapse10_1" class="accordion-collapse collapse collapse"
 aria-labelledby="heading10_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1369,7 +1361,7 @@ and <span class="math inline">B</span>?</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse10_2" class="accordion-collapse collapse"
+<div id="collapse10_2" class="accordion-collapse collapse collapse"
 aria-labelledby="heading10_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1404,7 +1396,7 @@ and <span class="math inline">C</span>?</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse10_3" class="accordion-collapse collapse"
+<div id="collapse10_3" class="accordion-collapse collapse collapse"
 aria-labelledby="heading10_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1441,7 +1433,7 @@ and <span class="math inline">D</span>?</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse10_4" class="accordion-collapse collapse"
+<div id="collapse10_4" class="accordion-collapse collapse collapse"
 aria-labelledby="heading10_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1495,7 +1487,7 @@ class="math inline">\sqrt{p(1-p)}</span>.</em></p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse11_1" class="accordion-collapse collapse"
+<div id="collapse11_1" class="accordion-collapse collapse collapse"
 aria-labelledby="heading11_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1540,7 +1532,7 @@ answer as an integer.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse11_2" class="accordion-collapse collapse"
+<div id="collapse11_2" class="accordion-collapse collapse collapse"
 aria-labelledby="heading11_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1618,7 +1610,7 @@ intended.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse12" class="accordion-collapse collapse"
+<div id="collapse12" class="accordion-collapse collapse collapse"
 aria-labelledby="heading12" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1684,7 +1676,7 @@ transactions?</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse13_1" class="accordion-collapse collapse"
+<div id="collapse13_1" class="accordion-collapse collapse collapse"
 aria-labelledby="heading13_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1734,7 +1726,7 @@ Histogram A?</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse13_2" class="accordion-collapse collapse"
+<div id="collapse13_2" class="accordion-collapse collapse collapse"
 aria-labelledby="heading13_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1779,7 +1771,7 @@ number.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse14_1" class="accordion-collapse collapse"
+<div id="collapse14_1" class="accordion-collapse collapse collapse"
 aria-labelledby="heading14_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1831,7 +1823,7 @@ spending vs. transaction amount?</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse14_2" class="accordion-collapse collapse"
+<div id="collapse14_2" class="accordion-collapse collapse collapse"
 aria-labelledby="heading14_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1868,7 +1860,7 @@ fraction.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse14_3" class="accordion-collapse collapse"
+<div id="collapse14_3" class="accordion-collapse collapse collapse"
 aria-labelledby="heading14_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1905,7 +1897,7 @@ your answer as an integer.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse14_4" class="accordion-collapse collapse"
+<div id="collapse14_4" class="accordion-collapse collapse collapse"
 aria-labelledby="heading14_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
