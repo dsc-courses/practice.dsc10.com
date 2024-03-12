@@ -135,7 +135,7 @@ Each exam linked here lists the conditions under which the exam was given, inclu
       <td>Rod Albuyeh, Suraj Rampure, Janine Tiefenbruck</td>
       <td><a href='fa23-midterm/index.html'>Midterm</a>
           <br>
-          <a href='fa23-final/index.html'>Final</a>
+          <a href='fa23-final/index.html'>Final 🆕</a>
       </td>
     </tr>
     <tr>
@@ -241,7 +241,7 @@ Starting in Fall 2023, quizzes are administered in discussion section. Below, yo
         <a href='wi24-quiz1/index.html'>Quiz 1</a> •
         <a href='wi24-quiz2/index.html'>Quiz 2</a> •
         <a href='wi24-quiz3/index.html'>Quiz 3</a> •
-        <a href='wi24-quiz4/index.html'>Quiz 4</a> 
+        <a href='wi24-quiz4/index.html'>Quiz 4</a> •
         <a href='wi24-quiz5/index.html'>Quiz 5</a> 
       </td>
     </tr>
