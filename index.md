@@ -88,21 +88,20 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
       <tr>
       <th scope="row">8</th>
       <td>March 1</td>
-      <td><a href="probset08/index.html">The Central Limit Theorem and Hypothesis Testing</a></td>
+      <td><a href="probset08/index.html">Hypothesis Testing and Total Variation Distance</a></td>
     </tr>
     </tr>   
       <tr>
       <th scope="row">9</th>
       <td>March 8</td>
-      <td><a href="probset09/index.html">Hypothesis Testing and Total Variation Distance</a></td>
+      <td><a href="probset09/index.html">Permutation Testing and Regression</a></td>
     </tr>
     </tr>   
-<!--      <tr>
+<!--    <tr>
       <th scope="row">10</th>
       <td>December 6th</td>
       <td><a href="disc10/index.html">Permutation Testing and Regression</a></td>
-    </tr>  
--->         
+    </tr>   -->       
   </tbody>
 </table>
 </center>
