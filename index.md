@@ -10,7 +10,7 @@ title: Home – DSC 10 Practice
 
 This site contains practice problems taken from old DSC 10 exams. We've organized problems in a few ways:
 
-1. As **extra practice problem sets**. Each problem set contains problems about a particular topic. Come to discussions to work on these problem sets in groups, with the help of our course staff.
+1. As **discussion problem sets**. Each problem set contains problems about a particular topic. Come to discussions to work on these problem sets in groups, with the help of our course staff.
 1. As **practice exams**. Work through these in the weeks leading up to exams.
 1. As **quizzes**. Work through these to practice for quizzes.
 
@@ -30,7 +30,7 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
 
 ---
 
-### 💯 Extra Practice Problem Sets for Spring 2024
+### 💯 Discussion Problem Sets for Spring 2024
 
 <center>
 <table class="table" style="width:60%">
