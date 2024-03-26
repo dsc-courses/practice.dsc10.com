@@ -10,7 +10,7 @@ title: Home – DSC 10 Practice
 
 This site contains practice problems taken from old DSC 10 exams. We've organized problems in a few ways:
 
-1. As **extra practice problem sets**. Each problem set contains problems about a particular topic. Come to extra practice sessions to work on these problem sets in groups, with the help of our course staff.
+1. As **extra practice problem sets**. Each problem set contains problems about a particular topic. Come to discussions to work on these problem sets in groups, with the help of our course staff.
 1. As **practice exams**. Work through these in the weeks leading up to exams.
 1. As **quizzes**. Work through these to practice for quizzes.
 
@@ -52,51 +52,51 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
       <td>Friday, January 12</td>
       <td><a href="probset01/index.html">Python Basics</a></td>
     </tr>   
-    <tr>
+    <!-- <tr>
       <th scope="row">2</th>
       <td>Friday, January 19</td>
       <td><a href="probset02/index.html"> Arrays, DataFrames, Querying, and Grouping</a></td>
-    </tr>
-   <tr>
+    </tr> -->
+   <!-- <tr>
       <th scope="row">3</th>
       <td>January 26</td>
       <td><a href="probset03/index.html">Data Visualizations, Functions, and Applying</a></td>
-    </tr>
-    <tr>
+    </tr> -->
+    <!-- <tr>
       <th scope="row">4</th>
       <td>February 2</td>
       <td><a href="probset04/index.html">Grouping on Multiple Columns, Merging, Conditional Statements, Iteration, Probability</a></td>
-    </tr>   
-      <tr>
+    </tr>    -->
+    <!-- <tr>
       <th scope="row">5</th>
       <td>February 9</td>
       <td><a href="probset05/index.html">Simulation and Sampling; Midterm Review</a></td>
-    </tr>
-    </tr>   
+    </tr> -->
+    <!-- </tr>   
       <tr>
       <th scope="row">6</th>
       <td>February 16</td>
       <td><a href="probset06/index.html">Bootstrapping, Confidence Intervals, Center, Spread, and Standardization</a></td>
     </tr>
-    </tr>   
-      <tr>
+    </tr>    -->
+    <!-- <tr>
       <th scope="row">7</th>
       <td>February 23</td>
       <td><a href="probset07/index.html">Normal Distribution, Central Limit Theorem, and Sample Sizes</a></td>
     </tr>
-    </tr>   
-      <tr>
+    </tr>    -->
+    <!-- <tr>
       <th scope="row">8</th>
       <td>March 1</td>
       <td><a href="probset08/index.html">Hypothesis Testing and Total Variation Distance</a></td>
     </tr>
-    </tr>   
-      <tr>
+    </tr>    -->
+    <!-- <tr>
       <th scope="row">9</th>
       <td>March 8</td>
       <td><a href="probset09/index.html">Permutation Testing and Regression</a></td>
     </tr>
-    </tr>   
+    </tr>    -->
 <!--    <tr>
       <th scope="row">10</th>
       <td>December 6th</td>
@@ -134,7 +134,7 @@ Each exam linked here lists the conditions under which the exam was given, inclu
       <td>Rod Albuyeh, Suraj Rampure, Janine Tiefenbruck</td>
       <td><a href='fa23-midterm/index.html'>Midterm</a>
           <br>
-          <a href='fa23-final/index.html'>Final 🆕</a>
+          <a href='fa23-final/index.html'>Final</a>
       </td>
     </tr>
     <tr>
