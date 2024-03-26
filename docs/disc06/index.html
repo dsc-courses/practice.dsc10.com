@@ -11,15 +11,18 @@
     div.columns{display: flex; gap: min(4vw, 1.5em);}
     div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
     ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
       width: 0.8em;
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
     }
     /* CSS for syntax highlighting */
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span { line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -30,7 +33,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -101,9 +104,6 @@
   </script>
   <link rel="stylesheet"
   href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 </head>
 <body>
 <header id="title-block-header">
@@ -416,12 +416,14 @@ Since the interval is found using bootstrapping, L and R averaged will
 not be the mean of the original sample since the mean of the original
 sample is not what is used in calculating the bootstrapped confidence
 interval. The bootstrapped confidence interval is created by re-sampling
-the data with replacement over and over again. Thus, the interval is not
-centered around the mean because bootstrapping and random sampling will
-lead to variation in the confidence interval. Additionally, L is the
-2.5th percentile of the distribution of bootstrapped means and R is the
-97.5th percentile, and these are not necessarily the same distance away
-from the mean of the sample.</p>
+the data with replacement over and over again. Thus, while the interval
+is typically centered around the sample mean due to the nature of
+bootstrapping, the average of L and R (the 2.5th and 97.5th percentiles
+of the distribution of bootstrapped means) may not exactly equal the
+sample mean, but should be close to it. Additionally, L is the 2.5th
+percentile of the distribution of bootstrapped means and R is the 97.5th
+percentile, and these are not necessarily the same distance away from
+the mean of the sample.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -609,6 +611,226 @@ plenty of rows we don’t care about.</p>
 </div>
 </div>
 </div>
+<hr />
+<h2 id="problem-5">Problem 5</h2>
+<p>Suppose we take a uniform random sample with replacement from a
+population, and use the sample mean as an estimate for the population
+mean. Which of the following is correct?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> If we take a larger sample, our sample mean will be closer to the
+population mean.</p></li>
+<li><p><input type="radio" disabled="" /> If we take a smaller sample, our sample mean will be closer to the
+population mean.</p></li>
+<li><p><input type="radio" disabled="" /> If we take a larger sample, our sample mean is more likely to be
+close to the population mean than if we take a smaller sample.</p></li>
+<li><p><input type="radio" disabled="" /> If we take a smaller sample, our sample mean is more likely to be
+close to the population mean than if we take a larger sample.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading5">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5" aria-expanded="true" aria-controls="collapse5">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse5" class="accordion-collapse collapse"
+aria-labelledby="heading5" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> If we take a larger sample, our sample mean
+is more likely to be close to the population mean than if we take a
+smaller sample.</p>
+<p>Larger samples tend to give better estimates of the population mean
+than smaller samples. That’s because large samples are more like the
+population than small samples. We can see this in the extreme. Imagine a
+sample of 1 element from a population. The sample might vary a lot,
+depending on the distribution of the population. On the other extreme,
+if we sample the whole population, our sample mean will be exactly the
+same as the population mean.</p>
+<p>Notice that the correct answer choice uses the words “is more likely
+to be close to” as opposed to “will be closer to.” We’re talking about a
+general phenomenon here: larger samples tend to give better estimates of
+the population mean than smaller samples. We cannot say that if we take
+a larger sample our sample mean “will be closer to” the population mean,
+since it’s always possible to get lucky with a small sample and unlucky
+with a large sample. That is, one particular small sample may happen to
+have a mean very close to the population mean, and one particular large
+sample may happen to have a mean that’s not so close to the population
+mean. This <em>can</em> happen, it’s just not likely to.</p>
+<hr/>
+<h5>Difficulty: ⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 100%.</p>
+</div>
+</div>
+</div>
+</div>
+<hr />
+<h2 id="problem-6">Problem 6</h2>
+<p>Suppose we have access to a simple random sample of all US Costco
+members of size <strong>145</strong>. Our sample is stored in a
+DataFrame named <code>us_sample</code>, in which the
+<code>"Spend"</code> column contains the October 2023 spending of each
+sampled member in dollars.</p>
+<p><br></p>
+<h3 id="problem-6.1">Problem 6.1</h3>
+<p>Fill in the blanks below so that <code>us_left</code> and
+<code>us_right</code> are the left and right endpoints of a
+<strong>46%</strong> confidence interval for the average October 2023
+spending of all US members.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>costco_means <span class="op">=</span> np.array([])</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">5000</span>):</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    resampled_spends <span class="op">=</span> __(x)__</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    costco_means <span class="op">=</span> np.append(costco_means, resampled_spends.mean())</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>left <span class="op">=</span> np.percentile(costco_means, __(y)__)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>right <span class="op">=</span> np.percentile(costco_means, __(z)__)</span></code></pre></div>
+<p>Which of the following could go in blank (x)? <strong>Select all that
+apply.</strong></p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> <code>us_sample.sample(145, replace=True).get("Spend")</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>us_sample.sample(145, replace=False).get("Spend")</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>np.random.choice(us_sample.get("Spend"), 145)</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>np.random.choice(us_sample.get("Spend"), 145, replace=True)</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>np.random.choice(us_sample.get("Spend"), 145, replace=False)</code></p></li>
+<li><p><input type="checkbox" disabled="" /> None of the above.</p></li>
+</ul>
+<p>What goes in blanks (y) and (z)? Give your answers as integers.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_1" aria-expanded="true" aria-controls="collapse6_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_1" class="accordion-collapse collapse"
+aria-labelledby="heading6_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>:</p>
+<ul>
+<li><code>x</code>:
+<ul>
+<li><code>us_sample.sample(145, replace=True).get("Spend")</code></li>
+<li><code>np.random.choice(us_sample.get("Spend"), 145)</code></li>
+<li><code>np.random.choice(us_sample.get("Spend"), 145, replace=True)</code></li>
+</ul></li>
+<li><code>y</code>: <code>27</code></li>
+<li><code>z</code>: <code>73</code></li>
+</ul>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 79%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-6.2">Problem 6.2</h3>
+<p>True or False: <strong>46%</strong> of all US members in
+<code>us_sample</code> spent between <code>us_left</code> and
+<code>us_right</code> in October 2023.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_2" aria-expanded="true" aria-controls="collapse6_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_2" class="accordion-collapse collapse"
+aria-labelledby="heading6_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: False</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 85%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-6.3">Problem 6.3</h3>
+<p>True or False: If we repeat the code from part (b) 200 times, each
+time bootstrapping from a new random sample of 145 members drawn from
+all US members, then about <strong>92</strong> of the intervals we
+create will contain the average October 2023 spending of all US
+members.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_3" aria-expanded="true" aria-controls="collapse6_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_3" class="accordion-collapse collapse"
+aria-labelledby="heading6_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: True</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 51%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-6.4">Problem 6.4</h3>
+<p>True or False: If we repeat the code from part (b) 200 times, each
+time bootstrapping from <code>us_sample</code>, then about
+<strong>92</strong> of the intervals we create will contain the average
+October 2023 spending of all US members.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_4" aria-expanded="true" aria-controls="collapse6_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_4" class="accordion-collapse collapse"
+aria-labelledby="heading6_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: False</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 30%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
 <hr />
 <h2 id="section"><span class="math display"> </span></h2>
 <h4
