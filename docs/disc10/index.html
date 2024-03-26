@@ -11,12 +11,79 @@
     div.columns{display: flex; gap: min(4vw, 1.5em);}
     div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
     ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
       width: 0.8em;
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="../assets/theme.css" />
   <script defer=""
@@ -37,9 +104,6 @@
   </script>
   <link rel="stylesheet"
   href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 </head>
 <body>
 <header id="title-block-header">
@@ -413,20 +477,11 @@ was 45%.</p>
 <p><br></p>
 <hr />
 <h2 id="problem-3">Problem 3</h2>
-<p>For each IKEA desk, we know the cost of producing the desk, in
-dollars, and the current sale price of the desk, in dollars. We want to
-predict sale price based on production cost using linear regression.</p>
 <p><br></p>
 <h3 id="problem-3.1">Problem 3.1</h3>
-<p>For this scenario, which of the following most likely describes the
-slope of the regression line when both variables are measured in
-dollars?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> less than 0</p></li>
-<li><p><input type="radio" disabled="" /> between 0 and 1, exclusive</p></li>
-<li><p><input type="radio" disabled="" /> more than 1</p></li>
-<li><p><input type="radio" disabled="" /> none of the above (exactly equal to 0 or 1)</p></li>
-</ul>
+<p><strong>True or False</strong>: The slope of the regression line,
+when both variables are measured in standard units, is never more than
+1.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading3_1">
@@ -436,193 +491,6 @@ Click to view the solution.
 </h2>
 <div id="collapse3_1" class="accordion-collapse collapse"
 aria-labelledby="heading3_1" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> more than 1</p>
-<p>The slope of a line represents the change in <span class="math inline">y</span> for each change of 1 in <span class="math inline">x</span>. Therefore, the slope of the regression
-line is the amount we’d predict the sale price to increase when the
-production cost of an item increases by one dollar. In other words, it’s
-the sale price per dollar of production cost. This is almost certainly
-more than 1, otherwise the company would not make a profit. We’d expect
-that for any company, the sale price of an item should exceed the
-production cost, meaning the slope of the regression line has a value
-greater than one.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 72%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-3.2">Problem 3.2</h3>
-<p>For this scenario, which of the following most likely describes the
-slope of the regression line when both variables are measured in
-standard units?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> less than 0</p></li>
-<li><p><input type="radio" disabled="" /> between 0 and 1, exclusive</p></li>
-<li><p><input type="radio" disabled="" /> more than 1</p></li>
-<li><p><input type="radio" disabled="" /> none of the above (exactly equal to 0 or 1)</p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading3_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_2" aria-expanded="true" aria-controls="collapse3_2">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse3_2" class="accordion-collapse collapse"
-aria-labelledby="heading3_2" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> between 0 and 1, exclusive</p>
-<p>When both variables are measured in standard units, the slope of the
-regression line is the correlation coefficient. Recall that correlation
-coefficients are always between -1 and 1, however, because it’s not
-realistic for production cost and sale price to be negatively correlated
-(as that would mean products sell for less if they cost more to produce)
-we can limit our choice of answer to values between 0 and 1. Because a
-coefficient of 0 would mean there is no correlation and 1 would mean
-perfect correlation (that is, plotting the data would create a line),
-these are unlikely occurrences leaving us with the answer being between
-0 and 1, exclusive.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 86%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-3.3">Problem 3.3</h3>
-<p>The residual plot for this regression is shown below.</p>
-<center><img src='../assets/images/sp22-final/resid.png' width=40%></center>
-<p>What is being represented on the horizontal axis of the residual
-plot?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> actual production cost</p></li>
-<li><p><input type="radio" disabled="" /> actual sale price</p></li>
-<li><p><input type="radio" disabled="" /> predicted production cost</p></li>
-<li><p><input type="radio" disabled="" /> predicted sale price</p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading3_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_3" aria-expanded="true" aria-controls="collapse3_3">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse3_3" class="accordion-collapse collapse"
-aria-labelledby="heading3_3" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> actual production cost</p>
-<p>Residual plots show <span class="math inline">x</span> on the
-horizontal axis and the residuals, or differences between actual <span class="math inline">y</span> values and predicted <span class="math inline">y</span> values, on the vertical axis. Therefore,
-the horizontal axis here shows the production cost. Note that we are not
-predicting production costs at all, so production cost means the
-<em>actual</em> cost to produce a product.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 43%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-3.4">Problem 3.4</h3>
-<p>Which of the following is a correct conclusion based on this residual
-plot? Select all that apply.</p>
-<ul class="task-list">
-<li><p><input type="checkbox" disabled="" /> The correlation between production cost and sale price is weak.</p></li>
-<li><p><input type="checkbox" disabled="" /> It would be better to fit a nonlinear curve.</p></li>
-<li><p><input type="checkbox" disabled="" /> Our predictions will be more accurate for some inputs than
-others.</p></li>
-<li><p><input type="checkbox" disabled="" /> We don’t have enough data to do regression.</p></li>
-<li><p><input type="checkbox" disabled="" /> The regression line is not the best-fitting line for this data
-set.</p></li>
-<li><p><input type="checkbox" disabled="" /> The data set is not representative of the population.</p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading3_4">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_4" aria-expanded="true" aria-controls="collapse3_4">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse3_4" class="accordion-collapse collapse"
-aria-labelledby="heading3_4" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> It would be better to fit a nonlinear
-curve.</p>
-<p>Let’s go through each answer choice.</p>
-<ul>
-<li><p>The correlation between production cost and sale price could be
-very strong. After all, we are able to predict the sale price within ten
-dollars almost all the time, since residuals are almost all between -10
-and 10.</p></li>
-<li><p>It would be better to fit a nonlinear curve because the residuals
-show a pattern. Reading from left to right, they go from mostly negative
-to mostly positive to mostly negative again. This suggests that a
-nonlinear curve might be a better fit for our data.</p></li>
-<li><p>Our predictions are typically within ten dollars of the actual
-sale price, and this is consistent throughout. We see this on the
-residual plot by a fairly even vertical spread of dots as we scan from
-left to right. This data is not heteroscedastic.</p></li>
-<li><p>We can do regression on a dataset of any size, even a very small
-data set. Further, this dataset is decently large, since there are a
-good number of points in the residual plot.</p></li>
-<li><p>The regression line is <strong>always</strong> the best-fitting
-line for any dataset. There may be other curves that are better fits
-than lines, but when we restrict to lines, the best of the bunch is the
-regression line.</p></li>
-<li><p>We have no way of knowing how representative our data set is of
-the population. This is not something we can discern from a residual
-plot because such a plot contains no information about the population
-from which the data was drawn.</p></li>
-</ul>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 61%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<hr />
-<h2 id="problem-4">Problem 4</h2>
-<p><br></p>
-<h3 id="problem-4.1">Problem 4.1</h3>
-<p><strong>True or False</strong>: The slope of the regression line,
-when both variables are measured in standard units, is never more than
-1.</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading4_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_1" aria-expanded="true" aria-controls="collapse4_1">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse4_1" class="accordion-collapse collapse"
-aria-labelledby="heading4_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -645,19 +513,19 @@ have more than a ‘perfect’ correlation). </p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-4.2">Problem 4.2</h3>
+<h3 id="problem-3.2">Problem 3.2</h3>
 <p><strong>True or False</strong>: The slope of the regression line,
 when both variables are measured in original units, is never more than
 1.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading4_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_2" aria-expanded="true" aria-controls="collapse4_2">
+<h2 class="accordion-header" id="heading3_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_2" aria-expanded="true" aria-controls="collapse3_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse4_2" class="accordion-collapse collapse"
-aria-labelledby="heading4_2" data-bs-parent="#accordionExample">
+<div id="collapse3_2" class="accordion-collapse collapse"
+aria-labelledby="heading3_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -677,9 +545,9 @@ of x corresponds to a change in 20 units of y the slope will be 20).
 </div>
 <p><br></p>
 <hr />
-<h2 id="problem-5">Problem 5</h2>
+<h2 id="problem-4">Problem 4</h2>
 <p><br></p>
-<h3 id="problem-5.1">Problem 5.1</h3>
+<h3 id="problem-4.1">Problem 4.1</h3>
 <p><em>Are nonfiction books longer than fiction books?</em></p>
 <p>Choose the best data science tool to help you answer this
 question.</p>
@@ -691,13 +559,13 @@ question.</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading5_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_1" aria-expanded="true" aria-controls="collapse5_1">
+<h2 class="accordion-header" id="heading4_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_1" aria-expanded="true" aria-controls="collapse4_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse5_1" class="accordion-collapse collapse"
-aria-labelledby="heading5_1" data-bs-parent="#accordionExample">
+<div id="collapse4_1" class="accordion-collapse collapse"
+aria-labelledby="heading4_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -718,7 +586,7 @@ distributions.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-5.2">Problem 5.2</h3>
+<h3 id="problem-4.2">Problem 4.2</h3>
 <p><em>Do people have more friends as they get older?</em></p>
 <p>Choose the best data science tool to help you answer this
 question.</p>
@@ -730,13 +598,13 @@ question.</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading5_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_2" aria-expanded="true" aria-controls="collapse5_2">
+<h2 class="accordion-header" id="heading4_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_2" aria-expanded="true" aria-controls="collapse4_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse5_2" class="accordion-collapse collapse"
-aria-labelledby="heading5_2" data-bs-parent="#accordionExample">
+<div id="collapse4_2" class="accordion-collapse collapse"
+aria-labelledby="heading4_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -756,7 +624,7 @@ correlations between time and the number of friends.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-5.3">Problem 5.3</h3>
+<h3 id="problem-4.3">Problem 4.3</h3>
 <p><em>Does an ice cream shop sell more chocolate or vanilla ice cream
 cones?</em></p>
 <p>Choose the best data science tool to help you answer this
@@ -769,13 +637,13 @@ question.</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading5_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_3" aria-expanded="true" aria-controls="collapse5_3">
+<h2 class="accordion-header" id="heading4_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_3" aria-expanded="true" aria-controls="collapse4_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse5_3" class="accordion-collapse collapse"
-aria-labelledby="heading5_3" data-bs-parent="#accordionExample">
+<div id="collapse4_3" class="accordion-collapse collapse"
+aria-labelledby="heading4_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -794,6 +662,992 @@ the sales of different flavors of ice cream).</p>
 <p>
 </p>
 <p>The average score on this problem was 57%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-5">Problem 5</h2>
+<p>In this question, we’ll explore the relationship between the ages and
+incomes of credit card applicants.</p>
+<p><br></p>
+<h3 id="problem-5.1">Problem 5.1</h3>
+<p>The credit card company that owns the data in apps, BruinCard, has
+decided not to give us access to the entire <code>apps</code> DataFrame,
+but instead just a sample of <code>apps</code> called
+<code>small apps</code>. We’ll start by using the information in
+<code>small_apps</code> to compute the regression line that predicts the
+age of an applicant given their income.</p>
+<p>For an applicant with an income that is <span
+class="math inline">\frac{8}{3}</span> standard deviations above the
+mean income, we predict their age to be <span
+class="math inline">\frac{4}{5}</span> standard deviations above the
+mean age. What is the correlation coefficient, <span
+class="math inline">r</span>, between incomes and ages in
+<code>small_apps</code>? Give your answer as a <strong>fully simplified
+fraction</strong>.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading5_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_1" aria-expanded="true" aria-controls="collapse5_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse5_1" class="accordion-collapse collapse"
+aria-labelledby="heading5_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> <span class="math inline">r =
+\frac{3}{10}</span></p>
+<p>To find the correlation coefficient <span class="math inline">r</span> we use the equation of the regression line
+in standard units and solve for <span class="math inline">r</span> as
+follows. <span class="math display">
+\begin{align*}
+\text{predicted } y_{\text{(su)}} &amp;= r \cdot x_{\text{(su)}} \\
+\frac{4}{5} &amp;= r \cdot \frac{8}{3} \\
+r &amp;= \frac{4}{5} \cdot \frac{3}{8} \\
+r &amp;= \frac{3}{10}
+\end{align*}
+</span></p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 52%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-5.2">Problem 5.2</h3>
+<p>Now, we want to predict the income of an applicant given their age.
+We will again use the information in <code>small_apps</code> to find the
+regression line. The regression line predicts that an applicant whose
+age is <span class="math inline">\frac{4}{5}</span> standard deviations
+above the mean age has an income that is <span
+class="math inline">s</span> standard deviations above the mean income.
+What is the value of <span class="math inline">s</span>? Give your
+answer as a <strong>fully simplified fraction</strong>.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading5_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_2" aria-expanded="true" aria-controls="collapse5_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse5_2" class="accordion-collapse collapse"
+aria-labelledby="heading5_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> <span class="math inline">s =
+\frac{6}{25}</span></p>
+<p>We again use the equation of the regression line in standard units,
+with the value of <span class="math inline">r</span> we found in the
+previous part. <span class="math display">
+\begin{align*}
+\text{predicted } y_{\text{(su)}} &amp;= r \cdot x_{\text{(su)}} \\
+s &amp;= \frac{3}{10} \cdot \frac{4}{5} \\
+s &amp;= \frac{6}{25}
+\end{align*}
+</span></p>
+<p>Notice that when we predict income based on age, our predictions are
+different than when we predict age based on income. That is, the answer
+to this question is <strong>not</strong> <span class="math inline">\frac{8}{3}</span>. We can think of this phenomenon
+as a consequence of <em>regression to the mean</em> which means that the
+predicted variable is always closer to average than the original
+variable. In part (a), we start with an income of <span class="math inline">\frac{8}{3}</span> standard units and predict an age
+of <span class="math inline">\frac{4}{5}</span> standard units, which is
+closer to average than <span class="math inline">\frac{8}{3}</span>
+standard units. Then in part (b), we start with an age of <span class="math inline">\frac{4}{5}</span> and predict an income of <span class="math inline">\frac{6}{25}</span> standard units, which is closer
+to average than <span class="math inline">\frac{4}{5}</span> standard
+units. This happens because whenever we make a prediction, we multiply
+by <span class="math inline">r</span> which is less than one in
+magnitude.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 21%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-5.3">Problem 5.3</h3>
+<p>BruinCard has now taken away our access to both <code>apps</code> and
+<code>small_apps</code>, and has instead given us access to an even
+smaller sample of <code>apps</code> called <code>mini_apps</code>. In
+<code>mini_apps</code>, we know the following information: - All incomes
+and ages are positive numbers. - There is a positive linear association
+between incomes and ages.</p>
+<p>We use the data in <code>mini_apps</code> to find the regression line
+that will allow us to predict the income of an applicant given their
+age. Just to test the limits of this regression line, we use it to
+predict the income of an applicant who is <strong>-2 years old</strong>,
+even though it doesn’t make sense for a person to have a negative
+age.</p>
+<p>Let <span class="math inline">I</span> be the regression line’s
+prediction of this applicant’s income. Which of the following
+inequalities are guaranteed to be satisfied? Select all that apply.</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> <span class="math inline">I &lt; 0</span></p></li>
+<li><p><input type="checkbox" disabled="" /> <span class="math inline">I &lt; \text{mean income}</span></p></li>
+<li><p><input type="checkbox" disabled="" /> <span class="math inline">| I - \text{mean income}| \leq | \text{mean
+age} + 2 |</span></p></li>
+<li><p><input type="checkbox" disabled="" /> <span class="math inline">\dfrac{| I - \text{mean
+income}|}{\text{standard deviation of incomes}} \leq \dfrac{| \text{mean
+age} + 2 |}{\text{standard deviation of ages}}</span></p></li>
+<li><p><input type="checkbox" disabled="" /> None of the above.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading5_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_3" aria-expanded="true" aria-controls="collapse5_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse5_3" class="accordion-collapse collapse"
+aria-labelledby="heading5_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> <span class="math inline">I &lt; \text{mean
+income}</span>, <span class="math inline">\dfrac{| I - \text{mean
+income}|}{\text{standard deviation of incomes}} \leq \dfrac{| \text{mean
+age} + 2 |}{\text{standard deviation of ages}}</span></p>
+<p>To understand this answer, we will investigate each option.</p>
+<ul>
+<li><span class="math inline">I &lt; 0</span>:</li>
+</ul>
+<p>This option asks whether income is guaranteed to be negative. This is
+not necessarily true. For example, it’s possible that the slope of the
+regression line is <span class="math inline">2</span> and the intercept
+is <span class="math inline">10</span>, in which case the income
+associated with a <span class="math inline">-2</span> year old would be
+<span class="math inline">6</span>, which is positive.</p>
+<ul>
+<li><span class="math inline">I &lt; \text{mean income}</span>:</li>
+</ul>
+<p>This option asks whether the predicted income is guaranteed to be
+lower than the mean income. It helps to think in standard units. In
+standard units, the regression line goes through the point <span class="math inline">(0, 0)</span> and has slope <span class="math inline">r</span>, which we are told is positive. This means
+that for a below-average <span class="math inline">x</span>, the
+predicted <span class="math inline">y</span> is also below average. So
+this statement must be true.</p>
+<ul>
+<li><span class="math inline">| I - \text{mean income}| \leq |
+\text{mean age} + 2 |</span>:</li>
+</ul>
+<p>First, notice that <span class="math inline">| \text{mean age} + 2 |
+= | -2 - \text{mean age}|</span>, which represents the horizontal
+distance betweeen these two points on the regression line: <span class="math inline">(\text{mean age}, \text{mean income})</span>, <span class="math inline">(-2, I)</span>. Likewise, <span class="math inline">| I - \text{mean income}|</span> represents the
+vertical distance between those same two points. So the inequality can
+be interpreted as a question of whether the <em>rise</em> of the
+regression line is less than or equal to the <em>run</em>, or whether
+the slope is at most 1. That’s not guaranteed when we’re working in
+original units, as we are here, so this option is not necessarily
+true.</p>
+<ul>
+<li><span class="math inline">\dfrac{| I - \text{mean
+income}|}{\text{standard deviation of incomes}} \leq \dfrac{| \text{mean
+age} + 2 |}{\text{standard deviation of ages}}</span>:</li>
+</ul>
+<p>Since standard deviation cannot be negative, we have <span class="math display">\dfrac{| I - \text{mean income}|}{\text{standard
+deviation of incomes}} = \left| \dfrac{I - \text{mean
+income}}{\text{standard deviation of incomes}} \right| =
+I_{\text{(su)}}.</span> Similarly, <span class="math display">\dfrac{|\text{mean age} + 2|}{\text{standard
+deviation of ages}} = \left| \dfrac{-2 - \text{mean age}}{\text{standard
+deviation of ages}} \right| = -2_{\text{(su)}}.</span> So this option is
+asking about whether the predicted income, in standard units, is
+guaranteed to be less (in absolute value) than the age. Since we make
+predictions in standard units using the equation of the regression line
+<span class="math inline">\text{predicted } y_{\text{(su)}} = r \cdot
+x_{\text{(su)}}</span> and we know <span class="math inline">|r|\leq
+1</span>, this means <span class="math inline">|\text{predicted }
+y_{\text{(su)}}| \leq | x_{\text{(su)}}|</span>. Applying this to ages
+(<span class="math inline">x</span>) and incomes (<span class="math inline">y</span>), this says exactly what the given
+inequality says. This is the phenomenon we call <em>regression to the
+mean</em>.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 69%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-5.4">Problem 5.4</h3>
+<p>Yet again, BruinCard, the company that gave us access to
+<code>apps</code>, <code>small_apps</code>, and <code>mini_apps</code>,
+has revoked our access to those three DataFrames and instead has given
+us <code>micro_apps</code>, an even smaller sample of
+<code>apps</code>.</p>
+<p>Using <code>micro_apps</code>, we are again interested in finding the
+regression line that will allow us to predict the income of an applicant
+given their age. We are given the following information:</p>
+<ul>
+<li>The correlation coefficient, <span class="math inline">r</span>,
+between ages and incomes is <span
+class="math inline">-\frac{1}{3}</span> (note the negative sign).</li>
+<li>The mean income is <span class="math inline">\frac{7}{2}</span>
+(remember, incomes are measured in tens of thousands of dollars).</li>
+<li>The mean age is 33.</li>
+<li>The regression line predicts that a 24 year old applicant has an
+income of <span class="math inline">\frac{31}{2}</span>.</li>
+</ul>
+<p>Suppose the standard deviation of incomes in <code>micro_apps</code>
+is an integer multiple of the standard deviation of ages in
+<code>micro_apps</code>. That is,</p>
+<p><span class="math display">\text{standard deviation of income} = k
+\cdot \text{standard deviation of age}.</span></p>
+<p>What is the value of <span class="math inline">k</span>? Give your
+answer as an <strong>integer</strong>.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading5_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_4" aria-expanded="true" aria-controls="collapse5_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse5_4" class="accordion-collapse collapse"
+aria-labelledby="heading5_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> <span class="math inline">k = 4</span></p>
+<p>To find this answer, we’ll use the definition of the regression line
+in original units, which is <span class="math inline">\text{predicted }
+y = mx+b</span>, where <span class="math display">m = r \cdot
+\frac{\text{SD of } y}{\text{SD of }x}, \: \: b = \text{mean of } y - m
+\cdot \text{mean of } x</span></p>
+<p>Next we substitute these value for <span class="math inline">m</span>
+and <span class="math inline">b</span> into <span class="math inline">\text{predicted } y = mx + b</span>, interpret <span class="math inline">x</span> as age and <span class="math inline">y</span> as income, and use the given information to
+find <span class="math inline">k</span>. <span class="math display">
+\begin{align*}
+\text{predicted } y &amp;= mx+b \\
+\text{predicted } y &amp;= r \cdot \frac{\text{SD of } y}{\text{SD of
+}x} \cdot x+ \text{mean of } y - r \cdot \frac{\text{SD of } y}{\text{SD
+of }x} \cdot \text{mean of } x\\
+\text{predicted income}&amp;= r \cdot \frac{\text{SD of
+income}}{\text{SD of age}} \cdot \text{age}+ \text{mean income} - r
+\cdot \frac{\text{SD of income}}{\text{SD of age}} \cdot \text{mean age}
+\\
+\frac{31}{2}&amp;= -\frac{1}{3} \cdot k \cdot 24+ \frac{7}{2} +
+\frac{1}{3} \cdot k \cdot 33 \\
+\frac{31}{2}&amp;= -8k+ \frac{7}{2} + 11k \\
+\frac{31}{2}&amp;= 3k+ \frac{7}{2}  \\
+3k &amp;= \frac{31}{2} - \frac{7}{2} \\
+3k &amp;= 12 \\
+k &amp;= 4
+\end{align*}
+</span></p>
+<p>Another way to solve this problem uses the equation of the regression
+line in standard units and the definition of standard units.</p>
+<p><span class="math display">
+\begin{align*}
+\text{predicted } y_{\text{(su)}} &amp;= r \cdot x_{\text{(su)}} \\
+\frac{\text{predicted income} - \text{mean income}}{\text{SD of income}}
+&amp;= r \cdot \frac{\text{age} - \text{mean age}}{\text{SD of age}} \\
+\frac{\frac{31}{2} - \frac{7}{2}}{k\cdot \text{SD of age}} &amp;=
+-\frac{1}{3} \cdot \frac{24 - 33}{\text{SD of age}} \\
+\frac{12}{k\cdot \text{SD of age}} &amp;= -\frac{1}{3} \cdot
+\frac{-9}{\text{SD of age}} \\
+\frac{12}{k\cdot \text{SD of age}} &amp;= \frac{3}{\text{SD of age}} \\
+\frac{k\cdot \text{SD of age}}{\text{SD of age}}  &amp;= \frac{12}{3}\\
+k &amp;= 4
+\end{align*}
+</span></p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 45%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-6">Problem 6</h2>
+<p>Raine is helping settle a debate between two friends on the
+“superior" season — winter or summer. In doing so, they try to
+understand the relationship between the number of sunshine hours per
+month in January and the number of sunshine hours per month in July
+across all cities in California in <code>sun</code>.</p>
+<p>Raine finds the regression line that predicts the number of sunshine
+hours in July (<span class="math inline">y</span>) for a city given its
+number of sunshine hours in January (<span
+class="math inline">x</span>). In doing so, they find that the
+correlation between the two variables is <span
+class="math inline">\frac{2}{5}</span>.</p>
+<p><br></p>
+<h3 id="problem-6.1">Problem 6.1</h3>
+<p>Which of these could be a scatter plot of number of sunshine hours in
+July vs. number of sunshine hours in January?</p>
+<center><img src='../assets/images/sp23-final/r-values.png' width=550></center>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Option 1</p></li>
+<li><p><input type="radio" disabled="" /> Option 2</p></li>
+<li><p><input type="radio" disabled="" /> Option 3</p></li>
+<li><p><input type="radio" disabled="" /> Option 4</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_1" aria-expanded="true" aria-controls="collapse6_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_1" class="accordion-collapse collapse"
+aria-labelledby="heading6_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: Option 1</p>
+<p>Since <span class="math inline">r = \frac{2}{5}</span>, the correct
+option must be a scatter plot with a mild positive (up and to the right)
+linear association. Option 3 can be ruled out immediately, since the
+linear association in it is negative (down and to the right). Option 2’s
+linear association is too strong for <span class="math inline">r =
+\frac{2}{5}</span>, and Option 4’s linear association is too weak for
+<span class="math inline">r = \frac{2}{5}</span>, which leaves Option
+1.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 57%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<p><br></p>
+<h3 id="problem-6.2">Problem 6.2</h3>
+<p>Suppose the standard deviation of the number of sunshine hours in
+January for cities in California is equal to the standard deviation of
+the number of sunshine hours in July for cities in California.</p>
+<p>Raine’s hometown of Santa Clarita saw 60 more sunshine hours in
+January than the average California city did. How many <strong>more
+sunshine hours than average</strong> does the regression line predict
+that Santa Clarita will have in July? Give your answer as a positive
+integer. <em>(Hint: You’ll need to use the fact that the correlation
+between the two variables is <span
+class="math inline">\frac{2}{5}</span>.)</em></p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_2" aria-expanded="true" aria-controls="collapse6_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_2" class="accordion-collapse collapse"
+aria-labelledby="heading6_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: 24</p>
+<p>At a high level, we’ll start with the formula for the regression line
+in standard units, and re-write it in a form that will allow us to use
+the information provided to us in the question.</p>
+<p>Recall, the regression line in standard units is</p>
+<p><span class="math display">\text{predicted }y_{\text{(su)}} = r \cdot
+x_{\text{(su)}}</span></p>
+<p>Using the definitions of <span class="math inline">\text{predicted
+}y_{\text{(su)}}</span> and <span class="math inline">x_{\text{(su)}}</span> gives us</p>
+<p><span class="math display">\frac{\text{predicted } y - \text{mean of
+}y}{\text{SD of }y} = r \cdot \frac{x - \text{mean of }x}{\text{SD of
+}x}</span></p>
+<p>Here, the <span class="math inline">x</span> variable is sunshine
+hours in January and the <span class="math inline">y</span> variable is
+sunshine hours in July. Given that the standard deviation of January and
+July sunshine hours are equal, we can simplifies our formula to</p>
+<p><span class="math display">\text{predicted } y - \text{mean of }y = r
+\cdot (x - \text{mean of }x)</span></p>
+<p>Since we’re asked how much more sunshine Santa Clarita will have in
+July compared to the average, we’re interested in the difference <span class="math inline">y - \text{mean of} y</span>. We were given that
+Santa Clarita had 60 more sunshine hours in January than the average,
+and that the correlation between the two variables(correlation
+coefficient) is <span class="math inline">\frac{2}{5}</span>. In terms
+of the variables above, then, we know:</p>
+<ul>
+<li><p><span class="math inline">x - \text{mean of }x =
+60</span>.</p></li>
+<li><p><span class="math inline">r = \frac{2}{5}</span>.</p></li>
+</ul>
+<p>Then,</p>
+<p><span class="math display">\text{predicted } y - \text{mean of }y = r
+\cdot (x - \text{mean of }x) = \frac{2}{5} \cdot 60 = 24</span></p>
+<p>Therefore, the regression line predicts that Santa Clarita will have
+24 more sunshine hours than the average California city in July.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 68%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<p>As we know, San Diego was particularly cloudy this May. More
+generally, Anthony, another California native, feels that California is
+getting cloudier and cloudier overall.</p>
+<p>To imagine what the dataset may look like in a few years, Anthony
+subtracts 5 from the number of sunshine hours in both January and July
+for all California cities in the dataset – i.e., he subtracts 5 from
+each <span class="math inline">x</span> value and 5 from each <span
+class="math inline">y</span> value in the dataset. He then creates a
+regression line to use the new <span class="math inline">xs</span> to
+predict the new <span class="math inline">ys</span>.</p>
+<p><br></p>
+<h3 id="problem-6.3">Problem 6.3</h3>
+<p>What is the slope of Anthony’s new regression line?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_3" aria-expanded="true" aria-controls="collapse6_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_3" class="accordion-collapse collapse"
+aria-labelledby="heading6_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: <span class="math inline">\frac{2}{5}</span></p>
+<p>To determine the slope of Anthony’s new regression line, we need to
+understand how the modifications he made to the dataset (subtracting 5
+hours from each x and y value) affect the slope. In simple linear
+regression, the slope of the regression line (<span class="math inline">m</span> in <span class="math inline">y = mx +
+b</span>) is calculated using the formula:</p>
+<p><span class="math display">m = r \cdot \frac{\text{SD of y}}{\text{SD
+of x}}</span></p>
+<p><span class="math inline">r</span>, the correlation coefficient
+between the two variables, remains unchanged in Anthony’s modifications.
+Remember, the correlation coefficient is the mean of the product of the
+<span class="math inline">x</span> values and <span class="math inline">y</span> values when both are measured in standard
+units; by subtracting the same constant amount from each <span class="math inline">x</span> value, we aren’t changing what the <span class="math inline">x</span> values convert to in standard units. If
+you’re not convinced, convert the following two arrays in Python to
+standard units; you’ll see that the results are the same.</p>
+<div id="cb1" class="sourceCode">
+<pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a>x1 <span class="op">=</span> np.array([<span class="dv">5</span>, <span class="dv">8</span>, <span class="dv">4</span>, <span class="dv">2</span>, <span class="dv">9</span>])</span>
+<span id="cb1-2"><a aria-hidden="true" href="#cb1-2" tabindex="-1"></a>x2 <span class="op">=</span> x1 <span class="op">-</span> <span class="dv">5</span></span></code></pre>
+</div>
+<p>Furthermore, Anthony’s modifications also don’t change the standard
+deviations of the <span class="math inline">x</span> values or <span class="math inline">y</span> values, since the <span class="math inline">x</span>s and <span class="math inline">y</span>s
+aren’t any more or less spread out after being shifted “down” by 5. So,
+since <span class="math inline">r</span>, <span class="math inline">\text{SD of }y</span>, and <span class="math inline">\text{SD of }x</span> are all unchanged, the slope
+of the new regression line is the same as the slope of the old
+regression line, pre-modification!</p>
+<p>Given the fact that the correlation coefficient is <span class="math inline">\frac{2}{5}</span> and the standard deviation of
+sunshine hours in January (<span class="math inline">\text{SD of
+}x</span>) is equal to the standard deviation of sunshine hours in July
+(<span class="math inline">\text{SD of }y</span>), we have</p>
+<p><span class="math display">m = r \cdot \frac{\text{SD of }y}{\text{SD
+of }x} = \frac{2}{5} \cdot 1 = \frac{2}{5}</span></p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 73%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<p><br></p>
+<h3 id="problem-6.4">Problem 6.4</h3>
+<p>Suppose the intercept of Raine’s original regression line – that is,
+before Anthony subtracted 5 from each <span class="math inline">x</span>
+and each <span class="math inline">y</span> – was 10. What is the
+intercept of Anthony’s new regression line?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> -7</p></li>
+<li><p><input type="radio" disabled="" /> -5</p></li>
+<li><p><input type="radio" disabled="" /> -3</p></li>
+<li><p><input type="radio" disabled="" /> 0</p></li>
+<li><p><input type="radio" disabled="" /> 3</p></li>
+<li><p><input type="radio" disabled="" /> 5</p></li>
+<li><p><input type="radio" disabled="" /> 7</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_4" aria-expanded="true" aria-controls="collapse6_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_4" class="accordion-collapse collapse"
+aria-labelledby="heading6_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: 7</p>
+<p>Let’s denote the original intercept as <span class="math inline">b</span> and the new intercept in the new dataset as
+<span class="math inline">b'</span>. The equation for the original
+regression line is <span class="math inline">y = mx + b</span>,
+where:</p>
+<ul>
+<li><span class="math inline">y</span> is a predicted number of sunshine
+hours in July, before 5 was subtracted from each number of hours.</li>
+<li><span class="math inline">m</span> is the slope of the line, which
+we know is <span class="math inline">\frac{2}{5}</span> from the
+previous part.</li>
+<li><span class="math inline">x</span> is a number of sunshine hours in
+January, before 5 was subtracted from each number of hours.</li>
+<li><span class="math inline">b</span> is the original intercept. This
+is 10.</li>
+</ul>
+<p>When Anthony subtracts 5 from each <span class="math inline">x</span>
+and <span class="math inline">y</span> value, the new regression line
+becomes <span class="math display">y - 5 = m \cdot (x - 5) +
+b'</span></p>
+<p>Expanding and rearrange this equation, we have</p>
+<p><span class="math display">y = mx - 5m + 5 + b'</span></p>
+<p>Remember, <span class="math inline">x</span> and <span class="math inline">y</span> here represent the number of sunshine hours
+in January and July, respectively, <em>before</em> Anthony subtracted 5
+from each number of hours. This means that the equation for <span class="math inline">y</span> above is equivalent to <span class="math inline">y = mx + b</span>. Comparing, we see that</p>
+<p><span class="math display">-5m + 5 + b' = b</span></p>
+<p>Since <span class="math inline">m = \frac{2}{5}</span> (from the
+previous part) and <span class="math inline">b = 10</span>, we have</p>
+<p><span class="math display">-5 \cdot \frac{2}{5} + 5 + b' = 10
+\implies b' = 10 - 5 + 2 = 7</span></p>
+<p>Therefore, the intercept of Anthony’s new regression line is 7.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 34%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<p>Jasmine is trying to get as far away from Anthony as possible and has
+a trip to Chicago planned after finals. Chicago is known for being very
+warm and sunny in the summer but cold, rainy, and snowy in the winter.
+She decides to build a regression line that uses month of the year
+(where 1 is January, 2 is February, 12 is December, etc.) to predict the
+number of sunshine hours in Chicago.</p>
+<hr />
+<h2 id="problem-7">Problem 7</h2>
+<p>The DataFrame <code>games</code> contains information about a sample
+of popular games. Besides other columns, there is a column
+<code>"Complexity"</code> that contains the average complexity of the
+game, a column <code>"Rating"</code> that contains the average rating of
+the game, and a column <code>"Play Time"</code> that contains the
+average play time of the game. <br><br></p>
+<p>We use the regression line to predict a game’s <code>"Rating"</code>
+based on its <code>"Complexity"</code>. We find that for the game
+<em>Wingspan</em>, which has a <code>"Complexity"</code> that is 2
+points higher than the average, the predicted <code>"Rating"</code> is 3
+points higher than the average.</p>
+<p><br></p>
+<h3 id="problem-7.1">Problem 7.1</h3>
+<p>What can you conclude about the correlation coefficient r?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <span class="math inline">r &lt; 0</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">r = 0</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">r &gt; 0</span></p></li>
+<li><p><input type="radio" disabled="" /> We cannot make any conclusions about the value of <span class="math inline">r</span> based on this information alone.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading7_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_1" aria-expanded="true" aria-controls="collapse7_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse7_1" class="accordion-collapse collapse"
+aria-labelledby="heading7_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> <span class="math inline">r &gt;
+0</span></p>
+<p>To answer this problem, it’s useful to recall the regression line in
+standard units:</p>
+<p><span class="math display">\text{predicted } y_{\text{(su)}} = r
+\cdot x_{\text{(su)}}</span></p>
+<p>If a value is positive in standard units, it means that it is above
+the average of the distribution that it came from, and if a value is
+negative in standard units, it means that it is below the average of the
+distribution that it came from. Since we’re told that <em>Wingspan</em>
+has a <code>"Complexity"</code> that is 2 points higher than the
+average, we know that <span class="math inline">x_{\text{(su)}}</span>
+is positive. Since we’re told that the predicted <code>"Rating"</code>
+is 3 points higher than the average, we know that <span class="math inline">\text{predicted } y_{\text{(su)}}</span> must also
+be positive. As a result, <span class="math inline">r</span> must also
+be positive, since you can’t multiply a positive number (<span class="math inline">x_{\text{(su)}}</span>) by a negative number and end
+up with another positive number.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 74%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-7.2">Problem 7.2</h3>
+<p>What can you conclude about the standard deviations of “Complexity”
+and “Rating”?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> SD of <code>"Complexity"</code> &lt; SD of <code>"Rating"</code></p></li>
+<li><p><input type="radio" disabled="" /> SD of <code>"Complexity"</code> = SD of <code>"Rating"</code></p></li>
+<li><p><input type="radio" disabled="" /> SD of <code>"Complexity"</code> &gt; SD of <code>"Rating"</code></p></li>
+<li><p><input type="radio" disabled="" /> We cannot make any conclusions about the relationship between these
+two standard deviations based on this information alone.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading7_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_2" aria-expanded="true" aria-controls="collapse7_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse7_2" class="accordion-collapse collapse"
+aria-labelledby="heading7_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> SD of <code>"Complexity"</code> &lt; SD of
+<code>"Rating"</code></p>
+<p>Since the distance of the predicted <code>"Rating"</code> from its
+average is larger than the distance of the <code>"Complexity"</code>
+from its average, it might be reasonable to guess that the values in the
+<code>"Rating"</code> column are more spread out. This is true, but
+let’s see concretely why that’s the case.</p>
+<p>Let’s start with the equation of the regression line in standard
+units from the previous subpart. Remember that here, <span class="math inline">x</span> refers to <code>"Complexity"</code> and
+<span class="math inline">y</span> refers to <code>"Rating"</code>.</p>
+<p><span class="math display">\text{predicted } y_{\text{(su)}} = r
+\cdot x_{\text{(su)}}</span></p>
+<p>We know that to convert a value to standard units, we subtract the
+value by the mean of the column it came from, and divide by the standard
+deviation of the column it came from. As such, <span class="math inline">x_{\text{(su)}} = \frac{x - \text{mean of }
+x}{\text{SD of } x}</span>. We can substitute this relationship in the
+regression line above, which gives us</p>
+<p><span class="math display">\frac{\text{predicted } y - \text{mean of
+} y}{\text{SD of } y} = r \cdot \frac{x - \text{mean of } x}{\text{SD of
+} x}</span></p>
+<p>To simplify things, let’s use what we were told. We were told that
+the predicted <code>"Rating"</code> was 3 points higher than average.
+This means that the numerator of the left side, <span class="math inline">\text{predicted } y - \text{mean of } y</span>, is
+equal to 3. Similarly, we were told that the <code>"Complexity"</code>
+was 2 points higher than average, so <span class="math inline">x -
+\text{mean of } x</span> is 2. Then, we have:</p>
+<p><span class="math display">\frac{3}{\text{SD of } y} =
+\frac{2r}{\text{SD of }x}</span></p>
+<p>Note that for convenience, we included <span class="math inline">r</span> in the numerator on the right-hand
+side.</p>
+<p>Remember that our goal is to compare the SD of <code>"Rating"</code>
+(<span class="math inline">y</span>) to the SD of
+<code>"Complexity"</code> (<span class="math inline">x</span>). We now
+have an equation that relates these two quantities! Since they’re both
+currently on the denominator, which can be tricky to work with, let’s
+take the reciprocal (i.e. “flip”) both fractions.</p>
+<p><span class="math display">\frac{\text{SD of } y}{3} = \frac{\text{SD
+of }x}{2r}</span></p>
+<p>Now, re-arranging gives us</p>
+<p><span class="math display">\text{SD of } y \cdot \frac{2r}{3} =
+\text{SD of }x</span></p>
+<p>Since we know that <span class="math inline">r</span> is somewhere
+between 0 and 1, we know that <span class="math inline">\frac{2r}{3}</span> is somewhere between 0 and <span class="math inline">\frac{2}{3}</span>. This means that <span class="math inline">\text{SD of } x</span> is somewhere between 0 and
+two-thirds of the value of <span class="math inline">\text{SD of }
+y</span>, which means that no matter what, <span class="math inline">\text{SD of } x &lt; \text{SD of } y</span>.
+Remembering again that here <code>"Complexity"</code> is our <span class="math inline">x</span> and <code>"Rating"</code> is our <span class="math inline">y</span>, we have that the SD of
+<code>"Complexity"</code> is less than the SD of
+<code>"Rating"</code>.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 42%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-8">Problem 8</h2>
+<p>Suppose that for children’s games, <code>"Play Time"</code> and
+<code>"Rating"</code> are negatively linearly associated due to children
+having short attention spans. Suppose that for children’s games, the
+standard deviation of <code>"Play Time"</code> is twice the standard
+deviation of <code>"Rating"</code>, and the average
+<code>"Play Time"</code> is 10 minutes. We use linear regression to
+predict the <code>"Rating"</code> of a children’s game based on its
+<code>"Play Time"</code>. The regression line predicts that <em>Don’t
+Break the Ice</em>, a children’s game with a <code>"Play Time"</code> of
+8 minutes will have a <code>"Rating"</code> of 4. Which of the following
+could be the average <code>"Rating"</code> for children’s games?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> 2</p></li>
+<li><p><input type="radio" disabled="" /> 2.8</p></li>
+<li><p><input type="radio" disabled="" /> 3.1</p></li>
+<li><p><input type="radio" disabled="" /> 4</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading8">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8" aria-expanded="true" aria-controls="collapse8">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse8" class="accordion-collapse collapse"
+aria-labelledby="heading8" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> 3.1</p>
+<p>Let’s recall the formulas for the regression line in original units,
+since we’re given information in original units in this question (such
+as the fact that for a <code>"Play Time"</code> of 8
+<strong>minutes</strong>, the predicted <code>"Rating"</code> is 4
+stars). Remember that throughout this question, <code>"Play Time"</code>
+is our <span class="math inline">x</span> and <code>"Rating"</code> is
+our <span class="math inline">y</span>.</p>
+<p>The regression line is of the form <span class="math inline">y = mx +
+b</span>, where</p>
+<p><span class="math display">m = r \cdot \frac{\text{SD of }
+y}{\text{SD of }x}, b = \text{mean of }y - m \cdot \text{mean of }
+x</span></p>
+<p>There’s a lot of information provided to us in the question – let’s
+think about what it means in the context of our <span class="math inline">x</span>s and <span class="math inline">y</span>s.</p>
+<ul>
+<li>The first piece is that <span class="math inline">r</span> is
+negative, so <span class="math inline">-1 \leq r &lt; 0</span>.</li>
+<li>The second piece is that <span class="math inline">\text{SD of } x =
+2 \cdot (\text{SD of } y)</span>. Equivalently, we can say that <span class="math inline">\frac{\text{SD of } y}{\text{SD of } x} =
+\frac{1}{2}</span>. This form is convenient, because it’s close to the
+definition of the slope of the regression line, <span class="math inline">m</span>. Using this fact, the slope of the
+regression line is <span class="math inline">m = r \cdot \frac{\text{SD
+of } y}{\text{SD of }x} = r \cdot \frac{1}{2} = \frac{r}{2}</span>.</li>
+<li>The <span class="math inline">\text{mean of } x</span> is 10. This
+means that the intercept of the regression line, <span class="math inline">b</span>, is <span class="math inline">b =
+\text{mean of }y - m \cdot \text{mean of } x = \text{mean of }y -
+\frac{r}{2} \cdot 10 = \text{mean of }y - 5r</span>.</li>
+<li>If <span class="math inline">x</span> is 8, the predicted <span class="math inline">y</span> is 4.</li>
+</ul>
+<p>Given all of this information, we need to find possible values for
+the <span class="math inline">\text{mean of } y</span>. Substituting our
+known values for <span class="math inline">m</span> and <span class="math inline">b</span> into <span class="math inline">y = mx +
+b</span> gives us</p>
+<p><span class="math display">y = \frac{r}{2} x + \text{mean of }y -
+5r</span></p>
+<p>Now, using the fact that if if <span class="math inline">x =
+8</span>, the predicted <span class="math inline">y</span> is 4, we
+have</p>
+<p><span class="math display">\begin{align*}4 &amp;= \frac{r}{2} \cdot 8
++ \text{mean of }y - 5r\\4 &amp;= 4r - 5r + \text{mean of }y\\ 4 + r
+&amp;= \text{mean of} y\end{align*}</span></p>
+<p>Cool! We now know that the <span class="math inline">\text{mean of }
+y</span> is <span class="math inline">4 + r</span>. We know that <span class="math inline">r</span> must satisfy the relationship <span class="math inline">-1 \leq r &lt; 0</span>. By adding 4 to all pieces
+of this inequality, we have that <span class="math inline">3 \leq r + 4
+&lt; 4</span>, which means that <span class="math inline">3 \leq
+\text{mean of } y &lt; 4</span>. Of the four options provided, only one
+is greater than or equal to 3 and less than 4, which is 3.1.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 55%.</p>
+</div>
+</div>
+</div>
+</div>
+<hr />
+<h2 id="problem-9">Problem 9</h2>
+<p>The American Kennel Club (AKC) organizes information about dog
+breeds. We’ve loaded their dataset into a DataFrame called
+<code>df</code>. The index of <code>df</code> contains the dog breed
+names as <code>str</code> values. Besides other columns, there is a
+column <code>'weight' (float)</code> that contains typical weight (kg)
+and a column <code>'height' (float)</code> that contains typical height
+(cm). <br><br> Sam wants to fit a linear model to predict a dog’s height
+using its weight.</p>
+<p>He first runs the following code:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> df.get(<span class="st">&#39;weight&#39;</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> df.get(<span class="st">&#39;height&#39;</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> su(vals):</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (vals <span class="op">-</span> vals.mean()) <span class="op">/</span> np.std(vals)</span></code></pre></div>
+<p><br></p>
+<h3 id="problem-9.1">Problem 9.1</h3>
+<p>Select all of the Python snippets that correctly compute the
+correlation coefficient into the variable <code>r</code>.</p>
+<p>Snippet 1:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> (su(x) <span class="op">*</span> su(y)).mean()</span></code></pre></div>
+<p>Snippet 2:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> su(x <span class="op">*</span> y).mean()</span></code></pre></div>
+<p>Snippet 3:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(x)):</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    t <span class="op">=</span> t <span class="op">+</span> su(x[i]) <span class="op">*</span> su(y[i])</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> t <span class="op">/</span> <span class="bu">len</span>(x)</span></code></pre></div>
+<p>Snippet 4:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> np.array([])</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(x)):</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    t <span class="op">=</span> np.append(t, su(x)[i] <span class="op">*</span> su(y)[i])</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> t.mean()</span></code></pre></div>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> Snippet 1</p></li>
+<li><p><input type="checkbox" disabled="" /> Snippet 2</p></li>
+<li><p><input type="checkbox" disabled="" /> Snippet 3</p></li>
+<li><p><input type="checkbox" disabled="" /> Snippet 4</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading9_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_1" aria-expanded="true" aria-controls="collapse9_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse9_1" class="accordion-collapse collapse"
+aria-labelledby="heading9_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> Snippet 1 &amp; 4</p>
+<ul>
+<li><p>Snippet 1: Recall from the reference sheet, the correlation
+coefficient is <code>r = (su(x) * su(y)).mean()</code>.</p></li>
+<li><p>Snippet 2: We have to standardize each variable seperately so
+this snippet doesnt work.</p></li>
+<li><p>Snippet 3: Note that for this snippet we’re standardizing each
+data point within each variable seperately, and so we’re not really
+standardizing the entire variable correctly. In other words, applying
+<code>su(x[i])</code> to a singular data point is just going to convert
+this data point to zero, since we’re only inputting one data point into
+<code>su()</code>.</p></li>
+<li><p>Snippet 4: Note that this code is just the same as Snippet 1,
+except we’re now directly computing the product of each corresponding
+data points individually. Hence this Snippet works.</p></li>
+</ul>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 81%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-9.2">Problem 9.2</h3>
+<p>Sam computes the following statistics for his sample:</p>
+<center><img src='../assets/images/su22-final/q10_b.png' width=30%></center>
+<p>The best-fit line predicts that a dog with a weight of 10 kg has a
+height of 45 cm.</p>
+<p>What is the SD of dog heights?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> 2</p></li>
+<li><p><input type="radio" disabled="" /> 4.5</p></li>
+<li><p><input type="radio" disabled="" /> 10</p></li>
+<li><p><input type="radio" disabled="" /> 25</p></li>
+<li><p><input type="radio" disabled="" /> 45</p></li>
+<li><p><input type="radio" disabled="" /> None of the above</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading9_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_2" aria-expanded="true" aria-controls="collapse9_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse9_2" class="accordion-collapse collapse"
+aria-labelledby="heading9_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> Option 3: 10</p>
+<p>The best fit line in original units are given by
+<code>y = mx + b</code> where <code>m = r * (SD of y) / (SD of x)</code>
+and <code>b = (mean of y) - m * (mean of x)</code> (refer to reference
+sheet). Let <code>c</code> be the STD of y, which we’re trying to find,
+then our best fit line is now <span class="math inline">y = (0.8*c/8)x +
+(50-(0.8*c/8)*15)</span>. Plugging the two values they gave us into our
+best fit line and simplifying gives <span class="math inline">45 =
+0.1*c*10 + (50 - 1.5*c)</span> which simplifies to <span class="math inline">45 = 50 - 0.5*c</span> which gives us an answer of
+<code>c = 10</code>. </p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>The average score
+on this problem was 89%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-9.3">Problem 9.3</h3>
+<p>Assume that the statistics in part b) still hold. Select all of the
+statements below that are true. (You don’t need to finish part b) in
+order to solve this question.)</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> The relationship between dog weight and height is linear.</p></li>
+<li><p><input type="checkbox" disabled="" /> The root mean squared error of the best-fit line is smaller than
+5.</p></li>
+<li><p><input type="checkbox" disabled="" /> The best-fit line predicts that a dog that weighs 15 kg will be 50 cm
+tall.</p></li>
+<li><p><input type="checkbox" disabled="" /> The best-fit line predicts that a dog that weighs 10 kg will be
+shorter than 50 cm.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading9_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_3" aria-expanded="true" aria-controls="collapse9_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse9_3" class="accordion-collapse collapse"
+aria-labelledby="heading9_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> Option 3 &amp; 4</p>
+<ul>
+<li><p>Option 1: We cannot determine whether two variables are linear
+simply from a line of best fit. The line of best fit just happens to
+find the best linear relationship between two varaibles, not whether or
+not the variables have a linear relationship.</p></li>
+<li><p>Option 2: To calculate the root mean squared error, we need the
+actual data points so we can calculate residual values. Seeing that we
+don’t have access to the data points, we cannot say that the root mean
+squared error of the best-fit line is smaller than 5.</p></li>
+<li><p>Option 3: This is true accrding to the problem statement given in
+part b</p></li>
+<li><p>Option 4: This is true since we expect there to be a positive
+correlation between dog height and weight. So dogs that are lighter will
+also most likely be shorter. (ie a dog that is lighter than 15 kg will
+most likely be shorter than 50cm)</p></li>
+</ul>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 72%.</p>
 </div>
 </div>
 </div>
