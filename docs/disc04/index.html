@@ -139,180 +139,16 @@ problems here in the live discussion section</b>; the problems we don’t
 cover can be used for extra practice.</p>
 <hr />
 <h2 id="problem-1">Problem 1</h2>
-<p>King Triton, UCSD’s mascot, is quite the traveler! For this question,
-we will be working with the <code>flights</code> DataFrame, which
-details several facts about each of the flights that King Triton has
-been on over the past few years. The first few rows of
-<code>flights</code> are shown below.</p>
-<center><img src='../assets/images/fa21-midterm/flights.png' width=40%></center>
-<p><br></p>
-<p>Here’s a description of the columns in <code>flights</code>:</p>
-<ul>
-<li><code>'DATE'</code>: the date on which the flight occurred. Assume
-that there were no “redeye” flights that spanned multiple days.</li>
-<li><code>'FLIGHT'</code>: the flight number. Note that this is not
-unique; airlines reuse flight numbers on a daily basis.</li>
-<li><code>'FROM'</code> and <code>'TO'</code>: the 3-letter airport code
-for the departure and arrival airports, respectively. Note that it’s not
-possible to have a flight from and to the same airport.</li>
-<li><code>'DIST'</code>: the distance of the flight, in miles.</li>
-<li><code>'HOURS'</code>: the length of the flight, in hours.</li>
-<li><code>'SEAT'</code>: the kind of seat King Triton sat in on the
-flight; the only possible values are <code>'WINDOW'</code>,
-<code>'MIDDLE'</code>, and <code>'AISLE'</code>. <br><br></li>
-</ul>
-<p>Suppose we create a DataFrame called <code>socal</code> containing
-only King Triton’s flights departing from SAN, LAX, or SNA (John Wayne
-Airport in Orange County). <code>socal</code> has 10 rows; the bar chart
-below shows how many of these 10 flights departed from each airport.</p>
-<center><img src='../assets/images/fa21-midterm/socal.png' width=30%></center>
-<p><br></p>
-<p>Consider the DataFrame that results from merging <code>socal</code>
-with itself, as follows:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>double_merge <span class="op">=</span> socal.merge(socal, left_on<span class="op">=</span><span class="st">&#39;FROM&#39;</span>, right_on<span class="op">=</span><span class="st">&#39;FROM&#39;</span>)</span></code></pre></div>
-<p>How many rows does <code>double_merge</code> have?</p>
-<hr />
-<h2 id="problem-2">Problem 2</h2>
-<p>We define a “route” to be a departure and arrival airport pair. For
-example, all flights from <code>'SFO'</code> to <code>'SAN'</code> make
-up the “SFO to SAN route”. This is different from the “SAN to SFO
-route”.</p>
-<p>Fill in the blanks below so that
-<code>most_frequent.get('FROM').iloc[0]</code> and
-<code>most_frequent.get('TO').iloc[0]</code> correspond to the departure
-and destination airports of the route that King Triton has spent the
-<strong>most time flying on</strong>.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>most_frequent <span class="op">=</span> flights.groupby(__(a)__).__(b)__</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>most_frequent <span class="op">=</span> most_frequent.reset_index().sort_values(__(c)__)</span></code></pre></div>
-<p><br></p>
-<h3 id="problem-2.1">Problem 2.1</h3>
-<p>What goes in blank (a)?</p>
-<p><br></p>
-<h3 id="problem-2.2">Problem 2.2</h3>
-<p>What goes in blank (b)?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> <code>count()</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>mean()</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>sum()</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>max()</code></p></li>
-</ul>
-<p><br></p>
-<h3 id="problem-2.3">Problem 2.3</h3>
-<p>What goes in blank (c)?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> <code>by='HOURS', ascending=True</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>by='HOURS', ascending=False</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>by='HOURS', descending=True</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>by='DIST', ascending=False</code></p></li>
-</ul>
-<p><br></p>
-<hr />
-<h2 id="problem-3">Problem 3</h2>
-<p>We define the seasons as follows:</p>
-<center>
-<table class="table" style="width:30%">
-  <thead>
-    <tr>
-      <th scope="col">Season</th>
-      <th scope="col">Month</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">Spring</th>
-      <td>March, April, May</td>
-    </tr>
-    <tr>
-      <th scope="row">Summer</th>
-      <td>June, July, August</td>
-    </tr>
-    <tr>
-      <th scope="row">Fall</th>
-      <td>September, October, November</td>
-    </tr>
-    <tr>
-      <th scope="row">Winter</th>
-      <td>December, January, February</td>
-    </tr>
-  </tbody>
-</table>
-</center>
-<p><br></p>
-<h3 id="problem-3.1">Problem 3.1</h3>
-<p>We want to create a function <code>date_to_season</code> that takes
-in a <code>date</code> as formatted in the <code>'DATE'</code> column of
-<code>flights</code> and returns the season corresponding to that date.
-Which of the following implementations of <code>date_to_season</code>
-works correctly? <strong>Select all that apply.</strong></p>
-<p>Option 1:</p>
-<div class="sourceCode" id="cb3"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> date_to_season(date):</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    month_as_num <span class="op">=</span> <span class="bu">int</span>(date.split(<span class="st">&#39;-&#39;</span>)[<span class="dv">1</span>])</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> month_as_num <span class="op">&gt;=</span> <span class="dv">3</span> <span class="kw">and</span> month_as_num <span class="op">&lt;</span> <span class="dv">6</span>:</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Spring&#39;</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> month_as_num <span class="op">&gt;=</span> <span class="dv">6</span> <span class="kw">and</span> month_as_num <span class="op">&lt;</span> <span class="dv">9</span>:</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Summer&#39;</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> month_as_num <span class="op">&gt;=</span> <span class="dv">9</span> <span class="kw">and</span> month_as_num <span class="op">&lt;</span> <span class="dv">12</span>:</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Fall&#39;</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Winter&#39;</span></span></code></pre></div>
-<p>Option 2:</p>
-<div class="sourceCode" id="cb4"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> date_to_season(date):</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    month_as_num <span class="op">=</span> <span class="bu">int</span>(date.split(<span class="st">&#39;-&#39;</span>)[<span class="dv">1</span>])</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> month_as_num <span class="op">&gt;=</span> <span class="dv">3</span> <span class="kw">and</span> month_as_num <span class="op">&lt;</span> <span class="dv">6</span>:</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Spring&#39;</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> month_as_num <span class="op">&gt;=</span> <span class="dv">6</span> <span class="kw">and</span> month_as_num <span class="op">&lt;</span> <span class="dv">9</span>:</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Summer&#39;</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> month_as_num <span class="op">&gt;=</span> <span class="dv">9</span> <span class="kw">and</span> month_as_num <span class="op">&lt;</span> <span class="dv">12</span>:</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Fall&#39;</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Winter&#39;</span></span></code></pre></div>
-<p>Option 3:</p>
-<div class="sourceCode" id="cb5"><pre
-class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> date_to_season(date):</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    month_as_num <span class="op">=</span> <span class="bu">int</span>(date.split(<span class="st">&#39;-&#39;</span>)[<span class="dv">1</span>])</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> month_as_num <span class="op">&lt;</span> <span class="dv">3</span>:</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Winter&#39;</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> month_as_num <span class="op">&lt;</span> <span class="dv">6</span>:</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Spring&#39;</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> month_as_num <span class="op">&lt;</span> <span class="dv">9</span>:</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Summer&#39;</span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> month_as_num <span class="op">&lt;</span> <span class="dv">12</span>:</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Fall&#39;</span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Winter&#39;</span> </span></code></pre></div>
-<ul class="task-list">
-<li><p><input type="checkbox" disabled="" /> Option 1</p></li>
-<li><p><input type="checkbox" disabled="" /> Option 2</p></li>
-<li><p><input type="checkbox" disabled="" /> Option 3</p></li>
-<li><p><input type="checkbox" disabled="" /> None of these implementations of <code>date_to_season</code> work
-correctly</p></li>
-</ul>
-<p><br></p>
-<h3 id="problem-3.2">Problem 3.2</h3>
-<p>Assuming we’ve defined <code>date_to_season</code> correctly in the
-previous part, which of the following lines of code correctly computes
-the season for each flight in <code>flights</code>?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> <code>date_to_season(flights.get('DATE'))</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>date_to_season.apply(flights).get('DATE')</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>flights.apply(date_to_season).get('DATE')</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>flights.get('DATE').apply(date_to_season)</code></p></li>
-</ul>
-<p><br></p>
-<hr />
-<h2 id="problem-4">Problem 4</h2>
 <p>In the <code>ikea</code> DataFrame, the first word of each string in
 the <code>'product'</code> column represents the product line. For
 example the HEMNES line of products includes several different products,
 such as beds, dressers, and bedside tables.</p>
 <p>The code below assigns a new column to the <code>ikea</code>
 DataFrame containing the product line associated with each product.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>(ikea.assign(product_line <span class="op">=</span> ikea.get(<span class="st">&#39;product&#39;</span>)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>                                .<span class="bu">apply</span>(extract_product_line)))</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>(ikea.assign(product_line <span class="op">=</span> ikea.get(<span class="st">&#39;product&#39;</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>                                .<span class="bu">apply</span>(extract_product_line)))</span></code></pre></div>
 <p><br></p>
-<h3 id="problem-4.1">Problem 4.1</h3>
+<h3 id="problem-1.1">Problem 1.1</h3>
 <p>What are the input and output types of the
 <code>extract_product_line</code> function?</p>
 <ul class="task-list">
@@ -322,18 +158,18 @@ DataFrame containing the product line associated with each product.</p>
 <li><p><input type="radio" disabled="" /> takes a Series as input, returns a Series</p></li>
 </ul>
 <p><br></p>
-<h3 id="problem-4.2">Problem 4.2</h3>
+<h3 id="problem-1.2">Problem 1.2</h3>
 <p>Complete the return statement in the
 <code>extract_product_line</code> function below.</p>
 <p>For example,
 <code>extract_product_line('HEMNES Daybed frame with 3 drawers, white, Twin')</code>
 should return <code>'HEMNES'</code>.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> extract_product_line(x):</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> _________</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> extract_product_line(x):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> _________</span></code></pre></div>
 <p>What goes in the blank?</p>
 <p><br></p>
 <hr />
-<h2 id="problem-5">Problem 5</h2>
+<h2 id="problem-2">Problem 2</h2>
 <p>Complete the implementation of the <code>to_minutes</code> function
 below. This function takes as input a string formatted as
 <code>'x hr, y min'</code> where <code>x</code> and <code>y</code>
@@ -341,25 +177,25 @@ represent integers, and returns the corresponding number of minutes,
 <strong>as an integer</strong> (type <code>int</code> in Python).</p>
 <p>For example, <code>to_minutes('3 hr, 5 min')</code> should return
 185.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> to_minutes(time):</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    first_split <span class="op">=</span> time.split(<span class="st">&#39; hr, &#39;</span>)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    second_split <span class="op">=</span> first_split[<span class="dv">1</span>].split(<span class="st">&#39; min&#39;</span>)</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> _________</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> to_minutes(time):</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    first_split <span class="op">=</span> time.split(<span class="st">&#39; hr, &#39;</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    second_split <span class="op">=</span> first_split[<span class="dv">1</span>].split(<span class="st">&#39; min&#39;</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> _________</span></code></pre></div>
 <p>What goes in the blank?</p>
 <hr />
-<h2 id="problem-6">Problem 6</h2>
+<h2 id="problem-3">Problem 3</h2>
 <p>Consider the function <code>tom_nook</code>, defined below. Recall
 that if <code>x</code> is an integer, <code>x % 2</code> is
 <code>0</code> if <code>x</code> is even and <code>1</code> if
 <code>x</code> is odd.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> tom_nook(crossing):</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    bells <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> nook <span class="kw">in</span> np.arange(crossing):</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> nook <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span>:</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>            bells <span class="op">=</span> bells <span class="op">+</span> <span class="dv">1</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>            bells <span class="op">=</span> bells <span class="op">-</span> <span class="dv">2</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> bells</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> tom_nook(crossing):</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    bells <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> nook <span class="kw">in</span> np.arange(crossing):</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> nook <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>            bells <span class="op">=</span> bells <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>            bells <span class="op">=</span> bells <span class="op">-</span> <span class="dv">2</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> bells</span></code></pre></div>
 <p>What value does <code>tom_nook(8)</code> evaluate to?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> -6</p></li>
@@ -371,7 +207,7 @@ that if <code>x</code> is an integer, <code>x % 2</code> is
 <li><p><input type="radio" disabled="" /> 6</p></li>
 </ul>
 <hr />
-<h2 id="problem-7">Problem 7</h2>
+<h2 id="problem-4">Problem 4</h2>
 <p>The DataFrame <code>evs</code> consists of 32 rows, each of which
 contains information about a different EV model.</p>
 <p>The first few rows of <code>evs</code> are shown below.</p>
@@ -382,12 +218,11 @@ contains information about a different EV model.</p>
 “BodyStyle” for all “Brands” in <code>evs</code>, other than Nissan.</p>
 <center><img src='../assets/images/fa22-midterm/midq6.png' width=50%></center>
 <p>Suppose weâ€™ve run the following few lines of code.</p>
-<div class="sourceCode" id="cb10"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>tesla <span class="op">=</span> evs[evs.get(<span class="st">&quot;Brand&quot;</span>) <span class="op">==</span> <span class="st">&quot;Tesla&quot;</span>]</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>bmw <span class="op">=</span> evs[evs.get(<span class="st">&quot;Brand&quot;</span>) <span class="op">==</span> <span class="st">&quot;BMW&quot;</span>]</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>audi <span class="op">=</span> evs[evs.get(<span class="st">&quot;Brand&quot;</span>) <span class="op">==</span> <span class="st">&quot;Audi&quot;</span>]</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>combo <span class="op">=</span> tesla.merge(bmw, on<span class="op">=</span><span class="st">&quot;BodyStyle&quot;</span>).merge(audi, on<span class="op">=</span><span class="st">&quot;BodyStyle&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>tesla <span class="op">=</span> evs[evs.get(<span class="st">&quot;Brand&quot;</span>) <span class="op">==</span> <span class="st">&quot;Tesla&quot;</span>]</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>bmw <span class="op">=</span> evs[evs.get(<span class="st">&quot;Brand&quot;</span>) <span class="op">==</span> <span class="st">&quot;BMW&quot;</span>]</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>audi <span class="op">=</span> evs[evs.get(<span class="st">&quot;Brand&quot;</span>) <span class="op">==</span> <span class="st">&quot;Audi&quot;</span>]</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>combo <span class="op">=</span> tesla.merge(bmw, on<span class="op">=</span><span class="st">&quot;BodyStyle&quot;</span>).merge(audi, on<span class="op">=</span><span class="st">&quot;BodyStyle&quot;</span>)</span></code></pre></div>
 <p>How many rows does the DataFrame <code>combo</code> have?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> 21</p></li>
@@ -398,40 +233,38 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href=
 <li><p><input type="radio" disabled="" /> 96</p></li>
 </ul>
 <hr />
-<h2 id="problem-8">Problem 8</h2>
+<h2 id="problem-5">Problem 5</h2>
 <p>The <code>sums</code> function takes in an array of numbers and
 outputs the cumulative sum for each item in the array. The cumulative
 sum for an element is the current element plus the sum of all the
 previous elements in the array.</p>
 <p>For example:</p>
-<div class="sourceCode" id="cb11"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> sums(np.array([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]))</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>array([<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">10</span>, <span class="dv">15</span>])</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> sums(np.array([<span class="dv">100</span>, <span class="dv">1</span>, <span class="dv">1</span>]))</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>array([<span class="dv">100</span>, <span class="dv">101</span>, <span class="dv">102</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> sums(np.array([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]))</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>array([<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">10</span>, <span class="dv">15</span>])</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> sums(np.array([<span class="dv">100</span>, <span class="dv">1</span>, <span class="dv">1</span>]))</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>array([<span class="dv">100</span>, <span class="dv">101</span>, <span class="dv">102</span>])</span></code></pre></div>
 <p>The incomplete definition of <code>sums</code> is shown below.</p>
-<div class="sourceCode" id="cb12"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> sums(arr):</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    res <span class="op">=</span> _________</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>             (a)</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    res <span class="op">=</span> np.append(res, arr[<span class="dv">0</span>])</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> _________:</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>                (b)</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>        res <span class="op">=</span> np.append(res, _________)</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>                                (c)</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> res</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> sums(arr):</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    res <span class="op">=</span> _________</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>             (a)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    res <span class="op">=</span> np.append(res, arr[<span class="dv">0</span>])</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> _________:</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>                (b)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>        res <span class="op">=</span> np.append(res, _________)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>                                (c)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> res</span></code></pre></div>
 <p><br></p>
-<h3 id="problem-8.1">Problem 8.1</h3>
+<h3 id="problem-5.1">Problem 5.1</h3>
 <p>Fill in blank (a).</p>
 <p><br></p>
-<h3 id="problem-8.2">Problem 8.2</h3>
+<h3 id="problem-5.2">Problem 5.2</h3>
 <p>Fill in blank (b).</p>
 <p><br></p>
-<h3 id="problem-8.3">Problem 8.3</h3>
+<h3 id="problem-5.3">Problem 5.3</h3>
 <p>Fill in blank (c).</p>
 <p><br></p>
 <hr />
-<h2 id="problem-9">Problem 9</h2>
+<h2 id="problem-6">Problem 6</h2>
 <p>Teresa and Sophia are bored while waiting in line at Bistro and
 decide to start flipping a UCSD-themed coin, with a picture of King
 Triton’s face as the heads side and a picture of his mermaid-like tail
@@ -457,15 +290,14 @@ times and <code>"Tails"</code> 7 times.</p></li>
 times.</p></li>
 </ul>
 <p><br></p>
-<h3 id="problem-9.1">Problem 9.1</h3>
+<h3 id="problem-6.1">Problem 6.1</h3>
 <p>How many rows are in the following DataFrame? Give your answer as an
 integer.</p>
-<div class="sourceCode" id="cb13"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>    teresa.merge(sophia, on<span class="op">=</span><span class="st">&quot;flips&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>    teresa.merge(sophia, on<span class="op">=</span><span class="st">&quot;flips&quot;</span>)</span></code></pre></div>
 <p><em>Hint: The answer is less than 200.</em></p>
 <p><br></p>
 <p><br></p>
-<h3 id="problem-9.2">Problem 9.2</h3>
+<h3 id="problem-6.2">Problem 6.2</h3>
 <p>Let <span class="math inline">A</span> be your answer to the previous
 part. Now, suppose that:</p>
 <ul>
@@ -489,7 +321,7 @@ DataFrame?</p>
 </ul>
 <p><br></p>
 <hr />
-<h2 id="problem-10">Problem 10</h2>
+<h2 id="problem-7">Problem 7</h2>
 <p>In recent years, there has been an explosion of board games that
 teach computer programming skills, including <em>CoderMindz</em>,
 <em>Robot Turtles</em>, and <em>Code Monkey Island</em>. Many such games
@@ -498,28 +330,27 @@ were made possible by Kickstarter crowdfunding campaigns.</p>
 of functions and conditional statements by answering questions about the
 function <code>wham</code>, defined below. Like players of this game,
 you’ll also need to answer questions about this function.</p>
-<div class="sourceCode" id="cb14"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="kw">def</span> wham(a, b):</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>   <span class="cf">if</span> a <span class="op">&lt;</span> b:</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>       <span class="cf">return</span> a <span class="op">+</span> <span class="dv">2</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span>   <span class="cf">if</span> a <span class="op">+</span> <span class="dv">2</span> <span class="op">==</span> b:</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span>       <span class="bu">print</span>(a <span class="op">+</span> <span class="dv">3</span>)</span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span>       <span class="cf">return</span> b <span class="op">+</span> <span class="dv">1</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span>   <span class="cf">elif</span> a <span class="op">-</span> <span class="dv">1</span> <span class="op">&gt;</span> b:</span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="dv">8</span>       <span class="bu">print</span>(a)</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="dv">9</span>       <span class="cf">return</span> a <span class="op">+</span> <span class="dv">2</span></span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span>  <span class="cf">else</span>:</span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="dv">11</span>      <span class="cf">return</span> a <span class="op">+</span> <span class="dv">1</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="kw">def</span> wham(a, b):</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>   <span class="cf">if</span> a <span class="op">&lt;</span> b:</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>       <span class="cf">return</span> a <span class="op">+</span> <span class="dv">2</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span>   <span class="cf">if</span> a <span class="op">+</span> <span class="dv">2</span> <span class="op">==</span> b:</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span>       <span class="bu">print</span>(a <span class="op">+</span> <span class="dv">3</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span>       <span class="cf">return</span> b <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span>   <span class="cf">elif</span> a <span class="op">-</span> <span class="dv">1</span> <span class="op">&gt;</span> b:</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="dv">8</span>       <span class="bu">print</span>(a)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="dv">9</span>       <span class="cf">return</span> a <span class="op">+</span> <span class="dv">2</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span>  <span class="cf">else</span>:</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="dv">11</span>      <span class="cf">return</span> a <span class="op">+</span> <span class="dv">1</span></span></code></pre></div>
 <p><br></p>
-<h3 id="problem-10.1">Problem 10.1</h3>
+<h3 id="problem-7.1">Problem 7.1</h3>
 <p>What is printed when we run <code>print(wham(6, 4))</code>?</p>
 <p><br></p>
-<h3 id="problem-10.2">Problem 10.2</h3>
+<h3 id="problem-7.2">Problem 7.2</h3>
 <p>Give an example of a pair of integers <code>a</code> and
 <code>b</code> such that <code>wham(a, b)</code> returns
 <code>a + 1</code>.</p>
 <p><br></p>
-<h3 id="problem-10.3">Problem 10.3</h3>
+<h3 id="problem-7.3">Problem 7.3</h3>
 <p>Which of the following lines of code will never be executed, for any
 input?</p>
 <ul class="task-list">
@@ -530,7 +361,7 @@ input?</p>
 </ul>
 <p><br></p>
 <hr />
-<h2 id="problem-11">Problem 11</h2>
+<h2 id="problem-8">Problem 8</h2>
 <p>We’ll be looking at a DataFrame named <code>sungod</code> that
 contains information on the artists who have performed at Sun God in
 years past. <strong>For each year that the festival was held, we have
@@ -567,8 +398,8 @@ That is, earlier years should come before later years, and within a
 single year, artists should appear in the DataFrame in the order they
 appeared on stage at Sun God. Note that <code>groupby</code>
 automatically sorts the index in ascending order.</p>
-<div class="sourceCode" id="cb15"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>chronological <span class="op">=</span> sungod.groupby(___________).<span class="bu">max</span>().reset_index()</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>chronological <span class="op">=</span> sungod.groupby(___________).<span class="bu">max</span>().reset_index()</span></code></pre></div>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> <code>['Year', 'Artist', 'Appearance_Order']</code></p></li>
 <li><p><input type="radio" disabled="" /> <code>['Year', 'Appearance_Order']</code></p></li>
@@ -576,7 +407,7 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb15-1"><a href=
 <li><p><input type="radio" disabled="" /> None of the above.</p></li>
 </ul>
 <hr />
-<h2 id="problem-12">Problem 12</h2>
+<h2 id="problem-9">Problem 9</h2>
 <p>Another DataFrame called <code>music</code> contains a row for every
 music artist that has ever released a song. The columns are:</p>
 <ul>
@@ -600,7 +431,7 @@ determine the answer?</p>
 <li><p><input type="radio" disabled="" /> <code>merged = music.merge(sungod, left_on='Artist', right_on='Name')</code></p></li>
 </ul>
 <hr />
-<h2 id="problem-13">Problem 13</h2>
+<h2 id="problem-10">Problem 10</h2>
 <p>Consider an artist that has only appeared once at Sun God. At the
 time of their Sun God performance, we’ll call the artist</p>
 <ul>
@@ -613,23 +444,189 @@ appeared at Sun God.</li>
 </ul>
 <p>Complete the function below so it outputs the appropriate description
 for any input artist who has appeared exactly once at Sun God.</p>
-<div class="sourceCode" id="cb16"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> classify_artist(artist):</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    filtered <span class="op">=</span> merged[merged.get(<span class="st">&#39;Artist&#39;</span>) <span class="op">==</span> artist]</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    year <span class="op">=</span> filtered.get(<span class="st">&#39;Year&#39;</span>).iloc[<span class="dv">0</span>]</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    top_hit_year <span class="op">=</span> filtered.get(<span class="st">&#39;Top_Hit_Year&#39;</span>).iloc[<span class="dv">0</span>]</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> ___(a)___ <span class="op">&gt;</span> <span class="dv">0</span>:</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;up-and-coming&#39;</span></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> ___(b)___:</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;outdated&#39;</span></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;trending&#39;</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> classify_artist(artist):</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    filtered <span class="op">=</span> merged[merged.get(<span class="st">&#39;Artist&#39;</span>) <span class="op">==</span> artist]</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    year <span class="op">=</span> filtered.get(<span class="st">&#39;Year&#39;</span>).iloc[<span class="dv">0</span>]</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    top_hit_year <span class="op">=</span> filtered.get(<span class="st">&#39;Top_Hit_Year&#39;</span>).iloc[<span class="dv">0</span>]</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> ___(a)___ <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;up-and-coming&#39;</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> ___(b)___:</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;outdated&#39;</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;trending&#39;</span></span></code></pre></div>
 <p><br></p>
-<h3 id="problem-13.1">Problem 13.1</h3>
+<h3 id="problem-10.1">Problem 10.1</h3>
 <p>What goes in blank (a)?</p>
 <p><br> <br></p>
-<h3 id="problem-13.2">Problem 13.2</h3>
+<h3 id="problem-10.2">Problem 10.2</h3>
 <p>What goes in blank (b)?</p>
+<p><br></p>
+<hr />
+<h2 id="problem-11">Problem 11</h2>
+<p>King Triton, UCSD’s mascot, is quite the traveler! For this question,
+we will be working with the <code>flights</code> DataFrame, which
+details several facts about each of the flights that King Triton has
+been on over the past few years. The first few rows of
+<code>flights</code> are shown below.</p>
+<center><img src='../assets/images/fa21-midterm/flights.png' width=40%></center>
+<p><br></p>
+<p>Here’s a description of the columns in <code>flights</code>:</p>
+<ul>
+<li><code>'DATE'</code>: the date on which the flight occurred. Assume
+that there were no “redeye” flights that spanned multiple days.</li>
+<li><code>'FLIGHT'</code>: the flight number. Note that this is not
+unique; airlines reuse flight numbers on a daily basis.</li>
+<li><code>'FROM'</code> and <code>'TO'</code>: the 3-letter airport code
+for the departure and arrival airports, respectively. Note that it’s not
+possible to have a flight from and to the same airport.</li>
+<li><code>'DIST'</code>: the distance of the flight, in miles.</li>
+<li><code>'HOURS'</code>: the length of the flight, in hours.</li>
+<li><code>'SEAT'</code>: the kind of seat King Triton sat in on the
+flight; the only possible values are <code>'WINDOW'</code>,
+<code>'MIDDLE'</code>, and <code>'AISLE'</code>. <br><br></li>
+</ul>
+<p>Suppose we create a DataFrame called <code>socal</code> containing
+only King Triton’s flights departing from SAN, LAX, or SNA (John Wayne
+Airport in Orange County). <code>socal</code> has 10 rows; the bar chart
+below shows how many of these 10 flights departed from each airport.</p>
+<center><img src='../assets/images/fa21-midterm/socal.png' width=30%></center>
+<p><br></p>
+<p>Consider the DataFrame that results from merging <code>socal</code>
+with itself, as follows:</p>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>double_merge <span class="op">=</span> socal.merge(socal, left_on<span class="op">=</span><span class="st">&#39;FROM&#39;</span>, right_on<span class="op">=</span><span class="st">&#39;FROM&#39;</span>)</span></code></pre></div>
+<p>How many rows does <code>double_merge</code> have?</p>
+<hr />
+<h2 id="problem-12">Problem 12</h2>
+<p>We define a “route” to be a departure and arrival airport pair. For
+example, all flights from <code>'SFO'</code> to <code>'SAN'</code> make
+up the “SFO to SAN route”. This is different from the “SAN to SFO
+route”.</p>
+<p>Fill in the blanks below so that
+<code>most_frequent.get('FROM').iloc[0]</code> and
+<code>most_frequent.get('TO').iloc[0]</code> correspond to the departure
+and destination airports of the route that King Triton has spent the
+<strong>most time flying on</strong>.</p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>most_frequent <span class="op">=</span> flights.groupby(__(a)__).__(b)__</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>most_frequent <span class="op">=</span> most_frequent.reset_index().sort_values(__(c)__)</span></code></pre></div>
+<p><br></p>
+<h3 id="problem-12.1">Problem 12.1</h3>
+<p>What goes in blank (a)?</p>
+<p><br></p>
+<h3 id="problem-12.2">Problem 12.2</h3>
+<p>What goes in blank (b)?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>count()</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>mean()</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>sum()</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>max()</code></p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-12.3">Problem 12.3</h3>
+<p>What goes in blank (c)?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>by='HOURS', ascending=True</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>by='HOURS', ascending=False</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>by='HOURS', descending=True</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>by='DIST', ascending=False</code></p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-13">Problem 13</h2>
+<p>We define the seasons as follows:</p>
+<center>
+<table class="table" style="width:30%">
+  <thead>
+    <tr>
+      <th scope="col">Season</th>
+      <th scope="col">Month</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">Spring</th>
+      <td>March, April, May</td>
+    </tr>
+    <tr>
+      <th scope="row">Summer</th>
+      <td>June, July, August</td>
+    </tr>
+    <tr>
+      <th scope="row">Fall</th>
+      <td>September, October, November</td>
+    </tr>
+    <tr>
+      <th scope="row">Winter</th>
+      <td>December, January, February</td>
+    </tr>
+  </tbody>
+</table>
+</center>
+<p><br></p>
+<h3 id="problem-13.1">Problem 13.1</h3>
+<p>We want to create a function <code>date_to_season</code> that takes
+in a <code>date</code> as formatted in the <code>'DATE'</code> column of
+<code>flights</code> and returns the season corresponding to that date.
+Which of the following implementations of <code>date_to_season</code>
+works correctly? <strong>Select all that apply.</strong></p>
+<p>Option 1:</p>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> date_to_season(date):</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    month_as_num <span class="op">=</span> <span class="bu">int</span>(date.split(<span class="st">&#39;-&#39;</span>)[<span class="dv">1</span>])</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> month_as_num <span class="op">&gt;=</span> <span class="dv">3</span> <span class="kw">and</span> month_as_num <span class="op">&lt;</span> <span class="dv">6</span>:</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Spring&#39;</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> month_as_num <span class="op">&gt;=</span> <span class="dv">6</span> <span class="kw">and</span> month_as_num <span class="op">&lt;</span> <span class="dv">9</span>:</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Summer&#39;</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> month_as_num <span class="op">&gt;=</span> <span class="dv">9</span> <span class="kw">and</span> month_as_num <span class="op">&lt;</span> <span class="dv">12</span>:</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Fall&#39;</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Winter&#39;</span></span></code></pre></div>
+<p>Option 2:</p>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> date_to_season(date):</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    month_as_num <span class="op">=</span> <span class="bu">int</span>(date.split(<span class="st">&#39;-&#39;</span>)[<span class="dv">1</span>])</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> month_as_num <span class="op">&gt;=</span> <span class="dv">3</span> <span class="kw">and</span> month_as_num <span class="op">&lt;</span> <span class="dv">6</span>:</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Spring&#39;</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> month_as_num <span class="op">&gt;=</span> <span class="dv">6</span> <span class="kw">and</span> month_as_num <span class="op">&lt;</span> <span class="dv">9</span>:</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Summer&#39;</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> month_as_num <span class="op">&gt;=</span> <span class="dv">9</span> <span class="kw">and</span> month_as_num <span class="op">&lt;</span> <span class="dv">12</span>:</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Fall&#39;</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Winter&#39;</span></span></code></pre></div>
+<p>Option 3:</p>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> date_to_season(date):</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    month_as_num <span class="op">=</span> <span class="bu">int</span>(date.split(<span class="st">&#39;-&#39;</span>)[<span class="dv">1</span>])</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> month_as_num <span class="op">&lt;</span> <span class="dv">3</span>:</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Winter&#39;</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> month_as_num <span class="op">&lt;</span> <span class="dv">6</span>:</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Spring&#39;</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> month_as_num <span class="op">&lt;</span> <span class="dv">9</span>:</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Summer&#39;</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> month_as_num <span class="op">&lt;</span> <span class="dv">12</span>:</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Fall&#39;</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Winter&#39;</span> </span></code></pre></div>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> Option 1</p></li>
+<li><p><input type="checkbox" disabled="" /> Option 2</p></li>
+<li><p><input type="checkbox" disabled="" /> Option 3</p></li>
+<li><p><input type="checkbox" disabled="" /> None of these implementations of <code>date_to_season</code> work
+correctly</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-13.2">Problem 13.2</h3>
+<p>Assuming we’ve defined <code>date_to_season</code> correctly in the
+previous part, which of the following lines of code correctly computes
+the season for each flight in <code>flights</code>?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>date_to_season(flights.get('DATE'))</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>date_to_season.apply(flights).get('DATE')</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>flights.apply(date_to_season).get('DATE')</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>flights.get('DATE').apply(date_to_season)</code></p></li>
+</ul>
 <p><br></p>
 <hr />
 <h2 id="section"><span class="math display"> </span></h2>

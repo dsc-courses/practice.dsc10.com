@@ -8,12 +8,21 @@
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    ul.task-list{list-style: none;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span { line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -50,7 +59,7 @@
     code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
     code span.at { color: #7d9029; } /* Attribute */
     code span.bn { color: #40a070; } /* BaseN */
-    code span.bu { } /* BuiltIn */
+    code span.bu { color: #008000; } /* BuiltIn */
     code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
     code span.ch { color: #4070a0; } /* Char */
     code span.cn { color: #880000; } /* Constant */
@@ -63,7 +72,7 @@
     code span.ex { } /* Extension */
     code span.fl { color: #40a070; } /* Float */
     code span.fu { color: #06287e; } /* Function */
-    code span.im { } /* Import */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
     code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
     code span.kw { color: #007020; font-weight: bold; } /* Keyword */
     code span.op { color: #666666; } /* Operator */
@@ -76,7 +85,7 @@
     code span.vs { color: #4070a0; } /* VerbatimString */
     code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../assets/theme.css" />
+  <link rel="stylesheet" href="..\assets\theme.css" />
   <script defer=""
   src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
@@ -95,9 +104,6 @@
   </script>
   <link rel="stylesheet"
   href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 </head>
 <body>
 <header id="title-block-header">
@@ -198,13 +204,13 @@ changed to floats.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse1" class="accordion-collapse collapse collapse"
+<div id="collapse1" class="accordion-collapse collapse"
 aria-labelledby="heading1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer:</strong> Options 2 and 3</p>
+<p><strong>Answer:</strong> Options 2</p>
 <p><strong>Option 1:</strong> Let’s look at the code piece by piece to
 understand why this does not work. <code>games.get("Rating")</code>
 gives you the column <code>"Rating"</code> as a Series. As per the note,
@@ -218,14 +224,12 @@ wrong.</p>
 <code>"Rating"</code> as a Series and replacing the commas with periods.
 We then apply <code>float()</code> to the Series, which will
 successfully convert all of the values into floats.</p>
-<p><strong>Option 3:</strong> Following the same logic as above, we are
-getting <code>"Rating"</code> as a Series, but change it up by replacing
-the commas with an empty string, which is effectively nothing. Notice
-this makes the numbers 100 times too big. Since there are no decimals we
-can convert the Series’ strings into integers, which is done by doing
-<code>.apply(int)</code>. Finally, because the elements inside of
-<code>"Rating"</code> are 100 times too large it can be fixed by
-dividing them all by 100.</p>
+<p><strong>Option 3:</strong> This piece of code attempts to replace
+commas with nothing, which is correct for values using commas as decimal
+separators. However, this approach ignores values that use dots as
+decimal separators. Something like
+<code>games.get("Rating").str.replace(",", "").str.replace(".", "").apply(int)/100</code>
+could correct this mistake.</p>
 <p><strong>Option 4:</strong> Again, we are getting
 <code>"Rating"</code> as a Series and replacing the commas with an empty
 string. The values inside of <code>"Rating"</code> are then converted to
@@ -268,7 +272,7 @@ to detect the presence of duplicate values.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse2" class="accordion-collapse collapse collapse"
+<div id="collapse2" class="accordion-collapse collapse"
 aria-labelledby="heading2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -354,7 +358,7 @@ a game can belong to multiple domains.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse3_1" class="accordion-collapse collapse collapse"
+<div id="collapse3_1" class="accordion-collapse collapse"
 aria-labelledby="heading3_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -398,7 +402,7 @@ provided.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse3_2" class="accordion-collapse collapse collapse"
+<div id="collapse3_2" class="accordion-collapse collapse"
 aria-labelledby="heading3_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -470,7 +474,7 @@ domains.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse3_3" class="accordion-collapse collapse collapse"
+<div id="collapse3_3" class="accordion-collapse collapse"
 aria-labelledby="heading3_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -577,7 +581,7 @@ endpoints <code>left</code> and <code>right</code> of our bootstrapped
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse4_1" class="accordion-collapse collapse collapse"
+<div id="collapse4_1" class="accordion-collapse collapse"
 aria-labelledby="heading4_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -639,7 +643,7 @@ are about the same.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse4_2" class="accordion-collapse collapse collapse"
+<div id="collapse4_2" class="accordion-collapse collapse"
 aria-labelledby="heading4_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -686,7 +690,7 @@ True? Select all that are possible.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse5_1" class="accordion-collapse collapse collapse"
+<div id="collapse5_1" class="accordion-collapse collapse"
 aria-labelledby="heading5_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -729,7 +733,7 @@ True? Select all that are possible.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse5_2" class="accordion-collapse collapse collapse"
+<div id="collapse5_2" class="accordion-collapse collapse"
 aria-labelledby="heading5_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -776,7 +780,7 @@ True? Select all that are possible.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse5_3" class="accordion-collapse collapse collapse"
+<div id="collapse5_3" class="accordion-collapse collapse"
 aria-labelledby="heading5_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -820,7 +824,7 @@ True? Select all that are possible.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse5_4" class="accordion-collapse collapse collapse"
+<div id="collapse5_4" class="accordion-collapse collapse"
 aria-labelledby="heading5_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -878,7 +882,7 @@ permutation testing or bootstrapping.</li>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse6_1" class="accordion-collapse collapse collapse"
+<div id="collapse6_1" class="accordion-collapse collapse"
 aria-labelledby="heading6_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -919,7 +923,7 @@ sample that we want to re-sample from.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse6_2" class="accordion-collapse collapse collapse"
+<div id="collapse6_2" class="accordion-collapse collapse"
 aria-labelledby="heading6_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -960,7 +964,7 @@ games?</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse6_3" class="accordion-collapse collapse collapse"
+<div id="collapse6_3" class="accordion-collapse collapse"
 aria-labelledby="heading6_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -974,9 +978,9 @@ are trying to find if there are an equal number of cooperative and
 non-cooperative games. The population distribution is our DataFrame and
 we are trying to see if the cooperative games and non-cooperative games
 in our sample come from the same population.</p>
-<p>We would not use permutation testing here because we are not given
-two samples rather one sample with two sub-groups: cooperative and
-non-cooperative games.</p>
+<p>We would not use permutation testing here because there is no
+numerical data in the column, and it can be answered by just the column
+of categories.</p>
 <p>We would not use bootstrapping because we are not re-sampling from
 the sample we are given to find a test statistic.</p>
 <hr/>
@@ -1004,7 +1008,7 @@ domain?</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse6_4" class="accordion-collapse collapse collapse"
+<div id="collapse6_4" class="accordion-collapse collapse"
 aria-labelledby="heading6_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1051,7 +1055,7 @@ points higher than the average.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse7_1" class="accordion-collapse collapse collapse"
+<div id="collapse7_1" class="accordion-collapse collapse"
 aria-labelledby="heading7_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1101,7 +1105,7 @@ two standard deviations based on this information alone.</p></li>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse7_2" class="accordion-collapse collapse collapse"
+<div id="collapse7_2" class="accordion-collapse collapse"
 aria-labelledby="heading7_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1191,7 +1195,7 @@ could be the average <code>"Rating"</code> for children’s games?</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse8" class="accordion-collapse collapse collapse"
+<div id="collapse8" class="accordion-collapse collapse"
 aria-labelledby="heading8" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1303,7 +1307,7 @@ code.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse9_1" class="accordion-collapse collapse collapse"
+<div id="collapse9_1" class="accordion-collapse collapse"
 aria-labelledby="heading9_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1335,7 +1339,7 @@ code.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse9_2" class="accordion-collapse collapse collapse"
+<div id="collapse9_2" class="accordion-collapse collapse"
 aria-labelledby="heading9_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1369,7 +1373,7 @@ code.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse9_3" class="accordion-collapse collapse collapse"
+<div id="collapse9_3" class="accordion-collapse collapse"
 aria-labelledby="heading9_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1424,7 +1428,7 @@ group means for this permutation test. You should call your
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse9_4" class="accordion-collapse collapse collapse"
+<div id="collapse9_4" class="accordion-collapse collapse"
 aria-labelledby="heading9_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1479,7 +1483,7 @@ blank below to find the p-value for this permutation test.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse9_5" class="accordion-collapse collapse collapse"
+<div id="collapse9_5" class="accordion-collapse collapse"
 aria-labelledby="heading9_5" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1538,7 +1542,7 @@ class="math inline">\frac{17}{4}</span>.</p></li>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse10_1" class="accordion-collapse collapse collapse"
+<div id="collapse10_1" class="accordion-collapse collapse"
 aria-labelledby="heading10_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1601,7 +1605,7 @@ been normally distributed.</p></li>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse10_2" class="accordion-collapse collapse collapse"
+<div id="collapse10_2" class="accordion-collapse collapse"
 aria-labelledby="heading10_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1664,20 +1668,20 @@ you’ll also need to answer questions about this function.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse11_1" class="accordion-collapse collapse collapse"
+<div id="collapse11_1" class="accordion-collapse collapse"
 aria-labelledby="heading11_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer:</strong> 6 8</p>
-<p>Imagine there is a pointer from <code>a</code> to 6 and from
-<code>b</code> to 4. In the function we look at the first
-<code>if</code>-statement. The <code>if</code>-statement is checking if
-<code>a</code>, which points to 6, is less than <code>b</code>, which
-points to 4. We know 6 is not less than 4, so we skip this section of
-code. Next we see the second <code>if</code>-statement which checks if
-<code>a</code>, 6, plus 2 equals <code>b</code>, 4. We know <span class="math inline">6 + 2 = 8</span>, which is not equal to 4. We then
+<p>When we call <code>wham(6, 4)</code>, <code>a</code> gets assigned to
+the number 6 and <code>b</code> gets assigned to the number 4. In the
+function we look at the first <code>if</code>-statement. The
+<code>if</code>-statement is checking if <code>a</code>, 6, is less than
+<code>b</code>, 4. We know 6 is not less than 4, so we skip this section
+of code. Next we see the second <code>if</code>-statement which checks
+if <code>a</code>, 6, plus 2 equals <code>b</code>, 4. We know <span class="math inline">6 + 2 = 8</span>, which is not equal to 4. We then
 look at the <code>elif</code>-statement which asks if <code>a</code>, 6,
 minus 1 is greater than <code>b</code>, 4. This is True! <span class="math inline">6 - 1 = 5</span> and 5 &gt; 4. So we
 <code>print(a)</code>, which will spit out 6 and then we will
@@ -1704,7 +1708,7 @@ minus 1 is greater than <code>b</code>, 4. This is True! <span class="math inlin
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse11_2" class="accordion-collapse collapse collapse"
+<div id="collapse11_2" class="accordion-collapse collapse"
 aria-labelledby="heading11_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1761,7 +1765,7 @@ input?</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse11_3" class="accordion-collapse collapse collapse"
+<div id="collapse11_3" class="accordion-collapse collapse"
 aria-labelledby="heading11_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1810,7 +1814,7 @@ line with <code>def</code>).</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse12_1" class="accordion-collapse collapse collapse"
+<div id="collapse12_1" class="accordion-collapse collapse"
 aria-labelledby="heading12_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1857,7 +1861,7 @@ code</strong> (not counting the line with <code>def</code>).</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse12_2" class="accordion-collapse collapse collapse"
+<div id="collapse12_2" class="accordion-collapse collapse"
 aria-labelledby="heading12_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1972,7 +1976,7 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href=
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse13_1" class="accordion-collapse collapse collapse"
+<div id="collapse13_1" class="accordion-collapse collapse"
 aria-labelledby="heading13_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -2007,7 +2011,7 @@ have is 2 (recall the players are called Player 0, Player 1, and Player
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse13_2" class="accordion-collapse collapse collapse"
+<div id="collapse13_2" class="accordion-collapse collapse"
 aria-labelledby="heading13_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -2041,7 +2045,7 @@ corresponds to Player 1, and the 3rd index corresponds to Player 2.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse13_3" class="accordion-collapse collapse collapse"
+<div id="collapse13_3" class="accordion-collapse collapse"
 aria-labelledby="heading13_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -2073,7 +2077,7 @@ values there are.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse13_4" class="accordion-collapse collapse collapse"
+<div id="collapse13_4" class="accordion-collapse collapse"
 aria-labelledby="heading13_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -2116,7 +2120,7 @@ away and <code>C_count</code>, so in index 0 we have:
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse13_5" class="accordion-collapse collapse collapse"
+<div id="collapse13_5" class="accordion-collapse collapse"
 aria-labelledby="heading13_5" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -2148,7 +2152,7 @@ it.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse13_6" class="accordion-collapse collapse collapse"
+<div id="collapse13_6" class="accordion-collapse collapse"
 aria-labelledby="heading13_6" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -2196,7 +2200,7 @@ distribution?</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse14_1" class="accordion-collapse collapse collapse"
+<div id="collapse14_1" class="accordion-collapse collapse"
 aria-labelledby="heading14_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -2233,7 +2237,7 @@ lasting 30 turns or more? Choose the closest answer below.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse14_2" class="accordion-collapse collapse collapse"
+<div id="collapse14_2" class="accordion-collapse collapse"
 aria-labelledby="heading14_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -2290,7 +2294,7 @@ involving <span class="math inline">n</span>.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse14_3" class="accordion-collapse collapse collapse"
+<div id="collapse14_3" class="accordion-collapse collapse"
 aria-labelledby="heading14_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -2329,7 +2333,7 @@ class="math inline">n</span>.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse14_4" class="accordion-collapse collapse collapse"
+<div id="collapse14_4" class="accordion-collapse collapse"
 aria-labelledby="heading14_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -2394,7 +2398,7 @@ question.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse15_1" class="accordion-collapse collapse collapse"
+<div id="collapse15_1" class="accordion-collapse collapse"
 aria-labelledby="heading15_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -2448,7 +2452,7 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb13-1"><a href=
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse15_2" class="accordion-collapse collapse collapse"
+<div id="collapse15_2" class="accordion-collapse collapse"
 aria-labelledby="heading15_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -2479,7 +2483,7 @@ aggregation method for this would be <code>count()</code>.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse15_3" class="accordion-collapse collapse collapse"
+<div id="collapse15_3" class="accordion-collapse collapse"
 aria-labelledby="heading15_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -2515,7 +2519,7 @@ others.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse15_4" class="accordion-collapse collapse collapse"
+<div id="collapse15_4" class="accordion-collapse collapse"
 aria-labelledby="heading15_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -2577,7 +2581,7 @@ takes, on average, 30 minutes to play.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse16_1" class="accordion-collapse collapse collapse"
+<div id="collapse16_1" class="accordion-collapse collapse"
 aria-labelledby="heading16_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -2630,7 +2634,7 @@ deviation of the play times?</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse16_2" class="accordion-collapse collapse collapse"
+<div id="collapse16_2" class="accordion-collapse collapse"
 aria-labelledby="heading16_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -2691,7 +2695,7 @@ is roughly normal?</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse16_3" class="accordion-collapse collapse collapse"
+<div id="collapse16_3" class="accordion-collapse collapse"
 aria-labelledby="heading16_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -2727,7 +2731,7 @@ supported by the data?</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse16_4" class="accordion-collapse collapse collapse"
+<div id="collapse16_4" class="accordion-collapse collapse"
 aria-labelledby="heading16_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
