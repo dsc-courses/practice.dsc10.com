@@ -9,7 +9,7 @@ We want to use `app_data` to estimate the average amount of time it takes to bui
 
 # BEGIN SOLUTION
 
-**Answer: ** 
+**Answer: ** Option 1
 
 Only the first answer is correct. This is a question of parameter estimation, so our approach is to use bootstrapping to create many resamples of our original sample, computing the average of each resample. Each resample should always be the same size as the original sample. The first answer choice accomplishes this by querying first to keep only the beds, then resampling from the DataFrame of beds only. This means resamples will have the same size as the original sample. Each resample's mean will be computed, so we will have many resample means from which to construct our 95% confidence interval.
 
