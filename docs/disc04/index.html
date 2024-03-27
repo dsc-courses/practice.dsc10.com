@@ -33,7 +33,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -85,7 +85,7 @@
     code span.vs { color: #4070a0; } /* VerbatimString */
     code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../assets/theme.css" />
+  <link rel="stylesheet" href="..\assets\theme.css" />
   <script defer=""
   src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
@@ -171,40 +171,6 @@ below shows how many of these 10 flights departed from each airport.</p>
 with itself, as follows:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>double_merge <span class="op">=</span> socal.merge(socal, left_on<span class="op">=</span><span class="st">&#39;FROM&#39;</span>, right_on<span class="op">=</span><span class="st">&#39;FROM&#39;</span>)</span></code></pre></div>
 <p>How many rows does <code>double_merge</code> have?</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse1" class="accordion-collapse collapse"
-aria-labelledby="heading1" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> 38</p>
-<p>There are two flights from LAX. When we merge <code>socal</code> with
-itself on the <code>'FROM'</code> column, each of these flights gets
-paired up with each of these flights, for a total of four rows in the
-output. That is, the first flight from LAX gets paired with both the
-first and second flights from LAX. Similarly, the second flight from LAX
-gets paired with both the first and second flights from LAX.</p>
-<p>Following this logic, each of the five flights from SAN gets paired
-with each of the five flights from SAN, for an additional 25 rows in the
-output. For SNA, there will be 9 rows in the output. The total is
-therefore <span class="math inline">2^2 + 5^2 + 3^2 = 4 + 25 + 9 =
-38</span> rows.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 27%.</p>
-</div>
-</div>
-</div>
-</div>
 <hr />
 <h2 id="problem-2">Problem 2</h2>
 <p>We define a “route” to be a departure and arrival airport pair. For
@@ -221,34 +187,6 @@ and destination airports of the route that King Triton has spent the
 <p><br></p>
 <h3 id="problem-2.1">Problem 2.1</h3>
 <p>What goes in blank (a)?</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading2_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2_1" aria-expanded="true" aria-controls="collapse2_1">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse2_1" class="accordion-collapse collapse"
-aria-labelledby="heading2_1" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> <code>['FROM', 'TO']</code></p>
-<p>We want to organize flights by route. This means we need to group by
-both <code>'FROM'</code> and <code>'TO'</code> so any flights with the
-same pair of departure and arrival airports get grouped together. To
-group by multiple columns, we must use a list containing all these
-column names, as in <code>flights.groupby(['FROM', 'TO'])</code>.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 72%.</p>
-</div>
-</div>
-</div>
-</div>
 <p><br></p>
 <h3 id="problem-2.2">Problem 2.2</h3>
 <p>What goes in blank (b)?</p>
@@ -258,37 +196,6 @@ column names, as in <code>flights.groupby(['FROM', 'TO'])</code>.</p>
 <li><p><input type="radio" disabled="" /> <code>sum()</code></p></li>
 <li><p><input type="radio" disabled="" /> <code>max()</code></p></li>
 </ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading2_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2_2" aria-expanded="true" aria-controls="collapse2_2">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse2_2" class="accordion-collapse collapse"
-aria-labelledby="heading2_2" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> <code>sum()</code></p>
-<p>Every <code>.groupby</code> command needs an aggregation function!
-Since we are asked to find the route that King Triton has spent the most
-time flying on, we want to total the times for all flights on a given
-route.</p>
-<p>Note that <code>.count()</code> would tell us how many flights King
-Triton has taken on each route. That’s meaningful information, but not
-what we need to address the question of which route he spent the most
-time flying on.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 58%.</p>
-</div>
-</div>
-</div>
-</div>
 <p><br></p>
 <h3 id="problem-2.3">Problem 2.3</h3>
 <p>What goes in blank (c)?</p>
@@ -298,40 +205,6 @@ time flying on.</p>
 <li><p><input type="radio" disabled="" /> <code>by='HOURS', descending=True</code></p></li>
 <li><p><input type="radio" disabled="" /> <code>by='DIST', ascending=False</code></p></li>
 </ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading2_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2_3" aria-expanded="true" aria-controls="collapse2_3">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse2_3" class="accordion-collapse collapse"
-aria-labelledby="heading2_3" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong>
-<code>by='HOURS', ascending=False</code></p>
-<p>We want to know the route that King Triton spent the most time flying
-on. After we group flights by route, summing flights on the same route,
-the <code>'HOURS'</code> column contains the total amount of time spent
-on each route. We need <code>most_frequent.get('FROM').iloc[0]</code>
-and <code>most_frequent.get('TO').iloc[0]</code> to correspond with the
-departure and destination airports of the route that King Triton has
-spent the most time flying on. To do this, we need to sort in descending
-order of time, to bring the largest time to the top of the DataFrame. So
-we must sort by <code>'HOURS'</code> with
-<code>ascending=False</code>.</p>
-<hr/>
-<h5>Difficulty: ⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 94%.</p>
-</div>
-</div>
-</div>
-</div>
 <p><br></p>
 <hr />
 <h2 id="problem-3">Problem 3</h2>
@@ -416,109 +289,6 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb5-1"><a hr
 <li><p><input type="checkbox" disabled="" /> None of these implementations of <code>date_to_season</code> work
 correctly</p></li>
 </ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading3_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_1" aria-expanded="true" aria-controls="collapse3_1">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse3_1" class="accordion-collapse collapse"
-aria-labelledby="heading3_1" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> Option 1, Option 2, Option 3</p>
-<p>All three options start with the same first line of code:
-<code>month_as_num = int(date.split('-')[1])</code>. This takes the
-date, originally a string formatted such as <code>'2021-09-07'</code>,
-separates it into a list of three strings such as
-<code>['2021', '09', '07']</code>, extracts the element in position 1
-(the middle position), and converts it to an <code>int</code> such as 9.
-Now we have the month as a number we can work with more easily.</p>
-<p>According to the definition of seasons, the months in each season are
-as follows:</p>
-<center>
-<table class="table" style="width:40%">
-<thead>
-<tr>
-<th scope="col">Season</th>
-<th scope="col">Month</th>
-<th scope="col">month_as_num</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<th scope="row">Spring</th>
-<td>March, April, May</td>
-<td>3, 4, 5</td>
-</tr>
-<tr>
-<th scope="row">Summer</th>
-<td>June, July, August</td>
-<td>6, 7, 8</td>
-</tr>
-<tr>
-<th scope="row">Fall</th>
-<td>September, October, November</td>
-<td>9, 10, 11</td>
-</tr>
-<tr>
-<th scope="row">Winter</th>
-<td>December, January, February</td>
-<td>12, 1, 2</td>
-</tr>
-</tbody>
-</table>
-</center>
-<p>Option 1 correctly assigns months to seasons by checking if the month
-falls in the appropriate range for <code>'Spring'</code>, then
-<code>'Summer'</code>, then <code>'Fall'</code>. Finally, if all of
-these conditions are false, the <code>else</code> branch will return the
-correct answer of <code>'Winter'</code> when <code>month_as_num</code>
-is 12, 1, or 2.</p>
-<p>Option 2 is also correct, and in fact, it does the same exact thing
-as Option 1 even though it uses <code>if</code> where Option 1 used
-<code>elif</code>. The purpose of <code>elif</code> is to check a
-condition only when all previous conditions are false. So if we have an
-<code>if</code> followed by an <code>elif</code>, the <code>elif</code>
-condition will only be checked when the <code>if</code> condition is
-false. If we have two sequential <code>if</code> conditions, typically
-the second condition will be checked regardless of the outcome of the
-first condition, which means two <code>if</code> statements can behave
-differently than an <code>if</code> followed by an <code>elif</code>. In
-this case, however, since the <code>if</code> statements cause the
-function to <code>return</code> and therefore stop executing, the only
-way to get to a certain <code>if</code> condition is when all previous
-<code>if</code> conditions are false. If any prior <code>if</code>
-condition was true, the function would have returned already! So this
-means the three <code>if</code> conditions in Option 2 are equivalent to
-the <code>if</code>, <code>elif</code>, <code>elif</code> structure of
-Option 1. Note that the <code>else</code> case in Option 1 is reached
-when all prior conditions are false, whereas the <code>else</code> in
-Option 2 is paired only with the <code>if</code> statement immediately
-preceding it. But since we only ever get to that third <code>if</code>
-statement when the first two <code>if</code> conditions are false, we
-still only reach the <code>else</code> branch when all three
-<code>if</code> conditions are false.</p>
-<p>Option 3 works similarly to Option 1, except it separates the months
-into more categories, first categorizing January and February as
-<code>'Winter'</code>, then checking for <code>'Spring'</code>,
-<code>'Summer'</code>, and <code>'Fall'</code>. The only month that
-winds up in the <code>else</code> branch is December. We can think of
-Option 3 as the same as Option 1, except the Winter months have been
-separated into two groups, and the group containing January and February
-is extracted and checked first.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 76%.</p>
-</div>
-</div>
-</div>
-</div>
 <p><br></p>
 <h3 id="problem-3.2">Problem 3.2</h3>
 <p>Assuming we’ve defined <code>date_to_season</code> correctly in the
@@ -530,38 +300,6 @@ the season for each flight in <code>flights</code>?</p>
 <li><p><input type="radio" disabled="" /> <code>flights.apply(date_to_season).get('DATE')</code></p></li>
 <li><p><input type="radio" disabled="" /> <code>flights.get('DATE').apply(date_to_season)</code></p></li>
 </ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading3_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_2" aria-expanded="true" aria-controls="collapse3_2">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse3_2" class="accordion-collapse collapse"
-aria-labelledby="heading3_2" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong>
-<code>flights.get('DATE').apply(date_to_season)</code></p>
-<p>Our function <code>date_to_season</code> takes as input a single date
-and converts it to a season. We cannot input a whole Series of dates, as
-in the first answer choice. We instead need to <code>apply</code> the
-function to the whole Series of dates. The correct syntax to do that is
-to first extract the Series of dates from the DataFrame and then use
-<code>.apply</code>, passing in the name of the function we wish to
-apply to each element of the Series. Therefore, the correct answer is
-<code>flights.get('DATE').apply(date_to_season)</code>.</p>
-<hr/>
-<h5>Difficulty: ⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 97%.</p>
-</div>
-</div>
-</div>
-</div>
 <p><br></p>
 <hr />
 <h2 id="problem-4">Problem 4</h2>
@@ -583,43 +321,6 @@ DataFrame containing the product line associated with each product.</p>
 <li><p><input type="radio" disabled="" /> takes a Series as input, returns a string</p></li>
 <li><p><input type="radio" disabled="" /> takes a Series as input, returns a Series</p></li>
 </ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading4_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_1" aria-expanded="true" aria-controls="collapse4_1">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse4_1" class="accordion-collapse collapse"
-aria-labelledby="heading4_1" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> takes a string as input, returns a
-string</p>
-<p>To use the Series method <code>.apply</code>, we first need a Series,
-containing values of any type. We pass in the name of a function to
-<code>.apply</code> and essentially, <code>.apply</code> calls the given
-function on each value of the Series, producing a Series with the
-resulting outputs of those function calls. In this case,
-<code>.apply(extract_product_line)</code> is called on the Series
-<code>ikea.get('product')</code>, which contains string values. This
-means the function <code>extract_product_line</code> must take strings
-as inputs. We’re told that the code assigns a new column to the
-<code>ikea</code> DataFrame containing the product line associated with
-each product, and we know that the product line is a string, as it’s the
-first word of the product name. This means the function
-<code>extract_product_line</code> must output a string.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 72%.</p>
-</div>
-</div>
-</div>
-</div>
 <p><br></p>
 <h3 id="problem-4.2">Problem 4.2</h3>
 <p>Complete the return statement in the
@@ -630,39 +331,6 @@ should return <code>'HEMNES'</code>.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> extract_product_line(x):</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> _________</span></code></pre></div>
 <p>What goes in the blank?</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading4_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_2" aria-expanded="true" aria-controls="collapse4_2">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse4_2" class="accordion-collapse collapse"
-aria-labelledby="heading4_2" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> <code>x.split(' ')[0]</code></p>
-<p>This function should take as input a string <code>x</code>,
-representing a product name, and return the first word of that string,
-representing the product line. Since words are separated by spaces, we
-want to split the string on the space character <code>' '</code>.</p>
-<p>It’s also correct to answer <code>x.split()[0]</code> without
-specifying to split on spaces, because the default behavior of the
-string <code>.split</code> method is to split on any whitespace, which
-includes any number of spaces, tabs, newlines, etc. Since we’re only
-extracting the first word, which will be separated from the rest of the
-product name by a single space, it’s equivalent to split using single
-spaces and using the default of any whitespace. </p>
-<hr/>
-<h5>Difficulty:
-⭐️⭐️</h5>
-<p>The average score on this problem was 84%.</p>
-</div>
-</div>
-</div>
-</div>
 <p><br></p>
 <hr />
 <h2 id="problem-5">Problem 5</h2>
@@ -678,77 +346,6 @@ represent integers, and returns the corresponding number of minutes,
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    second_split <span class="op">=</span> first_split[<span class="dv">1</span>].split(<span class="st">&#39; min&#39;</span>)</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> _________</span></code></pre></div>
 <p>What goes in the blank?</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading5">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5" aria-expanded="true" aria-controls="collapse5">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse5" class="accordion-collapse collapse"
-aria-labelledby="heading5" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong>
-<code>int(first_split[0])*60+int(second_split[0])</code></p>
-<p>As the last subpart demonstrated, if we want to compare times, it
-doesn’t make sense to do so when times are represented as strings. In
-the <code>to_minutes</code> function, we convert a time string into an
-integer number of minutes.</p>
-<p>The first step is to understand the logic. Every hour contains 60
-minutes, so for a time string formatted like <code>x hr, y min'</code>
-the total number of minutes comes from multiplying the value of
-<code>x</code> by 60 and adding <code>y</code>.</p>
-<p>The second step is to understand how to extract the <code>x</code>
-and <code>y</code> values from the time string using the string methods
-<code>.split</code>. The string method <code>.split</code> takes as
-input some separator string and breaks the string into pieces at each
-instance of the separator string. It then returns a list of all those
-pieces. The first line of code, therefore, creates a list called
-<code>first_split</code> containing two elements. The first element,
-accessed by <code>first_split[0]</code> contains the part of the time
-string that comes before <code>' hr, '</code>. That is,
-<code>first_split[0]</code> evaluates to the string <code>x</code>.</p>
-<p>Similarly, <code>first_split[1]</code> contains the part of the time
-string that comes after <code>' hr, '</code>. So it is formatted like
-<code>'y min'</code>. If we split this string again using the separator
-of <code>' min'</code>, the result will be a list whose first element is
-the string <code>'y'</code>. This list is saved as
-<code>second_split</code> so <code>second_split[0]</code> evaluates to
-the string <code>y</code>.</p>
-<p>Now we have the pieces we need to compute the number of minutes,
-using the idea of multiplying the value of <code>x</code> by 60 and
-adding <code>y</code>. We have to be careful with data types here, as
-the bolded instructions warn us that the function must return an
-integer. Right now, <code>first_split[0]</code> evaluates to the string
-<code>x</code> and <code>second_split[0]</code> evaluates to the string
-<code>y</code>. We need to convert these strings to integers before we
-can multiply and add. Once we convert using the <code>int</code>
-function, then we can multiply the number of hours by 60 and add the
-number of minutes. Therefore, the solution is
-<code>int(first_split[0])*60+int(second_split[0])</code>.</p>
-<p>Note that failure to convert strings to integers using the
-<code>int</code> function would lead to very different behavior. Let’s
-take the example time string of <code>'3 hr, 5 min'</code> as input to
-our function. With the return statement as
-<code>int(first_split[0])*60+int(second_split[0])</code>, the function
-would return 185 on this input, as desired. With the return statement as
-<code>first_split[0]*60+second_split[0]</code>, the function would
-return a string of length 61, looking something like this
-<code>'3333...33335'</code>. That’s because the <code>*</code> and
-<code>+</code> symbols do have meaning for strings, they’re just
-different meanings than when used with integers.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 71%.</p>
-</div>
-</div>
-</div>
-</div>
 <hr />
 <h2 id="problem-6">Problem 6</h2>
 <p>Consider the function <code>tom_nook</code>, defined below. Recall
@@ -773,29 +370,6 @@ that if <code>x</code> is an integer, <code>x % 2</code> is
 <li><p><input type="radio" disabled="" /> 4</p></li>
 <li><p><input type="radio" disabled="" /> 6</p></li>
 </ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading6">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6" aria-expanded="true" aria-controls="collapse6">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse6" class="accordion-collapse collapse"
-aria-labelledby="heading6" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer</strong>: -4</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 79%.</p>
-</div>
-</div>
-</div>
-</div>
 <hr />
 <h2 id="problem-7">Problem 7</h2>
 <p>The DataFrame <code>evs</code> consists of 32 rows, each of which
@@ -807,7 +381,7 @@ contains information about a different EV model.</p>
 <p>We also have a DataFrame that contains the distribution of
 “BodyStyle” for all “Brands” in <code>evs</code>, other than Nissan.</p>
 <center><img src='../assets/images/fa22-midterm/midq6.png' width=50%></center>
-<p>Suppose we’ve run the following few lines of code.</p>
+<p>Suppose weâ€™ve run the following few lines of code.</p>
 <div class="sourceCode" id="cb10"><pre
 class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>tesla <span class="op">=</span> evs[evs.get(<span class="st">&quot;Brand&quot;</span>) <span class="op">==</span> <span class="st">&quot;Tesla&quot;</span>]</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>bmw <span class="op">=</span> evs[evs.get(<span class="st">&quot;Brand&quot;</span>) <span class="op">==</span> <span class="st">&quot;BMW&quot;</span>]</span>
@@ -823,71 +397,6 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href=
 <li><p><input type="radio" disabled="" /> 72</p></li>
 <li><p><input type="radio" disabled="" /> 96</p></li>
 </ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading7">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7" aria-expanded="true" aria-controls="collapse7">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse7" class="accordion-collapse collapse"
-aria-labelledby="heading7" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer:</strong> 35</p>
-<p>Let’s attempt this problem step-by-step. We’ll first determine the
-number of rows in <code>tesla.merge(bmw, on="BodyStyle")</code>, and
-then determine the number of rows in <code>combo</code>. <strong>For the
-purposes of the solution, let’s use <code>temp</code> to refer to the
-first merged DataFrame,
-<code>tesla.merge(bmw, on="BodyStyle")</code>.</strong></p>
-<p>Recall, when we <code>merge</code> two DataFrames, the resulting
-DataFrame contains a single row for every match between the two columns,
-and rows in either DataFrame without a match disappear. In this problem,
-the column that we’re looking for matches in is
-<code>"BodyStyle"</code>.</p>
-<p>To determine the number of rows of <code>temp</code>, we need to
-determine which rows of <code>tesla</code> have a
-<code>"BodyStyle"</code> that matches a row in <code>bmw</code>. From
-the DataFrame provided, we can see that the only
-<code>"BodyStyle"</code>s in both <code>tesla</code> and
-<code>bmw</code> are SUV and sedan. When we merge <code>tesla</code> and
-<code>bmw</code> on <code>"BodyStyle"</code>:</p>
-<ul>
-<li>The 4 SUV rows in <code>tesla</code> each match the 1 SUV row in
-<code>bmw</code>. This will create 4 SUV rows in <code>temp</code>.</li>
-<li>The 3 sedan rows in <code>tesla</code> each match the 1 sedan row in
-<code>bmw</code>. This will create 3 sedan rows in
-<code>temp</code>.</li>
-</ul>
-<p>So, <code>temp</code> is a DataFrame with a total of 7 rows, with 4
-rows for SUVs and 3 rows for sedans (in the <code>"BodyStyle"</code>)
-column. Now, when we merge <code>temp</code> and <code>audi</code> on
-<code>"BodyStyle"</code>:</p>
-<ul>
-<li>The 4 SUV rows in <code>temp</code> each match the 8 SUV rows in
-<code>audi</code>. This will create <span class="math inline">4 \cdot 8
-= 32</span> SUV rows in <code>combo</code>.</li>
-<li>The 3 sedan rows in <code>temp</code> each match the 1 sedan row in
-<code>audi</code>. This will create <span class="math inline">3 \cdot 1
-= 3</span> sedan rows in <code>combo</code>.</li>
-</ul>
-<p>Thus, the total number of rows in <code>combo</code> is <span class="math inline">32 + 3 = 35</span>.</p>
-<p>Note: You may notice that 35 is the result of multiplying the
-<code>"SUV"</code> and <code>"Sedan"</code> columns in the DataFrame
-provided, and adding up the results. This problem is similar to <a href="../fa21-midterm/index.html#problem-5">Problem 5 from the Fall 2021
-Midterm</a>.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 45%.</p>
-</div>
-</div>
-</div>
-</div>
 <hr />
 <h2 id="problem-8">Problem 8</h2>
 <p>The <code>sums</code> function takes in an array of numbers and
@@ -914,107 +423,12 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb12-1"><a href=
 <p><br></p>
 <h3 id="problem-8.1">Problem 8.1</h3>
 <p>Fill in blank (a).</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading8_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_1" aria-expanded="true" aria-controls="collapse8_1">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse8_1" class="accordion-collapse collapse"
-aria-labelledby="heading8_1" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> <code>np.array([])</code> or
-<code>[]</code></p>
-<p><code>res</code> is the list in which we’ll be storing each
-cumulative sum. Thus we start by initializing <code>res</code> to an
-empty array or list.</p>
-<hr/>
-<h5>Difficulty: ⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 100%.</p>
-</div>
-</div>
-</div>
-</div>
 <p><br></p>
 <h3 id="problem-8.2">Problem 8.2</h3>
 <p>Fill in blank (b).</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading8_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_2" aria-expanded="true" aria-controls="collapse8_2">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse8_2" class="accordion-collapse collapse"
-aria-labelledby="heading8_2" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> <code>range(1, len(arr))</code> or
-<code>np.arange(1, len(arr))</code></p>
-<p>We’re trying to loop through the indices of <code>arr</code> and
-calculate the cumulative sum corresponding to each entry. To access each
-index in sequential order, we simply use <code>range()</code> or
-<code>np.arange()</code>. However, notice that we have already appended
-the first entry of <code>arr</code> to <code>res</code> on line 3 of the
-code snippet. (Note that the first entry of <code>arr</code> is the same
-as the first cumulative sum.) Thus the lower bound of
-<code>range()</code> (or <code>np.arange()</code>) actually starts at 1,
-not 0. The upper bound is still <code>len(arr)</code> as usual.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 64%.</p>
-</div>
-</div>
-</div>
-</div>
 <p><br></p>
 <h3 id="problem-8.3">Problem 8.3</h3>
 <p>Fill in blank (c).</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading8_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_3" aria-expanded="true" aria-controls="collapse8_3">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse8_3" class="accordion-collapse collapse"
-aria-labelledby="heading8_3" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> <code>res[i - 1] + arr[i]</code> or
-<code>sum(arr[:i + 1])</code></p>
-<p>Looking at the syntax of the problem, the blank we have to fill
-essentially requires us to calculate the current cumulative sum, since
-the rest of line will already append the blank to <code>res</code> for
-us. One way to think of a cumulative sum is to add the “current”
-<code>arr</code> element to the previous cumulative sum, since the
-previous cumulative sum encapsulates all the previous elements. Because
-we have access to both of those values, we can easily represent it as
-<code>res[i - 1] + arr[i]</code>. The second answer is more a more
-direct approach. Because the cumulative sum is just the sum of all the
-previous elements up to the current element, we can directly compute it
-with <code>sum(arr[:i + 1])</code></p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 71%.</p>
-</div>
-</div>
-</div>
-</div>
 <p><br></p>
 <hr />
 <h2 id="problem-9">Problem 9</h2>
@@ -1049,57 +463,6 @@ integer.</p>
 <div class="sourceCode" id="cb13"><pre
 class="sourceCode py"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>    teresa.merge(sophia, on<span class="op">=</span><span class="st">&quot;flips&quot;</span>)</span></code></pre></div>
 <p><em>Hint: The answer is less than 200.</em></p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading9_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_1" aria-expanded="true" aria-controls="collapse9_1">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse9_1" class="accordion-collapse collapse"
-aria-labelledby="heading9_1" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer</strong>: 108</p>
-<p>Since we used the argument <code>on="flips</code>, rows from
-<code>teresa</code> and <code>sophia</code> will be combined whenever
-they have matching values in their <code>"flips"</code> columns.</p>
-<p>For the <code>teresa</code> DataFrame:</p>
-<ul>
-<li>There are 13 rows with <code>"Heads"</code> in the
-<code>"flips"</code> column.</li>
-<li>There are 8 rows with <code>"Tails"</code> in the
-<code>"flips"</code> column.</li>
-</ul>
-<p>For the <code>sophia</code> DataFrame:</p>
-<ul>
-<li>There are 4 rows with <code>"Heads"</code> in the
-<code>"flips"</code> column.</li>
-<li>There are 7 rows with <code>"Tails"</code> in the
-<code>"flips"</code> column.</li>
-</ul>
-<p>The merged DataFrame will also only have the values
-<code>"Heads"</code> and <code>"Tails"</code> in its
-<code>"flips"</code> column. - The 13 <code>"Heads"</code> rows from
-<code>teresa</code> will each pair with the 4 <code>"Heads"</code> rows
-from <code>sophia</code>. This results in <span class="math inline">13
-\cdot 4 = 52</span> rows with <code>"Heads"</code> - The 8
-<code>"Tails"</code> rows from <code>teresa</code> will each pair with
-the 7 <code>"Tails"</code> rows from <code>sophia</code>. This results
-in <span class="math inline">8 \cdot 7 = 56</span> rows with
-<code>"Tails"</code>.</p>
-<p>Then, the total number of rows in the merged DataFrame is <span class="math inline">52 + 56 = 108</span>.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 54%.</p>
-</div>
-</div>
-</div>
-</div>
 <p><br></p>
 <p><br></p>
 <h3 id="problem-9.2">Problem 9.2</h3>
@@ -1124,39 +487,6 @@ DataFrame?</p>
 <li><p><input type="radio" disabled="" /> <span class="math inline">A+4</span></p></li>
 <li><p><input type="radio" disabled="" /> <span class="math inline">A+231</span></p></li>
 </ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading9_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_2" aria-expanded="true" aria-controls="collapse9_2">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse9_2" class="accordion-collapse collapse"
-aria-labelledby="heading9_2" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer</strong>: <span class="math inline">A+1</span></p>
-<p>The additional row in each DataFrame has a unique
-<code>"flips"</code> value of <code>"Total"</code>. When we merge on the
-<code>"flips"</code> column, this unique value will only create a single
-new row in the merged DataFrame, as it pairs the <code>"Total"</code>
-from <code>teresa</code> with the <code>"Total"</code> from
-<code>sophia</code>. The rest of the rows are the same as in the
-previous merge, and as such, they will contribute the same number of
-rows, <span class="math inline">A</span>, to the merged DataFrame. Thus,
-the total number of rows in the new merged DataFrame will be <span class="math inline">A</span> (from the original matching rows) plus 1
-(from the new <code>"Total"</code> rows), which sums up to <span class="math inline">A+1</span>.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 46%.</p>
-</div>
-</div>
-</div>
-</div>
 <p><br></p>
 <hr />
 <h2 id="problem-10">Problem 10</h2>
@@ -1183,93 +513,11 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb14-1"><a href=
 <p><br></p>
 <h3 id="problem-10.1">Problem 10.1</h3>
 <p>What is printed when we run <code>print(wham(6, 4))</code>?</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading10_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10_1" aria-expanded="true" aria-controls="collapse10_1">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse10_1" class="accordion-collapse collapse"
-aria-labelledby="heading10_1" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer:</strong> 6 8</p>
-<p>Imagine there is a pointer from <code>a</code> to 6 and from
-<code>b</code> to 4. In the function we look at the first
-<code>if</code>-statement. The <code>if</code>-statement is checking if
-<code>a</code>, which points to 6, is less than <code>b</code>, which
-points to 4. We know 6 is not less than 4, so we skip this section of
-code. Next we see the second <code>if</code>-statement which checks if
-<code>a</code>, 6, plus 2 equals <code>b</code>, 4. We know <span class="math inline">6 + 2 = 8</span>, which is not equal to 4. We then
-look at the <code>elif</code>-statement which asks if <code>a</code>, 6,
-minus 1 is greater than <code>b</code>, 4. This is True! <span class="math inline">6 - 1 = 5</span> and 5 &gt; 4. So we
-<code>print(a)</code>, which will spit out 6 and then we will
-<code>return a + 2</code>. <code>a + 2</code> is <span class="math inline">6 + 2</span>. This means the function
-<code>wham</code> will print 6 and return 8.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 81%.</p>
-</div>
-</div>
-</div>
-</div>
 <p><br></p>
 <h3 id="problem-10.2">Problem 10.2</h3>
 <p>Give an example of a pair of integers <code>a</code> and
 <code>b</code> such that <code>wham(a, b)</code> returns
 <code>a + 1</code>.</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading10_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10_2" aria-expanded="true" aria-controls="collapse10_2">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse10_2" class="accordion-collapse collapse"
-aria-labelledby="heading10_2" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer:</strong> Any pair of integers <code>a</code>,
-<code>b</code> with <code>a = b</code> or with
-<code>a = b + 1</code></p>
-<p>The desired output is <code>a + 1</code>. So we want to look at the
-function <code>wham</code> and see which condition is necessary to get
-the output <code>a + 1</code>. It turns out that this can be found in
-the <code>else</code>-block, which means we need to find an
-<code>a</code> and <code>b</code> that will not satisfy any of the
-<code>if</code> or <code>elif</code>-statements.</p>
-<p>If <code>a = b</code>, so for example <code>a</code> points to 4 and
-<code>b</code> points to 4 then: <code>a</code> is not less than
-<code>b</code> (4 &lt; 4), <code>a + 2</code> is not equal to
-<code>b</code> (<span class="math inline">4 + 2 = 6</span> and 6 does
-not equal 4), and <code>a - 1</code> is not greater than <code>b</code>
-(<span class="math inline">4 - 1= 3</span>) and 3 is not greater than
-4.</p>
-<p>If <code>a = b + 1</code> this means that <code>a</code> is greater
-than <code>b</code>, so for example if <code>b</code> is 4 then
-<code>a</code> is 5 (<span class="math inline">4 + 1 = 5</span>). If we
-look at the <code>if</code>-statements then <code>a &lt; b</code> is not
-true (5 is greater than 4), <code>a + 2 == b</code> is also not true
-(<span class="math inline">5 + 2 = 7</span> and 7 does not equal 4), and
-<code>a - 1 &gt; b</code> is also not true (<span class="math inline">5
-- 1 = 4</span> and 4 is equal not greater than 4). This means it will
-trigger the <code>else</code> statement.</p>
-<hr/>
-<h5>Difficulty: ⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 94%.</p>
-</div>
-</div>
-</div>
-</div>
 <p><br></p>
 <h3 id="problem-10.3">Problem 10.3</h3>
 <p>Which of the following lines of code will never be executed, for any
@@ -1280,34 +528,6 @@ input?</p>
 <li><p><input type="radio" disabled="" /> 9</p></li>
 <li><p><input type="radio" disabled="" /> 11</p></li>
 </ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading10_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10_3" aria-expanded="true" aria-controls="collapse10_3">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse10_3" class="accordion-collapse collapse"
-aria-labelledby="heading10_3" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer:</strong> 6</p>
-<p>For this to happen: <code>a + 2 == b</code> then <code>a</code> must
-be less than <code>b</code> by 2. However if <code>a</code> is less than
-<code>b</code> it will trigger the first <code>if</code>-statement. This
-means this second <code>if</code>-statement will never run, which means
-that the <code>return</code> on line 6 never happens.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 79%.</p>
-</div>
-</div>
-</div>
-</div>
 <p><br></p>
 <hr />
 <h2 id="problem-11">Problem 11</h2>
@@ -1355,44 +575,6 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb15-1"><a href=
 <li><p><input type="radio" disabled="" /> <code>['Appearance_Order', 'Year']</code></p></li>
 <li><p><input type="radio" disabled="" /> None of the above.</p></li>
 </ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading11">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11" aria-expanded="true" aria-controls="collapse11">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse11" class="accordion-collapse collapse"
-aria-labelledby="heading11" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong>
-<code>['Year', 'Appearance_Order']</code></p>
-<p>The fact that <code>groupby</code> automatically sorts the index in
-ascending order is important here. Since we want earlier years before
-later years, we could group by <code>'Year'</code>, however if we
-<em>just</em> group by year, all the artists who performed in a given
-year will be aggregated together, which is not what we want. Within each
-year, we want to organize the artists in ascending order of
-<code>'Appearance_Order'</code>. In other words, we need to group by
-<code>'Year'</code> with <code>'Appearance_Order'</code> as subgroups.
-Therefore, the correct way to reorder the rows of <code>sungod</code> as
-desired is
-<code>sungod.groupby(['Year', 'Appearance_Order']).max().reset_index()</code>.
-Note that we need to reset the index so that the resulting DataFrame has
-<code>'Year'</code> and <code>'Appearance_Order'</code> as columns, like
-in <code>sungod</code>.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 85%.</p>
-</div>
-</div>
-</div>
-</div>
 <hr />
 <h2 id="problem-12">Problem 12</h2>
 <p>Another DataFrame called <code>music</code> contains a row for every
@@ -1417,46 +599,6 @@ determine the answer?</p>
 <li><p><input type="radio" disabled="" /> <code>merged = sungod.merge(music, left_on='Artist', right_on='Name')</code></p></li>
 <li><p><input type="radio" disabled="" /> <code>merged = music.merge(sungod, left_on='Artist', right_on='Name')</code></p></li>
 </ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading12">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12" aria-expanded="true" aria-controls="collapse12">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse12" class="accordion-collapse collapse"
-aria-labelledby="heading12" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong>
-<code>merged = sungod.merge(music, left_on='Artist', right_on='Name')</code></p>
-<p>The question we want to answer is about Sun God music artists’
-genres. In order to answer, we’ll need a DataFrame consisting of rows of
-artists that have performed at Sun God since its inception in 1983. If
-we merge the <code>sungod</code> DataFrame with the <code>music</code>
-DataFrame based on the artist’s name, we’ll end up with a DataFrame
-containing one row for each artist that has ever performed at Sun God.
-Since the column containing artists’ names is called
-<code>'Artist'</code> in <code>sungod</code> and <code>'Name'</code> in
-<code>music</code>, the correct syntax for this merge is
-<code>merged = sungod.merge(music, left_on='Artist', right_on='Name')</code>.
-Note that we could also interchange the left DataFrame with the right
-DataFrame, as swapping the roles of the two DataFrames in a merge only
-changes the ordering of rows and columns in the output, not the data
-itself. This can be written in code as
-<code>merged = music.merge(sungod, left_on='Name', right_on='Artist')</code>,
-but this is not one of the answer choices.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 86%.</p>
-</div>
-</div>
-</div>
-</div>
 <hr />
 <h2 id="problem-13">Problem 13</h2>
 <p>Consider an artist that has only appeared once at Sun God. At the
@@ -1485,85 +627,9 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb16-1"><a href=
 <p><br></p>
 <h3 id="problem-13.1">Problem 13.1</h3>
 <p>What goes in blank (a)?</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading13_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13_1" aria-expanded="true" aria-controls="collapse13_1">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse13_1" class="accordion-collapse collapse"
-aria-labelledby="heading13_1" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> <code>top_hit_year - year</code></p>
-<p>Before we can answer this question, we need to understand what the
-first three lines of the <code>classify_artist</code> function are
-doing. The first line creates a DataFrame with only one row,
-corresponding to the particular artist that’s passed in as input to the
-function. We know there is just one row because we are told that the
-artist being passed in as input has appeared exactly once at Sun God.
-The next two lines create two variables:</p>
-<ul>
-<li><code>year</code> contains the year in which the artist performed at
-Sun God, and</li>
-<li><code>top_hit_year</code> contains the year in which their top hit
-song was released.</li>
-</ul>
-<p>Now, we can fill in blank (a). Notice that the body of the
-<code>if</code> clause is <code>return 'up-and-coming'</code>. Therefore
-we need a condition that corresponds to up-and-coming, which we are told
-means the top hit came out after the artist appeared at Sun God. Using
-the variables that have been defined for us, this condition is
-<code>top_hit_year &gt; year</code>. However, the <code>if</code>
-statement condition is already partially set up with <code>&gt; 0</code>
-included. We can simply rearrange our condition
-<code>top_hit_year &gt; year</code> by subtracting <code>year</code>
-from both sides to obtain <code>top_hit_year - year &gt; 0</code>, which
-fits the desired format.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 89%.</p>
-</div>
-</div>
-</div>
-</div>
 <p><br> <br></p>
 <h3 id="problem-13.2">Problem 13.2</h3>
 <p>What goes in blank (b)?</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading13_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13_2" aria-expanded="true" aria-controls="collapse13_2">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse13_2" class="accordion-collapse collapse"
-aria-labelledby="heading13_2" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> <code>year-top_hit_year &gt; 5</code></p>
-<p>For this part, we need a condition that corresponds to an artist
-being outdated which happens when their top hit came out more than five
-years prior to their appearance at Sun God. There are several ways to
-state this condition: <code>year-top_hit_year &gt; 5</code>,
-<code>year &gt; top_hit_year + 5</code>, or any equivalent condition
-would be considered correct.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 89%.</p>
-</div>
-</div>
-</div>
-</div>
 <p><br></p>
 <hr />
 <h2 id="section"><span class="math display"> </span></h2>

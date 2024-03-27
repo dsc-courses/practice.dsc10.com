@@ -28,18 +28,4 @@ In order to answer the question, we must first figure out how to get the number 
 
 # END SUBPROB
 
-# BEGIN SUBPROB
-
-Write a single line of code that evaluates to the tallest skyscraper in New York City. 
-
-# BEGIN SOLN
-
-**Answer:** `sky[sky.get('city') == 'New York City'].get('height').max()`
-
-In order to answer this question, we must first query the DataFrame to only include skyscrapers that are located in New York City. We can do this with a line such as `sky[sky.get('city') == 'New York City']`. After doing this, we know that the resulting DataFrame is only going to include skyscrapers from New York City, and we now can focus on getting the tallest building. In order to do so, we first need to get the heights of all the buildings in the resulting DataFrame which can be done with `.get('height')`. Now that we have gotten all the heights, we finally need to get the largest height, which can simply be done by using the `.max()` Series method. Putting it all together, we have a line that looks like `sky[sky.get('city') == 'New York City'].get('height').max()`. 
-
-# END SOLN
-
-# END SUBPROB
-
 # END PROB
