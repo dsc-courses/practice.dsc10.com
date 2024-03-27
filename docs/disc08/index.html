@@ -139,230 +139,16 @@ problems here in the live discussion section</b>; the problems we don’t
 cover can be used for extra practice.</p>
 <hr />
 <h2 id="problem-1">Problem 1</h2>
-<p>You need to estimate the proportion of American adults who want to be
-vaccinated against Covid-19. You plan to survey a random sample of
-American adults, and use the proportion of adults in your sample who
-want to be vaccinated as your estimate for the true proportion in the
-population. Your estimate must be within 0.04 of the true proportion,
-95% of the time. Using the fact that the standard deviation of any
-dataset of 0’s and 1’s is no more than 0.5, calculate the minimum number
-of people you would need to survey. Input your answer below, as an
-<strong>integer</strong>.</p>
-<hr />
-<h2 id="problem-2">Problem 2</h2>
-<p>For this question, let’s think of the data in <code>app_data</code>
-as a random sample of all IKEA purchases and use it to test the
-following hypotheses.</p>
-<p><strong>Null Hypothesis</strong>: IKEA sells an equal amount of beds
-(category <code>'bed'</code>) and outdoor furniture (category
-<code>'outdoor'</code>).</p>
-<p><strong>Alternative Hypothesis</strong>: IKEA sells more beds than
-outdoor furniture.</p>
-<p>The DataFrame <code>app_data</code> contains 5000 rows, which form
-our sample. Of these 5000 products,</p>
-<ul>
-<li>1000 are beds,</li>
-<li>1500 are outdoor furniture, and</li>
-<li>2500 are in another category.</li>
-</ul>
-<p><br></p>
-<h3 id="problem-2.1">Problem 2.1</h3>
-<p>Which of the following <strong>could</strong> be used as the test
-statistic for this hypothesis test? Select all that apply.</p>
-<ul class="task-list">
-<li><p><input type="checkbox" disabled="" /> Among 2500 beds and outdoor furniture items, the absolute difference
-between the proportion of beds and the proportion of outdoor
-furniture.</p></li>
-<li><p><input type="checkbox" disabled="" /> Among 2500 beds and outdoor furniture items, the proportion of
-beds.</p></li>
-<li><p><input type="checkbox" disabled="" /> Among 2500 beds and outdoor furniture items, the number of beds.</p></li>
-<li><p><input type="checkbox" disabled="" /> Among 2500 beds and outdoor furniture items, the number of beds plus
-the number of outdoor furniture items.</p></li>
-</ul>
-<p><br></p>
-<h3 id="problem-2.2">Problem 2.2</h3>
-<p>Let’s do a hypothesis test with the following test statistic: among
-2500 beds and outdoor furniture items, the proportion of outdoor
-furniture minus the proportion of beds.</p>
-<p>Complete the code below to calculate the observed value of the test
-statistic and save the result as <code>obs_diff</code>.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>    outdoor <span class="op">=</span> (app_data.get(<span class="st">&#39;category&#39;</span>)<span class="op">==</span><span class="st">&#39;outdoor&#39;</span>) </span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    bed <span class="op">=</span> (app_data.get(<span class="st">&#39;category&#39;</span>)<span class="op">==</span><span class="st">&#39;bed&#39;</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    obs_diff <span class="op">=</span> ( ___(a)___ <span class="op">-</span> ___(b)___ ) <span class="op">/</span> ___(c)___</span></code></pre></div>
-<p>The table below contains several Python expressions. Choose the
-correct expression to fill in each of the three blanks. Three
-expressions will be used, and two will be unused.</p>
-<center><img src='../assets/images/sp22-final/q8-table.jpg' width=50%></center>
-<p><br></p>
-<h3 id="problem-2.3">Problem 2.3</h3>
-<p>Which of the following is a valid way to generate one value of the
-test statistic according to the null model? Select all that apply.</p>
-<p>Way 1:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>multi <span class="op">=</span> np.random.multinomial(<span class="dv">2500</span>, [<span class="fl">0.5</span>,<span class="fl">0.5</span>]) </span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>(multi[<span class="dv">0</span>] <span class="op">-</span> multi[<span class="dv">1</span>])<span class="op">/</span><span class="dv">2500</span></span></code></pre></div>
-<p>Way 2:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>outdoor <span class="op">=</span> np.random.multinomial(<span class="dv">2500</span>, [<span class="fl">0.5</span>,<span class="fl">0.5</span>])[<span class="dv">0</span>]<span class="op">/</span><span class="dv">2500</span> </span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>bed <span class="op">=</span> np.random.multinomial(<span class="dv">2500</span>, [<span class="fl">0.5</span>,<span class="fl">0.5</span>])[<span class="dv">1</span>]<span class="op">/</span><span class="dv">2500</span> </span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>outdoor <span class="op">-</span> bed </span></code></pre></div>
-<p>Way 3:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>choice <span class="op">=</span> np.random.choice([<span class="dv">0</span>, <span class="dv">1</span>], <span class="dv">2500</span>, replace<span class="op">=</span><span class="va">True</span>) </span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>choice_sum <span class="op">=</span> choice.<span class="bu">sum</span>( ) </span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>(choice_sum <span class="op">-</span> (<span class="dv">2500</span> <span class="op">-</span> choice_sum))<span class="op">/</span><span class="dv">2500</span></span></code></pre></div>
-<p>Way 4:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>choice <span class="op">=</span> np.random.choice([<span class="st">&#39;bed&#39;</span>, <span class="st">&#39;outdoor&#39;</span>], <span class="dv">2500</span>, replace<span class="op">=</span><span class="va">True</span>) </span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>bed <span class="op">=</span> np.count_nonzero(choice<span class="op">==</span><span class="st">&#39;bed&#39;</span>)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>outdoor <span class="op">=</span> np.count_nonzero(choice<span class="op">==</span><span class="st">&#39;outdoor&#39;</span>)</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>outdoor<span class="op">/</span><span class="dv">2500</span> <span class="op">-</span> bed<span class="op">/</span><span class="dv">2500</span></span></code></pre></div>
-<p>Way 5:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>outdoor <span class="op">=</span> (app_data.get(<span class="st">&#39;category&#39;</span>)<span class="op">==</span><span class="st">&#39;outdoor&#39;</span>) </span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>bed <span class="op">=</span> (app_data.get(<span class="st">&#39;category&#39;</span>)<span class="op">==</span><span class="st">&#39;bed&#39;</span>)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>samp <span class="op">=</span> app_data[outdoor<span class="op">|</span>bed].sample(<span class="dv">2500</span>, replace<span class="op">=</span><span class="va">True</span>) </span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>samp[samp.get(<span class="st">&#39;category&#39;</span>)<span class="op">==</span><span class="st">&#39;outdoor&#39;</span>].shape[<span class="dv">0</span>]<span class="op">/</span><span class="dv">2500</span> <span class="op">-</span>  samp[samp.get(<span class="st">&#39;category&#39;</span>)<span class="op">==</span><span class="st">&#39;bed&#39;</span>].shape[<span class="dv">0</span>]<span class="op">/</span><span class="dv">2500</span>)</span></code></pre></div>
-<p>Way 6:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>outdoor <span class="op">=</span> (app_data.get(<span class="st">&#39;category&#39;</span>)<span class="op">==</span><span class="st">&#39;outdoor&#39;</span>) </span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>bed <span class="op">=</span> (app_data.get(<span class="st">&#39;category&#39;</span>)<span class="op">==</span><span class="st">&#39;bed&#39;</span>)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>samp <span class="op">=</span> (app_data[outdoor<span class="op">|</span>bed].groupby(<span class="st">&#39;category&#39;</span>).count( ).reset_index( ).sample(<span class="dv">2500</span>, replace<span class="op">=</span><span class="va">True</span>))    </span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>samp[samp.get(<span class="st">&#39;category&#39;</span>)<span class="op">==</span><span class="st">&#39;outdoor&#39;</span>].shape[<span class="dv">0</span>]<span class="op">/</span><span class="dv">2500</span> <span class="op">-</span> samp[samp.get(<span class="st">&#39;category&#39;</span>)<span class="op">==</span><span class="st">&#39;bed&#39;</span>].shape[<span class="dv">0</span>]<span class="op">/</span><span class="dv">2500</span></span></code></pre></div>
-<ul class="task-list">
-<li><p><input type="checkbox" disabled="" /> Way 1</p></li>
-<li><p><input type="checkbox" disabled="" /> Way 2</p></li>
-<li><p><input type="checkbox" disabled="" /> Way 3</p></li>
-<li><p><input type="checkbox" disabled="" /> Way 4</p></li>
-<li><p><input type="checkbox" disabled="" /> Way 5</p></li>
-<li><p><input type="checkbox" disabled="" /> Way 6</p></li>
-</ul>
-<p><br></p>
-<h3 id="problem-2.4">Problem 2.4</h3>
-<p>Suppose we generate 10,000 simulated values of the test statistic
-according to the null model and store them in an array called
-<code>simulated_diffs</code>. Complete the code below to calculate the
-p-value for the hypothesis test.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>    np.count_nonzero(simulated_diffs _________ obs_diff)<span class="op">/</span><span class="dv">10000</span></span></code></pre></div>
-<p>What goes in the blank?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> <code>&lt;</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>&lt;=</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>&gt;</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>&gt;=</code></p></li>
-</ul>
-<p><br></p>
-<hr />
-<h2 id="problem-3">Problem 3</h2>
-<p>At the San Diego Model Railroad Museum, there are different admission
-prices for children, adults, and seniors. Over a period of time, as
-tickets are sold, employees keep track of how many of each type of
-ticket are sold. These ticket counts (in the order child, adult, senior)
-are stored as follows.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>admissions_data <span class="op">=</span> np.array([<span class="dv">550</span>, <span class="dv">1550</span>, <span class="dv">400</span>])</span></code></pre></div>
-<p><br></p>
-<h3 id="problem-3.1">Problem 3.1</h3>
-<p>Complete the code below so that it creates an array
-<code>admissions_proportions</code> with the proportions of tickets sold
-to each group (in the order child, adult, senior).</p>
-<div class="sourceCode" id="cb10"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> as_proportion(data):</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> __(a)__</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>admissions_proportions <span class="op">=</span> as_proportion(admissions_data)</span></code></pre></div>
-<p>What goes in blank (a)?</p>
-<p><br></p>
-<h3 id="problem-3.2">Problem 3.2</h3>
-<p>The museum employees have a model in mind for the proportions in
-which they sell tickets to children, adults, and seniors. This model is
-stored as follows.</p>
-<div class="sourceCode" id="cb11"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> np.array([<span class="fl">0.25</span>, <span class="fl">0.6</span>, <span class="fl">0.15</span>])</span></code></pre></div>
-<p>We want to conduct a hypothesis test to determine whether the
-admissions data we have is consistent with this model. Which of the
-following is the null hypothesis for this test?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> Child, adult, and senior tickets might plausibly be purchased in
-proportions 0.25, 0.6, and 0.15.</p></li>
-<li><p><input type="radio" disabled="" /> Child, adult, and senior tickets are purchased in proportions 0.25,
-0.6, and 0.15.</p></li>
-<li><p><input type="radio" disabled="" /> Child, adult, and senior tickets might plausibly be purchased in
-proportions other than 0.25, 0.6, and 0.15.</p></li>
-<li><p><input type="radio" disabled="" /> Child, adult, and senior tickets, are purchased in proportions other
-than 0.25, 0.6, and 0.15.</p></li>
-</ul>
-<p><br></p>
-<h3 id="problem-3.3">Problem 3.3</h3>
-<p>Which of the following test statistics could we use to test our
-hypotheses? Select all that could work.</p>
-<ul class="task-list">
-<li><p><input type="checkbox" disabled="" /> sum of differences in proportions</p></li>
-<li><p><input type="checkbox" disabled="" /> sum of squared differences in proportions</p></li>
-<li><p><input type="checkbox" disabled="" /> mean of differences in proportions</p></li>
-<li><p><input type="checkbox" disabled="" /> mean of squared differences in proportions</p></li>
-<li><p><input type="checkbox" disabled="" /> none of the above</p></li>
-</ul>
-<p><br></p>
-<h3 id="problem-3.4">Problem 3.4</h3>
-<p>Below, we’ll perform the hypothesis test with a different test
-statistic, the mean of the absolute differences in proportions.</p>
-<p>Recall that the ticket counts we observed for children, adults, and
-seniors are stored in the array
-<code>admissions_data  = np.array([550, 1550, 400])</code>, and that our
-model is <code>model = np.array([0.25, 0.6, 0.15])</code>.</p>
-<p>For our hypothesis test to determine whether the admissions data is
-consistent with our model, what is the observed value of the test
-statistic? Input your answer as a decimal between 0 and 1. Round to
-three decimal places. (Suppose that the value you calculated is assigned
-to the variable <code>observed_stat</code>, which you will use in later
-questions.)</p>
-<p><br></p>
-<h3 id="problem-3.5">Problem 3.5</h3>
-<p>Now, we want to simulate the test statistic 10,000 times under the
-assumptions of the null hypothesis. Fill in the blanks below to complete
-this simulation and calculate the p-value for our hypothesis test.
-Assume that the variables <code>admissions_data</code>,
-<code>admissions_proportions</code>, <code>model</code>, and
-<code>observed_stat</code> are already defined as specified earlier in
-the question.</p>
-<div class="sourceCode" id="cb12"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>simulated_stats <span class="op">=</span> np.array([]) </span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    simulated_proportions <span class="op">=</span> as_proportions(np.random.multinomial(__(a)__, __(b)__))</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    simulated_stat <span class="op">=</span> __(c)__</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    simulated_stats <span class="op">=</span> np.append(simulated_stats, simulated_stat)</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>p_value <span class="op">=</span> __(d)__</span></code></pre></div>
-<p>What goes in blank (a)? What goes in blank (b)? What goes in blank
-(c)? What goes in blank (d)?</p>
-<p><br></p>
-<h3 id="problem-3.6">Problem 3.6</h3>
-<p>True or False: the p-value represents the probability that the null
-hypothesis is true.</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> True</p></li>
-<li><p><input type="radio" disabled="" /> False</p></li>
-</ul>
-<p><br></p>
-<h3 id="problem-3.7">Problem 3.7</h3>
-<p>The new statistic that we used for this hypothesis test, the mean of
-the absolute differences in proportions, is in fact closely related to
-the total variation distance. Given two arrays of length three,
-<code>array_1</code> and <code>array_2</code>, suppose we compute the
-mean of the absolute differences in proportions between
-<code>array_1</code> and <code>array_2</code> and store the result as
-<code>madp</code>. What value would we have to multiply
-<code>madp</code> by to obtain the total variation distance
-<code>array_1</code> and <code>array_2</code>? Input your answer below,
-rounding to three decimal places.</p>
-<p><br></p>
-<hr />
-<h2 id="problem-4">Problem 4</h2>
 <p>Oren has a random sample of 200 dog prices in an array called
 <code>oren</code>. He has also bootstrapped his sample 1,000 times and
 stored the mean of each resample in an array called
 <code>boots</code>.</p>
 <p>In this question, assume that the following code has run:</p>
-<div class="sourceCode" id="cb13"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> np.mean(oren)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> np.std(oren)</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> <span class="bu">len</span>(oren)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> np.mean(oren)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> np.std(oren)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> <span class="bu">len</span>(oren)</span></code></pre></div>
 <p><br></p>
-<h3 id="problem-4.1">Problem 4.1</h3>
+<h3 id="problem-1.1">Problem 1.1</h3>
 <p>What expression best estimates the population’s standard
 deviation?</p>
 <ul class="task-list">
@@ -372,7 +158,7 @@ deviation?</p>
 <li><p><input type="radio" disabled="" /> <code>b * np.sqrt(c)</code></p></li>
 </ul>
 <p><br></p>
-<h3 id="problem-4.2">Problem 4.2</h3>
+<h3 id="problem-1.2">Problem 1.2</h3>
 <p>Which expression best estimates the mean of <code>boots</code>?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> 0</p></li>
@@ -381,7 +167,7 @@ deviation?</p>
 <li><p><input type="radio" disabled="" /> <code>(oren - a) / b</code></p></li>
 </ul>
 <p><br></p>
-<h3 id="problem-4.3">Problem 4.3</h3>
+<h3 id="problem-1.3">Problem 1.3</h3>
 <p>What expression best estimates the standard deviation of
 <code>boots</code>?</p>
 <ul class="task-list">
@@ -391,7 +177,7 @@ deviation?</p>
 <li><p><input type="radio" disabled="" /> <code>(a -b) / np.sqrt(c)</code></p></li>
 </ul>
 <p><br></p>
-<h3 id="problem-4.4">Problem 4.4</h3>
+<h3 id="problem-1.4">Problem 1.4</h3>
 <p>What is the dog price of $560 in standard units?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> <code>(560 - a) / b</code></p></li>
@@ -401,7 +187,7 @@ deviation?</p>
 <li><p><input type="radio" disabled="" /> <code>abs(560 - a) / (b / np.sqrt(c))</code></p></li>
 </ul>
 <p><br></p>
-<h3 id="problem-4.5">Problem 4.5</h3>
+<h3 id="problem-1.5">Problem 1.5</h3>
 <p>The distribution of <code>boots</code> is normal because of the
 Central Limit Theorem.</p>
 <ul class="task-list">
@@ -409,7 +195,7 @@ Central Limit Theorem.</p>
 <li><p><input type="radio" disabled="" /> False</p></li>
 </ul>
 <p><br></p>
-<h3 id="problem-4.6">Problem 4.6</h3>
+<h3 id="problem-1.6">Problem 1.6</h3>
 <p>If Oren’s sample was 400 dogs instead of 200, the standard deviation
 of <code>boots</code> will…</p>
 <ul class="task-list">
@@ -420,7 +206,7 @@ of <code>boots</code> will…</p>
 <li><p><input type="radio" disabled="" /> None of the above</p></li>
 </ul>
 <p><br></p>
-<h3 id="problem-4.7">Problem 4.7</h3>
+<h3 id="problem-1.7">Problem 1.7</h3>
 <p>If Oren took 4000 bootstrap resamples instead of 1000, the standard
 deviation of <code>boots</code> will…</p>
 <ul class="task-list">
@@ -431,22 +217,21 @@ deviation of <code>boots</code> will…</p>
 <li><p><input type="radio" disabled="" /> None of the above</p></li>
 </ul>
 <p><br></p>
-<h3 id="problem-4.8">Problem 4.8</h3>
+<h3 id="problem-1.8">Problem 1.8</h3>
 <p>Write one line of code that evaluates to the <strong>right
 endpoint</strong> of a 92% CLT-Based confidence interval for the mean
 dog price. The following expressions may help:</p>
-<div class="sourceCode" id="cb14"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>stats.norm.cdf(<span class="fl">1.75</span>) <span class="co"># =&gt; 0.96</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>stats.norm.cdf(<span class="fl">1.4</span>)  <span class="co"># =&gt; 0.92</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>stats.norm.cdf(<span class="fl">1.75</span>) <span class="co"># =&gt; 0.96</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>stats.norm.cdf(<span class="fl">1.4</span>)  <span class="co"># =&gt; 0.92</span></span></code></pre></div>
 <p><br></p>
 <hr />
-<h2 id="problem-5">Problem 5</h2>
+<h2 id="problem-2">Problem 2</h2>
 <p>From a population with mean 500 and standard deviation 50, you
 collect a sample of size 100. The sample has mean 400 and standard
 deviation 40. You bootstrap this sample 10,000 times, collecting 10,000
 resample means.</p>
 <p><br></p>
-<h3 id="problem-5.1">Problem 5.1</h3>
+<h3 id="problem-2.1">Problem 2.1</h3>
 <p>Which of the following is the most accurate description of the mean
 of the distribution of the 10,000 bootstrapped means?</p>
 <ul class="task-list">
@@ -456,7 +241,7 @@ of the distribution of the 10,000 bootstrapped means?</p>
 <li><p><input type="radio" disabled="" /> The mean will be approximately equal to 500.</p></li>
 </ul>
 <p><br></p>
-<h3 id="problem-5.2">Problem 5.2</h3>
+<h3 id="problem-2.2">Problem 2.2</h3>
 <p>Which of the following is closest to the standard deviation of the
 distribution of the 10,000 bootstrapped means?</p>
 <ul class="task-list">
@@ -466,6 +251,79 @@ distribution of the 10,000 bootstrapped means?</p>
 <li><p><input type="radio" disabled="" /> 0.4</p></li>
 </ul>
 <p><br></p>
+<hr />
+<h2 id="problem-3">Problem 3</h2>
+<p>Suppose you draw a sample of size 100 from a population with mean 50
+and standard deviation 15. What is the probability that your sample has
+a mean between 50 and 53? Input the probability below, as a number
+between 0 and 1, rounded to <strong>two decimal places</strong>.</p>
+<hr />
+<h2 id="problem-4">Problem 4</h2>
+<p>The DataFrame <code>apps</code> contains application data for a
+random sample of 1,000 applicants for a particular credit card from the
+1990s. The <code>"age"</code> column contains the applicants’ ages, in
+years, to the nearest twelfth of a year.</p>
+<p>The credit card company that owns the data in <code>apps</code>,
+BruinCard, has decided not to give us access to the entire
+<code>apps</code> DataFrame, but instead just a random sample of 100
+rows of apps called <code>hundred_apps</code>.</p>
+<p>We are interested in estimating the mean age of all applicants in
+<code>apps</code> given only the data in <code>hundred_apps</code>. The
+ages in <code>hundred_apps</code> have a mean of 35 and a standard
+deviation of 10.</p>
+<p><br></p>
+<h3 id="problem-4.1">Problem 4.1</h3>
+<p>Give the endpoints of the CLT-based 95% confidence interval for the
+mean age of all applicants in <code>apps</code>, based on the data in
+<code>hundred_apps</code>.</p>
+<p><br></p>
+<h3 id="problem-4.2">Problem 4.2</h3>
+<p>BruinCard reinstates our access to <code>apps</code> so that we can
+now easily extract information about the ages of all applicants. We
+determine that, just like in <code>hundred_apps</code>, the ages in
+<code>apps</code> have a mean of 35 and a standard deviation of 10. This
+raises the question of how other samples of 100 rows of
+<code>apps</code> would have turned out, so we compute <span
+class="math inline">10,000</span> sample means as follows.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>    sample_means <span class="op">=</span> np.array([])</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        sample_mean <span class="op">=</span> apps.sample(<span class="dv">100</span>, replace<span class="op">=</span><span class="va">True</span>).get(<span class="st">&quot;age&quot;</span>).mean()</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        sample_means <span class="op">=</span> np.append(sample_means, sample_mean)</span></code></pre></div>
+<p>Which of the following three visualizations best depict the
+distribution of <code>sample_means</code>?</p>
+<center><img src='../assets/images/fa22-final/3hist.png' width=45%></center>
+<p><br></p>
+<p><br></p>
+<h3 id="problem-4.3">Problem 4.3</h3>
+<p>Which of the following statements are guaranteed to be true? Select
+all that apply.</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> We used bootstrapping to compute <code>sample_means</code>.</p></li>
+<li><p><input type="checkbox" disabled="" /> The ages of credit card applicants are roughly normally
+distributed.</p></li>
+<li><p><input type="checkbox" disabled="" /> A CLT-based 90% confidence interval for the mean age of credit card
+applicants, based on the data in hundred apps, would be narrower than
+the interval you gave in part (a).</p></li>
+<li><p><input type="checkbox" disabled="" /> The expression <code>np.percentile(sample_means, 2.5)</code>
+evaluates to the left endpoint of the interval you gave in part (a).</p></li>
+<li><p><input type="checkbox" disabled="" /> If we used the data in <code>hundred_apps</code> to create 1,000
+CLT-based 95% confidence intervals for the mean age of applicants in
+<code>apps</code>, approximately 950 of them would contain the true mean
+age of applicants in <code>apps</code>.</p></li>
+<li><p><input type="checkbox" disabled="" /> None of the above.</p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-5">Problem 5</h2>
+<p>You need to estimate the proportion of American adults who want to be
+vaccinated against Covid-19. You plan to survey a random sample of
+American adults, and use the proportion of adults in your sample who
+want to be vaccinated as your estimate for the true proportion in the
+population. Your estimate must be within 0.04 of the true proportion,
+95% of the time. Using the fact that the standard deviation of any
+dataset of 0’s and 1’s is no more than 0.5, calculate the minimum number
+of people you would need to survey. Input your answer below, as an
+<strong>integer</strong>.</p>
 <hr />
 <h2 id="problem-6">Problem 6</h2>
 <p>It’s your first time playing a new game called <em>Brunch Menu</em>.
@@ -513,69 +371,6 @@ been normally distributed.</p></li>
 <p><br></p>
 <hr />
 <h2 id="problem-7">Problem 7</h2>
-<p>Suppose you draw a sample of size 100 from a population with mean 50
-and standard deviation 15. What is the probability that your sample has
-a mean between 50 and 53? Input the probability below, as a number
-between 0 and 1, rounded to <strong>two decimal places</strong>.</p>
-<hr />
-<h2 id="problem-8">Problem 8</h2>
-<p>The DataFrame <code>apps</code> contains application data for a
-random sample of 1,000 applicants for a particular credit card from the
-1990s. The <code>"age"</code> column contains the applicants’ ages, in
-years, to the nearest twelfth of a year.</p>
-<p>The credit card company that owns the data in <code>apps</code>,
-BruinCard, has decided not to give us access to the entire
-<code>apps</code> DataFrame, but instead just a random sample of 100
-rows of apps called <code>hundred_apps</code>.</p>
-<p>We are interested in estimating the mean age of all applicants in
-<code>apps</code> given only the data in <code>hundred_apps</code>. The
-ages in <code>hundred_apps</code> have a mean of 35 and a standard
-deviation of 10.</p>
-<p><br></p>
-<h3 id="problem-8.1">Problem 8.1</h3>
-<p>Give the endpoints of the CLT-based 95% confidence interval for the
-mean age of all applicants in <code>apps</code>, based on the data in
-<code>hundred_apps</code>.</p>
-<p><br></p>
-<h3 id="problem-8.2">Problem 8.2</h3>
-<p>BruinCard reinstates our access to <code>apps</code> so that we can
-now easily extract information about the ages of all applicants. We
-determine that, just like in <code>hundred_apps</code>, the ages in
-<code>apps</code> have a mean of 35 and a standard deviation of 10. This
-raises the question of how other samples of 100 rows of
-<code>apps</code> would have turned out, so we compute <span
-class="math inline">10,000</span> sample means as follows.</p>
-<div class="sourceCode" id="cb15"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>    sample_means <span class="op">=</span> np.array([])</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>        sample_mean <span class="op">=</span> apps.sample(<span class="dv">100</span>, replace<span class="op">=</span><span class="va">True</span>).get(<span class="st">&quot;age&quot;</span>).mean()</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>        sample_means <span class="op">=</span> np.append(sample_means, sample_mean)</span></code></pre></div>
-<p>Which of the following three visualizations best depict the
-distribution of <code>sample_means</code>?</p>
-<center><img src='../assets/images/fa22-final/3hist.png' width=45%></center>
-<p><br></p>
-<p><br></p>
-<h3 id="problem-8.3">Problem 8.3</h3>
-<p>Which of the following statements are guaranteed to be true? Select
-all that apply.</p>
-<ul class="task-list">
-<li><p><input type="checkbox" disabled="" /> We used bootstrapping to compute <code>sample_means</code>.</p></li>
-<li><p><input type="checkbox" disabled="" /> The ages of credit card applicants are roughly normally
-distributed.</p></li>
-<li><p><input type="checkbox" disabled="" /> A CLT-based 90% confidence interval for the mean age of credit card
-applicants, based on the data in hundred apps, would be narrower than
-the interval you gave in part (a).</p></li>
-<li><p><input type="checkbox" disabled="" /> The expression <code>np.percentile(sample_means, 2.5)</code>
-evaluates to the left endpoint of the interval you gave in part (a).</p></li>
-<li><p><input type="checkbox" disabled="" /> If we used the data in <code>hundred_apps</code> to create 1,000
-CLT-based 95% confidence intervals for the mean age of applicants in
-<code>apps</code>, approximately 950 of them would contain the true mean
-age of applicants in <code>apps</code>.</p></li>
-<li><p><input type="checkbox" disabled="" /> None of the above.</p></li>
-</ul>
-<p><br></p>
-<hr />
-<h2 id="problem-9">Problem 9</h2>
 <p>You want to estimate the proportion of DSC majors who have a Netflix
 subscription. To do so, you will survey a random sample of DSC majors
 and ask them whether they have a Netflix subscription. You will then
@@ -583,21 +378,21 @@ create a 95% confidence interval for the proportion of “yes" answers in
 the population, based on the responses in your sample. You decide that
 your confidence interval should have a width of at most 0.10.</p>
 <p><br></p>
-<h3 id="problem-9.1">Problem 9.1</h3>
+<h3 id="problem-7.1">Problem 7.1</h3>
 <p>In order for your confidence interval to have a width of at most
 0.10, the standard deviation of the distribution of the sample
 proportion must be at most <span class="math inline">T</span>. What is
 <span class="math inline">T</span>? Give your answer as an exact
 decimal.</p>
 <p><br></p>
-<h3 id="problem-9.2">Problem 9.2</h3>
+<h3 id="problem-7.2">Problem 7.2</h3>
 <p>Using the fact that the standard deviation of any dataset of 0s and
 1s is no more than 0.5, calculate the minimum number of people you would
 need to survey so that the width of your confidence interval is at most
 0.10. Give your answer as an integer.</p>
 <p><br></p>
 <hr />
-<h2 id="problem-10">Problem 10</h2>
+<h2 id="problem-8">Problem 8</h2>
 <p>Arya was curious how many UCSD students used Hulu over Thanksgiving
 break. He surveys 250 students and finds that 130 of them did use Hulu
 over break and 120 did not.</p>
@@ -611,7 +406,7 @@ Hulu.</p></li>
 Hulu.</p></li>
 </ul>
 <p><br></p>
-<h3 id="problem-10.1">Problem 10.1</h3>
+<h3 id="problem-8.1">Problem 8.1</h3>
 <p>Which of the following could be used as a test statistic for the
 hypothesis test?</p>
 <ul class="task-list">
@@ -625,18 +420,223 @@ students who did not use Hulu.</p></li>
 plus the proportion of students who did not use Hulu.</p></li>
 </ul>
 <p><br></p>
-<h3 id="problem-10.2">Problem 10.2</h3>
+<h3 id="problem-8.2">Problem 8.2</h3>
 <p>For the test statistic that you chose in part (a), what is the
 observed value of the statistic? Give your answer either as an exact
 decimal or a simplified fraction.</p>
 <p><br></p>
-<h3 id="problem-10.3">Problem 10.3</h3>
+<h3 id="problem-8.3">Problem 8.3</h3>
 <p>If the p-value of the hypothesis test is 0.053, what can we conclude,
 at the standard 0.05 significance level?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> We reject the null hypothesis.</p></li>
 <li><p><input type="radio" disabled="" /> We fail to reject the null hypothesis.</p></li>
 <li><p><input type="radio" disabled="" /> We accept the null hypothesis.</p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-9">Problem 9</h2>
+<p>At the San Diego Model Railroad Museum, there are different admission
+prices for children, adults, and seniors. Over a period of time, as
+tickets are sold, employees keep track of how many of each type of
+ticket are sold. These ticket counts (in the order child, adult, senior)
+are stored as follows.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>admissions_data <span class="op">=</span> np.array([<span class="dv">550</span>, <span class="dv">1550</span>, <span class="dv">400</span>])</span></code></pre></div>
+<p><br></p>
+<h3 id="problem-9.1">Problem 9.1</h3>
+<p>Complete the code below so that it creates an array
+<code>admissions_proportions</code> with the proportions of tickets sold
+to each group (in the order child, adult, senior).</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> as_proportion(data):</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> __(a)__</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>admissions_proportions <span class="op">=</span> as_proportion(admissions_data)</span></code></pre></div>
+<p>What goes in blank (a)?</p>
+<p><br></p>
+<h3 id="problem-9.2">Problem 9.2</h3>
+<p>The museum employees have a model in mind for the proportions in
+which they sell tickets to children, adults, and seniors. This model is
+stored as follows.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> np.array([<span class="fl">0.25</span>, <span class="fl">0.6</span>, <span class="fl">0.15</span>])</span></code></pre></div>
+<p>We want to conduct a hypothesis test to determine whether the
+admissions data we have is consistent with this model. Which of the
+following is the null hypothesis for this test?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Child, adult, and senior tickets might plausibly be purchased in
+proportions 0.25, 0.6, and 0.15.</p></li>
+<li><p><input type="radio" disabled="" /> Child, adult, and senior tickets are purchased in proportions 0.25,
+0.6, and 0.15.</p></li>
+<li><p><input type="radio" disabled="" /> Child, adult, and senior tickets might plausibly be purchased in
+proportions other than 0.25, 0.6, and 0.15.</p></li>
+<li><p><input type="radio" disabled="" /> Child, adult, and senior tickets, are purchased in proportions other
+than 0.25, 0.6, and 0.15.</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-9.3">Problem 9.3</h3>
+<p>Which of the following test statistics could we use to test our
+hypotheses? Select all that could work.</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> sum of differences in proportions</p></li>
+<li><p><input type="checkbox" disabled="" /> sum of squared differences in proportions</p></li>
+<li><p><input type="checkbox" disabled="" /> mean of differences in proportions</p></li>
+<li><p><input type="checkbox" disabled="" /> mean of squared differences in proportions</p></li>
+<li><p><input type="checkbox" disabled="" /> none of the above</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-9.4">Problem 9.4</h3>
+<p>Below, we’ll perform the hypothesis test with a different test
+statistic, the mean of the absolute differences in proportions.</p>
+<p>Recall that the ticket counts we observed for children, adults, and
+seniors are stored in the array
+<code>admissions_data  = np.array([550, 1550, 400])</code>, and that our
+model is <code>model = np.array([0.25, 0.6, 0.15])</code>.</p>
+<p>For our hypothesis test to determine whether the admissions data is
+consistent with our model, what is the observed value of the test
+statistic? Input your answer as a decimal between 0 and 1. Round to
+three decimal places. (Suppose that the value you calculated is assigned
+to the variable <code>observed_stat</code>, which you will use in later
+questions.)</p>
+<p><br></p>
+<h3 id="problem-9.5">Problem 9.5</h3>
+<p>Now, we want to simulate the test statistic 10,000 times under the
+assumptions of the null hypothesis. Fill in the blanks below to complete
+this simulation and calculate the p-value for our hypothesis test.
+Assume that the variables <code>admissions_data</code>,
+<code>admissions_proportions</code>, <code>model</code>, and
+<code>observed_stat</code> are already defined as specified earlier in
+the question.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>simulated_stats <span class="op">=</span> np.array([]) </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    simulated_proportions <span class="op">=</span> as_proportions(np.random.multinomial(__(a)__, __(b)__))</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    simulated_stat <span class="op">=</span> __(c)__</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    simulated_stats <span class="op">=</span> np.append(simulated_stats, simulated_stat)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>p_value <span class="op">=</span> __(d)__</span></code></pre></div>
+<p>What goes in blank (a)? What goes in blank (b)? What goes in blank
+(c)? What goes in blank (d)?</p>
+<p><br></p>
+<h3 id="problem-9.6">Problem 9.6</h3>
+<p>True or False: the p-value represents the probability that the null
+hypothesis is true.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-9.7">Problem 9.7</h3>
+<p>The new statistic that we used for this hypothesis test, the mean of
+the absolute differences in proportions, is in fact closely related to
+the total variation distance. Given two arrays of length three,
+<code>array_1</code> and <code>array_2</code>, suppose we compute the
+mean of the absolute differences in proportions between
+<code>array_1</code> and <code>array_2</code> and store the result as
+<code>madp</code>. What value would we have to multiply
+<code>madp</code> by to obtain the total variation distance
+<code>array_1</code> and <code>array_2</code>? Input your answer below,
+rounding to three decimal places.</p>
+<p><br></p>
+<hr />
+<h2 id="problem-10">Problem 10</h2>
+<p>For this question, let’s think of the data in <code>app_data</code>
+as a random sample of all IKEA purchases and use it to test the
+following hypotheses.</p>
+<p><strong>Null Hypothesis</strong>: IKEA sells an equal amount of beds
+(category <code>'bed'</code>) and outdoor furniture (category
+<code>'outdoor'</code>).</p>
+<p><strong>Alternative Hypothesis</strong>: IKEA sells more beds than
+outdoor furniture.</p>
+<p>The DataFrame <code>app_data</code> contains 5000 rows, which form
+our sample. Of these 5000 products,</p>
+<ul>
+<li>1000 are beds,</li>
+<li>1500 are outdoor furniture, and</li>
+<li>2500 are in another category.</li>
+</ul>
+<p><br></p>
+<h3 id="problem-10.1">Problem 10.1</h3>
+<p>Which of the following <strong>could</strong> be used as the test
+statistic for this hypothesis test? Select all that apply.</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> Among 2500 beds and outdoor furniture items, the absolute difference
+between the proportion of beds and the proportion of outdoor
+furniture.</p></li>
+<li><p><input type="checkbox" disabled="" /> Among 2500 beds and outdoor furniture items, the proportion of
+beds.</p></li>
+<li><p><input type="checkbox" disabled="" /> Among 2500 beds and outdoor furniture items, the number of beds.</p></li>
+<li><p><input type="checkbox" disabled="" /> Among 2500 beds and outdoor furniture items, the number of beds plus
+the number of outdoor furniture items.</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-10.2">Problem 10.2</h3>
+<p>Let’s do a hypothesis test with the following test statistic: among
+2500 beds and outdoor furniture items, the proportion of outdoor
+furniture minus the proportion of beds.</p>
+<p>Complete the code below to calculate the observed value of the test
+statistic and save the result as <code>obs_diff</code>.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>    outdoor <span class="op">=</span> (app_data.get(<span class="st">&#39;category&#39;</span>)<span class="op">==</span><span class="st">&#39;outdoor&#39;</span>) </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    bed <span class="op">=</span> (app_data.get(<span class="st">&#39;category&#39;</span>)<span class="op">==</span><span class="st">&#39;bed&#39;</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    obs_diff <span class="op">=</span> ( ___(a)___ <span class="op">-</span> ___(b)___ ) <span class="op">/</span> ___(c)___</span></code></pre></div>
+<p>The table below contains several Python expressions. Choose the
+correct expression to fill in each of the three blanks. Three
+expressions will be used, and two will be unused.</p>
+<center><img src='../assets/images/sp22-final/q8-table.jpg' width=50%></center>
+<p><br></p>
+<h3 id="problem-10.3">Problem 10.3</h3>
+<p>Which of the following is a valid way to generate one value of the
+test statistic according to the null model? Select all that apply.</p>
+<p>Way 1:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>multi <span class="op">=</span> np.random.multinomial(<span class="dv">2500</span>, [<span class="fl">0.5</span>,<span class="fl">0.5</span>]) </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>(multi[<span class="dv">0</span>] <span class="op">-</span> multi[<span class="dv">1</span>])<span class="op">/</span><span class="dv">2500</span></span></code></pre></div>
+<p>Way 2:</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>outdoor <span class="op">=</span> np.random.multinomial(<span class="dv">2500</span>, [<span class="fl">0.5</span>,<span class="fl">0.5</span>])[<span class="dv">0</span>]<span class="op">/</span><span class="dv">2500</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>bed <span class="op">=</span> np.random.multinomial(<span class="dv">2500</span>, [<span class="fl">0.5</span>,<span class="fl">0.5</span>])[<span class="dv">1</span>]<span class="op">/</span><span class="dv">2500</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>outdoor <span class="op">-</span> bed </span></code></pre></div>
+<p>Way 3:</p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>choice <span class="op">=</span> np.random.choice([<span class="dv">0</span>, <span class="dv">1</span>], <span class="dv">2500</span>, replace<span class="op">=</span><span class="va">True</span>) </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>choice_sum <span class="op">=</span> choice.<span class="bu">sum</span>( ) </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>(choice_sum <span class="op">-</span> (<span class="dv">2500</span> <span class="op">-</span> choice_sum))<span class="op">/</span><span class="dv">2500</span></span></code></pre></div>
+<p>Way 4:</p>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>choice <span class="op">=</span> np.random.choice([<span class="st">&#39;bed&#39;</span>, <span class="st">&#39;outdoor&#39;</span>], <span class="dv">2500</span>, replace<span class="op">=</span><span class="va">True</span>) </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>bed <span class="op">=</span> np.count_nonzero(choice<span class="op">==</span><span class="st">&#39;bed&#39;</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>outdoor <span class="op">=</span> np.count_nonzero(choice<span class="op">==</span><span class="st">&#39;outdoor&#39;</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>outdoor<span class="op">/</span><span class="dv">2500</span> <span class="op">-</span> bed<span class="op">/</span><span class="dv">2500</span></span></code></pre></div>
+<p>Way 5:</p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>outdoor <span class="op">=</span> (app_data.get(<span class="st">&#39;category&#39;</span>)<span class="op">==</span><span class="st">&#39;outdoor&#39;</span>) </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>bed <span class="op">=</span> (app_data.get(<span class="st">&#39;category&#39;</span>)<span class="op">==</span><span class="st">&#39;bed&#39;</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>samp <span class="op">=</span> app_data[outdoor<span class="op">|</span>bed].sample(<span class="dv">2500</span>, replace<span class="op">=</span><span class="va">True</span>) </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>samp[samp.get(<span class="st">&#39;category&#39;</span>)<span class="op">==</span><span class="st">&#39;outdoor&#39;</span>].shape[<span class="dv">0</span>]<span class="op">/</span><span class="dv">2500</span> <span class="op">-</span>  samp[samp.get(<span class="st">&#39;category&#39;</span>)<span class="op">==</span><span class="st">&#39;bed&#39;</span>].shape[<span class="dv">0</span>]<span class="op">/</span><span class="dv">2500</span>)</span></code></pre></div>
+<p>Way 6:</p>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>outdoor <span class="op">=</span> (app_data.get(<span class="st">&#39;category&#39;</span>)<span class="op">==</span><span class="st">&#39;outdoor&#39;</span>) </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>bed <span class="op">=</span> (app_data.get(<span class="st">&#39;category&#39;</span>)<span class="op">==</span><span class="st">&#39;bed&#39;</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>samp <span class="op">=</span> (app_data[outdoor<span class="op">|</span>bed].groupby(<span class="st">&#39;category&#39;</span>).count( ).reset_index( ).sample(<span class="dv">2500</span>, replace<span class="op">=</span><span class="va">True</span>))    </span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>samp[samp.get(<span class="st">&#39;category&#39;</span>)<span class="op">==</span><span class="st">&#39;outdoor&#39;</span>].shape[<span class="dv">0</span>]<span class="op">/</span><span class="dv">2500</span> <span class="op">-</span> samp[samp.get(<span class="st">&#39;category&#39;</span>)<span class="op">==</span><span class="st">&#39;bed&#39;</span>].shape[<span class="dv">0</span>]<span class="op">/</span><span class="dv">2500</span></span></code></pre></div>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> Way 1</p></li>
+<li><p><input type="checkbox" disabled="" /> Way 2</p></li>
+<li><p><input type="checkbox" disabled="" /> Way 3</p></li>
+<li><p><input type="checkbox" disabled="" /> Way 4</p></li>
+<li><p><input type="checkbox" disabled="" /> Way 5</p></li>
+<li><p><input type="checkbox" disabled="" /> Way 6</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-10.4">Problem 10.4</h3>
+<p>Suppose we generate 10,000 simulated values of the test statistic
+according to the null model and store them in an array called
+<code>simulated_diffs</code>. Complete the code below to calculate the
+p-value for the hypothesis test.</p>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>    np.count_nonzero(simulated_diffs _________ obs_diff)<span class="op">/</span><span class="dv">10000</span></span></code></pre></div>
+<p>What goes in the blank?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>&lt;</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>&lt;=</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>&gt;</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>&gt;=</code></p></li>
 </ul>
 <p><br></p>
 <hr />
