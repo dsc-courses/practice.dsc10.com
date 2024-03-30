@@ -29,9 +29,9 @@ A null hypothesis is the hypothesis that there is no significant difference betw
 
 - Option 2: This isn't really even a null hypothesis, but rather more of a description of a test procedure. This option also makes no attempt to reference to win rate of toy dogs.
 
-- Option 3: This statement doesn't really make sense in that it is illogical to compare the raw number of toy dogs wins to the number of toy dogs in the population, because the number of toy dogs is always at least the number of toy dogs that win. Rejecting this null hypothesis would only reject an extreme case within the subset of what we're trying to prove.
+- Option 3: This statement doesn't really make sense in that it is illogical to compare the raw number of toy dogs wins to the number of toy dogs in the population, because the number of toy dogs is always at least the number of toy dogs that win.
 
-- Option 4: This statement is in line with the null hypothesis.
+- Option 4: This statement is in line with the null hypothesis. 
 
 - Option 5: This statement is another potential null hypothesis since the proportion of toy dogs in the population is 0.3.
 
@@ -64,7 +64,7 @@ The alternative hypothesis is the hypothesis we're trying to support, which in t
 
 - Option 3: We don't really care too much about the distribution of dog kinds, since that doesn't help us determine toy dog win rates compared to other dogs.
 
-- Option 4: This isn't a hypothesis, rather, it's more of a description of a procedure.
+- Option 4: Again, we don't care whether all dogs are chosen according to the probabilities in the null model, instead we care specifically about toy dogs.
 
 <average>67</average>
 
@@ -94,7 +94,7 @@ Select all the test statistics that Eric can use to conduct his hypothesis.
 
 - Option 4: This option is incorrect for the same reasoning as above, but also 0.5 isn't a relevant number anyways.
 
-- Option 5: This option is incorrect. Again, total variation distance won't help us tell whether or not the toy dogs have a disproportionately higher or lower win rate. 
+- Option 5: This option is incorrect because TVD measures distance between two categorical distributions, and here we only care about one particular category (not all categories) being the same.
 
 <average>70</average>
 
