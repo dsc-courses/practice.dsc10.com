@@ -13,11 +13,9 @@ Choose the best data science tool to help you answer this question.
 
 **Answer: ** hypothesis testing
 
-The question at hand is dealing with differences between sales of different flavors
-of ice cream. We can use hypothesis testing to test our null hypothesis that Vanilla's sales are higher than Choclate
-and the alternative as Chocolate has more sales than Vanilla. A permutation test is not suitable here as
-we are not interested if Chocolate and Vanilla sales are drawn from the same underlying distribution, but rather are interested
-an underlying model (in this case which is about the sales of different flavors of ice cream).
+The question at hand is dealing with differences between sales of different flavors of ice cream. We can use hypothesis testing to test our null hypothesis that Vanilla's sales are higher than Chocolate and the alternative as Chocolate has more sales than Vanilla. A permutation test is not suitable here because we are not comparing any numerical quantity associated with each group. A permutation test could be used to answer questions like "Are chocolate ice cream cones more expensive than vanilla ice cream cones?" or "Do chocolate ice cream cones have more calories than vanilla ice cream cones?", or any other question where you are tracking a number (cost or calories) along with each ice cream cone. With sales, however, you are not tracking a number along with each individual ice cream cone, but instead tracking a total of ice cream cones sold.
+
+An analogy to this hypothesis test can be found in the "fair or unfair coin" problem in Lectures 20 and 21, where our null hypothesis is that the coin is fair and our alternative hypothesis is that the coin is unfair. The "fairness" of the coin is not a numerical quantity that we can track with each individual coin flip, just like how the sales of the ice cream shop is not a numerical quantity that we can track with each individual ice cream cone.
 
 <average>57</average>
 
