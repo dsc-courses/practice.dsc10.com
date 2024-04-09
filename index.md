@@ -51,12 +51,12 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
       <th scope="row">1</th>
       <td>Wednesday, April 3</td>
       <td><a href="disc01/index.html">Python Basics</a></td>
-    </tr>   
-    <!-- <tr>
+    </tr>
+    <tr>
       <th scope="row">2</th>
       <td>Wednesday, April 10</td>
       <td><a href="disc02/index.html"> Arrays and DataFrames</a></td>
-    </tr> -->
+    </tr>
    <!-- <tr>
       <th scope="row">3</th>
       <td>Wednesday, April 17</td>
