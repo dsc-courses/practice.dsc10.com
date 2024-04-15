@@ -32,11 +32,6 @@ and room in the game. The "`Category`" column contains "`suspect`", "`weapon`", 
 The "`Cardholder`" column contains "`Janine`",
 "`Henry`", "`Paige`", or "`Unknown`".
 
-The DataFrame `storms` contains information about all named tropical storms in the Atlantic
-Ocean between 1965 and 2015. Each row corresponds to a data entry describing the storm
-at a particular moment in time, and one storm usually has many data entries throughout
-the duration of the storm. The columns of `storms` are as follows.
-
 Since Janine’s knowledge is changing throughout
 the game, the "`Cardholder`" column needs to be
 updated frequently. At the beginning of the game,
