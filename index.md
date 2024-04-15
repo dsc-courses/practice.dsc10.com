@@ -57,11 +57,11 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
       <td>Wednesday, April 10</td>
       <td><a href="disc02/index.html">Arrays and DataFrames</a></td>
     </tr>
-   <!-- <tr>
+   <tr>
       <th scope="row">3</th>
       <td>Wednesday, April 17</td>
       <td><a href="disc03/index.html">Querying, Grouping, and Plotting</a></td>
-    </tr> -->
+    </tr>
     <!-- <tr>
       <th scope="row">4</th>
       <td>Wednesday, April 24</td>
