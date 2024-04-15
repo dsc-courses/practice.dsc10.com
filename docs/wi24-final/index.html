@@ -543,6 +543,21 @@ aria-labelledby="heading5_1" data-bs-parent="#accordionExample">
 <p><strong>Answer:</strong> (a): <code>[p, 1-p]</code>, (b):
 <code>falls + result[1]</code> OR (a): <code>[1-p, p]</code>, (b):
 <code>falls + result[0]</code></p>
+<p>First, we should think about what np.random.multinomial is trying to
+do here. It’s trying to make an array of how many times each scenario
+happened. There are 2 possible scenarios here, Ylesia succeeds or Ylesia
+falls. In this code, p is the probability that Ylesia succeeds a skill,
+and the probabilty that Ylesia does not succeed (she falls) will be
+1-p. So to properly simulate how many times she falls, we should put
+<code>[p, 1-p]</code> in blank (a). This will make an array stored in
+<code>result</code>, with index 0 being how many times she succeeded
+(corresponds to p), and index 1 being how many times she fell
+(corresponds to 1-p). Since index 1 corresponds to the scenario in which
+she falls, in order to correctly increase the number of falls, we add
+<code>falls</code> by result[1]. Therefore, blank (b) is
+<code>falls + result[1]</code>. Likewise, you can change the order with
+(a): <code>[1-p, p]</code> and (b): <code>falls + result[0]</code> and
+it would still correctly simulate how many times she falls.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -574,7 +589,23 @@ aria-labelledby="heading5_2" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer:</strong></p>
+<p><strong>Answer:</strong> (a): <code>1</code>, (b):
+<code>prob_no_falls * p</code></p>
+<p>The code given first asks us to define the variable prob_no_falls
+outside the for loop, and then assign something to that variable inside
+the for loop. To fill in the blanks, let’s first look at what we are
+looping through. We know that skill_success is an array of probabilities
+of success for each skill. In other words, they are the probabilities
+that Ylesia does not fall for each skill. So to find out the probability
+of not falling during the whole routine, we want to calculate the
+probability of Ylesia not falling the first skill, second skill, and so
+on. To do so, we would multiply each of the probabilities in the
+skill_sucess array. So given the for loop, variable p is the probability
+of not falling and we want to multiply it with prob_no_falls each
+iteration. This leads to prob_no_falls * p as the answer for blank b. As
+of blank a, prob_no_falls is a probability and we do not want to use 0
+since it will just make the variable 0, 1 will be the correct answer
+here.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -608,7 +639,22 @@ aria-labelledby="heading5_3" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer:</strong></p>
+<p><strong>Answer:</strong>(a): <code>count_falls(skill_success)</code>,
+(b): <code>np.count_nonzero(results == 0) / 10000</code>, though there
+are many other correct solutions</p>
+<p>For this question, we are doing a simulation where we calculate the
+probability of Ylesia not falling during her routine based on 10000
+trials. To do so, we want to find out the number of times that Yelsia
+did not fall any skill during her routine out of the 10000 trials. Based
+on the given codes, we have an array where we are appending something
+into that array for each trial. We can utilize the function defined in
+part a to calculate the number of times Ylesia falls during a single
+trial so blank a will be count_falls(skill_success). After 10000
+iterations, we have an array of the number of falls for each trial.
+Then, we want to count the number of times that we get 0 in that array,
+which means Ylesia did not fall. Lastly, to get the probability, we will
+need to divide by the total number of trials which is 10000. This gives
+us the answer for blank b: np.count_nonzero(results == 0) / 10000.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -652,7 +698,20 @@ aria-labelledby="heading6_1" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer:</strong></p>
+<p><strong>Answer:</strong> The sample is much smaller than the
+population.</p>
+<p>The Central Limit Theorem (CLT) states that regardless of the shape
+of the population distribution, the sampling distribution of the sample
+mean will be approximately normally distributed if the sample size is
+sufficiently large. It’s often stated in the context of samples drawn
+with replacement, but in practice, it can still be applicable to samples
+drawn without replacement under certain conditions. In this context,
+although the sample is drawn without replacement, the key factor that
+makes it reasonable to still use the CLT, is the sample size relative to
+the population size. When the sample size is much smaller than the
+population size, as in this case where 400 rows of Olympians are sampled
+from a likely much larger population of Olympians, the effect of
+sampling without replacement becomes negligible.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
 <p>
@@ -666,7 +725,7 @@ aria-labelledby="heading6_1" data-bs-parent="#accordionExample">
 <h3 id="problem-6.2">Problem 6.2</h3>
 <p>Suppose our 95% CLT-based confidence interval for the mean age of
 Olympic medalists is <span class="math inline">[24.9, 26.1]</span>. What
-was the mean and standard deviation of ages in our sample?</p>
+was the mean of ages in our sample?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading6_2">
@@ -680,13 +739,50 @@ aria-labelledby="heading6_2" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer:</strong> Mean =</p>
+<p><strong>Answer:</strong> Mean = 25.5</p>
+<p>We calculate the mean by first determining the width of our interval:
+26.1 - 24.9 = 1.2, then we divide this width in half to get 0.6 which
+represents the distance from the mean to each side of the confidence
+interval. Using this we can find the mean in two ways: 24.9 + 0.6 = 25.5
+OR 26.1 - 0.6 = 25.5</p>
 <hr/>
 <h5>Difficulty: ⭐️</h5>
 <p>
 </p>
 <p>The average score on this problem was 90%.</p>
-<p><strong>Answer:</strong> Standard deviation =</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-6.3">Problem 6.3</h3>
+<p>Suppose our 95% CLT-based confidence interval for the mean age of
+Olympic medalists is <span class="math inline">[24.9, 26.1]</span>. What
+was the standard deviation of ages in our sample?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_3" aria-expanded="true" aria-controls="collapse6_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_3" class="accordion-collapse collapse"
+aria-labelledby="heading6_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> Standard deviation = 6</p>
+<p>We can calculate the sample standard deviation (sample SD) by using
+the 95% confidence interval equation:</p>
+<p><span class="math inline">\text{sample mean} - 2 * \frac{\text{sample
+SD}}{\sqrt{\text{sample size}}}, \text{sample mean} + 2 *
+\frac{\text{sample SD}}{\sqrt{\text{sample size}}}</span>.</p>
+<p>Choose one of the end points and start plugging in all the
+information you have/calculated:</p>
+<p><span class="math inline">25.5 - 2*\frac{\text{sample
+SD}}{\sqrt{400}} = 24.9</span> → <span class="math inline">\text{sample
+SD} = \frac{(25.5 - 24.9)}{2}*\sqrt{400} = 6</span>.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
