@@ -169,12 +169,6 @@ contains “<code>suspect</code>”, “<code>weapon</code>”, or
 “<code>room</code>”. The “<code>Cardholder</code>” column contains
 “<code>Janine</code>”, “<code>Henry</code>”, “<code>Paige</code>”, or
 “<code>Unknown</code>”.</p>
-<p>The DataFrame <code>storms</code> contains information about all
-named tropical storms in the Atlantic Ocean between 1965 and 2015. Each
-row corresponds to a data entry describing the storm at a particular
-moment in time, and one storm usually has many data entries throughout
-the duration of the storm. The columns of <code>storms</code> are as
-follows.</p>
 <p>Since Janine’s knowledge is changing throughout the game, the
 “<code>Cardholder</code>” column needs to be updated frequently. At the
 beginning of the game, the “<code>Cardholder</code>” column contains
@@ -211,7 +205,12 @@ aria-labelledby="heading1_1" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer:</strong> 6</p>
+<p><strong>Answer:</strong> 6 This code counts the number of times that
+Janine appears in the <code>Cardholder</code> column. This is because
+<code>clue.get("Cardholder") == "Janine"</code> will return a series of
+True and False values of length 22 where True corresponds to a card
+belonging to Janine. Since 6 cards were dealt to her, the code will
+return 6!</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -237,7 +236,13 @@ aria-labelledby="heading1_2" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer:</strong> 13</p>
+<p><strong>Answer:</strong> 13 This code counts the number of cells that
+contain that letter ‘p’ in the <code>Category</code> column.
+<code>clue.get("Category").str.contains("p")</code> will return a series
+that contains True if ‘p’ is in that particular category cell and False
+otherwise. The word ‘suspect’ and ‘weapons’ both contain the letter ‘p’
+and since there are 6 and 7 of each respectively, the code will return
+13.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -263,7 +268,12 @@ aria-labelledby="heading1_3" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer:</strong> not enough information</p>
+<p><strong>Answer:</strong> not enough information This code first
+filters only for rows that contain both ‘suspect’ as the category and
+‘Janine’ as the cardholder and returns the number of rows of that
+dataframe with <code>.shape[0]</code>. However, from the information
+given, we do not know how many of cards are being held by Janine and
+‘suspect’ cards.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -289,7 +299,13 @@ aria-labelledby="heading1_4" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer:</strong> 5</p>
+<p><strong>Answer:</strong> 5 <code>clue.take</code> will filter out the
+dataframe to certain rows based on the np.arange. Since we are running
+.index on that dataframe and taking its length, we are finding the
+number of rows contained in the dataframe after the <code>.take</code>
+method is called on the np.arange. <code>np.arange(5, 20, 3)</code> will
+return a <code>np.array([5, 8, 11, 14, 17])</code>. This returns 5 rows,
+which is the answer to this problem!</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -315,7 +331,13 @@ aria-labelledby="heading1_5" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer:</strong> 7</p>
+<p><strong>Answer:</strong> 7 Similarly to the previous problem, we are
+getting the number of rows of the dataframe <code>clue</code> after
+filtering it. <code>clue.get("Category") &gt;= "this"</code> returns a
+boolean Series where True is returned when a string in
+<code>"Category"</code> is greater than lexicographically than
+<code>"this"</code>. This only happens when the string is
+<code>"weapon"</code>, which occurs 7 times.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️⭐️⭐️</h5>
 <p>
@@ -341,11 +363,16 @@ aria-labelledby="heading1_6" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer:</strong> 22</p>
+<p><strong>Answer:</strong> 22
+<code>groupby("Cardholder").count()</code> will return a dataframe
+indexed by cardholders and each column contains the number of cards that
+each cardholder has. Then we isolate the <code>"Category"</code> column
+by extracting it with the get method and then summing up the value. It
+will return 22 because the sum of the total number of cards each
+cardholder has is the total number of cards in play! </p>
 <hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
+<h5>Difficulty:
+⭐️⭐️⭐️</h5>
 <p>The average score on this problem was 52%.</p>
 </div>
 </div>
@@ -383,8 +410,17 @@ change.</p></li>
 <li><p><code>col</code>, the column label of the entry to
 change.</p></li>
 <li><p><code>val</code>, the value that we want to store at that
-location.</p></li>
+location. <br/> To write a function that changes the value of an entry in
+the Dataframe, we need a couple parameters. We could do this using loc
+or iloc and both require knowing the <strong>row and col</strong> index
+of the entry you want to change. You also need the
+<strong>dataframe</strong> you would like to change along with the
+<strong>value</strong> you want to store! Example Function:</p></li>
 </ul>
+<div id="cb1" class="sourceCode">
+<pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a><span class="kw">def</span> value_df_changer(df, row, col, val):</span>
+<span id="cb1-2"><a aria-hidden="true" href="#cb1-2" tabindex="-1"></a>    df.loc[row, col] <span class="op">=</span> value</span></code></pre>
+</div>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
 <p>
@@ -522,12 +558,20 @@ aria-labelledby="heading4_1" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer:</strong> <code>[0, 1, 2]</code></p>
+<p><strong>Answer:</strong> <code>[0, 1, 2]</code> <br/>
+<code>answers</code> could potentially look like this array
+<code>np.array(['Janine', 'knife', 'kitchen'])</code>. We want to
+accusation = “<ins>It was </ins>Janine <ins>with the </ins>knife <ins>in
+the </ins>kitchen” where the underline represent the string from the
+words array and the nonunderlined parts represent the string from the
+<code>answers</code> array. In the for loop, we want to iterate through
+words and answers respectively, so we can use <code>[0, 1, 2]</code> to
+represent the indices of each array we will be iterating through.
+</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 52%.</p>
+<p>The average score on this problem was
+52%.</p>
 </div>
 </div>
 </div>
@@ -549,12 +593,15 @@ aria-labelledby="heading4_2" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer:</strong>
-<code>accusation + words[i] + answers[i]</code></p>
+<code>accusation + words[i] + answers[i]</code> <br/> We are performing
+string concatenation here. Using the example from above, we want to add
+to the string <code>accusations</code> in order of accusation,
+<code>words</code>, <code>answer</code>. Afterall, we want “It was”
+before “Janine”. </p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 56%.</p>
+<p>The average score on
+this problem was 56%.</p>
 </div>
 </div>
 </div>
@@ -588,7 +635,10 @@ aria-labelledby="heading5_1" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer:</strong> <span class="math inline">\frac{6}{19}</span></p>
+<p><strong>Answer:</strong> <span class="math inline">\frac{6}{19}</span> <br/> The probability of getting
+a certain card is the the <span class="math inline">\frac{# of that
+certain card}{total # of cards}</span>. There are 6 weapons cards and 19
+cards total, so the probability has to be <span class="math inline">\frac{6}{19}</span>.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -617,12 +667,15 @@ aria-labelledby="heading5_2" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer:</strong> <span class="math inline">\frac{6}{19} \cdot
 \frac{5}{18} \cdot \frac{4}{17} \cdot \frac{3}{16} \cdot \frac{2}{15}
-\cdot \frac{1}{14}</span></p>
+\cdot \frac{1}{14}</span> <br/> The probability of getting Janine getting
+all the weapon cards is the probability of getting a dealt a weapon card
+first multiplied by the probability of getting a weapon card second
+multiplied by … probability of getting a weapon card on the sixth draw.
+</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 62%.</p>
+<p>The average score on this problem was
+62%.</p>
 </div>
 </div>
 </div>
@@ -653,12 +706,20 @@ aria-labelledby="heading5_3" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer:</strong> <span class="math inline">k</span> = 12,
-<span class="math inline">m</span> = 18</p>
+<span class="math inline">m</span> = 18 <br/> <span class="math inline">m</span> has to be 18 because the denominator is the
+number of cards available during the first and second draw. We have 19
+cards on the first draw and 18 on the second draw, so the only way to
+get that is for <span class="math inline">m</span> = 18.</p>
+<p>The probability that exactly one of the cards of your first two draws
+is a weapon card can be broken down into two cases: the probability of
+getting a weapon card first and then another card, the probability of
+getting another card first and then a weapon card. This is <span class="math inline">\frac{6 \cdot 13}{19 \cdot 18}</span> + <span class="math inline">\frac{13 \cdot 6}{19 \cdot 18}</span>. The numerator
+of this fraction ends up being 156! The only <span class="math inline">k</span> value where <span class="math inline">k</span>(<span class="math inline">k</span>+1) = 156
+is 12! </p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 31%.</p>
+<p>The average score on this
+problem was 31%.</p>
 </div>
 </div>
 </div>
@@ -691,11 +752,26 @@ aria-labelledby="heading6" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer:</strong> The probability that Janine has three or
-more suspect cards. </p>
+more suspect cards. <br/> Let’s explain each choice and why they would be
+easy or difficult to simulate in Python. The <strong>first
+choice</strong> is difficult because there are many different branching
+simulations from the cards being dealt out to accusations a player can
+make, which could result in over 1000+ cases. Each case would need its
+own test case to see whether Janine would win, so it would definitely
+not be the easiest. For the <strong>second choice</strong>, we are not
+given information on how long the game takes or a distribution of times
+for games, so it would be difficult to implement the second choice. The
+<strong>third choice</strong> is very plausible to do because when cards
+are drawn out to Janine, we can already calculate the probaiblity she
+has three of more suspect cards by calculating 1 - the probability she
+has at most two suspect cards in her hand. The <strong>fourth
+choice</strong> follows the same reasoning in the first choice. There
+are way too many paths in this game to consider and how many paths
+include Janine visiting the kitchen. </p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
-<p>The average score on
-this problem was 83%.</p>
+<p>The
+average score on this problem was 83%.</p>
 </div>
 </div>
 </div>
