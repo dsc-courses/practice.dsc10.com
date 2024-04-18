@@ -885,7 +885,14 @@ aria-labelledby="heading7_1" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer:</strong></p>
+<p><strong>Answer:</strong> difference in the number of medals won by
+American gymnasts and the number of medals won by Romanian gymnasts</p>
+<!--To test this pair of hypotheses, we need a test statistic that is large when the data suggests that the null hypothesis isn't true, and small when the null hypothesis is suggested to be true. Now let's look at each option:
+1. 
+2. This statistic is large when American gymnasts win more Olympic medals than Romanian ones (1/1). It get's smaller as American gymnasts win an equal amount of medals as Romanian ones (1/2), but then it gets even smaller as American gymnasts win less medals than Romanian ones (1/100, for example). This means that when Americans win way less medals than Romanians, this test statistic would still suggest that we fail to reject the hypothesis that Americans win the same amount of medals as Romanians. 
+3. This test statistic is small when the null hypothesis is true, and large when the null hypothesis isn't true. Therefore, this would be an effective test statistic to test the hypotheses.
+4. 
+-->
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -946,25 +953,75 @@ aria-labelledby="heading7_2" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer:</strong> Way 1:</p>
+<p><strong>Answer:</strong> Way 1: <code>126/245 - 119/245</code> or
+<code>7/245</code></p>
+<p>First, let’s look at what this code is doing. The line
+<code>result = np.random.multinomial(245, [0.5, 0.5]) / 245</code> makes
+an array of length 2, where each of the 2 elements contains the amount
+of the 245 total medals corresponding to the amount of medals won by
+American gymnasts and Romanian gymnasts respectively. We then divide
+this array by 245 to turn them into proportions out of 245 (which is the
+sum of 126+119). This array of proportions is then assigned to
+<code>result</code>. For example, one of our 10000 repetitions could
+assign <code>np.array([124/245, 121/245])</code> to <code>result</code>.
+The following line,
+<code>many_stats = np.append(many_stats, result[0] - result[1])</code>,
+appends the difference between the first proportion in
+<code>result</code> and the second proportion in <code>result</code> to
+<code>many_stats</code>. Using our example, this would append 124/245 -
+121/245 (which equals 3/245) to <code>many_stats</code>. To determine
+how we calculate the observed statistic, we have to consider how we are
+calculating the p-value. In order to calculate the p-value, we need to
+determine how frequent it is to see a result as extreme as our observed
+statistic, or more extreme in the direction of the alternative
+hypothesis. The alternative hypothesis states that American gymnasts win
+more medals than Romanian gymnasts, meaning that we are looking for
+results in <code>many_stats</code> where the difference is equal to or
+greater than (more extreme than) 126/245 - 119/245 (which equals 7/245).
+That is, the final line of code in Way 1 is using
+<code>np.count_nonzero</code> to find the amount of differences in
+<code>many_stats</code> greater than 7/245. Therefore, observed must
+equal 7/245.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
 </p>
 <p>The average score on this problem was 56%.</p>
-<p><strong>Answer:</strong> Way 2:</p>
+<p><strong>Answer:</strong> Way 2: <code>119/245 - 126/245</code> or
+<code>-7/245</code></p>
+<p>The only difference between Way 2 and Way 1 is that in Way 2, the
+<code>&gt;=</code> is switched to a <code>&lt;=</code>. This causes a
+result as extreme or more extreme than our observed statistic to now be
+represented as anything less than or equal to our observed statistic. To
+account for this, we need to consider the first proportion in
+<code>result</code> as the number of medals won by Romanian gymnasts,
+and the second proportion as the number of medals won by American
+gymnasts. This flips the sign of all of the proportions. So instead of
+calculating our observed statistic as 126/245-119/245, we now calculate
+it as 119/245-126/245 (which equals -7/245).</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
 </p>
 <p>The average score on this problem was 53%.</p>
-<p><strong>Answer:</strong> Way 3:</p>
+<p><strong>Answer:</strong> Way 3: <code>126/245</code></p>
+<p>The difference between way 1 and way 3 is that way 3 is now taking
+results[0] as its test statistic instead of results[0] - results[1],
+which represents the number of Olympic gymnastics medals won by American
+gymnasts. This means that the observed statistic should be the number of
+medals won by America in the given sample. In that case, the observed
+statistics will be (# of American medals/ # of American medals + # of
+Romanian medals) = 126/245</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
 </p>
 <p>The average score on this problem was 52%.</p>
-<p><strong>Answer:</strong> Way 4</p>
+<p><strong>Answer:</strong> Way 4: <code>119/245</code></p>
+<p>Since now the sign is swapped from “&gt;=” in way 3 to “&lt;=” in way
+4, results[0] represent the number of Romanian medals won. This is
+because the alternative hypothesis states that America wins more medals
+than Romania, demonstrating that the observed statistics is 119/245.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -995,7 +1052,11 @@ aria-labelledby="heading7_3" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer:</strong></p>
+<p><strong>Answer:</strong> similar, but not necessarily the same.</p>
+<p>All of these differences in test statistics and different p-values
+all are different, however, they are all geared towards testing through
+the same null and alternative hypothesis. Although they are all
+different methods, they are all trying to prove the same conclusion.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
