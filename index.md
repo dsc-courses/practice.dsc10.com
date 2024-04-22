@@ -62,11 +62,11 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
       <td>Wednesday, April 17</td>
       <td><a href="disc03/index.html">Querying, Grouping, and Plotting</a></td>
     </tr>
-    <!-- <tr>
+    <tr>
       <th scope="row">4</th>
       <td>Wednesday, April 24</td>
       <td><a href="disc04/index.html">Functions, DataFrames, and Control Flow</a></td>
-    </tr>    -->
+    </tr>
     <!-- <tr>
       <th scope="row">5</th>
       <td>Wednesday, May 1</td>
