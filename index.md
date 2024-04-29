@@ -67,11 +67,11 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
       <td>Wednesday, April 24</td>
       <td><a href="disc04/index.html">Functions, DataFrames, and Control Flow</a></td>
     </tr>
-    <!-- <tr>
+    <tr>
       <th scope="row">5</th>
       <td>Wednesday, May 1</td>
       <td><a href="disc05/index.html">Probability and Simulation</a></td>
-    </tr> -->
+    </tr>
     <!-- </tr>   
       <tr>
       <th scope="row">6</th>
