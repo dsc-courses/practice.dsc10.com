@@ -286,9 +286,9 @@ care about the aggregated numeric value, we just want to remove cases
 which the same athlete participates in the same sport for multiple
 years, and get unique Name-Sport pairs. Notice .unique() is not correct
 because unique is not an aggregation method used on dataframe after
-grouping by. AttributeError: ‘DataFrameGroupBy’ object has no attribute
-‘unique’. However, it can be used after SeriesGroupBy. For more info:
-https://pandas.pydata.org/docs/reference/api/pandas.core.groupby.SeriesGroupBy.unique.html</p>
+grouping by. If you use .unique(), it will give you “AttributeError:
+‘DataFrameGroupBy’ object has no attribute ‘unique’”. However, .unique()
+can be used after SeriesGroupBy. For more info: <a class="uri" href="https://pandas.pydata.org/docs/reference/api/pandas.core.groupby.SeriesGroupBy.unique.html">https://pandas.pydata.org/docs/reference/api/pandas.core.groupby.SeriesGroupBy.unique.html</a>.</p>
 <hr/>
 <h5>Difficulty: ⭐️</h5>
 <p>
@@ -352,9 +352,10 @@ aria-labelledby="heading2_4" data-bs-parent="#accordionExample">
 different sports. Since the previous steps ensured each sport per
 Olympian is uniquely listed (due to the initial groupby on both
 <code>'Name'</code> and <code>'Sport'</code>). It does not matter what
-we sort_values by, because the .groupby(‘Name’).count() method will just
-put a count of each <code>'Name'</code> in all of the columns,
-regardless of the column name or what value was originally in it.</p>
+we sort_values by, because the <code>.groupby('Name').count()</code>
+method will just put a count of each <code>'Name'</code> in all of the
+columns, regardless of the column name or what value was originally in
+it.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -399,29 +400,30 @@ aria-labelledby="heading3" data-bs-parent="#accordionExample">
 <p><strong>Answer:</strong> Options 1, 2, and 5 are correct.</p>
 <ol type="1">
 <li>The mean of the new distribution where weight is in pounds would be
-given by <span class="math inline">2.2 * \text{mean in
+given by <span class="math inline">2.2 \cdot \text{mean in
 kilograms}</span>. Since the mean in kilograms is positive, this
 quantity must then increase if we multiply it by 2.2. Intuitively this
 should make sense as we are basically scaling all the (positive) values
 by 2.2 (a positive constant), so we expect the values to increase and
 thus the mean to increase. So option 1 is correct.</li>
 <li>The standard deviation of the new distribution where weight is in
-pounds would be given by <span class="math inline">2.2 * \text{standard
-deviation in kilograms}</span>. Since the standard deviation in
-kilograms is positive, this quantity must then increase if we multiply
-it by 2.2. Intuitively this should make sense as we are scaling all the
-values by 2.2, so the difference between larger and smaller values will
-be greater once they are scaled. Thus, we expect the spread of our
-distribution to be larger, and the standard deviation to increase. So
-option 2 is correct.</li>
-<li>We are basically interested in the proportion of <span class="math inline">x~i~</span> that satisfy <span class="math inline">\vert \frac{x~i~*μ}{σ} \vert&lt;3</span>, with <span class="math inline">x~i~</span> being the values of
+pounds would be given by <span class="math inline">2.2  \cdot
+\text{standard deviation in kilograms}</span>. Since the standard
+deviation in kilograms is positive, this quantity must then increase if
+we multiply it by 2.2. Intuitively this should make sense as we are
+scaling all the values by 2.2, so the difference between larger and
+smaller values will be greater once they are scaled. Thus, we expect the
+spread of our distribution to be larger, and the standard deviation to
+increase. So option 2 is correct.</li>
+<li>We are basically interested in the proportion of <span class="math inline">x~i~</span> that satisfy <span class="math inline">\vert \frac{x_{i} \cdot μ}{σ} \vert&lt;3</span>,
+with <span class="math inline">x_{i}</span> being the values of
 <code>"Weight"</code>, μ being the mean in kg and σ being the standard
 deviation in kg. Once we scale everything by 2.2 to convert from
 kilograms to pounds, we have that<br/>
 <span class="math inline">\vert
-\frac{2.2x~i~-2.2μ}{2.2σ}\vert&lt;3</span> → <span class="math inline">\frac{2.2}{2.2}\vert
+\frac{2.2x_{i}-2.2μ}{2.2σ}\vert&lt;3</span> → <span class="math inline">\frac{2.2}{2.2}\vert
 \frac{x~i~*μ}{σ}\vert&lt;3</span> → <span class="math inline">\vert
-\frac{x~i~*μ}{σ}\vert&lt;3</span>.<br/>
+\frac{x_{i} \cdot μ}{σ}\vert&lt;3</span>.<br/>
 Notice that after we scaled it to pounds, the equation still ends up the
 exact same as the one in kg. Thus, the proportion of
 <code>"Weight"</code> within 3 standard deviations of the mean stays the
@@ -434,12 +436,12 @@ option 3 is incorrect.</li>
 product of two variables, when both variables are measured in standard
 units. In kilograms, <code>"Weight"</code>(kg) in standard units is
 <span class="math inline">\frac{x~i~−μ}{σ}</span>. Similar to option 3,
-<code>"Weight"</code>(pounds) in standard units is <span class="math inline">\frac{2.2x~i~-2.2μ}{2.2σ} = \frac{2.2}{2.2}
-\frac{x~i~*μ}{σ} = \frac{x~i~*μ}{σ}</span>. Again, notice that the
-equation in pounds ends up the exact same as in kilograms. The same
-applies for <code>"Height"</code> in standard units. Since none of the
-variables change when measured in standard units, r doesn’t change. So
-option 4 is incorrect.</li>
+<code>"Weight"</code>(pounds) in standard units is <span class="math inline">\frac{2.2x_{i}-2.2μ}{2.2σ} = \frac{2.2}{2.2}
+\frac{x_{i} \cdot μ}{σ} = \frac{x_{i} \cdot μ}{σ}</span>. Again, notice
+that the equation in pounds ends up the exact same as in kilograms. The
+same applies for <code>"Height"</code> in standard units. Since none of
+the variables change when measured in standard units, r doesn’t change.
+So option 4 is incorrect.</li>
 <li>Intuitively, this makes sense when we imagine a scatterplot with the
 y-axis (value being predicted) representing <code>"Weight"</code> and
 the x-axis representing <code>"Height"</code>. We expect that the taller
@@ -916,21 +918,22 @@ Romanians won no medals. In this case, the Americans won a lot more
 medals than Romanians but the test statistic is still 1/2.A good test
 statistic should point to one hypothesis when it’s large and the other
 hypothesis when it’s small. In this test statistic, 1/2 points to both
-hypotheses, making it a bad test statistic. - <strong>Option 3:</strong>
-In this test statistic, when Americans win an equal amount of medals as
-Romanians, the test statistic would be 0, a very small number. When
-Americans win way more medals than Romanians, the test statistic is
-large, suggesting that we reject the null hypothesis in favor of the
-alternative. You might notice that when Romanians win way more medals
-than Americans, the test statistic would be negative, suggesting that we
-fail to reject the null hypothesis that they won equal medals. But
-recall that failing to reject the null doesn’t necessarily mean we think
-the null is true, it just means that under our null hypothesis and
-alternative hypothesis, the null is plausible. The important thing is
-that the test statistic points to the alternative hypothesis when it’s
-large, and points to the null hypothesis when it’s small. This test
-statistic does just that, so option 3 is the correct answer. -
-<strong>Option 4:</strong> This statistic is large when American
+hypotheses, making it a bad test statistic.<br/>
+- <strong>Option 3:</strong> In this test statistic, when Americans win
+an equal amount of medals as Romanians, the test statistic would be 0, a
+very small number. When Americans win way more medals than Romanians,
+the test statistic is large, suggesting that we reject the null
+hypothesis in favor of the alternative. You might notice that when
+Romanians win way more medals than Americans, the test statistic would
+be negative, suggesting that we fail to reject the null hypothesis that
+they won equal medals. But recall that failing to reject the null
+doesn’t necessarily mean we think the null is true, it just means that
+under our null hypothesis and alternative hypothesis, the null is
+plausible. The important thing is that the test statistic points to the
+alternative hypothesis when it’s large, and points to the null
+hypothesis when it’s small. This test statistic does just that, so
+option 3 is the correct answer.<br/>
+- <strong>Option 4:</strong> This statistic is large when American
 gymnasts win 100% of the Olympic medals <span class="math inline">(|1-1/2| = 1/2)</span>. It get’s smaller as American
 gymnasts win an equal amount of medals as Romanian ones <span class="math inline">(|1/2-1/2=0)</span>, but then it gets large again as
 American gymnasts win less medals than Romanian ones <span class="math inline">(|1/100-99/100|=98/100)</span>. This means that when
@@ -1434,11 +1437,11 @@ aria-labelledby="heading10_1" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer:</strong> None of the Above</p>
-<p>In order to use the Central Limit Theorem, the probability
-distribution of the sum or mean of a large random sample drawn with
-replacement will be roughly normal. Options A, B, and C are not
-probability distributions of the sum or mean of a large random sample
-draw with replacement.</p>
+<p>The central limit theorem states that the distribution of possible
+sample means and sample sums is approximately normal, no matter the
+distribution of the population. Options A, B, and C are not probability
+distributions of the sum or mean of a large random sample draw with
+replacement.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -2202,16 +2205,15 @@ aria-labelledby="heading14_1" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer:</strong> <span class="math inline">\frac{-2}{3}</span></p>
+<p><strong>Answer:</strong> <code>-2/3</code></p>
 <p>We know that the normal distribution is symmetric about the mean, and
 that the mean is the “peak” described in the graph. The inflection
 points occur one standard deviation above and below the mean (the peak),
 so a point which is one third of the way in between the first inflection
-point and the peak is<br/>
-<span class="math inline">-(1-\frac{1}{3}) = -\frac{2}{3}</span>
-standard deviations from the mean.<br/>
-We can then use norm.cdf(-2/3) to calculate the area under the curve to
-the left of this point.</p>
+point and the peak is <span class="math inline">-(1-\frac{1}{3}) =
+-\frac{2}{3}</span> standard deviations from the mean. We can then use
+<code>stats.norm.cdf(-2/3)</code> to calculate the area under the curve
+to the left of this point.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -2301,8 +2303,9 @@ what proportion of the area is within half a standard deviation of the
 mean. This number happens to be approximately 0.19, so by the time Aaron
 reaches an x-coordinate of 54, <span class="math inline">0.5 + 0.19 =
 0.69</span> of the mountain is behind him. From here, we simply
-calculate the area in front by $ 1 - 0.69 = 0.31 $, so we conclude that
-approximately 0.3 of the area is in front of Aaron.</p>
+calculate the area in front by <span class="math inline">1 - 0.69 =
+0.31</span>, so we conclude that approximately 0.3 of the area is in
+front of Aaron.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -2382,8 +2385,8 @@ union of two events. Let A be the event that the medal is gold. Let B be
 the event that it is earned while representing East Germany. The
 probability formula for a union is P(A∪B) = P(A)+P(B)-P(A∩B). Looking at
 the DataFrame, we know P(A)=8/12, P(B)=4/12, and P(A∩B)=3/12. Plugging
-all of this into the formula, we get 8/12+4/12-3/12=9/12=¾. Thus, the
-correct answer is ¾.</p>
+all of this into the formula, we get <span class="math inline">\frac{8}{12}+\frac{4}{12}-\frac{3}{12}=\frac{9}{12}=\frac{3}{4}</span>.
+Thus, the correct answer is <span class="math inline">\frac{3}{4}</span>.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -2503,15 +2506,17 @@ aria-labelledby="heading16_2" data-bs-parent="#accordionExample">
 <p><strong>Answer:</strong>
 <code>males[(males.get("Weight")&gt;=80) &amp; (males.get("Weight")&lt;100)].shape[0]</code></p>
 <p>To get the exact number of males in the third bin (from 80 to 100)
-using code, we can filter the males DataFrame to only include rows where
-<code>’Weight’</code> is greater than or equal to 80, and
-<code>’Weight’</code> is less than 100. Remember, a histogram bin
+using code, we can query the males DataFrame to only include rows where
+<code>'Weight'</code> is greater than or equal to 80, and
+<code>'Weight'</code> is less than 100. Remember, a histogram bin
 includes the lower bound (in this case, 80) and excludes the upper bound
-(in this case, 100). Furthermore, we should use &amp; instead of
-<code>and</code> because pandas and babypandas require bitwise
-comparison. Finally, remember to put parentheses around each condition,
-or else the order of operations will mess up your intended
-conditions.</p>
+(in this case, 100). Furthermore, we should use <code>&amp;</code>
+instead of <code>and</code> because pandas and babypandas require
+bitwise comparison. Finally, remember to put parentheses around each
+condition, or else the order of operations will mess up your intended
+conditions. After querying, we use <code>.shape[0]</code> to get the
+number of rows in that dataframe, therefore getting the number of males
+with a weight greater than or equal to 80, and less than 100.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
