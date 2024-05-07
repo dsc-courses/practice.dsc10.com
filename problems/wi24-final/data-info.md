@@ -1,7 +1,7 @@
 The Olympic Games are the world’s leading international sporting event, dating back to ancient Greece. 
 Today, we’ll explore data on modern Olympic medalists. Each row in the DataFrame `olympians` corresponds to a type of medal earned by one Olympic athlete in one year. 
 
-The columns of olympians are as follows:
+The columns of `olympians` are as follows:
 
 - `"Name"` (`str`): The name of the athlete. Unique for each athlete.
 - `"Sex"` (`str`): The sex of the athlete, denoted by "M" or "F".
@@ -14,8 +14,8 @@ The columns of olympians are as follows:
 - `"Year"` (`int`): The year of the Olympic Games.
 - `"Count"` (`int`): The number of medals of this type earned by this athlete in this year.
 
-The first few rows of olympians are shown below, though olympians has many more rows than pictured.
-The data in olympians is only a sample from the much larger population of all Olympic medalists.
+The first few rows of `olympians` are shown below, though `olympians` has many more rows than pictured.
+The data in `olympians` is only a sample from the much larger population of all Olympic medalists.
 
 <center><img src='../assets/images/wi24-final/medalists.jpg' width=45%></center>
 <br>
