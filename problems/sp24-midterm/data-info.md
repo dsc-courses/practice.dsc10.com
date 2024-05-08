@@ -21,7 +21,7 @@ The columns of `contacts` are as follows:
 The first few rows of `contacts` are shown below, though `contacts` has
 many more rows than pictured.
 
-![image](assets/images/sp24-midterm/contacts.jpg)
+<center><img src="../../assets/images/sp24-midterm/contacts.jpg" width=400></center>
 
 Throughout this exam, we will refer to `contacts` repeatedly.
 
