@@ -79,12 +79,12 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
       <td><a href="disc06/index.html">Sampling, Bootstrapping, and Confidence Intervals</a></td>
     </tr>
     </tr>
-    <!-- <tr>
+    <tr>
       <th scope="row">7</th>
       <td>Wednesday, May 15</td>
       <td><a href="disc07/index.html">Standardization and the Normal Distribution</a></td>
     </tr>
-    </tr>    -->
+    </tr>
     <!-- <tr>
       <th scope="row">8</th>
       <td>Wednesday, May 22</td>
