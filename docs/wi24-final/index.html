@@ -201,12 +201,10 @@ that in each row, the index should have a unique value – that is, we
 want the index to uniquely identify rows of the DataFrame. In this case,
 there will obviously be repeats in <code>"team"</code> and
 <code>"sport"</code>, since these will appear multiple times for each
-Olympic event. For the <code>"name"</code> column, we first must
-consider that there could be multiple people with the same name, which
-means we can’t assume that all the rows have unique values.
-Additionally, it’s even more likely that the same athlete could compete
-in multiple Olympics (for example, Michael Phelps competed in both 2008
-and 2004). So, none of these options is a valid index.</p>
+Olympic event. Although the name is unique for each athlete, the same
+athlete could compete in multiple Olympics (for example, Michael Phelps
+competed in both 2008 and 2004). So, none of these options is a valid
+index.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -248,14 +246,15 @@ aria-labelledby="heading2_1" data-bs-parent="#accordionExample">
 <p><strong>Answer:</strong> <code>["Name", "Sport"]</code> or
 <code>["Sport", "Name"]</code></p>
 <p>The question wants us to find the name (Frank X. Kugler) who has
-records that correspond to three distinct sports. However, we know that
-the same athlete might have multiple records not because they
-participated in different sports but because they participated in the
-same sport for multiple years. Therefore, first, we groupby
-<code>"Name"</code> and <code>"Sport"</code> to create a dataframe with
-unique Name-Sport pairs. This is a dataframe that contains the athletes
-and their sports (for each athlete, their corresponding sports are
-distinct).</p>
+records that correspond to three distinct sports. We know that the same
+athlete might have multiple records for a distinct sport if they
+participated in the same sport for multiple years. Therefore we should
+groupby <code>"Name"</code> and <code>"Sport"</code> to create a
+DataFrame with unique Name-Sport pairs. This is a DataFrame that
+contains the athletes and their sports (for each athlete, their
+corresponding sports are distinct). If an athlete participated in 2
+sports, for example, they would have 2 rows corresponding to them in the
+DataFrame, 1 row for each distinct sport.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -283,16 +282,17 @@ aria-labelledby="heading2_2" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer:</strong> <code>.sum()</code> or <code>.mean()</code>
 or <code>.min()</code>, etc.</p>
-<p>Any aggregation methods applied on <code>DataFrame.groupby()</code>.
-Because we don’t care about the aggregated numeric value, we just want
-to remove cases which the same athlete participates in the same sport
-for multiple years, and get unique name-sport pairs. Notice
+<p>Any aggregation method applied on <code>df.groupby()</code> would
+work. We only want to remove cases in which an athlete participates in
+the same sport for multiple years, and get unique name-sport pairs.
+Therefore, we don’t care about the aggregated numeric value. Notice
 <code>.unique()</code> is not correct because it is not an aggregation
 method used on dataframe after grouping by. If you use
 <code>.unique()</code>, it will give you “AttributeError:
 ‘DataFrameGroupBy’ object has no attribute ‘unique’”. However,
 <code>.unique()</code> can be used after <code>Series.groupby()</code>.
-For more info: <a class="uri" href="https://pandas.pydata.org/docs/reference/api/pandas.core.groupby.SeriesGroupBy.unique.html">https://pandas.pydata.org/docs/reference/api/pandas.core.groupby.SeriesGroupBy.unique.html</a>.</p>
+For more info: [link]
+(https://pandas.pydata.org/docs/reference/api/pandas.core.groupby.SeriesGroupBy.unique.html)</p>
 <hr/>
 <h5>Difficulty: ⭐️</h5>
 <p>
@@ -319,13 +319,13 @@ aria-labelledby="heading2_3" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer:</strong> <code>"Name"</code></p>
-<p>Now after reset_index, we have <code>"Name"</code> and
+<p>Now after resetting the index, we have <code>"Name"</code> and
 <code>"Sport"</code> columns containing unique name-sport pairs. The
 objective is to count how many different sports each Olympian has medals
 in. To do that, we groupby <code>"Name"</code> and later use the
-<code>.count()</code> method. This would, in effect, give a new
-DataFrame that has a count of how many times each name shows up in our
-previous DataFrame with unique name-sport pairs.</p>
+<code>.count()</code> method. This would give a new DataFrame that has a
+count of how many times each name shows up in our previous DataFrame
+with unique name-sport pairs.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -354,11 +354,11 @@ aria-labelledby="heading2_4" data-bs-parent="#accordionExample">
 <p><strong>Answer:</strong> <code>.count()</code></p>
 <p>The <code>.count()</code> method is applied to each group. In this
 context, <code>.count()</code> will get the number of entries for each
-Olympian across different sports. Since the previous steps ensured each
+Olympian across different sports, since the previous steps ensured each
 sport per Olympian is uniquely listed (due to the initial groupby on
 both <code>"Name"</code> and <code>"Sport"</code>). It does not matter
 what we sort_values by, because the
-<code>.groupby("Name").count()</code> method will just put a count of
+<code>.groupby('Name').count()</code> method will just put a count of
 each <code>"Name"</code> in all of the columns, regardless of the column
 name or what value was originally in it.</p>
 <hr/>
@@ -410,7 +410,7 @@ kilograms. Since the mean in kilograms is positive, this quantity must
 then increase if we multiply it by 2.2. Intuitively this should make
 sense as we are basically scaling all the (positive) values by 2.2 (a
 positive constant), so we expect the values to increase and thus the
-mean to increase. So option 1 is correct.</li>
+mean to increase. So, option 1 is correct.</li>
 <li>The standard deviation of the new distribution where weight is in
 pounds would be given by <span class="math inline">2.2  \cdot
 \text{standard deviation}</span> in kilograms. Since the standard
@@ -419,45 +419,57 @@ we multiply it by 2.2. Intuitively this should make sense as we are
 scaling all the values by 2.2, so the difference between larger and
 smaller values will be greater once they are scaled. Thus, we expect the
 spread of our distribution to be larger, and the standard deviation to
-increase. So option 2 is correct.</li>
+increase. So, option 2 is correct.</li>
 <li>We are basically interested in the proportion of <span class="math inline">x_{i}</span> that satisfy <span class="math inline">\vert \frac{x_{i} \cdot μ}{σ} \vert&lt;3</span>,
 with <span class="math inline">x_{i}</span> being the values of
 <code>"Weight"</code>, μ being the mean in kg and σ being the standard
 deviation in kg. Once we scale everything by 2.2 to convert from
 kilograms to pounds, we have that<br/>
 <span class="math inline">\vert
-\frac{2.2x_{i}-2.2μ}{2.2σ}\vert&lt;3</span> → <span class="math inline">\frac{2.2}{2.2}\vert \frac{x_{i} \cdot
-μ}{σ}\vert&lt;3</span> → <span class="math inline">\vert \frac{x_{i}
-\cdot μ}{σ}\vert&lt;3</span>.<br/>
+\frac{2.2x_{i}-2.2μ}{2.2σ}\vert&lt;3</span> → <span class="math inline">\frac{2.2}{2.2}\vert
+\frac{x~i~*μ}{σ}\vert&lt;3</span> → <span class="math inline">\vert
+\frac{x_{i} \cdot μ}{σ}\vert&lt;3</span>.<br/>
 Notice that after we scaled it to pounds, the equation still ends up the
 exact same as the one in kg. Thus, the proportion of
 <code>"Weight"</code> within 3 standard deviations of the mean stays the
 same. Intuitively this should make sense because we are scaling
 everything by the same amount, so the proportion of points that are a
 specific number of standard deviations away from the mean should be the
-same, since the standard deviation and mean get scaled as well. So
+same, since the standard deviation and mean get scaled as well. So,
 option 3 is incorrect.</li>
-<li>Recall that the correlation coecient, r, is the average value of the
-product of two variables, when both variables are measured in standard
-units. In kilograms, <code>"Weight"</code>(kg) in standard units is
-<span class="math inline">\frac{x_{i}−μ}{σ}</span>. Similar to option 3,
-<code>"Weight"</code>(pounds) in standard units is <span class="math inline">\frac{2.2x_{i}-2.2μ}{2.2σ} = \frac{2.2}{2.2}
+<li>Recall that the correlation coefficient, r, is the average value of
+the product of two variables, when both variables are measured in
+standard units. In kilograms, <code>"Weight"</code>(kg) in standard
+units is <span class="math inline">\frac{x~i~−μ}{σ}</span>. Similar to
+option 3, <code>"Weight"</code>(pounds) in standard units is <span class="math inline">\frac{2.2x_{i}-2.2μ}{2.2σ} = \frac{2.2}{2.2}
 \frac{x_{i} \cdot μ}{σ} = \frac{x_{i} \cdot μ}{σ}</span>. Again, notice
 that the equation in pounds ends up the exact same as in kilograms. The
 same applies for <code>"Height"</code> in standard units. Since none of
 the variables change when measured in standard units, r doesn’t change.
-So option 4 is incorrect.å</li>
+So, option 4 is incorrect.</li>
 <li>Intuitively, this makes sense when we imagine a scatterplot with the
 y-axis (value being predicted) representing <code>"Weight"</code> and
 the x-axis representing <code>"Height"</code>. We expect that the taller
 someone is, the heavier they will be. So we can expect a positive
 regression line slope between Weight and Height. When we convert Weight
-from kg to pounds, we are basically scaling every value in
-<code>"Weight"</code>, making their values increase. When we scale the
-the weight values (y-values) to take on a higher scale, we are making
-the regression slope even steeper, because an increase in Height (x) now
-corresponds to an even larger increase in Weight (y). So option 5 is
-correct.</li>
+from kg to pounds, we are scaling every value in <code>"Weight"</code>,
+making their values increase. When we scale the the weight values
+(y-values) to become bigger, we are making the regression slope even
+steeper, because an increase in Height (x) now corresponds to an even
+larger increase in Weight(y). So, option 5 is correct.</li>
+<li>Similar to the last problem, we can also imagine a scatterplot
+except this time with <code>"Weight"</code> on the x-axis and
+<code>"Height"</code> on the y-axis. Since we are increasing the values
+of <code>"Height"</code>, we can imagine stretching the x-axis’ values
+without changing the y-values, which makes the line more flat and
+therefore decreases the slope. So, option 6 is incorrect. Another
+approach to both 5 and 6 is to utilize the correlation coefficient
+<em>r</em>, which is equal to the slope times <span class="math inline">\frac{σ~y~}{σ~x~}</span>. We know that multiplying a
+set values by a value greater than one increases the spread of the data
+which increases standard deviation. In option 5, <code>"Weight"</code>
+is in the y-axis, and increasing the numerator of the fraction <span class="math inline">\frac{σ~y~}{σ~x~}</span> increases <em>r</em>. In
+option 6, <code>"Weight"</code> is in the x-axis, and increasing the
+denominator the fraction <span class="math inline">\frac{σ~y~}{σ~x~}</span> decreases <em>r</em>.</li>
 </ol>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
@@ -533,18 +545,18 @@ aria-labelledby="heading4" data-bs-parent="#accordionExample">
 <li>Way 1: This function first checks if the year is divisible by 4, and
 returns “Summer” if it is. If the year isn’t divisible by 4, then the
 code inside that if statement won’t execute, and we move on to the next
-line of code, which just returns “Winter”, as we wanted. So way 1 is
+line of code, which just returns “Winter”, as we wanted. So, way 1 is
 correct.</li>
 <li>Way 2 looks similar to way 1, but has one key difference: the
 <code>return "Winter"</code> line is <strong>before</strong> the if
 statement. Since nothing after a return statement gets executed
 (assuming that the return statement gets executed), no matter what the
-year is this function will always return “Winter”. So way 2 is
+year is this function will always return “Winter”. So, way 2 is
 incorrect.</li>
 <li>Way 3 doesn’t account for the fact that all years which are
 multiples of 4 are also multiples of 2. So even though it gets the 2022
 Winter Olympics correct, it will also return “Winter” for 2020 since
-<code>2020 % 2</code> evaluates to <code>0</code>. So way 3 is
+<code>2020 % 2</code> evaluates to <code>0</code>. So, way 3 is
 incorrect.</li>
 <li>Way 4 uses similar logic to way 1, just using a different method to
 check for divisibility. Instead of using the modulo operator, we check
@@ -554,7 +566,7 @@ changes its value. If the two aren’t equal, then we know that
 the year isn’t divisible by 4 and we should return
 <code>"Winter"</code>. If the code inside the if statement doesn’t
 execute, then we know that the year is divisible by 4, so we return
-“Summer”. So way 4 is correct.</li>
+“Summer”. So, way 4 is correct.</li>
 </ul>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
@@ -608,21 +620,26 @@ aria-labelledby="heading5_1" data-bs-parent="#accordionExample">
 <p><strong>Answer:</strong> (a): <code>[p, 1-p]</code>, (b):
 <code>falls + result[1]</code> OR (a): <code>[1-p, p]</code>, (b):
 <code>falls + result[0]</code></p>
-<p>First, we should think about what <code>np.random.multinomial</code>
-is trying to do here. It’s trying to make an array of how many times
-each scenario happened. There are 2 possible scenarios here, Ylesia
-succeeds or Ylesia falls. In this code, p is the probability that Ylesia
-succeeds a skill, and the probability she fails will be 1-p. So to
-properly simulate how many times she falls, we should put
-<code>[p, 1-p]</code> in blank (a). This will make an array stored in
-<code>result</code>, with index 0 being how many times she succeeded
+<ol type="1">
+<li><strong>(a)</strong> First, we should think about what
+np.random.multinomial is trying to do here. It’s trying to make an array
+of how many times each scenario happened. There are 2 possible scenarios
+here: Ylesia succeeds or Ylesia fails. In this code, p is the
+probability that Ylesia succeeds a skill, and therefore the probabilty
+that Ylesia does not succeed (she fails) will be 1-p. So to properly
+simulate how many times she falls, we should put <code>[p, 1-p]</code>
+in blank (a).</li>
+<li><strong>(b)</strong> Our answer from (a) will make an array stored
+in <code>result</code>, with index 0 being how many times she succeeded
 (corresponds to p), and index 1 being how many times she fell
 (corresponds to 1-p). Since index 1 corresponds to the scenario in which
 she falls, in order to correctly increase the number of falls, we add
-<code>result[1]</code> with <code>falls</code>. Therefore, blank (b) is
-<code>falls + result[1]</code>. Likewise, you can change the order with
-(a): <code>[1-p, p]</code> and (b): <code>falls + result[0]</code> and
-it would still correctly simulate how many times she falls.</p>
+<code>falls</code> by <code>result[1]</code>. Therefore, blank (b) is
+<code>falls + result[1]</code>.</li>
+</ol>
+<p>Likewise, you can change the order with (a): <code>[1-p, p]</code>
+and (b): <code>falls + result[0]</code> and it would still correctly
+simulate how many times she falls.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -704,20 +721,23 @@ aria-labelledby="heading5_3" data-bs-parent="#accordionExample">
 <p><strong>Answer:</strong>(a): <code>count_falls(skill_success)</code>,
 (b): <code>np.count_nonzero(results == 0) / 10000</code>, though there
 are many other correct solutions</p>
-<p>For this question, we are doing a simulation where we calculate the
-probability of Ylesia not falling during her routine based on 10,000
-trials. To do so, we want to find out the number of times that Yelsia
-did not fall any skill during her routine out of the 10,000 trials.
-Based on the given codes, we have an array where we are appending
-something into that array for each trial. We can utilize the function
-defined in part a to calculate the number of times Ylesia falls during a
-single trial so blank a will be <code>count_falls(skill_success)</code>.
-After 10,000 iterations, we have an array of the number of falls for
-each trial. Then, we want to count the number of times that we get 0 in
-that array, which means Ylesia did not fall. Lastly, to get the
-probability, we will need to divide by the total number of trials which
-is 10,000. This gives us the answer for blank b:
-<code>np.count_nonzero(results == 0) / 10000</code>.</p>
+<ol type="1">
+<li><strong>(a)</strong> For this question, we are doing a simulation
+where we calculate the probability of Ylesia not falling during her
+routine based on 10,000 trials. To do so, we want to find out the number
+of times that Yelsia did not fall any skill during her routine out of
+the 10,000 trials. Based on the given codes, we have an array where we
+are appending something into that array for each trial. We can utilize
+the function defined in part a to calculate the number of times Ylesia
+falls during a single trial so blank a will be
+<code>count_falls(skill_success)</code>.</li>
+<li><strong>(b)</strong> After 10,000 iterations, we have an array of
+the number of falls for each trial. Then, we want to count the number of
+times that we get 0 in that array, which means Ylesia did not fall.
+Lastly, to get the probability, we will need to divide by the total
+number of trials which is 10,000. This gives us the answer for blank b:
+<code>np.count_nonzero(results == 0) / 10000</code>.</li>
+</ol>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -766,15 +786,12 @@ population.</p>
 <p>The Central Limit Theorem (CLT) states that regardless of the shape
 of the population distribution, the sampling distribution of the sample
 mean will be approximately normally distributed if the sample size is
-sufficiently large. It’s often stated in the context of samples drawn
-with replacement, but in practice, it can still be applicable to samples
-drawn without replacement under certain conditions. In this context,
-although the sample is drawn without replacement, the key factor that
-makes it reasonable to still use the CLT, is the sample size relative to
-the population size. When the sample size is much smaller than the
-population size, as in this case where 400 rows of Olympians are sampled
-from a likely much larger population of Olympians, the effect of
-sampling without replacement becomes negligible.</p>
+sufficiently large. The key factor that makes it reasonable to still use
+the CLT, is the sample size relative to the population size. When the
+sample size is much smaller than the population size, as in this case
+where 400 rows of Olympians are sampled from a likely much larger
+population of Olympians, the effect of sampling without replacement
+becomes negligible.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
 <p>
@@ -899,29 +916,22 @@ American gymnasts and the number of medals won by Romanian gymnasts</p>
 large when the data suggests that we reject the null hypothesis, and
 small when we fail to reject the null. Now let’s look at each
 option:<br/>
-- <strong>Option 1:</strong> Say for example Romanians won half the
-total medals, Americans won the the other half, and no other country won
-any medals. In this situation, the Romanians and Americans won an equal
-amount of medals, but the total variation distance would still be large,
-suggesting that we reject the null hypothesis, even though them winning
-an equal amount of medals should suggest that we fail to reject the null
-hypothesis. Likewise, if Romanians won all the medals and no other
-country won any medals, the test statistic would still be large,
-suggesting that we reject the null hypothesis for the alternative
-hypothesis that Americans win more medals than Romanians, even though in
-our hypothetical situation Americans won no medals and Romanians won all
-of them.<br/>
-- <strong>Option 2:</strong> This test statistic doesn’t take into
-account the number of medals Romanians won. Imagine a situation where
-Romanians won half of all the medals and Americans won the other half,
-and no other country won any medals. In here, they won the same amount
-of medals and the test statistic would be 1/2. Now imagine if Americans
-win half the medals, some other country won the other half, and
-Romanians won no medals. In this case, the Americans won a lot more
-medals than Romanians but the test statistic is still 1/2. A good test
-statistic should point to one hypothesis when it’s large and the other
-hypothesis when it’s small. In this test statistic, 1/2 points to both
-hypotheses, making it a bad test statistic.<br/>
+- <strong>Option 1:</strong> Total variation distance across all the
+countries won’t tell us about the differences in medals between
+Americans and Romanians. In this case, it only tells how different the
+proportions are across all countries in comparison to the uniform
+distribution, the mean proportion. - <strong>Option 2:</strong> This
+test statistic doesn’t take into account the number of medals Romanians
+won. Imagine a situation where Romanians won half of all the medals and
+Americans won the other half, and no other country won any medals. In
+here, they won the same amount of medals and the test statistic would be
+1/2. Now imagine if Americans win half the medals, some other country
+won the other half, and Romanians won no medals. In this case, the
+Americans won a lot more medals than Romanians but the test statistic is
+still 1/2. A good test statistic should point to one hypothesis when
+it’s large and the other hypothesis when it’s small. In this test
+statistic, 1/2 points to both hypotheses, making it a bad test
+statistic.<br/>
 - <strong>Option 3:</strong> In this test statistic, when Americans win
 an equal amount of medals as Romanians, the test statistic would be 0, a
 very small number. When Americans win way more medals than Romanians,
@@ -936,14 +946,14 @@ plausible. The important thing is that the test statistic points to the
 alternative hypothesis when it’s large, and points to the null
 hypothesis when it’s small. This test statistic does just that, so
 option 3 is the correct answer.<br/>
-- <strong>Option 4:</strong> This statistic is large when American
-gymnasts win 100% of the Olympic medals <span class="math inline">(|1-1/2| = 1/2)</span>. It get’s smaller as American
-gymnasts win an equal amount of medals as Romanian ones <span class="math inline">(|1/2-1/2=0)</span>, but then it gets large again as
-American gymnasts win less medals than Romanian ones <span class="math inline">(|1/100-99/100|=98/100)</span>. This means that when
-Americans win way less medals than Romanians, this test statistic would
-still be large, suggesting that the alternative hypothesis is true, even
-though the alternative hypothesis is that Americans win more medals than
-Romanians.</p>
+- <strong>Option 4:</strong> Since this statistic is an absolute value,
+large values signify a large difference in the two proportions, while
+small values signify a small difference in two proportions. However, it
+doesn’t tell which country wins more because a large value could mean
+that either country has a higher proportion of medals than the other.
+This hypothesis would only be helpful if our alternative hypothesis was
+that the number of medals the Americans/ Romanians win are
+different.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -1063,8 +1073,7 @@ calculate it as <span class="math inline">\frac{119}{245}-\frac{126}{245}</span>
 Olympic gymnastics medals won by American gymnasts. This means that the
 observed statistic should be the number of medals won by America in the
 given sample. In that case, the observed statistics will be <span class="math inline">\frac{\text{# of American medals}}{\text{# of
-American medals} + \text{# of Romanian medals}} =
-\frac{126}{245}</span></p>
+American medals} + \text{# of Romanian medals}}</span> = <span class="math inline">\frac{126}{245}</span></p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -1326,10 +1335,9 @@ round, of which 4 are eliminated.</p>
 </div>
 <p><br></p>
 <h3 id="problem-9.3">Problem 9.3</h3>
-<p><span class="math inline">\bigstar</span> If we merge
-<code>breaking</code> with itself on the <code>"name"</code> column, how
-many rows will the resulting DataFrame have? Give your answer as an
-integer.</p>
+<p>If we merge <code>breaking</code> with itself on the
+<code>"name"</code> column, how many rows will the resulting DataFrame
+have? Give your answer as an integer.</p>
 <p><em>Hint</em>: Parts (a) and (b) of this question are relevant to
 part (c).</p>
 <div id="accordionExample" class="accordion">
@@ -1401,7 +1409,8 @@ aria-labelledby="heading9_4" data-bs-parent="#accordionExample">
 <p>We notice that <span class="math inline">16 = 2^4</span>, <span class="math inline">8 = 2^3</span>, <span class="math inline">4 =
 2^2</span>, and <span class="math inline">2 = 2^1</span>. We can use
 this pattern and write an expression in the form of
-<code>2 ** (something)</code>. [4, 3, 2, 1] can be generated by
+<code>2 ** (something)</code>. Notice, the exponent terms 4, 3, 2, and 1
+are evenly distributed values, and [4, 3, 2, 1] can be generated by
 np.arange as follows: <code>np.arange(4, 0, -1)</code>. 4 is the
 starting number, 0 is the ending number (exclusive), and -1 is the step
 size.</p>
@@ -1444,10 +1453,10 @@ aria-labelledby="heading10_1" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer:</strong> None of the Above</p>
 <p>The central limit theorem states that the distribution of possible
-sample means and sample sums is approximately normal, no matter the
-distribution of the population. Options A, B, and C are not probability
-distributions of the sum or mean of a large random sample draw with
-replacement.</p>
+<strong>sample means</strong> and sample sums is approximately normal,
+no matter the distribution of the population. Options A, B, and C are
+not probability distributions of the sum or mean of a large random
+sample draw with replacement.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -1529,7 +1538,7 @@ aria-labelledby="heading10_2" data-bs-parent="#accordionExample">
 DataFrame of <code>olympians</code> but filtered to only have
 <code>"Beach Volleyball"</code>. It then samples from <code>bv</code>
 with replacement, and counts the mean of that sample and stores it in
-the variable <code>one_sample</code>. It does this 10000 times (due to
+the variable <code>one_sample</code>. It does this 10,000 times (due to
 the for loop), each time creating a dataframe <code>bv</code>, sampling
 from it, calculating a mean, and then appending <code>one_sample</code>
 to the array <code>sample_means</code>. This is a correct way to
@@ -1541,11 +1550,12 @@ will result in a sample of players of any sport, and the mean of those
 ages will be calculated.</li>
 <li>Way 3 is incorrect because it queries for rows where the data in the
 <code>"Sport"</code> column equals <code>"Beach Volleyball"</code> after
-sampling from the DataFrame. This would lead to a mean that is not
-representative of a sample of volleyball players’ ages because we are
-sampling from all the rows with all different sports. There would be
-inconsistent rows of <code>"Beach Volleyball"</code> players in each
-sample.</li>
+sampling from the DataFrame instead of before. This would lead to a mean
+that is not representative of a sample of volleyball players’ ages
+because we are sampling from all the rows with all different sports,
+most likely resulting in a smaller sample size of volleyball players.
+There would also be an inconsistent number of
+<code>"Beach Volleyball"</code> players in each sample.</li>
 <li>Way 4 is essentially the same as Way 1, except it creates the
 DataFrame <code>bv</code> before the for loop. The DataFrame
 <code>bv</code> will always be the same, so it doesn’t really matter if
@@ -1683,15 +1693,13 @@ aria-labelledby="heading11_1" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer:</strong> overlaid bar chart</p>
-<p>Here we’re plotting three continuous variables (proportion of gold,
-silver, and bronze medals) for each athlete. We know a line plot is
-inappropriate here, as these are almost always used for continuous
-variables plotted over time (not according to categorical variables,
-such as athletes). A histogram also isn’t useful, as histograms display
-the distribution of a variable using bars. In this case, we already have
-the proportions we’re interested in plotting, so we can just make one
-(overlaid) bar for each medal type, for each athlete, using an overlaid
-bar chart.</p>
+<p>Here, we are plotting the data of 2 athletes, comparing the medal
+distributions. Gold, silver, and bronze medals are categorical
+variables, while the proportion of these won is a quantitative value. A
+bar chart is the only kind of plot that involves categorical data with
+quantitative data. Since there are 2 athletes, the most appropriate plot
+is an overlaid bar chart. The overlapping bars would help compare the
+difference in their distributions.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -1859,15 +1867,18 @@ aria-labelledby="heading12_1" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer:</strong> There are many possible answers for this
-question. Some examples: “Are male olympians from team USA significantly
+question. Some examples: “Are male olympians from Team USA significantly
 taller than male olympians from other countries?”, “Are olympic swimmers
 heavier than olympic figure skaters?”, “On average, are male athletes
-heavier than female athletes?”</p>
+heavier than female athletes?” Any question asking for a difference in a
+numerical variable across olympians from different categories would
+work, as long as it is not about the dropped columns.</p>
 <p>Recall that a permutation test is basically trying to test if two
 variables come from the same distribution or if the difference between
 those two variables are so significant that we can’t possibly say that
 they’re from the same distribution. In general, this means the question
-would have to involve the age, height, or weight column.</p>
+would have to involve the age, height, or weight column because they are
+numerical data.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -1897,7 +1908,7 @@ aria-labelledby="heading12_2" data-bs-parent="#accordionExample">
 <p><strong>Answer:</strong> Also many possible answers depending on your
 answer for the first question.</p>
 <p>For example, if our question was “Are olympic swimmers heavier than
-olympic figure skaters?”. Then the null hypothesis could be “Olympic
+olympic figure skaters?”, then the null hypothesis could be “Olympic
 swimmers weigh the same as olympic figure skaters” and the alternative
 could be “Olympic swimmers weigh more than figure skaters.”</p>
 <hr/>
@@ -2163,13 +2174,16 @@ aria-labelledby="heading13_6" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer:</strong> False</p>
-<p>This statement is false. Given that in the previous problem we
-showcased that lowering our significance level will make the confidence
-interval wider, this statement is false because the true parameter was
-already contained within the tighter interval. Thus, lowering our
-significance level will only make the interval wider which already
-contained the true parameter, which would not give us statistically
-significant results. Thus, this answer is false.</p>
+<p>This statement is false. A small significance level lowers the chance
+of getting a statistically significant result; our value for 0.01
+significance has to be outside a 99% confidence interval to be
+statistically significant. In addition, the true parameter was already
+contained within the tighter 95% confidence interval, so we failed to
+reject the null hypothesis at the 0.05 significance level. This
+guarantees failing to reject the null hypotehsis at the 0.01
+significance level since we know that whatever is contained in a 95%
+confidence interval has to also be contained in a 99% confidence
+interval. Thus, this answer is false.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -2308,12 +2322,20 @@ mountain’s area is behind him, since the mean and median are equal for
 normal distributions like this one. We also see that 54 is one half of a
 standard deviation away from the mean. So, all we have to do is find out
 what proportion of the area is within half a standard deviation of the
-mean. This number happens to be approximately 0.19, so by the time Aaron
-reaches an x-coordinate of 54, <span class="math inline">0.5 + 0.19 =
-0.69</span> of the mountain is behind him. From here, we simply
-calculate the area in front by <span class="math inline">1 - 0.69 =
-0.31</span>, so we conclude that approximately 0.3 of the area is in
+mean. Using the 68-95-99.7 rule, we know that 68% of the values lie
+within one standard deviation of the mean to both the right and left
+side. So, this means 34% of the values are within one standard deviation
+on one side and at least 17% are within half a standard deviation on one
+side. Since the area is 1, the area would be 0.17. So, by the time Aaron
+reaches an x-coordinate of 54, <span class="math inline">0.5 + 0.17 =
+0.67</span> of the mountain is behind him. From here, we simply
+calculate the area in front by <span class="math inline">1 - 0.67 =
+0.33</span>, so we conclude that approximately 0.3 of the area is in
 front of Aaron.</p>
+<p>Note: As a clafrification, the 0.17 is an estimate, specifically, an
+underestimate, due to the shape of the normal distribution. Thse area
+under a normal distribution is not proportional to how many standard
+deviations far away from the mean you are.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -2356,10 +2378,10 @@ aria-labelledby="heading15_1" data-bs-parent="#accordionExample">
 <p><strong>Answer:</strong> <span class="math inline">\frac{1}{4}</span></p>
 <p>Reading the prompt we can see that we are solving for a conditional
 probability. Let A be the given condition that the medal is gold and let
-B be the event that a medal is from 2000. Looking at the dataframe we
+B be the event that a medal is from 2000. Looking at the DataFrame we
 can see that 8 total gold medals are earned (make sure you pay attention
 to the count column). Out of these 8 medals, 2 of them are from the year
-2000. Thus we obtain the probability <span class="math inline">\frac{2}{8}</span> or <span class="math inline">\frac{1}{4}</span>.</p>
+2000. Thus, we obtain the probability <span class="math inline">\frac{2}{8}</span> or <span class="math inline">\frac{1}{4}</span>.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -2522,13 +2544,11 @@ using code, we can query the males DataFrame to only include rows where
 <code>"Weight"</code> is greater than or equal to 80, and
 <code>"Weight"</code> is less than 100. Remember, a histogram bin
 includes the lower bound (in this case, 80) and excludes the upper bound
-(in this case, 100). Furthermore, we should use <code>&amp;</code>
-instead of <code>and</code> because pandas and babypandas require
-bitwise comparison. Finally, remember to put parentheses around each
-condition, or else the order of operations will mess up your intended
-conditions. After querying, we use <code>.shape[0]</code> to get the
-number of rows in that dataframe, therefore getting the number of males
-with a weight greater than or equal to 80, and less than 100.</p>
+(in this case, 100). Remember to put parentheses around each condition,
+or else the order of operations will change your intended conditions.
+After querying, we use <code>.shape[0]</code> to get the number of rows
+in that dataframe, therefore getting the number of males with a weight
+greater than or equal to 80, and less than 100.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -2540,9 +2560,8 @@ with a weight greater than or equal to 80, and less than 100.</p>
 </div>
 <p><br> <br></p>
 <h3 id="problem-16.3">Problem 16.3</h3>
-<p><span class="math inline">\bigstar</span> Among Olympic weightlifting
-medalists who weigh less than <span class="math inline">60</span>
-kilograms, what proportion are male?</p>
+<p>Among Olympic weightlifting medalists who weigh less than <span
+class="math inline">60</span> kilograms, what proportion are male?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> less than <span class="math inline">0.25</span></p></li>
 <li><p><input type="radio" disabled="" /> between <span class="math inline">0.25</span> and <span class="math inline">0.5</span></p></li>
