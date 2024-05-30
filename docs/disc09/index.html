@@ -161,6 +161,41 @@ Angeles Sparks.</p>
 Kelsey Plum’s shot distribution and Chiney Ogwumike’s shot distribution?
 Give your answer as a <strong>proportion</strong> between 0 and 1 (not a
 percentage) rounded to three decimal places.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading1_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1_1" aria-expanded="true" aria-controls="collapse1_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse1_1" class="accordion-collapse collapse"
+aria-labelledby="heading1_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> 0.2</p>
+<p>Recall, the TVD is the sum of the absolute differences in
+proportions, divided by 2. The absolute differences in proportions for
+each category are as follows:</p>
+<ul>
+<li>Free Throws: <span class="math inline">|0.05 - 0.2| = 0.15</span></li>
+<li>Threes: <span class="math inline">|0.35 - 0.2| = 0.15</span></li>
+<li>Midrange: <span class="math inline">|0.35 - 0.3| = 0.05</span></li>
+<li>Layups: <span class="math inline">|0.25 - 0.3| = 0.05</span></li>
+</ul>
+<p>Then, we have</p>
+<p><span class="math display">\text{TVD} = \frac{1}{2} (0.15 + 0.15 +
+0.05 + 0.05) = 0.2</span></p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 84%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-1.2">Problem 1.2</h3>
 <p>Recall, <code>breakdown</code> has information for 50 different
@@ -197,6 +232,93 @@ distribution to Kelsey Plum. Assume that the column named
 <li><p>What goes in blank (b)?</p></li>
 <li><p>What goes in blank (c)?</p></li>
 </ol>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading1_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1_2" aria-expanded="true" aria-controls="collapse1_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse1_2" class="accordion-collapse collapse"
+aria-labelledby="heading1_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answers:</strong> 1, <code>np.arange(1, 50)</code>,
+<code>most_sim_player = player</code></p>
+<p>Let’s try and understand the code provided to us. It appears that
+we’re looping over the names of all other players, each time computing
+the TVD between Kelsey Plum’s shot distribution and that player’s shot
+distribution. If the TVD calculated in an iteration of the
+<code>for</code>-loop (<code>player_tvd</code>) is less than the
+previous lowest TVD (<code>lowest_tvd_so_far</code>), the current player
+(<code>player</code>) is now the most “similar” to Kelsey Plum, and so
+we store their TVD and name (in <code>most_sim_player</code>).</p>
+<p>Before the <code>for</code>-loop, we haven’t looked at any other
+players, so we don’t have values to store in
+<code>most_sim_player</code> and <code>lowest_tvd_so_far</code>. On the
+first iteration of the <code>for</code>-loop, both of these values need
+to be updated to reflect Kelsey Plum’s similarity with the first player
+in <code>other_players</code>. This is because, if we’ve only looked at
+one player, that player is the most similar to Kelsey Plum.
+<code>most_sim_player</code> is already initialized as an empty string,
+and we will specify how to “update” <code>most_sim_player</code> in
+blank (c). For blank (a), we need to pick a value of
+<code>lowest_tvd_so_far</code> that we can <strong>guarantee</strong>
+will be updated on the first iteration of the <code>for</code>-loop.
+Recall, TVDs range from 0 to 1, with 0 meaning “most similar” and 1
+meaning “most different”. This means that no matter what, the TVD
+between Kelsey Plum’s distribution and the first player’s distribution
+will be less than 1*, and so if we initialize
+<code>lowest_tvd_so_far</code> to 1 before the <code>for</code>-loop, we
+know it will be updated on the first iteration.</p>
+<ul>
+<li>It’s possible that the TVD between Kelsey Plum’s shot distribution
+and the first other player’s shot distribution is equal to 1, rather
+than being less than 1. If that were to happen, our code would still
+generate the correct answer, but <code>lowest_tvd_so_far</code> and
+<code>most_sim_player</code> wouldn’t be updated on the first iteration.
+Rather, they’d be updated on the first iteration where
+<code>player_tvd</code> is strictly less than 1. (We’d expect that the
+TVDs between all pairs of players are neither exactly 0 nor exactly 1,
+so this is not a practical issue.) To avoid this issue entirely, we
+could change <code>if player_tvd &lt; lowest_tvd_so_far</code> to
+<code>if player_tvd &lt;= lowest_tvd_so_far</code>, which would make
+sure that even if the first TVD is 1, both
+<code>lowest_tvd_so_far</code> and <code>most_sim_player</code> are
+updated on the first iteration.</li>
+<li>Note that we could have initialized <code>lowest_tvd_so_far</code>
+to a value larger than 1 as well. Suppose we initialized it to 55 (an
+arbitrary positive integer). On the first iteration of the
+<code>for</code>-loop, <code>player_tvd</code> will be less than 55, and
+so <code>lowest_tvd_so_far</code> will be updated.</li>
+</ul>
+<p>Then, we need <code>other_players</code> to be an array containing
+the names of all players other than Kelsey Plum, whose name is stored at
+position 0 in <code>breakdown.columns</code>. We are told that there are
+50 players total, i.e. that there are 50 columns in
+<code>breakdown</code>. We want to <code>take</code> the elements in
+<code>breakdown.columns</code> at positions 1, 2, 3, …, 49 (the last
+element), and the call to <code>np.arange</code> that generates this
+sequence of positions is <code>np.arange(1, 50)</code>. (Remember,
+<code>np.arange(a, b)</code> does not include the second integer!)</p>
+<p>In blank (c), as mentioned in the explanation for blank (a), we need
+to update the value of <code>most_sim_player</code>. (Note that we only
+arrive at this line if <code>player_tvd</code> is the lowest pairwise
+TVD we’ve seen so far.) All this requires is
+<code>most_sim_player = player</code>, since <code>player</code>
+contains the name of the player who we are looking at in the current
+iteration of the <code>for</code>-loop.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 70%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <hr />
 <h2 id="problem-2">Problem 2</h2>
@@ -249,6 +371,24 @@ streaming services, their response is counted as Other.</p>
 <p>What is the total variation distance (TVD) between the distribution
 for DSC majors and the distribution for CSE majors? Give your answer as
 an exact decimal.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading3_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_1" aria-expanded="true" aria-controls="collapse3_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse3_1" class="accordion-collapse collapse"
+aria-labelledby="heading3_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: 0.15</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-2.2">Problem 2.2</h3>
 <p>Suppose we only break down video streaming services into four
@@ -260,6 +400,24 @@ How does the TVD now compare to your answer to part (a)?</p>
 <li><p><input type="radio" disabled="" /> equal to (a)</p></li>
 <li><p><input type="radio" disabled="" /> greater than (a)</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading3_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_2" aria-expanded="true" aria-controls="collapse3_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse3_2" class="accordion-collapse collapse"
+aria-labelledby="heading3_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: less than (a)</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <hr />
 <h2 id="problem-3">Problem 3</h2>
@@ -306,6 +464,35 @@ intended.</p>
 <li><p><input type="radio" disabled="" /> <code>3</code></p></li>
 <li><p><input type="radio" disabled="" /> <code>6</code></p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading4_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_1" aria-expanded="true" aria-controls="collapse4_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse4_1" class="accordion-collapse collapse"
+aria-labelledby="heading4_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: <code>6</code></p>
+<p>The TVD is the sum of the absolute differences in proportions,
+divided by 2. In the code to the left of the blank, we’ve computed the
+mean of the absolute differences in proportions, which is the same as
+the sum of the absolute differences in proportions, divided by 12 (since
+<code>len(dist1)</code> is <code>12</code>). To correct the fact that we
+divided by 12, we multiply by 6, so that we’re only dividing by 2.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 17%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <p><strong>Moving forward, assume that <code>calculate_tvd</code> works
 correctly.</strong></p>
@@ -329,6 +516,37 @@ hypothesis test stated at the start of the question.</p>
 <p>What goes in blank (b)? <em>(Hint: The function
 <code>np.ones(k)</code> returns an array of length <code>k</code> in
 which all elements are <code>1</code>.)</em></p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading4_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_2" aria-expanded="true" aria-controls="collapse4_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse4_2" class="accordion-collapse collapse"
+aria-labelledby="heading4_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: <code>np.ones(12) / 12</code></p>
+<p><code>uniform_dist</code> needs to be the same as the uniform
+distribution provided in the null hypothesis, <span class="math inline">\left[\frac{1}{12}, \frac{1}{12}, ...,
+\frac{1}{12}\right]</span>.</p>
+<p>In code, this is an array of length 12 in which each element is equal
+to <span class="math inline">1 / 12</span>. <code>np.ones(12)</code>
+creates an array of length 12 in which each value is <code>1</code>; for
+each value to be <code>1 / 12</code>, we divide <code>np.ones(12)</code>
+by <code>12</code>.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 66%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <p><br></p>
 <h3 id="problem-3.3">Problem 3.3</h3>
@@ -341,10 +559,70 @@ which all elements are <code>1</code>.)</em></p>
 <li><p><input type="radio" disabled="" /> <code>np.random.multinomial(total_count, uniform_dist) / 12</code></p></li>
 <li><p><input type="radio" disabled="" /> <code>np.random.multinomial(total_count, uniform_dist) / total_count</code></p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading4_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_3" aria-expanded="true" aria-controls="collapse4_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse4_3" class="accordion-collapse collapse"
+aria-labelledby="heading4_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>:
+<code>np.random.multinomial(total_count, uniform_dist) / total_count</code></p>
+<p>The idea here is to repeatedly generate an array of proportions that
+results from distributing <code>total_count</code> hours across the 12
+months in a way that each month is equally likely to be chosen. Each
+time we generate such an array, we’ll determine its TVD from the uniform
+distribution; doing this repeatedly gives us an empirical distribution
+of the TVD under the assumption the null hypothesis is true.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 21%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <p><br></p>
 <h3 id="problem-3.4">Problem 3.4</h3>
 <p>What goes in blank (d)?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading4_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_4" aria-expanded="true" aria-controls="collapse4_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse4_4" class="accordion-collapse collapse"
+aria-labelledby="heading4_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: <code>uniform_dist</code></p>
+<p>As mentioned above:</p>
+<blockquote>
+<p>Each time we generate such an array, we’ll determine its TVD from the
+<strong>uniform distribution</strong>; doing this repeatedly gives us an
+empirical distribution of the TVD under the assumption the null
+hypothesis is true.</p>
+</blockquote>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 54%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <p><br></p>
 <h3 id="problem-3.5">Problem 3.5</h3>
@@ -357,9 +635,71 @@ which all elements are <code>1</code>.)</em></p>
 <li><p><input type="radio" disabled="" /> <code>==</code></p></li>
 <li><p><input type="radio" disabled="" /> <code>!=</code></p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading4_5">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_5" aria-expanded="true" aria-controls="collapse4_5">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse4_5" class="accordion-collapse collapse"
+aria-labelledby="heading4_5" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: <code>&gt;=</code></p>
+<p>The purpose of the last line of code is to compute the p-value for
+the hypothesis test. Recall, the p-value of a hypothesis test is the
+proportion of simulated test statistics that are as or more extreme than
+the observed test statistic, under the assumption the null hypothesis is
+true. In this context, “as extreme or more extreme” means the simulated
+TVD is <strong>greater than or equal to</strong> the observed TVD (since
+larger TVDs mean “more different”).</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 77%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-3.6">Problem 3.6</h3>
 <p>What goes in blank (f)?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading4_6">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_6" aria-expanded="true" aria-controls="collapse4_6">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse4_6" class="accordion-collapse collapse"
+aria-labelledby="heading4_6" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: <code>observed_counts / total_count</code>
+or <code>observed_counts / observed_counts.sum()</code></p>
+<p>Blank (f) needs to contain the observed distribution of sunshine
+hours (as an array of proportions) that we compare against the uniform
+distribution to calculate the observed TVD. This observed TVD is then
+compared with the distribution of simulated TVDs to calculate the
+p-value. The observed counts are converted to proportions by dividing by
+the total count so that the observed distribution is on the same scale
+as the simulated and expected uniform distributions, which are also in
+proportions.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 27%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <hr />
 <h2 id="problem-4">Problem 4</h2>
@@ -412,6 +752,45 @@ evaluates to -0.61.</p>
 <li><p>What goes in blank (a)?</p></li>
 <li><p>What goes in blank (b)?</p></li>
 </ol>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading5_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_1" aria-expanded="true" aria-controls="collapse5_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse5_1" class="accordion-collapse collapse"
+aria-labelledby="heading5_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answers:</strong> <code>'Won'</code>, <code>'AST'</code></p>
+<p>To compute the number of assists Kelsey Plum averages in winning and
+losing games, we need to group by <code>'Won'</code>. Once doing so, and
+using the <code>.mean()</code> aggregation method, we need to access
+elements in the <code>'AST'</code> column.</p>
+<p>The second argument to <code>diff_in_group_means</code>,
+<code>group_col</code>, is the column we’re grouping by, and so blank
+(a) must be filled by <code>'Won'</code>. Then, the second argument,
+<code>num_col</code>, must be <code>'AST'</code>.</p>
+<p>Note that after extracting the Series containing the average number
+of assists in wins and losses, we are returning the value with the index
+<code>False</code> (“loss”) minus the value with the index
+<code>True</code> (“win”). So, throughout this problem, keep in mind
+that we are computing “losses minus wins”. Since our observation was
+that she averaged 0.61 more assists in wins than in losses, it makes
+sense that <code>diff_in_group_means(plum, 'Won', 'AST')</code> is -0.61
+(rather than +0.61).</p>
+<hr/>
+<h5>Difficulty: ⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 94%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-4.2">Problem 4.2</h3>
 <p>After observing that Kelsey Plum averages more assists in winning
@@ -442,6 +821,52 @@ valid simulated test statistic for this permutation test?</p>
 <li><p><input type="radio" disabled="" /> More than one of these options do not compute a valid simulated test
 statistic for this permutation test</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading5_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_2" aria-expanded="true" aria-controls="collapse5_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse5_2" class="accordion-collapse collapse"
+aria-labelledby="heading5_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong>
+<code>diff_in_group_means(shuffled, 'Won', 'AST')</code></p>
+<p>As we saw in the previous subpart,
+<code>diff_in_group_means(shuffled, 'Won', 'AST')</code> computes the
+observed test statistic, which is -0.61. There is no randomness involved
+in the observed test statistic; each time we run the line
+<code>diff_in_group_means(shuffled, 'Won', 'AST')</code> we will see the
+same result, so this cannot be used for simulation.</p>
+<p>To perform a permutation test here, we need to simulate under the
+null by randomly assigning assist counts to groups; here, the groups are
+“win” and “loss”.</p>
+<ul>
+<li><strong>Option 2:</strong> Here, assist counts are shuffled and the
+group names are kept in the same order. The end result is a random
+pairing of assists to groups.</li>
+<li><strong>Option 3:</strong> Here, the group names are shuffled and
+the assist counts are kept in the same order. The end result is a random
+pairing of assist counts to groups.</li>
+<li><strong>Option 4:</strong> Here, both the group names and assist
+counts are shuffled, but the end result is still the same as in the
+previous two options.</li>
+</ul>
+<p>As such, Options 2 through 4 are all valid, and Option 1 is the only
+invalid one.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 68%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-4.3">Problem 4.3</h3>
 <p>Suppose we generate 10,000 simulated test statistics, using one of
@@ -467,6 +892,66 @@ games and in losing games come from the same distribution, and that she
 wins 22 of the 31 games she plays, the chance of her averaging 0.61 more
 assists in wins than losses is roughly a quarter.</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading5_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_3" aria-expanded="true" aria-controls="collapse5_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse5_3" class="accordion-collapse collapse"
+aria-labelledby="heading5_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> Under the assumption that Kelsey Plum’s
+number of assists in winning games and in losing games come from the
+same distribution, and that she wins 22 of the 31 games she plays, the
+chance of her averaging <strong>at least</strong> 0.61 more assists in
+wins than losses is roughly a quarter. (Option 3)</p>
+<p>First, we should note that the area to the left of the red line (a
+quarter) is the p-value of our hypothesis test. Generally, the p-value
+is the probability of observing an outcome as or more extreme than the
+observed, under the assumption that the null hypothesis is true. The
+direction to look in depends on the alternate hypothesis; here, since
+our alternative hypothesis is that the number of assists Kelsey Plum
+makes in winning games is higher on average than in losing games, a
+“more extreme” outcome is where the assists in winning games are higher
+than in losing games, i.e. where <span class="math inline">\text{(assists in wins)} - \text{(assists in
+losses)}</span> is positive or where <span class="math inline">\text{(assists in losses)} - \text{(assists in
+wins)}</span> is negative. As mentioned in the solution to the first
+subpart, our test statistic is <span class="math inline">\text{(assists
+in losses)} - \text{(assists in wins)}</span>, so a more extreme outcome
+is one where this is negative, i.e. to the left of the observed
+statistic.</p>
+<p>Let’s first rule out the first two options.</p>
+<ul>
+<li><strong>Option 1:</strong> This option states that the probability
+that the null hypothesis (the number of assists she makes in winning and
+losing games comes from the same distribution) is true is roughly a
+quarter. However, the p-value <strong>is not</strong> the probability
+that the null hypothesis is true.</li>
+<li><strong>Option 2:</strong> The significance level is the formal name
+for the p-value “cutoff” that we specify in our hypothesis test. There
+is no cutoff mentioned in the problem. The <em>observed</em>
+significance level is another name for the p-value, but Option 2 did not
+contain the word <em>observed</em>.</li>
+</ul>
+<p>Now, the only difference between Options 3 and 4 is the inclusion of
+“at least” in Option 3. Remember, to compute a p-value we must compute
+the probability of observing something as <strong>or more</strong>
+extreme than the observed, under the null. The “or more” corresponds to
+“at least” in Option 3. As such, Option 3 is the correct choice.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 70%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <hr />
 <h2 id="problem-5">Problem 5</h2>
@@ -507,6 +992,62 @@ random chance alone.</p></li>
 <li><p><input type="radio" disabled="" /> The difference between these averages is statistically
 significant.</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_1" aria-expanded="true" aria-controls="collapse6_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_1" class="accordion-collapse collapse"
+aria-labelledby="heading6_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> Any difference between these two averages
+is due to random chance.</p>
+<p>If the null hypothesis is true, this means that the time recorded in
+<code>app_data</code> for each BILLY bookcase is a random number that
+comes from some distribution, and the time recorded in
+<code>app_data</code> for each LOMMARP bookcase is a random number that
+comes from <em>the same</em> distribution. Each assembly time is a
+random number, so even if the null hypothesis is true, if we take one
+person who assembles a BILLY bookcase and one person who assembles a
+LOMMARP bookcase, there is no guarantee that their assembly times will
+match. Their assembly times might match, or they might be different,
+because assembly time is random. Randomness is the only reason that
+their assembly times might be different, as the null hypothesis says
+there is no systematic difference in assembly times between the two
+bookcases. Specifically, it’s not the case that one typically takes
+longer to assemble than the other.</p>
+<p>With those points in mind, let’s go through the answer choices.</p>
+<p>The first answer choice is incorrect. Just because two sets of
+numbers are drawn from the same distribution, the numbers themselves
+might be different due to randomness, and the averages might also be
+different. Maybe just by chance, the people who assembled the BILLY
+bookcases and recorded their times in <code>app_data</code> were slower
+on average than the people who assembled LOMMARP bookcases. If the null
+hypothesis is true, this difference in average assembly time should be
+small, but it very likely exists to some degree.</p>
+<p>The second answer choice is correct. If the null hypothesis is true,
+the only reason for the difference is random chance alone.</p>
+<p>The third answer choice is incorrect for the same reason that the
+second answer choice is correct. If the null hypothesis is true, any
+difference must be explained by random chance.</p>
+<p>The fourth answer choice is incorrect. If there is a difference
+between the averages, it should be very small and not statistically
+significant. In other words, if we did a hypothesis test and the null
+hypothesis was true, we should fail to reject the null.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 77%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-5.2">Problem 5.2</h3>
 <p>For the permutation test, we’ll use as our test statistic the average
@@ -530,6 +1071,118 @@ statistic in a new way, without using
 <li><p><input type="radio" disabled="" /> <code>billy_lommarp.get('minutes').mean() - billy_mean</code></p></li>
 <li><p><input type="radio" disabled="" /> <code>(billy_lommarp.get('minutes').sum() - billy_mean * billy.sum())/lommarp.sum()</code></p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_2" aria-expanded="true" aria-controls="collapse6_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_2" class="accordion-collapse collapse"
+aria-labelledby="heading6_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong>
+<code>(billy_lommarp.get('minutes').sum() - billy_mean * billy.sum())/lommarp.sum()</code></p>
+<p>The first line of code creates a boolean Series with a True value for
+every BILLY bookcase, and the second line of code creates the analogous
+Series for the LOMMARP bookcase. The third line queries to define a
+DataFrame called <code>billy_lommarp</code> containing all products that
+are BILLY or LOMMARP bookcases. In other words, this DataFrame contains
+a mix of BILLY and LOMMARP bookcases.</p>
+<p>From this point, the way we would normally proceed in a permutation
+test would be to use <code>np.random.permutation</code> to shuffle one
+of the two relevant columns (either <code>'product'</code> or
+<code>'minutes'</code>) to create a random pairing of assembly times
+with products. Then we would calculate the average of all assembly times
+that were randomly assigned to the label BILLY. Similarly, we’d
+calculate the average of all assembly times that were randomly assigned
+to the label LOMMARP. Then we’d subtract these averages to get one
+simulated value of the test statistic. To run the permutation test, we’d
+have to repeat this process many times.</p>
+<p>In this problem, we need to generate a simulated value of the test
+statistic, without randomly shuffling one of the columns. The code
+starts us off by defining a variable called <code>billy_mean</code> that
+comes from using <code>np.random.choice</code>. There’s a lot going on
+here, so let’s break it down. Remember that the first argument to
+<code>np.random.choice</code> is a sequence of values to choose from,
+and the second is the number of random choices to make. And we set
+<code>replace=False</code>, so that no element that has already been
+chosen can be chosen again. Here, we’re making our random choices from
+the <code>'minutes'</code> column of <code>billy_lommarp</code>. The
+number of choices to make from this collection of values is
+<code>billy.sum()</code>, which is the sum of all values in the
+<code>billy</code> Series defined in the first line of code. The
+<code>billy</code> Series contains True/False values, but in Python,
+True counts as 1 and False counts as 0, so <code>billy.sum()</code>
+evaluates to the number of True entries in <code>billy</code>, which is
+the number of BILLY bookcases recorded in <code>app_data</code>. It
+helps to think of the random process like this:</p>
+<ol type="1">
+<li>Collect all the assembly times of any BILLY or LOMMARP bookcase in a
+large bag.</li>
+<li>Pull out a random assembly time from this bag.</li>
+<li>Repeat step 2, drawing as many times as there are BILLY bookcases,
+without replacement.</li>
+</ol>
+<p>If we think of the random times we draw as being labeled BILLY, then
+the remaining assembly times still leftover in the bag represent the
+assembly times randomly labeled LOMMARP. In other words, this is a
+random association of assembly times to labels (BILLY or LOMMARP), which
+is the same thing we usually accomplish by shuffling in a permutation
+test.</p>
+<p>From here, we can proceed the same way as usual. First, we need to
+calculate the average of all assembly times that were randomly assigned
+to the label BILLY. This is done for us and stored in
+<code>billy_mean</code>. We also need to calculate the average of all
+assembly times that were randomly assigned the label LOMMARP. We’ll call
+that <code>lommarp_mean</code>. Thinking of picking times out of a large
+bag, this is the average of all the assembly times left in the bag. The
+problem is there is no easy way to access the assembly times that were
+not picked. We can take advantage of the fact that we can easily
+calculate the total assembly time of all BILLY and LOMMARP bookcases
+together with <code>billy_lommarp.get('minutes').sum()</code>. Then if
+we subtract the total assembly time of all bookcases randomly labeled
+BILLY, we’ll be left with the total assembly time of all bookcases
+randomly labeled LOMMARP. That is,
+<code>billy_lommarp.get('minutes').sum() - billy_mean * billy.sum()</code>
+represents the total assembly time of all bookcases randomly labeled
+LOMMARP. The count of the number of LOMMARP bookcases is given by
+<code>lommarp.sum()</code> so the average is
+<code>(billy_lommarp.get('minutes').sum() - billy_mean * billy.sum())/lommarp.sum()</code>.</p>
+<p>A common wrong answer for this question was the second answer choice,
+<code>np.random.choice(billy_lommarp.get('minutes'), lommarp.sum(), replace=False).mean()</code>.
+This mimics the structure of how <code>billy_mean</code> was defined so
+it’s a natural guess. However, this corresponds to the following random
+process, which doesn’t associate each assembly with a unique label
+(BILLY or LOMMARP):</p>
+<ol type="1">
+<li>Collect all the assembly times of any BILLY or LOMMARP bookcase in a
+large bag.</li>
+<li>Pull out a random assembly time from this bag.</li>
+<li>Repeat, drawing as many times as there are BILLY bookcases, without
+replacement.</li>
+<li>Collect all the assembly times of any BILLY or LOMMARP bookcase in a
+large bag.</li>
+<li>Pull out a random assembly time from this bag.</li>
+<li>Repeat step 5, drawing as many times as there are LOMMARP bookcases,
+without replacement.</li>
+</ol>
+<p>We could easily get the same assembly time once for BILLY and once
+for LOMMARP, while other assembly times could get picked for neither.
+This process doesn’t split the data into two random groups as
+desired.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 12%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <hr />
 <h2 id="problem-6">Problem 6</h2>
@@ -651,6 +1304,47 @@ and (b) for this pair of hypotheses? Select all that apply.</p>
 <li><p><input type="checkbox" disabled="" /> Option 6</p></li>
 <li><p><input type="checkbox" disabled="" /> None of the above.</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading7_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_1" aria-expanded="true" aria-controls="collapse7_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse7_1" class="accordion-collapse collapse"
+aria-labelledby="heading7_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> Option 4, Option 6</p>
+<p>For blank (a), we want to choose a test statistic that helps us
+distinguish between the null and alternative hypotheses. The alternative
+hypothesis says that <code>denied</code> and <code>approved</code>
+should be different, but it doesn’t say which should be larger. Options
+1 through 3 therefore won’t work, because high values and low values of
+these statistics both point to the alternative hypothesis, and moderate
+values point to the null hypothesis. Options 4 through 6 all work
+because large values point to the alternative hypothesis, and small
+values close to 0 suggest that the null hypothesis should be true.</p>
+<p>For blank (b), we want to calculate the p-value in such a way that it
+represents the proportion of trials for which the simulated test
+statistic was equal to the observed statistic or further in the
+direction of the alternative. For all of Options 4 through 6, large
+values of the test statistic indicate the alternative, so we need to
+calculate the p-value with a <code>&gt;=</code> sign, as in Options 4
+and 6.</p>
+<p>While Option 3 filled in blank (a) correctly, it did not fill in
+blank (b) correctly. Options 4 and 6 fill in both blanks correctly.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 78%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-6.2">Problem 6.2</h3>
 <p>Now, suppose we choose the following pair of hypotheses.</p>
@@ -664,6 +1358,43 @@ the number of dependents of denied applicants.</p></li>
 </ul>
 <p>Which of the six presented options could correctly fill in blanks (a)
 and (b) for this pair of hypotheses? Select all that apply.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading7_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_2" aria-expanded="true" aria-controls="collapse7_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse7_2" class="accordion-collapse collapse"
+aria-labelledby="heading7_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> Option 1</p>
+<p>As in the previous part, we need to fill blank (a) with a test
+statistic such that large values point towards one of the hypotheses and
+small values point towards the other. Here, the alterntive hypothesis
+suggests that <code>approved</code> should be less than
+<code>denied</code>, so we can’t use Options 4 through 6 because these
+can only detect whether <code>approved</code> and <code>denied</code>
+are not different, not which is larger. Any of Options 1 through 3
+should work, however. For Options 1 and 2, large values point towards
+the alternative, and for Option 3, small values point towards the
+alternative. This means we need to calculate the p-value in blank (b)
+with a <code>&gt;=</code> symbol for the test statistic from Options 1
+and 2, and a <code>&lt;=</code> symbol for the test statistic from
+Option 3. Only Options 1 fills in blank (b) correctly based on the test
+statistic used in blank (a).</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 83%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-6.3">Problem 6.3</h3>
 <p>Option 6 from the start of this question is repeated below.</p>
@@ -713,6 +1444,49 @@ equivalent to Option 6?</p>
 <li><p><input type="radio" disabled="" /> <code>np.abs(stats) &gt;= np.abs(test_stat(apps))</code></p></li>
 <li><p><input type="radio" disabled="" /> <code>np.abs(stats &gt;= test_stat(apps))</code></p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading7_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_3" aria-expanded="true" aria-controls="collapse7_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse7_3" class="accordion-collapse collapse"
+aria-labelledby="heading7_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong>
+<code>np.abs(stats) &gt;= np.abs(test_stat(apps))</code></p>
+<p>First, we need to understand how Option 6 works. Option 6 produces
+large values of the test statistic when <code>approved</code> is very
+different from <code>denied</code>, then calculates the p-value as the
+proportion of trials for which the simulated test statistic was larger
+than the observed statistic. In other words, Option 6 calculates the
+proportion of trials in which <code>approved</code> and
+<code>denied</code> are more different in a pair of random samples than
+they are in the original samples.</p>
+<p>For Option 7, the test statistic for a pair of random samples may
+come out very large or very small when <code>approved</code> is very
+different from <code>denied</code>. Similarly, the observed statistic
+may come out very large or very small when <code>approved</code> and
+<code>denied</code> are very different in the original samples. We want
+to find the proportion of trials in which <code>approved</code> and
+<code>denied</code> are more different in a pair of random samples than
+they are in the original samples, which means we want the proportion of
+trials in which the absolute value of <code>approved - denied</code> in
+a pair of random samples is larger than the absolute value of
+<code>approved - denied</code> in the original samples.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 56%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <p><br></p>
 <h3 id="problem-6.4">Problem 6.4</h3>
@@ -758,6 +1532,78 @@ anywhere in your code.</p>
 <span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
 <span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>        stat <span class="op">=</span> fast_stat(shuffle_all(apps))</span>
 <span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>        stats <span class="op">=</span> np.append(stats, stat)</span></code></pre></div>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading7_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_4" aria-expanded="true" aria-controls="collapse7_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse7_4" class="accordion-collapse collapse"
+aria-labelledby="heading7_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> The blanks should be filled in as
+follows:</p>
+<ul>
+<li><ol type="a">
+<li><code>df.sample(df.shape[0])</code></li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><code>df.take(np.arange(denied))</code></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li><code>df.take(np.arange(denied, df.shape[0]))</code></li>
+</ol></li>
+</ul>
+<p>For blank (a), we are told to return a DataFrame with the same rows
+but in a different order. We can use the <code>.sample</code> method for
+this question. We want each row of the input DataFrame <code>df</code>
+to appear once, so we should sample without replacement, and we should
+have has many rows in the output as in <code>df</code>, so our sample
+should be of size <code>df.shape[0]</code>. Since sampling without
+replacement is the default behavior of <code>.sample</code>, it is
+optional to specify <code>replace=False</code>.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 59%. <br/><br/></p>
+<p>For blank (b), we need to implement the strategy outlined, where
+after we shuffle the DataFrame, we use the values at the top of the
+DataFrame as our new “denied sample. In a permutation test, the two
+random groups we create should have the same sizes as the two original
+groups we are given. In this case, the size of the”denied” group in our
+original data is stored in the variable <code>denied</code>. So we need
+the rows in positions 0, 1, 2, …, <code>denied - 1</code>, which we can
+get using <code>df.take(np.arange(denied))</code>.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 39%. <br/><br/></p>
+<p>For blank (c), we need to get all remaining applicants, who form the
+new “approved” sample. We can <code>.take</code> the rows corresponding
+to the ones we didn’t put into the “denied” group. That is, the first
+applicant who will be put into this group is at position
+<code>denied</code>, and we’ll take all applicants from there onwards.
+We should therefore fill in blank (c) with
+<code>df.take(np.arange(denied, df.shape[0]))</code>.</p>
+<p>For example, if <code>apps</code> had only 10 rows, 7 of them
+corresponding to denied applications, we would shuffle the rows of
+<code>apps</code>, then take rows 0, 1, 2, 3, 4, 5, 6 as our new
+“denied” sample and rows 7, 8, 9 as our new “approved” sample.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 38%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <hr />
 <h2 id="problem-7">Problem 7</h2>
@@ -811,6 +1657,45 @@ Chinstrap masses</p></li>
 <li><p><input type="radio" disabled="" /> This is a permutation test, and our test statistic is the difference
 in the mean Adelie mass and mean Chinstrap mass</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading2_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2_1" aria-expanded="true" aria-controls="collapse2_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse2_1" class="accordion-collapse collapse"
+aria-labelledby="heading2_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> This is a permutation test, and our test
+statistic is the difference in the mean Adelie mass and mean Chinstrap
+mass (Option 4)</p>
+<p>Recall, a permutation test helps us decide whether two random samples
+come from the same distribution. This test matches our goal of testing
+whether the masses of Adelie penguins and Chinstrap penguins are drawn
+from the same population distribution. The code above are also doing
+steps of a permutation test. In part (a), it shuffles
+<code>'species'</code> and stores the shuffled series to
+<code>shuffled</code>. In part (b), it assign the shuffled series of
+values to <code>'species'</code> column. Then, it uses
+<code>grouped = with_shuffled.groupby('species').mean()</code> to
+calculate the mean of each species. In part (c), it computes the
+difference between mean mass of the two species by first getting the
+<code>'mass'</code> column and then accessing mean mass of each group
+(Adelie and Chinstrap) with positional index <code>0</code> and
+<code>1</code>.</p>
+<hr/>
+<h5>Difficulty: ⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 98%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-7.2">Problem 7.2</h3>
 <p>For your convenience, we copy the code for the hypothesis test
@@ -848,6 +1733,39 @@ be several different values in the <code>stats</code> array</p></li>
 <li><p><input type="radio" disabled="" /> This would not run a valid hypothesis test, as it would incorporate
 information about Gentoo penguins</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading2_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2_2" aria-expanded="true" aria-controls="collapse2_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse2_2" class="accordion-collapse collapse"
+aria-labelledby="heading2_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> This would not run a valid hypothesis test,
+as all values in the <code>stats</code> array would be exactly the same
+(Option 2)</p>
+<p>Recall, <code>DataFrame.sample(n, replace = False)</code> (or
+<code>DataFrame.sample(n)</code> since <code>replace = False</code> is
+by default) returns a DataFrame by randomly sampling <code>n</code> rows
+from the DataFrame, without replacement. Since our <code>n</code> is
+<code>adelie_chinstrap.shape[0]</code>, and we are sampling without
+replacement, we will get the exactly same Dataframe (though the order of
+rows may be different but the <code>stats</code> array would be exactly
+the same).</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 87%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-7.3">Problem 7.3</h3>
 <p>For your convenience, we copy the code for the hypothesis test
@@ -885,6 +1803,40 @@ be several different values in the <code>stats</code> array</p></li>
 <li><p><input type="radio" disabled="" /> This would not run a valid hypothesis test, as it would incorporate
 information about Gentoo penguins</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading2_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2_3" aria-expanded="true" aria-controls="collapse2_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse2_3" class="accordion-collapse collapse"
+aria-labelledby="heading2_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> This would not run a valid hypothesis test,
+even though there would be several different values in the
+<code>stats</code> array (Option 3)</p>
+<p>Recall, <code>DataFrame.sample(n, replace = True)</code> returns a
+new DataFrame by randomly sampling <code>n</code> rows from the
+DataFrame, with replacement. Since we are sampling with replacement, we
+will have a DataFrame which produces a <code>stats</code> array with
+some different values. However, recall, the key idea behind a
+permutation test is to shuffle the group labels. So, the above code does
+not meet this key requirement since we only want to shuffle the
+<code>"species"</code> column without changing the size of the two
+species. However, the code may change the size of the two species.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 66%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-7.4">Problem 7.4</h3>
 <p>For your convenience, we copy the code for the hypothesis test
@@ -928,6 +1880,34 @@ be several different values in the <code>stats</code> array</p></li>
 <li><p><input type="radio" disabled="" /> This would not run a valid hypothesis test, as it would incorporate
 information about Gentoo penguins</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading2_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2_4" aria-expanded="true" aria-controls="collapse2_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse2_4" class="accordion-collapse collapse"
+aria-labelledby="heading2_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> This would still run a valid hypothesis test
+(Option 1)</p>
+<p>Our goal for the permutation test is to randomly assign birth weights
+to groups, without changing group sizes. The above code shuffles
+<code>'species'</code> and <code>'mass'</code> columns and assigns them
+back to the DataFrame. This fulfills our goal.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 81%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-7.5">Problem 7.5</h3>
 <p>Suppose we run the code for the hypothesis test and see the following
@@ -945,6 +1925,41 @@ to the p-value for our hypothesis test?</p>
 <li><p><input type="radio" disabled="" /> <span class="math inline">\frac{3}{4}</span></p></li>
 <li><p><input type="radio" disabled="" /> <span class="math inline">1</span></p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading2_5">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2_5" aria-expanded="true" aria-controls="collapse2_5">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse2_5" class="accordion-collapse collapse"
+aria-labelledby="heading2_5" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> <span class="math inline">\frac{1}{3}</span></p>
+<p>Recall, the p-value is the chance, under the null hypothesis, that
+the test statistic is equal to the value that was observed in the data
+or is even further in the direction of the alternative. Thus, we compute
+the proportion of the test statistic that is equal or less than the
+observed statistic. (It is less than because less than corresponds to
+the alternative hypothesis “Chinstrap penguins weigh more on average
+than Adelie penguins”. Recall, when computing the statistic, we use
+Adelie’s mean mass minus Chinstrap’s mean mass. If Chinstrap’s mean mass
+is larger, the statistic will be negative, the direction of less than
+the observed statistic).</p>
+<p>Thus, we look at the proportion of area less than or on the red line
+(which represents observed statistic), it is around <span class="math inline">\frac{1}{3}</span>.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 80%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <hr />
 <h2 id="problem-8">Problem 8</h2>
@@ -966,6 +1981,34 @@ from the distribution of incomes of all applicants?</p>
 <li><p><input type="radio" disabled="" /> Permutation Testing</p></li>
 <li><p><input type="radio" disabled="" /> Bootstrapping</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading8_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_1" aria-expanded="true" aria-controls="collapse8_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse8_1" class="accordion-collapse collapse"
+aria-labelledby="heading8_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Anwser:</strong> Hypothesis Testing</p>
+<p>This is a question of whether a certain set of incomes (corresponding
+to applicants with 2 or fewer dependents) are drawn randomly from a
+certain population (incomes of all applicants). We need to use
+hypothesis testing to determine whether this model for how samples are
+drawn from a population seems plausible.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 47%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-8.2">Problem 8.2</h3>
 <p>What is the median income of credit card applicants with 2 or fewer
@@ -975,6 +2018,32 @@ dependents?</p>
 <li><p><input type="radio" disabled="" /> Permutation Testing</p></li>
 <li><p><input type="radio" disabled="" /> Bootstrapping</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading8_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_2" aria-expanded="true" aria-controls="collapse8_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse8_2" class="accordion-collapse collapse"
+aria-labelledby="heading8_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Anwser:</strong> Bootstrapping</p>
+<p>The question is looking for an estimate a specific parameter (the
+median income of applicants with 2 or fewer dependents), so we know
+boostrapping is the best tool.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 88%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-8.3">Problem 8.3</h3>
 <p>Are credit card applications approved through a random process in
@@ -984,6 +2053,35 @@ which 50% of applications are approved?</p>
 <li><p><input type="radio" disabled="" /> Permutation Testing</p></li>
 <li><p><input type="radio" disabled="" /> Bootstrapping</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading8_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_3" aria-expanded="true" aria-controls="collapse8_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse8_3" class="accordion-collapse collapse"
+aria-labelledby="heading8_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Anwser:</strong> Hypothesis Testing</p>
+<p>The question asks about the validity of a model in which applications
+are approved randomly such that each application has a 50% chance of
+being approved. To determine whether this model is plausible, we should
+use a standard hypothesis test to simulate this random process many
+times and see if the data generated according to this model is
+consistent with our observed data.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 74%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-8.4">Problem 8.4</h3>
 <p>Is the median income of applicants with 2 or fewer dependents less
@@ -993,6 +2091,34 @@ than the median income of applicants with 3 or more dependents?</p>
 <li><p><input type="radio" disabled="" /> Permutation Testing</p></li>
 <li><p><input type="radio" disabled="" /> Bootstrapping</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading8_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_4" aria-expanded="true" aria-controls="collapse8_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse8_4" class="accordion-collapse collapse"
+aria-labelledby="heading8_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Anwser:</strong> Permutation Testing</p>
+<p>Recall, a permutation test helps us decide whether two random samples
+come from the same distribution. This question is about whether two
+random samples for different groups of applicants have the same
+distribution of incomes or whether they don’t because one group’s median
+incomes is less than the other.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 57%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <h3 id="problem-8.5">Problem 8.5</h3>
 <p>What is the difference in median income of applicants with 2 or fewer
@@ -1002,6 +2128,33 @@ dependents and applicants with 3 or more dependents?</p>
 <li><p><input type="radio" disabled="" /> Permutation Testing</p></li>
 <li><p><input type="radio" disabled="" /> Bootstrapping</p></li>
 </ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading8_5">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_5" aria-expanded="true" aria-controls="collapse8_5">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse8_5" class="accordion-collapse collapse"
+aria-labelledby="heading8_5" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Anwser:</strong> Bootstrapping</p>
+<p>The question at hand is looking for a specific parameter value (the
+difference in median incomes for two different subsets of the
+applicants). Since this is a question of estimating an unknown
+parameter, bootstrapping is the best tool.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 63%.</p>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <hr />
 <h2 id="section"><span class="math display"> </span></h2>
