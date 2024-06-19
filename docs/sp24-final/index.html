@@ -1608,28 +1608,42 @@ aria-labelledby="heading9_5" data-bs-parent="#accordionExample">
 <p><br></p>
 <hr />
 <h2 id="problem-10">Problem 10</h2>
-<p>After looking at the distribution of <code>"Day"</code> for your
-contacts, you wonder how that distribution might look for other groups
-of people.</p>
-<p>In this problem, we will consider the distribution of day of birth
-(just the day of the month, not the month or year) for all babies born
-in the year 2023, under the assumption that all babies born in 2023 were
-equally likely to be born on each of the 365 days of the year.</p>
-<p>The density histogram below shows this distribution.</p>
-<p><strong>Note:</strong> 2023 was not a leap year, so February had 28
-days.</p>
-<center><img src="../../assets/images/sp24-midterm/baby_hist.png" width=600></center>
+<p>We want to use the data in <code>apts</code> to test the following
+hypotheses:</p>
+<ul>
+<li><strong>Null Hypothesis:</strong> The rent of the apartments in UTC
+and the rents of the apartments in other neighborhoods come from the
+same distribution.</li>
+<li><strong>Alternative Hypothesis:</strong> The rents of the apartments
+in UTC are <strong>higher</strong> than the rents of the apartments in
+other neighborhoods on average.</li>
+</ul>
+<p>While we could answer this question with a permutation test, in this
+problem we will explore another way to test these hypotheses. Since this
+is a question of whether two samples come from the same unknown
+population distribution, we need to construct a “population” to sample
+from. We will construct our “population” in the same way as we would for
+a permutation test, except we will draw our sample differently. Instead
+of shuffling, we will draw our two samples <strong>with
+replacement</strong> from the constructed “population”. We will use as
+our test statistic the difference in means between the two samples (in
+the order <strong>UTC minus elsewhere</strong>).</p>
 <p><br></p>
 <h3 id="problem-10.1">Problem 10.1</h3>
-<p>What is height <code>(a)</code>?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> <span class="math inline">\dfrac{1}{28}</span></p></li>
-<li><p><input type="radio" disabled="" /> <span class="math inline">\dfrac{28}{365}</span></p></li>
-<li><p><input type="radio" disabled="" /> <span class="math inline">\dfrac{12 \cdot 28}{365}</span></p></li>
-<li><p><input type="radio" disabled="" /> <span class="math inline">\dfrac{1}{12}</span></p></li>
-<li><p><input type="radio" disabled="" /> <span class="math inline">\dfrac{12}{365}</span></p></li>
-<li><p><input type="radio" disabled="" /> <span class="math inline">1</span></p></li>
-</ul>
+<p>Suppose the data in <code>apts</code>, which has 800 rows, includes
+85 apartments in UTC. Fill in the blanks below so that
+<code>p_val</code> evaluates to the p-value for this hypothesis test,
+which we will test according to the strategy outlined above.</p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>diffs <span class="op">=</span> np.array([])</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    utc_sample_mean <span class="op">=</span> __(a)__</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    elsewhere_sample_mean <span class="op">=</span> __(b)__</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    diffs <span class="op">=</span> np.append(diffs, utc_sample_mean <span class="op">-</span> elsewhere_sample_mean)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>observed_utc_mean <span class="op">=</span> __(c)__</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>observed_elsewhere_mean <span class="op">=</span> __(d)__</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>observed_diff <span class="op">=</span> observed_utc_mean <span class="op">-</span> observed_elsewhere_mean</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>p_val <span class="op">=</span> np.count_nonzero(diffs __(e)__ observed_diff) <span class="op">/</span> <span class="dv">10000</span></span></code></pre></div>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading10_1">
@@ -1643,44 +1657,40 @@ aria-labelledby="heading10_1" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer:</strong> <span class="math inline">\dfrac{12}{365}</span></p>
-<p>2023 was not a leap year, so there are in total 365 days, and
-February only has 28 days. All the months have at least 28 days, so in
-bin [1,29], there are 12 * 28 data values. And, all the months other
-than February have 29th and 30th days, so there are 2 * 11 data values
-in bin [29,31]. Lastly, there are 7 months with 31 days, so there are 7
-data values in bin [31,32].</p>
-<p>There are in total 365 data values, so the proportion of data points
-falling into bin [1,29] <span class="math inline">=\dfrac{12 \cdot
-28}{365}</span>. Thus, the area of the bar of bin [1,29] <span class="math inline">= \dfrac{12 \cdot 28}{365}</span>. Area = Height *
-Width, width of the bin is 28, so height(a) <span class="math inline">=
-\dfrac{12 \cdot 28}{365 \cdot 28} = \dfrac{12}{365}</span>.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 38%.</p>
+<p><strong>Answer:</strong></p>
+<ul>
+<li><ol type="a">
+<li><code>apts.sample(85, replace=True).get("Rent").mean()</code></li>
+</ol></li>
+<li><ol start="2" type="a">
+<li><code>apts.sample(715, replace=True).get("Rent").mean()</code></li>
+</ol></li>
+<li><ol start="3" type="a">
+<li><code>apts[apts.get("neighborhood")=="UTC"].get("Rent").mean()</code></li>
+</ol></li>
+<li><ol start="4" type="a">
+<li><code>apts[apts.get("neighborhood")!="UTC"].get("Rent").mean()</code></li>
+</ol></li>
+<li><ol start="5" type="a">
+<li><code>&gt;=</code></li>
+</ol></li>
+</ul>
 </div>
 </div>
 </div>
 </div>
 <p><br></p>
 <h3 id="problem-10.2">Problem 10.2</h3>
-<p>Express height <code>(b)</code> in terms of height
-<code>(a)</code>.</p>
+<p>Now suppose we tested the same hypothesses with a permutation test
+using the same test statistic. Which of your answers above (part a)
+would need to change? Select all that apply.</p>
 <ul class="task-list">
-<li><p><input type="radio" disabled="" /> <span class="math inline">\text{(b)} = \dfrac{7}{12} \cdot
-\text{(a)}</span></p></li>
-<li><p><input type="radio" disabled="" /> <span class="math inline">\text{(b)} = \dfrac{27}{28} \cdot
-\text{(a)}</span></p></li>
-<li><p><input type="radio" disabled="" /> <span class="math inline">\text{(b)} = \dfrac{28}{29} \cdot
-\text{(a)}</span></p></li>
-<li><p><input type="radio" disabled="" /> <span class="math inline">\text{(b)} = \dfrac{11}{12} \cdot
-\text{(a)}</span></p></li>
-<li><p><input type="radio" disabled="" /> <span class="math inline">\text{(b)} = \dfrac{7}{11} \cdot
-\text{(a)}</span></p></li>
-<li><p><input type="radio" disabled="" /> <span class="math inline">\text{(b)} = \dfrac{12 \cdot 28}{365} \cdot
-\text{(a)}</span></p></li>
+<li><p><input type="checkbox" disabled="" /> blank (a)</p></li>
+<li><p><input type="checkbox" disabled="" /> blank (b)</p></li>
+<li><p><input type="checkbox" disabled="" /> blank (c)</p></li>
+<li><p><input type="checkbox" disabled="" /> blank (d)</p></li>
+<li><p><input type="checkbox" disabled="" /> blank (e)</p></li>
+<li><p><input type="checkbox" disabled="" /> None of these.</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
@@ -1695,16 +1705,634 @@ aria-labelledby="heading10_2" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer:</strong> <span class="math inline">\text{(b)} =
-\dfrac{11}{12} \cdot \text{(a)}</span></p>
-<p>Similarly, height(b) = <span class="math inline">\dfrac{2 \cdot
-11}{365 \cdot 2} = \dfrac{11}{365} = \dfrac{11}{12} \cdot
-\dfrac{12}{365}</span>.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 43%.</p>
+<p><strong>Answer:</strong> blanks (a) and (b)</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-10.3">Problem 10.3</h3>
+<p>Now suppose we test the following pair of hypotheses.</p>
+<ul>
+<li><strong>Null Hypothesis:</strong> The rents of the apartments in UTC
+and the rents of the apartments in other neighborhoods come form the
+same distribution.</li>
+<li><strong>Alternative Hypothesis:</strong> The rents of the apartments
+in UTC are <strong>different</strong> than the rents of the apartments
+in other neighborhoods on average.</li>
+</ul>
+<p>Then we can test this pair of hypotheses by constructing a 95%
+confidence interval for a parameter and checking if some particular
+number, <span class="math inline">x</span>, falls in that confidence
+interval. To do this:</p>
+<ol type="i">
+<li><p>What parameter should we construct a 95% confidence interval for?
+Your answer should be a phrase or short sentence.</p></li>
+<li><p>What is the value of <span class="math inline">x</span>? Your
+answer should be a number.</p></li>
+<li><p>Suppose <span class="math inline">x</span> is in the 95%
+confidence interval we create. Select all valid conclusions
+below.</p></li>
+</ol>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading10_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10_3" aria-expanded="true" aria-controls="collapse10_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse10_3" class="accordion-collapse collapse"
+aria-labelledby="heading10_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong></p>
+<ul>
+<li>(i) The average rent of an apartment in UTC minus the average rent
+of an apartment elsewhere, or vice versa.</li>
+<li>(ii) 0</li>
+<li>(iii) 3rd and 4th options.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-11">Problem 11</h2>
+<p>Next year, six of the DSC tutors (Kathleen, Sophia, Ashley, Claire,
+and Vivian) want to rent a 3-bedroom apartment together. Each person
+will have a single roommate with whom they’ll share a bedroom. Each
+person will have a single roommate with whom they’ll share a bedroom.
+They determine the bedroom assignments randomly such that each possible
+arrangement is equally likely.</p>
+<p>For both questions below, give your answer as a simplified fraction
+or exact decimal.</p>
+<p><strong>Hint:</strong> Both answers can be expressed in the form
+<span class="math inline">\frac{1}{k}</span> for an integer value of
+<span class="math inline">k</span>.</p>
+<p><br></p>
+<h3 id="problem-11.1">Problem 11.1</h3>
+<p>What is the probability that Kathleen and Sophia are roommates?</p>
+<p><strong>Hint:</strong> Think about the problem from the perspective
+of Kathleen.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading11_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11_1" aria-expanded="true" aria-controls="collapse11_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse11_1" class="accordion-collapse collapse"
+aria-labelledby="heading11_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> <span class="math inline">\frac{1}{5}</span></p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-11.2">Problem 11.2</h3>
+<p>What is the probability that the bedroom assignments are the
+following: Kathleen with Sophia, Kate with Ashley, and Claire with
+Vivian?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading11_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11_2" aria-expanded="true" aria-controls="collapse11_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse11_2" class="accordion-collapse collapse"
+aria-labelledby="heading11_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> <span class="math inline">\frac{1}{15}</span></p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-12">Problem 12</h2>
+<p>Suppose you know the following information.</p>
+<ul>
+<li>The average monthly rent for the apartments in <code>apts</code> is
+$3,000 with a standard deviation of $400.</li>
+<li>The average size of the apartments in <code>apts</code> is 2,000
+square feet, with a standard deviation of 100 square feet.</li>
+<li>The correlation coefficient between rent and square footage is
+0.9.</li>
+</ul>
+<p>For all parts of this quesiton, give your answer as an
+<strong>integer</strong>.</p>
+<p><br></p>
+<h3 id="problem-12.1">Problem 12.1</h3>
+<p>Suppose the rents are normally distributed. What is the rent below
+which 84% of apartments are priced?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading12_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12_1" aria-expanded="true" aria-controls="collapse12_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse12_1" class="accordion-collapse collapse"
+aria-labelledby="heading12_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> $3,400</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-12.2">Problem 12.2</h3>
+<p>Sophie’s apartment rents for $5,000. What is this rent in standard
+units?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading12_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12_2" aria-expanded="true" aria-controls="collapse12_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse12_2" class="accordion-collapse collapse"
+aria-labelledby="heading12_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> 5</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-12.3">Problem 12.3</h3>
+<p>Based on what you know about the rent of Sophie’s apartment, use the
+regerssion line to predict the square footage of Sophie’s apartment.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading12_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12_3" aria-expanded="true" aria-controls="collapse12_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse12_3" class="accordion-collapse collapse"
+aria-labelledby="heading12_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> 2450</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-12.4">Problem 12.4</h3>
+<p>Sophie’s apartment is actually 2,300 square feet. What is the
+residual of your prediction?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading12_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12_4" aria-expanded="true" aria-controls="collapse12_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse12_4" class="accordion-collapse collapse"
+aria-labelledby="heading12_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> -150</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-12.5">Problem 12.5</h3>
+<p>Cici’s apartment is 1,800 square feet. Based on this information, use
+the regression line to predict the rent of Cici’s apartment.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading12_5">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12_5" aria-expanded="true" aria-controls="collapse12_5">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse12_5" class="accordion-collapse collapse"
+aria-labelledby="heading12_5" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> $2,280</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-13">Problem 13</h2>
+<p><br></p>
+<h3 id="problem-13.1">Problem 13.1</h3>
+<p>Values in the <code>"Bath"</code> column are <code>"One"</code>,
+<code>"One and a half"</code>, <code>"Two"</code>,
+<code>"Two and a half"</code>, and <code>"Three"</code>. Fill in the
+blank in the funciton <code>float_bath</code> that will convert any
+string from the <code>"Bath"</code> column into aa corresponding number
+of bathrooms, as a float. For example,
+<code>float_bath("One and a half")</code> should return
+<code>1.5</code>.</p>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> float_bath(s):</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="st">&quot;One&quot;</span> <span class="kw">in</span> s:</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>        n_baths <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> <span class="st">&quot;Two&quot;</span> <span class="kw">in</span> s:</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>        n_baths <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>        n_baths <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="st">&quot;and a half&quot;</span> <span class="kw">in</span> s:</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>        __(a)__</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> n_baths</span></code></pre></div>
+<p>What goes in blank <code>(a)</code>?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading13_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13_1" aria-expanded="true" aria-controls="collapse13_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse13_1" class="accordion-collapse collapse"
+aria-labelledby="heading13_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> <code>n_baths = n_baths + 0.5</code></p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-13.2">Problem 13.2</h3>
+<p>Values in the <code>"Lease Term"</code> column are
+<code>"1 month"</code>, <code>"6 months"</code>, and
+<code>"1 year"</code>. Fill in the blanks in the function
+<code>int_lease()</code> that will convert any string from the
+<code>"Lease Term"</code> column to the corresponding length of the
+lease, in months, as an integer.</p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> int_lease(s):</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> s[<span class="op">-</span><span class="dv">1</span>] <span class="op">==</span> <span class="st">&quot;r&quot;</span>:</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> __(b)__</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> __(c)__</span></code></pre></div>
+<p>What goes in blanks <code>(b)</code> and <code>(c)</code>?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading13_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13_2" aria-expanded="true" aria-controls="collapse13_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse13_2" class="accordion-collapse collapse"
+aria-labelledby="heading13_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong></p>
+<ul>
+<li><code>(b)</code>: <code>12</code></li>
+<li><code>(c)</code>: <code>int(s[0])</code></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-13.3">Problem 13.3</h3>
+<p>Values in the <code>"Bed"</code> column are <code>"Studio"</code>,
+<code>"One"</code>, <code>"Two"</code>, and <code>"Three"</code>. The
+function <code>int_bed</code> provided below converts any string from
+the <code>"Bed"</code> column to the corresponding number of bedrooms,
+as an integer. Note that <code>"Studio"</code> apartments count as
+having 0 bedrooms.</p>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> int_bed(s):</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> s <span class="op">==</span> <span class="st">&quot;Studio&quot;</span>:</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">0</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> s <span class="op">==</span> <span class="st">&quot;One&quot;</span>:</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">1</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> s <span class="op">==</span> <span class="st">&quot;Two&quot;</span>:</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">2</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">3</span></span></code></pre></div>
+<p>Using the provided <code>int_bed</code> function, write one line of
+code that modifies the <code>"Bed"</code> column of the
+<code>apts</code> DataFrame so that it contains integers instead of
+strings.</p>
+<p><strong>Important:</strong> We will assume throughout the rest of
+this exam that we have converted the <code>"Bed"</code> column of
+<code>apts</code> so that it now contains ints.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading13_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13_3" aria-expanded="true" aria-controls="collapse13_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse13_3" class="accordion-collapse collapse"
+aria-labelledby="heading13_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong>
+<code>apts = apts.assign(Bed = apts.get("Bed").apply(int_bed))</code></p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-14">Problem 14</h2>
+<p>Consider the following four slopes.</p>
+<ol type="1">
+<li>The slope of the regression line predicting <code>"Rent"</code> from
+<code>"Sqft"</code>.</li>
+<li>The slope of the regression line predicting <code>"Sqft"</code> from
+<code>"Rent"</code>.</li>
+<li>The slope of the regression like predicting <code>"Rent"</code> from
+<code>"Bed"</code></li>
+<li>The slope of the regression line predicting <code>"Bed"</code> from
+<code>"Rent"</code>.</li>
+</ol>
+<p>Note that we don’t have enough information to calculate all of these
+slopes, but you should be able to answer the questions below based not
+on calculations, but on the interpretation of what these slopes
+represent in the context of housing.</p>
+<p><br></p>
+<h3 id="problem-14.1">Problem 14.1</h3>
+<p>Which of the above slopes do you expect to be the
+<strong>largest</strong>?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> 1</p></li>
+<li><p><input type="radio" disabled="" /> 2</p></li>
+<li><p><input type="radio" disabled="" /> 3</p></li>
+<li><p><input type="radio" disabled="" /> 4</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading14_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse14_1" aria-expanded="true" aria-controls="collapse14_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse14_1" class="accordion-collapse collapse"
+aria-labelledby="heading14_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> 3</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-14.2">Problem 14.2</h3>
+<p>Which of the above slopes do you expect to be the
+<strong>smallest</strong>?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading14_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse14_2" aria-expanded="true" aria-controls="collapse14_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse14_2" class="accordion-collapse collapse"
+aria-labelledby="heading14_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> 4</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-15">Problem 15</h2>
+<p>Imagine a DataFrame constructed from <code>apts</code> called
+<code>bedrooms</code>, which has one row for each bedroom in an
+apartment in <code>apts</code>. More specifically, a one bedroom
+apartment in <code>apts</code> will appear as one row in
+<code>bedrooms</code>, a two bedroom apartment in <code>apts</code> will
+appear as two rows in <code>bedrooms</code>, and a three bedroom
+apartment in <code>apts</code> will appear as three rows in
+<code>bedrooms</code>. Studio apartments will not appear in
+<code>bedrooms</code> at all.</p>
+<p>The <code>"Apartment ID"</code> column of <code>bedrooms</code>
+contains the <code>"Apartment ID"</code> of the apartment in
+<code>apts</code>. Notice that this is not the index of
+<code>bedrooms</code> since these values are no longer unique. The
+<code>"Cost"</code> column of <code>bedrooms</code> contains the rent of
+the apartment divided by the number of bedrooms. All rows of
+<code>bedrooms</code> with a shared <code>"Apartment ID"</code> should
+therefore have the same value in the <code>"Cost"</code> column.</p>
+<p><br></p>
+<h3 id="problem-15.1">Problem 15.1</h3>
+<p>Recall that <code>apts</code> has 800 rows. How many rows does
+<code>bedrooms</code> have?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> 800</p></li>
+<li><p><input type="radio" disabled="" /> More than 800.</p></li>
+<li><p><input type="radio" disabled="" /> Less than 800.</p></li>
+<li><p><input type="radio" disabled="" /> Not enough information.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading15_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15_1" aria-expanded="true" aria-controls="collapse15_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse15_1" class="accordion-collapse collapse"
+aria-labelledby="heading15_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> Not enough information.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-15.2">Problem 15.2</h3>
+<p>Suppose <code>no_studio</code> is defined as follows. (Remember, we
+previously converted the <code>"Beds"</code> column to integers.)</p>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>no_studio <span class="op">=</span> apts[apts.get(<span class="st">&quot;Bed&quot;</span>) <span class="op">!=</span> <span class="dv">0</span>]</span></code></pre></div>
+<p>Which of the following statements evaluate to the same value as the
+expression below?</p>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>bedrooms.get(<span class="st">&quot;Cost&quot;</span>).mean()</span></code></pre></div>
+<p>Select all that apply.</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> <code>no_studio.get("Rent").mean()</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>no_studio.get("Rent").sum() / apts.get("Bed").sum()</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>(no_studio.get("Rent") / no_studio.get("Bed")).mean()</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>(no_studio.get("Rent") / no_studio.get("Bed").sum()).sum()</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>no_studio.get("Rent").mean() / no_studio.get("Bed").mean()</code></p></li>
+<li><p><input type="checkbox" disabled="" /> None of these.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading15_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15_2" aria-expanded="true" aria-controls="collapse15_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse15_2" class="accordion-collapse collapse"
+aria-labelledby="heading15_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> Second, fourth, and fifth options.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-16">Problem 16</h2>
+<p>The table below shows the proportion of apartments of each type in
+each of three neighborhoods. Note that each column sums to 1.</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;"><strong>Type</strong></th>
+<th style="text-align: center;"><strong>North Park</strong></th>
+<th style="text-align: center;"><strong>Chula Vista</strong></th>
+<th style="text-align: center;"><strong>La Jolla</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Studio</td>
+<td style="text-align: center;">0.30</td>
+<td style="text-align: center;">0.15</td>
+<td style="text-align: center;">0.40</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">One bedroom</td>
+<td style="text-align: center;">0.40</td>
+<td style="text-align: center;">0.35</td>
+<td style="text-align: center;">0.30</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Two bedroom</td>
+<td style="text-align: center;">0.20</td>
+<td style="text-align: center;">0.25</td>
+<td style="text-align: center;">0.15</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Three bedroom</td>
+<td style="text-align: center;">0.10</td>
+<td style="text-align: center;">0.25</td>
+<td style="text-align: center;">0.15</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h3 id="problem-16.1">Problem 16.1</h3>
+<p>Find the total variation distance (TVD) between North Park and Chula
+Vista. Give your answer as an exact decimal.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading16_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16_1" aria-expanded="true" aria-controls="collapse16_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse16_1" class="accordion-collapse collapse"
+aria-labelledby="heading16_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> <span class="math inline">0.2</span></p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-16.2">Problem 16.2</h3>
+<p>Which pair of neighborhoods is most similar in terms of types of
+housing, as measured by TVD?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> North Park and Chula Vista</p></li>
+<li><p><input type="radio" disabled="" /> North Park and La Jolla</p></li>
+<li><p><input type="radio" disabled="" /> Chula Vista and La Jolla</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading16_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16_2" aria-expanded="true" aria-controls="collapse16_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse16_2" class="accordion-collapse collapse"
+aria-labelledby="heading16_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> North Park and La Jolla</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-16.3">Problem 16.3</h3>
+<p>25% of apartments in Little Italy are one bedroom apartments. Based
+on this information, what is the minimum and maximum possible TVD
+between North Park and Little Italy? Give your answers as exact
+decimals.</p>
+<center>Minimum: ______ Maximum: ______</center>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading16_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16_3" aria-expanded="true" aria-controls="collapse16_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse16_3" class="accordion-collapse collapse"
+aria-labelledby="heading16_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong></p>
+<ul>
+<li>Minimum: <span class="math inline">0.15</span></li>
+<li>Maximum: <span class="math inline">0.65</span></li>
+</ul>
 </div>
 </div>
 </div>
