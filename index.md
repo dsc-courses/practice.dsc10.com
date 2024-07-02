@@ -30,7 +30,73 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
 
 ---
 
-### 💯 Discussions for Spring 2024
+### 💯 Discussions for Summer 2024
+
+<center>
+<table class="table" style="width:60%">
+    <colgroup>
+       <col span="1" style="width: 25%;">
+       <col span="1" style="width: 35%;">
+       <col span="1" style="width: 40%;">
+    </colgroup>
+  <thead>
+    <tr>
+      <th scope="col">Week</th>
+      <th scope="col">Date</th>
+      <th scope="col">Topic(s)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Tuesday, July 2</td>
+      <td><a href="disc01/index.html">Getting Started With Jupyter Notebooks</a></td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Tuesday, July 9</td>
+      <td><a href="disc02/index.html">Arrays and DataFrames</a></td>
+    </tr>
+   <tr>
+      <th scope="row">3</th>
+      <td>Thursday, July 11</td>
+      <td><a href="disc03/index.html">Querying, Grouping, and Plotting</a></td>
+    </tr>
+    <tr>
+      <th scope="row">4</th>
+      <td>Tuesday, July 16</td>
+      <td><a href="disc04/index.html">Functions, DataFrames, and Control Flow</a></td>
+    </tr>
+    <tr>
+      <th scope="row">5</th>
+      <td>Tuesday, July 23</td>
+      <td><a href="disc05/index.html">Sampling, Bootstrapping, and Confidence Intervals</a></td>
+    </tr>
+    </tr>   
+      <tr>
+      <th scope="row">6</th>
+      <td>Thursday, July 25</td>
+      <td><a href="disc06/index.html">Standardization, the Normal Distribution, and the Central Limit Theorem</a></td>
+    </tr>
+    </tr>
+    <tr>
+      <th scope="row">7</th>
+      <td>Tuesday, July 30</td>
+      <td><a href="disc07/index.html">Hypothesis Testing, Total Variation Distance, and Permutation Testing</a></td>
+    </tr>
+    </tr>
+    <tr>
+      <th scope="row">8</th>
+      <td>Thursday, August 1</td>
+      <td><a href="disc08/index.html">Regression and Exam Review</a></td>
+    </tr>
+    </tr>  
+  </tbody>
+</table>
+</center>
+
+
+<!-- ### 💯 Discussions for Spring 2024
 
 <center>
 <table class="table" style="width:60%">
@@ -104,7 +170,7 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
     </tr>   
   </tbody>
 </table>
-</center>
+</center> -->
 
 
 
