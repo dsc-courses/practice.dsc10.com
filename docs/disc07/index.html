@@ -4,25 +4,21 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>Discussion 7: Standardization and The Normal Distribution</title>
+  <title>Discussion 7: Hypothesis Testing, Total Variation Distance, and Permutation Testing</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
     div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    /* The extra [class] is a hack that increases specificity enough to
-       override a similar rule in reveal.js */
-    ul.task-list[class]{list-style: none;}
+    ul.task-list{list-style: none;}
     ul.task-list li input[type="checkbox"] {
-      font-size: inherit;
       width: 0.8em;
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
     }
-    /* CSS for syntax highlighting */
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -85,7 +81,7 @@
     code span.vs { color: #4070a0; } /* VerbatimString */
     code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="..\assets\theme.css" />
+  <link rel="stylesheet" href="../assets/theme.css" />
   <script defer=""
   src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
@@ -104,11 +100,14 @@
   </script>
   <link rel="stylesheet"
   href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
 </head>
 <body>
 <header id="title-block-header">
-<h1 class="title">Discussion 7: Standardization and The Normal
-Distribution</h1>
+<h1 class="title">Discussion 7: Hypothesis Testing, Total Variation
+Distance, and Permutation Testing</h1>
 </header>
 <p><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
@@ -139,777 +138,1123 @@ problems here in the live discussion section</b>; the problems we don’t
 cover can be used for extra practice.</p>
 <hr />
 <h2 id="problem-1">Problem 1</h2>
+<p>Arya was curious how many UCSD students used Hulu over Thanksgiving
+break. He surveys 250 students and finds that 130 of them did use Hulu
+over break and 120 did not.</p>
+<p>Using this data, Arya decides to test following hypotheses:</p>
 <ul>
-<li>Hector earned a 77 on an exam where the mean was 70 and the standard
-deviation was 5.</li>
-<li>Clara earned an 80 on an exam where the mean was 75 and the standard
-deviation was 3.</li>
-<li>Vivek earned an 83 on an exam where the mean was a 75 and the
-standard deviation was 6.</li>
+<li><p><strong>Null Hypothesis</strong>: Over Thanksgiving break, an
+equal number of UCSD students did use Hulu and did not use
+Hulu.</p></li>
+<li><p><strong>Alternative Hypothesis</strong>: Over Thanksgiving break,
+<strong>more</strong> UCSD students did use Hulu than did not use
+Hulu.</p></li>
 </ul>
-<p>Rank these three students in <strong>ascending</strong> order of
-their exam performance relative to their classmates.</p>
+<p><br></p>
+<h3 id="problem-1.1">Problem 1.1</h3>
+<p>Which of the following could be used as a test statistic for the
+hypothesis test?</p>
 <ul class="task-list">
-<li><p><input type="radio" disabled="" /> Hector, Clara, Vivek</p></li>
-<li><p><input type="radio" disabled="" /> Vivek, Hector, Clara</p></li>
-<li><p><input type="radio" disabled="" /> Clara, Hector, Vivek</p></li>
-<li><p><input type="radio" disabled="" /> Vivek, Clara, Hector</p></li>
+<li><p><input type="radio" disabled="" /> The proportion of students who did use Hulu minus the proportion of
+students who did not use Hulu.</p></li>
+<li><p><input type="radio" disabled="" /> The absolute value of the proportion of students who did use Hulu
+minus the proportion of students who did not use Hulu.</p></li>
+<li><p><input type="radio" disabled="" /> The proportion of students who did use Hulu plus the proportion of
+students who did not use Hulu.</p></li>
+<li><p><input type="radio" disabled="" /> The absolute value of the proportion of students who did use Hulu
+plus the proportion of students who did not use Hulu.</p></li>
 </ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="true" aria-controls="collapse3">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse3" class="accordion-collapse collapse"
-aria-labelledby="heading3" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> Vivek, Hector, Clara</p>
-<p>To compare Vivek, Hector, and Clara’s relative performance we want to
-compare their Z scores to handle standardization. For Vivek, his Z score
-is (83-75) / 6 = 4/3. For Hector, his score is (77-70) / 5 = 7/5. For
-Clara, her score is (80-75) / 3 = 5/3. Ranking these, 5/3 &gt; 7/5 &gt;
-4/3 which yields the result of Vivek, Hector, Clara. </p>
-<hr/>
-<h5>Difficulty:
-⭐️⭐️</h5>
-<p>The average score on this problem was 76%.</p>
-</div>
-</div>
-</div>
-</div>
+<p><br></p>
+<h3 id="problem-1.2">Problem 1.2</h3>
+<p>For the test statistic that you chose in part (a), what is the
+observed value of the statistic? Give your answer either as an exact
+decimal or a simplified fraction.</p>
+<p><br></p>
+<h3 id="problem-1.3">Problem 1.3</h3>
+<p>If the p-value of the hypothesis test is 0.053, what can we conclude,
+at the standard 0.05 significance level?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> We reject the null hypothesis.</p></li>
+<li><p><input type="radio" disabled="" /> We fail to reject the null hypothesis.</p></li>
+<li><p><input type="radio" disabled="" /> We accept the null hypothesis.</p></li>
+</ul>
+<p><br></p>
 <hr />
 <h2 id="problem-2">Problem 2</h2>
-<p>The data visualization below shows all Olympic gold medals for
-women’s gymnastics, broken down by the age of the gymnast.</p>
-<center><img src='../assets/images/wi21-final/gymnastics.png' width=50%></center>
-<p>Based on this data, rank the following three quantities in
-<strong>ascending</strong> order: the median age at which gold medals
-are earned, the mean age at which gold medals are earned, the standard
-deviation of the age at which gold medals are earned.</p>
+<p>At the San Diego Model Railroad Museum, there are different admission
+prices for children, adults, and seniors. Over a period of time, as
+tickets are sold, employees keep track of how many of each type of
+ticket are sold. These ticket counts (in the order child, adult, senior)
+are stored as follows.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>admissions_data <span class="op">=</span> np.array([<span class="dv">550</span>, <span class="dv">1550</span>, <span class="dv">400</span>])</span></code></pre></div>
+<p><br></p>
+<h3 id="problem-2.1">Problem 2.1</h3>
+<p>Complete the code below so that it creates an array
+<code>admissions_proportions</code> with the proportions of tickets sold
+to each group (in the order child, adult, senior).</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> as_proportion(data):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> __(a)__</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>admissions_proportions <span class="op">=</span> as_proportion(admissions_data)</span></code></pre></div>
+<p>What goes in blank (a)?</p>
+<p><br></p>
+<h3 id="problem-2.2">Problem 2.2</h3>
+<p>The museum employees have a model in mind for the proportions in
+which they sell tickets to children, adults, and seniors. This model is
+stored as follows.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> np.array([<span class="fl">0.25</span>, <span class="fl">0.6</span>, <span class="fl">0.15</span>])</span></code></pre></div>
+<p>We want to conduct a hypothesis test to determine whether the
+admissions data we have is consistent with this model. Which of the
+following is the null hypothesis for this test?</p>
 <ul class="task-list">
-<li><p><input type="radio" disabled="" /> mean, median, SD</p></li>
-<li><p><input type="radio" disabled="" /> median, mean, SD</p></li>
-<li><p><input type="radio" disabled="" /> SD, mean, median</p></li>
-<li><p><input type="radio" disabled="" /> SD, median, mean</p></li>
+<li><p><input type="radio" disabled="" /> Child, adult, and senior tickets might plausibly be purchased in
+proportions 0.25, 0.6, and 0.15.</p></li>
+<li><p><input type="radio" disabled="" /> Child, adult, and senior tickets are purchased in proportions 0.25,
+0.6, and 0.15.</p></li>
+<li><p><input type="radio" disabled="" /> Child, adult, and senior tickets might plausibly be purchased in
+proportions other than 0.25, 0.6, and 0.15.</p></li>
+<li><p><input type="radio" disabled="" /> Child, adult, and senior tickets, are purchased in proportions other
+than 0.25, 0.6, and 0.15.</p></li>
 </ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading4">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="true" aria-controls="collapse4">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse4" class="accordion-collapse collapse"
-aria-labelledby="heading4" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> SD, median, mean</p>
-<p>The standard deviation will clearly be the smallest of the three
-values as most of the data is encompassed between the range of
-<code>[14-26]</code>. Intuitively, the standard deviation will have to
-be about a third of this range which is around 4 (though this is not the
-exact standard deviation, but is clearly much less than the mean and
-median with values closer to 19-25). Comparing the median and mean, it
-is important to visualize that this distribution is skewed right. When
-the data is skewed right it pulls the mean towards a higher value (as
-the higher values naturally make the average higher). Therefore, we know
-that the mean will be greater than the median and the ranking is SD,
-median, mean. </p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>The average score on
-this problem was 72%.</p>
-</div>
-</div>
-</div>
-</div>
+<p><br></p>
+<h3 id="problem-2.3">Problem 2.3</h3>
+<p>Which of the following test statistics could we use to test our
+hypotheses? Select all that could work.</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> sum of differences in proportions</p></li>
+<li><p><input type="checkbox" disabled="" /> sum of squared differences in proportions</p></li>
+<li><p><input type="checkbox" disabled="" /> mean of differences in proportions</p></li>
+<li><p><input type="checkbox" disabled="" /> mean of squared differences in proportions</p></li>
+<li><p><input type="checkbox" disabled="" /> none of the above</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-2.4">Problem 2.4</h3>
+<p>Below, we’ll perform the hypothesis test with a different test
+statistic, the mean of the absolute differences in proportions.</p>
+<p>Recall that the ticket counts we observed for children, adults, and
+seniors are stored in the array
+<code>admissions_data  = np.array([550, 1550, 400])</code>, and that our
+model is <code>model = np.array([0.25, 0.6, 0.15])</code>.</p>
+<p>For our hypothesis test to determine whether the admissions data is
+consistent with our model, what is the observed value of the test
+statistic? Input your answer as a decimal between 0 and 1. Round to
+three decimal places. (Suppose that the value you calculated is assigned
+to the variable <code>observed_stat</code>, which you will use in later
+questions.)</p>
+<p><br></p>
+<h3 id="problem-2.5">Problem 2.5</h3>
+<p>Now, we want to simulate the test statistic 10,000 times under the
+assumptions of the null hypothesis. Fill in the blanks below to complete
+this simulation and calculate the p-value for our hypothesis test.
+Assume that the variables <code>admissions_data</code>,
+<code>admissions_proportions</code>, <code>model</code>, and
+<code>observed_stat</code> are already defined as specified earlier in
+the question.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>simulated_stats <span class="op">=</span> np.array([]) </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    simulated_proportions <span class="op">=</span> as_proportions(np.random.multinomial(__(a)__, __(b)__))</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    simulated_stat <span class="op">=</span> __(c)__</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    simulated_stats <span class="op">=</span> np.append(simulated_stats, simulated_stat)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>p_value <span class="op">=</span> __(d)__</span></code></pre></div>
+<p>What goes in blank (a)? What goes in blank (b)? What goes in blank
+(c)? What goes in blank (d)?</p>
+<p><br></p>
+<h3 id="problem-2.6">Problem 2.6</h3>
+<p>True or False: the p-value represents the probability that the null
+hypothesis is true.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-2.7">Problem 2.7</h3>
+<p>The new statistic that we used for this hypothesis test, the mean of
+the absolute differences in proportions, is in fact closely related to
+the total variation distance. Given two arrays of length three,
+<code>array_1</code> and <code>array_2</code>, suppose we compute the
+mean of the absolute differences in proportions between
+<code>array_1</code> and <code>array_2</code> and store the result as
+<code>madp</code>. What value would we have to multiply
+<code>madp</code> by to obtain the total variation distance
+<code>array_1</code> and <code>array_2</code>? Input your answer below,
+rounding to three decimal places.</p>
+<p><br></p>
 <hr />
 <h2 id="problem-3">Problem 3</h2>
-<p>Among all Costco members in San Diego, the average monthly spending
-in October 2023 was <strong>$350</strong> with a standard deviation of
-<strong>$40</strong>.</p>
+<p>For this question, let’s think of the data in <code>app_data</code>
+as a random sample of all IKEA purchases and use it to test the
+following hypotheses.</p>
+<p><strong>Null Hypothesis</strong>: IKEA sells an equal amount of beds
+(category <code>'bed'</code>) and outdoor furniture (category
+<code>'outdoor'</code>).</p>
+<p><strong>Alternative Hypothesis</strong>: IKEA sells more beds than
+outdoor furniture.</p>
+<p>The DataFrame <code>app_data</code> contains 5000 rows, which form
+our sample. Of these 5000 products,</p>
+<ul>
+<li>1000 are beds,</li>
+<li>1500 are outdoor furniture, and</li>
+<li>2500 are in another category.</li>
+</ul>
 <p><br></p>
 <h3 id="problem-3.1">Problem 3.1</h3>
-<p>The amount Ciro spent at Costco in October 2023 was
-<strong>-1.5</strong> in standard units. What is this amount in dollars?
-Give your answer as an integer.</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading5_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_1" aria-expanded="true" aria-controls="collapse5_1">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse5_1" class="accordion-collapse collapse"
-aria-labelledby="heading5_1" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer</strong>: 290</p>
-<hr/>
-<h5>Difficulty: ⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 93%.</p>
-</div>
-</div>
-</div>
-</div>
+<p>Which of the following <strong>could</strong> be used as the test
+statistic for this hypothesis test? Select all that apply.</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> Among 2500 beds and outdoor furniture items, the absolute difference
+between the proportion of beds and the proportion of outdoor
+furniture.</p></li>
+<li><p><input type="checkbox" disabled="" /> Among 2500 beds and outdoor furniture items, the proportion of
+beds.</p></li>
+<li><p><input type="checkbox" disabled="" /> Among 2500 beds and outdoor furniture items, the number of beds.</p></li>
+<li><p><input type="checkbox" disabled="" /> Among 2500 beds and outdoor furniture items, the number of beds plus
+the number of outdoor furniture items.</p></li>
+</ul>
 <p><br></p>
 <h3 id="problem-3.2">Problem 3.2</h3>
-<p>What is the minimum possible percentage of San Diego members that
-spent between <strong>$250</strong> and <strong>$450</strong> in October
-2023?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> 16%</p></li>
-<li><p><input type="radio" disabled="" /> 22%</p></li>
-<li><p><input type="radio" disabled="" /> 36%</p></li>
-<li><p><input type="radio" disabled="" /> 60%</p></li>
-<li><p><input type="radio" disabled="" /> 78%</p></li>
-<li><p><input type="radio" disabled="" /> 84%</p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading5_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_2" aria-expanded="true" aria-controls="collapse5_2">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse5_2" class="accordion-collapse collapse"
-aria-labelledby="heading5_2" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer</strong>: 84%</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 61%.</p>
-</div>
-</div>
-</div>
-</div>
+<p>Let’s do a hypothesis test with the following test statistic: among
+2500 beds and outdoor furniture items, the proportion of outdoor
+furniture minus the proportion of beds.</p>
+<p>Complete the code below to calculate the observed value of the test
+statistic and save the result as <code>obs_diff</code>.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>    outdoor <span class="op">=</span> (app_data.get(<span class="st">&#39;category&#39;</span>)<span class="op">==</span><span class="st">&#39;outdoor&#39;</span>) </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    bed <span class="op">=</span> (app_data.get(<span class="st">&#39;category&#39;</span>)<span class="op">==</span><span class="st">&#39;bed&#39;</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    obs_diff <span class="op">=</span> ( ___(a)___ <span class="op">-</span> ___(b)___ ) <span class="op">/</span> ___(c)___</span></code></pre></div>
+<p>The table below contains several Python expressions. Choose the
+correct expression to fill in each of the three blanks. Three
+expressions will be used, and two will be unused.</p>
+<center><img src='../assets/images/sp22-final/q8-table.jpg' width=50%></center>
 <p><br></p>
 <h3 id="problem-3.3">Problem 3.3</h3>
-<p>Now, suppose we’re given that the distribution of monthly spending in
-October 2023 for all San Diego members is roughly normal. Given this
-fact, fill in the blanks:</p>
-<center>
-"In October 2023, 95% of San Diego members spent
-between __(m)__ dollars and __(n)__ dollars."
-</center>
+<p>Which of the following is a valid way to generate one value of the
+test statistic according to the null model? Select all that apply.</p>
+<p>Way 1:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>multi <span class="op">=</span> np.random.multinomial(<span class="dv">2500</span>, [<span class="fl">0.5</span>,<span class="fl">0.5</span>]) </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>(multi[<span class="dv">0</span>] <span class="op">-</span> multi[<span class="dv">1</span>])<span class="op">/</span><span class="dv">2500</span></span></code></pre></div>
+<p>Way 2:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>outdoor <span class="op">=</span> np.random.multinomial(<span class="dv">2500</span>, [<span class="fl">0.5</span>,<span class="fl">0.5</span>])[<span class="dv">0</span>]<span class="op">/</span><span class="dv">2500</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>bed <span class="op">=</span> np.random.multinomial(<span class="dv">2500</span>, [<span class="fl">0.5</span>,<span class="fl">0.5</span>])[<span class="dv">1</span>]<span class="op">/</span><span class="dv">2500</span> </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>outdoor <span class="op">-</span> bed </span></code></pre></div>
+<p>Way 3:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>choice <span class="op">=</span> np.random.choice([<span class="dv">0</span>, <span class="dv">1</span>], <span class="dv">2500</span>, replace<span class="op">=</span><span class="va">True</span>) </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>choice_sum <span class="op">=</span> choice.<span class="bu">sum</span>( ) </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>(choice_sum <span class="op">-</span> (<span class="dv">2500</span> <span class="op">-</span> choice_sum))<span class="op">/</span><span class="dv">2500</span></span></code></pre></div>
+<p>Way 4:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>choice <span class="op">=</span> np.random.choice([<span class="st">&#39;bed&#39;</span>, <span class="st">&#39;outdoor&#39;</span>], <span class="dv">2500</span>, replace<span class="op">=</span><span class="va">True</span>) </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>bed <span class="op">=</span> np.count_nonzero(choice<span class="op">==</span><span class="st">&#39;bed&#39;</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>outdoor <span class="op">=</span> np.count_nonzero(choice<span class="op">==</span><span class="st">&#39;outdoor&#39;</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>outdoor<span class="op">/</span><span class="dv">2500</span> <span class="op">-</span> bed<span class="op">/</span><span class="dv">2500</span></span></code></pre></div>
+<p>Way 5:</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>outdoor <span class="op">=</span> (app_data.get(<span class="st">&#39;category&#39;</span>)<span class="op">==</span><span class="st">&#39;outdoor&#39;</span>) </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>bed <span class="op">=</span> (app_data.get(<span class="st">&#39;category&#39;</span>)<span class="op">==</span><span class="st">&#39;bed&#39;</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>samp <span class="op">=</span> app_data[outdoor<span class="op">|</span>bed].sample(<span class="dv">2500</span>, replace<span class="op">=</span><span class="va">True</span>) </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>samp[samp.get(<span class="st">&#39;category&#39;</span>)<span class="op">==</span><span class="st">&#39;outdoor&#39;</span>].shape[<span class="dv">0</span>]<span class="op">/</span><span class="dv">2500</span> <span class="op">-</span>  samp[samp.get(<span class="st">&#39;category&#39;</span>)<span class="op">==</span><span class="st">&#39;bed&#39;</span>].shape[<span class="dv">0</span>]<span class="op">/</span><span class="dv">2500</span>)</span></code></pre></div>
+<p>Way 6:</p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>outdoor <span class="op">=</span> (app_data.get(<span class="st">&#39;category&#39;</span>)<span class="op">==</span><span class="st">&#39;outdoor&#39;</span>) </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>bed <span class="op">=</span> (app_data.get(<span class="st">&#39;category&#39;</span>)<span class="op">==</span><span class="st">&#39;bed&#39;</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>samp <span class="op">=</span> (app_data[outdoor<span class="op">|</span>bed].groupby(<span class="st">&#39;category&#39;</span>).count( ).reset_index( ).sample(<span class="dv">2500</span>, replace<span class="op">=</span><span class="va">True</span>))    </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>samp[samp.get(<span class="st">&#39;category&#39;</span>)<span class="op">==</span><span class="st">&#39;outdoor&#39;</span>].shape[<span class="dv">0</span>]<span class="op">/</span><span class="dv">2500</span> <span class="op">-</span> samp[samp.get(<span class="st">&#39;category&#39;</span>)<span class="op">==</span><span class="st">&#39;bed&#39;</span>].shape[<span class="dv">0</span>]<span class="op">/</span><span class="dv">2500</span></span></code></pre></div>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> Way 1</p></li>
+<li><p><input type="checkbox" disabled="" /> Way 2</p></li>
+<li><p><input type="checkbox" disabled="" /> Way 3</p></li>
+<li><p><input type="checkbox" disabled="" /> Way 4</p></li>
+<li><p><input type="checkbox" disabled="" /> Way 5</p></li>
+<li><p><input type="checkbox" disabled="" /> Way 6</p></li>
+</ul>
 <p><br></p>
-<p>What are m and n? Give your answers as integers rounded to the
-nearest multiple of 10.</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading5_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_3" aria-expanded="true" aria-controls="collapse5_3">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse5_3" class="accordion-collapse collapse"
-aria-labelledby="heading5_3" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer</strong>: m: 270, n: 430</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 81%.</p>
-</div>
-</div>
-</div>
-</div>
+<h3 id="problem-3.4">Problem 3.4</h3>
+<p>Suppose we generate 10,000 simulated values of the test statistic
+according to the null model and store them in an array called
+<code>simulated_diffs</code>. Complete the code below to calculate the
+p-value for the hypothesis test.</p>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>    np.count_nonzero(simulated_diffs _________ obs_diff)<span class="op">/</span><span class="dv">10000</span></span></code></pre></div>
+<p>What goes in the blank?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>&lt;</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>&lt;=</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>&gt;</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>&gt;=</code></p></li>
+</ul>
 <p><br></p>
 <hr />
 <h2 id="problem-4">Problem 4</h2>
-<p>Researchers from the San Diego Zoo, located within Balboa Park,
-collected physical measurements of several species of penguins in a
-region of Antarctica.</p>
-<p>One piece of information they tracked for each of 330 penguins was
-its mass in grams. The average penguin mass is 4200 grams, and the
-standard deviation is 840 grams.</p>
+<p>Let’s suppose there are 4 different types of shots a basketball
+player can take – layups, midrange shots, threes, and free throws.</p>
+<p>The DataFrame <code>breakdown</code> has 4 rows and 50 columns – one
+row for each of the 4 shot types mentioned above, and one column for
+each of 50 different players. Each column of <code>breakdown</code>
+describes the distribution of shot types for a single player.</p>
+<p>The first few columns of <code>breakdown</code> are shown below.</p>
+<center><img src='../assets/images/wi22-final/head-to-head.png' width=30%></center>
+<p>For instance, 30% of Kelsey Plum’s shots are layups, 30% of her shots
+are midrange shots, 20% of her shots are threes, and 20% of her shots
+are free throws.</p>
 <p><br></p>
 <h3 id="problem-4.1">Problem 4.1</h3>
-<p>Consider the histogram of mass below.</p>
-<center><img src='../assets/images/fa21-final/mass.png' width=40%></center>
+<p>Below, we’ve drawn an overlaid bar chart showing the shot
+distributions of Kelsey Plum and Chiney Ogwumike, a player on the Los
+Angeles Sparks.</p>
+<center><img src='../assets/images/wi22-final/tvd.png' width=50%></center>
 <p><br></p>
-<p>Select the true statement below.</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> The median mass of penguins is larger than the average mass of
-penguins</p></li>
-<li><p><input type="radio" disabled="" /> The median mass of penguins is roughly equal to the average mass of
-penguins (within 50 grams)</p></li>
-<li><p><input type="radio" disabled="" /> The median mass of penguins is less than the average mass of
-penguins</p></li>
-<li><p><input type="radio" disabled="" /> It is impossible to determine the relationship between the median and
-average mass of penguins just by looking at the above histogram</p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading6_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_1" aria-expanded="true" aria-controls="collapse6_1">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse6_1" class="accordion-collapse collapse"
-aria-labelledby="heading6_1" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer:</strong> The median mass of penguins is less than the
-average mass of penguins</p>
-<p>This is a distribution that is skewed to the right, so mean is
-greater than median.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 87%.</p>
-</div>
-</div>
-</div>
-</div>
+<p>What is the <strong>total variation distance</strong> (TVD) between
+Kelsey Plum’s shot distribution and Chiney Ogwumike’s shot distribution?
+Give your answer as a <strong>proportion</strong> between 0 and 1 (not a
+percentage) rounded to three decimal places.</p>
 <p><br></p>
 <h3 id="problem-4.2">Problem 4.2</h3>
-<p>For your convenience, we show the histogram of mass again below.</p>
-<center><img src='../assets/images/fa21-final/mass.png' width=40%></center>
-<p><br></p>
-<p>Recall, there are 330 penguins in our dataset. Their average mass is
-4200 grams, and the standard deviation of mass is 840 grams.</p>
-<p>Per Chebyshev’s inequality, at least what percentage of penguins have
-a mass between 3276 grams and 5124 grams? Input your answer as a
-percentage between 0 and 100, without the % symbol. Round to three
-decimal places.</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading6_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_2" aria-expanded="true" aria-controls="collapse6_2">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse6_2" class="accordion-collapse collapse"
-aria-labelledby="heading6_2" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer:</strong> 17.355</p>
-<p>Recall, Chebyshev’s inequality states that No matter what the shape
-of the distribution is, the proportion of values in the range “average ±
-z SDs” is <strong>at least</strong> <span class="math inline">1 -
-\frac{1}{z^2}</span>.</p>
-<p>To approach the problem, we’ll start by converting 3276 grams and
-5124 grams to standard units. Doing so yields <span class="math inline">\frac{3276 - 4200}{840} = -1.1</span>, similarly,
-<span class="math inline">\frac{5124 - 4200}{840} = 1.1</span>. This
-means that 3276 is 1.1 standard deviations <strong>below</strong> the
-mean, and 5124 is 1.1 standard deviations <strong>above</strong> the
-mean. Thus, we are calculating the proportion of values in the range
-“average ± 1.1 SDs”.</p>
-<p>When <span class="math inline">z = 1.1</span>, we have <span class="math inline">1 - \frac{1}{z^2} = 1 - \frac{1}{1.1^2} \approx
-0.173553719</span>, which as a percentage rounded to three decimal
-places is <span class="math inline">17.355\%</span>.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 76%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-4.3">Problem 4.3</h3>
-<p>Per Chebyshev’s inequality, at least what percentage of penguins have
-a mass between 1680 grams and 5880 grams?</p>
+<p>Recall, <code>breakdown</code> has information for 50 different
+players. We want to find the player whose shot distribution is the
+<strong>most similar to Kelsey Plum</strong>, i.e. has the lowest TVD
+with Kelsey Plum’s shot distribution.</p>
+<p>Fill in the blanks below so that <code>most_sim_player</code>
+evaluates to the name of the player with the most similar shot
+distribution to Kelsey Plum. Assume that the column named
+<code>'Kelsey Plum'</code> is the first column in <code>breakdown</code>
+(and again that <code>breakdown</code> has 50 columns total).</p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>most_sim_player <span class="op">=</span> <span class="st">&#39;&#39;</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>lowest_tvd_so_far <span class="op">=</span> __(a)__</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>other_players <span class="op">=</span> np.array(breakdown.columns).take(__(b)__)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> player <span class="kw">in</span> other_players:</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    player_tvd <span class="op">=</span> tvd(breakdown.get(<span class="st">&#39;Kelsey Plum&#39;</span>),</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>                     breakdown.get(player))</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> player_tvd <span class="op">&lt;</span> lowest_tvd_so_far:</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>        lowest_tvd_so_far <span class="op">=</span> player_tvd</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>        __(c)__</span></code></pre></div>
+<ol type="1">
+<li>What goes in blank (a)?</li>
+</ol>
 <ul class="task-list">
-<li><p><input type="radio" disabled="" /> 50%</p></li>
-<li><p><input type="radio" disabled="" /> 55.5%</p></li>
-<li><p><input type="radio" disabled="" /> 65.25%</p></li>
-<li><p><input type="radio" disabled="" /> 68%</p></li>
-<li><p><input type="radio" disabled="" /> 75%</p></li>
-<li><p><input type="radio" disabled="" /> 88.8%</p></li>
-<li><p><input type="radio" disabled="" /> 95%</p></li>
+<li><p><input type="radio" disabled="" /> -1</p></li>
+<li><p><input type="radio" disabled="" /> -0.5</p></li>
+<li><p><input type="radio" disabled="" /> 0</p></li>
+<li><p><input type="radio" disabled="" /> 0.5</p></li>
+<li><p><input type="radio" disabled="" /> 1</p></li>
+<li><p><input type="radio" disabled="" /> <code>np.array([])</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>''</code></p></li>
 </ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading6_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_3" aria-expanded="true" aria-controls="collapse6_3">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse6_3" class="accordion-collapse collapse"
-aria-labelledby="heading6_3" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer:</strong> 75%</p>
-<p>Recall: proportion with <span class="math inline">z</span> SDs of the
-mean</p>
+<ol start="2" type="1">
+<li><p>What goes in blank (b)?</p></li>
+<li><p>What goes in blank (c)?</p></li>
+</ol>
+<p><br></p>
+<hr />
+<h2 id="problem-5">Problem 5</h2>
+<p>You survey 100 DSC majors and 140 CSE majors to ask them which video
+streaming service they use most. The resulting distributions are given
+in the table below. Note that each column sums to 1.</p>
+<div class="center">
 <table>
-<colgroup>
-<col style="width: 33%"/>
-<col style="width: 33%"/>
-<col style="width: 33%"/>
-</colgroup>
 <thead>
 <tr class="header">
-<th>Percent in Range</th>
-<th>All Distributions (via Chebyshev’s Inequality)</th>
-<th>Normal Distributions</th>
+<th style="text-align: left;"><strong>Service</strong></th>
+<th style="text-align: center;"><strong>DSC Majors</strong></th>
+<th style="text-align: center;"><strong>CSE Majors</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><span class="math inline">\text{average} \pm 1 \
-\text{SD}</span></td>
-<td><span class="math inline">\geq 0\%</span></td>
-<td><span class="math inline">\approx 68\%</span></td>
+<td style="text-align: left;">Netflix</td>
+<td style="text-align: center;">0.4</td>
+<td style="text-align: center;">0.35</td>
 </tr>
 <tr class="even">
-<td><span class="math inline">\text{average} \pm 2\text{SDs}</span></td>
-<td><span class="math inline">\geq 75\%</span></td>
-<td><span class="math inline">\approx 95\%</span></td>
+<td style="text-align: left;">Hulu</td>
+<td style="text-align: center;">0.25</td>
+<td style="text-align: center;">0.2</td>
 </tr>
 <tr class="odd">
-<td><span class="math inline">\text{average} \pm 3\text{SDs}</span></td>
-<td><span class="math inline">\geq 88\%</span></td>
-<td><span class="math inline">\approx 99.73\%</span></td>
+<td style="text-align: left;">Disney+</td>
+<td style="text-align: center;">0.1</td>
+<td style="text-align: center;">0.1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Amazon Prime Video</td>
+<td style="text-align: center;">0.15</td>
+<td style="text-align: center;">0.3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Other</td>
+<td style="text-align: center;">0.1</td>
+<td style="text-align: center;">0.05</td>
 </tr>
 </tbody>
 </table>
-<p>To approach the problem, we’ll start by converting 3276 grams and
-5124 grams to standard units. Doing so yields <span class="math inline">\frac{1680 - 4200}{840} = -3</span>, similarly,
-<span class="math inline">\frac{5880 - 4200}{840} = 2</span>. This means
-that 1680 is 3 standard deviations <strong>below</strong> the mean, and
-5880 is 2 standard deviations <strong>above</strong> the mean.</p>
-<p>Proportion of values in [-3 SUs, 2 SUs] &gt;= Proportion of values in
-[-2 SUs, 2 SUs] &gt;= 75% (Since we cannot assume that the distribution
-is normal, we look at the <strong>All Distributions (via Chebyshev’s
-Inequality)</strong> column for proportion).</p>
-<p>Thus, <strong>at least</strong> 75% of the penguins have a mass
-between 1680 grams and 5880 grams.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 72%.</p>
 </div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-4.4">Problem 4.4</h3>
-<p>The distribution of mass in grams is not roughly normal. Is the
-distribution of mass in standard units roughly normal?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> Yes</p></li>
-<li><p><input type="radio" disabled="" /> No</p></li>
-<li><p><input type="radio" disabled="" /> Impossible to tell</p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading6_4">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_4" aria-expanded="true" aria-controls="collapse6_4">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse6_4" class="accordion-collapse collapse"
-aria-labelledby="heading6_4" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer:</strong> No</p>
-<p>The shape of the distribution does not change since we are scaling
-the x values for all data.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 60%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-4.5">Problem 4.5</h3>
-<p>Suppose <code>boot_means</code> is an array of the resampled means.
-Fill in the blanks below so that <code>[left, right]</code> is a 68%
-confidence interval for the true mean mass of penguins.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>left <span class="op">=</span> np.percentile(boot_means, __(a)__)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>right <span class="op">=</span> np.percentile(boot_means, __(b)__)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>[left, right]</span></code></pre></div>
-<p>What goes in blank (a)? What goes in blank (b)?</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading6_5">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_5" aria-expanded="true" aria-controls="collapse6_5">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse6_5" class="accordion-collapse collapse"
-aria-labelledby="heading6_5" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer:</strong> (a) 16 (b) 84</p>
-<p>Recall, <code>np.percentile(array, p)</code> computes the
-<code>p</code>th percentile of the numbers in <code>array</code>. To
-compute the 68% CI, we need to know the percentile of left tail and
-right tail.</p>
-<p>left percentile = <span class="math inline">(1-0.68)/2 = (0.32)/2 =
-0.16</span> so we have 16th percentile</p>
-<p>right percentile = <span class="math inline">1-((1-0.68)/2) =
-1-((0.32)/2) = 1-0.16 = 0.84</span> so we have 84th percentile</p>
-<hr/>
-<h5>Difficulty: ⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 94%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-4.6">Problem 4.6</h3>
-<p>Which of the following is a correct interpretation of this confidence
-interval? Select all that apply.</p>
-<ul class="task-list">
-<li><p><input type="checkbox" disabled="" /> There is an approximately 68% chance that mean weight of all penguins
-in Antarctica falls within the bounds of this confidence interval.</p></li>
-<li><p><input type="checkbox" disabled="" /> Approximately 68% of penguin weights in our sample fall within the
-bounds of this confidence interval.</p></li>
-<li><p><input type="checkbox" disabled="" /> Approximately 68% of penguin weights in the population fall within
-the bounds of this interval.</p></li>
-<li><p><input type="checkbox" disabled="" /> If we created many confidence intervals using the same method,
-approximately 68% of them would contain the mean weight of all penguins
-in Antarctica.</p></li>
-<li><p><input type="checkbox" disabled="" /> None of the above</p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading6_6">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_6" aria-expanded="true" aria-controls="collapse6_6">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse6_6" class="accordion-collapse collapse"
-aria-labelledby="heading6_6" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer:</strong> Option 4 (If we created many confidence
-intervals using the same method, approximately 68% of them would contain
-the mean weight of all penguins in Antarctica.)</p>
-<p>Recall, what a <span class="math inline">k</span>% confidence level
-states is that approximately <span class="math inline">k</span>% of the
-time, the intervals you create through this process will contain the
-true population parameter.</p>
-<p>In this question, our population parameter is the mean weight of all
-penguins in Antarctica. So 86% of the time, the intervals you create
-through this process will contain the mean weight of all penguins in
-Antarctica. This is the same as Option 4. However, it will be false if
-we state it in the reverse order (Option 1) since our population
-parameter is already fixed.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 81%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<hr />
-<h2 id="problem-5">Problem 5</h2>
-<p>An IKEA chair designer is experimenting with some new ideas for
-armchair designs. She has the idea of making the arm rests shaped like
-bell curves, or normal distributions. A cross-section of the armchair
-design is shown below.</p>
-<center><img src='../assets/images/sp22-final/armchair.png' width=80%></center>
-<p><br></p>
-<p>This was created by taking the portion of the standard normal
-distribution from <span class="math inline">z=-4</span> to <span
-class="math inline">z=4</span> and adjoining two copies of it, one
-centered at <span class="math inline">z=0</span> and the other centered
-at <span class="math inline">z=8</span>. Let’s call this shape the
-armchair curve.</p>
-<p>Since the area under the standard normal curve from <span
-class="math inline">z=-4</span> to <span class="math inline">z=4</span>
-is approximately 1, the total area under the armchair curve is
-approximately 2.</p>
-<p>Complete the implementation of the two functions below:</p>
-<ol type="1">
-<li><code>area_left_of(z)</code> should return the area under the
-armchair curve to the left of <code>z</code>, assuming
-<code>-4 &lt;= z &lt;= 12</code>, and</li>
-<li><code>area_between(x, y)</code> should return the area under the
-armchair curve between <code>x</code> and <code>y</code>, assuming
-<code>-4 &lt;= x &lt;= y &lt;= 12</code>.</li>
-</ol>
-<div class="sourceCode" id="cb2"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> area_left_of(z):</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">&#39;&#39;&#39;Returns the area under the armchair curve to the left of z.</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">       Assume -4 &lt;= z &lt;= 12&#39;&#39;&#39;</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> ___(a)___: </span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> ___(b)___ </span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> scipy.stats.norm.cdf(z)</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> area_between(x, y):</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="co">&#39;&#39;&#39;Returns the area under the armchair curve between x and y. </span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">    Assume -4 &lt;= x &lt;= y &lt;= 12.&#39;&#39;&#39;</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ___(c)___</span></code></pre></div>
+<p>For example, 20% of CSE Majors said that Hulu is their most used
+video streaming service. Note that if a student doesn’t use video
+streaming services, their response is counted as Other.</p>
 <p><br></p>
 <h3 id="problem-5.1">Problem 5.1</h3>
-<p>What goes in blank (a)?</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading1_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1_1" aria-expanded="true" aria-controls="collapse1_1">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse1_1" class="accordion-collapse collapse"
-aria-labelledby="heading1_1" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> <code>z&gt;4</code> or
-<code>z&gt;=4</code></p>
-<p>The body of the function contains an <code>if</code> statement
-followed by a <code>return</code> statement, which executes only when
-the <code>if</code> condition is false. In that case, the function
-returns <code>scipy.stats.norm.cdf(z)</code>, which is the area under
-the standard normal curve to the left of <code>z</code>. When
-<code>z</code> is in the left half of the armchair curve, the area under
-the armchair curve to the left of <code>z</code> is the area under the
-standard normal curve to the left of <code>z</code> because the left
-half of the armchair curve is a standard normal curve, centered at 0. So
-we want to execute the <code>return</code> statement in that case, but
-not if <code>z</code> is in the right half of the armchair curve, since
-in that case the area to the left of <code>z</code> under the armchair
-curve should be more than 1, and <code>scipy.stats.norm.cdf(z)</code>
-can never exceed 1. This means the <code>if</code> condition needs to
-correspond to <code>z</code> being in the right half of the armchair
-curve, which corresponds to <code>z&gt;4</code> or <code>z&gt;=4</code>,
-either of which is a correct solution.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 72%.</p>
-</div>
-</div>
-</div>
-</div>
+<p>What is the total variation distance (TVD) between the distribution
+for DSC majors and the distribution for CSE majors? Give your answer as
+an exact decimal.</p>
 <p><br></p>
 <h3 id="problem-5.2">Problem 5.2</h3>
-<p>What goes in blank (b)?</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading1_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1_2" aria-expanded="true" aria-controls="collapse1_2">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse1_2" class="accordion-collapse collapse"
-aria-labelledby="heading1_2" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong>
-<code>1+scipy.stats.norm.cdf(z-8)</code></p>
-<p>This blank should contain the value we want to return when
-<code>z</code> is in the right half of the armchair curve. In this case,
-the area under the armchair curve to the left of <code>z</code> is the
-sum of two areas:</p>
-<ol type="1">
-<li>the area under the entire left half of the armchair curve, which is
-1, and</li>
-<li>the area under the portion of the right half of the armchair curve
-that falls to the left of <code>z</code>.</li>
-</ol>
-<p>Since the right half of the armchair curve is just a standard normal
-curve that’s been shifted to the right by 8 units, the area under that
-normal curve to the left of <code>z</code> is the same as the area to
-the left of <code>z-8</code> on the standard normal curve that’s
-centered at 0. Adding the portion from the left half and the right half
-of the armchair curve gives
-<code>1+scipy.stats.norm.cdf(z-8)</code>.</p>
-<p>For example, if we want to find the area under the armchair curve to
-the left of 9, we need to total the yellow and blue areas in the image
-below.</p>
-<center><img src="../assets/images/sp22-final/armchair-shaded.png" width="80%"/></center>
-<p>The yellow area is 1 and the blue area is the same as the area under
-the standard normal curve (or the left half of the armchair curve) to
-the left of 1 because 1 is the point on the left half of the armchair
-curve that corresponds to 9 on the right half. In general, we need to
-subtract 8 from a value on the right half to get the corresponding value
-on the left half.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 54%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-5.3">Problem 5.3</h3>
-<p>What goes in blank (c)?</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading1_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1_3" aria-expanded="true" aria-controls="collapse1_3">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse1_3" class="accordion-collapse collapse"
-aria-labelledby="heading1_3" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong>
-<code>area_left_of(y) - area_left_of(x)</code></p>
-<p>In general, we can find the area under <em>any</em> curve between
-<code>x</code> and <code>y</code> by taking the area under the curve to
-the left of <code>y</code> and subtracting the area under the curve to
-the left of <code>x</code>. Since we have a function to find the area to
-the left of any given point in the armchair curve, we just need to call
-that function twice with the appropriate inputs and subtract the
-result.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 60%.</p>
-</div>
-</div>
-</div>
-</div>
+<p>Suppose we only break down video streaming services into four
+categories: Netflix, Hulu, Disney+, and Other (which now includes Amazon
+Prime Video). Now we recalculate the TVD between the two distributions.
+How does the TVD now compare to your answer to part (a)?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> less than (a)</p></li>
+<li><p><input type="radio" disabled="" /> equal to (a)</p></li>
+<li><p><input type="radio" disabled="" /> greater than (a)</p></li>
+</ul>
 <p><br></p>
 <hr />
 <h2 id="problem-6">Problem 6</h2>
-<p>Suppose you have correctly implemented the function
-<code>area_between(x, y)</code> so that it returns the area under the
-armchair curve between <code>x</code> and <code>y</code>, assuming the
-inputs satisfy <code>-4 &lt;= x &lt;= y &lt;= 12</code>.</p>
-<p><strong>Note:</strong> You can still do this question, even if you
-didn’t know how to do the previous one.</p>
+<p>In some cities, the number of sunshine hours per month is relatively
+consistent throughout the year. São Paulo, Brazil is one such city; in
+all months of the year, the number of sunshine hours per month is
+somewhere between 139 and 173. New York City’s, on the other hand,
+ranges from 139 to 268.</p>
+<p>Gina and Abel, both San Diego natives, are interested in assessing
+how “consistent" the number of sunshine hours per month in San Diego
+appear to be. Specifically, they’d like to test the following
+hypotheses:</p>
+<ul>
+<li><p><strong>Null Hypothesis</strong>: The number of sunshine hours
+per month in San Diego is drawn from the uniform distribution, <span
+class="math inline">\left[\frac{1}{12}, \frac{1}{12}, ...,
+\frac{1}{12}\right]</span>. (In other words, the number of sunshine
+hours per month in San Diego is equal in all 12 months of the
+year.)</p></li>
+<li><p><strong>Alternative Hypothesis</strong>: The number of sunshine
+hours per month in San Diego is not drawn from the uniform
+distribution.</p></li>
+</ul>
+<p>As their test statistic, Gina and Abel choose the total variation
+distance. To simulate samples under the null, they will sample from a
+categorical distribution with 12 categories — January, February, and so
+on, through December — each of which have an equal probability of being
+chosen.</p>
 <p><br></p>
 <h3 id="problem-6.1">Problem 6.1</h3>
-<p>What is the approximate value of
-<code>area_between(-2, 10)</code>?</p>
+<p>In order to run their hypothesis test, Gina and Abel need a way to
+calculate their test statistic. Below is an incomplete implementation of
+a function that computes the TVD between two arrays of length 12, each
+of which represent a categorical distribution.</p>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> calculate_tvd(dist1, dist2):</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> np.mean(np.<span class="bu">abs</span>(dist1 <span class="op">-</span> dist2)) <span class="op">*</span> ____</span></code></pre></div>
+<p>Fill in the blank so that <code>calculate_tvd</code> works as
+intended.</p>
 <ul class="task-list">
-<li><p><input type="radio" disabled="" /> 1.9</p></li>
-<li><p><input type="radio" disabled="" /> 1.95</p></li>
-<li><p><input type="radio" disabled="" /> 1.975</p></li>
-<li><p><input type="radio" disabled="" /> 2</p></li>
+<li><p><input type="radio" disabled="" /> <code>1 / 6</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>1 / 3</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>1 / 2</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>2</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>3</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>6</code></p></li>
 </ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading2_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2_1" aria-expanded="true" aria-controls="collapse2_1">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse2_1" class="accordion-collapse collapse"
-aria-labelledby="heading2_1" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> 1.95</p>
-<p>The area we want to find is shown below in two colors. We can find
-the area in each half of the armchair curve separately and add the
-results.</p>
-<center><img src="../assets/images/sp22-final/armchair-between-1.png" width="80%"/></center>
-<p>For the yellow area, we know that the area within 2 standard
-deviations of the mean on the standard normal curve is 0.95. The
-remaining 0.05 is split equally on both sides, so the yellow area is
-0.975.</p>
-<p>The blue area is the same by symmetry so the total shaded area is
-<span class="math inline">0.975*2 = 1.95</span>.</p>
-<p>Equivalently, we can use the fact that the total area under the
-armchair curve is 2, and the amount of unshaded area on either side is
-0.025, so the total shaded area is <span class="math inline">2 -
-(0.025*2) = 1.95.</span></p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 76%.</p>
-</div>
-</div>
-</div>
-</div>
+<p><br></p>
+<p><strong>Moving forward, assume that <code>calculate_tvd</code> works
+correctly.</strong></p>
+<p>Now, complete the implementation of the function
+<code>uniform_test</code>, which takes in an array
+<code>observed_counts</code> of length 12 containing the number of
+sunshine hours each month in a city and returns the p-value for the
+hypothesis test stated at the start of the question.</p>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> uniform_test(observed_counts):</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>        <span class="co"># The values in observed_counts are counts, not proportions!</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>        total_count <span class="op">=</span> observed_counts.<span class="bu">sum</span>()</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>        uniform_dist <span class="op">=</span> __(b)__</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>        tvds <span class="op">=</span> np.array([])</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>            simulated <span class="op">=</span> __(c)__</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>            tvd <span class="op">=</span> calculate_tvd(simulated, __(d)__)</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>            tvds <span class="op">=</span> np.append(tvds, tvd)</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> np.mean(tvds __(e)__ calculate_tvd(uniform_dist, __(f)__))</span></code></pre></div>
 <p><br></p>
 <h3 id="problem-6.2">Problem 6.2</h3>
-<p>What is the approximate value of
-<code>area_between(0.37, 8.37)</code>?</p>
+<p>What goes in blank (b)? <em>(Hint: The function
+<code>np.ones(k)</code> returns an array of length <code>k</code> in
+which all elements are <code>1</code>.)</em></p>
+<p><br></p>
+<p><br></p>
+<h3 id="problem-6.3">Problem 6.3</h3>
+<p>What goes in blank (c)?</p>
 <ul class="task-list">
-<li><p><input type="radio" disabled="" /> 0.68</p></li>
-<li><p><input type="radio" disabled="" /> 0.95</p></li>
-<li><p><input type="radio" disabled="" /> 1</p></li>
-<li><p><input type="radio" disabled="" /> 1.5</p></li>
+<li><p><input type="radio" disabled="" /> <code>np.random.multinomial(12, uniform_dist)</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>np.random.multinomial(12, uniform_dist) / 12</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>np.random.multinomial(12, uniform_dist) / total_count</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>np.random.multinomial(total_count, uniform_dist)</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>np.random.multinomial(total_count, uniform_dist) / 12</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>np.random.multinomial(total_count, uniform_dist) / total_count</code></p></li>
 </ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading2_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2_2" aria-expanded="true" aria-controls="collapse2_2">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse2_2" class="accordion-collapse collapse"
-aria-labelledby="heading2_2" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> 1</p>
-<p>The area we want to find is shown below in two colors.</p>
-<center><img src="../assets/images/sp22-final/armchair-between-2.png" width="80%"/></center>
-<p>As we saw in Problem 12.2, the point on the left half of the armchair
-curve that corresponds to 8.37 is 0.37. This means that if we move the
-blue area from the right half of the armchair curve to the left half, it
-will fit perfectly, as shown below.</p>
-<center><img src="../assets/images/sp22-final/armchair-between-3.png" width="80%"/></center>
-<p>Therefore the total of the blue and yellow areas is the same as the
-area under one standard normal curve, which is 1.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 76%.</p>
-</div>
-</div>
-</div>
-</div>
+<p><br></p>
+<p><br></p>
+<h3 id="problem-6.4">Problem 6.4</h3>
+<p>What goes in blank (d)?</p>
+<p><br></p>
+<p><br></p>
+<h3 id="problem-6.5">Problem 6.5</h3>
+<p>What goes in blank (e)?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>&gt;</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>&gt;=</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>&lt;</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>&lt;=</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>==</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>!=</code></p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-6.6">Problem 6.6</h3>
+<p>What goes in blank (f)?</p>
+<p><br></p>
+<hr />
+<h2 id="problem-7">Problem 7</h2>
+<p>For this question, we will use data from the 2021 Women’s National
+Basketball Association (WNBA) season for the next several problems. In
+basketball, players score points by shooting the ball into a hoop. The
+team that scores the most points wins the game.</p>
+<p>Kelsey Plum, a WNBA player, attended La Jolla Country Day School,
+which is adjacent to UCSD’s campus. Her current team is the Las Vegas
+Aces (three-letter code <code>'LVA'</code>). <strong>In 2021, the Las
+Vegas Aces played 31 games, and Kelsey Plum played in all
+31.</strong></p>
+<p>The DataFrame <code>plum</code> contains her stats for all games the
+Las Vegas Aces played in 2021. The first few rows of <code>plum</code>
+are shown below (though the full DataFrame has 31 rows, not 5):</p>
+<center><img src='../assets/images/wi22-final/plum.png' width=40%></center>
+<p>Each row in <code>plum</code> corresponds to a single game. For each
+game, we have:</p>
+<ul>
+<li><code>'Date'</code> (<code>str</code>), the date on which the game
+was played</li>
+<li><code>'Opp'</code> (<code>str</code>), the three-letter code of the
+opponent team</li>
+<li><code>'Home'</code> (<code>bool</code>), <code>True</code> if the
+game was played in Las Vegas (“home”) and <code>False</code> if it was
+played at the opponent’s arena (“away”)</li>
+<li><code>'Won'</code> (<code>bool</code>), <code>True</code> if the Las
+Vegas Aces won the game and <code>False</code> if they lost</li>
+<li><code>'PTS'</code> (<code>int</code>), the number of points Kelsey
+Plum scored in the game</li>
+<li><code>'AST'</code> (<code>int</code>), the number of assists
+(passes) Kelsey Plum made in the game</li>
+<li><code>'TOV'</code> (<code>int</code>), the number of turnovers
+Kelsey Plum made in the game (a turnover is when you lose the ball –
+turnovers are bad!) <br><br></li>
+</ul>
+<p>Consider the definition of the function
+<code>diff_in_group_means</code>:</p>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> diff_in_group_means(df, group_col, num_col):</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    s <span class="op">=</span> df.groupby(group_col).mean().get(num_col)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> s.loc[<span class="va">False</span>] <span class="op">-</span> s.loc[<span class="va">True</span>]</span></code></pre></div>
+<p><br></p>
+<h3 id="problem-7.1">Problem 7.1</h3>
+<p>It turns out that Kelsey Plum averages 0.61 more assists in games
+that she wins (“winning games”) than in games that she loses (“losing
+games”). Fill in the blanks below so that <code>observed_diff</code>
+evaluates to -0.61.</p>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>observed_diff <span class="op">=</span> diff_in_group_means(plum, __(a)__, __(b)__)</span></code></pre></div>
+<ol type="1">
+<li><p>What goes in blank (a)?</p></li>
+<li><p>What goes in blank (b)?</p></li>
+</ol>
+<p><br></p>
+<h3 id="problem-7.2">Problem 7.2</h3>
+<p>After observing that Kelsey Plum averages more assists in winning
+games than in losing games, we become interested in conducting a
+permutation test for the following hypotheses:</p>
+<ul>
+<li><strong>Null Hypothesis:</strong> The number of assists Kelsey Plum
+makes in winning games and in losing games come from the same
+distribution.</li>
+<li><strong>Alternative Hypothesis:</strong> The number of assists
+Kelsey Plum makes in winning games is higher on average than the number
+of assists that she makes in losing games.</li>
+</ul>
+<p>To conduct our permutation test, we place the following code in a
+<code>for</code>-loop.</p>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>won <span class="op">=</span> plum.get(<span class="st">&#39;Won&#39;</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>ast <span class="op">=</span> plum.get(<span class="st">&#39;AST&#39;</span>)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>shuffled <span class="op">=</span> plum.assign(Won_shuffled<span class="op">=</span>np.random.permutation(won)) <span class="op">\</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>               .assign(AST_shuffled<span class="op">=</span>np.random.permutation(ast))</span></code></pre></div>
+<p>Which of the following options <strong>does not</strong> compute a
+valid simulated test statistic for this permutation test?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>diff_in_group_means(shuffled, 'Won', 'AST')</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>diff_in_group_means(shuffled, 'Won', 'AST_shuffled')</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>diff_in_group_means(shuffled, 'Won_shuffled, 'AST')</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>diff_in_group_means(shuffled, 'Won_shuffled, 'AST_shuffled')</code></p></li>
+<li><p><input type="radio" disabled="" /> More than one of these options do not compute a valid simulated test
+statistic for this permutation test</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-7.3">Problem 7.3</h3>
+<p>Suppose we generate 10,000 simulated test statistics, using one of
+the valid options from part 1. The empirical distribution of test
+statistics, with a red line at <code>observed_diff</code>, is shown
+below.</p>
+<center><img src='../assets/images/wi22-final/quarter-hist.png' width=50%></center>
+<p>Roughly one-quarter of the area of the histogram above is to the left
+of the red line. What is the correct interpretation of this result?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> There is roughly a one quarter probability that Kelsey Plum’s number
+of assists in winning games and in losing games come from the same
+distribution.</p></li>
+<li><p><input type="radio" disabled="" /> The significance level of this hypothesis test is roughly a
+quarter.</p></li>
+<li><p><input type="radio" disabled="" /> Under the assumption that Kelsey Plum’s number of assists in winning
+games and in losing games come from the same distribution, and that she
+wins 22 of the 31 games she plays, the chance of her averaging
+<strong>at least</strong> 0.61 more assists in wins than losses is
+roughly a quarter.</p></li>
+<li><p><input type="radio" disabled="" /> Under the assumption that Kelsey Plum’s number of assists in winning
+games and in losing games come from the same distribution, and that she
+wins 22 of the 31 games she plays, the chance of her averaging 0.61 more
+assists in wins than losses is roughly a quarter.</p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-8">Problem 8</h2>
+<p>An IKEA fan created an app where people can log the amount of time it
+took them to assemble their IKEA furniture. The DataFrame
+<code>app_data</code> has a row for each product build that was logged
+on the app. The column <code>'product'</code> contains the name of the
+product, and the column <code>'minutes'</code> contains integer values
+representing the number of minutes it took to assemble each product.
+<br><br></p>
+<p>You are browsing the IKEA showroom, deciding whether to purchase the
+BILLY bookcase or the LOMMARP bookcase. You are concerned about the
+amount of time it will take to assemble your new bookcase, so you look
+up the assembly times reported in <code>app_data</code>. Thinking of the
+data in <code>app_data</code> as a random sample of all IKEA purchases,
+you want to perform a permutation test to test the following
+hypotheses.</p>
+<p><strong>Null Hypothesis</strong>: The assembly time for the BILLY
+bookcase and the assembly time for the LOMMARP bookcase come from the
+same distribution.</p>
+<p><strong>Alternative Hypothesis</strong>: The assembly time for the
+BILLY bookcase and the assembly time for the LOMMARP bookcase come from
+different distributions.</p>
+<p><br></p>
+<h3 id="problem-8.1">Problem 8.1</h3>
+<p>Suppose we query <code>app_data</code> to keep only the BILLY
+bookcases, then average the <code>'minutes'</code> column. In addition,
+we separately query <code>app_data</code> to keep only the LOMMARP
+bookcases, then average the <code>'minutes'</code> column. If the null
+hypothesis is true, which of the following statements about these two
+averages is correct?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> These two averages are the same.</p></li>
+<li><p><input type="radio" disabled="" /> Any difference between these two averages is due to random
+chance.</p></li>
+<li><p><input type="radio" disabled="" /> Any difference between these two averages cannot be ascribed to
+random chance alone.</p></li>
+<li><p><input type="radio" disabled="" /> The difference between these averages is statistically
+significant.</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-8.2">Problem 8.2</h3>
+<p>For the permutation test, we’ll use as our test statistic the average
+assembly time for BILLY bookcases minus the average assembly time for
+LOMMARP bookcases, in minutes.</p>
+<p>Complete the code below to generate one simulated value of the test
+statistic in a new way, without using
+<code>np.random.permutation</code>.</p>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>billy <span class="op">=</span> (app_data.get(<span class="st">&#39;product&#39;</span>) <span class="op">==</span> </span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>        <span class="st">&#39;BILLY Bookcase, white, 31 1/2x11x79 1/2&#39;</span>)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>lommarp <span class="op">=</span> (app_data.get(<span class="st">&#39;product&#39;</span>) <span class="op">==</span> </span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>          <span class="st">&#39;LOMMARP Bookcase, dark blue-green, 25 5/8x78 3/8&#39;</span>)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>billy_lommarp <span class="op">=</span> app_data[billy<span class="op">|</span>lommarp]</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>billy_mean <span class="op">=</span> np.random.choice(billy_lommarp.get(<span class="st">&#39;minutes&#39;</span>), billy.<span class="bu">sum</span>(), replace<span class="op">=</span><span class="va">False</span>).mean()</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>lommarp_mean <span class="op">=</span> _________</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>billy_mean <span class="op">-</span> lommarp_mean</span></code></pre></div>
+<p>What goes in the blank?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>billy_lommarp[lommarp].get('minutes').mean()</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>np.random.choice(billy_lommarp.get('minutes'), lommarp.sum(), replace=False).mean()</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>billy_lommarp.get('minutes').mean() - billy_mean</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>(billy_lommarp.get('minutes').sum() - billy_mean * billy.sum())/lommarp.sum()</code></p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-9">Problem 9</h2>
+<p>The DataFrame <code>apps</code> contains application data for a
+random sample of 1,000 applicants for a particular credit card from the
+1990s. The columns are:</p>
+<ul>
+<li><p><code>"status" (str)</code>: Whether the credit card application
+was approved: <code>"approved"</code> or <code>"denied"</code> values
+only.</p></li>
+<li><p><code>"age" (float)</code>: The applicant’s age, in years, to the
+nearest twelfth of a year.</p></li>
+<li><p><code>"income" (float)</code>: The applicant’s annual income, in
+tens of thousands of dollars.</p></li>
+<li><p><code>"homeowner" (str)</code>: Whether the credit card applicant
+owns their own home: <code>"yes"</code> or <code>"no"</code> values
+only.</p></li>
+<li><p><code>"dependents" (int)</code>: The number of dependents, or
+individuals that rely on the applicant as a primary source of income,
+such as children.</p></li>
+</ul>
+<p>The first few rows of <code>apps</code> are shown below, though
+remember that <code>apps</code> has 1,000 rows.</p>
+<center><img src='../assets/images/fa22-final/apps.jpg' width=45%></center>
+<p><br> <br><br></p>
+<p>In <code>apps</code>, our sample of 1,000 credit card applications,
+applicants who were approved for the credit card have fewer dependents,
+on average, than applicants who were denied. The mean number of
+dependents for approved applicants is 0.98, versus 1.07 for denied
+applicants.</p>
+<p>To test whether this difference is purely due to random chance, or
+whether the distributions of the number of dependents for approved and
+denied applicants are truly different in the population of all credit
+card applications, we decide to perform a permutation test.</p>
+<p>Consider the incomplete code block below.</p>
+<div class="sourceCode" id="cb20"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> shuffle_status(df):</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    shuffled_status <span class="op">=</span> np.random.permutation(df.get(<span class="st">&quot;status&quot;</span>))</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df.assign(status<span class="op">=</span>shuffled_status).get([<span class="st">&quot;status&quot;</span>, <span class="st">&quot;dependents&quot;</span>])</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_stat(df):</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    grouped <span class="op">=</span> df.groupby(<span class="st">&quot;status&quot;</span>).mean().get(<span class="st">&quot;dependents&quot;</span>)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    approved <span class="op">=</span> grouped.loc[<span class="st">&quot;approved&quot;</span>]</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    denied <span class="op">=</span> grouped.loc[<span class="st">&quot;denied&quot;</span>]</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> __(a)__</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>stats <span class="op">=</span> np.array([])</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>    shuffled_apps <span class="op">=</span> shuffle_status(apps)</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>    stat <span class="op">=</span> test_stat(shuffled_apps)</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>    stats <span class="op">=</span> np.append(stats, stat)</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>p_value <span class="op">=</span> np.count_nonzero(__(b)__) <span class="op">/</span> <span class="dv">10000</span></span></code></pre></div>
+<p>Below are six options for filling in blanks (a) and (b) in the code
+above.</p>
+<center>
+<table class="table" style="width:50%">
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">Blank (a)</th>
+      <th scope="col">Blank (b)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">Option 1</th>
+      <td><code>denied - approved</code></td>
+      <td><code>stats >= test_stat(apps)</code></td>
+    </tr>
+    <tr>
+      <th scope="row">Option 2</th>
+      <td><code>denied - approved</code></td>
+      <td><code>stats <= test_stat(apps)</code></td>
+    </tr>
+    <tr>
+      <th scope="row">Option 3</th>
+      <td><code>approved - denied</code></td>
+      <td><code>stats >= test_stat(apps)</code></td>
+    </tr>
+    <tr>
+      <th scope="row">Option 4</th>
+      <td><code>np.abs(denied - approved)</code></td>
+      <td><code>stats >= test_stat(apps)</code></td>
+    </tr>
+    <tr>
+      <th scope="row">Option 5</th>
+      <td><code>np.abs(denied - approved)</code></td>
+      <td><code>stats <= test_stat(apps)</code></td>
+    </tr>
+    <tr>
+      <th scope="row">Option 6</th>
+      <td><code>np.abs(approved - denied)</code></td>
+      <td><code>stats >= test_stat(apps)</code></td>
+    </tr>
+  </tbody>
+</table>
+</center>
+<p>The correct way to fill in the blanks depends on how we choose our
+null and alternative hypotheses.</p>
+<p><br></p>
+<h3 id="problem-9.1">Problem 9.1</h3>
+<p>Suppose we choose the following pair of hypotheses.</p>
+<ul>
+<li><p><strong>Null Hypothesis</strong>: In the population, the number
+of dependents of approved and denied applicants come from the same
+distribution.</p></li>
+<li><p><strong>Alternative Hypothesis</strong>: In the population, the
+number of dependents of approved applicants and denied applicants do not
+come from the same distribution.</p></li>
+</ul>
+<p>Which of the six presented options could correctly fill in blanks (a)
+and (b) for this pair of hypotheses? Select all that apply.</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> Option 1</p></li>
+<li><p><input type="checkbox" disabled="" /> Option 2</p></li>
+<li><p><input type="checkbox" disabled="" /> Option 3</p></li>
+<li><p><input type="checkbox" disabled="" /> Option 4</p></li>
+<li><p><input type="checkbox" disabled="" /> Option 5</p></li>
+<li><p><input type="checkbox" disabled="" /> Option 6</p></li>
+<li><p><input type="checkbox" disabled="" /> None of the above.</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-9.2">Problem 9.2</h3>
+<p>Now, suppose we choose the following pair of hypotheses.</p>
+<ul>
+<li><p><strong>Null Hypothesis</strong>: In the population, the number
+of dependents of approved and denied applicants come from the same
+distribution.</p></li>
+<li><p><strong>Alternative Hypothesis</strong>: In the population, the
+number of dependents of approved applicants is smaller on average than
+the number of dependents of denied applicants.</p></li>
+</ul>
+<p>Which of the six presented options could correctly fill in blanks (a)
+and (b) for this pair of hypotheses? Select all that apply.</p>
+<p><br></p>
+<h3 id="problem-9.3">Problem 9.3</h3>
+<p>Option 6 from the start of this question is repeated below.</p>
+<center>
+<table class="table" style="width:50%">
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">Blank (a)</th>
+      <th scope="col">Blank (b)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">Option 6</th>
+      <td><code>np.abs(approved - denied)</code></td>
+      <td><code>stats >= test_stat(apps)</code></td>
+    </tr>
+  </tbody>
+</table>
+</center>
+<p>We want to create a new option, Option 7, that replicates the
+behavior of Option 6, but with blank (a) filled in as shown:</p>
+<center>
+<table class="table" style="width:50%">
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">Blank (a)</th>
+      <th scope="col">Blank (b)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">Option 7</th>
+      <td><code>approved - denied</code></td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+</center>
+<p>Which expression below could go in blank (b) so that Option 7 is
+equivalent to Option 6?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>np.abs(stats) &gt;= test_stat(apps)</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>stats &gt;= np.abs(test_stat(apps))</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>np.abs(stats) &gt;= np.abs(test_stat(apps))</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>np.abs(stats &gt;= test_stat(apps))</code></p></li>
+</ul>
+<p><br></p>
+<p><br></p>
+<h3 id="problem-9.4">Problem 9.4</h3>
+<p>In our implementation of this permutation test, we followed the
+procedure outlined in lecture to draw new pairs of samples under the
+null hypothesis and compute test statistics — that is, we randomly
+assigned each row to a group (approved or denied) by shuffling one of
+the columns in <code>apps</code>, then computed the test statistic on
+this random pair of samples.</p>
+<p>Let’s now explore an alternative solution to drawing pairs of samples
+under the null hypothesis and computing test statistics. Here’s the
+approach:</p>
+<ol type="1">
+<li>Shuffle, i.e. re-order, the rows of the DataFrame.</li>
+<li>Use the values at the top of the resulting <code>"dependents"</code>
+column as the new “denied” sample, and the values at the at the bottom
+of the resulting <code>"dependents"</code> column as the new “approved”
+sample. Note that we don’t necessarily split the DataFrame exactly in
+half — the sizes of these new samples depend on the number of “denied”
+and “approved” values in the original DataFrame!</li>
+</ol>
+<p>Once we generate our pair of random samples in this way, we’ll
+compute the test statistic on the random pair, as usual. Here, we’ll use
+as our test statistic the difference between the mean number of
+dependents for denied and approved applicants, in the order
+<strong>denied minus approved</strong>.</p>
+<p><strong>Fill in the blanks to complete the simulation
+below.</strong></p>
+<p><em>Hint:</em> <code>np.random.permutation</code> shouldn’t appear
+anywhere in your code.</p>
+<div class="sourceCode" id="cb21"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> shuffle_all(df):</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>        <span class="co">&#39;&#39;&#39;Returns a DataFrame with the same rows as df, but reordered.&#39;&#39;&#39;</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> __(a)__</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> fast_stat(df):</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>        <span class="co"># This function does not and should not contain any randomness.</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>        denied <span class="op">=</span> np.count_nonzero(df.get(<span class="st">&quot;status&quot;</span>) <span class="op">==</span> <span class="st">&quot;denied&quot;</span>)</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>        mean_denied <span class="op">=</span> __(b)__.get(<span class="st">&quot;dependents&quot;</span>).mean()</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>        mean_approved <span class="op">=</span> __(c)__.get(<span class="st">&quot;dependents&quot;</span>).mean()</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> mean_denied <span class="op">-</span> mean_approved</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>    stats <span class="op">=</span> np.array([])</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>        stat <span class="op">=</span> fast_stat(shuffle_all(apps))</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>        stats <span class="op">=</span> np.append(stats, stat)</span></code></pre></div>
+<p><br></p>
+<hr />
+<h2 id="problem-10">Problem 10</h2>
+<p>Researchers from the San Diego Zoo, located within Balboa Park,
+collected physical measurements of three species of penguins (Adelie,
+Chinstrap, or Gentoo) in a region of Antarctica. One piece of
+information they tracked for each of 330 penguins was its mass in grams.
+The average penguin mass is 4200 grams, and the standard deviation is
+840 grams.</p>
+<p>We’re interested in investigating the differences between the masses
+of Adelie penguins and Chinstrap penguins. Specifically, our null
+hypothesis is that their masses are drawn from the same population
+distribution, and any observed differences are due to chance only.</p>
+<p>Below, we have a snippet of working code for this hypothesis test,
+for a specific test statistic. Assume that <code>adelie_chinstrap</code>
+is a DataFrame of only Adelie and Chinstrap penguins, with just two
+columns – <code>'species'</code> and <code>'mass'</code>.</p>
+<div class="sourceCode" id="cb22"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>stats <span class="op">=</span> np.array([])</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>num_reps <span class="op">=</span> <span class="dv">500</span></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(num_reps):</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (a) starts ---</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>    shuffled <span class="op">=</span> np.random.permutation(adelie_chinstrap.get(<span class="st">&#39;species&#39;</span>))</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (a) ends ---</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (b) starts ---</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>    with_shuffled <span class="op">=</span> adelie_chinstrap.assign(species<span class="op">=</span>shuffled)</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (b) ends ---</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>    grouped <span class="op">=</span> with_shuffled.groupby(<span class="st">&#39;species&#39;</span>).mean()</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (c) starts ---</span></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>    stat <span class="op">=</span> grouped.get(<span class="st">&#39;mass&#39;</span>).iloc[<span class="dv">0</span>] <span class="op">-</span> grouped.get(<span class="st">&#39;mass&#39;</span>).iloc[<span class="dv">1</span>]</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (c) ends ---</span></span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>    stats <span class="op">=</span> np.append(stats, stat)</span></code></pre></div>
+<p><br></p>
+<h3 id="problem-10.1">Problem 10.1</h3>
+<p>Which of the following statements best describe the procedure
+above?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> This is a standard hypothesis test, and our test statistic is the
+total variation distance between the distribution of Adelie masses and
+Chinstrap masses</p></li>
+<li><p><input type="radio" disabled="" /> This is a standard hypothesis test, and our test statistic is the
+difference between the expected proportion of Adelie penguins and the
+proportion of Adelie penguins in our resample</p></li>
+<li><p><input type="radio" disabled="" /> This is a permutation test, and our test statistic is the total
+variation distance between the distribution of Adelie masses and
+Chinstrap masses</p></li>
+<li><p><input type="radio" disabled="" /> This is a permutation test, and our test statistic is the difference
+in the mean Adelie mass and mean Chinstrap mass</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-10.2">Problem 10.2</h3>
+<p>For your convenience, we copy the code for the hypothesis test
+below.</p>
+<div class="sourceCode" id="cb23"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>stats <span class="op">=</span> np.array([])</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>num_reps <span class="op">=</span> <span class="dv">500</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(num_reps):</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (a) starts ---</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    shuffled <span class="op">=</span> np.random.permutation(adelie_chinstrap.get(<span class="st">&#39;species&#39;</span>))</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (a) ends ---</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (b) starts ---</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>    with_shuffled <span class="op">=</span> adelie_chinstrap.assign(species<span class="op">=</span>shuffled)</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (b) ends ---</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>    grouped <span class="op">=</span> with_shuffled.groupby(<span class="st">&#39;species&#39;</span>).mean()</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (c) starts ---</span></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>    stat <span class="op">=</span> grouped.get(<span class="st">&#39;mass&#39;</span>).iloc[<span class="dv">0</span>] <span class="op">-</span> grouped.get(<span class="st">&#39;mass&#39;</span>).iloc[<span class="dv">1</span>]</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (c) ends ---</span></span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>    stats <span class="op">=</span> np.append(stats, stat)</span></code></pre></div>
+<p>What would happen if we removed <code>line (a)</code>, and replaced
+<code>line (b)</code> with</p>
+<div class="sourceCode" id="cb24"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>with_shuffled <span class="op">=</span> adelie_chinstrap.sample(adelie_chinstrap.shape[<span class="dv">0</span>], replace<span class="op">=</span><span class="va">False</span>)</span></code></pre></div>
+<p>Select the best answer.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> This would still run a valid hypothesis test</p></li>
+<li><p><input type="radio" disabled="" /> This would not run a valid hypothesis test, as all values in the
+<code>stats</code> array would be exactly the same</p></li>
+<li><p><input type="radio" disabled="" /> This would not run a valid hypothesis test, even though there would
+be several different values in the <code>stats</code> array</p></li>
+<li><p><input type="radio" disabled="" /> This would not run a valid hypothesis test, as it would incorporate
+information about Gentoo penguins</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-10.3">Problem 10.3</h3>
+<p>For your convenience, we copy the code for the hypothesis test
+below.</p>
+<div class="sourceCode" id="cb25"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>stats <span class="op">=</span> np.array([])</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>num_reps <span class="op">=</span> <span class="dv">500</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(num_reps):</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (a) starts ---</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    shuffled <span class="op">=</span> np.random.permutation(adelie_chinstrap.get(<span class="st">&#39;species&#39;</span>))</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (a) ends ---</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (b) starts ---</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>    with_shuffled <span class="op">=</span> adelie_chinstrap.assign(species<span class="op">=</span>shuffled)</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (b) ends ---</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>    grouped <span class="op">=</span> with_shuffled.groupby(<span class="st">&#39;species&#39;</span>).mean()</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (c) starts ---</span></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>    stat <span class="op">=</span> grouped.get(<span class="st">&#39;mass&#39;</span>).iloc[<span class="dv">0</span>] <span class="op">-</span> grouped.get(<span class="st">&#39;mass&#39;</span>).iloc[<span class="dv">1</span>]</span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (c) ends ---</span></span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>    stats <span class="op">=</span> np.append(stats, stat)</span></code></pre></div>
+<p>What would happen if we removed <code>line (a)</code>, and replaced
+<code>line (b)</code> with</p>
+<div class="sourceCode" id="cb26"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>with_shuffled <span class="op">=</span> adelie_chinstrap.sample(adelie_chinstrap.shape[<span class="dv">0</span>], replace<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
+<p>Select the best answer.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> This would still run a valid hypothesis test</p></li>
+<li><p><input type="radio" disabled="" /> This would not run a valid hypothesis test, as all values in the
+<code>stats</code> array would be exactly the same</p></li>
+<li><p><input type="radio" disabled="" /> This would not run a valid hypothesis test, even though there would
+be several different values in the <code>stats</code> array</p></li>
+<li><p><input type="radio" disabled="" /> This would not run a valid hypothesis test, as it would incorporate
+information about Gentoo penguins</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-10.4">Problem 10.4</h3>
+<p>For your convenience, we copy the code for the hypothesis test
+below.</p>
+<div class="sourceCode" id="cb27"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>stats <span class="op">=</span> np.array([])</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>num_reps <span class="op">=</span> <span class="dv">500</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(num_reps):</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (a) starts ---</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    shuffled <span class="op">=</span> np.random.permutation(adelie_chinstrap.get(<span class="st">&#39;species&#39;</span>))</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (a) ends ---</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (b) starts ---</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>    with_shuffled <span class="op">=</span> adelie_chinstrap.assign(species<span class="op">=</span>shuffled)</span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (b) ends ---</span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>    grouped <span class="op">=</span> with_shuffled.groupby(<span class="st">&#39;species&#39;</span>).mean()</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (c) starts ---</span></span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>    stat <span class="op">=</span> grouped.get(<span class="st">&#39;mass&#39;</span>).iloc[<span class="dv">0</span>] <span class="op">-</span> grouped.get(<span class="st">&#39;mass&#39;</span>).iloc[<span class="dv">1</span>]</span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (c) ends ---</span></span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>    stats <span class="op">=</span> np.append(stats, stat)</span></code></pre></div>
+<p>What would happen if we replaced <code>line (a)</code> with</p>
+<div class="sourceCode" id="cb28"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>with_shuffled <span class="op">=</span> adelie_chinstrap.assign(</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    species<span class="op">=</span>np.random.permutation(adelie_chinstrap.get(<span class="st">&#39;species&#39;</span>)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>and replaced line (b) with</p>
+<div class="sourceCode" id="cb29"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>with_shuffled <span class="op">=</span> with_shuffled.assign(</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    mass<span class="op">=</span>np.random.permutation(adelie_chinstrap.get(<span class="st">&#39;mass&#39;</span>)</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>Select the best answer.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> This would still run a valid hypothesis test</p></li>
+<li><p><input type="radio" disabled="" /> This would not run a valid hypothesis test, as all values in the
+<code>stats</code> array would be exactly the same</p></li>
+<li><p><input type="radio" disabled="" /> This would not run a valid hypothesis test, even though there would
+be several different values in the <code>stats</code> array</p></li>
+<li><p><input type="radio" disabled="" /> This would not run a valid hypothesis test, as it would incorporate
+information about Gentoo penguins</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-10.5">Problem 10.5</h3>
+<p>Suppose we run the code for the hypothesis test and see the following
+empirical distribution for the test statistic. In red is the observed
+statistic.</p>
+<center><img src='../assets/images/fa21-final/measuring_up_his.png' width=40%></center>
+<p>Suppose our alternative hypothesis is that Chinstrap penguins weigh
+more on average than Adelie penguins. Which of the following is closest
+to the p-value for our hypothesis test?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <span class="math inline">0</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">\frac{1}{4}</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">\frac{1}{3}</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">\frac{2}{3}</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">\frac{3}{4}</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">1</span></p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-11">Problem 11</h2>
+<p>Choose the best tool to answer each of the following questions. Note
+the following:</p>
+<ul>
+<li>By “hypothesis testing”, we mean “standard” hypothesis testing,
+i.e. hypothesis testing that <strong>doesn’t</strong> involve
+permutation testing or bootstrapping.</li>
+<li>By “bootstrapping”, we mean bootstrapping that
+<strong>doesn’t</strong> involve hypothesis testing.</li>
+</ul>
+<p><br></p>
+<h3 id="problem-11.1">Problem 11.1</h3>
+<p>Are incomes of applicants with 2 or fewer dependents drawn randomly
+from the distribution of incomes of all applicants?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Hypothesis Testing</p></li>
+<li><p><input type="radio" disabled="" /> Permutation Testing</p></li>
+<li><p><input type="radio" disabled="" /> Bootstrapping</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-11.2">Problem 11.2</h3>
+<p>What is the median income of credit card applicants with 2 or fewer
+dependents?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Hypothesis Testing</p></li>
+<li><p><input type="radio" disabled="" /> Permutation Testing</p></li>
+<li><p><input type="radio" disabled="" /> Bootstrapping</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-11.3">Problem 11.3</h3>
+<p>Are credit card applications approved through a random process in
+which 50% of applications are approved?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Hypothesis Testing</p></li>
+<li><p><input type="radio" disabled="" /> Permutation Testing</p></li>
+<li><p><input type="radio" disabled="" /> Bootstrapping</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-11.4">Problem 11.4</h3>
+<p>Is the median income of applicants with 2 or fewer dependents less
+than the median income of applicants with 3 or more dependents?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Hypothesis Testing</p></li>
+<li><p><input type="radio" disabled="" /> Permutation Testing</p></li>
+<li><p><input type="radio" disabled="" /> Bootstrapping</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-11.5">Problem 11.5</h3>
+<p>What is the difference in median income of applicants with 2 or fewer
+dependents and applicants with 3 or more dependents?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Hypothesis Testing</p></li>
+<li><p><input type="radio" disabled="" /> Permutation Testing</p></li>
+<li><p><input type="radio" disabled="" /> Bootstrapping</p></li>
+</ul>
 <p><br></p>
 <hr />
 <h2 id="section"><span class="math display"> </span></h2>
