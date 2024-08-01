@@ -88,7 +88,7 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
     <tr>
       <th scope="row">8</th>
       <td>Thursday, August 1</td>
-      <td><a href="disc08/index.html">Regression and Exam Review</a></td>
+      <td><a href="disc08/index.html">Regression</a></td>
     </tr>
     </tr>  
   </tbody>
