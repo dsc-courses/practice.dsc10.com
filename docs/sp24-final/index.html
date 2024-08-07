@@ -2453,16 +2453,55 @@ apartment rents in <code>apts</code>. This value is significantly larger
 than what is produced by the bedroom code (average value of the “Cost”
 column in <code>bedrooms</code>), since all “Cost” values in
 <code>bedrooms</code> are less than or equal to their corresponding
-“Rent” values in <code>apts</code>. So, these two expressions cannot
+“Rent” values in <code>apts</code>. So, these two expressions cannot be
 equal.</p>
 <p>Option 2 is correct. We can view the bedroom code as the same as
-summing all of the values in the “Cost” column of <code>no_studio</code>
-and dividing by the total number of rows of <code>no_studio</code>; this
-is a fraction. We can make some clever substitutions in this fraction to
+summing all of the values in the “Cost” column of <code>bedrooms</code>
+and dividing by the total number of rows of <code>bedrooms</code>. This
+is a fraction; we can make some clever substitutions in this fraction to
 show it is the same as the code for Option 2:</p>
+<p><br/></p>
 <p><span class="math display">\dfrac{\text{sum of "Cost" in
-no_studio}}{\text{num of rows in no_studio}}</span></p>
-<!-- \to \frac{\text{sum of "Rent" in apts}}{\text{# of rows in no_studio}} \to \frac{\text{sum of "Rent" in apts}}{\text{sum of "Bed" in apts}}$$ -->
+bedrooms}}{\# \text{ of rows in bedrooms}} \to \dfrac{\text{sum of
+"Rent" in no}\_\text{studio}}{\# \text{ of rows in bedrooms}}
+\to \dfrac{\text{sum of "Rent" in
+no}\_\text{studio}}{\text{sum of "Bed" in apts}}</span></p>
+<p><br/></p>
+<p>Option 3 is incorrect. The first part of Option 3,
+<code>no_studio.get("Rent") / no_studio.get("Bed")</code>, produces a
+Series that contains all the values in the “Cost” column of
+<code>no_studio</code>, except without duplicating rows for multi-bed
+apartments. Taking the <code>.mean()</code> of this look-alike Series is
+not the same as taking the <code>.mean()</code> of the bedroom code, so
+these two expressions cannot be equal.</p>
+<p>Option 4 is correct. We can show the bedroom code is equivalent to
+the code in Option 4 as follows:</p>
+<p><br/></p>
+<p><span class="math display">\dfrac{\text{sum of "Cost" in
+bedrooms}}{\# \text{ of rows in bedrooms}} \to \dots \to
+\dfrac{\text{sum of "Rent" in no}\_\text{studio}}{\text{sum of
+"Bed" in apts}} \to </span></p>
+<p><span class="math display"> \dfrac{\text{sum of "Rent" in
+no}\_\text{studio}}{\text{sum of "Bed" in no}\_\text{studio}}
+\to
+\text{sum} \left( \dfrac{\text{each entry in "Rent" in
+no}\_\text{studio}}{\text{sum of "Bed" in no}\_\text{studio}}
+\right) </span></p>
+<p><br/></p>
+<p>Option 5 is correct. We can show the bedroom code is equivalent to
+the code in Option 5 as follows:</p>
+<p><br/></p>
+<p><span class="math display">\dfrac{\text{sum of "Cost" in
+bedrooms}}{\# \text{ of rows in bedrooms}} \to \dots \to
+\dfrac{\text{sum of "Rent" in no}\_\text{studio}}{\text{sum of
+"Bed" in no}\_\text{studio}} \to</span></p>
+<p><span class="math display">\dfrac{\left(\dfrac{\text{sum of
+"Rent" in no}\_\text{studio}}{\# \text{ of rows in
+no}\_\text{studio}}\right)}{\left(\dfrac{\text{sum of "Bed" in
+no}\_\text{studio}}{\# \text{ of rows in no}\_\text{studio}}\right)} \to
+\dfrac{\text{mean of "Rent" in no}\_\text{studio}}{\text{mean
+of "Bed" in no}\_\text{studio}}</span></p>
+<p><br/></p>
 </div>
 </div>
 </div>
