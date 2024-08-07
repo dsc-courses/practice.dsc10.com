@@ -96,7 +96,7 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
 </center>
 
 
-<!-- ### 💯 Discussions for Spring 2024
+<!-- ### 💯 Discussions for Spring 2024 Below
 
 <center>
 <table class="table" style="width:60%">
@@ -199,6 +199,8 @@ Each exam linked here lists the conditions under which the exam was given, inclu
       <th scope="row">Spring 2024</th>
       <td>Janine Tiefenbruck</td>
       <td><a href='sp24-midterm/index.html'>Midterm</a>
+      <br>
+      <a href='sp24-final/index.html'>Final</a>
       </td>
     </tr>
     <tr>
