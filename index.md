@@ -18,13 +18,11 @@ In all cases, you should work on these problems **on paper**, since your quizzes
 
 ---
 
-### <a href="pretest/index.html">🧮 Pretest</a>
+### <a href="pretest/index.html">🧮 Pretest: Due September 29th</a>
 
 DSC 10's only prerequisite is high school algebra.
 In order to gauge your preparedness for the type of math you'll see
 in this class, you should work through <b><a href="pretest/index.html">these practice problems</a></b> on your own. This pretest will help you identify any gaps in your background knowledge and it will teach you some useful test-taking skills.
-
-The pretest is due **Sunday, September 29th at 11:59PM**, or at 11:59PM the day after you join the class, whichever is later. It will be graded based on honest effort, not on the correctness of your responses. You will earn 3 participation points for completing the pretest to the best of your ability. We’ll release solutions to the pretest at the beginning of Week 3. You are highly encouraged to check how you did and learn from it.
 
 ---
 
