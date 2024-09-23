@@ -8,15 +8,13 @@ title: Home – DSC 10 Practice
 
 ---
 
-This site contains practice problems taken from old DSC 10 exams. We've organized problems in a few ways:
+This site contains practice problems taken from old DSC 10 quizzes and exams. We've organized problems in a few ways:
 
 1. As **discussions**. Each discussion problem set contains problems about a particular topic. Come to discussions to work on these problem sets in groups, with the help of our course staff.
 1. As **practice exams**. Work through these in the weeks leading up to exams.
-1. As **quizzes**. Work through these to practice for quizzes.
+1. As **practice quizzes**. Work through these to practice for quizzes.
 
-In all cases, you should work on these problems **on paper**, since your exams will also be on paper. Even though you will see some multiple choice bubbles, you intentionally cannot select them.
-<!-- 
-**Tip:** Keep the [DSC 10 Reference Sheet](https://drive.google.com/file/d/1ky0Np67HS2O4LO913P-ing97SJG0j27n/view) open in another tab. **You will have access to the Reference Sheet during exams (but no other resources).** -->
+In all cases, you should work on these problems **on paper**, since your quizzes and exams will also be on paper. Even though you will see some multiple choice bubbles, you intentionally cannot select them.
 
 ---
 
@@ -24,13 +22,13 @@ In all cases, you should work on these problems **on paper**, since your exams w
 
 DSC 10's only prerequisite is high school algebra.
 In order to gauge your preparedness for the type of math you'll see
-in this class, you should work through <b><a href="pretest/index.html">these practice problems</a></b> on your own. You will not submit it, and it will not be graded, but it will help you identify any gaps in your background knowledge and it will teach you some useful test-taking skills.
+in this class, you should work through <b><a href="pretest/index.html">these practice problems</a></b> on your own. This pretest will help you identify any gaps in your background knowledge and it will teach you some useful test-taking skills.
 
-
+The pretest is due **Sunday, September 29th at 11:59PM**, or at 11:59PM the day after you join the class, whichever is later. It will be graded based on honest effort, not on the correctness of your responses. You will earn 3 participation points for completing the pretest to the best of your ability. We’ll release solutions to the pretest at the beginning of Week 3. You are highly encouraged to check how you did and learn from it.
 
 ---
 
-### 💯 Discussions for Summer 2024
+### 💯 Discussions for Fall 2024
 
 <center>
 <table class="table" style="width:60%">
@@ -49,136 +47,18 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
   <tbody>
     <tr>
       <th scope="row">1</th>
-      <td>Tuesday, July 2</td>
+      <td>Monday, September 30th</td>
       <td><a href="disc01/index.html">Getting Started With Jupyter Notebooks</a></td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Tuesday, July 9</td>
-      <td><a href="disc02/index.html">Arrays and DataFrames</a></td>
-    </tr>
-   <tr>
-      <th scope="row">3</th>
-      <td>Thursday, July 11</td>
-      <td><a href="disc03/index.html">Querying, Grouping, and Plotting</a></td>
-    </tr>
-    <tr>
-      <th scope="row">4</th>
-      <td>Tuesday, July 16</td>
-      <td><a href="disc04/index.html">Functions, DataFrames, and Control Flow</a></td>
-    </tr>
-    <tr>
-      <th scope="row">5</th>
-      <td>Tuesday, July 23</td>
-      <td><a href="disc05/index.html">Sampling, Bootstrapping, and Confidence Intervals</a></td>
-    </tr>
-    </tr>   
-      <tr>
-      <th scope="row">6</th>
-      <td>Thursday, July 25</td>
-      <td><a href="disc06/index.html">Standardization, the Normal Distribution, and the Central Limit Theorem</a></td>
-    </tr>
-    </tr>
-    <tr>
-      <th scope="row">7</th>
-      <td>Tuesday, July 30</td>
-      <td><a href="disc07/index.html">Hypothesis Testing, Total Variation Distance, and Permutation Testing</a></td>
-    </tr>
-    </tr>
-    <tr>
-      <th scope="row">8</th>
-      <td>Thursday, August 1</td>
-      <td><a href="disc08/index.html">Regression</a></td>
-    </tr>
-    </tr>  
+    </tr> 
   </tbody>
 </table>
 </center>
-
-
-<!-- ### 💯 Discussions for Spring 2024 Below
-
-<center>
-<table class="table" style="width:60%">
-    <colgroup>
-       <col span="1" style="width: 25%;">
-       <col span="1" style="width: 35%;">
-       <col span="1" style="width: 40%;">
-    </colgroup>
-  <thead>
-    <tr>
-      <th scope="col">Week</th>
-      <th scope="col">Date</th>
-      <th scope="col">Topic(s)</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Wednesday, April 3</td>
-      <td><a href="disc01/index.html">Python Basics</a></td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Wednesday, April 10</td>
-      <td><a href="disc02/index.html">Arrays and DataFrames</a></td>
-    </tr>
-   <tr>
-      <th scope="row">3</th>
-      <td>Wednesday, April 17</td>
-      <td><a href="disc03/index.html">Querying, Grouping, and Plotting</a></td>
-    </tr>
-    <tr>
-      <th scope="row">4</th>
-      <td>Wednesday, April 24</td>
-      <td><a href="disc04/index.html">Functions, DataFrames, and Control Flow</a></td>
-    </tr>
-    <tr>
-      <th scope="row">5</th>
-      <td>Wednesday, May 1</td>
-      <td><a href="disc05/index.html">Probability and Simulation</a></td>
-    </tr>
-    </tr>   
-      <tr>
-      <th scope="row">6</th>
-      <td>Wednesday, May 8</td>
-      <td><a href="disc06/index.html">Sampling, Bootstrapping, and Confidence Intervals</a></td>
-    </tr>
-    </tr>
-    <tr>
-      <th scope="row">7</th>
-      <td>Wednesday, May 15</td>
-      <td><a href="disc07/index.html">Standardization and the Normal Distribution</a></td>
-    </tr>
-    </tr>
-    <tr>
-      <th scope="row">8</th>
-      <td>Wednesday, May 22</td>
-      <td><a href="disc08/index.html">The Central Limit Theorem and Hypothesis Testing</a></td>
-    </tr>
-    </tr>
-	<tr>
-      <th scope="row">9</th>
-      <td>Wednesday, May 29</td>
-      <td><a href="disc09/index.html">Total Variation Distance and Permutation Testing</a></td>
-    </tr>
-    </tr>
-    <tr>
-      <th scope="row">10</th>
-      <td>Wednesday, June 5</td>
-      <td><a href="disc10/index.html">Regression</a></td>
-    </tr>   
-  </tbody>
-</table>
-</center> -->
-
-
 
 ---
 
 ### 📝 Exams
 
-Each exam linked here lists the conditions under which the exam was given, including the allotted amount of time and the resources allowed. For the best preparation, work through all the questions on an exam in order under these same conditions, writing down your answers on paper as you go, then check all your answers at the end.
+Each exam linked here lists the conditions under which the exam was given, including the allotted amount of time and the resources allowed. For the best preparation, work through all the questions on an exam in order under these same conditions, writing down your answers on paper as you go, then check all your answers at the end. It is recommended that you prioritize the most recent exams first in your studying.
 
 <center>
 <table class="table" style="width:60%">
@@ -288,7 +168,7 @@ Each exam linked here lists the conditions under which the exam was given, inclu
 
 ### 🆕 Quizzes
 
-Starting in Fall 2023, quizzes are administered in discussion section. Below, you'll find an archive of past quizzes. While you'll find the answers to all quiz questions, you won't find detailed explanations. For quizzes, you should try to figure out why the answers are what they are on your own, and come to us in office hours if you're stuck. (Exam questions are harder, hence the detailed explanations.)
+Below, you'll find an archive of past quizzes. While you'll find the answers to all quiz questions, you won't find detailed explanations. For quizzes, you should try to figure out why the answers are what they are on your own, and come to us in office hours if you're stuck. (Exam questions are harder, hence the detailed explanations.)
 
 <center>
 <table class="table" style="width:60%">
