@@ -166,7 +166,9 @@ Each exam linked here lists the conditions under which the exam was given, inclu
 
 ### 🆕 Quizzes
 
-Below, you'll find an archive of past quizzes. While you'll find the answers to all quiz questions, you won't find detailed explanations. For quizzes, you should try to figure out why the answers are what they are on your own, and come to us in office hours if you're stuck. (Exam questions are harder, hence the detailed explanations.)
+Below, you'll find an archive of past quizzes. Note that different quarters had a number of quizzes, so the content of each quiz is not the same across quarters.
+
+We've provided answers to all quiz questions, but you won't find detailed explanations. For quizzes, you should try to figure out why the answers are what they are on your own, and come to us in office hours if you're stuck. (Exam questions are harder, hence the detailed explanations.)
 
 <center>
 <table class="table" style="width:60%">
@@ -183,6 +185,17 @@ Below, you'll find an archive of past quizzes. While you'll find the answers to 
     </tr>
   </thead>
   <tbody>
+    <tr>
+      <th scope="row">Spring 2024</th>
+      <td>Janine Tiefenbruck</td>
+      <td>
+        <a href='sp24-quiz1/index.html'>Quiz 1</a> •
+        <a href='sp24-quiz2/index.html'>Quiz 2</a> •
+        <a href='sp24-quiz3/index.html'>Quiz 3</a> •
+        <a href='sp24-quiz4/index.html'>Quiz 4</a> •
+        <a href='sp24-quiz5/index.html'>Quiz 5</a> 
+      </td>
+    </tr>
     <tr>
       <th scope="row">Winter 2024</th>
       <td>Janine Tiefenbruck</td>
