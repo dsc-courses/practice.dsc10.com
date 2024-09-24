@@ -4,25 +4,16 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>Discussion 6: Standardization, The Normal Distribution, and The Central Limit Theorem</title>
+  <title>Discussion 6: Sampling, Bootstrapping, and Confidence Intervals</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    /* The extra [class] is a hack that increases specificity enough to
-       override a similar rule in reveal.js */
-    ul.task-list[class]{list-style: none;}
-    ul.task-list li input[type="checkbox"] {
-      font-size: inherit;
-      width: 0.8em;
-      margin: 0 0.8em 0.2em -1.6em;
-      vertical-align: middle;
-    }
-    /* CSS for syntax highlighting */
+    ul.task-list{list-style: none;}
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -33,7 +24,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -59,7 +50,7 @@
     code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
     code span.at { color: #7d9029; } /* Attribute */
     code span.bn { color: #40a070; } /* BaseN */
-    code span.bu { color: #008000; } /* BuiltIn */
+    code span.bu { } /* BuiltIn */
     code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
     code span.ch { color: #4070a0; } /* Char */
     code span.cn { color: #880000; } /* Constant */
@@ -72,7 +63,7 @@
     code span.ex { } /* Extension */
     code span.fl { color: #40a070; } /* Float */
     code span.fu { color: #06287e; } /* Function */
-    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.im { } /* Import */
     code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
     code span.kw { color: #007020; font-weight: bold; } /* Keyword */
     code span.op { color: #666666; } /* Operator */
@@ -104,11 +95,14 @@
   </script>
   <link rel="stylesheet"
   href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
 </head>
 <body>
 <header id="title-block-header">
-<h1 class="title">Discussion 6: Standardization, The Normal
-Distribution, and The Central Limit Theorem</h1>
+<h1 class="title">Discussion 6: Sampling, Bootstrapping, and Confidence
+Intervals</h1>
 </header>
 <p><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
@@ -129,1590 +123,320 @@ Distribution, and The Central Limit Theorem</h1>
 </script>
 <p><a href="../index.html">← return to practice.dsc10.com</a></p>
 <hr />
-<p>The problems in this worksheet are taken from past exams. Work on
-them <strong>on paper</strong>, since the exams you take in this course
-will also be on paper. <br><br>We encourage you to complete this
-worksheet in a live discussion section. Solutions will be made available
+<p>These problems are taken from past quizzes and exams. Work on them
+<strong>on paper</strong>, since the quizzes and exams you take in this
+course will also be on paper. <br><br>We encourage you to complete these
+problems during discussion section. Solutions will be made available
 after all discussion sections have concluded. You don’t need to submit
-your answers anywhere.<br><br><b>Note: We do not plan to cover all
-problems here in the live discussion section</b>; the problems we don’t
+your answers anywhere.<br><br><b>Note: We do not plan to cover all of
+these problems during the discussion section</b>; the problems we don’t
 cover can be used for extra practice.</p>
 <hr />
 <h2 id="problem-1">Problem 1</h2>
-<p>Researchers from the San Diego Zoo, located within Balboa Park,
-collected physical measurements of several species of penguins in a
-region of Antarctica.</p>
-<p>One piece of information they tracked for each of 330 penguins was
-its mass in grams. The average penguin mass is 4200 grams, and the
-standard deviation is 840 grams.</p>
-<p><br></p>
-<h3 id="problem-1.1">Problem 1.1</h3>
-<p>Consider the histogram of mass below.</p>
-<center><img src='../assets/images/fa21-final/mass.png' width=40%></center>
-<p><br></p>
-<p>Select the true statement below.</p>
+<p>Suppose we take a uniform random sample with replacement from a
+population, and use the sample mean as an estimate for the population
+mean. Which of the following is correct?</p>
 <ul class="task-list">
-<li><p><input type="radio" disabled="" /> The median mass of penguins is larger than the average mass of
-penguins</p></li>
-<li><p><input type="radio" disabled="" /> The median mass of penguins is roughly equal to the average mass of
-penguins (within 50 grams)</p></li>
-<li><p><input type="radio" disabled="" /> The median mass of penguins is less than the average mass of
-penguins</p></li>
-<li><p><input type="radio" disabled="" /> It is impossible to determine the relationship between the median and
-average mass of penguins just by looking at the above histogram</p></li>
+<li><p><input type="radio" disabled="" /> If we take a larger sample, our sample mean will be closer to the
+population mean.</p></li>
+<li><p><input type="radio" disabled="" /> If we take a smaller sample, our sample mean will be closer to the
+population mean.</p></li>
+<li><p><input type="radio" disabled="" /> If we take a larger sample, our sample mean is more likely to be
+close to the population mean than if we take a smaller sample.</p></li>
+<li><p><input type="radio" disabled="" /> If we take a smaller sample, our sample mean is more likely to be
+close to the population mean than if we take a larger sample.</p></li>
 </ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading1_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1_1" aria-expanded="true" aria-controls="collapse1_1">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse1_1" class="accordion-collapse collapse"
-aria-labelledby="heading1_1" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer:</strong> The median mass of penguins is less than the
-average mass of penguins</p>
-<p>This is a distribution that is skewed to the right, so mean is
-greater than median.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 87%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-1.2">Problem 1.2</h3>
-<p>For your convenience, we show the histogram of mass again below.</p>
-<center><img src='../assets/images/fa21-final/mass.png' width=40%></center>
-<p><br></p>
-<p>Recall, there are 330 penguins in our dataset. Their average mass is
-4200 grams, and the standard deviation of mass is 840 grams.</p>
-<p>Per Chebyshev’s inequality, at least what percentage of penguins have
-a mass between 3276 grams and 5124 grams? Input your answer as a
-percentage between 0 and 100, without the % symbol. Round to three
-decimal places.</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading1_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1_2" aria-expanded="true" aria-controls="collapse1_2">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse1_2" class="accordion-collapse collapse"
-aria-labelledby="heading1_2" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer:</strong> 17.355</p>
-<p>Recall, Chebyshev’s inequality states that No matter what the shape
-of the distribution is, the proportion of values in the range “average ±
-z SDs” is <strong>at least</strong> <span class="math inline">1 -
-\frac{1}{z^2}</span>.</p>
-<p>To approach the problem, we’ll start by converting 3276 grams and
-5124 grams to standard units. Doing so yields <span class="math inline">\frac{3276 - 4200}{840} = -1.1</span>, similarly,
-<span class="math inline">\frac{5124 - 4200}{840} = 1.1</span>. This
-means that 3276 is 1.1 standard deviations <strong>below</strong> the
-mean, and 5124 is 1.1 standard deviations <strong>above</strong> the
-mean. Thus, we are calculating the proportion of values in the range
-“average ± 1.1 SDs”.</p>
-<p>When <span class="math inline">z = 1.1</span>, we have <span class="math inline">1 - \frac{1}{z^2} = 1 - \frac{1}{1.1^2} \approx
-0.173553719</span>, which as a percentage rounded to three decimal
-places is <span class="math inline">17.355\%</span>.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 76%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-1.3">Problem 1.3</h3>
-<p>Per Chebyshev’s inequality, at least what percentage of penguins have
-a mass between 1680 grams and 5880 grams?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> 50%</p></li>
-<li><p><input type="radio" disabled="" /> 55.5%</p></li>
-<li><p><input type="radio" disabled="" /> 65.25%</p></li>
-<li><p><input type="radio" disabled="" /> 68%</p></li>
-<li><p><input type="radio" disabled="" /> 75%</p></li>
-<li><p><input type="radio" disabled="" /> 88.8%</p></li>
-<li><p><input type="radio" disabled="" /> 95%</p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading1_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1_3" aria-expanded="true" aria-controls="collapse1_3">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse1_3" class="accordion-collapse collapse"
-aria-labelledby="heading1_3" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer:</strong> 75%</p>
-<p>Recall: proportion with <span class="math inline">z</span> SDs of the
-mean</p>
-<table>
-<colgroup>
-<col style="width: 33%"/>
-<col style="width: 33%"/>
-<col style="width: 33%"/>
-</colgroup>
-<thead>
-<tr class="header">
-<th>Percent in Range</th>
-<th>All Distributions (via Chebyshev’s Inequality)</th>
-<th>Normal Distributions</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><span class="math inline">\text{average} \pm 1 \
-\text{SD}</span></td>
-<td><span class="math inline">\geq 0\%</span></td>
-<td><span class="math inline">\approx 68\%</span></td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\text{average} \pm 2\text{SDs}</span></td>
-<td><span class="math inline">\geq 75\%</span></td>
-<td><span class="math inline">\approx 95\%</span></td>
-</tr>
-<tr class="odd">
-<td><span class="math inline">\text{average} \pm 3\text{SDs}</span></td>
-<td><span class="math inline">\geq 88\%</span></td>
-<td><span class="math inline">\approx 99.73\%</span></td>
-</tr>
-</tbody>
-</table>
-<p>To approach the problem, we’ll start by converting 3276 grams and
-5124 grams to standard units. Doing so yields <span class="math inline">\frac{1680 - 4200}{840} = -3</span>, similarly,
-<span class="math inline">\frac{5880 - 4200}{840} = 2</span>. This means
-that 1680 is 3 standard deviations <strong>below</strong> the mean, and
-5880 is 2 standard deviations <strong>above</strong> the mean.</p>
-<p>Proportion of values in [-3 SUs, 2 SUs] &gt;= Proportion of values in
-[-2 SUs, 2 SUs] &gt;= 75% (Since we cannot assume that the distribution
-is normal, we look at the <strong>All Distributions (via Chebyshev’s
-Inequality)</strong> column for proportion).</p>
-<p>Thus, <strong>at least</strong> 75% of the penguins have a mass
-between 1680 grams and 5880 grams.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 72%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-1.4">Problem 1.4</h3>
-<p>The distribution of mass in grams is not roughly normal. Is the
-distribution of mass in standard units roughly normal?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> Yes</p></li>
-<li><p><input type="radio" disabled="" /> No</p></li>
-<li><p><input type="radio" disabled="" /> Impossible to tell</p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading1_4">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1_4" aria-expanded="true" aria-controls="collapse1_4">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse1_4" class="accordion-collapse collapse"
-aria-labelledby="heading1_4" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer:</strong> No</p>
-<p>The shape of the distribution does not change since we are scaling
-the x values for all data.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 60%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-1.5">Problem 1.5</h3>
-<p>Suppose <code>boot_means</code> is an array of the resampled means.
-Fill in the blanks below so that <code>[left, right]</code> is a 68%
-confidence interval for the true mean mass of penguins.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>left <span class="op">=</span> np.percentile(boot_means, __(a)__)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>right <span class="op">=</span> np.percentile(boot_means, __(b)__)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>[left, right]</span></code></pre></div>
-<p>What goes in blank (a)? What goes in blank (b)?</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading1_5">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1_5" aria-expanded="true" aria-controls="collapse1_5">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse1_5" class="accordion-collapse collapse"
-aria-labelledby="heading1_5" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer:</strong> (a) 16 (b) 84</p>
-<p>Recall, <code>np.percentile(array, p)</code> computes the
-<code>p</code>th percentile of the numbers in <code>array</code>. To
-compute the 68% CI, we need to know the percentile of left tail and
-right tail.</p>
-<p>left percentile = <span class="math inline">(1-0.68)/2 = (0.32)/2 =
-0.16</span> so we have 16th percentile</p>
-<p>right percentile = <span class="math inline">1-((1-0.68)/2) =
-1-((0.32)/2) = 1-0.16 = 0.84</span> so we have 84th percentile</p>
-<hr/>
-<h5>Difficulty: ⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 94%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-1.6">Problem 1.6</h3>
-<p>Which of the following is a correct interpretation of this confidence
-interval? Select all that apply.</p>
-<ul class="task-list">
-<li><p><input type="checkbox" disabled="" /> There is an approximately 68% chance that mean weight of all penguins
-in Antarctica falls within the bounds of this confidence interval.</p></li>
-<li><p><input type="checkbox" disabled="" /> Approximately 68% of penguin weights in our sample fall within the
-bounds of this confidence interval.</p></li>
-<li><p><input type="checkbox" disabled="" /> Approximately 68% of penguin weights in the population fall within
-the bounds of this interval.</p></li>
-<li><p><input type="checkbox" disabled="" /> If we created many confidence intervals using the same method,
-approximately 68% of them would contain the mean weight of all penguins
-in Antarctica.</p></li>
-<li><p><input type="checkbox" disabled="" /> None of the above</p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading1_6">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1_6" aria-expanded="true" aria-controls="collapse1_6">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse1_6" class="accordion-collapse collapse"
-aria-labelledby="heading1_6" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer:</strong> Option 4 (If we created many confidence
-intervals using the same method, approximately 68% of them would contain
-the mean weight of all penguins in Antarctica.)</p>
-<p>Recall, what a <span class="math inline">k</span>% confidence level
-states is that approximately <span class="math inline">k</span>% of the
-time, the intervals you create through this process will contain the
-true population parameter.</p>
-<p>In this question, our population parameter is the mean weight of all
-penguins in Antarctica. So 86% of the time, the intervals you create
-through this process will contain the mean weight of all penguins in
-Antarctica. This is the same as Option 4. However, it will be false if
-we state it in the reverse order (Option 1) since our population
-parameter is already fixed.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 81%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
 <hr />
 <h2 id="problem-2">Problem 2</h2>
-<p>An IKEA chair designer is experimenting with some new ideas for
-armchair designs. She has the idea of making the arm rests shaped like
-bell curves, or normal distributions. A cross-section of the armchair
-design is shown below.</p>
-<center><img src='../assets/images/sp22-final/armchair.png' width=80%></center>
-<p><br></p>
-<p>This was created by taking the portion of the standard normal
-distribution from <span class="math inline">z=-4</span> to <span
-class="math inline">z=4</span> and adjoining two copies of it, one
-centered at <span class="math inline">z=0</span> and the other centered
-at <span class="math inline">z=8</span>. Let’s call this shape the
-armchair curve.</p>
-<p>Since the area under the standard normal curve from <span
-class="math inline">z=-4</span> to <span class="math inline">z=4</span>
-is approximately 1, the total area under the armchair curve is
-approximately 2.</p>
-<p>Complete the implementation of the two functions below:</p>
-<ol type="1">
-<li><code>area_left_of(z)</code> should return the area under the
-armchair curve to the left of <code>z</code>, assuming
-<code>-4 &lt;= z &lt;= 12</code>, and</li>
-<li><code>area_between(x, y)</code> should return the area under the
-armchair curve between <code>x</code> and <code>y</code>, assuming
-<code>-4 &lt;= x &lt;= y &lt;= 12</code>.</li>
-</ol>
-<div class="sourceCode" id="cb2"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> scipy</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> area_left_of(z):</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">&#39;&#39;&#39;Returns the area under the armchair curve to the left of z.</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">       Assume -4 &lt;= z &lt;= 12&#39;&#39;&#39;</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> ___(a)___: </span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> ___(b)___ </span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> scipy.stats.norm.cdf(z)</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> area_between(x, y):</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    <span class="co">&#39;&#39;&#39;Returns the area under the armchair curve between x and y. </span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="co">    Assume -4 &lt;= x &lt;= y &lt;= 12.&#39;&#39;&#39;</span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ___(c)___</span></code></pre></div>
+<p>Given below is the <code>season</code> DataFrame, which contains
+statistics on all players in the WNBA in the 2021 season. The first few
+rows of <code>season</code> are shown below:</p>
+<center><img src='../assets/images/wi22-final/seasons.png' width=40%></center>
+<p>Each row in season corresponds to a single player. In this problem,
+we’ll be looking at the <code>'PPG'</code> column, which records the
+number of points scored per game played.</p>
+<p>Now, suppose we only have access to the DataFrame
+<code>small_season</code>, which is a random sample of <strong>size
+36</strong> from <code>season</code>. We’re interested in learning about
+the true mean points per game of all players in <code>season</code>
+given just the information in <code>small_season</code>.</p>
+<p>To start, we want to bootstrap <code>small_season</code> 10,000 times
+and compute the mean of the resample each time. We want to store these
+10,000 bootstrapped means in the array <code>boot_means</code>.</p>
+<p>Here is a broken implementation of this procedure.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>boot_means <span class="op">=</span> np.array([])                                           </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):                                          </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    resample <span class="op">=</span> small_season.sample(season.shape[<span class="dv">0</span>], replace<span class="op">=</span><span class="va">False</span>)  <span class="co"># Line 1</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    resample_mean <span class="op">=</span> small_season.get(<span class="st">&#39;PPG&#39;</span>).mean()                  <span class="co"># Line 2</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    np.append(boot_means, new_mean)                                 <span class="co"># Line 3</span></span></code></pre></div>
+<p>For each of the 3 lines of code above (marked by comments), specify
+what is incorrect about the line by selecting one or more of the
+corresponding options below. Or, select “Line _ is correct as-is” if you
+believe there’s nothing that needs to be changed about the line in order
+for the above code to run properly.</p>
 <p><br></p>
 <h3 id="problem-2.1">Problem 2.1</h3>
-<p>What goes in blank (a)?</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading2_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2_1" aria-expanded="true" aria-controls="collapse2_1">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse2_1" class="accordion-collapse collapse"
-aria-labelledby="heading2_1" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> <code>z&gt;4</code> or
-<code>z&gt;=4</code></p>
-<p>The body of the function contains an <code>if</code> statement
-followed by a <code>return</code> statement, which executes only when
-the <code>if</code> condition is false. In that case, the function
-returns <code>scipy.stats.norm.cdf(z)</code>, which is the area under
-the standard normal curve to the left of <code>z</code>. When
-<code>z</code> is in the left half of the armchair curve, the area under
-the armchair curve to the left of <code>z</code> is the area under the
-standard normal curve to the left of <code>z</code> because the left
-half of the armchair curve is a standard normal curve, centered at 0. So
-we want to execute the <code>return</code> statement in that case, but
-not if <code>z</code> is in the right half of the armchair curve, since
-in that case the area to the left of <code>z</code> under the armchair
-curve should be more than 1, and <code>scipy.stats.norm.cdf(z)</code>
-can never exceed 1. This means the <code>if</code> condition needs to
-correspond to <code>z</code> being in the right half of the armchair
-curve, which corresponds to <code>z&gt;4</code> or <code>z&gt;=4</code>,
-either of which is a correct solution.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 72%.</p>
-</div>
-</div>
-</div>
-</div>
+<p>What is incorrect about Line 1? Select all that apply.</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> Currently the procedure samples from <code>small_season</code>, when
+it should be sampling from <code>season</code></p></li>
+<li><p><input type="checkbox" disabled="" /> The sample size is <code>season.shape[0]</code>, when it should be
+<code>small_season.shape[0]</code></p></li>
+<li><p><input type="checkbox" disabled="" /> Sampling is currently being done without replacement, when it should
+be done with replacement</p></li>
+<li><p><input type="checkbox" disabled="" /> Line 1 is correct as-is</p></li>
+</ul>
 <p><br></p>
 <h3 id="problem-2.2">Problem 2.2</h3>
-<p>What goes in blank (b)?</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading2_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2_2" aria-expanded="true" aria-controls="collapse2_2">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse2_2" class="accordion-collapse collapse"
-aria-labelledby="heading2_2" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong>
-<code>1+scipy.stats.norm.cdf(z-8)</code></p>
-<p>This blank should contain the value we want to return when
-<code>z</code> is in the right half of the armchair curve. In this case,
-the area under the armchair curve to the left of <code>z</code> is the
-sum of two areas:</p>
-<ol type="1">
-<li>the area under the entire left half of the armchair curve, which is
-1, and</li>
-<li>the area under the portion of the right half of the armchair curve
-that falls to the left of <code>z</code>.</li>
-</ol>
-<p>Since the right half of the armchair curve is just a standard normal
-curve that’s been shifted to the right by 8 units, the area under that
-normal curve to the left of <code>z</code> is the same as the area to
-the left of <code>z-8</code> on the standard normal curve that’s
-centered at 0. Adding the portion from the left half and the right half
-of the armchair curve gives
-<code>1+scipy.stats.norm.cdf(z-8)</code>.</p>
-<p>For example, if we want to find the area under the armchair curve to
-the left of 9, we need to total the yellow and blue areas in the image
-below.</p>
-<center><img src="../assets/images/sp22-final/armchair-shaded.png" width="80%"/></center>
-<p>The yellow area is 1 and the blue area is the same as the area under
-the standard normal curve (or the left half of the armchair curve) to
-the left of 1 because 1 is the point on the left half of the armchair
-curve that corresponds to 9 on the right half. In general, we need to
-subtract 8 from a value on the right half to get the corresponding value
-on the left half.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 54%.</p>
-</div>
-</div>
-</div>
-</div>
+<p>What is incorrect about Line 2? Select all that apply.</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> Currently it is taking the mean of the <code>'PPG'</code> column in
+<code>small_season</code>, when it should be taking the mean of the
+<code>'PPG'</code> column in <code>season</code></p></li>
+<li><p><input type="checkbox" disabled="" /> Currently it is taking the mean of the <code>'PPG'</code> column in
+<code>small_season</code>, when it should be taking the mean of the
+<code>'PPG'</code> column in <code>resample</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>.mean()</code> is not a valid Series method, and should be
+replaced with a call to the function <code>np.mean</code></p></li>
+<li><p><input type="checkbox" disabled="" /> Line 2 is correct as-is</p></li>
+</ul>
 <p><br></p>
 <h3 id="problem-2.3">Problem 2.3</h3>
-<p>What goes in blank (c)?</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading2_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2_3" aria-expanded="true" aria-controls="collapse2_3">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse2_3" class="accordion-collapse collapse"
-aria-labelledby="heading2_3" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong>
-<code>area_left_of(y) - area_left_of(x)</code></p>
-<p>In general, we can find the area under <em>any</em> curve between
-<code>x</code> and <code>y</code> by taking the area under the curve to
-the left of <code>y</code> and subtracting the area under the curve to
-the left of <code>x</code>. Since we have a function to find the area to
-the left of any given point in the armchair curve, we just need to call
-that function twice with the appropriate inputs and subtract the
-result.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 60%.</p>
-</div>
-</div>
-</div>
-</div>
+<p>What is incorrect about Line 3? Select all that apply.</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> The result of calling <code>np.append</code> is not being reassigned
+to <code>boot_means</code>, so <code>boot_means</code> will be an empty
+array after running this procedure</p></li>
+<li><p><input type="checkbox" disabled="" /> The indentation level of the line is incorrect –
+<code>np.append</code> should be outside of the <code>for</code>-loop
+(and aligned with <code>for i</code>)</p></li>
+<li><p><input type="checkbox" disabled="" /> <code>new_mean</code> is not a defined variable name, and should be
+replaced with <code>resample_mean</code></p></li>
+<li><p><input type="checkbox" disabled="" /> Line 3 is correct as-is</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-2.4">Problem 2.4</h3>
+<p>We construct a 95% confidence interval for the true mean points per
+game for all players by taking the middle 95% of the bootstrapped sample
+means.</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>left_b <span class="op">=</span> np.percentile(boot_means, <span class="fl">2.5</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>right_b <span class="op">=</span> np.percentile(boot_means, <span class="fl">97.5</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>boot_ci <span class="op">=</span> [left_b, right_b]         </span></code></pre></div>
+<p>We find that <code>boot_ci</code> is the interval [7.7, 10.3].
+However, the mean points per game in <code>season</code> is 7, which is
+not in the interval we found. Which of the following statements is true?
+(Select all question)</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> 95% of games in <code>season</code> have a number of points between
+7.7 and 10.3.</p></li>
+<li><p><input type="checkbox" disabled="" /> 95% of values in <code>boot_means</code> fall between 7.7 and
+10.3.</p></li>
+<li><p><input type="checkbox" disabled="" /> There is a 95% chance that the true mean points per game is between
+7.7 and 10.3.</p></li>
+<li><p><input type="checkbox" disabled="" /> The interval we created did not contain the true mean points per
+game, but if we collected many original samples and constructed many 95%
+confidence intervals, then exactly 95% of them would contain the true
+mean points per game.</p></li>
+<li><p><input type="checkbox" disabled="" /> The interval we created did not contain the true mean points per
+game, but if we collected many original samples and constructed many 95%
+confidence intervals, then roughly 95% of them would contain the true
+mean points per game.</p></li>
+</ul>
 <p><br></p>
 <hr />
 <h2 id="problem-3">Problem 3</h2>
-<p>Suppose you have correctly implemented the function
-<code>area_between(x, y)</code> so that it returns the area under the
-armchair curve between <code>x</code> and <code>y</code>, assuming the
-inputs satisfy <code>-4 &lt;= x &lt;= y &lt;= 12</code>.</p>
-<p><strong>Note:</strong> You can still do this question, even if you
-didn’t know how to do the previous one.</p>
-<p><br></p>
-<h3 id="problem-3.1">Problem 3.1</h3>
-<p>What is the approximate value of
-<code>area_between(-2, 10)</code>?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> 1.9</p></li>
-<li><p><input type="radio" disabled="" /> 1.95</p></li>
-<li><p><input type="radio" disabled="" /> 1.975</p></li>
-<li><p><input type="radio" disabled="" /> 2</p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading3_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_1" aria-expanded="true" aria-controls="collapse3_1">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse3_1" class="accordion-collapse collapse"
-aria-labelledby="heading3_1" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> 1.95</p>
-<p>The area we want to find is shown below in two colors. We can find
-the area in each half of the armchair curve separately and add the
-results.</p>
-<center><img src="../assets/images/sp22-final/armchair-between-1.png" width="80%"/></center>
-<p>For the yellow area, we know that the area within 2 standard
-deviations of the mean on the standard normal curve is 0.95. The
-remaining 0.05 is split equally on both sides, so the yellow area is
-0.975.</p>
-<p>The blue area is the same by symmetry so the total shaded area is
-<span class="math inline">0.975*2 = 1.95</span>.</p>
-<p>Equivalently, we can use the fact that the total area under the
-armchair curve is 2, and the amount of unshaded area on either side is
-0.025, so the total shaded area is <span class="math inline">2 -
-(0.025*2) = 1.95.</span></p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 76%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-3.2">Problem 3.2</h3>
-<p>What is the approximate value of
-<code>area_between(0.37, 8.37)</code>?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> 0.68</p></li>
-<li><p><input type="radio" disabled="" /> 0.95</p></li>
-<li><p><input type="radio" disabled="" /> 1</p></li>
-<li><p><input type="radio" disabled="" /> 1.5</p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading3_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_2" aria-expanded="true" aria-controls="collapse3_2">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse3_2" class="accordion-collapse collapse"
-aria-labelledby="heading3_2" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> 1</p>
-<p>The area we want to find is shown below in two colors.</p>
-<center><img src="../assets/images/sp22-final/armchair-between-2.png" width="80%"/></center>
-<p>As we saw in Problem 12.2, the point on the left half of the armchair
-curve that corresponds to 8.37 is 0.37. This means that if we move the
-blue area from the right half of the armchair curve to the left half, it
-will fit perfectly, as shown below.</p>
-<center><img src="../assets/images/sp22-final/armchair-between-3.png" width="80%"/></center>
-<p>Therefore the total of the blue and yellow areas is the same as the
-area under one standard normal curve, which is 1.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 76%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
+<p><strong>True or False</strong>: Suppose that from a sample, you
+compute a 95% bootstrapped confidence interval for a population
+parameter to be the interval [L, R]. Then the average of L and R is the
+mean of the original sample.</p>
 <hr />
 <h2 id="problem-4">Problem 4</h2>
-<p>Oren has a random sample of 200 dog prices in an array called
-<code>oren</code>. He has also bootstrapped his sample 1,000 times and
-stored the mean of each resample in an array called
-<code>boots</code>.</p>
-<p>In this question, assume that the following code has run:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> np.mean(oren)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> np.std(oren)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> <span class="bu">len</span>(oren)</span></code></pre></div>
-<p><br></p>
-<h3 id="problem-4.1">Problem 4.1</h3>
-<p>What expression best estimates the population’s standard
-deviation?</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> np.array([])</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10</span>):</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> np.random.choice(np.arange(<span class="dv">1000</span>), replace<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    results <span class="op">=</span> np.append(results, result)</span></code></pre></div>
+<p>After this code executes, <code>results</code> contains:</p>
 <ul class="task-list">
-<li><p><input type="radio" disabled="" /> <code>b</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>b / c</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>b / np.sqrt(c)</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>b * np.sqrt(c)</code></p></li>
+<li><p><input type="radio" disabled="" /> a simple random sample of size 9, chosen from a set of size 999 with
+replacement</p></li>
+<li><p><input type="radio" disabled="" /> a simple random sample of size 9, chosen from a set of size 999
+without replacement</p></li>
+<li><p><input type="radio" disabled="" /> a simple random sample of size 10, chosen from a set of size 1000
+with replacement</p></li>
+<li><p><input type="radio" disabled="" /> a simple random sample of size 10, chosen from a set of size 1000
+without replacement</p></li>
 </ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading4_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_1" aria-expanded="true" aria-controls="collapse4_1">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse4_1" class="accordion-collapse collapse"
-aria-labelledby="heading4_1" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> <code>b</code></p>
-<p>The function <code>np.std</code> directly calculated the standard
-deviation of array <code>oren</code>. Even though <code>oren</code> is
-sample of the population, its standard deviation is still a pretty good
-estimate for the standard deviation of the population because it is a
-random sample. The other options don’t really make sense in this
-context.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 57%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-4.2">Problem 4.2</h3>
-<p>Which expression best estimates the mean of <code>boots</code>?</p>
+<hr />
+<h2 id="problem-5">Problem 5</h2>
+<p>An IKEA fan created an app where people can log the amount of time it
+took them to assemble their IKEA furniture. The DataFrame
+<code>app_data</code> has a row for each product build that was logged
+on the app. The columns are:</p>
+<ul>
+<li><code>'product'</code> (<code>str</code>): the name of the product,
+which includes the product line as the first word, followed by a
+description of the product</li>
+<li><code>'category'</code> (<code>str</code>): a categorical
+description of the type of product</li>
+<li><code>'assembly_time'</code> (<code>str</code>): the amount of time
+to assemble the product, formatted as <code>'x hr, y min'</code> where
+<code>x</code> and <code>y</code> represent integers, possibly zero</li>
+<li><code>'minutes'</code> (<code>int</code>): integer values
+representing the number of minutes it took to assemble each product
+<br><br></li>
+</ul>
+<p>We want to use <code>app_data</code> to estimate the average amount
+of time it takes to build an IKEA bed (any product in the
+<code>'bed'</code> category). Which of the following strategies would be
+an appropriate way to estimate this quantity? Select all that apply.</p>
 <ul class="task-list">
-<li><p><input type="radio" disabled="" /> 0</p></li>
-<li><p><input type="radio" disabled="" /> <code>a</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>(oren - a).mean()</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>(oren - a) / b</code></p></li>
+<li><p><input type="checkbox" disabled="" /> Query to keep only the beds. Then resample with replacement many
+times. For each resample, take the mean of the <code>'minutes'</code>
+column. Compute a 95% confidence interval based on those means.</p></li>
+<li><p><input type="checkbox" disabled="" /> Query to keep only the beds. Group by <code>'product'</code> using
+the mean aggregation function. Then resample with replacement many
+times. For each resample, take the mean of the <code>'minutes'</code>
+column. Compute a 95% confidence interval based on those means.</p></li>
+<li><p><input type="checkbox" disabled="" /> Resample with replacement many times. For each resample, first query
+to keep only the beds and then take the mean of the
+<code>'minutes'</code> column. Compute a 95% confidence interval based
+on those means.</p></li>
+<li><p><input type="checkbox" disabled="" /> Resample with replacement many times. For each resample, first query
+to keep only the beds. Then group by <code>'product'</code> using the
+mean aggregation function, and finally take the mean of the
+<code>'minutes'</code> column. Compute a 95% confidence interval based
+on those means.</p></li>
 </ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading4_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_2" aria-expanded="true" aria-controls="collapse4_2">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse4_2" class="accordion-collapse collapse"
-aria-labelledby="heading4_2" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> <code>a</code></p>
-<p>Note that <code>a</code> is equal to the mean of <code>oren</code>,
-which is a pretty good estimator of the mean of the overall population
-as well as the mean of the distribution of sample means. The other
-options don’t really make sense in this context.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 89%.</p>
-</div>
-</div>
-</div>
-</div>
+<hr />
+<h2 id="problem-6">Problem 6</h2>
+<p>Suppose we have access to a simple random sample of all US Costco
+members of size <strong>145</strong>. Our sample is stored in a
+DataFrame named <code>us_sample</code>, in which the
+<code>"Spend"</code> column contains the October 2023 spending of each
+sampled member in dollars.</p>
 <p><br></p>
-<h3 id="problem-4.3">Problem 4.3</h3>
-<p>What expression best estimates the standard deviation of
-<code>boots</code>?</p>
+<h3 id="problem-6.1">Problem 6.1</h3>
+<p>Fill in the blanks below so that <code>us_left</code> and
+<code>us_right</code> are the left and right endpoints of a
+<strong>46%</strong> confidence interval for the average October 2023
+spending of all US members.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>costco_means <span class="op">=</span> np.array([])</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">5000</span>):</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    resampled_spends <span class="op">=</span> __(x)__</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    costco_means <span class="op">=</span> np.append(costco_means, resampled_spends.mean())</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>left <span class="op">=</span> np.percentile(costco_means, __(y)__)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>right <span class="op">=</span> np.percentile(costco_means, __(z)__)</span></code></pre></div>
+<p>Which of the following could go in blank (x)? <strong>Select all that
+apply.</strong></p>
 <ul class="task-list">
-<li><p><input type="radio" disabled="" /> <code>b</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>b / c</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>b / np.sqrt(c)</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>(a -b) / np.sqrt(c)</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>us_sample.sample(145, replace=True).get("Spend")</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>us_sample.sample(145, replace=False).get("Spend")</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>np.random.choice(us_sample.get("Spend"), 145)</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>np.random.choice(us_sample.get("Spend"), 145, replace=True)</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>np.random.choice(us_sample.get("Spend"), 145, replace=False)</code></p></li>
+<li><p><input type="checkbox" disabled="" /> None of the above.</p></li>
 </ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading4_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_3" aria-expanded="true" aria-controls="collapse4_3">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse4_3" class="accordion-collapse collapse"
-aria-labelledby="heading4_3" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> <code>b / np.sqrt(c)</code></p>
-<p>Note that we can use the Central Limit Theorem for this problem which
-states that the standard deviation (SD) of the distribution of sample
-means is equal to <code>(population SD) / np.sqrt(sample size)</code>.
-Since the SD of the sample is also the SD of the population in this
-case, we can plug our variables in to see that
-<code>b / np.sqrt(c)</code> is the answer.</p>
-<hr/>
-<h5>Difficulty: ⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 91%.</p>
-</div>
-</div>
-</div>
-</div>
+<p>What goes in blanks (y) and (z)? Give your answers as integers.</p>
 <p><br></p>
-<h3 id="problem-4.4">Problem 4.4</h3>
-<p>What is the dog price of $560 in standard units?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> <code>(560 - a) / b</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>(560 - a) / (b / np.sqrt(c))</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>(a - 560) / (b / np.sqrt(c))}</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>abs(560 - a) / b</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>abs(560 - a) / (b / np.sqrt(c))</code></p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading4_4">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_4" aria-expanded="true" aria-controls="collapse4_4">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse4_4" class="accordion-collapse collapse"
-aria-labelledby="heading4_4" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> <code>(560 - a) / b</code></p>
-<p>To convert a value to standard units, we take the value, subtract the
-mean from it, and divide by SD. In this case that is
-<code>(560 - a) / b</code>, because <code>a</code> is the mean of our
-dog prices sample array and <code>b</code> is the SD of the dog prices
-sample array.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 80%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-4.5">Problem 4.5</h3>
-<p>The distribution of <code>boots</code> is normal because of the
-Central Limit Theorem.</p>
+<h3 id="problem-6.2">Problem 6.2</h3>
+<p>True or False: <strong>46%</strong> of all US members in
+<code>us_sample</code> spent between <code>us_left</code> and
+<code>us_right</code> in October 2023.</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> True</p></li>
 <li><p><input type="radio" disabled="" /> False</p></li>
 </ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading4_5">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_5" aria-expanded="true" aria-controls="collapse4_5">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse4_5" class="accordion-collapse collapse"
-aria-labelledby="heading4_5" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> True</p>
-<p>True. The central limit theorem states that if you have a population
-and you take a sufficiently large number of random samples from the
-population, then the distribution of the sample means will be
-approximately normally distributed.</p>
-<hr/>
-<h5>Difficulty: ⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 91%.</p>
-</div>
-</div>
-</div>
-</div>
 <p><br></p>
-<h3 id="problem-4.6">Problem 4.6</h3>
-<p>If Oren’s sample was 400 dogs instead of 200, the standard deviation
-of <code>boots</code> will…</p>
+<h3 id="problem-6.3">Problem 6.3</h3>
+<p>True or False: If we repeat the code from part (b) 200 times, each
+time bootstrapping from a new random sample of 145 members drawn from
+all US members, then about <strong>92</strong> of the intervals we
+create will contain the average October 2023 spending of all US
+members.</p>
 <ul class="task-list">
-<li><p><input type="radio" disabled="" /> Increase by a factor of <span class="math inline">2</span></p></li>
-<li><p><input type="radio" disabled="" /> Increase by a factor of <span class="math inline">\sqrt{2}</span></p></li>
-<li><p><input type="radio" disabled="" /> Decrease by a factor of 2</p></li>
-<li><p><input type="radio" disabled="" /> Decrease by a factor of <span class="math inline">\sqrt{2}</span></p></li>
-<li><p><input type="radio" disabled="" /> None of the above</p></li>
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
 </ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading4_6">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_6" aria-expanded="true" aria-controls="collapse4_6">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse4_6" class="accordion-collapse collapse"
-aria-labelledby="heading4_6" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> Decrease by a factor of <span class="math inline">\sqrt{2}</span></p>
-<p>Recall that the central limit theorem states that the STD of the
-sample distribution is equal to
-<code>(population STD) / np.sqrt(sample size)</code>. So if we increase
-the sample size by a factor of 2, the STD of the sample distribution
-will decrease by a factor of <span class="math inline">\sqrt{2}</span>.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 80%.</p>
-</div>
-</div>
-</div>
-</div>
 <p><br></p>
-<h3 id="problem-4.7">Problem 4.7</h3>
-<p>If Oren took 4000 bootstrap resamples instead of 1000, the standard
-deviation of <code>boots</code> will…</p>
+<h3 id="problem-6.4">Problem 6.4</h3>
+<p>True or False: If we repeat the code from part (b) 200 times, each
+time bootstrapping from <code>us_sample</code>, then about
+<strong>92</strong> of the intervals we create will contain the average
+October 2023 spending of all US members.</p>
 <ul class="task-list">
-<li><p><input type="radio" disabled="" /> Increase by a factor of 4</p></li>
-<li><p><input type="radio" disabled="" /> Increase by a factor of 2</p></li>
-<li><p><input type="radio" disabled="" /> Decrease by a factor of 2</p></li>
-<li><p><input type="radio" disabled="" /> Decrease by a factor of 4</p></li>
-<li><p><input type="radio" disabled="" /> None of the above</p></li>
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
 </ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading4_7">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_7" aria-expanded="true" aria-controls="collapse4_7">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse4_7" class="accordion-collapse collapse"
-aria-labelledby="heading4_7" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> None of the above</p>
-<p>Again, from our formula given by the central limit theorem, the
-sample STD doesn’t depend on the number of bootstrap resamples so long
-as it’s “sufficiently large”. Thus increasing our bootstrap sample from
-1000 to 4000 will have no effect on the std of <code>boots</code></p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 74%.</p>
-</div>
-</div>
-</div>
-</div>
 <p><br></p>
-<h3 id="problem-4.8">Problem 4.8</h3>
-<p>Write one line of code that evaluates to the <strong>right
-endpoint</strong> of a 92% CLT-Based confidence interval for the mean
-dog price. The following expressions may help:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>stats.norm.cdf(<span class="fl">1.75</span>) <span class="co"># =&gt; 0.96</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>stats.norm.cdf(<span class="fl">1.4</span>)  <span class="co"># =&gt; 0.92</span></span></code></pre></div>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading4_8">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_8" aria-expanded="true" aria-controls="collapse4_8">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse4_8" class="accordion-collapse collapse"
-aria-labelledby="heading4_8" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> <code>a + 1.75 * b / np.sqrt(c)</code></p>
-<p>Recall that a 92% confidence interval means an interval that consists
-of the middle 92% of the distribution. In other words, we want to “chop”
-off 4% from either end of the ditribution. Thus to get the right
-endpoint, we want the value corresponding to the 96th percentile in the
-mean dog price distribution, or
-<code>mean + 1.75 * (SD of population / np.sqrt(sample size)</code> or
-<code>a + 1.75 * b / np.sqrt(c)</code> (we divide by
-<code>np.sqrt(c)</code> due to the central limit theorem). Note that the
-second line of information that was given
-<code>stats.norm.cdf(1.4)</code> is irrelavant to this particular
-problem.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 48%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<hr />
-<h2 id="problem-5">Problem 5</h2>
-<p>From a population with mean 500 and standard deviation 50, you
-collect a sample of size 100. The sample has mean 400 and standard
-deviation 40. You bootstrap this sample 10,000 times, collecting 10,000
-resample means.</p>
-<p><br></p>
-<h3 id="problem-5.1">Problem 5.1</h3>
-<p>Which of the following is the most accurate description of the mean
-of the distribution of the 10,000 bootstrapped means?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> The mean will be exactly equal to 400.</p></li>
-<li><p><input type="radio" disabled="" /> The mean will be exactly equal to 500.</p></li>
-<li><p><input type="radio" disabled="" /> The mean will be approximately equal to 400.</p></li>
-<li><p><input type="radio" disabled="" /> The mean will be approximately equal to 500.</p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading5_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_1" aria-expanded="true" aria-controls="collapse5_1">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse5_1" class="accordion-collapse collapse"
-aria-labelledby="heading5_1" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> The mean will be approximately equal to
-400.</p>
-<p>The distribution of bootstrapped means’ mean will be approximately
-400 since that is the mean of the sample and bootstrapping is taking
-many samples of the original sample. The mean will not be exactly 400 do
-to some randomness though it will be very close.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 54%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-5.2">Problem 5.2</h3>
-<p>Which of the following is closest to the standard deviation of the
-distribution of the 10,000 bootstrapped means?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> 400</p></li>
-<li><p><input type="radio" disabled="" /> 40</p></li>
-<li><p><input type="radio" disabled="" /> 4</p></li>
-<li><p><input type="radio" disabled="" /> 0.4</p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading5_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_2" aria-expanded="true" aria-controls="collapse5_2">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse5_2" class="accordion-collapse collapse"
-aria-labelledby="heading5_2" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> 4</p>
-<p>To find the standard deviation of the distribution, we can take the
-sample standard deviation S divided by the square root of the sample
-size. From plugging in, we get 40 / 10 = 4.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 51%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<hr />
-<h2 id="problem-6">Problem 6</h2>
-<p>Suppose you draw a sample of size 100 from a population with mean 50
-and standard deviation 15. What is the probability that your sample has
-a mean between 50 and 53? Input the probability below, as a number
-between 0 and 1, rounded to <strong>two decimal places</strong>.</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading6">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6" aria-expanded="true" aria-controls="collapse6">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse6" class="accordion-collapse collapse"
-aria-labelledby="heading6" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> 0.48</p>
-<p>This problem is testing our understanding of the Central Limit
-Theorem and normal distributions. Recall, the Central Limit Theorem
-tells us that the distribution of the sample mean is roughly normal,
-with the following characteristics:</p>
-<p><span class="math display">\begin{align*}
-\text{Mean of Distribution of Possible Sample Means} &amp;=
-\text{Population Mean} = 50 \\
-\text{SD of Distribution of Possible Sample Means} &amp;=
-\frac{\text{Population SD}}{\sqrt{\text{Sample Size}}} =
-\frac{15}{\sqrt{100}} = 1.5
-\end{align*}
-</span></p>
-<p>Given this information, it may be easier to express the problem as
-“We draw a value from a normal distribution with mean 50 and SD 1.5.
-What is the probability that the value is between 50 and 53?” Note that
-this probability is equal to the <strong>proportion of values between 50
-and 53</strong> in a normal distribution whose mean is 50 and 1.5 (since
-probabilities can be thought of as proportions).</p>
-<p>In class, we typically worked with the <em>standard</em> normal
-distribution, in which the mean was 0, the SD was 1, and the <span class="math inline">x</span>-axis represented values in standard units.
-Let’s convert the quantities of interest in this problem to standard
-units, keeping in mind that the mean and SD we’re using now are the mean
-and SD of the distribution of possible sample means, not of the
-population.</p>
-<ul>
-<li>50 converted to standard units is <span class="math inline">\frac{50
-- \text{mean}}{\text{SD}} = \frac{50 - 50}{1.5} = 0</span> (no
-calculation was necessary – 0 in standard units is equal to the mean in
-original units).</li>
-<li>53 converted to standard units is <span class="math inline">\frac{53
-- \text{mean}}{\text{SD}} = \frac{53 - 50}{1.5} = 2</span>.</li>
-</ul>
-<p>Now, our problem boils down to finding the <strong>proportion of
-values in a standard normal distribution that are between 0 and
-2</strong>, or <strong>the proportion of values in a normal distribution
-that are in the interval <span class="math inline">[\text{mean},
-\text{mean} + 2 \text{ SDs}]</span></strong>.</p>
-<p>From class, we know that in a normal distribution, roughly 95% of
-values are within 2 standard deviations of the mean, i.e. the proportion
-of values in the interval <span class="math inline">[\text{mean} - 2
-\text{ SDs}, \text{mean} + 2 \text{ SDs}]</span> is 0.95.</p>
-<center><img src="../assets/images/wi21-final/normal-solution.png" width="50%"/></center>
-<p>Since the normal distribution is symmetric about the mean, half of
-the values in this interval are to the right of the mean, and half are
-to the left. This means that the proportion of values in the interval
-<span class="math inline">[\text{mean}, \text{mean} + 2 \text{
-SDs}]</span> is <span class="math inline">\frac{0.95}{2} = 0.475</span>,
-which rounds to 0.48, and thus the desired result is 0.48.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 48%.</p>
-</div>
-</div>
-</div>
-</div>
 <hr />
 <h2 id="problem-7">Problem 7</h2>
-<p>The DataFrame <code>apps</code> contains application data for a
-random sample of 1,000 applicants for a particular credit card from the
-1990s. The <code>"age"</code> column contains the applicants’ ages, in
-years, to the nearest twelfth of a year.</p>
-<p>The credit card company that owns the data in <code>apps</code>,
-BruinCard, has decided not to give us access to the entire
-<code>apps</code> DataFrame, but instead just a random sample of 100
-rows of apps called <code>hundred_apps</code>.</p>
-<p>We are interested in estimating the mean age of all applicants in
-<code>apps</code> given only the data in <code>hundred_apps</code>. The
-ages in <code>hundred_apps</code> have a mean of 35 and a standard
-deviation of 10.</p>
-<p><br></p>
-<h3 id="problem-7.1">Problem 7.1</h3>
-<p>Give the endpoints of the CLT-based 95% confidence interval for the
-mean age of all applicants in <code>apps</code>, based on the data in
-<code>hundred_apps</code>.</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading7_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_1" aria-expanded="true" aria-controls="collapse7_1">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse7_1" class="accordion-collapse collapse"
-aria-labelledby="heading7_1" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer:</strong> Left endpoint = 33, Right endpoint = 37</p>
-<p>According to the Central Limit Theorem, the standard deviation of the
-distribution of the sample mean is <span class="math inline">\frac{\text{sample SD}}{\sqrt{\text{sample size}}} =
-\frac{10}{\sqrt{100}} = 1</span>. Then using the fact that the
-distribution of the sample mean is roughly normal, since 95% of the area
-of a normal curve falls within two standard deviations of the mean, we
-can find the endpoints of the 95% CLT-based confidence interval as <span class="math inline">35 - 2 = 33</span> and <span class="math inline">35
-+ 2 = 37</span>.</p>
-<p>We can think of this as using the formula below: <span class="math display">
-\left[\text{sample mean} - 2\cdot \frac{\text{sample
-SD}}{\sqrt{\text{sample size}}}, \: \text{sample mean} + 2\cdot
-\frac{\text{sample SD}}{\sqrt{\text{sample size}}}
-\right].</span> Plugging in the appropriate quantities yields <span class="math inline">[35 - 2\cdot\frac{10}{\sqrt{100}}, 35 -
-2\cdot\frac{10}{\sqrt{100}}] = [33, 37]</span>.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 67%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-7.2">Problem 7.2</h3>
-<p>BruinCard reinstates our access to <code>apps</code> so that we can
-now easily extract information about the ages of all applicants. We
-determine that, just like in <code>hundred_apps</code>, the ages in
-<code>apps</code> have a mean of 35 and a standard deviation of 10. This
-raises the question of how other samples of 100 rows of
-<code>apps</code> would have turned out, so we compute <span
-class="math inline">10,000</span> sample means as follows.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>    sample_means <span class="op">=</span> np.array([])</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>        sample_mean <span class="op">=</span> apps.sample(<span class="dv">100</span>, replace<span class="op">=</span><span class="va">True</span>).get(<span class="st">&quot;age&quot;</span>).mean()</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        sample_means <span class="op">=</span> np.append(sample_means, sample_mean)</span></code></pre></div>
-<p>Which of the following three visualizations best depict the
-distribution of <code>sample_means</code>?</p>
-<center><img src='../assets/images/fa22-final/3hist.png' width=45%></center>
-<p><br></p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading7_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_2" aria-expanded="true" aria-controls="collapse7_2">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse7_2" class="accordion-collapse collapse"
-aria-labelledby="heading7_2" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer:</strong> Option 1</p>
-<p>As we found in the previous part, the distribution of the sample mean
-should have a standard deviation of 1. We also know it should be
-centered at the mean of our sample, at 35, but since all the options are
-centered here, that’s not too helpful. Only Option 1, however, has a
-standard deviation of 1. Remember, we can approximate the standard
-deviation of a normal curve as the distance between the mean and either
-of the inflection points. Only Option 1 looks like it has inflection
-points at 34 and 36, a distance of 1 from the mean of 35.</p>
-<p>If you chose Option 2, you probably confused the standard deviation
-of our original sample, 10, with the standard deviation of the
-distribution of the sample mean, which comes from dividing that value by
-the square root of the sample size.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 57%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-7.3">Problem 7.3</h3>
-<p>Which of the following statements are guaranteed to be true? Select
-all that apply.</p>
-<ul class="task-list">
-<li><p><input type="checkbox" disabled="" /> We used bootstrapping to compute <code>sample_means</code>.</p></li>
-<li><p><input type="checkbox" disabled="" /> The ages of credit card applicants are roughly normally
-distributed.</p></li>
-<li><p><input type="checkbox" disabled="" /> A CLT-based 90% confidence interval for the mean age of credit card
-applicants, based on the data in hundred apps, would be narrower than
-the interval you gave in part (a).</p></li>
-<li><p><input type="checkbox" disabled="" /> The expression <code>np.percentile(sample_means, 2.5)</code>
-evaluates to the left endpoint of the interval you gave in part (a).</p></li>
-<li><p><input type="checkbox" disabled="" /> If we used the data in <code>hundred_apps</code> to create 1,000
-CLT-based 95% confidence intervals for the mean age of applicants in
-<code>apps</code>, approximately 950 of them would contain the true mean
-age of applicants in <code>apps</code>.</p></li>
-<li><p><input type="checkbox" disabled="" /> None of the above.</p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading7_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_3" aria-expanded="true" aria-controls="collapse7_3">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse7_3" class="accordion-collapse collapse"
-aria-labelledby="heading7_3" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer:</strong> A CLT-based 90% confidence interval for the
-mean age of credit card applicants, based on the data in
-<code>hundred_apps</code>, would be narrower than the interval you gave
-in part (a).</p>
-<p>Let’s analyze each of the options:</p>
 <ul>
-<li><p>Option 1: We are not using bootstrapping to compute sample means
-since we are sampling from the <code>apps</code> DataFrame, which is our
-population here. If we were bootstrapping, we’d need to sample from our
-first sample, which is <code>hundred_apps</code>.</p></li>
-<li><p>Option 2: We can’t be sure what the distribution of the ages of
-credit card applicants are. The Central Limit Theorem says that the
-distribution of <code>sample_means</code> is roughly normally
-distributed, but we know nothing about the population
-distribution.</p></li>
-<li><p>Option 3: The CLT-based 95% confidence interval that we
-calculated in part (a) was computed as follows: <span class="math display">\left[\text{sample mean} - 2\cdot
-\frac{\text{sample SD}}{\sqrt{\text{sample size}}},
-\text{sample mean} + 2\cdot \frac{\text{sample SD}}{\sqrt{\text{sample
-size}}}
-\right]</span> A CLT-based 90% confidence interval would be computed as
-<span class="math display">\left[\text{sample mean} - z\cdot
-\frac{\text{sample SD}}{\sqrt{\text{sample size}}},
-\text{sample mean} + z\cdot \frac{\text{sample SD}}{\sqrt{\text{sample
-size}}}
-\right]</span> for some value of <span class="math inline">z</span> less
-than 2. We know that 95% of the area of a normal curve is within two
-standard deviations of the mean, so to only pick up 90% of the area,
-we’d have to go slightly less than 2 standard deviations away. This
-means the 90% confidence interval will be narrower than the 95%
-confidence interval.</p></li>
-<li><p>Option 4: The left endpoint of the interval from part (a) was
-calculated using the Central Limit Theorem, whereas using
-<code>np.percentile(sample_means, 2.5)</code> is calculated empirically,
-using the data in <code>sample_means</code>. Empirically calculating a
-confidence interval doesn’t necessarily always give the exact same
-endpoints as using the Central Limit Theorem, but it should give you
-values close to those endpoints. These values are likely very similar
-but they are not guaranteed to be the same. One way to see this is that
-if we ran the code to generate <code>sample_means</code> again, we’d
-probably get a different value for
-<code>np.percentile(sample_means, 2.5)</code>.</p></li>
-<li><p>Option 5: The key observation is that if we used the data in
-<code>hundred_apps</code> to create 1,000 CLT-based 95% confidence
-intervals for the mean age of applicants in <code>apps</code>, all of
-these intervals would be exactly the same. Given a sample, there is only
-one CLT-based 95% confidence interval associated with it. In our case,
-given the sample <code>hundred_apps</code>, the one and only CLT-based
-95% confidence interval based on this sample is the one we found in part
-(a). Therefore if we generated 1,000 of these intervals, either they
-would all contain the parameter or none of them would. In order for a
-statement like the one here to be true, we would need to collect 1,000
-different samples, and calculate a confidence interval from each
-one.</p></li>
+<li>Hector earned a 77 on an exam where the mean was 70 and the standard
+deviation was 5.</li>
+<li>Clara earned an 80 on an exam where the mean was 75 and the standard
+deviation was 3.</li>
+<li>Vivek earned an 83 on an exam where the mean was a 75 and the
+standard deviation was 6.</li>
 </ul>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 49%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
+<p>Rank these three students in <strong>ascending</strong> order of
+their exam performance relative to their classmates.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Hector, Clara, Vivek</p></li>
+<li><p><input type="radio" disabled="" /> Vivek, Hector, Clara</p></li>
+<li><p><input type="radio" disabled="" /> Clara, Hector, Vivek</p></li>
+<li><p><input type="radio" disabled="" /> Vivek, Clara, Hector</p></li>
+</ul>
 <hr />
 <h2 id="problem-8">Problem 8</h2>
-<p>You need to estimate the proportion of American adults who want to be
-vaccinated against Covid-19. You plan to survey a random sample of
-American adults, and use the proportion of adults in your sample who
-want to be vaccinated as your estimate for the true proportion in the
-population. Your estimate must be within 0.04 of the true proportion,
-95% of the time. Using the fact that the standard deviation of any
-dataset of 0’s and 1’s is no more than 0.5, calculate the minimum number
-of people you would need to survey. Input your answer below, as an
-<strong>integer</strong>.</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading8">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8" aria-expanded="true" aria-controls="collapse8">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse8" class="accordion-collapse collapse"
-aria-labelledby="heading8" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> 625</p>
-<p><em>Note: Before reviewing these solutions, it’s highly recommended
-to revisit the lecture on “Choosing Sample Sizes,” since this problem
-follows the main example from that lecture almost exactly.</em></p>
-<p>While this solution is long, keep in mind from the start that our
-goal is to solve for the <strong>smallest sample size necessary</strong>
-to create a confidence interval that achieves certain criteria.</p>
-<p>The Central Limit Theorem tells us that the distribution of the
-sample mean is roughly normal, regardless of the distribution of the
-population from which the samples are drawn. At first, it may not be
-clear how the Central Limit Theorem is relevant, but remember that
-proportions are means too – for instance, the proportion of adults who
-want to be vaccinated is equal to the mean of a collection of 1s and 0s,
-where we have a 1 for each adult that wants to be vaccinated and a 0 for
-each adult who doesn’t want to be vaccinated. What this means (😉) is
-that <strong>the Central Limit Theorem applies to the distribution of
-the sample proportion, so we can use it here too</strong>.</p>
-<p>Not only do we know that the distribution of sample proportions is
-roughly normal, but we know its mean and standard deviation, too:</p>
-<p><span class="math display">\begin{align*}
-\text{Mean of Distribution of Possible Sample Means} &amp;=
-\text{Population Mean} = \text{Population Proportion} \\
-\text{SD of Distribution of Possible Sample Means} &amp;=
-\frac{\text{Population SD}}{\sqrt{\text{Sample Size}}}
-\end{align*}
-</span></p>
-<p>Using this information, we can create a 95% confidence interval for
-the population proportion, using the fact that in a normal distribution,
-roughly 95% of values are within 2 standard deviations of the mean:</p>
-<p><span class="math display">\left[ \text{Population Proportion} - 2
-\cdot \frac{\text{Population SD}}{\sqrt{\text{Sample Size}}}, \:
-\text{Population Proportion} + 2 \cdot \frac{\text{Population
-SD}}{\sqrt{\text{Sample Size}}}  \right]</span></p>
-<p>However, this interval depends on the population proportion (mean)
-and SD, which we don’t know. (If we did know these parameters, there
-would be no need to collect a sample!) Instead, we’ll use the sample
-proportion and SD as rough estimates:</p>
-<p><span class="math display">\left[ \text{Sample Proportion} - 2 \cdot
-\frac{\text{Sample SD}}{\sqrt{\text{Sample Size}}}, \: \text{Sample
-Proportion} + 2 \cdot \frac{\text{Sample SD}}{\sqrt{\text{Sample
-Size}}}  \right]</span></p>
-<p>Note that the width of this interval – that is, its right endpoint
-minus its left endpoint – is: <span class="math display">\text{width} =
-4 \cdot \frac{\text{Sample SD}}{\sqrt{\text{Sample Size}}}</span></p>
-<p>In the problem, we’re told that we want our interval to be accurate
-to within 0.04, which is equivalent to wanting the width of our interval
-to be less than or equal to 0.08 (since the interval extends the same
-amount above and below the sample proportion). As such, we need to pick
-the <strong>smallest sample size necessary</strong> such that:</p>
-<p><span class="math display">\text{width} = 4 \cdot \frac{\text{Sample
-SD}}{\sqrt{\text{Sample Size}}} \leq 0.08</span></p>
-<p>We can re-arrange the inequality above to solve for our sample’s
-size:</p>
-<p><span class="math display">
-\begin{align*}
-4 \cdot \frac{\text{Sample SD}}{\sqrt{\text{Sample Size}}} &amp;\leq
-0.08 \\
-\frac{\text{Sample SD}}{\sqrt{\text{Sample Size}}} &amp;\leq 0.02 \\
-\frac{1}{\sqrt{\text{Sample Size}}} &amp;\leq \frac{0.02}{\text{Sample
-SD}} \\
-\frac{\text{Sample SD}}{0.02} &amp;\leq \sqrt{\text{Sample Size}} \\
-\left( \frac{\text{Sample SD}}{0.02} \right)^2 &amp;\leq \text{Sample
-Size}
-\end{align*}
-</span></p>
-<p>All we now need to do is pick the smallest sample size that satisfies
-the above inequality. But there’s an issue – <strong>we don’t know what
-our sample SD is, because we haven’t collected our sample</strong>!
-Notice that in the inequality above, as the sample SD increases, so does
-the minimum necessary sample size. In order to ensure we don’t collect
-too small of a sample (which would result in the width of our confidence
-interval being <em>larger</em> than desired), we can use an upper bound
-for the SD of our sample. In the problem, we’re told that the largest
-possible SD of a sample of 0s and 1s is 0.5 – this means that if we
-replace our sample SD with 0.5, we will find a sample size such that the
-width of our confidence interval is guaranteed to be less than or equal
-to 0.08. This sample size may be larger than necessary, but that’s
-better than it being smaller than necessary.</p>
-<p>By substituting 0.5 for the sample SD in the last inequality above,
-we get</p>
-<p><span class="math display">
-\begin{align*}
-\left( \frac{\text{Sample SD}}{0.02} \right)^2 &amp;\leq \text{Sample
-Size} \\\
-\left( \frac{0.5}{0.02} \right)^2 &amp;\leq \text{Sample Size} \\
-25^2 &amp;\leq \text{Sample Size} \implies \text{Sample Size} \geq 625
-\end{align*}
-</span></p>
-<p>We need to pick the smallest possible sample size that is greater
-than or equal to 625; that’s just 625.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 40%.</p>
-</div>
-</div>
-</div>
-</div>
+<p>The data visualization below shows all Olympic gold medals for
+women’s gymnastics, broken down by the age of the gymnast.</p>
+<center><img src='../assets/images/wi21-final/gymnastics.png' width=50%></center>
+<p>Based on this data, rank the following three quantities in
+<strong>ascending</strong> order: the median age at which gold medals
+are earned, the mean age at which gold medals are earned, the standard
+deviation of the age at which gold medals are earned.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> mean, median, SD</p></li>
+<li><p><input type="radio" disabled="" /> median, mean, SD</p></li>
+<li><p><input type="radio" disabled="" /> SD, mean, median</p></li>
+<li><p><input type="radio" disabled="" /> SD, median, mean</p></li>
+</ul>
 <hr />
 <h2 id="problem-9">Problem 9</h2>
-<p>It’s your first time playing a new game called <em>Brunch Menu</em>.
-The deck contains 96 cards, and each player will be dealt a hand of 9
-cards. The goal of the game is to avoid having certain cards, called
-<em>Rotten Egg</em> cards, which come with a penalty at the end of the
-game. But you’re not sure how many of the 96 cards in the game are
-<em>Rotten Egg</em> cards. So you decide to use the Central Limit
-Theorem to estimate the proportion of Rotten Egg cards in the deck based
-on the 9 random cards you are dealt in your hand.</p>
+<p>Among all Costco members in San Diego, the average monthly spending
+in October 2023 was <strong>$350</strong> with a standard deviation of
+<strong>$40</strong>.</p>
 <p><br></p>
 <h3 id="problem-9.1">Problem 9.1</h3>
-<p>You are dealt 3 Rotten Egg cards in your hand of 9 cards. You then
-construct a CLT-based 95% confidence interval for the proportion of
-Rotten Egg cards in the deck based on this sample. Approximately, how
-wide is your confidence interval?</p>
-<p>Choose the closest answer, and use the following facts:</p>
-<ul>
-<li><p>The standard deviation of a collection of 0s and 1s is <span
-class="math inline">\sqrt{(\text{Prop. of 0s}) \cdot (\text{Prop of
-1s})}</span>.</p></li>
-<li><p><span class="math inline">\sqrt{18}</span> is about <span
-class="math inline">\frac{17}{4}</span>.</p></li>
-</ul>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> <span class="math inline">\frac{17}{9}</span></p></li>
-<li><p><input type="radio" disabled="" /> <span class="math inline">\frac{17}{27}</span></p></li>
-<li><p><input type="radio" disabled="" /> <span class="math inline">\frac{17}{81}</span></p></li>
-<li><p><input type="radio" disabled="" /> <span class="math inline">\frac{17}{96}</span></p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading9_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_1" aria-expanded="true" aria-controls="collapse9_1">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse9_1" class="accordion-collapse collapse"
-aria-labelledby="heading9_1" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer:</strong> <span class="math inline">\frac{17}{27}</span></p>
-<p>A Central Limit Theorem-based 95% confidence interval for a
-population proportion is given by the following:</p>
-<p><span class="math display">\left[ \text{Sample Proportion} - 2 \cdot
-\frac{\text{Sample SD}}{\sqrt{\text{Sample Size}}}, \text{Sample
-Proportion} + 2 \cdot \frac{\text{Sample SD}}{\sqrt{\text{Sample Size}}}
-\right]</span></p>
-<p>Note that this interval uses the fact that (about) 95% of values in a
-normal distribution are within 2 standard deviations of the mean. It’s
-key to divide by <span class="math inline">\sqrt{\text{Sample
-Size}}</span> when computing the standard deviation because the
-distribution that is roughly normal is the distribution of the sample
-mean (and hence, sample proportion), not the distribution of the sample
-itself.</p>
-<p>The width of the above interval – that is, the right endpoint minus
-the left endpoint – is</p>
-<p><span class="math display">\text{width} = 4 \cdot \frac{\text{Sample
-SD}}{\sqrt{\text{Sample Size}}}</span></p>
-<p>From the provided hint, we have that</p>
-<p><span class="math display">\text{Sample SD} = \sqrt{(\text{Prop. of
-0s}) \cdot (\text{Prop of 1s})} = \sqrt{\frac{3}{9} \cdot \frac{6}{9}} =
-\frac{\sqrt{18}}{9}</span></p>
-<p>Then, since we know that the sample size is 9 and that <span class="math inline">\sqrt{18}</span> is about <span class="math inline">\frac{17}{4}</span>, we have</p>
-<p><span class="math display">\text{width} =  4 \cdot \frac{\text{Sample
-SD}}{\sqrt{\text{Sample Size}}} = 4 \cdot
-\frac{\frac{\sqrt{18}}{9}}{\sqrt{9}} = 4 \cdot \frac{\sqrt{18}}{9 \cdot
-3} = 4 \cdot \frac{\frac{17}{4}}{27} = \frac{17}{27}</span></p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 51%.</p>
-</div>
-</div>
-</div>
-</div>
+<p>The amount Ciro spent at Costco in October 2023 was
+<strong>-1.5</strong> in standard units. What is this amount in dollars?
+Give your answer as an integer.</p>
 <p><br></p>
 <h3 id="problem-9.2">Problem 9.2</h3>
-<p>Which of the following are limitations of trying to use the Central
-Limit Theorem for this particular application? Select all that
-apply.</p>
+<p>What is the minimum possible percentage of San Diego members that
+spent between <strong>$250</strong> and <strong>$450</strong> in October
+2023?</p>
 <ul class="task-list">
-<li><p><input type="checkbox" disabled="" /> The CLT is for large random samples, and our sample was not very
-large.</p></li>
-<li><p><input type="checkbox" disabled="" /> The CLT is for random samples drawn with replacement, and our sample
-was drawn without replacement.</p></li>
-<li><p><input type="checkbox" disabled="" /> The CLT is for normally distributed data, and our data may not have
-been normally distributed.</p></li>
-<li><p><input type="checkbox" disabled="" /> The CLT is for sample means and sums, not sample proportions.</p></li>
+<li><p><input type="radio" disabled="" /> 16%</p></li>
+<li><p><input type="radio" disabled="" /> 22%</p></li>
+<li><p><input type="radio" disabled="" /> 36%</p></li>
+<li><p><input type="radio" disabled="" /> 60%</p></li>
+<li><p><input type="radio" disabled="" /> 78%</p></li>
+<li><p><input type="radio" disabled="" /> 84%</p></li>
 </ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading9_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_2" aria-expanded="true" aria-controls="collapse9_2">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse9_2" class="accordion-collapse collapse"
-aria-labelledby="heading9_2" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer:</strong> Options 1 and 2</p>
-<p><strong>Option 1:</strong> We use Central Limit Theorem (CLT) for
-large random samples, and a sample of 9 is considered to be very small.
-This makes it difficult to use CLT for this problem.</p>
-<p><strong>Option 2:</strong> Recall CLT happens when our sample is
-drawn with replacement. When we are handed nine cards we are never
-replacing cards back into our deck, which means that we are sampling
-without replacement.</p>
-<p><strong>Option 3:</strong> This is wrong because CLT states that a
-large sample is approximately a normal distribution even if the data
-itself is not normally distributed. This means it doesn’t matter if our
-data had not been normally distributed if we had a large enough sample
-we could use CLT.</p>
-<p><strong>Option 4:</strong> This is wrong because CLT does apply to
-the sample proportion distribution. Recall that proportions can be
-treated like means.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 77%.</p>
-</div>
-</div>
-</div>
-</div>
 <p><br></p>
-<hr />
-<h2 id="problem-10">Problem 10</h2>
-<p>You want to estimate the proportion of DSC majors who have a Netflix
-subscription. To do so, you will survey a random sample of DSC majors
-and ask them whether they have a Netflix subscription. You will then
-create a 95% confidence interval for the proportion of “yes" answers in
-the population, based on the responses in your sample. You decide that
-your confidence interval should have a width of at most 0.10.</p>
+<h3 id="problem-9.3">Problem 9.3</h3>
+<p>Now, suppose we’re given that the distribution of monthly spending in
+October 2023 for all San Diego members is roughly normal. Given this
+fact, fill in the blanks:</p>
+<center>
+"In October 2023, 95% of San Diego members spent
+between __(m)__ dollars and __(n)__ dollars."
+</center>
 <p><br></p>
-<h3 id="problem-10.1">Problem 10.1</h3>
-<p>In order for your confidence interval to have a width of at most
-0.10, the standard deviation of the distribution of the sample
-proportion must be at most <span class="math inline">T</span>. What is
-<span class="math inline">T</span>? Give your answer as an exact
-decimal.</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading10_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10_1" aria-expanded="true" aria-controls="collapse10_1">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse10_1" class="accordion-collapse collapse"
-aria-labelledby="heading10_1" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer</strong>: 0.025</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 46%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-10.2">Problem 10.2</h3>
-<p>Using the fact that the standard deviation of any dataset of 0s and
-1s is no more than 0.5, calculate the minimum number of people you would
-need to survey so that the width of your confidence interval is at most
-0.10. Give your answer as an integer.</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading10_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10_2" aria-expanded="true" aria-controls="collapse10_2">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse10_2" class="accordion-collapse collapse"
-aria-labelledby="heading10_2" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer</strong>: 400</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 81%.</p>
-</div>
-</div>
-</div>
-</div>
+<p>What are m and n? Give your answers as integers rounded to the
+nearest multiple of 10.</p>
 <p><br></p>
 <hr />
 <h2 id="section"><span class="math display"> </span></h2>
