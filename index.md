@@ -48,6 +48,11 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
       <td>Monday, September 30th</td>
       <td><a href="disc01/index.html">Getting Started With Jupyter Notebooks</a></td>
     </tr> 
+    <tr>
+      <th scope="row">2</th>
+      <td>Monday, October 7th</td>
+      <td><a href="disc02/index.html">Arrays and DataFrames</a></td>
+    </tr>
   </tbody>
 </table>
 </center>
