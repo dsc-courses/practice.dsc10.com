@@ -169,13 +169,13 @@ Each exam linked here lists the conditions under which the exam was given, inclu
 
 ---
 
-### 🆕 Quizzes
+### 🙋‍♀️ Quizzes
 
-Below, you'll find an archive of past quizzes. Note that different quarters had a number of quizzes, so the content of each quiz is not the same across quarters.
+Below, you'll find an archive of past quizzes. Note that different quarters had a different number of quizzes, so the content of each quiz is not the same across quarters.
 
 We've provided answers to all quiz questions, but you won't find detailed explanations. For quizzes, you should try to figure out why the answers are what they are on your own, and come to us in office hours if you're stuck. (Exam questions are harder, hence the detailed explanations.)
 
-So you can see how your quizzes will look on paper, we've provided a [PDF copy of Quiz 1](pdfs/quiz1_sp24.pdf) from Spring 2024, exactly as it was provided to students.
+🆕 So you can see how your quizzes will look on paper, we've provided a [PDF copy of Quiz 1](pdfs/quiz1_sp24.pdf) from Spring 2024, exactly as it was provided to students.
 
 <center>
 <table class="table" style="width:60%">
