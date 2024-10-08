@@ -175,7 +175,7 @@ Below, you'll find an archive of past quizzes. Note that different quarters had 
 
 We've provided answers to all quiz questions, but you won't find detailed explanations. For quizzes, you should try to figure out why the answers are what they are on your own, and come to us in office hours if you're stuck. (Exam questions are harder, hence the detailed explanations.)
 
-So you can see how your quizzes will look on paper, we've provided a <a href='https://drive.google.com/file/d/1hm4ErXX93agX84c6shawBZlDpYPjB_gn/view?usp=sharing'>PDF copy of Quiz 1</a> from Spring 2024, exactly as it was provided to students.
+So you can see how your quizzes will look on paper, we've provided a [PDF copy of Quiz 1](pdfs/quiz1_sp24.pdf) from Spring 2024, exactly as it was provided to students.
 
 <center>
 <table class="table" style="width:60%">
