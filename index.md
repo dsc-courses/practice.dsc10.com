@@ -53,6 +53,11 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
       <td>Monday, October 7th</td>
       <td><a href="disc02/index.html">Arrays and DataFrames</a></td>
     </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Monday, October 14th</td>
+      <td><a href="disc03/index.html">Querying, Grouping, and Plotting</a></td>
+    </tr>
   </tbody>
 </table>
 </center>
