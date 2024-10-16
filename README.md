@@ -52,4 +52,4 @@ To explain up-front:
 - When taking an exam for practice, we recommend having a copy of the DSC 10 reference sheet open in another tab, as well as a second copy of the exam, so you can access the data descriptions.
 
 
-
+Note: encoding used is UFT-8, if you are running into encoding errors using run.py, use run-uft8.py
