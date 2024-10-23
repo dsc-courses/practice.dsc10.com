@@ -89,6 +89,12 @@ Each exam linked here lists the conditions under which the exam was given, inclu
   </thead>
   <tbody>
     <tr>
+      <th scope="row">Summer 2024</th>
+      <td>Nishant Kheterpal</td>
+      <td><a href='su24-midterm/index.html'>Midterm</a>
+      </td>
+    </tr>
+    <tr>
       <th scope="row">Spring 2024</th>
       <td>Janine Tiefenbruck</td>
       <td><a href='sp24-midterm/index.html'>Midterm</a>
