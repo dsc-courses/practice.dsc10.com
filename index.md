@@ -63,6 +63,11 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
       <td>Monday, October 21st</td>
       <td><a href="disc04/index.html">Functions, DataFrames, and Control Flow</a></td>
     </tr>
+    <tr>
+      <th scope="row">5</th>
+      <td>Monday, October 28th</td>
+      <td><a href="disc05/index.html">Functions, DataFrames, and Control Flow</a></td>
+    </tr>
   </tbody>
 </table>
 </center>
