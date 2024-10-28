@@ -24,9 +24,9 @@ accusation and win the game!
 Suppose Janine, Henry, and Paige are playing a
 game of Clue. Janine and Paige are each dealt
 6 cards, and Henry is dealt 7. The DataFrame
-clue has 22 rows, one for each card in the game.
-clue represents **Janine’s knowledge** of who is
-holding each card. clue is indexed by "`Card`",
+`clue` has 22 rows, one for each card in the game.
+`clue` represents **Janine’s knowledge** of who is
+holding each card. `clue` is indexed by "`Card`",
 which contains the name of each suspect, weapon,
 and room in the game. The "`Category`" column contains "`suspect`", "`weapon`", or "`room`".
 The "`Cardholder`" column contains "`Janine`",
@@ -36,9 +36,9 @@ Since Janine’s knowledge is changing throughout
 the game, the "`Cardholder`" column needs to be
 updated frequently. At the beginning of the game,
 the "`Cardholder`" column contains only "`Janine`"
-and "`Unknown`" values. We’ll assume throughout this exam that clue contains Janine’s current
+and "`Unknown`" values. We’ll assume throughout this exam that `clue` contains Janine’s current
 knowledge at an arbitrary point in time, not necessarily at the beginning of the game. For example,
-clue **may look like** the DataFrame below.
+`clue` **may look like** the DataFrame below.
 
 
 <center><img src='../assets/images/wi24-midterm/clue.jpg' width=20%></center>
