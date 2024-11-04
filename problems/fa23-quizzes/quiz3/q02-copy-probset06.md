@@ -16,8 +16,8 @@ costco_means = np.array([])
 for i in np.arange(5000):
     resampled_spends = __(x)__
     costco_means = np.append(costco_means, resampled_spends.mean())
-left = np.percentile(costco_means, __(y)__)
-right = np.percentile(costco_means, __(z)__)
+us_left = np.percentile(costco_means, __(y)__)
+us_right = np.percentile(costco_means, __(z)__)
 ```
 
 Which of the following could go in blank (x)? **Select all that apply.**
