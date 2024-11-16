@@ -103,29 +103,6 @@ For instance `stat = grouped.get('mass').iloc[0] - grouped.sort_index(ascending 
 
 # BEGIN SUBPROB
 
-For your convenience, we copy the code for the hypothesis test below.
-
-```py
-stats = np.array([])
-num_reps = 500
-for i in np.arange(num_reps):
-    # --- line (a) starts ---
-    shuffled = np.random.permutation(adelie_chinstrap.get('species'))
-    # --- line (a) ends ---
-    
-    # --- line (b) starts ---
-    with_shuffled = adelie_chinstrap.assign(species=shuffled)
-    # --- line (b) ends ---
-
-    grouped = with_shuffled.groupby('species').mean()
-
-    # --- line (c) starts ---
-    stat = grouped.get('mass').iloc[0] - grouped.get('mass').iloc[1]
-    # --- line (c) ends ---
-
-    stats = np.append(stats, stat)
-```
-
 What would happen if we removed `line (a)`, and replaced `line (b)` with
 
 ```py
@@ -153,29 +130,6 @@ Recall, `DataFrame.sample(n, replace = False)` (or `DataFrame.sample(n)` since `
 
 # BEGIN SUBPROB
 
-For your convenience, we copy the code for the hypothesis test below.
-
-```py
-stats = np.array([])
-num_reps = 500
-for i in np.arange(num_reps):
-    # --- line (a) starts ---
-    shuffled = np.random.permutation(adelie_chinstrap.get('species'))
-    # --- line (a) ends ---
-    
-    # --- line (b) starts ---
-    with_shuffled = adelie_chinstrap.assign(species=shuffled)
-    # --- line (b) ends ---
-
-    grouped = with_shuffled.groupby('species').mean()
-
-    # --- line (c) starts ---
-    stat = grouped.get('mass').iloc[0] - grouped.get('mass').iloc[1]
-    # --- line (c) ends ---
-
-    stats = np.append(stats, stat)
-```
-
 What would happen if we removed `line (a)`, and replaced `line (b)` with
 
 ```py
@@ -202,29 +156,6 @@ Recall, `DataFrame.sample(n, replace = True)` returns a new DataFrame by randoml
 # END SUBPROB
 
 # BEGIN SUBPROB
-
-For your convenience, we copy the code for the hypothesis test below.
-
-```py
-stats = np.array([])
-num_reps = 500
-for i in np.arange(num_reps):
-    # --- line (a) starts ---
-    shuffled = np.random.permutation(adelie_chinstrap.get('species'))
-    # --- line (a) ends ---
-    
-    # --- line (b) starts ---
-    with_shuffled = adelie_chinstrap.assign(species=shuffled)
-    # --- line (b) ends ---
-
-    grouped = with_shuffled.groupby('species').mean()
-
-    # --- line (c) starts ---
-    stat = grouped.get('mass').iloc[0] - grouped.get('mass').iloc[1]
-    # --- line (c) ends ---
-
-    stats = np.append(stats, stat)
-```
 
 What would happen if we replaced `line (a)` with
 
