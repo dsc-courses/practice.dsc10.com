@@ -33,7 +33,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -87,7 +87,7 @@
   </style>
   <link rel="stylesheet" href="..\assets\theme.css" />
   <script defer=""
-  src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
  var mathElements = document.getElementsByClassName("math");
  var macros = [];
@@ -103,7 +103,7 @@
 }}});
   </script>
   <link rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
 </head>
 <body>
 <header id="title-block-header">
@@ -181,6 +181,17 @@ aria-labelledby="heading1" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: None of these.</p>
+<p>The index uniquely identifies each row of a DataFrame. As a result,
+for a column to be a candidate for the index, it must not contain repeat
+items. Since it is possible for an address to give out different types
+of candy, values in <code>"address"</code> can show up multiple times.
+Similarly, values in <code>"candy"</code> can also show up multiple
+times as it will appear anytime a house gives it out. Finally, a
+neighborhood has multiple houses, so if more than one of those houses
+show up, that value in <code>"neighborhood"</code> will appear multiple
+times. Since <code>"address"</code>, <code>"candy"</code>, and
+<code>"neighborhood"</code> can potentially have repeat values, none of
+them can be the index for <code>treat</code>.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -216,6 +227,39 @@ aria-labelledby="heading2" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer</strong>: <code>treat.get("candy").iloc[1]</code> and
 <code>treat.sort_values(by="candy", ascending = False).get("candy").loc[1]</code></p>
+<ul>
+<li><p><strong>Option 1</strong>:
+<code>treat.get("candy").iloc[1]</code> gets the <code>candy</code>
+column and then retrieves the value at index location <code>1</code>,
+which would be <code>"M&amp;M"</code>.</p></li>
+<li><p><strong>Option 2</strong>:
+<code>treat.sort_values(by="candy", ascending=False).get("candy").iloc[1]</code>
+sorts the <code>candy</code> column in descending order (alphabetically,
+the last candy is at the top) and then retrieves the value at index
+location <code>1</code> in the <code>candy</code> column. The entire
+dataset is not shown, but in the given rows, the second-to-last candy
+alphabetically is <code>"Skittles"</code>, so we know that
+<code>"M&amp;M"</code> will not be the second-to-last alphabetical candy
+in the full dataset.</p></li>
+<li><p><strong>Option 3</strong>:
+<code>treat.sort_values(by="candy", ascending=False).get("candy").loc[1]</code>
+is very similar to the last option; however, this time,
+<code>.loc[1]</code> is used instead of <code>.iloc[1]</code>. This
+means that instead of looking at the row in position <code>1</code>
+(second row) of the sorted DataFrame, we are finding the row with an
+index label of <code>1</code>. When the rows are sorted by
+<code>candy</code> in descending order, the index labels remain with
+their original rows, so the <code>"M&amp;M"</code> row is retrieved when
+we search for the index label <code>1</code>.</p></li>
+<li><p><strong>Option 4</strong>:
+<code>treat.set_index("candy").index[-1]</code> sets the index to the
+<code>candy</code> column and then retrieves the last element in the
+index (<code>candy</code>). The entire dataset is not shown, but in the
+given rows, the last value would be <code>"Skittles"</code> and not
+<code>"M&amp;M"</code>. The last value of the full dataset could be
+<code>"M&amp;M"</code>, but since we are not sure, this option is not
+selected.</p></li>
+</ul>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
