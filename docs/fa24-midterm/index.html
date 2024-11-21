@@ -860,6 +860,33 @@ aria-labelledby="heading8" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: <code>["address", "candy"]</code></p>
+<p><code>.shape</code> returns a tuple containing the number of rows and
+number of columns of a DataFrame respectively. By indexing
+<code>.shape[0]</code> we get the number of rows. In the above question,
+we are comparing whether the number of rows of <code>treat</code>
+grouped by its column(s) is equal to the number of rows of the original
+<code>treat</code> itself. This is only possible when there is a unique
+row for each value in the column or for each combination of columns.
+Since it is possible for an address to give out different types of
+candy, values in <code>"address"</code> can show up multiple times.
+Similarly, values in <code>"candy"</code> can also show up multiple
+times since more than one house may give out a specific candy. A
+neighborhood has multiple houses, so if a neighborhood has more than one
+house, <code>"neighborhood"</code> will appear multiple times.</p>
+<p>% write for combinations here % Each address gives out a specific
+candy only once, and hence <code>["address", "candy"]</code> would have
+a unique row for each combination. This would make the number of rows in
+the grouped DataFrame equal to <code>treat</code> itself. Multiple
+neighborhoods might be giving out the same candy or a single
+neighborhood could be giving out multiple candies, so
+<code>["candy", "neighborhood"]</code> is not the answer. Finally, a
+neighborhood can have multiple addresses, but each address could be
+giving out more than one candy, which would mean this combination would
+occur multiple times in <code>treat</code>, which means this would also
+not be an answer. Since <code>["address", "candy"]</code> is the only
+combination that gives a unique row for each combination, the grouped
+DataFrame would contain the same number of rows as <code>treat</code>
+itself.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -974,6 +1001,38 @@ aria-labelledby="heading10_1" data-bs-parent="#accordionExample">
 <li><p>(b): “address”</p></li>
 <li><p>(c): <code>sum()</code></p></li>
 </ul>
+<p><strong>(a):
+<code>tot.get("price") * tot.get("how_many")</code></strong></p>
+<ul>
+<li><code>tot.get("price")</code> retrieves the cost of a single piece
+of candy.</li>
+<li><code>tot.get("how_many")</code> retrieves the number of pieces of
+candy given out.</li>
+<li>Multiplying these two columns calculates the total amount spent on
+candy for each row in the dataset.</li>
+<li>This step creates a new column <code>total_spent</code> that
+represents the total money spent for each type of candy at a given
+house.</li>
+</ul>
+<p><strong>(b): “address”</strong></p>
+<ul>
+<li>The data is grouped by the <code>"address"</code> column, which
+uniquely identifies each house. This ensures that all records associated
+with a single house are aggregated together.</li>
+</ul>
+<p><strong>(c): <code>sum()</code></strong></p>
+<ul>
+<li>After grouping by <code>"address"</code>, the <code>.sum()</code>
+operation aggregates the total amount of money spent on candy for each
+house. This sums up all <code>total_spent</code> values for records
+belonging to the same house.</li>
+</ul>
+<p>Final Output: The <code>total</code> DataFrame will have one row for
+each house, with the column <code>total_spent</code> representing the
+total money spent on Halloween candy. Finally, the
+<code>total.plot</code> command creates a histogram of the
+<code>total_spent</code> values to visualize the distribution of
+spending across houses.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -1016,6 +1075,25 @@ aria-labelledby="heading10_2" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer</strong>: <code>[20, 30)</code> and
 <code>[30, 40)</code></p>
+<ul>
+<li>The histogram shows that the bins <code>[20, 30)</code> and
+<code>[30, 40)</code> have the two tallest bars, with heights of 0.020
+and 0.030, respectively.</li>
+<li>Each bar’s height represents the density of data in that range
+(proportion of houses divided by bin width). Since the bin width is 10,
+we can multiply the height by 10 to calculate the proportion of data in
+each bin:
+<ul>
+<li><code>[20, 30)</code> contributes <span class="math inline">0.020
+\times 10 = 0.2</span> or <span class="math inline">20\%</span> of the
+houses.</li>
+<li><code>[30, 40)</code> contributes <span class="math inline">0.030
+\times 10 = 0.3</span> or <span class="math inline">30\%</span> of the
+houses.</li>
+</ul></li>
+<li>Together, these two bins account for <span class="math inline">20\%
++ 30\% = 50\%</span> of the houses.</li>
+</ul>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -1046,6 +1124,33 @@ aria-labelledby="heading10_3" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: 0.025</p>
+<ul>
+<li>With the new bin width of 20, the histogram combines adjacent bins
+from the original histogram. The new bins become
+<code>[0, 20)</code>,<code>[20, 40)</code>,<code>[40, 60)</code>,<code>[60, 80)</code>.
+The bin <code>[20, 40)</code> merges the original bins
+<code>[20, 30)</code> and <code>[30, 40)</code> and would be the bin
+with the highest bar in the new histogram.</li>
+<li>To find the total proportion of data in <code>[20, 40)</code>:
+<ul>
+<li>From the original histogram:
+<ul>
+<li><code>[20, 30)</code> contributes <span class="math inline">0.020
+\times 10 = 0.2</span> (20%).</li>
+<li><code>[30, 40)</code> contributes <span class="math inline">0.030
+\times 10 = 0.3</span> (30%).</li>
+</ul></li>
+<li>Total for <code>[20, 40)</code> is <span class="math inline">0.2 +
+0.3 = 0.5</span> or <span class="math inline">50\%</span>.</li>
+</ul></li>
+<li>The new bin width is 20, so the height of the bar is calculated as:
+Height = <span class="math inline">\frac{\text{Proportion}}{\text{Bin
+Width}}</span> = <span class="math inline">\frac{0.5}{20}</span> =
+0.025<br/>
+</li>
+<li>Therefore, the tallest bar in the new histogram has a height of
+0.025.</li>
+</ul>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
 <p>
@@ -1076,6 +1181,19 @@ aria-labelledby="heading10_4" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: Not possible to determine.</p>
+<ul>
+<li>In the original histogram, the bins are 10 units wide (e.g.,
+<code>[20, 30)</code>). When switching to 5-unit bins (e.g.,
+<code>[20, 25)</code>, <code>[25, 30)</code>), we need to know the
+distribution of data within the original 10-unit bins to calculate the
+new bar heights.</li>
+<li>The histogram does not provide this detailed information. For
+example, we cannot determine whether the data in <code>[20, 30)</code>
+is evenly distributed between <code>[20, 25)</code> and
+<code>[25, 30)</code> or concentrated in one of the sub-bins.</li>
+<li>Without this additional information, it is impossible to approximate
+the height of the tallest bar accurately.</li>
+</ul>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -1315,11 +1433,61 @@ aria-labelledby="heading13" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: Option 2</p>
+<p>Let’s approach this solution by breaking down the line of code into
+two intermediate steps, so that we can parse them one at a time: -
+<code>intermediate_one = treat.groupby("candy").count()</code> -
+<code>double = intermediate_one.groupby("address").count()</code></p>
+<p><strong>Step 1</strong>:
+<code>intermediate_one = treat.groupby("candy").count()</code></p>
+<p>The first of our two operations groups the <code>treat</code>
+DataFrame by the <code>"candy"</code> column, and aggregates using the
+<code>.count()</code> method. This creates an output DataFrame that is
+indexed by <code>"candy"</code>, where the values in each column
+represent the number of times each candy appeared in the
+<code>treat</code> DataFrame.</p>
+<p>Remember, in our original DataFrame, each row represents one type of
+candy being given out by one house. So, each row in
+<code>intermediate_one</code> will contain the <strong>number of houses
+giving out each candy</strong>. For example, if the values in the
+columns in the row with row label <code>Milky Way</code> were all <span class="math inline">3</span>, it would mean that there are <span class="math inline">3</span> houses giving out Milky Ways.</p>
+<p><strong>Step 2</strong>:
+<code>double = intermediate_one.groupby("address").count()</code></p>
+<p>The second of our two operations groups the
+<code>intermediate_one</code> DataFrame by the <code>"address"</code>
+column, and aggregates using the <code>.count()</code> method. This
+creates an output DataFrame that is indexed by <code>"address"</code>,
+where the values in each column represent the number of times that each
+value in the address column appeared in the
+<code>intermediate_one</code> DataFrame. However, these are more
+difficult to interpret, so let’s break down what this means in the
+context of our problem.</p>
+<p>The values in the <code>intermediate_one</code> DataFrame represent
+how many houses are giving out a specific type of candy (this is the
+result of our first operation). So, when we group by these values, the
+resulting groups will be defined by all candies that are given out by
+the same number of houses. For example, if the values in the columns
+with row label <code>5</code> were all <span class="math inline">2</span>, it would mean that there are <span class="math inline">2</span> types of candy that are being given out by
+<span class="math inline">5</span> houses. More concretely, this would
+mean that the value <span class="math inline">5</span> showed up <span class="math inline">2</span> times in the <code>intermediate_one</code>
+DataFrame, which means there must have been <span class="math inline">2</span> candies that were being given out by <span class="math inline">5</span> houses (see above).</p>
+<p>Combining these two results, we can interpret the output of our
+original line of code:</p>
+<p><code>double = treat.groupby("candy").count().groupby("address").count()</code>
+outputs a DataFrame where the value in each row represents the number of
+different candies that are being given out by the same number of
+houses.</p>
+<p>Now, we can easily interpret this line of code:</p>
+<p><code>double.loc[1].get("how_many")</code> evaluates to
+<code>5</code>.</p>
+<p>This means that there are <span class="math inline">5</span>
+different types of candies that are being given out by only <span class="math inline">1</span> house. This corresponds to <strong>Option
+2</strong> and only Option <span class="math inline">2</span> in our
+answer choices, so <strong>Option 2</strong> is the correct answer.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️⭐️⭐️</h5>
 <p>
 </p>
-<p>The average score on this problem was 0%.</p>
+<p>The average score on this problem was 15%.</p>
 </div>
 </div>
 </div>
