@@ -83,6 +83,11 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
       <td>Monday, November 18th</td>
       <td><a href="disc07/index.html">Choosing Sample Sizes, Hypothesis Testing, and Permutation Testing</a></td>
     </tr>
+    <tr>
+      <th scope="row">9</th>
+      <td>Wednesday, November 18th</td>
+      <td><a href="disc08/index.html">Hypothesis Testing and Permutation Testing</a></td>
+    </tr>
   </tbody>
 </table>
 </center>

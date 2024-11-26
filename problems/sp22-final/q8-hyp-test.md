@@ -112,7 +112,7 @@ Way 3:
 
  ```py
 choice = np.random.choice([0, 1], 2500, replace=True) 
-choice_sum = choice.sum( ) 
+choice_sum = choice.sum() 
 (choice_sum - (2500 - choice_sum))/2500
 ```
 
@@ -139,7 +139,7 @@ Way 6:
 ```py
 outdoor = (app_data.get('category')=='outdoor') 
 bed = (app_data.get('category')=='bed')
-samp = (app_data[outdoor|bed].groupby('category').count( ).reset_index( ).sample(2500, replace=True))    
+samp = (app_data[outdoor|bed].groupby('category').count().reset_index().sample(2500, replace=True))    
 samp[samp.get('category')=='outdoor'].shape[0]/2500 - samp[samp.get('category')=='bed'].shape[0]/2500
 ```
 
