@@ -85,7 +85,7 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
     </tr>
     <tr>
       <th scope="row">9</th>
-      <td>Wednesday, November 18th</td>
+      <td>Wednesday, November 27th</td>
       <td><a href="disc08/index.html">Hypothesis Testing and Permutation Testing</a></td>
     </tr>
   </tbody>
