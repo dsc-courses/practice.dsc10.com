@@ -6,6 +6,7 @@ across all of the individual `stages` combined. Each row represents one stage of
 equivalently, one day of racing). This dataset will be called `stages`.
 
 The columns of `stages` are as follows:
+
 - `"Stage" (int):` The stage number for the respective year.
 - `"Date" (str):` The day that the stage took place, formatted as ”YYYY-MM-DD.”
 - `"Distance" (float):` The distance of the stage in kilometers.
