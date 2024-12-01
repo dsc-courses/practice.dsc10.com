@@ -169,11 +169,4 @@ Therefore, the intercept of Anthony's new regression line is 7.
 
 # END SUBPROB
 
-Jasmine is trying to get as far away from Anthony as possible and has a
-trip to Chicago planned after finals. Chicago is known for being very
-warm and sunny in the summer but cold, rainy, and snowy in the winter.
-She decides to build a regression line that uses month of the year
-(where 1 is January, 2 is February, 12 is December, etc.) to predict the
-number of sunshine hours in Chicago.
-
 # END PROB
