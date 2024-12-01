@@ -88,6 +88,11 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
       <td>Wednesday, November 27th</td>
       <td><a href="disc08/index.html">Hypothesis Testing and Permutation Testing</a></td>
     </tr>
+    <tr>
+      <th scope="row">10</th>
+      <td>Monday, December 2nd</td>
+      <td><a href="disc09/index.html">Regression</a></td>
+    </tr>
   </tbody>
 </table>
 </center>
