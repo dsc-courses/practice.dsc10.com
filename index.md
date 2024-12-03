@@ -128,6 +128,8 @@ Each exam linked here lists the conditions under which the exam was given, inclu
       <th scope="row">Summer 2024</th>
       <td>Nishant Kheterpal</td>
       <td><a href='su24-midterm/index.html'>Midterm</a>
+      <br>
+      <a href='su24-final/index.html'>Final</a>
       </td>
     </tr>
     <tr>
