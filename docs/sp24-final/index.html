@@ -147,7 +147,7 @@ apartment, in dollars.</li>
 <li><code>"Bed"</code> (<code>str</code>): The number of bedrooms in the
 apartment. Values are <code>"Studio"</code>, <code>"One"</code>,
 <code>"Two"</code>, and <code>"Three"</code>.</li>
-<li><code>"Bath"</code> (<code>int</code>): The number of bathrooms in
+<li><code>"Bath"</code> (<code>str</code>): The number of bathrooms in
 the apartment. Values are <code>"One"</code>,
 <code>"One and a half"</code>, <code>"Two"</code>,
 <code>"Two and a half"</code>, and <code>"Three"</code>.</li>
@@ -705,13 +705,13 @@ the following are valid conclusions about <code>apts</code>? Select all
 that apply.</p>
 <ul class="task-list">
 <li><p><input type="checkbox" disabled="" /> No complexes have studio apartments.</p></li>
-<li><p><input type="checkbox" disabled="" /> Every complex has exactly one studio apartment.</p></li>
 <li><p><input type="checkbox" disabled="" /> Every complex has at least one studio apartment.</p></li>
+<li><p><input type="checkbox" disabled="" /> Every complex has exactly one studio apartment.</p></li>
 <li><p><input type="checkbox" disabled="" /> Some complexes have only studio apartments.</p></li>
-<li><p><input type="checkbox" disabled="" /> In every complex, the single cheapest apartment is a studio
-apartment.</p></li>
 <li><p><input type="checkbox" disabled="" /> In every complex, the average price of a studio apartment is less
 than or equal to the average price of a one bedroom apartment.</p></li>
+<li><p><input type="checkbox" disabled="" /> In every complex, the single cheapest apartment is a studio
+apartment.</p></li>
 <li><p><input type="checkbox" disabled="" /> None of these.</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
@@ -727,7 +727,54 @@ aria-labelledby="heading3_2" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer:</strong> Options 3 and 6.</p>
+<p><strong>Answer:</strong> Options 2 and 5</p>
+<p><code>alternate approach</code> first groups by <code>"Bed"</code>
+and <code>"Complex"</code> , takes the mean of all the columns, and
+resets the index such that <code>"Bed"</code> and <code>"Complex"</code>
+are no longer indexes. Now there is one row per <code>"Bed"</code> and
+<code>"Complex"</code> combination that exists in <code>apts</code> and
+all columns contain the mean value for each of these <code>"Bed"</code>
+and <code>"Complex"</code> combinations. Then it groups by
+<code>"Complex"</code> again, taking the minimum value of all columns.
+The output is a DataFrame indexed by <code>"Complex"</code> where the
+<code>"Rent"</code>column contains the minimum rent (from of all the
+average prices for each type of <code>"Bed"</code>).</p>
+<ul>
+<li>Option 1 is incorrect. This is not necessarily true. The
+<code>"Rent"</code> column in <code>alternate_approach</code>in contains
+the minimum of all the average prices for each type of
+<code>"Bed"</code> and the <code>"Rent"</code> column in
+<code>"studio_avg"</code> contains the average rent for studios in each
+type of complex. Even though they contain the same values, this does not
+mean that no studios exist in any complexes. If this were the case,
+<code>studio_avg</code> would be an empty DataFrame and
+<code>alternate_approach</code> would not be.</li>
+<li>Option 2 is correct. If these columns are the same, that means that
+for each complex, there must at least one studio apartment. If this was
+not the case and there were complexes with no studio apartments,
+complexes that may appear in <code>alternate_approach</code> would not
+appear in <code>studio_avg</code>.</li>
+<li>Option 3 is incorrect. This is not necessarily true. Complexes can
+have more than one studio. <code>studio_avg</code> has the average of
+all these studios for each complex and <code>alternate_approach</code>
+will have the minimum rent (from all the average prices for each type of
+bedroom). Just because the columns are the same does not mean that there
+is only one studio per complex.</li>
+<li>Option 4 is incorrect. This is not necessarily true. Just because
+the columns are the same does not mean that complexes only have studios.
+Perhaps studios just have the minimum rent on average across all
+complexes as explored in Option 5 below.</li>
+<li>Option 5 is correct. <code>studio_avg</code> contains the average
+price for a studio in each complex. <code>alternate_approach</code>
+contains the minimum rent from the average rents of all types of
+bedrooms for each complex. Since these columns are the same, this means
+that the average price of a studio must be lower (or equal to) the
+average price of a one bedroom (or any other type of bedroom) for all
+the rent values in <code>alternate_approach</code> to align with all the
+values in <code>studio_avg</code>.</li>
+<li>Option 6 is incorrect. As shown above, there are correct answers to
+this question.</li>
+</ul>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -2669,7 +2716,7 @@ show it is the same as the code for Option 2:</p>
 bedrooms}}{\# \text{ of rows in bedrooms}} \to \dfrac{\text{sum of
 ``Rent" in no}\_\text{studio}}{\# \text{ of rows in bedrooms}} \to
 \dfrac{\text{sum of ``Rent" in no}\_\text{studio}}{\text{sum of
-"Bed" in apts}}</span></p>
+``Bed" in apts}}</span></p>
 <p><br/></p>
 <p>Option 3 is incorrect. The first part of Option 3,
 <code>no_studio.get("Rent") / no_studio.get("Bed")</code>, produces a

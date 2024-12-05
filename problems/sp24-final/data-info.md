@@ -4,7 +4,7 @@ The columns of `apts` are as follows:
 
 -   `"Rent"` (`int`): The monthly rent for the apartment, in dollars. 
 -   `"Bed"` (`str`): The number of bedrooms in the apartment. Values are `"Studio"`, `"One"`, `"Two"`, and `"Three"`. 
--   `"Bath"` (`int`): The number of bathrooms in the apartment. Values are `"One"`, `"One and a half"`, `"Two"`, `"Two and a half"`, and `"Three"`.
+-   `"Bath"` (`str`): The number of bathrooms in the apartment. Values are `"One"`, `"One and a half"`, `"Two"`, `"Two and a half"`, and `"Three"`.
 -   `"Laundry"` (`bool`): If the apartment comes with an in-unit washer and dryer.
 -   `"Sqft"` (`int`): The area of the apartment, in square feet. 
 -   `"Neighborhood"` (`str`): The neighborhood in which the apartment is located.
