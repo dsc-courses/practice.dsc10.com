@@ -252,7 +252,8 @@ We've provided answers to all quiz questions, but you won't find detailed explan
       <td>
         <a href='fa24-quiz1/index.html'>Quiz 1</a> •
         <a href='fa24-quiz2/index.html'>Quiz 2</a> •
-        <a href='fa24-quiz3/index.html'>Quiz 3</a>
+        <a href='fa24-quiz3/index.html'>Quiz 3</a> •
+        <a href='fa24-quiz4/index.html'>Quiz 4</a>
       </td>
     </tr>
     <tr>
