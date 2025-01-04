@@ -98,6 +98,8 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
 </table>
 </center>
 
+-->
+
 ---
 
 ### 📝 Exams
@@ -221,8 +223,6 @@ Each exam linked here lists the conditions under which the exam was given, inclu
   </tbody>
 </table>
 </center>
-
--->
 
 ---
 
