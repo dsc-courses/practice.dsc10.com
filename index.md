@@ -18,15 +18,16 @@ In all cases, you should work on these problems **on paper**, since your quizzes
 
 ---
 
-### <a href="pretest/index.html">🧮 Pretest: Due September 29th</a>
+### <a href="pretest/index.html">🧮 Pretest: Due Wednesday, January 8th</a>
 
 DSC 10's only prerequisite is high school algebra.
 In order to gauge your preparedness for the type of math you'll see
 in this class, you should work through <b><a href="pretest/index.html">these practice problems</a></b> on your own. This pretest will help you identify any gaps in your background knowledge and it will teach you some useful test-taking skills.
 
+<!--
 ---
 
-### 💯 Discussions for Fall 2024
+### 💯 Discussions for Winter 2025
 
 <center>
 <table class="table" style="width:60%">
@@ -220,6 +221,8 @@ Each exam linked here lists the conditions under which the exam was given, inclu
   </tbody>
 </table>
 </center>
+
+-->
 
 ---
 
