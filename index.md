@@ -29,9 +29,7 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
 
 ### 💯 Discussions for Winter 2025
 
-Coming soon!
 
-<!--
 
 <center>
 <table class="table" style="width:60%">
@@ -42,7 +40,7 @@ Coming soon!
     </colgroup>
   <thead>
     <tr>
-      <th scope="col">Week</th>
+      <th scope="col">Discussion</th>
       <th scope="col">Date</th>
       <th scope="col">Topic(s)</th>
     </tr>
@@ -50,10 +48,13 @@ Coming soon!
   <tbody>
     <tr>
       <th scope="row">1</th>
-      <td>Monday, September 30th</td>
+      <td>Wednesday, January 8th</td>
       <td><a href="disc01/index.html">Getting Started With Jupyter Notebooks</a></td>
-    </tr> 
-    <tr>
+    </tr>
+  </tbody>
+</table>
+</center> 
+    <!-- <tr>
       <th scope="row">2</th>
       <td>Monday, October 7th</td>
       <td><a href="disc02/index.html">Arrays and DataFrames</a></td>
@@ -100,9 +101,8 @@ Coming soon!
     </tr>
   </tbody>
 </table>
-</center>
+</center> -->
 
--->
 
 ---
 
