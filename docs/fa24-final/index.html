@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Fall 2024 Final Exam</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/theme.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Fall 2024 Final Exam</h1>
+</header>
+<p><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<!-- add after bootstrap.min.css -->
+<link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css"/>
+<!-- add after bootstrap.min.js or bootstrap.bundle.min.js -->
+<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script></p>
+<!-- for difficulty gauges-->
+<script src="https://cdn.plot.ly/plotly-2.16.1.min.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B947E6J6H4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B947E6J6H4');
+</script>
+<p><a href="../index.html">← return to practice.dsc10.com</a></p>
+<hr />
+<p><strong>Instructor(s):</strong> Janine Tiefenbruck</p>
+<p>This exam was administered in-person. The exam was closed-notes,
+except students were provided a copy of the
+<a href='https://drive.google.com/file/d/1ky0Np67HS2O4LO913P-ing97SJG0j27n/view'>DSC
+10 Reference Sheet<a>. No calculators were allowed. Students had
+<strong>3 hours</strong> to take this exam.</p>
+<hr />
+<p>Bill has opened a bookstore, called Bill’s Book Bonanza. In the
+DataFrame <code>bookstore</code>, each row corresponds to a unique book
+available at this bookstore. The index is <code>"ISBN"</code>
+(<code>int</code>), which is a unique identifier for books. The columns
+are:</p>
+<ul>
+<li><code>"title"</code> (<code>str</code>): The title of the book.</li>
+<li><code>"author"</code> (<code>str</code>): The author of the
+book.</li>
+<li><code>"genre"</code> (<code>str</code>): The primary genre of the
+book.</li>
+<li><code>"pages"</code> (<code>int</code>): The number of pages in the
+book.</li>
+<li><code>"rating"</code> (<code>float</code>): The rating of the book,
+out of 5 stars. This data comes from Goodreads, a book review
+website.</li>
+</ul>
+<p>The first three rows are shown below, though <code>bookstore</code>
+has many more rows than pictured.</p>
+<center><img src='../assets/images/fa24-final/short_books.jpg' width=800></center>
+<p>Additionally, we are given a dataset of <code>sales</code>, which
+lists all the book purchases made from Bill’s Book Bonanza since it
+opened. The columns of <code>sales</code> are:</p>
+<ul>
+<li><code>"ISBN"</code> (<code>str</code>): The unique identifier for
+the book.</li>
+<li><code>"price"</code> (<code>float</code>): The price of the book at
+Bill’s Book Bonanza.</li>
+<li><code>"cash"</code> (<code>bool</code>): <code>True</code> if the
+purchase was made in cash and <code>False</code> if not.</li>
+<li><code>"date"</code> (<code>str</code>): The date the book purchase
+was made, using the format
+<code>"Day of the Week, Month Day, Year"</code>. See below for
+examples.</li>
+</ul>
+<p>The first three rows of <code>sales</code> are shown below, though
+<code>sales</code> has many more rows than this.</p>
+<center><img src='../assets/images/fa24-final/short_sales.jpg' width=700></center>
+<p>Throughout this exam, we will refer to <code>bookstore</code> and
+<code>sales</code> repeatedly.</p>
+<p>Assume that we have already run
+<code>import babypandas as bpd</code>, <code>import numpy as np</code>,
+and <code>import scipy</code>.</p>
+<hr />
+<h2 id="problem-1">Problem 1</h2>
+<p><br></p>
+<h3 id="problem-1.1">Problem 1.1</h3>
+<p>Notice that <code>bookstore</code> has an index of
+<code>"ISBN"</code> and <code>sales</code> does not. Why is that?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> There is no good reason. We could have set the index of
+<code>sales</code> to</p></li>
+<li><p><input type="radio" disabled="" /> There can be two different books with the same
+<code>"ISBN"</code>.</p></li>
+<li><p><input type="radio" disabled="" /> <code>"ISBN"</code> is already being used as the index of
+<code>bookstore</code>, so it</p></li>
+<li><p><input type="radio" disabled="" /> The bookstore can sell multiple copies of the same book.</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-1.2">Problem 1.2</h3>
+<p>Is <code>"ISBN"</code> a numerical or categorical variable?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> numerical</p></li>
+<li><p><input type="radio" disabled="" /> categorical</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-1.3">Problem 1.3</h3>
+<p>Which type of data visualization should be used to compare authors by
+median rating?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> scatter plot</p></li>
+<li><p><input type="radio" disabled="" /> line plot</p></li>
+<li><p><input type="radio" disabled="" /> bar chart</p></li>
+<li><p><input type="radio" disabled="" /> histogram</p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-2">Problem 2</h2>
+<p>ISBN numbers for books must follow a very particular format. The
+first 12 digits encode a lot of information about a book, including the
+publisher, edition, and physical properties like page count. The 13th
+and final digit, however, is computed directly from the first 12 digits
+and is used to verify that a given ISBN number is valid.</p>
+<p>In this question, we will define a function to compute the final
+digit of an ISBN number, given the first 12. First, we need to
+understand how the last digit is determined. To find the last digit of
+an ISBN number:</p>
+<ol type="1">
+<li><p>Multiply the first digit by 1, the second digit by 3, the third
+digit by 1, the fourth digit by 3, and so on, alternating 1s and
+3s.</p></li>
+<li><p>Add up these products.</p></li>
+<li><p>Find the ones digit of this sum.</p></li>
+<li><p>If the ones digit of the sum is zero, the final digit of the ISBN
+is zero. Otherwise, the final digit of the ISBN is ten minus the ones
+digit of the sum.</p></li>
+</ol>
+<p>For example, suppose we have an ISBN number whose first 12 digits are
+<span class="math inline">978186197271</span>. Then the last digit would
+be calculated as follows: <span class="math display">9\cdot 1 + 7\cdot 3
++ 8\cdot 1 + 1\cdot 3 + 8\cdot 1 + 6\cdot 3 + 1\cdot 1 + 9\cdot 3 +
+7\cdot 1 + 2\cdot 3 + 7\cdot 1 + 1\cdot 3 = 118</span> The ones digit is
+<span class="math inline">8</span> so the final digit is <span
+class="math inline">2</span>.</p>
+<p>Fill in the blanks in the function <code>calculate_last_digit</code>
+below. This function takes as input a <strong>string</strong>
+representing the first 12 digits of the ISBN number, and should return
+the final digit of the ISBN number, as an <code>int</code>. For example,
+<code>calculate_last_digit("978186197271")</code> should evaluate to
+<code>2</code>.</p>
+<pre><code>def calculate_last_digit(partial_isbn_string):
+    total = 0
+    for i in __(a)__:
+        digit = int(partial_isbn_string[i])
+        if __(b)__:
+            total = total + digit
+        else:
+            total = total + 3 * digit
+    ones_digit = __(c)__
+    if __(d)__:
+        return 10 - ones_digit
+    return 0</code></pre>
+<p><strong>Note</strong>: this procedure may seem complicated, but it is
+actually how the last digit of an ISBN number is generated in real
+life!</p>
+<hr />
+<h2 id="problem-3">Problem 3</h2>
+<p>At the beginning of 2025, avid reader Michelle will join the Blind
+Date with a Book program sponsored by Bill’s Book Bonanza. Once a month
+from January through December, Michelle will receive a surprise book in
+the mail from the bookstore. So she’ll get 12 books throughout the
+year.</p>
+<p>Each book is randomly chosen among those available at the bookstore
+(or equivalently, from among those in the <code>bookstore</code>
+DataFrame). Each book is equally likely to be chosen each month, and
+each month’s book is chosen independently of all others, so repeats can
+occur.</p>
+<p>Let <span class="math inline">p</span> be the proportion of books in
+<code>bookstore</code> from the romance genre (<span
+class="math inline">0 \leq p \leq 1</span>).</p>
+<p><br></p>
+<h3 id="problem-3.1">Problem 3.1</h3>
+<p>What is the probability that the books Michelle receives in February
+and December are romance, while the books she receives all other months
+are non-romance? Your answer should be an unsimplified expression in
+terms of <span class="math inline">p</span>.</p>
+<p><br></p>
+<h3 id="problem-3.2">Problem 3.2</h3>
+<p>What is the probability that at least one of the books Michelle
+receives in the last four months of the year is romance? Your answer
+should be an unsimplified expression in terms of <span
+class="math inline">p</span>.</p>
+<p><br></p>
+<h3 id="problem-3.3">Problem 3.3</h3>
+<p>It is likely Michelle will receive at least one romance book and at
+least one non-romance book throughout the 12 months of the year. What is
+the probability that this does not happen? Your answer should be an
+unsimplified expression in terms of <span
+class="math inline">p</span>.</p>
+<p><br></p>
+<h3 id="problem-3.4">Problem 3.4</h3>
+<p>Let <span class="math inline">n</span> be the total number of rows in
+<code>bookstore</code>. What is the probability that Michelle does not
+receive any duplicate books in the first four months of the year? Your
+answer should be an unsimplified expression in terms of <span
+class="math inline">n</span>.</p>
+<p><br></p>
+<p>Now, consider the following lines of code which define variables
+<code>i</code>, <code>j</code>, and <code>k</code>.</p>
+<pre><code>    def foo(x, y):
+        if x == &quot;rating&quot;:
+            z = bookstore[bookstore.get(x) &gt; y]
+        elif x == &quot;genre&quot;:
+            z = bookstore[bookstore.get(x) == y]
+        return z.shape[0]
+
+    i = foo(&quot;rating&quot;, 3)
+    j = foo(&quot;rating&quot;, 4)
+    k = foo(&quot;genre&quot;, &quot;Romance&quot;)</code></pre>
+<p>For both questions that follow, your answer should be an unsimplified
+expression in terms of <code>i</code>, <code>j</code>, <code>k</code>
+only. If you do not have enough information to determine the answer,
+leave the answer box blank and instead fill in the bubble.</p>
+<p><br></p>
+<h3 id="problem-3.5">Problem 3.5</h3>
+<p>If we know in advance that Michelle’s January book will have a rating
+greater than 3, what is the probability that the book’s rating is
+greater than 4?</p>
+<p><br></p>
+<h3 id="problem-3.6">Problem 3.6</h3>
+<p>If we know in advance that Michelle’s January book will have a rating
+greater than 3, what is the probability that the book’s genre is
+romance?</p>
+<p><br></p>
+<hr />
+<h2 id="problem-4">Problem 4</h2>
+<p>Matilda has been working at Bill’s Book Bonanza since it first opened
+and her shifts for each week are always randomly scheduled (i.e., she
+does not work the same shifts each week). Due to the system restrictions
+at the bookstore, when Matilda logs in with her employee ID, she only
+has access to the history of sales made during her shifts. Suppose these
+transactions are stored in a DataFrame called <code>matilda</code>,
+which has the same columns as the <code>sales</code> DataFrame that
+stores all transactions.</p>
+<p>Matilda wants to use her random sample to estimate <strong>the mean
+price of books purchased with cash</strong> at Bill’s Book Bonanza. For
+the purposes of this question, assume Matilda only has access to
+<code>matilda</code>, and not all of <code>sales</code>.</p>
+<p><br></p>
+<h3 id="problem-4.1">Problem 4.1</h3>
+<p>Complete the code below so that <code>cash_left</code> and
+<code>cash_right</code> store the endpoints of an <span
+class="math inline">86\%</span> bootstrapped confidence interval for the
+mean price of books purchased with cash at Bill’s Book Bonanza.</p>
+<pre><code>    cash_means = np.array([])
+    original = __(a)__
+    for i in np.arange(10000):
+        resample = original.sample(__(b)__)
+        cash_means = np.append(cash_means, __(c)__)
+
+    cash_left = __(d)__
+    cash_right = __(e)__</code></pre>
+<p><br></p>
+<h3 id="problem-4.2">Problem 4.2</h3>
+<p>Next, Matilda uses the data in <code>matilda</code> to construct a
+<span class="math inline">95\%</span> CLT-based confidence interval for
+the same parameter.</p>
+<p>Given that there are 400 cash transactions in <code>matilda</code>
+and her confidence interval comes out as <span
+class="math inline">[19.58, 21.58]</span>, what is the standard
+deviation of the prices of all cash transactions at Bill’s Book
+Bonanza?</p>
+<p><br></p>
+<h3 id="problem-4.3">Problem 4.3</h3>
+<p>Knowing the endpoints of Matilda’s 95% CLT-based confidence interval
+can actually help us to determine the endpoints of her 86% bootstrapped
+confidence interval. You may also need to know the following facts:</p>
+<ul>
+<li><p><code>stats.norm.cdf(1.1)</code> evaluates to
+<code>0.86</code></p></li>
+<li><p><code>stats.norm.cdf(1.5)</code> evaluates to
+<code>0.93</code></p></li>
+</ul>
+<p>Estimate the value of <code>cash_left</code> to one decimal
+place.</p>
+<p><br></p>
+<h3 id="problem-4.4">Problem 4.4</h3>
+<p>Which of the following are valid conclusions? <strong>Select all that
+apply.</strong></p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> Approximately 95% of the values in <code>cash_means</code> fall
+within the</p></li>
+<li><p><input type="checkbox" disabled="" /> Approximately 95% of books purchased with cash at Bill’s Book</p></li>
+<li><p><input type="checkbox" disabled="" /> The actual mean price of books purchased with cash at Bill’s Book</p></li>
+<li><p><input type="checkbox" disabled="" /> None of the above.</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-4.5">Problem 4.5</h3>
+<p>Matilda has been wondering whether the mean price of books purchased
+with cash at Bill’s Book Bonanza is <span
+class="math inline">\$20</span>. What can she conclude about this?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> The mean price of books purchased with cash at Bill’s Book
+Bonanza</p></li>
+<li><p><input type="radio" disabled="" /> The mean price of books purchased with cash at Bill’s Book
+Bonanza</p></li>
+<li><p><input type="radio" disabled="" /> The mean price of books purchased with cash at Bill’s Book
+Bonanza</p></li>
+<li><p><input type="radio" disabled="" /> The mean price of books purchased with cash at Bill’s Book
+Bonanza</p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-5">Problem 5</h2>
+<p>Aathi is a movie enthusiast looking to dive into book-reading. He
+visits Bill’s Book Bonanza and asks for help from the employee on duty,
+Matilda.</p>
+<p>Matilda has access to the <code>matilda</code> DataFrame of
+transactions from her shifts, as well as the <code>bookstore</code>
+DataFrame of all books available in the store. She decides to advise
+Aathi based on the ratings of books that are popular enough to have been
+purchased during her shifts. Unfortunately, <code>matilda</code> does
+not contain information about the rating or genre of the books sold. To
+fix this, she merges the two DataFrames and keeps only the columns that
+she’ll need.</p>
+<p><br></p>
+<h3 id="problem-5.1">Problem 5.1</h3>
+<p>Fill in the blanks in the code below so that the resulting
+<code>merged</code> DataFrame has one row for each book in
+<code>matilda</code>, and columns representing the genre and rating of
+each such book.</p>
+<pre><code>merged = (matilda.merge(bookstore, __(a)__, __(b)__)
+                 .get([&quot;genre&quot;, &quot;rating&quot;]))</code></pre>
+<p><br></p>
+<h3 id="problem-5.2">Problem 5.2</h3>
+<p>In this example, <code>matilda</code> and <code>merged</code> have
+the same number of rows. Why is this the case? Choose the answer which
+is sufficient alone to guarantee the same number of rows.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Because every book in <code>bookstore</code> appears exactly once in
+<code>matilda</code>.</p></li>
+<li><p><input type="radio" disabled="" /> Because every book in <code>matilda</code> appears exactly once in
+<code>bookstore</code>.</p></li>
+<li><p><input type="radio" disabled="" /> Because <code>matilda</code> has no duplicate rows.</p></li>
+<li><p><input type="radio" disabled="" /> Because <code>bookstore</code> has no duplicate rows.</p></li>
+<li><p><input type="radio" disabled="" /> Because the books in <code>matilda</code> are a subset of the books
+in</p></li>
+</ul>
+<p><br></p>
+<p>Matilda uses some <code>babypandas</code> operations on the
+<code>merged</code> DataFrame to create the DataFrame pictured below,
+which she calls <code>top_two</code>.</p>
+<center><img src='../assets/images/fa24-final/fm_A.jpg' width=200></center>
+<p>This DataFrame shows the two genres in <code>merged</code> with the
+highest mean rating. Note that the <code>"rating"</code> column in
+<code>top_two</code> represents a mean rating across many books of the
+same genre, not the rating of any individual book.</p>
+<p><br></p>
+<h3 id="problem-5.3">Problem 5.3</h3>
+<p>Write one line of code to define the DataFrame <code>top_two</code>
+as described above. It’s okay if you need to write your answer on
+multiple lines, as long as it represents one line of code.</p>
+<p><br></p>
+<p>Based on the data in <code>top_two</code>, Matilda recommends that
+Aathi purchase a fantasy book. However, Aathi is skeptical because he
+recognizes that the data in <code>merged</code> is only a sample from
+the larger population of all transactions at Bill’s Book Bonanza. Before
+he makes his purchase, he decides to do a permutation test to determine
+whether fantasy books have higher ratings than mystery books in this
+larger population.</p>
+<p><br></p>
+<h3 id="problem-5.4">Problem 5.4</h3>
+<p>Select the best statement of the null hypothesis for this permutation
+test.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Among all books sold at Bill’s Book Bonanza, fantasy books have a</p></li>
+<li><p><input type="radio" disabled="" /> Among all books sold at Bill’s Book Bonanza, fantasy books do not</p></li>
+<li><p><input type="radio" disabled="" /> Among all books sold at Bill’s Book Bonanza, fantasy books have
+the</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-5.5">Problem 5.5</h3>
+<p>Select the best statement of the alternative hypothesis for this
+permutation test.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Among all books sold at Bill’s Book Bonanza, fantasy books have a</p></li>
+<li><p><input type="radio" disabled="" /> Among all books sold at Bill’s Book Bonanza, fantasy books do not</p></li>
+<li><p><input type="radio" disabled="" /> Among all books sold at Bill’s Book Bonanza, fantasy books have
+the</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-5.6">Problem 5.6</h3>
+<p>Aathi decides to use the mean rating for mystery books minus the mean
+rating for fantasy books as his test statistic. What is his observed
+value of this statistic?</p>
+<p><br></p>
+<h3 id="problem-5.7">Problem 5.7</h3>
+<p>Which of the following best describes how Aathi will interpret the
+results of his permutation test?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> High values of the observed statistic will make him lean towards
+the</p></li>
+<li><p><input type="radio" disabled="" /> Low values of the observed statistic will make him lean towards
+the</p></li>
+<li><p><input type="radio" disabled="" /> Both high and low values of the observed statistic will make him</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-5.8">Problem 5.8</h3>
+<p>Fill in the blanks in the following code to perform Aathi’s
+permutation test.</p>
+<pre><code>just_two = merged[(merged.get(&quot;genre&quot;) == &quot;Fantasy&quot;) |
+                  (merged.get(&quot;genre&quot;) == &quot;Mystery&quot;)]
+
+rating_stats = np.array([])
+for i in np.arange(10000):
+    shuffled = just_two.assign(shuffled = __(a)__)
+    grouped = shuffled.groupby(&quot;genre&quot;).mean().get(&quot;shuffled&quot;)
+    mystery_mean = grouped.iloc[__(b)__]
+    fantasy_mean = grouped.iloc[__(c)__]
+    rating_stats = np.append(rating_stats, mystery_mean - fantasy_mean)</code></pre>
+<p><br></p>
+<h3 id="problem-5.9">Problem 5.9</h3>
+<p>Aathi gets a <code>p_value</code> of <span
+class="math inline">0.008</span>, and he will base his purchase on this
+result, using the standard p-value cutoff of <span
+class="math inline">0.05</span>. What will Aathi end up doing?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Aathi fails to reject the null hypothesis and will purchase a</p></li>
+<li><p><input type="radio" disabled="" /> Aathi fails to reject the null hypothesis and will purchase a</p></li>
+<li><p><input type="radio" disabled="" /> Aathi rejects the null hypothesis and will purchase a fantasy
+book.</p></li>
+<li><p><input type="radio" disabled="" /> Aathi rejects the null hypothesis and will purchase a mystery
+book.</p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-6">Problem 6</h2>
+<p>Bill is curious about whether his bookstore is busier on weekends
+(Saturday, Sunday) or weekdays (Monday, Tuesday, Wednesday, Thursday,
+Friday). To help figure this out, he wants to define some helpful
+one-line functions.</p>
+<p>The function <code>find_day</code> should take in a given
+<code>"date"</code> and return the associated day of the week. For
+example, <code>find_day("Saturday, December 7, 2024")</code> should
+evaluate to <code>"Saturday"</code>.</p>
+<p>The function <code>is_weekend</code> should take in a given
+<code>"date"</code> and return <code>True</code> if that date is on a
+Saturday or Sunday, and <code>False</code> otherwise. For example,
+<code>is_weekend("Saturday, December 7, 2024")</code> should evaluate to
+<code>True</code>.</p>
+<p><br></p>
+<h3 id="problem-6.1">Problem 6.1</h3>
+<p>Complete the implementation of both functions below.</p>
+<pre><code>def find_day(date):
+    return date.__(a)__
+
+def weekend(date):
+    return find_day(date)[__(b)__] == __(c)__</code></pre>
+<p><br></p>
+<p>Now, Bill runs the following line of code:</p>
+<pre><code>sales_day = sales.assign(weekend = sales.get(&quot;date&quot;).apply(is_weekend))</code></pre>
+<p><br></p>
+<h3 id="problem-6.2">Problem 6.2</h3>
+<p>Determine which of the following code snippets evaluates to the
+proportion of book purchases in <code>sales</code> that were made on a
+weekend. <strong>Select all that apply.</strong></p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> <code>sales_day[sales_day.get("weekend")].count() / sales_day.shape[0]</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>sales[sales_day.get("weekend")].shape[0] / sales_day.shape[0]</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>sales_day.get("weekend").median()</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>sales_day.get("weekend").mean()</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>np.count_nonzero(sales_day.get("weekend") &gt; 0.5) / sales_day.shape[0]</code></p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-7">Problem 7</h2>
+<p>Hargen is an employee at Bill’s Book Bonanza who tends to work
+weekend shifts. He thinks that Fridays, Saturdays, and Sundays are
+busier than other days, and he proposes the following probability
+distribution of sales by day:</p>
+<div class="center">
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Sunday</th>
+<th style="text-align: left;">Monday</th>
+<th style="text-align: left;">Tuesday</th>
+<th style="text-align: left;">Wednesday</th>
+<th style="text-align: left;">Thursday</th>
+<th style="text-align: left;">Friday</th>
+<th style="text-align: left;">Saturday</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">0.2</span></td>
+<td style="text-align: left;"><span class="math inline">0.1</span></td>
+<td style="text-align: left;"><span class="math inline">0.1</span></td>
+<td style="text-align: left;"><span class="math inline">0.1</span></td>
+<td style="text-align: left;"><span class="math inline">0.1</span></td>
+<td style="text-align: left;"><span class="math inline">0.2</span></td>
+<td style="text-align: left;"><span class="math inline">0.2</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Let’s use the data in <code>sales</code> to determine whether
+Hargen’s proposed model could be correct by doing a hypothesis test. The
+hypotheses are:</p>
+<ul>
+<li><p><strong>Null Hypothesis</strong>: Sales at the bookstore are
+randomly drawn from Hargen’s proposed distribution of days.</p></li>
+<li><p><strong>Alternative Hypothesis</strong>: Sales at the bookstore
+are not randomly drawn from Hargen’s proposed distribution of
+days.</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-7.1">Problem 7.1</h3>
+<p>Which of the following test statistics could be used to test the
+given hypothesis? <strong>Select all that apply.</strong></p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> The absolute difference between the proportion of books sold on</p></li>
+<li><p><input type="checkbox" disabled="" /> The sum of the differences in proportions between the
+distribution</p></li>
+<li><p><input type="checkbox" disabled="" /> The sum of the squared differences in proportions between the</p></li>
+<li><p><input type="checkbox" disabled="" /> One half of the sum of the absolute differences in proportions</p></li>
+</ul>
+<p><br></p>
+<p>We will use as our test statistic <strong>the mean of the absolute
+differences in proportions between the distribution of books sold by day
+and Hargen’s proposed distribution.</strong></p>
+<p><br></p>
+<h3 id="problem-7.2">Problem 7.2</h3>
+<p>Suppose the observed distribution of books sold by day was as
+follows. Calculate the observed statistic in this case.</p>
+<div class="center">
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Sunday</th>
+<th style="text-align: left;">Monday</th>
+<th style="text-align: left;">Tuesday</th>
+<th style="text-align: left;">Wednesday</th>
+<th style="text-align: left;">Thursday</th>
+<th style="text-align: left;">Friday</th>
+<th style="text-align: left;">Saturday</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><span class="math inline">0.34</span></td>
+<td style="text-align: left;"><span class="math inline">0.13</span></td>
+<td style="text-align: left;"><span class="math inline">0.06</span></td>
+<td style="text-align: left;"><span class="math inline">0.07</span></td>
+<td style="text-align: left;"><span class="math inline">0.08</span></td>
+<td style="text-align: left;"><span class="math inline">0.08</span></td>
+<td style="text-align: left;"><span class="math inline">0.24</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><br></p>
+<h3 id="problem-7.3">Problem 7.3</h3>
+<p>Let’s determine the actual value of the observed statistic based on
+the data in <code>sales</code>. Assume that we have already defined a
+function called <code>find_day</code> that returns the day of the week
+for a given <code>"date"</code>. For example,
+<code>find_day("Saturday, December 7, 2024")</code> evaluates to
+<code>"Saturday"</code>. Fill in the blanks below so that the variable
+<code>obs</code> evaluates to the observed statistic.</p>
+<pre><code># in alphabetical order: Fri, Mon, Sat, Sun, Thurs, Tues, Wed
+hargen = np.array([0.2, 0.1, 0.2, 0.2, 0.1, 0.1, 0.1]) 
+prop = (sales.assign(day_of_week = __(a)__)
+             .groupby(__(b)__).__(c)__.get(&quot;ISBN&quot;) / sales.shape[0])
+obs = __(d)__</code></pre>
+<p><br></p>
+<h3 id="problem-7.4">Problem 7.4</h3>
+<p>To conduct the hypothesis test, we’ll need to generate thousands of
+simulated day-of-the-week distributions. What will we do with all these
+simulated distributions?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Use them to determine whether Hargen’s proposed distribution
+looks</p></li>
+<li><p><input type="radio" disabled="" /> Use them to determine whether the observed distribution of books</p></li>
+<li><p><input type="radio" disabled="" /> Use them to determine whether Hargen’s proposed distribution
+looks</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-7.5">Problem 7.5</h3>
+<p>In each iteration of the simulation, we need to collect a sample of
+size <code>sales.shape[0]</code> from which distribution?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Hargen’s proposed distribution.</p></li>
+<li><p><input type="radio" disabled="" /> The distribution of data in <code>sales</code> by day of the
+week.</p></li>
+<li><p><input type="radio" disabled="" /> Our original sample’s distribution.</p></li>
+<li><p><input type="radio" disabled="" /> The distribution of possible sample means.</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-7.6">Problem 7.6</h3>
+<p>Suppose that <code>obs</code> comes out to be in the 98th percentile
+of simulated test statistics. Using the standard p-value cutoff of 0.05,
+what would Hargen conclude about his original model?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> It is likely correct.</p></li>
+<li><p><input type="radio" disabled="" /> It is plausible.</p></li>
+<li><p><input type="radio" disabled="" /> It is likely wrong.</p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-8">Problem 8</h2>
+<p>Suppose we are told that <code>sales</code> contains 1000 rows, 500
+of which represent cash transactions and 500 of which represent non-cash
+transactions. We are given two density histograms representing the
+distribution of <code>"price"</code> separately for the cash and
+non-cash transactions.</p>
+<center><img src='../assets/images/fa24-final/cash.png' width=800></center>
+<center><img src='../assets/images/fa24-final/non-cash.png' width=800></center>
+<p>From these two histograms, we’d like to create a single combined
+histogram that shows the overall distribution of <code>"price"</code>
+for all 1000 rows in <code>sales</code>.</p>
+<p><br></p>
+<h3 id="problem-8.1">Problem 8.1</h3>
+<p>How many cash transactions had a <code>"price"</code> of <span
+class="math inline">\$26</span> or more?</p>
+<p><br></p>
+<h3 id="problem-8.2">Problem 8.2</h3>
+<p>Say our combined histogram has a bin <span class="math inline">[4,
+6)</span>. What will the height of this bar be in the combined
+histogram? Fill in the answer box or select “Not enough
+information."</p>
+<p><br></p>
+<h3 id="problem-8.3">Problem 8.3</h3>
+<p>Say our combined histogram has a bin <span class="math inline">[24,
+28)</span>. What will the height of this bar be in the combined
+histogram? Fill in the answer box or select “Not enough
+information."</p>
+<p><br></p>
+<h3 id="problem-8.4">Problem 8.4</h3>
+<p>Suppose now that the histograms for cash and non-cash transactions
+are the same as pictured, but they now represent 600 cash transactions
+and 400 non-cash transactions. In this situation, say our combined
+histogram has a bin <span class="math inline">[12, 16)</span>. What will
+the height of this bar be in the combined histogram? Fill in the answer
+box or select “Not enough information."</p>
+<p><br></p>
+<hr />
+<h2 id="problem-9">Problem 9</h2>
+<p>[(18 pts)] As in the previous problem, suppose we are told that
+<code>sales</code> contains 1000 rows, 500 of which represent cash
+transactions and 500 of which represent non-cash transactions.</p>
+<p>This time, instead of being given histograms, we are told that the
+distribution of <code>"price"</code> for cash transactions is roughly
+normal, with a mean of <span class="math inline">\$14</span> and a
+standard deviation of <span class="math inline">\$2</span>. We’ll call
+this distribution the cash curve.</p>
+<p>Additionally, the distribution of <code>"price"</code> for non-cash
+transactions is roughly normal, with a mean of <span
+class="math inline">\$22</span> and a standard deviation of <span
+class="math inline">\$4</span>. We’ll call this distribution the
+non-cash curve.</p>
+<p>We want to draw a curve representing the approximate distribution of
+<code>"price"</code> for all transactions combined. We’ll call this
+distribution the combined curve.</p>
+<p><br></p>
+<h3 id="problem-9.1">Problem 9.1</h3>
+<p>What is the approximate proportion of area under the <strong>cash
+curve</strong> between <span class="math inline">\$10</span> and <span
+class="math inline">\$12</span>? Your answer should be a number between
+0 and 1.</p>
+<p><br></p>
+<h3 id="problem-9.2">Problem 9.2</h3>
+<p>Fill in the blanks in the code below so that the expression evaluates
+to the approximate proportion of area under the <strong>cash
+curve</strong> between <span class="math inline">\$14.50</span> and
+<span class="math inline">\$17.50</span>. Each answer should be a single
+number.</p>
+<pre><code>scipy.stats.norm.cdf(a) - scipy.stats.norm.cdf(b)</code></pre>
+<p><br></p>
+<h3 id="problem-9.3">Problem 9.3</h3>
+<p>Will the combined curve be roughly normal?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Yes, because of the Central Limit Theorem.</p></li>
+<li><p><input type="radio" disabled="" /> Yes, because combining two normal distributions always produces a</p></li>
+<li><p><input type="radio" disabled="" /> No, not necessarily.</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-9.4">Problem 9.4</h3>
+<p>Fill in the blanks in the code below so that the expression evaluates
+to the approximate proportion of area under the <strong>combined
+curve</strong> between <span class="math inline">\$14</span> and <span
+class="math inline">\$22</span>. Each answer should be a single
+number.</p>
+<pre><code>(scipy.stats.norm.cdf(a) - scipy.stats.norm.cdf(b)) / 2</code></pre>
+<p><br></p>
+<h3 id="problem-9.5">Problem 9.5</h3>
+<p>What is the approximate proportion of area under the <strong>combined
+curve</strong> between <span class="math inline">\$14</span> and <span
+class="math inline">\$22</span>? Choose the closest answer below.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> 0.47</p></li>
+<li><p><input type="radio" disabled="" /> 0.49</p></li>
+<li><p><input type="radio" disabled="" /> 0.5</p></li>
+<li><p><input type="radio" disabled="" /> 0.95</p></li>
+<li><p><input type="radio" disabled="" /> 0.97</p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-10">Problem 10</h2>
+<p><br></p>
+<h3 id="problem-10.1">Problem 10.1</h3>
+<p>Suppose the <code>bookstore</code> DataFrame has <span
+class="math inline">10</span> unique genres, and we are given a sample
+of <span class="math inline">350</span> books from that DataFrame.
+Determine the maximum possible total variation distance (TVD) that could
+occur between our sample’s genre distribution and the uniform
+distribution where each genre occurs with equal probability. Your answer
+should be a single number.</p>
+<p><br></p>
+<h3 id="problem-10.2">Problem 10.2</h3>
+<p>True or False: If the sample instead had 700 books, then the maximum
+possible TVD would <strong>increase</strong>.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-10.3">Problem 10.3</h3>
+<p>True or False: If the <code>bookstore</code> DataFrame had 11 genres
+instead of 10, the maximum possible TVD would
+<strong>increase</strong>.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-11">Problem 11</h2>
+<p>[(21 pts)] Dhruv works at the bookstore, and his job involves pricing
+new books that come in from the supplier. He prices new books based on
+the number of pages they have. He does this using linear regression,
+which he learned about in DSC 10.</p>
+<p>To build his regression line, Dhruv gathers the following information
+about the distinct books currently available at the bookstore:</p>
+<ul>
+<li><p>The correlation between price and number of pages is <span
+class="math inline">0.6</span>.</p></li>
+<li><p>The mean price of all books is $15, with a standard deviation of
+$4.</p></li>
+<li><p>The mean number of pages of all books is 500, with a standard
+deviation of 200.</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-11.1">Problem 11.1</h3>
+<p>Which of the following statements about Dhruv’s regression line are
+true? <strong>Select all that apply.</strong></p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> It goes through the point <span class="math inline">(500,
+15).</span></p></li>
+<li><p><input type="checkbox" disabled="" /> It goes through the point <span class="math inline">(200,
+4).</span></p></li>
+<li><p><input type="checkbox" disabled="" /> Its slope is equal to <span class="math inline">0.6</span>.</p></li>
+<li><p><input type="checkbox" disabled="" /> Its <span class="math inline">y</span>-intercept is equal to <span class="math inline">9</span>.</p></li>
+<li><p><input type="checkbox" disabled="" /> Its root mean square error is larger than the root mean square</p></li>
+<li><p><input type="checkbox" disabled="" /> All the books currently available at the bookstore fall on the</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-11.2">Problem 11.2</h3>
+<p>If <code>"The Martian"</code> has <span class="math inline">30</span>
+more pages than <code>"The Simple Wild"</code>, and both books are
+priced according to the regression line, how much more does
+<code>"The Martian"</code> cost than <code>"The Simple Wild"</code>?
+Give your answer as a number, in dollars and cents.</p>
+<p><br></p>
+<h3 id="problem-11.3">Problem 11.3</h3>
+<p>A new book added to the inventory is <code>"The Goldfinch"</code>,
+which has <span class="math inline">700</span> pages. How much should
+Dhruv charge customers for this book, according to the regression line
+pricing model? Give your answer as a number, in dollars and cents.</p>
+<p><br></p>
+<h3 id="problem-11.4">Problem 11.4</h3>
+<p>It turns out that Dhruv had an error in his regression line because
+he had accidentally recorded the price of one book in the data set,
+<code>"Roadside Picnic"</code>, as <span
+class="math inline">-\$12</span> instead of <span
+class="math inline">\$12</span>. He builds a new regression line using
+the correct price for <code>"Roadside Picnic"</code> and he finds that
+his new regression line has a smaller slope than before. What can we
+conclude about the number of pages in <code>"Roadside Picnic"</code>
+based on this information alone?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>"Roadside Picnic"</code> has fewer than 500 pages.</p></li>
+<li><p><input type="radio" disabled="" /> <code>"Roadside Picnic"</code> has exactly 500 pages.</p></li>
+<li><p><input type="radio" disabled="" /> <code>"Roadside Picnic"</code> has more than 500 pages.</p></li>
+<li><p><input type="radio" disabled="" /> Not enough information.</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-11.5">Problem 11.5</h3>
+<p>Suppose that Dhruv originally based his regression line on a data set
+which has a single row for each unique book sold at Bill’s Book Bonanza.
+If instead, he had used a dataset with one row for each copy of a book
+at the bookstore (and there are multiple copies of some books), would
+his regression line have come out the same?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Yes</p></li>
+<li><p><input type="radio" disabled="" /> No</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-11.6">Problem 11.6</h3>
+<p>Suppose Dhruv bootstraps his scatterplot 10,000 times and calculates
+a regression line for each resample. It turns out that <span
+class="math inline">95\%</span> of his bootstrapped slopes fall in the
+interval <span class="math inline">[a, b]</span> and <span
+class="math inline">95\%</span> of his bootstrapped intercepts fall in
+the interval <span class="math inline">[c, d]</span>. Does this mean
+that <span class="math inline">95\%</span> of his predicted prices for a
+book with 500 pages fall in the interval <span
+class="math inline">[500a+c, 500b+d]</span>?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Yes</p></li>
+<li><p><input type="radio" disabled="" /> No</p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="section"><span class="math display"> </span></h2>
+<h4
+id="feedback-find-an-error-still-confused-have-a-suggestion-let-us-know-here.">👋
+Feedback: Find an error? Still confused? Have a suggestion?
+<a href="https://forms.gle/WZ71FchnXU1K154d7">Let us know
+here</u></a>.</h4>
+<hr />
+</body>
+</html>
