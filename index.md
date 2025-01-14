@@ -56,6 +56,11 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
       <td>Monday, January 13th</td>
       <td><a href="disc02/index.html">Basic Python and Arrays</a></td>
     </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Wednesday, January 15th</td>
+      <td><a href="disc03/index.html">DataFrames, Querying, and Grouping</a></td>
+    </tr>
   </tbody>
 </table>
 </center> 
