@@ -232,7 +232,9 @@ def process_problem_no_subparts(problem_str, problem_num, show_solution, heading
         else:
             raise AssertionError('Neither # BEGIN SOLUTION nor # BEGIN SOLN were found')
             
-        exp = f'# BEGIN {sep}{r'([\d\D]*?)'}# END {sep}'
+        pattern = r"([\d\D]*?)"
+        exp = f"# BEGIN {sep}{pattern}# END {sep}"
+
             
         solution_str = re.findall(exp, problem_str)
         
@@ -263,7 +265,8 @@ def process_problem_no_subparts(problem_str, problem_num, show_solution, heading
             pass
 
         if contains_solution:
-            exp = f'# BEGIN {sep}{r'([\d\D]*?)'}# END {sep}'
+            raw_pattern = r"([\d\D]*?)"
+            exp = f"# BEGIN {sep}{raw_pattern}# END {sep}"
             problem_only = re.sub(exp, '', problem_str)
         else:
             problem_only = problem_str
