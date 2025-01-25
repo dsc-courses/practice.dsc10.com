@@ -1085,6 +1085,600 @@ aria-labelledby="heading9" data-bs-parent="#accordionExample">
 </div>
 </div>
 <hr />
+<h2 id="problem-10">Problem 10</h2>
+<p>You are given a DataFrame called <code>books</code> that contains
+columns <code>'author'</code> (string), <code>'title'</code> (string),
+<code>'num_chapters'</code> (int), and <code>'publication_year'</code>
+(int).</p>
+<p>Suppose that after doing <code>books.groupby('Author').max()</code>,
+one row says</p>
+<table>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>author</th>
+<th>title</th>
+<th>num_chapters</th>
+<th>publication_year</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Charles Dickens</td>
+<td>Oliver Twist</td>
+<td>53</td>
+<td>1838</td>
+</tr>
+</tbody>
+</table>
+<p><br></p>
+<h3 id="problem-10.1">Problem 10.1</h3>
+<p>Based on this data, can you conclude that Charles Dickens is the
+alphabetically last of all author names in this dataset?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Yes</p></li>
+<li><p><input type="radio" disabled="" /> No</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading10_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10_1" aria-expanded="true" aria-controls="collapse10_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse10_1" class="accordion-collapse collapse"
+aria-labelledby="heading10_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> No</p>
+<p>When we group by <code>'Author'</code>, all books by the same author
+get aggregated together into a single row. The aggregation function is
+applied separately to each other column besides the column we’re
+grouping by. Since we’re grouping by <code>'Author'</code> here, the
+<code>'Author'</code> column never has the <code>max()</code> function
+applied to it. Instead, each unique value in the <code>'Author'</code>
+column becomes a value in the index of the grouped DataFrame. We are
+told that the Charles Dickens row is just one row of the output, but we
+don’t know anything about the other rows of the output, or the other
+authors. We can’t say anything about where Charles Dickens falls when
+authors are ordered alphabetically (but it’s probably not last!)</p>
+<hr/>
+<h5>Difficulty: ⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 94%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-10.2">Problem 10.2</h3>
+<p>Based on this data, can you conclude that Charles Dickens wrote
+<em>Oliver Twist</em>?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Yes</p></li>
+<li><p><input type="radio" disabled="" /> No</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading10_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10_2" aria-expanded="true" aria-controls="collapse10_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse10_2" class="accordion-collapse collapse"
+aria-labelledby="heading10_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> Yes</p>
+<p>Grouping by <code>'Author'</code> collapses all books written by the
+same author into a single row. Since we’re applying the
+<code>max()</code> function to aggregate these books, we can conclude
+that <em>Oliver Twist</em> is alphabetically last among all books in the
+<code>books</code> DataFrame written by Charles Dickens. So Charles
+Dickens did write <em>Oliver Twist</em> based on this data.</p>
+<hr/>
+<h5>Difficulty: ⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 95%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-10.3">Problem 10.3</h3>
+<p>Based on this data, can you conclude that <em>Oliver Twist</em> has
+53 chapters?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Yes</p></li>
+<li><p><input type="radio" disabled="" /> No</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading10_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10_3" aria-expanded="true" aria-controls="collapse10_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse10_3" class="accordion-collapse collapse"
+aria-labelledby="heading10_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> No</p>
+<p>The key to this problem is that <code>groupby</code> applies the
+aggregation function, <code>max()</code> in this case, independently to
+each column. The output should be interpreted as follows:</p>
+<ul>
+<li>Among all books in <code>books</code> written by Charles Dickens,
+<em>Oliver Twist</em> is the title that is alphabetically last.</li>
+<li>Among all books in <code>books</code> written by Charles Dickens, 53
+is the greatest number of chapters.</li>
+<li>Among all books in <code>books</code> written by Charles Dickens,
+1838 is the latest year of publication.</li>
+</ul>
+<p>However, the book titled <em>Oliver Twist</em>, the book with 53
+chapters, and the book published in 1838 are not necessarily all the
+same book. We cannot conclude, based on this data, that <em>Oliver
+Twist</em> has 53 chapters.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 74%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-10.4">Problem 10.4</h3>
+<p>Based on this data, can you conclude that Charles Dickens wrote a
+book with 53 chapters that was published in 1838?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Yes</p></li>
+<li><p><input type="radio" disabled="" /> No</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading10_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10_4" aria-expanded="true" aria-controls="collapse10_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse10_4" class="accordion-collapse collapse"
+aria-labelledby="heading10_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> No</p>
+<p>As explained in the previous question, the <code>max()</code>
+function is applied separately to each column, so the book written by
+Charles Dickens with 53 chapters may not be the same book as the book
+written by Charles Dickens published in 1838.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 73%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-11">Problem 11</h2>
+<p>King Triton, UCSD’s mascot, is quite the traveler! For this question,
+we will be working with the <code>flights</code> DataFrame, which
+details several facts about each of the flights that King Triton has
+been on over the past few years. The first few rows of
+<code>flights</code> are shown below.</p>
+<center><img src='../assets/images/fa21-midterm/flights.png' width=40%></center>
+<p><br></p>
+<p>Here’s a description of the columns in <code>flights</code>:</p>
+<ul>
+<li><code>'DATE'</code>: the date on which the flight occurred. Assume
+that there were no “redeye” flights that spanned multiple days.</li>
+<li><code>'FLIGHT'</code>: the flight number. Note that this is not
+unique; airlines reuse flight numbers on a daily basis.</li>
+<li><code>'FROM'</code> and <code>'TO'</code>: the 3-letter airport code
+for the departure and arrival airports, respectively. Note that it’s not
+possible to have a flight from and to the same airport.</li>
+<li><code>'DIST'</code>: the distance of the flight, in miles.</li>
+<li><code>'HOURS'</code>: the length of the flight, in hours.</li>
+<li><code>'SEAT'</code>: the kind of seat King Triton sat in on the
+flight; the only possible values are <code>'WINDOW'</code>,
+<code>'MIDDLE'</code>, and <code>'AISLE'</code>. <br><br></li>
+</ul>
+<h3 id="problem-11.1">Problem 11.1</h3>
+<p>Which of these correctly evaluates to the number of flights King
+Triton took to San Diego (airport code <code>'SAN'</code>)?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>flights.loc['SAN'].shape[0]</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>flights[flights.get('TO') == 'SAN'].shape[0]</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>flights[flights.get('TO') == 'SAN'].shape[1]</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>len(flights.sort_values('TO', ascending=False).loc['SAN'])</code></p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading11_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11_1" aria-expanded="true" aria-controls="collapse11_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse11_1" class="accordion-collapse collapse"
+aria-labelledby="heading11_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong>
+<code>flights[flights.get('TO') == 'SAN'].shape[0]</code></p>
+<p>The strategy is to create a DataFrame with only the flights that went
+to San Diego, then count the number of rows. The first step is to query
+with the condition <code>flights.get('TO') == 'SAN'</code> and the
+second step is to extract the number of rows with
+<code>.shape[0]</code>.</p>
+<p>Some of the other answer choices use <code>.loc['SAN']</code> but
+<code>.loc</code> only works with the index, and <code>flights</code>
+does not have airport codes in its index.</p>
+<hr/>
+<h5>Difficulty: ⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 95%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-11.2">Problem 11.2</h3>
+<p>Fill in the blanks below so that the result also evaluates to the
+number of flights King Triton took to San Diego (airport code
+<code>'SAN'</code>).</p>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>flights.groupby(__(a)__).count().get(<span class="st">&#39;FLIGHT&#39;</span>).__(b)__            </span></code></pre></div>
+<p>What goes in blank (a)?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>'DATE'</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>'FLIGHT'</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>'FROM'</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>'TO'</code></p></li>
+</ul>
+<p>What goes in blank (b)?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>.index[0]</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>.index[-1]</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>.loc['SAN']</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>.iloc['SAN']</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>.iloc[0]</code></p></li>
+</ul>
+<p>True or False: If we change <code>.get('FLIGHT')</code> to
+<code>.get('SEAT')</code>, the results of the above code block will not
+change. (You may assume you answered the previous two subparts
+correctly.)</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading11_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11_2" aria-expanded="true" aria-controls="collapse11_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse11_2" class="accordion-collapse collapse"
+aria-labelledby="heading11_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> <code>'TO'</code>,
+<code>.loc['SAN']</code>, True</p>
+<p>The strategy here is to group all of King Triton’s flights according
+to where they landed, and count up the number that landed in San Diego.
+The expression <code>flights.groupby('TO').count()</code> evaluates to a
+DataFrame indexed by arrival airport where, for any arrival airport,
+each column has a count of the number of King Triton’s flights that
+landed at that airport. To get the count for San Diego, we need the
+entry in any column for the row corresponding to San Diego. The code
+<code>.get('FLIGHT')</code> says we’ll use the <code>'FLIGHT'</code>
+column, but any other column would be equivalent. To access the entry of
+this column corresponding to San Diego, we have to use <code>.loc</code>
+because we know the name of the value in the index should be
+<code>'SAN'</code>, but we don’t know the row number or integer
+position.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 89%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-11.3">Problem 11.3</h3>
+<p>Consider the DataFrame <code>san</code>, defined below.</p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>san <span class="op">=</span> flights[(flights.get(<span class="st">&#39;FROM&#39;</span>) <span class="op">==</span> <span class="st">&#39;SAN&#39;</span>) <span class="op">&amp;</span> (flights.get(<span class="st">&#39;TO&#39;</span>) <span class="op">==</span> <span class="st">&#39;SAN&#39;</span>)]</span></code></pre></div>
+<p>Which of these DataFrames <strong>must</strong> have the same number
+of rows as <code>san</code>?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>flights[(flights.get('FROM') == 'SAN') and (flights.get('TO') == 'SAN')]</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>flights[(flights.get('FROM') == 'SAN') | (flights.get('TO') == 'SAN')]</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>flights[(flights.get('FROM') == 'LAX') &amp; (flights.get('TO') == 'SAN')]</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>flights[(flights.get('FROM') == 'LAX') &amp; (flights.get('TO') == 'LAX')]</code></p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading11_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11_3" aria-expanded="true" aria-controls="collapse11_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse11_3" class="accordion-collapse collapse"
+aria-labelledby="heading11_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong>
+<code>flights[(flights.get('FROM') == 'LAX') &amp; (flights.get('TO') == 'LAX')]</code></p>
+<p>The DataFrame <code>san</code> contains all rows of
+<code>flights</code> that have a departure airport of <code>'SAN'</code>
+and an arrival airport of <code>'SAN'</code>. But as you may know, and
+as you’re told in the data description, there are no flights from an
+airport to itself. So <code>san</code> is actually an empty DataFrame
+with no rows!</p>
+<p>We just need to find which of the other DataFrames would necessarily
+be empty, and we can see that
+<code>flights[(flights.get('FROM') == 'LAX') &amp; (flights.get('TO') == 'LAX')]</code>
+will be empty for the same reason.</p>
+<p>Note that none of the other answer choices are correct. The first
+option uses the Python keyword <code>and</code> instead of the symbol
+<code>&amp;</code>, which behaves unexpectedly but does not give an
+empty DataFrame. The second option will be non-empty because it will
+contain all flights that have San Diego as the departure airport or
+arrival airport, and we already know from the first few rows of
+<code>flight</code> that there are some of these. The third option will
+contain all the flights that King Triton has taken from
+<code>'LAX'</code> to <code>'SAN'</code>. Perhaps he’s never flown this
+route, or perhaps he has. This DataFrame could be empty, but it’s not
+necessarily going to be empty, as the question requires.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 70%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-12">Problem 12</h2>
+<p>In September 2020, Governor Gavin Newsom announced that by 2035, all
+new vehicles sold in California must be zero-emissions vehicles.
+Electric vehicles (EVs) are among the most popular zero-emissions
+vehicles (though other examples include plug-in hybrids and hydrogen
+fuel cell vehicles).</p>
+<center><img src='../assets/images/fa22-midterm/data22.png' width=20%></center>
+<p><br></p>
+<p>The DataFrame <code>evs</code> consists of <strong>32</strong> rows,
+each of which contains information about a different EV model.</p>
+<ul>
+<li><code>"Brand"</code> (str): The vehicle’s manufacturer.</li>
+<li><code>"Model"</code> (str): The vehicle’s model name.</li>
+<li><code>"BodyStyle"</code> (str): The vehicle’s body style.</li>
+<li><code>"Seats"</code> (int): The vehicle’s number of seats.</li>
+<li><code>"TopSpeed"</code> (int): The vehicle’s top speed, in
+kilometers per hour.</li>
+<li><code>"Range"</code> (int): The vehicle’s range, or distance it can
+travel on a single charge, in kilometers.</li>
+</ul>
+<p>The first few rows of <code>evs</code> are shown below (though
+remember, <code>evs</code> has 32 rows total).</p>
+<center><img src='../assets/images/fa22-midterm/form22.png' width=60%></center>
+<p><br></p>
+<p>Assume that:</p>
+<ul>
+<li>The only four values in the <code>"Brand"</code> column are
+<code>"Tesla"</code>, <code>"BMW"</code>, <code>"Audi"</code>, and
+<code>"Nissan"</code>.</li>
+<li>We have already run <code>import babypandas as bpd</code> and
+<code>import numpy as np</code>.</li>
+</ul>
+<p><br><br></p>
+<p>Suppose we’ve run the following line of code. ​</p>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>counts <span class="op">=</span> evs.groupby(<span class="st">&quot;Brand&quot;</span>).count()</span></code></pre></div>
+<p><br></p>
+<h3 id="problem-12.1">Problem 12.1</h3>
+<p>What value does <code>counts.get("Range").sum()</code> evaluate
+to?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading12_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12_1" aria-expanded="true" aria-controls="collapse12_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse12_1" class="accordion-collapse collapse"
+aria-labelledby="heading12_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> 32</p>
+<p><code>counts</code> is a DataFrame with one row per
+<code>"Brand"</code>, since we grouped by <code>"Brand"</code>. Since we
+used the <code>.count()</code> aggregation method, the columns in
+<code>counts</code> will all be the same – they will all contain the
+number of rows in <code>evs</code> for each <code>"Brand"</code>
+(i.e. they will all contain the distribution of <code>"Brand"</code>).
+If we sum up the values in any one of the columns in
+<code>counts</code>, then, the result will be the total number of rows
+in <code>evs</code>, which we know to be 32. Thus,
+<code>counts.get("Range").sum()</code> is 32.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 56%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-12.2">Problem 12.2</h3>
+<p>What value does <code>counts.index[3]</code> evaluate to?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading12_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12_2" aria-expanded="true" aria-controls="collapse12_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse12_2" class="accordion-collapse collapse"
+aria-labelledby="heading12_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> <code>"Tesla"</code></p>
+<p>Since we grouped by <code>"Brand"</code> to create
+<code>counts</code>, the index of <code>counts</code> will be
+<code>"Brand"</code>, sorted alphabetically (this sorting happens
+automatically when grouping). This means that <code>counts.index</code>
+will be the array-like sequence
+<code>["Audi", "BMW", "Nissan", "Tesla"]</code>, and
+<code>counts.index[3]</code> is <code>"Tesla"</code>.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 33%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-13">Problem 13</h2>
+<p>Consider the following incomplete assignment statement.</p>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> evs______.mean()</span></code></pre></div>
+<p>In each part, fill in the blank above so that result evaluates to the
+specified quantity.</p>
+<p><br></p>
+<h3 id="problem-13.1">Problem 13.1</h3>
+<p>A DataFrame, indexed by <code>"Brand"</code>, whose
+<code>"Seats"</code> column contains the average number of
+<code>"Seats"</code> per <code>"Brand"</code>. (The DataFrame may have
+other columns in it as well.)</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading13_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13_1" aria-expanded="true" aria-controls="collapse13_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse13_1" class="accordion-collapse collapse"
+aria-labelledby="heading13_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> <code>.groupby("Brand")</code></p>
+<p>When we group by a column, the resulting DataFrame contains one row
+for every unique value in that column. The question specified that we
+wanted some information <em>per</em> <code>"Brand"</code>, which implies
+that grouping by <code>"Brand"</code> is necessary.</p>
+<p>After grouping, we need to use an aggregation method. Here, we wanted
+the resulting DataFrame to be such that the <code>"Seats"</code> column
+contained the average number of <code>"Seats"</code> per
+<code>"Brand"</code>; this is accomplished by using
+<code>.mean()</code>, which is already done for us.</p>
+<p>Note: With the provided solution, the resulting DataFrame also has
+other columns. For instance, it has a <code>"Range"</code> column that
+contains the average <code>"Range"</code> for each <code>"Brand"</code>.
+That’s fine, since we were told that the resulting DataFrame may have
+other columns in it as well. If we wanted to ensure that the only column
+in the resulting DataFrame was <code>"Seats"</code>, we could have used
+<code>.get(["Brand", "Seats"])</code> before grouping, though this was
+not necessary.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 76%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-13.2">Problem 13.2</h3>
+<p>A number, corresponding to the average <code>"TopSpeed"</code> of all
+EVs manufactured by Audi in evs</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading13_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13_2" aria-expanded="true" aria-controls="collapse13_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse13_2" class="accordion-collapse collapse"
+aria-labelledby="heading13_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong>
+<code>[evs.get("Brand") == "Audi"].get("TopSpeed")</code></p>
+<p>There are two parts to this problem:</p>
+<ol type="1">
+<li><p>Querying, to make sure that we only keep the rows corresponding
+to Audis. This is accomplished by:</p>
+<ul>
+<li>Using <code>evs.get("Brand") == "Audi"</code> to create a Boolean
+Series, with <code>True</code>s for the rows we want to keep and
+<code>False</code>s for the other rows.</li>
+<li>Using Boolean indexing to keep only the rows in which the
+aforementioned Series is <code>True</code>. This is accomplished by
+<code>evs[evs.get("Brand") == "Audi"]</code> (though the
+<code>evs</code> part at the front was already provided).</li>
+</ul></li>
+<li><p>Accessing the <code>"TopSpeed"</code> column. This is
+accomplished by using <code>.get("TopSpeed")</code>.</p></li>
+</ol>
+<p>Then, <code>evs[evs.get("Brand") == "Audi"].get("TopSpeed")</code> is
+a Series contaning the <code>"TopSpeed"</code>s of all Audis, and mean
+of this Series is the result we’re looking for. The call to
+<code>.mean()</code> was already provided for us.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 77%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
 <h2 id="section"><span class="math display"> </span></h2>
 <h4
 id="feedback-find-an-error-still-confused-have-a-suggestion-let-us-know-here.">👋
