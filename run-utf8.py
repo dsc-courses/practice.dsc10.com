@@ -52,6 +52,7 @@ def format_assignment_name(name):
     return season + ' ' + year + ' ' + type.title() + ' Exam'
 
 def format_md_path(name):
+    #print('name = ', name)
     '''Example behavior is shown below.
     >>> format_md_path('problems/sp22-midterm/q7-merge')
     'problems/sp22-midterm/q7-merge.md'
@@ -61,9 +62,14 @@ def format_md_path(name):
     'problems/sp22-midterm/q7-merge.md, problems/sp22-midterm/data-info-for-discussion.md'
     
     '''
+    # Makes sure name path has correct slashes (\ for windows, / for mac, etc)
+    name = os.path.normpath(name)
+    # print('name = ', name)
     if ',' not in name:
+        totalPath = os.path.join('problems', f'{name}.md')
         return os.path.join('problems', f'{name}.md')
     else:
+        #print('RUNNING')
         names = name.split(', ')
         if len(names) > 2:
             raise Exception(f'Provided more than 2 files in a .yml file. For debugging: {name}')
@@ -118,13 +124,13 @@ def stitch(files, show_solution, toc=False):
             # So will replace the # BEGIN PROB in the question text with # BEGIN PROB {context}
             r = question_text.replace("# BEGIN PROB", f"# BEGIN PROB {info_text} <br><br>")
         else:
+            # print(f"Looking for file at: {path}")
             r = open(path, 'r', encoding='UTF-8').read()
 
         q_out = process_problem(problem_str=r, problem_num=i+1, show_solution=show_solution)
         q_out += '\n\n\n---\n\n\n'
 
         out += q_out
-
     return out
 
 # ---
