@@ -269,6 +269,13 @@ We've provided answers to all quiz questions, but you won't find detailed explan
   </thead>
   <tbody>
     <tr>
+      <th scope="row">Winter 2025</th>
+      <td>Janine Tiefenbruck</td>
+      <td>
+      <a href='wi25-quiz1/index.html'>Quiz 1</a>
+      </td>
+      </tr>  
+      <tr>
       <th scope="row">Fall 2024</th>
       <td>Janine Tiefenbruck</td>
       <td>
