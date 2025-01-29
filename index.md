@@ -66,6 +66,11 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
       <td>Monday, January 27th</td>
       <td><a href="disc04/index.html">Histograms and Functions</a></td>
     </tr>
+    <tr>
+      <th scope="row">5</th>
+      <td>Wednesday, January 29th</td>
+      <td><a href="disc05/index.html">Functions, Merging, and Control Flow</a></td>
+    </tr>
   </tbody>
 </table>
 </center> 
