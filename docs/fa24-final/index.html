@@ -1080,21 +1080,43 @@ aria-labelledby="heading6_1" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p>(a). <strong>Answer</strong>: <code>split(",")[0]</code>
-</p>
+<p>(a). <strong>Answer</strong>: <code>split(",")[0]</code></p>
+<p>The function <code>find_day</code> takes in a string that is a date
+with the format “Day_of_week, Month Day, Year”, and we want the
+Day_of_week part. <code>.split(",")</code> separates the given string by
+“,” and gives us a list containing the separated substrings, which looks
+something like <code>["Saturday", " December 7", " 2024"]</code>. We
+want the first element in the list, so we use <code>[0]</code> to obtain
+the item at the zero-th index position of the list.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
-<p>The average score on this problem was
-89%.</p>
-<p>(b). <strong>Answer</strong>: <code>0</code> </p>
+<p>
+</p>
+<p>The average score on this problem was 89%.</p>
+<p>(b). <strong>Answer</strong>: <code>0</code></p>
+<p>This blank follows a call of <code>find_day(date)</code>, which
+returns a string that is a day of the week, such as
+<code>"Saturday"</code>. The blank is inside a pair of <code>[]</code>,
+hinting that we are performing string indexing. We want to determine
+whether the string is <code>"Saturday"</code> or <code>"Sunday"</code>.
+The only thing in common for these two days and is not common for the
+other five days of the week is that the string starts with the letter
+“S”. Thus, we get the character at the zero-th index using
+<code>[0]</code> at this blank.</p>
 <hr/>
-<h5>Difficulty:
-⭐️⭐️⭐️</h5>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
 <p>The average score on this problem was 74%.</p>
-<p>(c). <strong>Answer</strong>: <code>"S"</code> </p>
+<p>(c). <strong>Answer</strong>: <code>"S"</code></p>
+<p>After getting the first character in the string, to check whether it
+is the letter “S”, we use <code>==</code> to evaluate this character
+against <code>"S"</code>. This expression will give us a boolean, either
+<code>True</code> or <code>False</code>, which is then returned.</p>
 <hr/>
-<h5>Difficulty:
-⭐️⭐️⭐️</h5>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
 <p>The average score on this problem was 50%.</p>
 </div>
 </div>
@@ -1133,6 +1155,67 @@ aria-labelledby="heading6_2" data-bs-parent="#accordionExample">
 <li><code>sales[sales_day.get("weekend")].shape[0] / sales_day.shape[0]</code></li>
 <li><code>sales_day.get("weekend").mean()</code></li>
 <li><code>np.count_nonzero(sales_day.get("weekend") &gt; 0.5) / sales_day.shape[0]</code></li>
+</ul>
+<p>First of all,
+<code>sales_day = sales.assign(weekend = sales.get("date").apply(is_weekend))</code>
+adds a new column called <code>"weekend"</code> to the
+<code>sales</code> DataFrame, and this new DataFrame is stored as
+<code>sales_day</code>. The new column contains boolean values that
+indicate whether the value in the <code>"date"</code> column in the
+corresponding row is <code>"Saturday"</code> or <code>"Sunday"</code>,
+which are obtained by applying the function <code>is_weekend</code> that
+we defined in the previous question to the <code>"date"</code>
+column.</p>
+<p>Now, we want to find the proportion of book purchases in sales that
+were made on a weekend, which is basically the proportion of rows in the
+<code>"weekend"</code> column that are <code>True</code>. Let’s look at
+each of the options:</p>
+<ul>
+<li><p><code>sales_day[sales_day.get("weekend")].count() / sales_day.shape[0]</code>
+(incorrect): <code>sales_day[sales_day.get("weekend")]</code> gives us a
+after-query DataFrame, and it does not support the use of
+<code>.count()</code> to get the total number of rows. You can only use
+<code>.count()</code> on a groupby object. The correct alternative is to
+use <code>.shape[0]</code>.</p></li>
+<li><p><code>sales[sales_day.get("weekend")].shape[0] / sales_day.shape[0]</code>
+(correct): <code>sales_day.get("weekend")</code> gets the
+<code>"weekend</code> column from the <code>sales_day</code> DataFrame,
+which contains all booleans and has the same number of rows as the
+<code>sales</code> DataFrame. We then use this Series to query the
+<code>sales</code> DataFrame with
+<code>sales[sales_day.get("weekend")]</code>, keeping only the rows in
+<code>sales</code> where the value for <code>"weekend"</code> is True.
+Lastly. we count the number of rows in this sub-DataFrame with
+<code>.shape[0]</code>, which is the number of sales that happened on a
+weekend. In the denominator, we use <code>sales_day.shape[0]</code> to
+get the total number of rows of <code>sales_day</code>, or, the total
+number of sales. Lastly, we perform division to get the proportion of
+sales made on weekend with respect to the total number of
+sales.</p></li>
+<li><p><code>sales_day.get("weekend").median()</code> (incorrect): A
+boolean value can be seen as 1 (True) or 0 (False). Since the column
+<code>"weekend"</code> contains all booleans, the median falls on either
+1 or 0, which is not the proportion that we want.</p></li>
+<li><p><code>sales_day.get("weekend").mean()</code> (correct): A boolean
+value can be seen as 1 (True) or 0 (False). The mean of the
+<code>"weekend"</code> column is equal to the sum of the column divided
+the total number of rows in the column. The sum of the column is the sum
+of all the 1’s and 0’s, which is just the number of 1’s, or,
+<code>True</code>s in the column. The number of <code>True</code>s
+divided by the total number of rows is the proportion of sales on
+weekend out of total number of sales that we are looking for.</p></li>
+<li><p><code>np.count_nonzero(sales_day.get("weekend") &gt; 0.5) / sales_day.shape[0]</code>
+(correct): A boolean value can be seen as 1 (True) or 0 (False).
+<code>sales_day.get("weekend") &gt; 0.5</code> gives us another Series
+of booleans indicating whether the value in <code>"weekend"</code> is
+greater than 0.5. If the value is <code>True</code>, or, 1, then it’s
+greater than 0.5. A <code>False</code>, or, 0, is not greater than 0.5.
+In other words, this new column has the same exact values as
+<code>"weekend"</code>. <code>np.count_nonzero</code> counts the number
+of values that are not zero, which is the number of <code>True</code>s
+in this case. We then divide the number of <code>True</code>s, or, the
+number of sales on weekend, by the total number of sales to get the
+proportion we are looking for.</p></li>
 </ul>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
@@ -1191,11 +1274,16 @@ days.</p></li>
 <p>Which of the following test statistics could be used to test the
 given hypothesis? <strong>Select all that apply.</strong></p>
 <ul class="task-list">
-<li><p><input type="checkbox" disabled="" /> The absolute difference between the proportion of books sold on</p></li>
-<li><p><input type="checkbox" disabled="" /> The sum of the differences in proportions between the
-distribution</p></li>
-<li><p><input type="checkbox" disabled="" /> The sum of the squared differences in proportions between the</p></li>
-<li><p><input type="checkbox" disabled="" /> One half of the sum of the absolute differences in proportions</p></li>
+<li><p><input type="checkbox" disabled="" /> The absolute difference between the proportion of books sold on
+Saturday and the proposed proportion of books sold on Saturday (<span class="math inline">0.2</span>).</p></li>
+<li><p><input type="checkbox" disabled="" /> The sum of the differences in proportions between the distribution of
+books sold by day and Hargen’s proposed distribution.</p></li>
+<li><p><input type="checkbox" disabled="" /> The sum of the squared differences in proportions between the
+distribution of books sold by day and Hargen’s proposed
+distribution.</p></li>
+<li><p><input type="checkbox" disabled="" /> One half of the sum of the absolute differences in proportions
+between the distribution of books sold by day and Hargen’s proposed
+distribution.</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
@@ -1218,6 +1306,20 @@ distribution.</li>
 <li>One half of the sum of the absolute differences in proportions
 between the distribution of books sold by day and Hargen’s proposed
 distribution.</li>
+</ul>
+<p>Let’s look at each of the options:</p>
+<ul>
+<li>Option 1: Incorrect. It is only comparing one day instead of the
+entire distribution.</li>
+<li>Option 2: Incorrect. Positive and negative differences, if both
+exist, can partially cancel out. We would not be able to tell how big
+the difference is.</li>
+<li>Option 3: Correct. Squared difference avoids the issue of positive
+and negative differences canceling out.</li>
+<li>Option 4: Correct. Absolute difference also avoids the issue of
+positive and negative differences canceling out. Furthermore, this is
+the definition of Total Variation Distance (TVD), which is a common
+statistic for comparing categorical distributions.</li>
 </ul>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
@@ -1276,6 +1378,12 @@ aria-labelledby="heading7_2" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: 0.06</p>
+<p><span class="math display">\frac{|0.34 - 0.2| + |0.13 - 0.1| + |0.06
+- 0.1| + |0.07 - 0.1| + |0.08 - 0.1| + |0.08 - 0.2| + |0.24 -
+0.2|}{7}</span></p>
+<p><span class="math display">= \frac{0.14 + 0.03 + 0.04 + 0.03 + 0.02 +
+0.12 + 0.04}{7}</span></p>
+<p><span class="math display">= \frac{0.42}{7} = 0.06</span></p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -1313,28 +1421,54 @@ aria-labelledby="heading7_3" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p>(a). <strong>Answer</strong>:
-<code>sales.get("date").apply(find_day)</code> </p>
-<hr/>
-<h5>Difficulty:
-⭐️⭐️</h5>
-<p>The average score on this problem was 77%.</p>
-<p>(b). <strong>Answer</strong>: <code>"day_of_week"</code>
-</p>
+<code>sales.get("date").apply(find_day)</code></p>
+<p>In this blank, we want to create a Series that contains days of the
+week, such as <code>"Saturday"</code>, to be assigned to a column named
+<code>day_of_week</code> in <code>sales</code>. We take the
+<code>"date"</code> column in <code>sales</code> and apply the function
+<code>find_day</code> to each of the date in the column.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
-<p>The average score on this problem was
-84%.</p>
-<p>(c). <strong>Answer</strong>: <code>count()</code>
+<p>
 </p>
+<p>The average score on this problem was 77%.</p>
+<p>(b). <strong>Answer</strong>: <code>"day_of_week"</code></p>
+<p>We want to group the <code>sales</code> DataFrame by the
+<code>day_of_week</code> column that was created in blank (a) to perform
+some aggregate on each day of the week.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 84%.</p>
+<p>(c). <strong>Answer</strong>: <code>count()</code></p>
+<p>We want to count how many sales occured on each day of the week, or,
+how many rows are in <code>sales</code> that belong to each day, so we
+use <code>count()</code> after grouping by <code>day_of_week</code>.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>The average score on this problem was
-71%.</p>
+<p>
+</p>
+<p>The average score on this problem was 71%.</p>
 <p>(d). <strong>Answer</strong>:
-<code>(np.abs(prop - hargen)).mean()</code> </p>
+<code>(np.abs(prop - hargen)).mean()</code></p>
+<p>We first take one column (doesn’t have to be <code>"ISBN"</code>, we
+just chose it arbitrarily, because all columns have the same counts)
+that contains the count of rows for each day of the week and is indexed
+by the days in alphabetical order after the groupby. We then divide this
+column by the total number of rows to convert the counts to
+proportionsa. We want to compute the statistic that we’ve chosen above,
+<strong>the mean of the absolute differences in proportions between the
+distribution of books sold by day and Hargen’s proposed
+distribution</strong>. Since the order of the days already match (both
+in alphabetical order), we can simply subtract one from the other to get
+the difference in proportions. We then turn the differences into
+absolute differences with <code>np.abs</code> and get the mean using
+<code>.mean()</code>.</p>
 <hr/>
-<h5>Difficulty:
-⭐️⭐️⭐️</h5>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
 <p>The average score on this problem was 59%.</p>
 </div>
 </div>
@@ -1346,11 +1480,12 @@ aria-labelledby="heading7_3" data-bs-parent="#accordionExample">
 simulated day-of-the-week distributions. What will we do with all these
 simulated distributions?</p>
 <ul class="task-list">
-<li><p><input type="radio" disabled="" /> Use them to determine whether Hargen’s proposed distribution
-looks</p></li>
-<li><p><input type="radio" disabled="" /> Use them to determine whether the observed distribution of books</p></li>
-<li><p><input type="radio" disabled="" /> Use them to determine whether Hargen’s proposed distribution
-looks</p></li>
+<li><p><input type="radio" disabled="" /> Use them to determine whether Hargen’s proposed distribution looks
+like a typical simulated distribution.</p></li>
+<li><p><input type="radio" disabled="" /> Use them to determine whether the observed distribution of books sold
+by day looks like a typical simulated distribution.</p></li>
+<li><p><input type="radio" disabled="" /> Use them to determine whether Hargen’s proposed distribution looks
+like a typical observed distribution of books sold by day.</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
@@ -1368,6 +1503,18 @@ aria-labelledby="heading7_4" data-bs-parent="#accordionExample">
 <p><strong>Answer</strong>: Use them to determine whether the observed
 distribution of books sold by day looks like a typical simulated
 distribution.</p>
+<p>For hypothesis testing, we simulate based on the null distribution,
+which is the distribution that Hargen proposed. For each of the
+simulated distribution of proportions , we calculate the statistic we
+chose above, which is <strong>the mean of the absolute differences in
+proportions between the simulated distribution and Hargen’s proposed
+distribution</strong>. After thousands of simulations, we have
+calculated thousands of mean of absolute differences in proportions,
+each between one simulated distribution and Hargen’s proposed
+distribution. Lastly, we compare the statistic for our observed
+distribution with the thousands of statistics from the simulated
+distributions to see whether <strong>the observed distribution of books
+sold by day looks like a typical simulated distribution.</strong></p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️⭐️⭐️</h5>
 <p>
@@ -1402,6 +1549,8 @@ aria-labelledby="heading7_5" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: Hargen’s proposed distribution.</p>
+<p>For hypothesis testing, we simulate based on the null distribution,
+which is the distribution that Hargen proposed.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️⭐️⭐️</h5>
 <p>
@@ -1435,6 +1584,11 @@ aria-labelledby="heading7_6" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: It is likely wrong.</p>
+<p>Using the standard p-value cutoff of 0.05, we say that the observed
+distribution is not like a typical simulated distribution under Hargen’s
+proposed distribution if it falls below 2.5th percentile of above 97.5th
+percentile. In this case, 98th percentile is above 97.5th percentile, so
+we say that Hargen’s proposed distribution is likely wrong.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -1475,6 +1629,17 @@ aria-labelledby="heading8_1" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: 55</p>
+<center><img src="../assets/images/fa24-final/8_1_cash_above_26.png" width="800"/></center>
+<p>We first locate the bars representing <span class="math inline">\$26</span> or more on the cash transaction
+histogram, which is the three right-most bars. We then calculate the
+area of these bars to get the proportion of cash transactions these bars
+correspond to. Lastly, we multiply this proportion by the total count of
+500 to get the count of transactions with a <code>"price"</code> of
+<span class="math inline">\$26</span> or more.</p>
+<p><span class="math display">\textit{Area} = 0.03 * 2 + 0.02 * 2 +
+0.005 * 2 = 0.06 + 0.04 + 0.01 = 0.11</span></p>
+<p><span class="math inline">\textit{Number of transactions = 0.11 * 500
+= 55}</span></p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -1504,6 +1669,9 @@ aria-labelledby="heading8_2" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: Not enough information.</p>
+<p>Since the histogram for non-cash transactions only has a bin of <span class="math inline">[4, 8)</span>, we don’t have enough information
+about how many transactions fall within <span class="math inline">[4,
+6)</span>.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -1533,6 +1701,22 @@ aria-labelledby="heading8_3" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: 0.03</p>
+<center><img src="../assets/images/fa24-final/8_3_cash.png" width="800"/></center>
+<center><img src="../assets/images/fa24-final/8_3_non_cash.png" width="800"/></center>
+<p>We first calculate the counts for cash and non-cash transactions
+within <span class="math inline">[24, 28)</span> separately. Then we
+combine the two counts and find the proportion that is of 1000 total
+transactions. Lastly, we determine the height of the bar by dividing the
+area (proportion) by the width <span class="math inline">4</span>.</p>
+<p>Number of cash transactions within <span class="math inline">[24, 28)
+= (0.05 * 2 + 0.03 * 2) * 500 = (0.1 + 0.06) * 500 = 0.16 * 500 =
+80</span></p>
+<p>Number of non-cash transactions within <span class="math inline">[24,
+28) = (0.02 * 4) * 500 = 0.08 * 500 = 40</span></p>
+<p>Total number of transactions within <span class="math inline">[24,
+28) = 80 + 40 = 120</span></p>
+<p>Proportion of one thousand total transactions (Area of bar) <span class="math inline">= 120 / 1000 = 0.12</span></p>
+<p>Height of bar <span class="math inline">= 0.12 / 4 = 0.03</span></p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
 <p>
@@ -1564,6 +1748,22 @@ aria-labelledby="heading8_4" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: 0.04</p>
+<center><img src="../assets/images/fa24-final/8_4_cash.png" width="800"/></center>
+<center><img src="../assets/images/fa24-final/8_4_non_cash.png" width="800"/></center>
+<p>We first calculate the counts for cash and non-cash transactions
+within <span class="math inline">[12, 16)</span> separately. Then we
+combine the two counts and find the proportion that is of 1000 total
+transactions. Lastly, we determine the height of the bar by dividing the
+area (proportion) by the width <span class="math inline">4</span>.</p>
+<p>Number of cash transactions within <span class="math inline">[12, 16)
+= (0.06 * 2 + 0.04 * 2) * 600 = (0.12 + 0.08) * 600 = 0.2 * 600 =
+120</span></p>
+<p>Number of non-cash transactions within <span class="math inline">[12,
+16) = (0.025 * 4) * 400 = 0.1 * 400 = 40</span></p>
+<p>Total number of transactions within <span class="math inline">[12,
+16) = 120 + 40 = 160</span></p>
+<p>Proportion of one thousand total transactions (Area of bar) <span class="math inline">= 160 / 1000 = 0.16</span></p>
+<p>Height of bar <span class="math inline">= 0.16 / 4 = 0.04</span></p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
 <p>
