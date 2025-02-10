@@ -1172,26 +1172,16 @@ were made on a weekend, which is basically the proportion of rows in the
 each of the options:</p>
 <ul>
 <li><p><code>sales_day[sales_day.get("weekend")].count() / sales_day.shape[0]</code>
-(incorrect): <code>sales_day[sales_day.get("weekend")]</code> gives us a
-after-query DataFrame, and it does not support the use of
-<code>.count()</code> to get the total number of rows. You can only use
-<code>.count()</code> on a groupby object. The correct alternative is to
-use <code>.shape[0]</code>.</p></li>
+(incorrect): You can only use <code>.count()</code> on a groupby object.
+The correct alternative is to use <code>.shape[0]</code>.</p></li>
 <li><p><code>sales[sales_day.get("weekend")].shape[0] / sales_day.shape[0]</code>
 (correct): <code>sales_day.get("weekend")</code> gets the
-<code>"weekend</code> column from the <code>sales_day</code> DataFrame,
-which contains all booleans and has the same number of rows as the
-<code>sales</code> DataFrame. We then use this Series to query the
-<code>sales</code> DataFrame with
-<code>sales[sales_day.get("weekend")]</code>, keeping only the rows in
-<code>sales</code> where the value for <code>"weekend"</code> is True.
-Lastly. we count the number of rows in this sub-DataFrame with
-<code>.shape[0]</code>, which is the number of sales that happened on a
-weekend. In the denominator, we use <code>sales_day.shape[0]</code> to
-get the total number of rows of <code>sales_day</code>, or, the total
-number of sales. Lastly, we perform division to get the proportion of
-sales made on weekend with respect to the total number of
-sales.</p></li>
+<code>"weekend</code> column from the <code>sales_day</code> DataFrame.
+We then use this Series to query the <code>sales</code> DataFrame with
+<code>sales[sales_day.get("weekend")]</code>, keeping only the rows
+happening on weekends. Lastly. we count the number of rows in this
+sub-DataFrame with <code>.shape[0]</code> and divide by the total number
+sales to get the proportion.</p></li>
 <li><p><code>sales_day.get("weekend").median()</code> (incorrect): A
 boolean value can be seen as 1 (True) or 0 (False). Since the column
 <code>"weekend"</code> contains all booleans, the median falls on either
@@ -1209,13 +1199,11 @@ weekend out of total number of sales that we are looking for.</p></li>
 <code>sales_day.get("weekend") &gt; 0.5</code> gives us another Series
 of booleans indicating whether the value in <code>"weekend"</code> is
 greater than 0.5. If the value is <code>True</code>, or, 1, then it’s
-greater than 0.5. A <code>False</code>, or, 0, is not greater than 0.5.
-In other words, this new column has the same exact values as
-<code>"weekend"</code>. <code>np.count_nonzero</code> counts the number
-of values that are not zero, which is the number of <code>True</code>s
-in this case. We then divide the number of <code>True</code>s, or, the
-number of sales on weekend, by the total number of sales to get the
-proportion we are looking for.</p></li>
+greater than 0.5. <code>np.count_nonzero</code> counts the number of
+values that are not zero, which is the number of <code>True</code>s. We
+then divide the number of <code>True</code>s, or, the number of sales on
+weekend, by the total number of sales to get the proportion we are
+looking for.</p></li>
 </ul>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
@@ -1452,19 +1440,16 @@ use <code>count()</code> after grouping by <code>day_of_week</code>.</p>
 <p>The average score on this problem was 71%.</p>
 <p>(d). <strong>Answer</strong>:
 <code>(np.abs(prop - hargen)).mean()</code></p>
-<p>We first take one column (doesn’t have to be <code>"ISBN"</code>, we
-just chose it arbitrarily, because all columns have the same counts)
-that contains the count of rows for each day of the week and is indexed
-by the days in alphabetical order after the groupby. We then divide this
-column by the total number of rows to convert the counts to
-proportionsa. We want to compute the statistic that we’ve chosen above,
-<strong>the mean of the absolute differences in proportions between the
-distribution of books sold by day and Hargen’s proposed
-distribution</strong>. Since the order of the days already match (both
-in alphabetical order), we can simply subtract one from the other to get
-the difference in proportions. We then turn the differences into
-absolute differences with <code>np.abs</code> and get the mean using
-<code>.mean()</code>.</p>
+<p>We first take one column that contains the count of rows for each day
+of the week, indexed by the days in alphabetical order after the
+groupby. We then divide this column by the total number of rows to get
+proportions. We want to compute the statistic that we’ve chosen, the
+mean of absolute differences in proportions between the observed and
+Hargen’s proposed distribution. Since the order of the days already
+match (both in alphabetical order), we can simply subtract one from the
+other to get the difference in proportions. We then turn the differences
+into absolute differences with <code>np.abs</code> and get the mean
+using <code>.mean()</code>.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -1506,14 +1491,13 @@ distribution.</p>
 <p>For hypothesis testing, we simulate based on the null distribution,
 which is the distribution that Hargen proposed. For each of the
 simulated distribution of proportions , we calculate the statistic we
-chose above, which is <strong>the mean of the absolute differences in
-proportions between the simulated distribution and Hargen’s proposed
-distribution</strong>. After thousands of simulations, we have
-calculated thousands of mean of absolute differences in proportions,
-each between one simulated distribution and Hargen’s proposed
-distribution. Lastly, we compare the statistic for our observed
-distribution with the thousands of statistics from the simulated
-distributions to see whether <strong>the observed distribution of books
+chose, which is <strong>the mean of the absolute differences in
+proportions between the simulated and Hargen’s proposed
+distributions</strong>. After many simulations, we have calculated
+thousands of mean of absolute differences in proportions, each between
+one simulated distribution and Hargen’s proposed distribution. Lastly,
+we compare the observed statistic with the statistics from the
+simulations to see whether <strong>the observed distribution of books
 sold by day looks like a typical simulated distribution.</strong></p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️⭐️⭐️</h5>
@@ -2168,10 +2152,10 @@ TVD = \frac{1}{2} \left( |1 - 0.0909| + 10 \times |0 - 0.0909| \right) =
 <p><br></p>
 <hr />
 <h2 id="problem-11">Problem 11</h2>
-<p>Dhruv works at the bookstore, and his job involves pricing new books
-that come in from the supplier. He prices new books based on the number
-of pages they have. He does this using linear regression, which he
-learned about in DSC 10.</p>
+<p>[(21 pts)] Dhruv works at the bookstore, and his job involves pricing
+new books that come in from the supplier. He prices new books based on
+the number of pages they have. He does this using linear regression,
+which he learned about in DSC 10.</p>
 <p>To build his regression line, Dhruv gathers the following information
 about the distinct books currently available at the bookstore:</p>
 <ul>
@@ -2193,10 +2177,8 @@ true? <strong>Select all that apply.</strong></p>
 4).</span></p></li>
 <li><p><input type="checkbox" disabled="" /> Its slope is equal to <span class="math inline">0.6</span>.</p></li>
 <li><p><input type="checkbox" disabled="" /> Its <span class="math inline">y</span>-intercept is equal to <span class="math inline">9</span>.</p></li>
-<li><p><input type="checkbox" disabled="" /> Its root mean square error is larger than the root mean square error
-of any other line.</p></li>
-<li><p><input type="checkbox" disabled="" /> All the books currently available at the bookstore fall on the
-line.</p></li>
+<li><p><input type="checkbox" disabled="" /> Its root mean square error is larger than the root mean square</p></li>
+<li><p><input type="checkbox" disabled="" /> All the books currently available at the bookstore fall on the</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
@@ -2211,7 +2193,7 @@ aria-labelledby="heading11_1" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer:</strong> It goes through the point <span class="math inline">(500, 15)</span>, Its <span class="math inline">y</span>-intercept is equal to <span class="math inline">9</span>.</p>
+<p><strong>Answer:</strong> a, d</p>
 <p>When performing linear regression analysis, the slope
 (<code>m</code>) and intercept (<code>b</code>) of the regression line
 can be calculated as follows:</p>
@@ -2365,10 +2347,23 @@ aria-labelledby="heading11_4" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer</strong>: <code>"Roadside Picnic"</code> has fewer
 than 500 pages.</p>
-<p>Given the regression equation(calculated in (a)): <span class="math display">
-\text{predicted } y_i = 0.012 \cdot x_i + 9 </span>, we can get <span class="math inline">x = \frac{y - 9}{0.012}</span></p>
-<p>If correcting the error leads to a smaller slope, which is less than
-the current 0.012, the new would be less than $0.012 + 9 = $</p>
+<ul>
+<li><p>Fewer Than 500 Pages: If “Roadside Picnic” has fewer than 500
+pages, then this point is toward the left side of the regression line,
+so its incorrectly recorded negative price would have skewed the slope
+to appear steeper. Correcting this price to its actual positive value
+would reduce this steepness, as it adjusts the perceived negative
+relationship between price and page count.</p></li>
+<li><p>Exactly 500 Pages: If the book has exactly 500 pages, it being
+the mean or center of the data distribution, the incorrect price would
+mainly influence the intercept rather than the slope. Correcting the
+price would adjust the intercept but have a lesser effect on the
+slope.</p></li>
+<li><p>More Than 500 Pages: If “Roadside Picnic” has more than 500
+pages, then it’s toward the right side of the regression line, so
+correcting this error would make the regression line more
+steep.</p></li>
+</ul>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
 <p>
@@ -2444,6 +2439,17 @@ aria-labelledby="heading11_6" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: No</p>
+<p>Even though 95% of the slopes and intercepts fall within their
+respective intervals, this does not directly translate to 95% of the
+predicted prices falling within the interval [500a + c, 500b + d]. The
+prediction interval would be wider because it includes the inherent
+uncertainty in any single prediction made using the regression model.
+Just as the line with the greatest slope b might not have the highest
+intercept d, the fact that 95% of the regression parameters (slope and
+intercept) fall within certain confidence intervals does not guarantee
+that 95% of the predictions for a specific x-value (like a 500-page
+book) will fall within a derived interval based on these parameter
+intervals.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
