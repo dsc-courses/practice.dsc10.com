@@ -1,0 +1,3 @@
+The DataFrame `blue_bowl` contains information about orders placed by UCSD students at Blue Bowl, an on-campus eatery specializing in custom bowls. For each order, we have the cusstomer's `"student_id"`, the `"base"` of their bowl, which `"fruit"` they got, and the number of additional toppings, `"num_toppings"`. The first five rows are shown below.
+
+<center><img src="../../assets/images/wi25-quizzes/quiz2_bluebowl.jpg" width=600></center>

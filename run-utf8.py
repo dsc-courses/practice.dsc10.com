@@ -52,7 +52,7 @@ def format_assignment_name(name):
     return season + ' ' + year + ' ' + type.title() + ' Exam'
 
 def format_md_path(name):
-    #print('name = ', name)
+    # print('name = ', name)
     '''Example behavior is shown below.
     >>> format_md_path('problems/sp22-midterm/q7-merge')
     'problems/sp22-midterm/q7-merge.md'
@@ -64,9 +64,9 @@ def format_md_path(name):
     '''
     # Makes sure name path has correct slashes (\ for windows, / for mac, etc)
     name = os.path.normpath(name)
+    # print("name = ", name)
     # print('name = ', name)
     if ',' not in name:
-        totalPath = os.path.join('problems', f'{name}.md')
         return os.path.join('problems', f'{name}.md')
     else:
         #print('RUNNING')
@@ -391,7 +391,8 @@ def process_page(path, is_exam=True):
 
     # Add information for the entire exam
     if 'data_info' in params.keys():
-        info_path = os.path.join('problems', f'{params["data_info"]}.md')
+        info_path = os.path.normpath(os.path.join('problems', f'{params["data_info"]}.md'))
+        #print("info_path = ", info_path)
         info_file = open(info_path, 'r', encoding='UTF-8')
         info = info_file.read()
         info_file.close()
@@ -428,7 +429,9 @@ def write_page(path, called_from_write_all_pages=False):
     '''Takes in a path to a YML file and writes the MD file, runs pandoc, deletes the MD file'''
 
     sep = '/' if '/' in path else '\\'
+    #print('path = ', path)
     assignment_name = path.split(sep)[-1].replace('.yml', '')
+    #print('assignment_name =', assignment_name)
 
     # is_discussion = 'disc' in path
     is_exam = 'midterm' in path or 'final' in path
@@ -464,7 +467,17 @@ def write_page(path, called_from_write_all_pages=False):
     # If called in bulk, this shouldn't be run, since this is handled by
     # write_all_pages
     if not called_from_write_all_pages:
-        src_path = os.path.join('assets', 'images', assignment_name)
+        # Check if the assignment_name is a quiz (contains 'quiz' followed by a number)
+        if 'quiz' in assignment_name and any(char.isdigit() for char in assignment_name.split('-')[-1]):
+        # For quizzes, use the modified folder name format (e.g., 'wi25-quiz1' -> 'wi25-quizzes')
+            assignment_folder = assignment_name.split('-')[0] + '-quizzes'
+        else:
+        # For non-quiz assignments like midterms or finals, use the original assignment name
+            assignment_folder = assignment_name
+
+        #print('assignment_folder = ', assignment_folder)
+        src_path = os.path.join('assets', 'images', assignment_folder)
+        #print('src_path = ', src_path)
         dst_path = os.path.join(DST_FOLDER, src_path)
         if os.path.exists(src_path):
             if os.path.exists(dst_path):
@@ -475,6 +488,7 @@ def update_page(path):
     '''Doesn't work for discussion files, yet.'''
     sep = '/' if '/' in path else '\\'
     assignment_name = path.split(sep)[-1].replace('.yml', '')
+    #print('assignment_name = ', assignment_name)
 
     # Generate the Markdown
     page = process_page(path)
