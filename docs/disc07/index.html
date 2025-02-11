@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>Discussion 7: Choosing Sample Sizes, Hypothesis Testing, and Permutation Testing</title>
+  <title>Discussion 6: Sampling, Bootstrapping, and Confidence Intervals</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -107,8 +107,8 @@
 </head>
 <body>
 <header id="title-block-header">
-<h1 class="title">Discussion 7: Choosing Sample Sizes, Hypothesis
-Testing, and Permutation Testing</h1>
+<h1 class="title">Discussion 6: Sampling, Bootstrapping, and Confidence
+Intervals</h1>
 </header>
 <p><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
@@ -139,1261 +139,363 @@ these problems during the discussion section</b>; the problems we don’t
 cover can be used for extra practice.</p>
 <hr />
 <h2 id="problem-1">Problem 1</h2>
-<p>You need to estimate the proportion of American adults who want to be
-vaccinated against Covid-19. You plan to survey a random sample of
-American adults, and use the proportion of adults in your sample who
-want to be vaccinated as your estimate for the true proportion in the
-population. Your estimate must be within 0.04 of the true proportion,
-95% of the time. Using the fact that the standard deviation of any
-dataset of 0’s and 1’s is no more than 0.5, calculate the minimum number
-of people you would need to survey. Input your answer below, as an
-<strong>integer</strong>.</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse1" class="accordion-collapse collapse"
-aria-labelledby="heading1" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> 625</p>
-<p><em>Note: Before reviewing these solutions, it’s highly recommended
-to revisit the lecture on “Choosing Sample Sizes,” since this problem
-follows the main example from that lecture almost exactly.</em></p>
-<p>While this solution is long, keep in mind from the start that our
-goal is to solve for the <strong>smallest sample size necessary</strong>
-to create a confidence interval that achieves certain criteria.</p>
-<p>The Central Limit Theorem tells us that the distribution of the
-sample mean is roughly normal, regardless of the distribution of the
-population from which the samples are drawn. At first, it may not be
-clear how the Central Limit Theorem is relevant, but remember that
-proportions are means too – for instance, the proportion of adults who
-want to be vaccinated is equal to the mean of a collection of 1s and 0s,
-where we have a 1 for each adult that wants to be vaccinated and a 0 for
-each adult who doesn’t want to be vaccinated. What this means (😉) is
-that <strong>the Central Limit Theorem applies to the distribution of
-the sample proportion, so we can use it here too</strong>.</p>
-<p>Not only do we know that the distribution of sample proportions is
-roughly normal, but we know its mean and standard deviation, too:</p>
-<p><span class="math display">\begin{align*}
-\text{Mean of Distribution of Possible Sample Means} &amp;=
-\text{Population Mean} = \text{Population Proportion} \\
-\text{SD of Distribution of Possible Sample Means} &amp;=
-\frac{\text{Population SD}}{\sqrt{\text{Sample Size}}}
-\end{align*}
-</span></p>
-<p>Using this information, we can create a 95% confidence interval for
-the population proportion, using the fact that in a normal distribution,
-roughly 95% of values are within 2 standard deviations of the mean:</p>
-<p><span class="math display">\left[ \text{Population Proportion} - 2
-\cdot \frac{\text{Population SD}}{\sqrt{\text{Sample Size}}}, \:
-\text{Population Proportion} + 2 \cdot \frac{\text{Population
-SD}}{\sqrt{\text{Sample Size}}}  \right]</span></p>
-<p>However, this interval depends on the population proportion (mean)
-and SD, which we don’t know. (If we did know these parameters, there
-would be no need to collect a sample!) Instead, we’ll use the sample
-proportion and SD as rough estimates:</p>
-<p><span class="math display">\left[ \text{Sample Proportion} - 2 \cdot
-\frac{\text{Sample SD}}{\sqrt{\text{Sample Size}}}, \: \text{Sample
-Proportion} + 2 \cdot \frac{\text{Sample SD}}{\sqrt{\text{Sample
-Size}}}  \right]</span></p>
-<p>Note that the width of this interval – that is, its right endpoint
-minus its left endpoint – is: <span class="math display">\text{width} =
-4 \cdot \frac{\text{Sample SD}}{\sqrt{\text{Sample Size}}}</span></p>
-<p>In the problem, we’re told that we want our interval to be accurate
-to within 0.04, which is equivalent to wanting the width of our interval
-to be less than or equal to 0.08 (since the interval extends the same
-amount above and below the sample proportion). As such, we need to pick
-the <strong>smallest sample size necessary</strong> such that:</p>
-<p><span class="math display">\text{width} = 4 \cdot \frac{\text{Sample
-SD}}{\sqrt{\text{Sample Size}}} \leq 0.08</span></p>
-<p>We can re-arrange the inequality above to solve for our sample’s
-size:</p>
-<p><span class="math display">
-\begin{align*}
-4 \cdot \frac{\text{Sample SD}}{\sqrt{\text{Sample Size}}} &amp;\leq
-0.08 \\
-\frac{\text{Sample SD}}{\sqrt{\text{Sample Size}}} &amp;\leq 0.02 \\
-\frac{1}{\sqrt{\text{Sample Size}}} &amp;\leq \frac{0.02}{\text{Sample
-SD}} \\
-\frac{\text{Sample SD}}{0.02} &amp;\leq \sqrt{\text{Sample Size}} \\
-\left( \frac{\text{Sample SD}}{0.02} \right)^2 &amp;\leq \text{Sample
-Size}
-\end{align*}
-</span></p>
-<p>All we now need to do is pick the smallest sample size that satisfies
-the above inequality. But there’s an issue – <strong>we don’t know what
-our sample SD is, because we haven’t collected our sample</strong>!
-Notice that in the inequality above, as the sample SD increases, so does
-the minimum necessary sample size. In order to ensure we don’t collect
-too small of a sample (which would result in the width of our confidence
-interval being <em>larger</em> than desired), we can use an upper bound
-for the SD of our sample. In the problem, we’re told that the largest
-possible SD of a sample of 0s and 1s is 0.5 – this means that if we
-replace our sample SD with 0.5, we will find a sample size such that the
-width of our confidence interval is guaranteed to be less than or equal
-to 0.08. This sample size may be larger than necessary, but that’s
-better than it being smaller than necessary.</p>
-<p>By substituting 0.5 for the sample SD in the last inequality above,
-we get</p>
-<p><span class="math display">
-\begin{align*}
-\left( \frac{\text{Sample SD}}{0.02} \right)^2 &amp;\leq \text{Sample
-Size} \\\
-\left( \frac{0.5}{0.02} \right)^2 &amp;\leq \text{Sample Size} \\
-25^2 &amp;\leq \text{Sample Size} \implies \text{Sample Size} \geq 625
-\end{align*}
-</span></p>
-<p>We need to pick the smallest possible sample size that is greater
-than or equal to 625; that’s just 625.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 40%.</p>
-</div>
-</div>
-</div>
-</div>
+<p>Suppose we take a uniform random sample with replacement from a
+population, and use the sample mean as an estimate for the population
+mean. Which of the following is correct?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> If we take a larger sample, our sample mean will be closer to the
+population mean.</p></li>
+<li><p><input type="radio" disabled="" /> If we take a smaller sample, our sample mean will be closer to the
+population mean.</p></li>
+<li><p><input type="radio" disabled="" /> If we take a larger sample, our sample mean is more likely to be
+close to the population mean than if we take a smaller sample.</p></li>
+<li><p><input type="radio" disabled="" /> If we take a smaller sample, our sample mean is more likely to be
+close to the population mean than if we take a larger sample.</p></li>
+</ul>
 <hr />
 <h2 id="problem-2">Problem 2</h2>
-<p>It’s your first time playing a new game called <em>Brunch Menu</em>.
-The deck contains 96 cards, and each player will be dealt a hand of 9
-cards. The goal of the game is to avoid having certain cards, called
-<em>Rotten Egg</em> cards, which come with a penalty at the end of the
-game. But you’re not sure how many of the 96 cards in the game are
-<em>Rotten Egg</em> cards. So you decide to use the Central Limit
-Theorem to estimate the proportion of Rotten Egg cards in the deck based
-on the 9 random cards you are dealt in your hand.</p>
+<p>Given below is the <code>season</code> DataFrame, which contains
+statistics on all players in the WNBA in the 2021 season. The first few
+rows of <code>season</code> are shown below:</p>
+<center><img src='../assets/images/wi22-final/seasons.png' width=40%></center>
+<p>Each row in season corresponds to a single player. In this problem,
+we’ll be looking at the <code>'PPG'</code> column, which records the
+number of points scored per game played.</p>
+<p>Now, suppose we only have access to the DataFrame
+<code>small_season</code>, which is a random sample of <strong>size
+36</strong> from <code>season</code>. We’re interested in learning about
+the true mean points per game of all players in <code>season</code>
+given just the information in <code>small_season</code>.</p>
+<p>To start, we want to bootstrap <code>small_season</code> 10,000 times
+and compute the mean of the resample each time. We want to store these
+10,000 bootstrapped means in the array <code>boot_means</code>.</p>
+<p>Here is a broken implementation of this procedure.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>boot_means <span class="op">=</span> np.array([])                                           </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):                                          </span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    resample <span class="op">=</span> small_season.sample(season.shape[<span class="dv">0</span>], replace<span class="op">=</span><span class="va">False</span>)  <span class="co"># Line 1</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    resample_mean <span class="op">=</span> small_season.get(<span class="st">&#39;PPG&#39;</span>).mean()                  <span class="co"># Line 2</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    np.append(boot_means, new_mean)                                 <span class="co"># Line 3</span></span></code></pre></div>
+<p>For each of the 3 lines of code above (marked by comments), specify
+what is incorrect about the line by selecting one or more of the
+corresponding options below. Or, select “Line _ is correct as-is” if you
+believe there’s nothing that needs to be changed about the line in order
+for the above code to run properly.</p>
 <p><br></p>
 <h3 id="problem-2.1">Problem 2.1</h3>
-<p>You are dealt 3 Rotten Egg cards in your hand of 9 cards. You then
-construct a CLT-based 95% confidence interval for the proportion of
-Rotten Egg cards in the deck based on this sample. Approximately, how
-wide is your confidence interval?</p>
-<p>Choose the closest answer, and use the following facts:</p>
-<ul>
-<li><p>The standard deviation of a collection of 0s and 1s is <span
-class="math inline">\sqrt{(\text{Prop. of 0s}) \cdot (\text{Prop of
-1s})}</span>.</p></li>
-<li><p><span class="math inline">\sqrt{18}</span> is about <span
-class="math inline">\frac{17}{4}</span>.</p></li>
-</ul>
+<p>What is incorrect about Line 1? Select all that apply.</p>
 <ul class="task-list">
-<li><p><input type="radio" disabled="" /> <span class="math inline">\frac{17}{9}</span></p></li>
-<li><p><input type="radio" disabled="" /> <span class="math inline">\frac{17}{27}</span></p></li>
-<li><p><input type="radio" disabled="" /> <span class="math inline">\frac{17}{81}</span></p></li>
-<li><p><input type="radio" disabled="" /> <span class="math inline">\frac{17}{96}</span></p></li>
+<li><p><input type="checkbox" disabled="" /> Currently the procedure samples from <code>small_season</code>, when
+it should be sampling from <code>season</code></p></li>
+<li><p><input type="checkbox" disabled="" /> The sample size is <code>season.shape[0]</code>, when it should be
+<code>small_season.shape[0]</code></p></li>
+<li><p><input type="checkbox" disabled="" /> Sampling is currently being done without replacement, when it should
+be done with replacement</p></li>
+<li><p><input type="checkbox" disabled="" /> Line 1 is correct as-is</p></li>
 </ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading2_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2_1" aria-expanded="true" aria-controls="collapse2_1">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse2_1" class="accordion-collapse collapse"
-aria-labelledby="heading2_1" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer:</strong> <span class="math inline">\frac{17}{27}</span></p>
-<p>A Central Limit Theorem-based 95% confidence interval for a
-population proportion is given by the following:</p>
-<p><span class="math display">\left[ \text{Sample Proportion} - 2 \cdot
-\frac{\text{Sample SD}}{\sqrt{\text{Sample Size}}}, \text{Sample
-Proportion} + 2 \cdot \frac{\text{Sample SD}}{\sqrt{\text{Sample Size}}}
-\right]</span></p>
-<p>Note that this interval uses the fact that (about) 95% of values in a
-normal distribution are within 2 standard deviations of the mean. It’s
-key to divide by <span class="math inline">\sqrt{\text{Sample
-Size}}</span> when computing the standard deviation because the
-distribution that is roughly normal is the distribution of the sample
-mean (and hence, sample proportion), not the distribution of the sample
-itself.</p>
-<p>The width of the above interval – that is, the right endpoint minus
-the left endpoint – is</p>
-<p><span class="math display">\text{width} = 4 \cdot \frac{\text{Sample
-SD}}{\sqrt{\text{Sample Size}}}</span></p>
-<p>From the provided hint, we have that</p>
-<p><span class="math display">\text{Sample SD} = \sqrt{(\text{Prop. of
-0s}) \cdot (\text{Prop of 1s})} = \sqrt{\frac{3}{9} \cdot \frac{6}{9}} =
-\frac{\sqrt{18}}{9}</span></p>
-<p>Then, since we know that the sample size is 9 and that <span class="math inline">\sqrt{18}</span> is about <span class="math inline">\frac{17}{4}</span>, we have</p>
-<p><span class="math display">\text{width} =  4 \cdot \frac{\text{Sample
-SD}}{\sqrt{\text{Sample Size}}} = 4 \cdot
-\frac{\frac{\sqrt{18}}{9}}{\sqrt{9}} = 4 \cdot \frac{\sqrt{18}}{9 \cdot
-3} = 4 \cdot \frac{\frac{17}{4}}{27} = \frac{17}{27}</span></p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 51%.</p>
-</div>
-</div>
-</div>
-</div>
 <p><br></p>
 <h3 id="problem-2.2">Problem 2.2</h3>
-<p>Which of the following are limitations of trying to use the Central
-Limit Theorem for this particular application? Select all that
-apply.</p>
+<p>What is incorrect about Line 2? Select all that apply.</p>
 <ul class="task-list">
-<li><p><input type="checkbox" disabled="" /> The CLT is for large random samples, and our sample was not very
-large.</p></li>
-<li><p><input type="checkbox" disabled="" /> The CLT is for random samples drawn with replacement, and our sample
-was drawn without replacement.</p></li>
-<li><p><input type="checkbox" disabled="" /> The CLT is for normally distributed data, and our data may not have
-been normally distributed.</p></li>
-<li><p><input type="checkbox" disabled="" /> The CLT is for sample means and sums, not sample proportions.</p></li>
+<li><p><input type="checkbox" disabled="" /> Currently it is taking the mean of the <code>'PPG'</code> column in
+<code>small_season</code>, when it should be taking the mean of the
+<code>'PPG'</code> column in <code>season</code></p></li>
+<li><p><input type="checkbox" disabled="" /> Currently it is taking the mean of the <code>'PPG'</code> column in
+<code>small_season</code>, when it should be taking the mean of the
+<code>'PPG'</code> column in <code>resample</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>.mean()</code> is not a valid Series method, and should be
+replaced with a call to the function <code>np.mean</code></p></li>
+<li><p><input type="checkbox" disabled="" /> Line 2 is correct as-is</p></li>
 </ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading2_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2_2" aria-expanded="true" aria-controls="collapse2_2">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse2_2" class="accordion-collapse collapse"
-aria-labelledby="heading2_2" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer:</strong> Options 1 and 2</p>
-<p><strong>Option 1:</strong> We use Central Limit Theorem (CLT) for
-large random samples, and a sample of 9 is considered to be very small.
-This makes it difficult to use CLT for this problem.</p>
-<p><strong>Option 2:</strong> Recall CLT happens when our sample is
-drawn with replacement. When we are handed nine cards we are never
-replacing cards back into our deck, which means that we are sampling
-without replacement.</p>
-<p><strong>Option 3:</strong> This is wrong because CLT states that a
-large sample is approximately a normal distribution even if the data
-itself is not normally distributed. This means it doesn’t matter if our
-data had not been normally distributed if we had a large enough sample
-we could use CLT.</p>
-<p><strong>Option 4:</strong> This is wrong because CLT does apply to
-the sample proportion distribution. Recall that proportions can be
-treated like means.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 77%.</p>
-</div>
-</div>
-</div>
-</div>
+<p><br></p>
+<h3 id="problem-2.3">Problem 2.3</h3>
+<p>What is incorrect about Line 3? Select all that apply.</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> The result of calling <code>np.append</code> is not being reassigned
+to <code>boot_means</code>, so <code>boot_means</code> will be an empty
+array after running this procedure</p></li>
+<li><p><input type="checkbox" disabled="" /> The indentation level of the line is incorrect –
+<code>np.append</code> should be outside of the <code>for</code>-loop
+(and aligned with <code>for i</code>)</p></li>
+<li><p><input type="checkbox" disabled="" /> <code>new_mean</code> is not a defined variable name, and should be
+replaced with <code>resample_mean</code></p></li>
+<li><p><input type="checkbox" disabled="" /> Line 3 is correct as-is</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-2.4">Problem 2.4</h3>
+<p>We construct a 95% confidence interval for the true mean points per
+game for all players by taking the middle 95% of the bootstrapped sample
+means.</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>left_b <span class="op">=</span> np.percentile(boot_means, <span class="fl">2.5</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>right_b <span class="op">=</span> np.percentile(boot_means, <span class="fl">97.5</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>boot_ci <span class="op">=</span> [left_b, right_b]         </span></code></pre></div>
+<p>We find that <code>boot_ci</code> is the interval [7.7, 10.3].
+However, the mean points per game in <code>season</code> is 7, which is
+not in the interval we found. Which of the following statements is true?
+(Select all question)</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> 95% of games in <code>season</code> have a number of points between
+7.7 and 10.3.</p></li>
+<li><p><input type="checkbox" disabled="" /> 95% of values in <code>boot_means</code> fall between 7.7 and
+10.3.</p></li>
+<li><p><input type="checkbox" disabled="" /> There is a 95% chance that the true mean points per game is between
+7.7 and 10.3.</p></li>
+<li><p><input type="checkbox" disabled="" /> The interval we created did not contain the true mean points per
+game, but if we collected many original samples and constructed many 95%
+confidence intervals, then exactly 95% of them would contain the true
+mean points per game.</p></li>
+<li><p><input type="checkbox" disabled="" /> The interval we created did not contain the true mean points per
+game, but if we collected many original samples and constructed many 95%
+confidence intervals, then roughly 95% of them would contain the true
+mean points per game.</p></li>
+</ul>
 <p><br></p>
 <hr />
 <h2 id="problem-3">Problem 3</h2>
-<p>You want to estimate the proportion of DSC majors who have a Netflix
-subscription. To do so, you will survey a random sample of DSC majors
-and ask them whether they have a Netflix subscription. You will then
-create a 95% confidence interval for the proportion of “yes" answers in
-the population, based on the responses in your sample. You decide that
-your confidence interval should have a width of at most 0.10.</p>
-<p><br></p>
-<h3 id="problem-3.1">Problem 3.1</h3>
-<p>In order for your confidence interval to have a width of at most
-0.10, the standard deviation of the distribution of the sample
-proportion must be at most <span class="math inline">T</span>. What is
-<span class="math inline">T</span>? Give your answer as an exact
-decimal.</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading3_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_1" aria-expanded="true" aria-controls="collapse3_1">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse3_1" class="accordion-collapse collapse"
-aria-labelledby="heading3_1" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer</strong>: 0.025</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 46%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-3.2">Problem 3.2</h3>
-<p>Using the fact that the standard deviation of any dataset of 0s and
-1s is no more than 0.5, calculate the minimum number of people you would
-need to survey so that the width of your confidence interval is at most
-0.10. Give your answer as an integer.</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading3_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_2" aria-expanded="true" aria-controls="collapse3_2">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse3_2" class="accordion-collapse collapse"
-aria-labelledby="heading3_2" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer</strong>: 400</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 81%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
+<p><strong>True or False</strong>: Suppose that from a sample, you
+compute a 95% bootstrapped confidence interval for a population
+parameter to be the interval [L, R]. Then the average of L and R is the
+mean of the original sample.</p>
 <hr />
 <h2 id="problem-4">Problem 4</h2>
-<p>Arya was curious how many UCSD students used Hulu over Thanksgiving
-break. He surveys 250 students and finds that 130 of them did use Hulu
-over break and 120 did not.</p>
-<p>Using this data, Arya decides to test following hypotheses:</p>
-<ul>
-<li><p><strong>Null Hypothesis</strong>: Over Thanksgiving break, an
-equal number of UCSD students did use Hulu and did not use
-Hulu.</p></li>
-<li><p><strong>Alternative Hypothesis</strong>: Over Thanksgiving break,
-<strong>more</strong> UCSD students did use Hulu than did not use
-Hulu.</p></li>
-</ul>
-<p><br></p>
-<h3 id="problem-4.1">Problem 4.1</h3>
-<p>Which of the following could be used as a test statistic for the
-hypothesis test?</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>results <span class="op">=</span> np.array([])</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10</span>):</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> np.random.choice(np.arange(<span class="dv">1000</span>), replace<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    results <span class="op">=</span> np.append(results, result)</span></code></pre></div>
+<p>After this code executes, <code>results</code> contains:</p>
 <ul class="task-list">
-<li><p><input type="radio" disabled="" /> The proportion of students who did use Hulu minus the proportion of
-students who did not use Hulu.</p></li>
-<li><p><input type="radio" disabled="" /> The absolute value of the proportion of students who did use Hulu
-minus the proportion of students who did not use Hulu.</p></li>
-<li><p><input type="radio" disabled="" /> The proportion of students who did use Hulu plus the proportion of
-students who did not use Hulu.</p></li>
-<li><p><input type="radio" disabled="" /> The absolute value of the proportion of students who did use Hulu
-plus the proportion of students who did not use Hulu.</p></li>
+<li><p><input type="radio" disabled="" /> a simple random sample of size 9, chosen from a set of size 999 with
+replacement</p></li>
+<li><p><input type="radio" disabled="" /> a simple random sample of size 9, chosen from a set of size 999
+without replacement</p></li>
+<li><p><input type="radio" disabled="" /> a simple random sample of size 10, chosen from a set of size 1000
+with replacement</p></li>
+<li><p><input type="radio" disabled="" /> a simple random sample of size 10, chosen from a set of size 1000
+without replacement</p></li>
 </ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading4_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_1" aria-expanded="true" aria-controls="collapse4_1">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse4_1" class="accordion-collapse collapse"
-aria-labelledby="heading4_1" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer</strong>: The proportion of students who did use Hulu
-minus the proportion of students who did not use Hulu.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 81%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-4.2">Problem 4.2</h3>
-<p>For the test statistic that you chose in part (a), what is the
-observed value of the statistic? Give your answer either as an exact
-decimal or a simplified fraction.</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading4_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_2" aria-expanded="true" aria-controls="collapse4_2">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse4_2" class="accordion-collapse collapse"
-aria-labelledby="heading4_2" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer</strong>: 0.04</p>
-<hr/>
-<h5>Difficulty: ⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 90%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-4.3">Problem 4.3</h3>
-<p>If the p-value of the hypothesis test is 0.053, what can we conclude,
-at the standard 0.05 significance level?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> We reject the null hypothesis.</p></li>
-<li><p><input type="radio" disabled="" /> We fail to reject the null hypothesis.</p></li>
-<li><p><input type="radio" disabled="" /> We accept the null hypothesis.</p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading4_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_3" aria-expanded="true" aria-controls="collapse4_3">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse4_3" class="accordion-collapse collapse"
-aria-labelledby="heading4_3" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer</strong>: We fail to reject the null hypothesis.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 87%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
 <hr />
 <h2 id="problem-5">Problem 5</h2>
-<p>At the San Diego Model Railroad Museum, there are different admission
-prices for children, adults, and seniors. Over a period of time, as
-tickets are sold, employees keep track of how many of each type of
-ticket are sold. These ticket counts (in the order child, adult, senior)
-are stored as follows.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>admissions_data <span class="op">=</span> np.array([<span class="dv">550</span>, <span class="dv">1550</span>, <span class="dv">400</span>])</span></code></pre></div>
-<p><br></p>
-<h3 id="problem-5.1">Problem 5.1</h3>
-<p>Complete the code below so that it creates an array
-<code>admissions_proportions</code> with the proportions of tickets sold
-to each group (in the order child, adult, senior).</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> as_proportion(data):</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> __(a)__</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>admissions_proportions <span class="op">=</span> as_proportion(admissions_data)</span></code></pre></div>
-<p>What goes in blank (a)?</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading5_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_1" aria-expanded="true" aria-controls="collapse5_1">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse5_1" class="accordion-collapse collapse"
-aria-labelledby="heading5_1" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer:</strong> <code>data/data.sum()</code></p>
-<p>To calculate proportion for each group, we divide each value in the
-array (tickets sold to each group) by the sum of all values (total
-tickets sold). Remember values in an array can be processed as a
-whole.</p>
-<hr/>
-<h5>Difficulty: ⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 95%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-5.2">Problem 5.2</h3>
-<p>The museum employees have a model in mind for the proportions in
-which they sell tickets to children, adults, and seniors. This model is
-stored as follows.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> np.array([<span class="fl">0.25</span>, <span class="fl">0.6</span>, <span class="fl">0.15</span>])</span></code></pre></div>
-<p>We want to conduct a hypothesis test to determine whether the
-admissions data we have is consistent with this model. Which of the
-following is the null hypothesis for this test?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> Child, adult, and senior tickets might plausibly be purchased in
-proportions 0.25, 0.6, and 0.15.</p></li>
-<li><p><input type="radio" disabled="" /> Child, adult, and senior tickets are purchased in proportions 0.25,
-0.6, and 0.15.</p></li>
-<li><p><input type="radio" disabled="" /> Child, adult, and senior tickets might plausibly be purchased in
-proportions other than 0.25, 0.6, and 0.15.</p></li>
-<li><p><input type="radio" disabled="" /> Child, adult, and senior tickets, are purchased in proportions other
-than 0.25, 0.6, and 0.15.</p></li>
+<p>An IKEA fan created an app where people can log the amount of time it
+took them to assemble their IKEA furniture. The DataFrame
+<code>app_data</code> has a row for each product build that was logged
+on the app. The columns are:</p>
+<ul>
+<li><code>'product'</code> (<code>str</code>): the name of the product,
+which includes the product line as the first word, followed by a
+description of the product</li>
+<li><code>'category'</code> (<code>str</code>): a categorical
+description of the type of product</li>
+<li><code>'assembly_time'</code> (<code>str</code>): the amount of time
+to assemble the product, formatted as <code>'x hr, y min'</code> where
+<code>x</code> and <code>y</code> represent integers, possibly zero</li>
+<li><code>'minutes'</code> (<code>int</code>): integer values
+representing the number of minutes it took to assemble each product
+<br><br></li>
 </ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading5_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_2" aria-expanded="true" aria-controls="collapse5_2">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse5_2" class="accordion-collapse collapse"
-aria-labelledby="heading5_2" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer:</strong> Child, adult, and senior tickets are
-purchased in proportions 0.25, 0.6, and 0.15. (Option 2)</p>
-<p>Recall, null hypothesis is the hypothesis that there is no
-significant difference between specified populations, any observed
-difference being due to sampling or experimental error. So, we assume
-the distribution is the same as the model.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 88%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-5.3">Problem 5.3</h3>
-<p>Which of the following test statistics could we use to test our
-hypotheses? Select all that could work.</p>
+<p>We want to use <code>app_data</code> to estimate the average amount
+of time it takes to build an IKEA bed (any product in the
+<code>'bed'</code> category). Which of the following strategies would be
+an appropriate way to estimate this quantity? Select all that apply.</p>
 <ul class="task-list">
-<li><p><input type="checkbox" disabled="" /> sum of differences in proportions</p></li>
-<li><p><input type="checkbox" disabled="" /> sum of squared differences in proportions</p></li>
-<li><p><input type="checkbox" disabled="" /> mean of differences in proportions</p></li>
-<li><p><input type="checkbox" disabled="" /> mean of squared differences in proportions</p></li>
-<li><p><input type="checkbox" disabled="" /> none of the above</p></li>
+<li><p><input type="checkbox" disabled="" /> Query to keep only the beds. Then resample with replacement many
+times. For each resample, take the mean of the <code>'minutes'</code>
+column. Compute a 95% confidence interval based on those means.</p></li>
+<li><p><input type="checkbox" disabled="" /> Query to keep only the beds. Group by <code>'product'</code> using
+the mean aggregation function. Then resample with replacement many
+times. For each resample, take the mean of the <code>'minutes'</code>
+column. Compute a 95% confidence interval based on those means.</p></li>
+<li><p><input type="checkbox" disabled="" /> Resample with replacement many times. For each resample, first query
+to keep only the beds and then take the mean of the
+<code>'minutes'</code> column. Compute a 95% confidence interval based
+on those means.</p></li>
+<li><p><input type="checkbox" disabled="" /> Resample with replacement many times. For each resample, first query
+to keep only the beds. Then group by <code>'product'</code> using the
+mean aggregation function, and finally take the mean of the
+<code>'minutes'</code> column. Compute a 95% confidence interval based
+on those means.</p></li>
 </ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading5_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_3" aria-expanded="true" aria-controls="collapse5_3">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse5_3" class="accordion-collapse collapse"
-aria-labelledby="heading5_3" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer:</strong> sum of squared differences in proportions,
-mean of squared differences in proportions (Option 2, 4)</p>
-<p>We need to use squared difference to avoid the case that large
-positive and negative difference cancel out in the process of
-calculating sum or mean, resulting in small sum of difference or mean of
-difference that does not reflect the actual deviation. So, we eliminate
-Option 1 and 3.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 77%.</p>
-</div>
-</div>
-</div>
-</div>
+<hr />
+<h2 id="problem-6">Problem 6</h2>
+<p>Suppose we have access to a simple random sample of all US Costco
+members of size <strong>145</strong>. Our sample is stored in a
+DataFrame named <code>us_sample</code>, in which the
+<code>"Spend"</code> column contains the October 2023 spending of each
+sampled member in dollars.</p>
 <p><br></p>
-<h3 id="problem-5.4">Problem 5.4</h3>
-<p>Below, we’ll perform the hypothesis test with a different test
-statistic, the mean of the absolute differences in proportions.</p>
-<p>Recall that the ticket counts we observed for children, adults, and
-seniors are stored in the array
-<code>admissions_data  = np.array([550, 1550, 400])</code>, and that our
-model is <code>model = np.array([0.25, 0.6, 0.15])</code>.</p>
-<p>For our hypothesis test to determine whether the admissions data is
-consistent with our model, what is the observed value of the test
-statistic? Give your answer as a number between 0 and 1, rounded to
-three decimal places. (Suppose that the value you calculated is assigned
-to the variable <code>observed_stat</code>, which you will use in later
-questions.)</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading5_4">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_4" aria-expanded="true" aria-controls="collapse5_4">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse5_4" class="accordion-collapse collapse"
-aria-labelledby="heading5_4" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer:</strong> 0.02</p>
-<p>We first calculate the proportion for each value in
-<code>admissions_data</code> <span class="math display">\frac{550}{550+1550+400} = 0.22</span> <span class="math display">\frac{1550}{550+1550+400} = 0.62</span> <span class="math display">\frac{400}{550+1550+400} = 0.16</span> So, we have
-the distribution of the <code>admissions_data</code></p>
-<p>Then, we calculate the observed value of the test statistic (the mean
-of the absolute differences in proportions) <span class="math display">\frac{|0.22-0.25|+|0.62-0.6|+|0.16-0.15|}{number\
-of\ goups}</span> <span class="math display">=\frac{0.03+0.02+0.01}{3} =
-0.02</span></p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 82%.</p>
-</div>
-</div>
-</div>
-</div>
+<h3 id="problem-6.1">Problem 6.1</h3>
+<p>Fill in the blanks below so that <code>us_left</code> and
+<code>us_right</code> are the left and right endpoints of a
+<strong>46%</strong> confidence interval for the average October 2023
+spending of all US members.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>costco_means <span class="op">=</span> np.array([])</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">5000</span>):</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    resampled_spends <span class="op">=</span> __(x)__</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    costco_means <span class="op">=</span> np.append(costco_means, resampled_spends.mean())</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>us_left <span class="op">=</span> np.percentile(costco_means, __(y)__)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>us_right <span class="op">=</span> np.percentile(costco_means, __(z)__)</span></code></pre></div>
+<p>Which of the following could go in blank (x)? <strong>Select all that
+apply.</strong></p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> <code>us_sample.sample(145, replace=True).get("Spend")</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>us_sample.sample(145, replace=False).get("Spend")</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>np.random.choice(us_sample.get("Spend"), 145)</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>np.random.choice(us_sample.get("Spend"), 145, replace=True)</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>np.random.choice(us_sample.get("Spend"), 145, replace=False)</code></p></li>
+<li><p><input type="checkbox" disabled="" /> None of the above.</p></li>
+</ul>
+<p>What goes in blanks (y) and (z)? Give your answers as integers.</p>
 <p><br></p>
-<h3 id="problem-5.5">Problem 5.5</h3>
-<p>Now, we want to simulate the test statistic 10,000 times under the
-assumptions of the null hypothesis. Fill in the blanks below to complete
-this simulation and calculate the p-value for our hypothesis test.
-Assume that the variables <code>admissions_data</code>,
-<code>admissions_proportions</code>, <code>model</code>, and
-<code>observed_stat</code> are already defined as specified earlier in
-the question.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>simulated_stats <span class="op">=</span> np.array([]) </span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    simulated_proportions <span class="op">=</span> as_proportions(np.random.multinomial(__(a)__, __(b)__))</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    simulated_stat <span class="op">=</span> __(c)__</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    simulated_stats <span class="op">=</span> np.append(simulated_stats, simulated_stat)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>p_value <span class="op">=</span> __(d)__</span></code></pre></div>
-<p>What goes in blank (a)? What goes in blank (b)? What goes in blank
-(c)? What goes in blank (d)?</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading5_5">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_5" aria-expanded="true" aria-controls="collapse5_5">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse5_5" class="accordion-collapse collapse"
-aria-labelledby="heading5_5" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer:</strong> (a) <code>admissions_data.sum()</code> (b)
-<code>model</code> (c)
-<code>np.abs(simulated_proportions - model).mean()</code> (d)
-<code>np.count_nonzero(simulated_stats &gt;= observed_stat) / 10000</code></p>
-<p>Recall, in <code>np.random.multinomial(n, [p_1, ..., p_k])</code>,
-<code>n</code> is the number of experiments, and
-<code>[p_1, ..., p_k]</code> is a sequence of probability. The method
-returns an array of length k in which each element contains the number
-of occurrences of an event, where the probability of the ith event is
-<code>p_i</code>.</p>
-<p>We want our <code>simulated_proportion</code> to have the same data
-size as <code>admissions_data</code>, so we use
-<code>admissions_data.sum()</code> in (a).</p>
-<p>Since our null hypothesis is based on <code>model</code>, we simulate
-based on distribution in <code>model</code>, so we have
-<code>model</code> in (b).</p>
-<p>In (c), we compute the mean of the absolute differences in
-proportions. <code>np.abs(simulated_proportions - model)</code> gives us
-a series of absolute differences, and <code>.mean()</code> computes the
-mean of the absolute differences.</p>
-<p>In (d), we calculate the <code>p_value</code>. Recall, the
-<code>p_value</code> is the chance, under the null hypothesis, that the
-test statistic is equal to the value that was observed in the data or is
-even further in the direction of the alternative.
-<code>np.count_nonzero(simulated_stats &gt;= observed_stat)</code> gives
-us the number of <code>simulated_stats</code> greater than or equal to
-the <code>observed_stat</code> in the 10000 times simulations, so we
-need to divide it by <code>10000</code> to compute the proportion of
-<code>simulated_stats</code> greater than or equal to the
-<code>observed_stat</code>, and this gives us the
-<code>p_value</code>.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 79%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-5.6">Problem 5.6</h3>
-<p>True or False: the p-value represents the probability that the null
-hypothesis is true.</p>
+<h3 id="problem-6.2">Problem 6.2</h3>
+<p>True or False: <strong>46%</strong> of all US members in
+<code>us_sample</code> spent between <code>us_left</code> and
+<code>us_right</code> in October 2023.</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> True</p></li>
 <li><p><input type="radio" disabled="" /> False</p></li>
 </ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading5_6">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_6" aria-expanded="true" aria-controls="collapse5_6">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse5_6" class="accordion-collapse collapse"
-aria-labelledby="heading5_6" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer:</strong> False</p>
-<p>Recall, the p-value is the chance, under the null hypothesis, that
-the test statistic is equal to the value that was observed in the data
-or is even further in the direction of the alternative. It only gives us
-the strength of evidence in favor of the null hypothesis, which is
-different from “the probability that the null hypothesis is true”.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 64%.</p>
-</div>
-</div>
-</div>
-</div>
 <p><br></p>
-<h3 id="problem-5.7">Problem 5.7</h3>
-<p>The new statistic that we used for this hypothesis test, the mean of
-the absolute differences in proportions, is in fact closely related to
-the total variation distance. Given two arrays of length three,
-<code>array_1</code> and <code>array_2</code>, suppose we compute the
-mean of the absolute differences in proportions between
-<code>array_1</code> and <code>array_2</code> and store the result as
-<code>madp</code>. What value would we have to multiply
-<code>madp</code> by to obtain the total variation distance
-<code>array_1</code> and <code>array_2</code>? Give your answer as a
-number rounded to three decimal places.</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading5_7">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_7" aria-expanded="true" aria-controls="collapse5_7">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse5_7" class="accordion-collapse collapse"
-aria-labelledby="heading5_7" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer:</strong> 1.5</p>
-<p>Recall, the total variation distance (TVD) is the sum of the absolute
-differences in proportions, divided by 2. When we compute the mean of
-the absolute differences in proportions, we are computing the sum of the
-absolute differences in proportions, divided by the number of groups
-(which is 3). Thus, to get TVD, we first multiply our current statistics
-(the mean of the absolute differences in proportions) by 3, we get the
-sum of the absolute differences in proportions. Then according to the
-definition of TVD, we divide this value by 2. Thus, we have <span class="math inline">\text{current statistics}\cdot 3 / 2 = \text{current
-statistics}\cdot 1.5</span>.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 65%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<hr />
-<h2 id="problem-6">Problem 6</h2>
-<p>You survey 100 DSC majors and 140 CSE majors to ask them which video
-streaming service they use most. The resulting distributions are given
-in the table below. Note that each column sums to 1.</p>
-<div class="center">
-<table>
-<thead>
-<tr>
-<th style="text-align: left;"><strong>Service</strong></th>
-<th style="text-align: center;"><strong>DSC Majors</strong></th>
-<th style="text-align: center;"><strong>CSE Majors</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">Netflix</td>
-<td style="text-align: center;">0.4</td>
-<td style="text-align: center;">0.35</td>
-</tr>
-<tr>
-<td style="text-align: left;">Hulu</td>
-<td style="text-align: center;">0.25</td>
-<td style="text-align: center;">0.2</td>
-</tr>
-<tr>
-<td style="text-align: left;">Disney+</td>
-<td style="text-align: center;">0.1</td>
-<td style="text-align: center;">0.1</td>
-</tr>
-<tr>
-<td style="text-align: left;">Amazon Prime Video</td>
-<td style="text-align: center;">0.15</td>
-<td style="text-align: center;">0.3</td>
-</tr>
-<tr>
-<td style="text-align: left;">Other</td>
-<td style="text-align: center;">0.1</td>
-<td style="text-align: center;">0.05</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>For example, 20% of CSE Majors said that Hulu is their most used
-video streaming service. Note that if a student doesn’t use video
-streaming services, their response is counted as Other.</p>
-<p><br></p>
-<h3 id="problem-6.1">Problem 6.1</h3>
-<p>What is the total variation distance (TVD) between the distribution
-for DSC majors and the distribution for CSE majors? Give your answer as
-an exact decimal.</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading6_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_1" aria-expanded="true" aria-controls="collapse6_1">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse6_1" class="accordion-collapse collapse"
-aria-labelledby="heading6_1" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer</strong>: 0.15</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 89%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-6.2">Problem 6.2</h3>
-<p>Suppose we only break down video streaming services into four
-categories: Netflix, Hulu, Disney+, and Other (which now includes Amazon
-Prime Video). Now we recalculate the TVD between the two distributions.
-How does the TVD now compare to your answer to part (a)?</p>
+<h3 id="problem-6.3">Problem 6.3</h3>
+<p>True or False: If we repeat the code from part (b) 200 times, each
+time bootstrapping from a new random sample of 145 members drawn from
+all US members, then about <strong>92</strong> of the intervals we
+create will contain the average October 2023 spending of all US
+members.</p>
 <ul class="task-list">
-<li><p><input type="radio" disabled="" /> less than (a)</p></li>
-<li><p><input type="radio" disabled="" /> equal to (a)</p></li>
-<li><p><input type="radio" disabled="" /> greater than (a)</p></li>
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
 </ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading6_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_2" aria-expanded="true" aria-controls="collapse6_2">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse6_2" class="accordion-collapse collapse"
-aria-labelledby="heading6_2" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer</strong>: less than (a)</p>
-<hr/>
-<h5>Difficulty: ⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 93%.</p>
-</div>
-</div>
-</div>
-</div>
+<p><br></p>
+<h3 id="problem-6.4">Problem 6.4</h3>
+<p>True or False: If we repeat the code from part (b) 200 times, each
+time bootstrapping from <code>us_sample</code>, then about
+<strong>92</strong> of the intervals we create will contain the average
+October 2023 spending of all US members.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
+</ul>
 <p><br></p>
 <hr />
 <h2 id="problem-7">Problem 7</h2>
-<p>The DataFrame <code>bikes</code> contains a sample of 500 bikes for
-sale locally. Columns are:</p>
-<ul>
-<li><code>"serial number" (int)</code>: An integer that uniquely
-identifies the bicycle.</li>
-<li><code>"price" (int)</code>: The list price of the bicycle.</li>
-<li><code>"style" (str)</code>: Values are <code>"electric"</code>,
-<code>"mountain"</code>, <code>"road"</code>, <code>"hybrid"</code>, and
-<code>"recumbent"</code>. <br><br></li>
-</ul>
-<p>You want to know if there is a significant difference in the sale
-prices of <code>"road"</code> and <code>"hybrid"</code> bikes using a
-permutation test. The hypotheses are:</p>
-<ul>
-<li><p><strong>Null</strong>: The prices of <code>"road"</code> and
-<code>"hybrid"</code> bikes come from the same distribution.</p></li>
-<li><p><strong>Alt</strong>: On average, <code>"hybrid"</code> bikes are
-more expensive than <code>"road"</code> bikes.</p></li>
-</ul>
+<p>The Oscars, or Academy Awards, are the highest awards in the film
+industry, awarded each year to the best movies of that year. The
+<code>oscars</code> DataFrame contains a row for each movie that has
+ever been nominated for an Oscar. The <code>"name"</code> column
+contains the name of the movie and the <code>"rating"</code> column
+contains a rating of the movie on a 0 to 100 scale. This number
+incorporates many factors, but we won’t worry about how it is
+computed.</p>
+<center><img src="../../assets/images/wi24-quizzes/oscar.png" width=700></center>
 <p><br></p>
 <h3 id="problem-7.1">Problem 7.1</h3>
-<p>Using the <code>bikes</code> DataFrame and the difference in group
-means (in the order <code>"road"</code> minus <code>"hybrid"</code>) as
-your test statistic, fill in the blanks so the code below generates
-10,000 simulated statistics for the permutation test.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> find_diff(df):</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    group_means <span class="op">=</span> df.groupby(<span class="st">&quot;shuffled&quot;</span>).mean().get(<span class="st">&quot;price&quot;</span>)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> group_means.loc[<span class="st">&quot;road&quot;</span>] <span class="op">-</span> group_means.loc[<span class="st">&quot;hybrid&quot;</span>]</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>some_bikes <span class="op">=</span> __(x)__</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>diffs <span class="op">=</span> np.array([])</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    shuffled_df <span class="op">=</span> some_bikes.assign(shuffled <span class="op">=</span> __(y)__)  </span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    diffs <span class="op">=</span> np.append(diffs, find_diff(shuffled_df))</span></code></pre></div>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading7_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_1" aria-expanded="true" aria-controls="collapse7_1">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse7_1" class="accordion-collapse collapse"
-aria-labelledby="heading7_1" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer</strong>:</p>
-<p>(x):
-<code>bikes[(bikes.get("style") == "road") | (bikes.get("style") == "hybrid")]</code><br/>
-(y): <code>np.random.permutation(some bikes.get("style"))</code></p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 54%.</p>
-</div>
-</div>
-</div>
-</div>
+<p>Fill in the blanks below to collect a <strong>simple random
+sample</strong> of 400 movies from the <code>oscars</code> DataFrame,
+then calculate 10,000 bootstrapped sample mean ratings.</p>
+<pre><code>my_sample = __(x)__
+n_resamples = 10000
+boot_means = np.array([])
+for i in np.arange(n_resamples):
+    resample = __(y)__
+    mean = __(z)__
+    boot_means = np.append(boot_means, mean)</code></pre>
 <p><br></p>
 <h3 id="problem-7.2">Problem 7.2</h3>
-<p>Do large values of the observed statistic make us lean towards the
-null or alternative hypothesis?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> Null Hypothesis</p></li>
-<li><p><input type="radio" disabled="" /> Alternative Hypothesis</p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading7_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_2" aria-expanded="true" aria-controls="collapse7_2">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse7_2" class="accordion-collapse collapse"
-aria-labelledby="heading7_2" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer</strong>: Null Hypothesis</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
+<p>In each blank, circle the word that correctly fills in the
+sentence.<br />
 </p>
-<p>The average score on this problem was 63%.</p>
-</div>
-</div>
-</div>
-</div>
+<p><em>A histogram of <code>boot_means</code> shows a(n)
+<strong>probability</strong> / <strong>empirical</strong> distribution
+of a <strong>statistic</strong> / <strong>parameter</strong>.</em></p>
 <p><br></p>
 <h3 id="problem-7.3">Problem 7.3</h3>
-<p>Suppose the p-value for this test evaluates to <span
-class="math inline">0.04</span>. What can you conclude based on this?
-Select all that apply.</p>
+<p>Suppose we use the array <code>boot_means</code> to calculate a 90%
+confidence interval for the mean rating of Oscar-nominated movies.
+<strong>Select all</strong> correct conclusions we can draw about this
+interval.</p>
 <ul class="task-list">
-<li><p><input type="checkbox" disabled="" /> Reject the null hypothesis at a significance level of 0.01.</p></li>
-<li><p><input type="checkbox" disabled="" /> Fail to reject the null hypothesis at a significance level of
-0.01.</p></li>
-<li><p><input type="checkbox" disabled="" /> Reject the null hypothesis at a significance level of 0.05.</p></li>
-<li><p><input type="checkbox" disabled="" /> Fail to reject the null hypothesis at a significance level of
-0.05</p></li>
+<li><p><input type="checkbox" disabled="" /> There is a 90% chance that the true mean rating of all
+Oscar-nominated movies falls within this interval.</p></li>
+<li><p><input type="checkbox" disabled="" /> The sample mean rating is within 90% of the true mean rating of all
+Oscar-nominated movies.</p></li>
+<li><p><input type="checkbox" disabled="" /> If we looked at the ratings of many Oscar-nominated movies, about 90%
+of them would fall within this range.</p></li>
+<li><p><input type="checkbox" disabled="" /> None of the above.</p></li>
 </ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading7_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_3" aria-expanded="true" aria-controls="collapse7_3">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse7_3" class="accordion-collapse collapse"
-aria-labelledby="heading7_3" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer</strong>: Fail to reject the null hypothesis at a
-significance level of 0.01, Reject the null hypothesis at a significance
-level of 0.05.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 48%.</p>
-</div>
-</div>
-</div>
-</div>
 <p><br></p>
 <hr />
 <h2 id="problem-8">Problem 8</h2>
-<p>For this question, we will use data from the 2021 Women’s National
-Basketball Association (WNBA) season for the next several problems. In
-basketball, players score points by shooting the ball into a hoop. The
-team that scores the most points wins the game.</p>
-<p>Kelsey Plum, a WNBA player, attended La Jolla Country Day School,
-which is adjacent to UCSD’s campus. Her current team is the Las Vegas
-Aces (three-letter code <code>'LVA'</code>). <strong>In 2021, the Las
-Vegas Aces played 31 games, and Kelsey Plum played in all
-31.</strong></p>
-<p>The DataFrame <code>plum</code> contains her stats for all games the
-Las Vegas Aces played in 2021. The first few rows of <code>plum</code>
-are shown below (though the full DataFrame has 31 rows, not 5):</p>
-<center><img src='../assets/images/wi22-final/plum.png' width=40%></center>
-<p>Each row in <code>plum</code> corresponds to a single game. For each
-game, we have:</p>
-<ul>
-<li><code>'Date'</code> (<code>str</code>), the date on which the game
-was played</li>
-<li><code>'Opp'</code> (<code>str</code>), the three-letter code of the
-opponent team</li>
-<li><code>'Home'</code> (<code>bool</code>), <code>True</code> if the
-game was played in Las Vegas (“home”) and <code>False</code> if it was
-played at the opponent’s arena (“away”)</li>
-<li><code>'Won'</code> (<code>bool</code>), <code>True</code> if the Las
-Vegas Aces won the game and <code>False</code> if they lost</li>
-<li><code>'PTS'</code> (<code>int</code>), the number of points Kelsey
-Plum scored in the game</li>
-<li><code>'AST'</code> (<code>int</code>), the number of assists
-(passes) Kelsey Plum made in the game</li>
-<li><code>'TOV'</code> (<code>int</code>), the number of turnovers
-Kelsey Plum made in the game (a turnover is when you lose the ball –
-turnovers are bad!) <br><br></li>
-</ul>
-<p>Consider the definition of the function
-<code>diff_in_group_means</code>:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> diff_in_group_means(df, group_col, num_col):</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    s <span class="op">=</span> df.groupby(group_col).mean().get(num_col)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> s.loc[<span class="va">False</span>] <span class="op">-</span> s.loc[<span class="va">True</span>]</span></code></pre></div>
+<p>The DataFrame <code>restaurants</code> contains information about a
+sample of restaurants in San Diego County. We have each restaurant’s
+<code>"name" (str)</code>, <code>"rating" (int)</code>, average
+<code>"meal_price" (float)</code>, and type of
+<code>"cuisine" (str)</code>, such as <code>"Thai"</code> or
+<code>"Italian"</code>.</p>
 <p><br></p>
 <h3 id="problem-8.1">Problem 8.1</h3>
-<p>It turns out that Kelsey Plum averages 0.61 more assists in games
-that she wins (“winning games”) than in games that she loses (“losing
-games”). Fill in the blanks below so that <code>observed_diff</code>
-evaluates to -0.61.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>observed_diff <span class="op">=</span> diff_in_group_means(plum, __(a)__, __(b)__)</span></code></pre></div>
-<ol type="1">
-<li><p>What goes in blank (a)?</p></li>
-<li><p>What goes in blank (b)?</p></li>
-</ol>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading8_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_1" aria-expanded="true" aria-controls="collapse8_1">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse8_1" class="accordion-collapse collapse"
-aria-labelledby="heading8_1" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answers:</strong> <code>'Won'</code>, <code>'AST'</code></p>
-<p>To compute the number of assists Kelsey Plum averages in winning and
-losing games, we need to group by <code>'Won'</code>. Once doing so, and
-using the <code>.mean()</code> aggregation method, we need to access
-elements in the <code>'AST'</code> column.</p>
-<p>The second argument to <code>diff_in_group_means</code>,
-<code>group_col</code>, is the column we’re grouping by, and so blank
-(a) must be filled by <code>'Won'</code>. Then, the second argument,
-<code>num_col</code>, must be <code>'AST'</code>.</p>
-<p>Note that after extracting the Series containing the average number
-of assists in wins and losses, we are returning the value with the index
-<code>False</code> (“loss”) minus the value with the index
-<code>True</code> (“win”). So, throughout this problem, keep in mind
-that we are computing “losses minus wins”. Since our observation was
-that she averaged 0.61 more assists in wins than in losses, it makes
-sense that <code>diff_in_group_means(plum, 'Won', 'AST')</code> is -0.61
-(rather than +0.61).</p>
-<hr/>
-<h5>Difficulty: ⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 94%.</p>
-</div>
-</div>
-</div>
-</div>
+<p>You are interested in estimating the average
+<code>"meal_price"</code> across all Italian restaurants in San Diego
+County using only the data in <code>restaurants</code>. Fill in the
+following code so that <code>italian_means</code> evaluates to an array
+of 1000 bootstrapped estimates for this parameter.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> bootstrap_means(data, n_samples):</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>        means <span class="op">=</span> np.array([])</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n_samples):</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>            resample <span class="op">=</span> data.sample(__(a)__, replace <span class="op">=</span> __(b)__)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>            means <span class="op">=</span> np.append(means, __(c)__)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> means</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    italian_restaurants <span class="op">=</span> __(d)__</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    italian_means <span class="op">=</span> bootstrap_means(italian_restaurants, __(e)__)</span></code></pre></div>
 <p><br></p>
 <h3 id="problem-8.2">Problem 8.2</h3>
-<p>After observing that Kelsey Plum averages more assists in winning
-games than in losing games, we become interested in conducting a
-permutation test for the following hypotheses:</p>
-<ul>
-<li><strong>Null Hypothesis:</strong> The number of assists Kelsey Plum
-makes in winning games and in losing games come from the same
-distribution.</li>
-<li><strong>Alternative Hypothesis:</strong> The number of assists
-Kelsey Plum makes in winning games is higher on average than the number
-of assists that she makes in losing games.</li>
-</ul>
-<p>To conduct our permutation test, we place the following code in a
-<code>for</code>-loop.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>won <span class="op">=</span> plum.get(<span class="st">&#39;Won&#39;</span>)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>ast <span class="op">=</span> plum.get(<span class="st">&#39;AST&#39;</span>)</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>shuffled <span class="op">=</span> plum.assign(Won_shuffled<span class="op">=</span>np.random.permutation(won)) <span class="op">\</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>               .assign(AST_shuffled<span class="op">=</span>np.random.permutation(ast))</span></code></pre></div>
-<p>Which of the following options <strong>does not</strong> compute a
-valid simulated test statistic for this permutation test?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> <code>diff_in_group_means(shuffled, 'Won', 'AST')</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>diff_in_group_means(shuffled, 'Won', 'AST_shuffled')</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>diff_in_group_means(shuffled, 'Won_shuffled, 'AST')</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>diff_in_group_means(shuffled, 'Won_shuffled, 'AST_shuffled')</code></p></li>
-<li><p><input type="radio" disabled="" /> More than one of these options do not compute a valid simulated test
-statistic for this permutation test</p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading8_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_2" aria-expanded="true" aria-controls="collapse8_2">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse8_2" class="accordion-collapse collapse"
-aria-labelledby="heading8_2" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer:</strong>
-<code>diff_in_group_means(shuffled, 'Won', 'AST')</code></p>
-<p>As we saw in the previous subpart,
-<code>diff_in_group_means(shuffled, 'Won', 'AST')</code> computes the
-observed test statistic, which is -0.61. There is no randomness involved
-in the observed test statistic; each time we run the line
-<code>diff_in_group_means(shuffled, 'Won', 'AST')</code> we will see the
-same result, so this cannot be used for simulation.</p>
-<p>To perform a permutation test here, we need to simulate under the
-null by randomly assigning assist counts to groups; here, the groups are
-“win” and “loss”.</p>
-<ul>
-<li><strong>Option 2:</strong> Here, assist counts are shuffled and the
-group names are kept in the same order. The end result is a random
-pairing of assists to groups.</li>
-<li><strong>Option 3:</strong> Here, the group names are shuffled and
-the assist counts are kept in the same order. The end result is a random
-pairing of assist counts to groups.</li>
-<li><strong>Option 4:</strong> Here, both the group names and assist
-counts are shuffled, but the end result is still the same as in the
-previous two options.</li>
-</ul>
-<p>As such, Options 2 through 4 are all valid, and Option 1 is the only
-invalid one.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 68%.</p>
-</div>
-</div>
-</div>
-</div>
+<p>Next, fill in the blanks below so that <code>italian_CI</code>
+evaluates to an 88% bootstrapped confidence interval for the average
+<code>"meal_price"</code> across all Italian restaurants in San Diego
+County.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>    lower_bound <span class="op">=</span> np.percentile(italian_means, __(a)__)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    upper_bound <span class="op">=</span> np.percentile(italian_means, __(b)__)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    italian_CI <span class="op">=</span> [lower_bound, upper_bound]</span></code></pre></div>
 <p><br></p>
 <h3 id="problem-8.3">Problem 8.3</h3>
-<p>Suppose we generate 10,000 simulated test statistics, using one of
-the valid options from part 1. The empirical distribution of test
-statistics, with a red line at <code>observed_diff</code>, is shown
-below.</p>
-<center><img src='../assets/images/wi22-final/quarter-hist.png' width=50%></center>
-<p>Roughly one-quarter of the area of the histogram above is to the left
-of the red line. What is the correct interpretation of this result?</p>
+<p>Suppose <code>italian_CI</code> evaluates to [25, 35]. Which of the
+following statements are correct? Select all that apply.</p>
 <ul class="task-list">
-<li><p><input type="radio" disabled="" /> There is roughly a one quarter probability that Kelsey Plum’s number
-of assists in winning games and in losing games come from the same
-distribution.</p></li>
-<li><p><input type="radio" disabled="" /> The significance level of this hypothesis test is roughly a
-quarter.</p></li>
-<li><p><input type="radio" disabled="" /> Under the assumption that Kelsey Plum’s number of assists in winning
-games and in losing games come from the same distribution, and that she
-wins 22 of the 31 games she plays, the chance of her averaging
-<strong>at least</strong> 0.61 more assists in wins than losses is
-roughly a quarter.</p></li>
-<li><p><input type="radio" disabled="" /> Under the assumption that Kelsey Plum’s number of assists in winning
-games and in losing games come from the same distribution, and that she
-wins 22 of the 31 games she plays, the chance of her averaging 0.61 more
-assists in wins than losses is roughly a quarter.</p></li>
+<li><p><input type="checkbox" disabled="" /> If we randomly selected 1000 Italian restaurants from the population
+of Italian restaurants in San Diego County, about 880 of them will have
+an average <code>"meal_price"</code>  between $25 and $35.</p></li>
+<li><p><input type="checkbox" disabled="" /> There is an 88% chance that the average <code>"meal_price"</code> of
+Italian restaurants in San Diego County falls between $25 and $35.</p></li>
+<li><p><input type="checkbox" disabled="" /> 88% of all Italian restaurants have an average
+<code>"meal_price"</code> between $25 and $35.</p></li>
+<li><p><input type="checkbox" disabled="" /> None of the above.</p></li>
 </ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading8_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_3" aria-expanded="true" aria-controls="collapse8_3">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse8_3" class="accordion-collapse collapse"
-aria-labelledby="heading8_3" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer:</strong> Under the assumption that Kelsey Plum’s
-number of assists in winning games and in losing games come from the
-same distribution, and that she wins 22 of the 31 games she plays, the
-chance of her averaging <strong>at least</strong> 0.61 more assists in
-wins than losses is roughly a quarter. (Option 3)</p>
-<p>First, we should note that the area to the left of the red line (a
-quarter) is the p-value of our hypothesis test. Generally, the p-value
-is the probability of observing an outcome as or more extreme than the
-observed, under the assumption that the null hypothesis is true. The
-direction to look in depends on the alternate hypothesis; here, since
-our alternative hypothesis is that the number of assists Kelsey Plum
-makes in winning games is higher on average than in losing games, a
-“more extreme” outcome is where the assists in winning games are higher
-than in losing games, i.e. where <span class="math inline">\text{(assists in wins)} - \text{(assists in
-losses)}</span> is positive or where <span class="math inline">\text{(assists in losses)} - \text{(assists in
-wins)}</span> is negative. As mentioned in the solution to the first
-subpart, our test statistic is <span class="math inline">\text{(assists
-in losses)} - \text{(assists in wins)}</span>, so a more extreme outcome
-is one where this is negative, i.e. to the left of the observed
-statistic.</p>
-<p>Let’s first rule out the first two options.</p>
-<ul>
-<li><strong>Option 1:</strong> This option states that the probability
-that the null hypothesis (the number of assists she makes in winning and
-losing games comes from the same distribution) is true is roughly a
-quarter. However, the p-value <strong>is not</strong> the probability
-that the null hypothesis is true.</li>
-<li><strong>Option 2:</strong> The significance level is the formal name
-for the p-value “cutoff” that we specify in our hypothesis test. There
-is no cutoff mentioned in the problem. The <em>observed</em>
-significance level is another name for the p-value, but Option 2 did not
-contain the word <em>observed</em>.</li>
-</ul>
-<p>Now, the only difference between Options 3 and 4 is the inclusion of
-“at least” in Option 3. Remember, to compute a p-value we must compute
-the probability of observing something as <strong>or more</strong>
-extreme than the observed, under the null. The “or more” corresponds to
-“at least” in Option 3. As such, Option 3 is the correct choice.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 70%.</p>
-</div>
-</div>
-</div>
-</div>
 <p><br></p>
+<hr />
+<h2 id="problem-9">Problem 9</h2>
+<p>Which of the following can be used to generate a <strong>simple
+random sample</strong> of <code>"rating"</code>s from 10 restaurants in
+<code>restaurants</code>? Select all that apply.</p>
+<p>Option 1:</p>
+<pre><code>    sample = restaurants.take(np.arange(10)).get(&quot;rating&quot;)</code></pre>
+<p>Option 2:</p>
+<pre><code>    sample = restaurants.sample(10, replace = False).get(&quot;rating&quot;)</code></pre>
+<p>Option 3:</p>
+<pre><code>    sample = restaurants.sample(10, replace = True).get(&quot;rating&quot;)</code></pre>
+<p>Option 4:</p>
+<pre><code>    positions = np.random.choice(np.arange(0, restaurants.shape[0]), 
+                                 10, replace = False)
+    sample = restaurants.take(positions).get(&quot;rating&quot;)</code></pre>
+<p>Option 5:</p>
+<pre><code>    positions = np.random.choice(np.arange(0, restaurants.shape[0]), 
+                                 10, replace = True)
+    sample = restaurants.take(positions).get(&quot;rating&quot;)</code></pre>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> Option 1</p></li>
+<li><p><input type="checkbox" disabled="" /> Option 2</p></li>
+<li><p><input type="checkbox" disabled="" /> Option 3</p></li>
+<li><p><input type="checkbox" disabled="" /> Option 4</p></li>
+<li><p><input type="checkbox" disabled="" /> Option 5</p></li>
+</ul>
 <hr />
 <h2 id="section"><span class="math display"> </span></h2>
 <h4
