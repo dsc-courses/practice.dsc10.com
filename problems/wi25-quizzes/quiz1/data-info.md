@@ -3,4 +3,4 @@ For each club, we have its `"Name"`, `"Category"`, number of `"Members"`, `"Budg
 `"Rating"` out of `5.0`, and whether it is `"Active"` represented by either `True` or `False`. The
 first three rows of clubs are shown below. Assume that all club names are unique.
 
-<center><img src="../../assets/images/wi25-quizzes/quiz1data.png" width=600></center>
+<center><img src="../assets/images/wi25-midterm/dining.jpg" width=600></center>
