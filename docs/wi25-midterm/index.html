@@ -526,6 +526,18 @@ aria-labelledby="heading3_3" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer (g):</strong> <code>orders.shape[0]</code></p>
+<p>Since <code>"Wait"</code> was already calculated in the previous
+question (as <code>"End" - "Start"</code>), we know that positive values
+indicate where <code>"End"</code> is after <code>"Start"</code>. When we
+evaluate <code>orders.get("Wait") &gt;= 0</code>, we get a boolean array
+where <code>True</code> indicates rows where <code>"End"</code> is at or
+after <code>"Start"</code>. Taking the <code>.sum()</code> of this
+boolean array counts how many rows satisfy this condition. If
+<code>"End"</code> is always after <code>"Start"</code>, this sum should
+equal the total number of rows in the dataframe
+(<code>orders.shape[0]</code>). Therefore, comparing the sum to
+<code>orders.shape[0]</code> will return <code>True</code> only if
+<code>"Wait"</code> is non-negative for all rows.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
 <p>
@@ -558,6 +570,10 @@ aria-labelledby="heading3_4" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer (h):</strong>
 <code>groupby('Dining Hall').mean()</code></p>
+<p>Since we want to compare the average wait time for each Dining Hall
+we know we need to aggregate each Dining Hall and find the mean of their
+columns. This can be done using
+<code>groupby('Dining Hall').mean()</code>.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -565,6 +581,12 @@ aria-labelledby="heading3_4" data-bs-parent="#accordionExample">
 <p>The average score on this problem was 62%.</p>
 <p><strong>Answer (i):</strong> <code>index</code> or
 <code>reset_index().get('Dining Hall')</code></p>
+<p>The desired output is the <strong>names</strong> of each Dining Hall
+sorted. After grouping and sorting, the dining hall names become the
+index of our DataFrame. Since we want an array of these names in
+descending order of wait times, we can either use .index to get them
+directly, or reset_index().get(‘Dining Hall’) to convert the index back
+to a column and select it.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
 <p>
@@ -599,6 +621,8 @@ aria-labelledby="heading3_5" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer:</strong> bar chart</p>
+<p><code>"Dining Hall"</code> is a categorical variable and we use bar
+charts to visualize the distribution of categorical variables.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -783,21 +807,21 @@ bread as possible. There are only a few menu items at The Bread Basket,
 shown with their costs in the table below:</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th style="text-align: center;"><strong>Bread</strong></th>
 <th style="text-align: center;"><strong>Cost</strong></th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td style="text-align: center;">Sourdough</td>
 <td style="text-align: center;">2</td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: center;">Whole Wheat</td>
 <td style="text-align: center;">3</td>
 </tr>
-<tr class="odd">
+<tr>
 <td style="text-align: center;">Multigrain</td>
 <td style="text-align: center;">4</td>
 </tr>
@@ -934,6 +958,23 @@ aria-labelledby="heading6_1" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer:</strong> 1/64</p>
+<p>We want the probability that we create a pizza with no toppings at
+all, which is to say <strong><span class="math inline">0</span></strong>
+toppings. The problem statement gives us two important pieces of
+information that we use to calculate this probability:</p>
+<ol type="1">
+<li>The probability of including every topping is independent of every
+other topping. The independence of including different toppings means
+that the probability that we create a pizza with <strong><span class="math inline">0</span></strong> toppings can be framed as a
+sequence of independent events, or a product of probabilities: <span class="math inline">P(Not topping 1) \cdot P(Not topping 2) \cdot ...
+\cdot P(Not topping 6)</span>.</li>
+<li>The probability of including a topping is <strong><span class="math inline">0.5</span></strong> This means that the probability
+of not including some topping t, or the complement of including the
+topping, is <span class="math inline">1 - P(including topping t) = 1 -
+0.5 = 0.5</span>. So, the probability of creating a pizza with no
+toppings is <span class="math inline">0.5 \cdot 0.5 \cdot 0.5 \cdot 0.5
+\cdot 0.5 \cdot 0.5 = 0.5^6</span></li>
+</ol>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -951,7 +992,7 @@ toppings? Fill in the blanks in the code below so that
 <div class="sourceCode" id="cb11"><pre
 class="sourceCode py"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>        tiptop <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>        num_trials <span class="op">=</span> <span class="dv">10000</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> np.arange(num_trials):</span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>            pizza <span class="op">=</span> np.random.choice([<span class="dv">0</span>,<span class="dv">1</span>], __(a)__)</span>
 <span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> np.__(b)__ <span class="op">==</span> <span class="dv">3</span>:</span>
@@ -972,25 +1013,56 @@ aria-labelledby="heading6_2" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer (a):</strong> <code>6</code></p>
+<p>Blank(a) is the <span class="math inline">size</span> parameter of
+<code>np.random.choice</code>. To determine what value belongs here,
+consider the context of the code: We are defining a variable
+<code>pizza</code>, representing one simulated pizza. Consider what that
+means in the context of this simulation; as we are trying to estimate
+the probability of including exactly three toppings on a pizza, we can
+simulate the creation of one pizza by deciding whether to include each
+of the 6 toppings. Further, we have instructed
+<code>np.random.choice</code> to select from the array <span class="math inline">[0, 1]</span>. These are the possible outcomes, and
+will be randomly drawn from <span class="math inline">size</span> times.
+In the context of this problem, these outcomes represent whether we
+include a topping. So, we must randomly choose between them <span class="math inline">6</span> times, once per topping. Keep in mind that
+by default, <code>replace=True</code>, enabling us to draw multiple 0’s
+or 1’s. So, what goes in blank(a) is <span class="math inline">6</span>.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
 </p>
 <p>The average score on this problem was 58%.</p>
 <p><strong>Answer (b):</strong>
-<code>count nonzero(pizza) or sum(pizza)</code></p>
+<code>count_nonzero(pizza) or sum(pizza)</code></p>
+<p><code>pizza</code> is an array of 0’s and 1’s, representing if we
+included a topping (<span class="math inline">1</span>) or not (<span class="math inline">0</span>) for each of the 6 toppings. At this step,
+we want to check if we have three toppings, or if there are exactly
+three 1’s in our array. We can either do this by finding the sum of this
+array using <code>np.sum(pizza)</code> (because the sum is the total
+number of 1’s), or by counting how many non-zero elements occur (using
+<code>np.count_nonzero(pizza)</code>).</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
 </p>
 <p>The average score on this problem was 58%.</p>
 <p><strong>Answer (c):</strong> <code>tiptop + 1</code></p>
+<p><code>tiptop</code> is a counter representing the number times we had
+exactly three toppings in our simulation. We want to add 1 to it every
+time we have exactly three different toppings, or when we satisfy the
+above condition (<code>np.count_nonzero(pizza) == 3</code>). This is
+important so that by the end of the simulation, we have a total count of
+the number of times we had exactly three toppings, and we .</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
 </p>
 <p>The average score on this problem was 81%.</p>
 <p><strong>Answer (d):</strong> <code>tiptop / num_trials</code></p>
+<p><code>tiptop</code> is the number times we had exactly three toppings
+in our simulation. To convert this count into a proportion, we need to
+divide it by the total number of trials in our simluation, or
+<code>num_trials</code>.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -1027,6 +1099,11 @@ aria-labelledby="heading6_3" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer:</strong> The number of times we randomly selected
 three toppings.</p>
+<p>1 is added to <code>tiptop</code> every time the condition
+<code>np.count_nonzero(pizza) == 3</code> is satisfied. This means that
+<code>tiptop</code> contains the total number of times in our simulation
+where <code>np.count_nonzero(pizza) == 3</code>, or where our pizza
+contained exactly three toppings.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
