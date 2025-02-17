@@ -21,8 +21,9 @@
       vertical-align: middle;
     }
     /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -33,7 +34,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -234,24 +235,58 @@ aria-labelledby="heading2_1" data-bs-parent="#accordionExample">
 <code>float(price.replace('$', ''))</code> or
 <code>float(price.strip('$'))</code> or <code>float(price[1:])</code> or
 <code>float(price.split('$')[1])</code></p>
+<p>To solve this problem, we must keep in mind that the prices in the
+<code>'Price'</code> column are formatted as strings with dollar signs
+in front of them. For example, we might see a value such as ‘$9.50’. Our
+function’s goal is to transform any given value in the
+<code>'Price'</code> column into a float matching the corresponding
+dollar amount. Therefore, we can first use the <code>strip</code>
+function to strip the price of the dollar sign. This would look
+something like <code>price.strip('$')</code>. Since we need our output
+as a float, we can run the python <code>float</code> function on this to
+get the price as a float.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
 </p>
 <p>The average score on this problem was 61%.</p>
 <p><strong>Answer (b):</strong> <code>&gt; 14</code></p>
+<p>The key to getting this question correct comes from understanding how
+the placement of <code>price_as_float &gt; 6</code> affects how you
+order the rest of the conditionals within the function. The method
+through which we test if a price is <code>'Moderate'</code> is by
+checking if <code>price_as_float &gt; 6</code>. For a price to
+be <code>'Expensive'</code>, it must be greater than 14. However, since
+every price greater than 14 is also greater than 6, we must check to see
+if the price is <code>'Expensive'</code> before we check and see if the
+price is <code>'Moderate'</code>. Otherwise,
+all <code>'Expensive'</code> prices would just be
+labeled <code>'Moderate'</code> before we could even check if they
+were <code>'Expensive'</code>.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
 </p>
 <p>The average score on this problem was 74%.</p>
 <p><strong>Answer (c):</strong> <code>'Expensive'</code></p>
+<p>In the previous part of this question we checked to see if the
+<code>price_as_float &gt; 14</code>. We did this to see if the given
+price falls into the <code>'Expensive'</code> category. Since the
+<code>categorize</code> function is meant to take in a price and output
+the corresponding category, we just need to output the correct category
+for this conditional which is <code>'Expensive'</code>.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
 </p>
 <p>The average score on this problem was 75%.</p>
 <p><strong>Answer (d):</strong> <code>'Cheap'</code></p>
+<p>In the previous parts of this question, we have implemented checks to
+see if a price is expensive or moderate priced. This leaves only the
+<code>'Cheap'</code> price category, meaning that it can be placed in
+the else statement. The logic is we check if a price is
+<code>'Expensive'</code> or <code>'Moderate'</code> and if its neither,
+it has to be <code>'Cheap'</code>.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -259,6 +294,15 @@ aria-labelledby="heading2_1" data-bs-parent="#accordionExample">
 <p>The average score on this problem was 74%.</p>
 <p><strong>Answer (e):</strong>
 <code>dining.get('Price').apply(categorize)</code></p>
+<p>Now that we have implemented the <code>categorize</code> function, we
+need to apply it to the <code>'Price'</code> column so that it can be
+added as a new column into <code>dining</code>. Keep in mind our
+function takes in one price and outputs it’s price category. Thus, we
+need a way to apply this function to every value in the series. We can
+do this by using the series method <code>apply</code>. To do this, we
+first need to get the series from the data frame and then use
+<code>apply</code> on that series with our <code>categorize</code>
+function as the input.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -294,6 +338,15 @@ aria-labelledby="heading2_2" data-bs-parent="#accordionExample">
 <p><strong>Answer (f):</strong>
 <code>['Dining Hall', 'Affordability']</code> or
 <code>['Affordability', 'Dining Hall']</code></p>
+<p>The key to solving this problem comes from understanding exactly what
+the question is asking. You are asked to create a dataframe that
+displays in each dining hall, the number of menu items that fall into
+each affordability category. This indicates that you will need groups
+within groups, first the dining hall then affordability category or the
+other way around, since the question did not specify. Thus you need to
+group by two items, which in babypandas needs to be done by inputting
+the two items in a list as an argument in the <code>groupby</code>
+function.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -302,6 +355,17 @@ aria-labelledby="heading2_2" data-bs-parent="#accordionExample">
 <p><strong>Answer (g):</strong> <code>counts.get('Price')</code> or
 <code>counts.get('Calories')</code> or
 <code>counts.get('Item')</code></p>
+<p>For this part, you need to create a column called
+<code>'Count'</code> with the number of menu items that fall into each
+affordability category within each dining hall. Since the count function
+works by counting the number of non-null occurrences in each column
+within each group. If there are no null values, like in this case, then
+all the columns have the same values. This means you can use the values
+from any one of the non-index columns in the grouped dataframe as the
+<code>'Count'</code> column. In this case, those columns are
+<code>'Price'</code>, <code>'Calories'</code>, and <code>'Item'</code>.
+Therefore to fill in the blank, you would get any one of these
+columns.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -311,6 +375,12 @@ aria-labelledby="heading2_2" data-bs-parent="#accordionExample">
 <code>get(["Dining Hall", "Affordability", "Count"])</code>or
 <code>drop(columns=["Item", "Price", "Calories"])</code> columns can be
 in any order</p>
+<p>Recall the question asked to create a dataframe with only three
+columns. You have just added one of the columns, <code>'Count'</code>.
+This means you have to drop the remaining columns (<code>'Price'</code>,
+<code>'Calories'</code>, and <code>'Item'</code>) or simply get the
+desired columns (<code>'Dining Hall'</code>,
+<code>'Affordability'</code>, and <code>'Count'</code>).</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
