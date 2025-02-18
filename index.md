@@ -81,6 +81,11 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
       <td>Wednesday, February 12th</td>
       <td><a href="disc07/index.html">Sampling, Bootstrapping, and Confidence Intervals</a></td>
     </tr>
+    <tr>
+      <th scope="row">8</th>
+      <td>Wednesday, February 19th</td>
+      <td><a href="disc08/index.html">Standardization and The Normal Distribution</a></td>
+    </tr>
   </tbody>
 </table>
 </center> 
@@ -155,6 +160,12 @@ Each exam linked here lists the conditions under which the exam was given, inclu
     </tr>
   </thead>
   <tbody>
+    <tr>
+      <th scope="row">Winter 2025</th>
+      <td>Janine Tiefenbruck</td>
+      <td><a href='wi25-midterm/index.html'>Midterm</a>
+      </td>
+    </tr>
     <tr>
       <th scope="row">Fall 2024</th>
       <td>Janine Tiefenbruck</td>
@@ -287,7 +298,8 @@ We've provided answers to all quiz questions, but you won't find detailed explan
       <th scope="row">Winter 2025</th>
       <td>Janine Tiefenbruck</td>
       <td>
-      <a href='wi25-quiz1/index.html'>Quiz 1</a>
+      <a href='wi25-quiz1/index.html'>Quiz 1</a> •
+      <a href='wi25-quiz2/index.html'>Quiz 2</a>
       </td>
       </tr>  
       <tr>
