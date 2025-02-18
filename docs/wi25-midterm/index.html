@@ -21,9 +21,8 @@
       vertical-align: middle;
     }
     /* CSS for syntax highlighting */
-    html { -webkit-text-size-adjust: 100%; }
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span { line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -34,7 +33,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -423,6 +422,41 @@ aria-labelledby="heading2_3" data-bs-parent="#accordionExample">
 <code>(counts[counts.get("Affordability") == "Cheap"].sort_values(by="Count").get("Count").iloc[-1])</code>
 and
 <code>counts[(counts.get("Affordability") == "Cheap") &amp; (counts.get("Dining Hall") == "The Bistro")].get("Count").iloc[0]</code></p>
+<ul>
+<li><p><strong>Option 1</strong>: This query sorts all rows by
+<code>"Count"</code> in descending order (largest to smallest) and
+selects the first row. This is incorrect because this does not filter by
+<code>"Cheap"</code> or <code>"The Bistro"</code>. This means that our
+query will pick the resturant with the highest count, without taking
+into consideration <code>"Cheap"</code> or <code>"The Bistro"</code>,
+which will not give us our desired result.</p></li>
+<li><p><strong>Option 2</strong>: This query selects the highest value
+in <code>"Count"</code>. This is incorrect for the same reason: it
+neglects to query for <code>"Cheap"</code> or <code>"The Bistro"</code>,
+so it may return the count for another category or dining hall.</p></li>
+<li><p><strong>Option 3</strong>: This query first filters
+<code>"counts"</code> to only include rows where
+<code>"Affordability"</code> is <code>"Cheap"</code>. Then, it sorts by
+<code>"Count"</code> in ascending order (smallest to largest). Since the
+question states that <code>"The Bistro"</code> has the most
+<code>"Cheap"</code> menu items, selecting the last row
+<code>(iloc[-1])</code> from the <code>"Count"</code> column correctly
+retrieves the number of <code>"Cheap"</code> menu items at
+<code>"The Bistro"</code>.</p></li>
+<li><p><strong>Option 4</strong>: This query filters
+<code>"counts"</code> to only include rows where
+<code>"Dining Hall"</code> is <code>"The Bistro"</code>, then returns
+the maximum value in the <code>"Count"</code> column. However,
+<code>"The Bistro"</code> may have menu items in multiple affordability
+categories. This query does not isolate <code>"Cheap"</code> items, so
+it incorrectly returns the highest count across all affordability levels
+rather than just <code>"Cheap"</code>.</p></li>
+<li><p><strong>Option 5</strong>: This query filters to find dining
+halls with <code>"Cheap"</code> affordabaility, and that are
+<code>"The Bistro"</code>. This query then selects the first (and only)
+row in the <code>"Count"</code> column, which correctly identifies the
+count of cheap items at <code>"The Bistro"</code>.</p></li>
+</ul>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -877,21 +911,21 @@ bread as possible. There are only a few menu items at The Bread Basket,
 shown with their costs in the table below:</p>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th style="text-align: center;"><strong>Bread</strong></th>
 <th style="text-align: center;"><strong>Cost</strong></th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td style="text-align: center;">Sourdough</td>
 <td style="text-align: center;">2</td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: center;">Whole Wheat</td>
 <td style="text-align: center;">3</td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: center;">Multigrain</td>
 <td style="text-align: center;">4</td>
 </tr>
