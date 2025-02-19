@@ -8,21 +8,12 @@
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    /* The extra [class] is a hack that increases specificity enough to
-       override a similar rule in reveal.js */
-    ul.task-list[class]{list-style: none;}
-    ul.task-list li input[type="checkbox"] {
-      font-size: inherit;
-      width: 0.8em;
-      margin: 0 0.8em 0.2em -1.6em;
-      vertical-align: middle;
-    }
-    /* CSS for syntax highlighting */
+    ul.task-list{list-style: none;}
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -33,7 +24,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -59,7 +50,7 @@
     code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
     code span.at { color: #7d9029; } /* Attribute */
     code span.bn { color: #40a070; } /* BaseN */
-    code span.bu { color: #008000; } /* BuiltIn */
+    code span.bu { } /* BuiltIn */
     code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
     code span.ch { color: #4070a0; } /* Char */
     code span.cn { color: #880000; } /* Constant */
@@ -72,7 +63,7 @@
     code span.ex { } /* Extension */
     code span.fl { color: #40a070; } /* Float */
     code span.fu { color: #06287e; } /* Function */
-    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.im { } /* Import */
     code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
     code span.kw { color: #007020; font-weight: bold; } /* Keyword */
     code span.op { color: #666666; } /* Operator */
@@ -85,9 +76,9 @@
     code span.vs { color: #4070a0; } /* VerbatimString */
     code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../assets/theme.css" />
+  <link rel="stylesheet" href="..\assets\theme.css" />
   <script defer=""
-  src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
  var mathElements = document.getElementsByClassName("math");
  var macros = [];
@@ -103,7 +94,10 @@
 }}});
   </script>
   <link rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
 </head>
 <body>
 <header id="title-block-header">
@@ -167,7 +161,7 @@ than pictured.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse1" class="accordion-collapse collapse"
+<div id="collapse1" class="accordion-collapse collapse collapse"
 aria-labelledby="heading1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -175,11 +169,18 @@ aria-labelledby="heading1" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer:</strong> None of these</p>
 <p>None of the following columns would be an appropriate index since
-they all possibly contain duplicates. Even if <code>"Price"</code> and
-<code>"Calories"</code> had all unique values, they aren’t things people
-would use to search by. An index should be something that makes locating
-something easier, I mean, do you really want to remember the individual
-price or calories for each menu item?</p>
+they all possibly contain duplicates. We are told that each row
+represents a single menu item available at one of the UCSD dining halls.
+This means that each row represents a combination of both
+<code>"Dining Hall"</code> and <code>"Item"</code> so no one column is
+sufficient to uniquely identify a row. We can see this in the preview of
+the first few rows of the DataFrame. There are multiple rows with the
+same value in the <code>"Dining Hall"</code> column, and also multiple
+rows with the same value in the <code>"Item"</code> column.</p>
+<p>While <code>"Price"</code> and <code>"Calories"</code> <em>could</em>
+be unique, it doesn’t make sense to refer to a row by its price or
+number of calories. Further, we have no information that guarantees the
+values in these columns are unique (they’re probably not).</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -224,26 +225,33 @@ $14.</p></li>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse2_1" class="accordion-collapse collapse"
+<div id="collapse2_1" class="accordion-collapse collapse collapse"
 aria-labelledby="heading2_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer (a):</strong>
-<code>float(price.replace('$', ''))</code> or
-<code>float(price.strip('$'))</code> or <code>float(price[1:])</code> or
-<code>float(price.split('$')[1])</code></p>
+<p><strong>Answer (a):</strong> <code>float(price.strip("$"))</code> or
+<code>float(price.replace("$", ""))</code> or
+<code>float(price.split("$")[1])</code></p>
 <p>To solve this problem, we must keep in mind that the prices in the
-<code>'Price'</code> column are formatted as strings with dollar signs
-in front of them. For example, we might see a value such as ‘$9.50’. Our
-function’s goal is to transform any given value in the
-<code>'Price'</code> column into a float matching the corresponding
-dollar amount. Therefore, we can first use the <code>strip</code>
-function to strip the price of the dollar sign. This would look
-something like <code>price.strip('$')</code>. Since we need our output
-as a float, we can run the python <code>float</code> function on this to
-get the price as a float.</p>
+<code>"Price"</code> column are formatted as strings with dollar signs
+in front of them. For example, we might see a value such as
+<code>"$9.50"</code>. Our function’s goal is to transform any given
+value in the <code>"Price"</code> column into a float matching the
+corresponding dollar amount.</p>
+<p>Therefore, one strategy is to first use the <code>.strip</code>
+string method to strip the price of the initial dollar sign. Since we
+need our output as a float, we can call the python <code>float</code>
+function on this to get the price as a float.</p>
+<p>The other strategies are similar. We can replace the dollar sign with
+the empty string, effectively removing it, then convert to a float.
+Similarly, we can split the price according to the instances of
+<code>"$"</code>. This will return a list of two elements, the first of
+which contains everything before the dollar sign, which is the empty
+string, and the second of which contains everything after the dollar
+sign, which is the part we want. We extract it with <code>[1]</code> and
+then convert the answer to a float.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -253,54 +261,54 @@ get the price as a float.</p>
 <p>The key to getting this question correct comes from understanding how
 the placement of <code>price_as_float &gt; 6</code> affects how you
 order the rest of the conditionals within the function. The method
-through which we test if a price is <code>'Moderate'</code> is by
-checking if <code>price_as_float &gt; 6</code>. For a price to
-be <code>'Expensive'</code>, it must be greater than 14. However, since
-every price greater than 14 is also greater than 6, we must check to see
-if the price is <code>'Expensive'</code> before we check and see if the
-price is <code>'Moderate'</code>. Otherwise,
-all <code>'Expensive'</code> prices would just be
-labeled <code>'Moderate'</code> before we could even check if they
-were <code>'Expensive'</code>.</p>
+through which we test if a price is <code>"Moderate"</code> is by
+checking if <code>price_as_float &gt; 6</code>. But
+<code>"Moderate"</code> is defined as being not only more than 6 dollars
+but also less that or equal to 14 dollars. So we must first check to see
+if the price is <code>"Expensive"</code> before we check and see if the
+price is <code>"Moderate"</code>. This way, prices that are in the
+<code>"Expensive"</code> range get caught by the first <code>if</code>
+statement, and then prices in the <code>"Moderate"</code> range get
+caught by the <code>elif</code>.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
 </p>
 <p>The average score on this problem was 74%.</p>
-<p><strong>Answer (c):</strong> <code>'Expensive'</code></p>
+<p><strong>Answer (c):</strong> <code>"Expensive"</code></p>
 <p>In the previous part of this question we checked to see if the
 <code>price_as_float &gt; 14</code>. We did this to see if the given
-price falls into the <code>'Expensive'</code> category. Since the
+price falls into the <code>"Expensive"</code> category. Since the
 <code>categorize</code> function is meant to take in a price and output
 the corresponding category, we just need to output the correct category
-for this conditional which is <code>'Expensive'</code>.</p>
+for this conditional which is <code>"Expensive"</code>.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
 </p>
 <p>The average score on this problem was 75%.</p>
-<p><strong>Answer (d):</strong> <code>'Cheap'</code></p>
+<p><strong>Answer (d):</strong> <code>"Cheap"</code></p>
 <p>In the previous parts of this question, we have implemented checks to
-see if a price is expensive or moderate priced. This leaves only the
-<code>'Cheap'</code> price category, meaning that it can be placed in
-the else statement. The logic is we check if a price is
-<code>'Expensive'</code> or <code>'Moderate'</code> and if its neither,
-it has to be <code>'Cheap'</code>.</p>
+see if a price is <code>"Expensive"</code> or <code>"Moderate"</code>.
+This leaves only the <code>"Cheap"</code> price category, meaning that
+it can be placed in the else statement. The logic is we check if a price
+is <code>"Expensive"</code> or <code>"Moderate"</code> and if its
+neither, it has to be <code>"Cheap"</code>.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
 </p>
 <p>The average score on this problem was 74%.</p>
 <p><strong>Answer (e):</strong>
-<code>dining.get('Price').apply(categorize)</code></p>
+<code>dining.get("Price").apply(categorize)</code></p>
 <p>Now that we have implemented the <code>categorize</code> function, we
-need to apply it to the <code>'Price'</code> column so that it can be
+need to apply it to the <code>"Price"</code> column so that it can be
 added as a new column into <code>dining</code>. Keep in mind our
-function takes in one price and outputs it’s price category. Thus, we
-need a way to apply this function to every value in the series. We can
-do this by using the series method <code>apply</code>. To do this, we
-first need to get the series from the data frame and then use
-<code>apply</code> on that series with our <code>categorize</code>
+function takes in one price and outputs its price category. Thus, we
+need a way to apply this function to every value in the Series that
+corresponds to the <code>"Price"</code> column. To do this, we first
+need to <code>get</code> the Series from the DataFrame and then use
+<code>apply</code> on that Series with our <code>categorize</code>
 function as the input.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
@@ -328,43 +336,43 @@ named <code>"Dining Hall"</code>, <code>"Affordability"</code>, and
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse2_2" class="accordion-collapse collapse"
+<div id="collapse2_2" class="accordion-collapse collapse collapse"
 aria-labelledby="heading2_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer (f):</strong>
-<code>['Dining Hall', 'Affordability']</code> or
-<code>['Affordability', 'Dining Hall']</code></p>
+<code>["Dining Hall", "Affordability"]</code> or
+<code>["Affordability", "Dining Hall"]</code></p>
 <p>The key to solving this problem comes from understanding exactly what
-the question is asking. You are asked to create a dataframe that
-displays in each dining hall, the number of menu items that fall into
-each affordability category. This indicates that you will need groups
-within groups, first the dining hall then affordability category or the
-other way around, since the question did not specify. Thus you need to
-group by two items, which in babypandas needs to be done by inputting
-the two items in a list as an argument in the <code>groupby</code>
-function.</p>
+the question is asking. You are asked to create a DataFrame that
+displays, in each dining hall, the number of menu items that fall into
+each affordability category. This indicates that you will need to group
+by both “Dining Hall” and “Affordability” because when you group by
+multiple columns you get a row for every combination of values in those
+columns. Rembemer that to group by multiple columns, you need to input
+the columns names in a <strong>list</strong> as an argument in the
+<code>groupby</code> function. The order of the columns does not
+matter.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
 </p>
 <p>The average score on this problem was 81%.</p>
-<p><strong>Answer (g):</strong> <code>counts.get('Price')</code> or
-<code>counts.get('Calories')</code> or
-<code>counts.get('Item')</code></p>
+<p><strong>Answer (g):</strong> <code>counts.get("Price")</code> or
+<code>counts.get("Calories")</code> or
+<code>counts.get("Item")</code></p>
 <p>For this part, you need to create a column called
-<code>'Count'</code> with the number of menu items that fall into each
-affordability category within each dining hall. Since the count function
-works by counting the number of non-null occurrences in each column
-within each group. If there are no null values, like in this case, then
-all the columns have the same values. This means you can use the values
-from any one of the non-index columns in the grouped dataframe as the
-<code>'Count'</code> column. In this case, those columns are
-<code>'Price'</code>, <code>'Calories'</code>, and <code>'Item'</code>.
-Therefore to fill in the blank, you would get any one of these
-columns.</p>
+<code>"Count"</code> with the number of menu items that fall into each
+affordability category within each dining hall. The
+<code>.count()</code> aggregation method works by counting the number of
+values in each column within each group. In the resulting DataFrame, all
+the columns have the same values, so we can use the values from any one
+of the non-index columns in the grouped DataFrame. In this case, those
+columns are <code>"Price"</code>, <code>"Calories"</code>, and
+<code>"Item"</code>. Therefore to fill in the blank, you would get any
+one of these columns.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -372,14 +380,14 @@ columns.</p>
 <p>The average score on this problem was 62%.</p>
 <p><strong>Answer (h):</strong>
 <code>get(["Dining Hall", "Affordability", "Count"])</code>or
-<code>drop(columns=["Item", "Price", "Calories"])</code> columns can be
-in any order</p>
-<p>Recall the question asked to create a dataframe with only three
-columns. You have just added one of the columns, <code>'Count'</code>.
-This means you have to drop the remaining columns (<code>'Price'</code>,
-<code>'Calories'</code>, and <code>'Item'</code>) or simply get the
-desired columns (<code>'Dining Hall'</code>,
-<code>'Affordability'</code>, and <code>'Count'</code>).</p>
+<code>drop(columns=["Item", "Price", "Calories"])</code> (columns can be
+in any order)</p>
+<p>Recall the question asked to create a DataFrame with only three
+columns. You have just added one of the columns, <code>"Count</code>.
+This means you have to drop the remaining columns (<code>"Price"</code>,
+<code>"Calories"</code>, and <code>"Item"</code>) or simply get the
+desired columns (<code>"Dining Hall"</code>,
+<code>"Affordability"</code>, and <code>"Count"</code>).</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -412,7 +420,7 @@ apply.</strong></p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse2_3" class="accordion-collapse collapse"
+<div id="collapse2_3" class="accordion-collapse collapse collapse"
 aria-labelledby="heading2_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -509,7 +517,7 @@ that have elapsed since midnight. Example behavior is given below.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse3_1" class="accordion-collapse collapse"
+<div id="collapse3_1" class="accordion-collapse collapse collapse"
 aria-labelledby="heading3_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -574,7 +582,7 @@ because they should be filled in with the same value.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse3_2" class="accordion-collapse collapse"
+<div id="collapse3_2" class="accordion-collapse collapse collapse"
 aria-labelledby="heading3_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -623,7 +631,7 @@ this is correct. Fill the blank below so that the result is
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse3_3" class="accordion-collapse collapse"
+<div id="collapse3_3" class="accordion-collapse collapse collapse"
 aria-labelledby="heading3_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -666,7 +674,7 @@ sorted in descending order by <strong>average wait time</strong>.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse3_4" class="accordion-collapse collapse"
+<div id="collapse3_4" class="accordion-collapse collapse collapse"
 aria-labelledby="heading3_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -718,7 +726,7 @@ compare dining halls by average wait time?</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse3_5" class="accordion-collapse collapse"
+<div id="collapse3_5" class="accordion-collapse collapse collapse"
 aria-labelledby="heading3_5" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -755,7 +763,7 @@ have been used as the <code>bins</code> argument in the call to
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse4_1" class="accordion-collapse collapse"
+<div id="collapse4_1" class="accordion-collapse collapse collapse"
 aria-labelledby="heading4_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -820,7 +828,7 @@ class="math inline">12</span> minutes to complete?</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse4_2" class="accordion-collapse collapse"
+<div id="collapse4_2" class="accordion-collapse collapse collapse"
 aria-labelledby="heading4_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -865,7 +873,7 @@ class="math inline">y</span>-axis of this histogram?</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse4_3" class="accordion-collapse collapse"
+<div id="collapse4_3" class="accordion-collapse collapse collapse"
 aria-labelledby="heading4_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -961,7 +969,7 @@ code.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse5_1" class="accordion-collapse collapse"
+<div id="collapse5_1" class="accordion-collapse collapse collapse"
 aria-labelledby="heading5_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1010,7 +1018,7 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href=
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse5_2" class="accordion-collapse collapse"
+<div id="collapse5_2" class="accordion-collapse collapse collapse"
 aria-labelledby="heading5_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1055,7 +1063,7 @@ Give your answer as a <strong>fully simplified fraction</strong>.</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse6_1" class="accordion-collapse collapse"
+<div id="collapse6_1" class="accordion-collapse collapse collapse"
 aria-labelledby="heading6_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1110,7 +1118,7 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb11-1"><a href=
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse6_2" class="accordion-collapse collapse"
+<div id="collapse6_2" class="accordion-collapse collapse collapse"
 aria-labelledby="heading6_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
@@ -1195,7 +1203,7 @@ finished running?</p>
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse6_3" class="accordion-collapse collapse"
+<div id="collapse6_3" class="accordion-collapse collapse collapse"
 aria-labelledby="heading6_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
