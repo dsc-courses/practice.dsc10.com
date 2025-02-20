@@ -431,19 +431,23 @@ aria-labelledby="heading2_3" data-bs-parent="#accordionExample">
 and
 <code>counts[(counts.get("Affordability") == "Cheap") &amp; (counts.get("Dining Hall") == "The Bistro")].get("Count").iloc[0]</code></p>
 <ul>
-<li><p><strong>Option 1</strong>: This query sorts all rows by
+<li><p><strong>Option 1</strong>: This code sorts all rows by
 <code>"Count"</code> in descending order (largest to smallest) and
-selects the first row. This is incorrect because this does not filter by
-<code>"Cheap"</code> or <code>"The Bistro"</code>. This means that our
-query will pick the resturant with the highest count, without taking
-into consideration <code>"Cheap"</code> or <code>"The Bistro"</code>,
-which will not give us our desired result.</p></li>
-<li><p><strong>Option 2</strong>: This query selects the highest value
-in <code>"Count"</code>. This is incorrect for the same reason: it
-neglects to query for <code>"Cheap"</code> or <code>"The Bistro"</code>,
-so it may return the count for another category or dining hall.</p></li>
-<li><p><strong>Option 3</strong>: This query first filters
-<code>"counts"</code> to only include rows where
+selects the count from the first row. This is incorrect because there
+can be another combination of <code>"Dining Hall"</code> and
+<code>"Affordability"</code> that has a number of menu items larger than
+the number of <code>"Cheap"</code> items at <code>"The Bistro"</code>.
+For example, maybe there are 100 <code>"Cheap"</code> items at
+<code>"The Bistro"</code> but 200 <code>"Moderate"</code> items at
+<code>"Pines"</code>.</p></li>
+<li><p><strong>Option 2</strong>: This code selects the largest value in
+the <code>"Count"</code> column, which may not necessarily be the number
+of <code>"Cheap"</code> items at <code>"The Bistro"</code>. Taking the
+same example as above, maybe there are 100 <code>"Cheap"</code> items at
+<code>"The Bistro"</code> but 200 <code>"Moderate"</code> items at
+<code>"Pines"</code>.</p></li>
+<li><p><strong>Option 3</strong>: This code first filters
+<code>counts</code> to only include rows where
 <code>"Affordability"</code> is <code>"Cheap"</code>. Then, it sorts by
 <code>"Count"</code> in ascending order (smallest to largest). Since the
 question states that <code>"The Bistro"</code> has the most
@@ -451,19 +455,35 @@ question states that <code>"The Bistro"</code> has the most
 <code>(iloc[-1])</code> from the <code>"Count"</code> column correctly
 retrieves the number of <code>"Cheap"</code> menu items at
 <code>"The Bistro"</code>.</p></li>
-<li><p><strong>Option 4</strong>: This query filters
-<code>"counts"</code> to only include rows where
-<code>"Dining Hall"</code> is <code>"The Bistro"</code>, then returns
-the maximum value in the <code>"Count"</code> column. However,
-<code>"The Bistro"</code> may have menu items in multiple affordability
-categories. This query does not isolate <code>"Cheap"</code> items, so
-it incorrectly returns the highest count across all affordability levels
-rather than just <code>"Cheap"</code>.</p></li>
-<li><p><strong>Option 5</strong>: This query filters to find dining
-halls with <code>"Cheap"</code> affordabaility, and that are
-<code>"The Bistro"</code>. This query then selects the first (and only)
-row in the <code>"Count"</code> column, which correctly identifies the
-count of cheap items at <code>"The Bistro"</code>.</p></li>
+<li><p><strong>Option 4</strong>: This code filters <code>counts</code>
+to only include rows where <code>"Dining Hall"</code> is
+<code>"The Bistro"</code>, then returns the maximum value in the
+<code>"Count"</code> column. However, <code>"The Bistro"</code> may have
+more menu items in the <code>"Moderate"</code> or
+<code>"Expensive"</code> categories than it does in the
+<code>"Cheap"</code> category. This query does not isolate
+<code>"Cheap"</code> items, so it incorrectly returns the highest count
+across all affordability levels rather than just
+<code>"Cheap"</code>.</p></li>
+</ul>
+<p>For example, if <code>"The Bistro"</code> has 100
+<code>"Cheap"</code> menu items, 200 <code>"Moderate"</code> menu items,
+and 50 <code>"Cheap"</code> menu items, this code would evaluate to 200,
+even though that is not the number of <code>"Cheap"</code> items at
+<code>"The Bistro"</code>. This is possible because we are told that
+<code>"The Bistro"</code> is the dining hall with the most menu items in
+the <code>"Cheap"</code> category, meaning in this example that every
+other dining hall has fewer than 100 <code>"Cheap"</code> items.
+However, this tells us nothing about the number of menu items at
+<code>"The Bistro"</code> in the other affordability categories, which
+can be greater than 100.</p>
+<ul>
+<li><strong>Option 5</strong>: This code queries to find the rows that
+correspond to <code>"Cheap"</code> affordabaility, and a
+<code>"Dining Hall"</code> value of <code>"The Bistro"</code>. This is
+only one such row! The code then selects the first (and only) value in
+the <code>"Count"</code> column, which correctly evaluates to the number
+of <code>"Cheap"</code> items at <code>"The Bistro"</code>.</li>
 </ul>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
@@ -523,39 +543,44 @@ aria-labelledby="heading3_1" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer (a):</strong> <code>split(':')</code></p>
+<p><strong>Answer (a):</strong> <code>split(":")</code></p>
 <p>We first want to separate the time string into hours and minutes, so
-we use <code>.split(:)</code> to turn a string ‘HH:MM’ into [‘HH’,
-‘MM’].</p>
+we use <code>split(":")</code> to turn a string like
+<code>"HH:MM"</code> into a list of the form
+<code>["HH", "MM"]</code>.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
 </p>
 <p>The average score on this problem was 84%.</p>
-<p><strong>Answer (b):</strong> <code>separate[0]</code></p>
+<p><strong>Answer (b):</strong> <code>separate[0]</code> or
+<code>int(separate[0])</code></p>
 <p>The hour will be the first element of the split list, so we can
-access it using <code>separate[0]</code>.</p>
+access it using <code>separate[0]</code>. This is a string, which we can
+convert to an <code>int</code> now, or later in blank (d).</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
 </p>
 <p>The average score on this problem was 73%.</p>
-<p><strong>Answer (c):</strong> <code>separate[1]</code></p>
+<p><strong>Answer (c):</strong> <code>separate[1]</code> or
+<code>int(separate[1])</code></p>
 <p>The minute will be the second element of the split list, so we can
-access it using <code>separate[1]</code> or
-<code>separate[-1]</code>.</p>
+access it using <code>separate[1]</code> or <code>separate[-1]</code>.
+Likewise, this is also a string, which we can convert to an
+<code>int</code> now, or later in blank (d).</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
 </p>
 <p>The average score on this problem was 73%.</p>
 <p><strong>Answer (d):</strong>
-<code>int(hour) * 60 + int(minute)</code></p>
-<p>In order to convert hours into minutes, we have to multiply the hours
-by 60. Since both <code>hour</code> and <code>minute</code> are still
-strings, we first case them to type <code>int</code>, then multiply
-<code>hour</code> by 60 and add it to <code>minute</code> to get the
-value of the timestamp in minutes elapsed since midnight</p>
+<code>int(hour) * 60 + int(minute)</code> or
+<code>hour * 60 + minute</code> (depending on the answers to (b) and
+(c))</p>
+<p>In order to convert hours and minutes into minutes since midnight, we
+have to multiply the hours by 60 and add the number of minutes. These
+operations must be done with <code>int</code>s, not strings.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -590,23 +615,22 @@ aria-labelledby="heading3_2" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer (e):</strong> <code>apply(to_minutes)</code></p>
 <p>In order to find the time between when an order is placed and
-completed, we first need to convert the <code>Start</code> and
-<code>End</code> time to minutes. So, we applying the function we made
-in Problem 3.1 gives us the values of <code>Start</code> and
-<code>End</code> in minutes elapsed since midnight.</p>
+completed, we first need to convert the <code>"Start"</code> and
+<code>"End"</code> times to minutes since midnight, so that we can
+subtract them. We apply the function we wrote in Problem 3.1 to get the
+values of <code>"Start"</code> and <code>"End"</code> in minutes elapsed
+since midnight.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
 </p>
 <p>The average score on this problem was 87%.</p>
 <p><strong>Answer (f):</strong> <code>end_min - start_min</code></p>
-<p>Now that we have the values of <code>Start</code> and
-<code>End</code> column in minutes, we simply need to subtract them to
-find the wait time. For example, if <code>Start</code> was ‘12:00’ and
-<code>End</code> was ‘13:30’, then <code>start_min</code> is equal to
-<code>12*60 = 720</code>, and <code>end_min</code> is equal to
-<code>13*60 + 30 = 810</code>. So, the total time elapsed is
-<code>810 - 720</code> or 90 minutes.</p>
+<p>Now that we have the values of <code>"Start"</code> and
+<code>"End"</code> columns in minutes, we simply need to subtract them
+to find the wait time. Note that we are subtracting two Series here, so
+the subtraction happens element-wise by matching up corresponding
+elements.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -623,7 +647,7 @@ find the wait time. For example, if <code>Start</code> was ‘12:00’ and
 this is correct. Fill the blank below so that the result is
 <code>True</code> if <code>"End"</code> is indeed always after
 <code>"Start"</code>, and <code>False</code> otherwise.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>    (orders.get(<span class="st">&quot;Wait&quot;</span>) <span class="op">&gt;=</span> <span class="dv">0</span>).<span class="bu">sum</span>() <span class="op">==</span> __(g)__</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>    (orders.get(<span class="st">&quot;Wait&quot;</span>) <span class="op">&gt;</span> <span class="dv">0</span>).<span class="bu">sum</span>() <span class="op">==</span> __(g)__</span></code></pre></div>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading3_3">
@@ -639,17 +663,20 @@ aria-labelledby="heading3_3" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer (g):</strong> <code>orders.shape[0]</code></p>
 <p>Since <code>"Wait"</code> was already calculated in the previous
-question (as <code>"End" - "Start"</code>), we know that positive values
-indicate where <code>"End"</code> is after <code>"Start"</code>. When we
-evaluate <code>orders.get("Wait") &gt;= 0</code>, we get a boolean array
-where <code>True</code> indicates rows where <code>"End"</code> is at or
-after <code>"Start"</code>. Taking the <code>.sum()</code> of this
-boolean array counts how many rows satisfy this condition. If
-<code>"End"</code> is always after <code>"Start"</code>, this sum should
-equal the total number of rows in the dataframe
-(<code>orders.shape[0]</code>). Therefore, comparing the sum to
-<code>orders.shape[0]</code> will return <code>True</code> only if
-<code>"Wait"</code> is non-negative for all rows.</p>
+question by subtracting <code>"End"</code> minus <code>"Start"</code>,
+we know that positive values indicate where <code>"End"</code> is after
+<code>"Start"</code>. When we evaluate
+<code>orders.get("Wait") = 0</code>, we get a Boolean Series where
+<code>True</code> indicates rows where <code>"End"</code> is after
+<code>"Start"</code>. Taking the <code>.sum()</code> of this Boolean
+Series counts how many rows satisfy this condition, using the fact that
+<code>True</code> is <code>1</code> and <code>False</code> is
+<code>0</code> in Python. If <code>"End"</code> is always after
+<code>"Start"</code>, this sum should equal the total number of rows in
+the DataFrame, which is <code>orders.shape[0]</code>. Therefore,
+comparing the sum to <code>orders.shape[0]</code> will return
+<code>True</code> exactly when <code>"End"</code> is after
+<code>"Start"</code> for all rows.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
 <p>
@@ -683,8 +710,8 @@ aria-labelledby="heading3_4" data-bs-parent="#accordionExample">
 <p><strong>Answer (h):</strong>
 <code>groupby('Dining Hall').mean()</code></p>
 <p>Since we want to compare the average wait time for each Dining Hall
-we know we need to aggregate each Dining Hall and find the mean of their
-columns. This can be done using
+we know we need to aggregate each Dining Hall and find the mean of the
+<code>"Wait"</code> column. This can be done using
 <code>groupby('Dining Hall').mean()</code>.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
@@ -693,12 +720,12 @@ columns. This can be done using
 <p>The average score on this problem was 62%.</p>
 <p><strong>Answer (i):</strong> <code>index</code> or
 <code>reset_index().get('Dining Hall')</code></p>
-<p>The desired output is the <strong>names</strong> of each Dining Hall
-sorted. After grouping and sorting, the dining hall names become the
-index of our DataFrame. Since we want an array of these names in
-descending order of wait times, we can either use .index to get them
-directly, or reset_index().get(‘Dining Hall’) to convert the index back
-to a column and select it.</p>
+<p>The desired output is an array with the <strong>names</strong> of
+each dining hall. After grouping and sorting, the dining hall names
+become the index of our DataFrame. Since we want an array of these names
+in descending order of wait times, we can either use <code>.index</code>
+to get them directly, or <code>reset_index().get("Dining Hall")</code>
+to convert the index back to a column and select it.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
 <p>
@@ -733,8 +760,10 @@ aria-labelledby="heading3_5" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer:</strong> bar chart</p>
-<p><code>"Dining Hall"</code> is a categorical variable and we use bar
-charts to visualize the distribution of categorical variables.</p>
+<p><code>"Dining Hall"</code> is a categorical variable and the average
+wait time is a numerical variable, so a bar chart should be used. Our
+visualization would have a bar for each dining hall, and the length of
+that bar would be proportional to the average wait time.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -773,32 +802,34 @@ aria-labelledby="heading4_1" data-bs-parent="#accordionExample">
 <p>The first piece of information to note is what the bins are in the
 original histogram; if we know where we need to arrive at the end of the
 problem, it is much easier to piece together the arguments we need to
-pass to <span class="math inline">\texttt{np.arange}</span> in the code
-provided.</p>
+pass to <code>np.arange</code> in the code provided.</p>
 <p>With this in mind, the bins in the original histogram are defined by
-the <span class="math inline">\texttt{np.array}</span> <span class="math inline">[5, 7, 9, 11, 13, 15, 17]</span>. So, we can work
-backwards from here to answer this question. The final step in the code
-is multiplying the result of <span class="math inline">2 +
-\texttt{np.arange(a, b, c)}</span> by <span class="math inline">0.5</span>. Since we know this must result in the
-array <span class="math inline">[5, 7, 9, 11, 13, 15, 17]</span>, the
-array generated by <span class="math inline">2 + \texttt{np.arange(a, b,
-c)}</span> must be <span class="math inline">[10, 14, 18, 22, 26, 30,
-34]</span>. Using similar logic, we know that <span class="math inline">2 + \texttt{np.arange(a, b, c)}</span> must give us
-the array <span class="math inline">[10, 14, 18, 22, 26, 30, 34]</span>.
-So, the array generated by <span class="math inline">\texttt{np.arange(a, b, c)}</span> must be <span class="math inline">[8, 12, 16, 20, 24, 28, 32]</span>.</p>
-<p>There are multiple calls to <span class="math inline">\texttt{np.arange()}</span> that result in this
-array. The <span class="math inline">\texttt{start}</span> argument must
-be <span class="math inline">8</span> and the <span class="math inline">\texttt{step}</span> argument must be <span class="math inline">4</span>, but the <span class="math inline">\texttt{stop}</span> argument can be any number
-between <span class="math inline">33</span> and <span class="math inline">36</span>, as this argument is exclusive and not
-included in the output array. So, the answers are (a) = <span class="math inline">8</span>, (b) = any number between <span class="math inline">33</span> and <span class="math inline">36</span>,
-and (c) = <span class="math inline">4</span>.</p>
+the array with values <code>[5, 7, 9, 11, 13, 15, 17]</code>. So, we can
+work backwards from here to answer this question.</p>
+<p>The final step in the code is multiplying the result of
+<code>2 + np.arange(a, b, c)</code> by <code>0.5</code>. Since we know
+this must result in <code>[5, 7, 9, 11, 13, 15, 17]</code>, the array
+generated by <code>2 + np.arange(a, b, c)</code> must have the values
+<code>[10, 14, 18, 22, 26, 30, 34]</code>.</p>
+<p>Using similar logic, we know that <code>2 + np.arange(a, b, c)</code>
+must give us the array with values
+<code>[10, 14, 18, 22, 26, 30, 34]</code>. By subtracting two, we get
+that <code>np.arange(a, b, c)</code> must have values
+<code>[8, 12, 16, 20, 24, 28, 32]</code>.</p>
+<p>There are multiple calls to <code>np.arange()</code> that result in
+this sequence. We should start at <code>8</code> and step by
+<code>4</code>, but where we stop can be any number larger than
+<code>32</code>, and at most <code>36</code>, as this argument is
+exclusive and not included in the output array. So, the answers are (a)
+= <code>8</code>, (b) = any number larger than <code>32</code> and less
+than or equal to <code>36</code>, and (c) = <code>4</code>.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
 </p>
 <p>The average score on this problem was 68%.</p>
-<p><strong>Answer (b):</strong> anything &gt; 32 and &lt;= 36, such as
-<code>33</code></p>
+<p><strong>Answer (b):</strong> any number in the interval
+<code>(33, 36]</code></p>
 <p>Refer to explaination for (a).</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
@@ -836,15 +867,20 @@ aria-labelledby="heading4_2" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer:</strong> 0.3 or 30%</p>
 <p>In a density histogram, the proportion of data in a bar or set of
-bars is equal to the <span class="math inline">\textit{area}</span> of
-those bars. So, to find the proportion of orders that took between <span class="math inline">7</span> and <span class="math inline">12</span>
+bars is equal to the <em>area</em> of those bars. So, to find the
+proportion of orders that took between <span class="math inline">7</span> and <span class="math inline">12</span>
 minutes to complete, we must find the area of the bars that encapsulate
-this range. The bars associated with the bins <span class="math inline">[7, 9)</span> and <span class="math inline">[9,
-11)</span> contain all of the orders that took between <span class="math inline">7</span> and <span class="math inline">12</span>
-minutes. So, summing the areas of these bars tells us the proportion of
-orders that took between <span class="math inline">7</span> and <span class="math inline">12</span> minutes. The width of each bar is <span class="math inline">2</span>, and the heights of the bars are <span class="math inline">0.05</span> and <span class="math inline">0.1</span>, respectively. So, the sum of their areas
-is <span class="math inline">2 \cdot 0.05 + 2 \cdot 0.1 = 0.1 + 0.2 =
-0.3</span> So, 0.30 of our orders took between <span class="math inline">7</span> and <span class="math inline">12</span>
+this range.</p>
+<p>The bars associated with the bins <span class="math inline">[7,
+9)</span> and <span class="math inline">[9, 11)</span> contain all of
+the orders that took between <span class="math inline">7</span> and
+<span class="math inline">12</span> minutes. So, summing the areas of
+these bars tells us the proportion of orders that took between <span class="math inline">7</span> and <span class="math inline">12</span>
+minutes.</p>
+<p>The width of each bar is <span class="math inline">2</span>, and the
+heights of the bars are <span class="math inline">0.05</span> and <span class="math inline">0.1</span>, respectively. So, the sum of their areas
+is <span class="math display">2 \cdot 0.05 + 2 \cdot 0.1 = 0.1 + 0.2 =
+0.3.</span> So, <span class="math inline">0.30</span> or <span class="math inline">30\%</span> of our orders took between <span class="math inline">7</span> and <span class="math inline">12</span>
 minutes to complete.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
@@ -889,18 +925,18 @@ wait times from 5 to 11 minutes. The densities were calculated as:</p>
 <li><span class="math inline">2 \times 0.1</span> (9-11 minutes)</li>
 <li><strong>Total = 0.5</strong></li>
 </ul>
-<p>After removed the Bistro’s data, these wait time intervals (5 to 11
-minutes) now account for the entirety of the dataset. Hence, to reflect
-the new total (100% of the data), the original bar heights need to be
-doubled, as they previously summed up to <code>0.5</code> (or 50% of the
-data).</p>
+<p>After we removed The Bistro’s data, these wait time intervals (5 to
+11 minutes) now account for the entirety of the dataset. Hence, to
+reflect the new total (100% of the data), the original bar heights need
+to be doubled, as they previously summed up to <code>0.5</code> (or 50%
+of the data).</p>
 <ul>
 <li>New height for <span class="math inline">5-7</span> minutes: <span class="math inline">0.2</span> (from <span class="math inline">0.1</span>)</li>
 <li>New height for <span class="math inline">7-9</span> minutes: <span class="math inline">0.1</span> (from <span class="math inline">0.05</span>)</li>
 <li>New height for <span class="math inline">9-11</span> minutes: <span class="math inline">0.2</span> (from <span class="math inline">0.1</span>)</li>
 </ul>
 <p>Thus, the new calculation for total density is: <span class="math inline">2 \times 0.2 + 2 \times 0.1 + 2 \times 0.2 =
-1.0</span></p>
+1.0.</span></p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
