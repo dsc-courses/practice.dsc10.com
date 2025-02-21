@@ -1017,75 +1017,78 @@ aria-labelledby="heading5_1" data-bs-parent="#accordionExample">
 <p><strong>Answer (a):</strong> <code>[0, 1, 2]</code> or
 <code>np.arange(len(bread))</code> or <code>range(3)</code> or
 equivalent</p>
+<p>Let’s read through the code skeleton and develop the answers from
+intuition. First, we notice a <code>for</code> loop, but we don’t yet
+know what sequence we’ll be looping through.</p>
+<p>Then we notice a variable <code>total_cost</code> that is initalized
+to <code>0</code>. This suggests we’ll use the accumulator pattern to
+keep a running total.</p>
+<p>Inside the loop, we see that we are indeed adding onto the running
+total. The amount by which we increase <code>total_cost</code> is
+<code>np.count_nonzero(eaten == __(b)__) * __(c)__</code>. Let’s
+remember what this does. It first compares the <code>eaten</code> array
+to some value and then counts how many <code>True</code> values are in
+resulting Boolean array. In other words, it counts how many times the
+entries in the <code>eaten</code> array equal some particular value.
+This is a big clue about how to fill in the code. There are only three
+possible values in the <code>eaten</code> array, and they are
+<code>"Sourdough"</code>, <code>"Whole Wheat"</code>, and
+<code>"Multigrain"</code>. For example, if blank (b) were filled with
+<code>"Sourdough"</code>, we would be counting how many of the slices in
+the <code>eaten</code> array were <code>"Sourdough"</code>. Since each
+such slice costs 2 dollars, we could find the total cost of all
+<code>"Sourdough"</code> slices by multiplying this count by 2.</p>
+<p>Understanding this helps us understand what the code is doing: it is
+separately computing the cost of each type of bread
+(<code>"Sourdough"</code>, <code>"Whole Wheat"</code>,
+<code>"Multigrain"</code>) and adding this onto the running total. Once
+we understand what the code is doing, we can figure out how to fill in
+the blanks.</p>
+<p>We just discussed filling in blank (b) with <code>"Sourdough"</code>,
+in which case we would have to fill in blank (c) with <code>2</code>.
+But that just gives the contribution of <code>"Sourdough"</code> to the
+overall cost. We also need the contributions from
+<code>"Whole Wheat"</code> and <code>"Multigrain"</code>. Somehow, blank
+(b) needs to take on the values in the provided <code>breads</code>
+array. Similarly, blank (c) needs to take on the values in the
+<code>prices</code> array, and we need to make sure that we iterate
+through both of these arrays simultaneously. This means we should access
+<code>breads[0]</code> when we access <code>prices[0]</code>, for
+example. We can use the loop variable <code>i</code> to help us, and
+fill in blank (b) with <code>breads[i]</code> and blank (c) with
+<code>prices[i]</code>. This means <code>i</code> needs to take on the
+values <code>0</code>, <code>1</code>, <code>2</code>, so we can loop
+through the sequence <code>[0, 1, 2]</code> in blank (a). This is also
+the same as <code>range(len(bread))</code> and
+<code>range(len(price))</code>.</p>
+<p>Bravo! We have everything we want, and the code block is now
+complete.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
 </p>
 <p>The average score on this problem was 58%.</p>
 <p><strong>Answer (b):</strong> <code>breads[i]</code></p>
+<p>See explanation above.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
 </p>
 <p>The average score on this problem was 61%.</p>
 <p><strong>Answer (c):</strong> <code>prices[i]</code></p>
+<p>See explanation above.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
 </p>
 <p>The average score on this problem was 61%.</p>
-<p>Let’s develop answers from intuition.</p>
-<ol type="1">
-<li><p>We have a for loop. What are we looping over?</p></li>
-<li><p><code>total_cost = (total_cost + __(a)__)</code>. We are adding
-something to the total price every time. <strong>What are we
-adding?</strong> Would it be adding for each bread in eaten or each type
-of bread? It can be a million things.</p></li>
-<li><p><code>np.count_nonzero(array)</code> gives the number of non-zero
-elements in an array. <strong>What exactly are we
-counting?</strong></p></li>
-<li><p><code>eaten == __(b)__</code> is used inside
-<code>np.count_nonzero</code>. <code>eaten</code> is a numpy array, and
-the python syntax <code>some_np_array == [something]</code> is an
-assertions statement that returns a boolean array of whether or not
-certain elements in the array is equal to the statement on the right.
-For example, <code>arr = np.array([1,2,3])</code>,
-<code>print(arr == 1)</code> gives
-<code>[True False False]</code>.</p></li>
-<li><p>We are multiplying the statement inside the
-<code>np.count_nonzero</code> by something. What could this be
-doing?</p></li>
-</ol>
-<p>We can infer the code is doing the following: for each type of the
-bread, we multiply the number of breads with the price and accumulate to
-get the total price. Let’s start filling the blanks.</p>
-<ul>
-<li><p>The for loop header should loop over the number of types of
-breads, in order to use the index <code>i</code> to access all types of
-bread in the breads array. So blank <strong>(a)</strong> is either
-<code>range(len(bread))</code>, <code>range(len(price))</code> or
-<code>[0,1,2]</code>.</p></li>
-<li><p>Now we look at the loop body. Starting from the easiest, to
-access the price of each type of bread, we use <code>price[i]</code> for
-<strong>(c)</strong>. Finally, to get the number of each type of bread,
-we use <code>bread[i]</code> for <strong>(b)</strong>. This way,
-<code>eaten == bread[i]</code> will return an array of trues and falses
-for each index inside <code>eaten</code>, and since the boolean values
-<code>True</code> is equal to 1 and <code>False</code> is 0,
-<code>np.count_nonzero(eaten == bread[i])</code> will return the number
-of <code>True</code>s for each bread type. So
-<code>total + np.count_nonzero(eaten == bread[i]) * price[i]</code>
-accumulates the bread <code>number * price</code>.</p></li>
-</ul>
-<p>Bravo! We have everything ww want, the code block is now
-complete.</p>
 </div>
 </div>
 </div>
 </div>
 <p><br></p>
 <h3 id="problem-5.2">Problem 5.2</h3>
-<p>A third way to calculate the total cost of the bread in the
+<p>Another way to calculate the total cost of the bread in the
 <code>eaten</code> array uses the <code>merge</code> method. Fill in the
 missing code below.</p>
 <div class="sourceCode" id="cb10"><pre
@@ -1126,7 +1129,7 @@ aria-labelledby="heading5_2" data-bs-parent="#accordionExample">
 <p>
 </p>
 <p>The average score on this problem was 70%.</p>
-<p>It always helps to sketch out the dataframes.
+<p>It always helps to sketch out the DataFrames.
 </p>
 <center><img src="../assets/images/wi25-midterm/q5-2.png" width="300"/></center>
 <p>Let’s first develope some intuition based on the keywords.</p>
