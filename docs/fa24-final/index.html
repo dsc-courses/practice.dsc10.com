@@ -318,8 +318,9 @@ was 44%.</p></li>
 <p>The average score on this problem was 87%.</p>
 <p>The main idea is to create a function that first calculates the ISBN
 check digit by alternating between adding digits directly (even indices)
-and multiplying by 3 (odd indices), summing the results. Which we then
-take the last digit</p>
+and multiplying by 3 (odd indices), summing the results. Then we
+subtrack the last digit from 10. If the last digit is 0, we just return
+0.</p>
 </div>
 </div>
 </div>
@@ -641,6 +642,13 @@ aria-labelledby="heading4_1" data-bs-parent="#accordionExample">
 <p>
 </p>
 <p>The average score on this problem was 84%.</p>
+<p>We first filter the <code>matilda</code> DataFrame to only include
+rows where the payment method was cash. Then, we repeatedly resample
+from this filtered data with replacement and with the same sample size
+as the original DataFrame.</p>
+<p>Since our goal is to construct an <span class="math inline">86%</span> confidence interval, we take the <span class="math inline">7^{th}</span> percentile as the left endpoint and
+the <span class="math inline">93^{rd}</span> percentile as the right
+endpoint.</p>
 </div>
 </div>
 </div>
@@ -756,6 +764,16 @@ aria-labelledby="heading4_4" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer:</strong> Approximately 95% of the values in
 <code>cash_means</code> fall within the interval <span class="math inline">[19.58, 21.58]</span>.</p>
+<p>Choice 1 is correct because the interval is calculated from the
+distribution of resampled means, capturing about <span class="math inline">95%</span> of the values in
+<code>cash_means</code>.</p>
+<p>Choice 2 is incorrect because the interval estimates the mean price,
+not the spread of individual book prices.</p>
+<p>Choice 3 is incorrect because confidence intervals are about the
+reliability of the method: if we repeated the resampling process many
+times, about <span class="math inline">95%</span> of the intervals would
+contain the true mean. It does not indicate the probability of the true
+mean being within this specific interval.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -845,6 +863,10 @@ aria-labelledby="heading5_1" data-bs-parent="#accordionExample">
 <li><p><code>left_on = "ISBN"</code></p></li>
 <li><p><code>right_index = True</code></p></li>
 </ol>
+<p>Since each <code>"ISBN"</code> uniquely identifies a book, we can
+merge on that. We use right_index=True because ISBN is the index in
+<code>bookstore</code>, not a column, allowing us to match it with the
+<code>"ISBN"</code> column in <code>matilda</code>.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -928,6 +950,12 @@ aria-labelledby="heading5_3" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer:</strong>
 <code>top_two = merged.groupby("genre").mean().sort_values(by="rating", ascending=False).drop(columns="pages").take([0, 1])</code></p>
+<p>We first groupby the <code>merged</code> DataFrame by genre and
+calculates the mean rating for each genre. Then we sorts these genres by
+their average rating in descending order. The column pages is dropped
+since it’s not needed for the rating analysis. Finally, the we selects
+the top two genres with the highest average ratings using
+<code>.take([0, 1])</code>.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -1126,6 +1154,12 @@ score on this problem was 57%.</p></li>
 <li><p><code>0</code> </p><hr/><h5>Difficulty: ⭐️⭐️⭐️</h5><p>The average
 score on this problem was 60%.</p></li>
 </ol>
+<p>We first randomly permute the rating column and assign the shuffled
+values to a new DataFrame. We then group by <code>"genre"</code>, which
+now only contains <code>"Fantasy</code> and <code>"Mystery"</code>.
+Since groupby sorts genres alphabetically, the mean for
+<code>"Fantasy"</code> is located in the first row, and the mean for
+<code>"Mystery"</code> is in the second row.</p>
 </div>
 </div>
 </div>
