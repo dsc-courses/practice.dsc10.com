@@ -86,6 +86,11 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
       <td>Wednesday, February 19th</td>
       <td><a href="disc08/index.html">Standardization and The Normal Distribution</a></td>
     </tr>
+    <tr>
+      <th scope="row">9</th>
+      <td>Monday, February 24th</td>
+      <td><a href="disc09/index.html">The Central Limit Theorem</a></td>
+    </tr>
   </tbody>
 </table>
 </center> 
