@@ -91,6 +91,11 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
       <td>Monday, February 24th</td>
       <td><a href="disc09/index.html">The Central Limit Theorem</a></td>
     </tr>
+    <tr>
+      <th scope="row">10</th>
+      <td>Monday, March 3rd</td>
+      <td><a href="disc10/index.html">Hypothesis Testing and Permutation Testing</a></td>
+    </tr>
   </tbody>
 </table>
 </center> 
