@@ -96,6 +96,11 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
       <td>Monday, March 3rd</td>
       <td><a href="disc10/index.html">Hypothesis Testing and Permutation Testing</a></td>
     </tr>
+    <tr>
+      <th scope="row">11</th>
+      <td>Monday, March 10th</td>
+      <td><a href="disc11/index.html">Regression</a></td>
+    </tr>
   </tbody>
 </table>
 </center> 
@@ -309,7 +314,8 @@ We've provided answers to all quiz questions, but you won't find detailed explan
       <td>Janine Tiefenbruck</td>
       <td>
       <a href='wi25-quiz1/index.html'>Quiz 1</a> •
-      <a href='wi25-quiz2/index.html'>Quiz 2</a>
+      <a href='wi25-quiz2/index.html'>Quiz 2</a> •
+      <a href='wi25-quiz3/index.html'>Quiz 3</a>
       </td>
       </tr>  
       <tr>

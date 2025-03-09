@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Discussion 11: Regression</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { color: #008000; } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="../assets/theme.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Discussion 11: Regression</h1>
+</header>
+<p><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<!-- add after bootstrap.min.css -->
+<link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css"/>
+<!-- add after bootstrap.min.js or bootstrap.bundle.min.js -->
+<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script></p>
+<!-- for difficulty gauges-->
+<script src="https://cdn.plot.ly/plotly-2.16.1.min.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B947E6J6H4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B947E6J6H4');
+</script>
+<p><a href="../index.html">← return to practice.dsc10.com</a></p>
+<hr />
+<p>These problems are taken from past quizzes and exams. Work on them
+<strong>on paper</strong>, since the quizzes and exams you take in this
+course will also be on paper. <br><br>We encourage you to complete these
+problems during discussion section. Solutions will be made available
+after all discussion sections have concluded. You don’t need to submit
+your answers anywhere.<br><br><b>Note: We do not plan to cover all of
+these problems during the discussion section</b>; the problems we don’t
+cover can be used for extra practice.</p>
+<hr />
+<h2 id="problem-1">Problem 1</h2>
+<p><br></p>
+<h3 id="problem-1.1">Problem 1.1</h3>
+<p><strong>True or False</strong>: The slope of the regression line,
+when both variables are measured in standard units, is never more than
+1.</p>
+<p><br></p>
+<h3 id="problem-1.2">Problem 1.2</h3>
+<p><strong>True or False</strong>: The slope of the regression line,
+when both variables are measured in original units, is never more than
+1.</p>
+<p><br></p>
+<hr />
+<h2 id="problem-2">Problem 2</h2>
+<p>Let’s study the relationship between a penguin’s bill length (in
+millimeters) and mass (in grams). Suppose we’re given that</p>
+<ul>
+<li>bill length and body mass have a correlation coefficient of
+0.55</li>
+<li>the average bill length is 44 mm and the standard deviation of bill
+lengths is 6 mm</li>
+<li>the average body mass is 4200 grams and the standard deviation of
+body mass is 840 grams</li>
+</ul>
+<p><br></p>
+<h3 id="problem-2.1">Problem 2.1</h3>
+<p>Which of the four scatter plots below describe the relationship
+between bill length and body mass, based on the information provided in
+the question?</p>
+<center><img src='../assets/images/fa21-final/bills_scatter.png' width=40%></center>
+<p><br></p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Option 1</p></li>
+<li><p><input type="radio" disabled="" /> Option 2</p></li>
+<li><p><input type="radio" disabled="" /> Option 3</p></li>
+<li><p><input type="radio" disabled="" /> Option 4</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-2.2">Problem 2.2</h3>
+<p>Suppose we want to find the regression line that uses bill length,
+<span class="math inline">x</span>, to predict body mass, <span
+class="math inline">y</span>. The line is of the form <span
+class="math inline">y = mx +\ b</span>. What are <span
+class="math inline">m</span> and <span class="math inline">b</span>?</p>
+<p>What is <span class="math inline">m</span>? Give your answer as a
+number without any units, rounded to three decimal places.</p>
+<p>What is <span class="math inline">b</span>? Give your answer as a
+number without units, rounded to three decimal places.</p>
+<p><br></p>
+<h3 id="problem-2.3">Problem 2.3</h3>
+<p>What is the predicted body mass (in grams) of a penguin whose bill
+length is 44 mm? Give your answer as a number without any units, rounded
+to three decimal places.</p>
+<p><br></p>
+<h3 id="problem-2.4">Problem 2.4</h3>
+<p>A particular penguin had a predicted body mass of 6800 grams. What is
+that penguin’s bill length (in mm)? Give your answer as a number without
+any units, rounded to three decimal places.</p>
+<p><br></p>
+<h3 id="problem-2.5">Problem 2.5</h3>
+<p>Below is the residual plot for our regression line.</p>
+<center><img src='../assets/images/fa21-final/bills_residual.png' width=40%></center>
+<p><br></p>
+<p>Which of the following is a valid conclusion that we can draw solely
+from the residual plot above?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> For this dataset, there is another line with a lower root mean
+squared error</p></li>
+<li><p><input type="radio" disabled="" /> The root mean squared error of the regression line is 0</p></li>
+<li><p><input type="radio" disabled="" /> The accuracy of the regression line’s predictions depends on bill
+length</p></li>
+<li><p><input type="radio" disabled="" /> The relationship between bill length and body mass is likely
+non-linear</p></li>
+<li><p><input type="radio" disabled="" /> None of the above</p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-3">Problem 3</h2>
+<p>Suppose the price of an IKEA product and the cost to have it
+assembled are linearly associated with a correlation of 0.8. Product
+prices have a mean of 140 dollars and a standard deviation of 40
+dollars. Assembly costs have a mean of 80 dollars and a standard
+deviation of 10 dollars. We want to predict the assembly cost of a
+product based on its price using linear regression.</p>
+<p><br></p>
+<h3 id="problem-3.1">Problem 3.1</h3>
+<p>The NORDMELA 4-drawer dresser sells for 200 dollars. How much do we
+predict its assembly cost to be?</p>
+<p><br></p>
+<h3 id="problem-3.2">Problem 3.2</h3>
+<p>The IDANÄS wardrobe sells for 80 dollars more than the KLIPPAN
+loveseat, so we expect the IDANÄS wardrobe will have a greater assembly
+cost than the KLIPPAN loveseat. How much do we predict the difference in
+assembly costs to be?</p>
+<p><br></p>
+<h3 id="problem-3.3">Problem 3.3</h3>
+<p>If we create a 95% prediction interval for the assembly cost of a 100
+dollar product and another 95% prediction interval for the assembly cost
+of a 120 dollar product, which prediction interval will be wider?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> The one for the 100 dollar product.</p></li>
+<li><p><input type="radio" disabled="" /> The one for the 120 dollar product.</p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-4">Problem 4</h2>
+<p>In this question, we’ll explore the relationship between the ages and
+incomes of credit card applicants.</p>
+<p><br></p>
+<h3 id="problem-4.1">Problem 4.1</h3>
+<p>The credit card company that owns the data in <code>apps</code>,
+BruinCard, has decided not to give us access to the entire
+<code>apps</code> DataFrame, but instead just a sample of
+<code>apps</code> called <code>small_apps</code>. We’ll start by using
+the information in <code>small_apps</code> to compute the regression
+line that predicts the age of an applicant given their income.</p>
+<p>For an applicant with an income that is <span
+class="math inline">\frac{8}{3}</span> standard deviations above the
+mean income, we predict their age to be <span
+class="math inline">\frac{4}{5}</span> standard deviations above the
+mean age. What is the correlation coefficient, <span
+class="math inline">r</span>, between incomes and ages in
+<code>small_apps</code>? Give your answer as a <strong>fully simplified
+fraction</strong>.</p>
+<p><br></p>
+<h3 id="problem-4.2">Problem 4.2</h3>
+<p>Now, we want to predict the income of an applicant given their age.
+We will again use the information in <code>small_apps</code> to find the
+regression line. The regression line predicts that an applicant whose
+age is <span class="math inline">\frac{4}{5}</span> standard deviations
+above the mean age has an income that is <span
+class="math inline">s</span> standard deviations above the mean income.
+What is the value of <span class="math inline">s</span>? Give your
+answer as a <strong>fully simplified fraction</strong>.</p>
+<p><br></p>
+<h3 id="problem-4.3">Problem 4.3</h3>
+<p>BruinCard has now taken away our access to both <code>apps</code> and
+<code>small_apps</code>, and has instead given us access to an even
+smaller sample of <code>apps</code> called <code>mini_apps</code>. In
+<code>mini_apps</code>, we know the following information:</p>
+<ul>
+<li>All incomes and ages are positive numbers.</li>
+<li>There is a positive linear association between incomes and
+ages.</li>
+</ul>
+<p>We use the data in <code>mini_apps</code> to find the regression line
+that will allow us to predict the income of an applicant given their
+age. Just to test the limits of this regression line, we use it to
+predict the income of an applicant who is <strong>-2 years old</strong>,
+even though it doesn’t make sense for a person to have a negative
+age.</p>
+<p>Let <span class="math inline">I</span> be the regression line’s
+prediction of this applicant’s income. Which of the following
+inequalities are guaranteed to be satisfied? Select all that apply.</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> <span class="math inline">I &lt; 0</span></p></li>
+<li><p><input type="checkbox" disabled="" /> <span class="math inline">I &lt; \text{mean income}</span></p></li>
+<li><p><input type="checkbox" disabled="" /> <span class="math inline">| I - \text{mean income}| \leq | \text{mean
+age} + 2 |</span></p></li>
+<li><p><input type="checkbox" disabled="" /> <span class="math inline">\dfrac{| I - \text{mean
+income}|}{\text{standard deviation of incomes}} \leq \dfrac{| \text{mean
+age} + 2 |}{\text{standard deviation of ages}}</span></p></li>
+<li><p><input type="checkbox" disabled="" /> None of the above.</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-4.4">Problem 4.4</h3>
+<p>Yet again, BruinCard, the company that gave us access to
+<code>apps</code>, <code>small_apps</code>, and <code>mini_apps</code>,
+has revoked our access to those three DataFrames and instead has given
+us <code>micro_apps</code>, an even smaller sample of
+<code>apps</code>.</p>
+<p>Using <code>micro_apps</code>, we are again interested in finding the
+regression line that will allow us to predict the income of an applicant
+given their age. We are given the following information:</p>
+<ul>
+<li>The correlation coefficient, <span class="math inline">r</span>,
+between ages and incomes is <span
+class="math inline">-\frac{1}{3}</span> (note the negative sign).</li>
+<li>The mean income is <span class="math inline">\frac{7}{2}</span>
+(remember, incomes are measured in tens of thousands of dollars).</li>
+<li>The mean age is 33.</li>
+<li>The regression line predicts that a 24 year old applicant has an
+income of <span class="math inline">\frac{31}{2}</span>.</li>
+</ul>
+<p>Suppose the standard deviation of incomes in <code>micro_apps</code>
+is an integer multiple of the standard deviation of ages in
+<code>micro_apps</code>. That is,</p>
+<p><span class="math display">\text{standard deviation of income} = k
+\cdot \text{standard deviation of age}.</span></p>
+<p>What is the value of <span class="math inline">k</span>? Give your
+answer as an <strong>integer</strong>.</p>
+<p><br></p>
+<hr />
+<h2 id="problem-5">Problem 5</h2>
+<p>Raine is helping settle a debate between two friends on the
+“superior" season — winter or summer. In doing so, they try to
+understand the relationship between the number of sunshine hours per
+month in January and the number of sunshine hours per month in July
+across all cities in California in <code>sun</code>.</p>
+<p>Raine finds the regression line that predicts the number of sunshine
+hours in July (<span class="math inline">y</span>) for a city given its
+number of sunshine hours in January (<span
+class="math inline">x</span>). In doing so, they find that the
+correlation between the two variables is <span
+class="math inline">\frac{2}{5}</span>.</p>
+<p><br></p>
+<h3 id="problem-5.1">Problem 5.1</h3>
+<p>Which of these could be a scatter plot of number of sunshine hours in
+July vs. number of sunshine hours in January?</p>
+<center><img src='../assets/images/sp23-final/r-values.png' width=550></center>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Option 1</p></li>
+<li><p><input type="radio" disabled="" /> Option 2</p></li>
+<li><p><input type="radio" disabled="" /> Option 3</p></li>
+<li><p><input type="radio" disabled="" /> Option 4</p></li>
+</ul>
+<p><br></p>
+<p><br></p>
+<h3 id="problem-5.2">Problem 5.2</h3>
+<p>Suppose the standard deviation of the number of sunshine hours in
+January for cities in California is equal to the standard deviation of
+the number of sunshine hours in July for cities in California.</p>
+<p>Raine’s hometown of Santa Clarita saw 60 more sunshine hours in
+January than the average California city did. How many <strong>more
+sunshine hours than average</strong> does the regression line predict
+that Santa Clarita will have in July? Give your answer as a positive
+integer. <em>(Hint: You’ll need to use the fact that the correlation
+between the two variables is <span
+class="math inline">\frac{2}{5}</span>.)</em></p>
+<p><br></p>
+<p>As we know, San Diego was particularly cloudy this May. More
+generally, Anthony, another California native, feels that California is
+getting cloudier and cloudier overall.</p>
+<p>To imagine what the dataset may look like in a few years, Anthony
+subtracts 5 from the number of sunshine hours in both January and July
+for all California cities in the dataset – i.e., he subtracts 5 from
+each <span class="math inline">x</span> value and 5 from each <span
+class="math inline">y</span> value in the dataset. He then creates a
+regression line to use the new <span class="math inline">xs</span> to
+predict the new <span class="math inline">ys</span>.</p>
+<p><br></p>
+<h3 id="problem-5.3">Problem 5.3</h3>
+<p>What is the slope of Anthony’s new regression line?</p>
+<p><br></p>
+<p><br></p>
+<h3 id="problem-5.4">Problem 5.4</h3>
+<p>Suppose the intercept of Raine’s original regression line – that is,
+before Anthony subtracted 5 from each <span class="math inline">x</span>
+and each <span class="math inline">y</span> – was 10. What is the
+intercept of Anthony’s new regression line?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> -7</p></li>
+<li><p><input type="radio" disabled="" /> -5</p></li>
+<li><p><input type="radio" disabled="" /> -3</p></li>
+<li><p><input type="radio" disabled="" /> 0</p></li>
+<li><p><input type="radio" disabled="" /> 3</p></li>
+<li><p><input type="radio" disabled="" /> 5</p></li>
+<li><p><input type="radio" disabled="" /> 7</p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-6">Problem 6</h2>
+<p>The DataFrame <code>games</code> contains information about a sample
+of popular games. Besides other columns, there is a column
+<code>"Complexity"</code> that contains the average complexity of the
+game, a column <code>"Rating"</code> that contains the average rating of
+the game, and a column <code>"Play Time"</code> that contains the
+average play time of the game. <br><br></p>
+<p>We use the regression line to predict a game’s <code>"Rating"</code>
+based on its <code>"Complexity"</code>. We find that for the game
+<em>Wingspan</em>, which has a <code>"Complexity"</code> that is 2
+points higher than the average, the predicted <code>"Rating"</code> is 3
+points higher than the average.</p>
+<p><br></p>
+<h3 id="problem-6.1">Problem 6.1</h3>
+<p>What can you conclude about the correlation coefficient r?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <span class="math inline">r &lt; 0</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">r = 0</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">r &gt; 0</span></p></li>
+<li><p><input type="radio" disabled="" /> We cannot make any conclusions about the value of <span class="math inline">r</span> based on this information alone.</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-6.2">Problem 6.2</h3>
+<p>What can you conclude about the standard deviations of “Complexity”
+and “Rating”?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> SD of <code>"Complexity"</code> &lt; SD of <code>"Rating"</code></p></li>
+<li><p><input type="radio" disabled="" /> SD of <code>"Complexity"</code> = SD of <code>"Rating"</code></p></li>
+<li><p><input type="radio" disabled="" /> SD of <code>"Complexity"</code> &gt; SD of <code>"Rating"</code></p></li>
+<li><p><input type="radio" disabled="" /> We cannot make any conclusions about the relationship between these
+two standard deviations based on this information alone.</p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-7">Problem 7</h2>
+<p>Suppose that for children’s games, <code>"Play Time"</code> and
+<code>"Rating"</code> are negatively linearly associated due to children
+having short attention spans. Suppose that for children’s games, the
+standard deviation of <code>"Play Time"</code> is twice the standard
+deviation of <code>"Rating"</code>, and the average
+<code>"Play Time"</code> is 10 minutes. We use linear regression to
+predict the <code>"Rating"</code> of a children’s game based on its
+<code>"Play Time"</code>. The regression line predicts that <em>Don’t
+Break the Ice</em>, a children’s game with a <code>"Play Time"</code> of
+8 minutes will have a <code>"Rating"</code> of 4. Which of the following
+could be the average <code>"Rating"</code> for children’s games?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> 2</p></li>
+<li><p><input type="radio" disabled="" /> 2.8</p></li>
+<li><p><input type="radio" disabled="" /> 3.1</p></li>
+<li><p><input type="radio" disabled="" /> 4</p></li>
+</ul>
+<hr />
+<h2 id="problem-8">Problem 8</h2>
+<p>The American Kennel Club (AKC) organizes information about dog
+breeds. We’ve loaded their dataset into a DataFrame called
+<code>df</code>. The index of <code>df</code> contains the dog breed
+names as <code>str</code> values. Besides other columns, there is a
+column <code>'weight' (float)</code> that contains typical weight (kg)
+and a column <code>'height' (float)</code> that contains typical height
+(cm). <br><br> Sam wants to fit a linear model to predict a dog’s height
+using its weight.</p>
+<p>He first runs the following code:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> df.get(<span class="st">&#39;weight&#39;</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> df.get(<span class="st">&#39;height&#39;</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> su(vals):</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> (vals <span class="op">-</span> vals.mean()) <span class="op">/</span> np.std(vals)</span></code></pre></div>
+<p><br></p>
+<h3 id="problem-8.1">Problem 8.1</h3>
+<p>Select all of the Python snippets that correctly compute the
+correlation coefficient into the variable <code>r</code>.</p>
+<p>Snippet 1:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> (su(x) <span class="op">*</span> su(y)).mean()</span></code></pre></div>
+<p>Snippet 2:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> su(x <span class="op">*</span> y).mean()</span></code></pre></div>
+<p>Snippet 3:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(x)):</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    t <span class="op">=</span> t <span class="op">+</span> su(x[i]) <span class="op">*</span> su(y[i])</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> t <span class="op">/</span> <span class="bu">len</span>(x)</span></code></pre></div>
+<p>Snippet 4:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> np.array([])</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(x)):</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    t <span class="op">=</span> np.append(t, su(x)[i] <span class="op">*</span> su(y)[i])</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> t.mean()</span></code></pre></div>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> Snippet 1</p></li>
+<li><p><input type="checkbox" disabled="" /> Snippet 2</p></li>
+<li><p><input type="checkbox" disabled="" /> Snippet 3</p></li>
+<li><p><input type="checkbox" disabled="" /> Snippet 4</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-8.2">Problem 8.2</h3>
+<p>Sam computes the following statistics for his sample:</p>
+<center><img src='../assets/images/su22-final/q10_b.png' width=30%></center>
+<p>The best-fit line predicts that a dog with a weight of 10 kg has a
+height of 45 cm.</p>
+<p>What is the SD of dog heights?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> 2</p></li>
+<li><p><input type="radio" disabled="" /> 4.5</p></li>
+<li><p><input type="radio" disabled="" /> 10</p></li>
+<li><p><input type="radio" disabled="" /> 25</p></li>
+<li><p><input type="radio" disabled="" /> 45</p></li>
+<li><p><input type="radio" disabled="" /> None of the above</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-8.3">Problem 8.3</h3>
+<p>Assume that the statistics in part b) still hold. Select all of the
+statements below that are true. (You don’t need to finish part b) in
+order to solve this question.)</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> The relationship between dog weight and height is linear.</p></li>
+<li><p><input type="checkbox" disabled="" /> The root mean squared error of the best-fit line is smaller than
+5.</p></li>
+<li><p><input type="checkbox" disabled="" /> The best-fit line predicts that a dog that weighs 15 kg will be 50 cm
+tall.</p></li>
+<li><p><input type="checkbox" disabled="" /> The best-fit line predicts that a dog that weighs 10 kg will be
+shorter than 50 cm.</p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-9">Problem 9</h2>
+<p><br></p>
+<h3 id="problem-9.1">Problem 9.1</h3>
+<p><em>Are nonfiction books longer than fiction books?</em></p>
+<p>Choose the best data science tool to help you answer this
+question.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> hypothesis testing</p></li>
+<li><p><input type="radio" disabled="" /> permutation (A/B) testing</p></li>
+<li><p><input type="radio" disabled="" /> Central Limit Theorem</p></li>
+<li><p><input type="radio" disabled="" /> regression</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-9.2">Problem 9.2</h3>
+<p><em>Do people have more friends as they get older?</em></p>
+<p>Choose the best data science tool to help you answer this
+question.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> hypothesis testing</p></li>
+<li><p><input type="radio" disabled="" /> permutation (A/B) testing</p></li>
+<li><p><input type="radio" disabled="" /> Central Limit Theorem</p></li>
+<li><p><input type="radio" disabled="" /> regression</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-9.3">Problem 9.3</h3>
+<p><em>Does an ice cream shop sell more chocolate or vanilla ice cream
+cones?</em></p>
+<p>Choose the best data science tool to help you answer this
+question.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> hypothesis testing</p></li>
+<li><p><input type="radio" disabled="" /> permutation (A/B) testing</p></li>
+<li><p><input type="radio" disabled="" /> Central Limit Theorem</p></li>
+<li><p><input type="radio" disabled="" /> regression</p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="section"><span class="math display"> </span></h2>
+<h4
+id="feedback-find-an-error-still-confused-have-a-suggestion-let-us-know-here.">👋
+Feedback: Find an error? Still confused? Have a suggestion?
+<a href="https://forms.gle/WZ71FchnXU1K154d7">Let us know
+here</u></a>.</h4>
+<hr />
+</body>
+</html>
