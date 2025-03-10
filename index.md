@@ -186,7 +186,7 @@ Each exam linked here lists the conditions under which the exam was given, inclu
       <td>Janine Tiefenbruck</td>
       <td><a href='fa24-midterm/index.html'>Midterm</a>
       <br>
-      <a href='fa24-final/index.html'>Final</a>
+      <a href='fa24-final/index.html'>Final 🆕</a>
       </td>
     </tr>
     <tr>
