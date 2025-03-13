@@ -626,6 +626,10 @@ aria-labelledby="heading4_1" data-bs-parent="#accordionExample">
 <ol type="a">
 <li><code>matilda[matilda.get("cash")]</code></li>
 </ol>
+<p>We first filter the <code>matilda</code> DataFrame to only include
+rows where the payment method was cash, since these are the only rows
+that are relevant to our question of the mean price of books purchased
+with cash.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -634,6 +638,9 @@ aria-labelledby="heading4_1" data-bs-parent="#accordionExample">
 <ol start="2" type="a">
 <li><code>original.shape[0], replace = True</code></li>
 </ol>
+<p>We repeatedly resample from this filtered data. We always bootstrap
+using the same sample size as the original sample, and with
+replacement.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -642,6 +649,8 @@ aria-labelledby="heading4_1" data-bs-parent="#accordionExample">
 <ol start="3" type="a">
 <li><code>resample.get("price").mean()</code></li>
 </ol>
+<p>Our statistic is the mean price, which we need to calculate from the
+<code>resample</code> DataFrame.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -650,6 +659,12 @@ aria-labelledby="heading4_1" data-bs-parent="#accordionExample">
 <ol start="4" type="a">
 <li><code>np.percentile(cash_means, 7)</code></li>
 </ol>
+<p>Since our goal is to construct an <span class="math inline">86%</span> confidence interval, we take the <span class="math inline">7^{th}</span> percentile as the left endpoint and
+the <span class="math inline">93^{rd}</span> percentile as the right
+endpoint. These numbers come from <span class="math inline">100 - 86 =
+14</span>, which means we want <span class="math inline">14\%</span> of
+the area excluded from our interval, and we want to split that up evenly
+with <span class="math inline">7\%</span> on each side.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -663,16 +678,6 @@ aria-labelledby="heading4_1" data-bs-parent="#accordionExample">
 <p>
 </p>
 <p>The average score on this problem was 84%.</p>
-<p>We first filter the <code>matilda</code> DataFrame to only include
-rows where the payment method was cash. Then, we repeatedly resample
-from this filtered data with replacement, using the same sample size as
-the original DataFrame.</p>
-<p>Since our goal is to construct an <span class="math inline">86%</span> confidence interval, we take the <span class="math inline">7^{th}</span> percentile as the left endpoint and
-the <span class="math inline">93^{rd}</span> percentile as the right
-endpoint. We can calculate this by doing <span class="math inline">100 -
-86 - 14</span> so we want <span class="math inline">14\%</span> of the
-area excluded from our interval, and we want to split that up evenly
-with <span class="math inline">7\%</span> on each side.</p>
 </div>
 </div>
 </div>
@@ -744,15 +749,23 @@ aria-labelledby="heading4_3" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer:</strong> 19.8</p>
-<p>given that we know 1.5 creates a 93% CDF, this must mean when also
-including the other bound of -1.5, it will create a 86% CI</p>
-<p><span class="math inline">cash \_ left = middle - 1.5 *
-\frac{SD}{\sqrt{n}}</span></p>
-<p><span class="math inline">cash \_ left = middle - 1.5 *
-\frac{10}{\sqrt{400}}</span></p>
-<p><span class="math inline">cash \_ left = 20.58 - 0.75 =
-19.8</span></p>
+<p>The useful fact here is the second fact. It says that if you step 1.5
+standard deviations to the right of the mean in a normal distribution,
+93% of the area will be to the left. Since that leaves 7% of the area to
+the right, this also means that the area to the left of -1.5 standard
+units is 7%, by symmetry. So the area between -1.5 and 1.5 standard
+units is 86% of the area, or the bounds for an 86% confidence interval.
+This is the grey area in the picture below.</p>
 <center><img src="../assets/images/fa24-final/solution4_3.png" width="500"/></center>
+<p>The middle of our interval is 20.58 so we calculate the left endpoint
+as:</p>
+<p><span class="math display">\begin{align*}
+cash \_ left &amp;= 20.58 - 1.5 * \frac{SD}{\sqrt{n}}\\
+&amp;= 20.58 - 1.5 * \frac{10}{\sqrt{400}}\\
+&amp;= 20.58 - 0.75 \\
+&amp;= 19.83\\
+&amp;\approx 19.8
+\end{align*}</span></p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️⭐️⭐️</h5>
 <p>
@@ -790,9 +803,17 @@ aria-labelledby="heading4_4" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer:</strong> Approximately 95% of the values in
 <code>cash_means</code> fall within the interval <span class="math inline">[19.58, 21.58]</span>.</p>
-<p>Choice 1 is correct because the interval is calculated from the
-distribution of resampled means, and was designed to capture <span class="math inline">95%</span> of the values in
-<code>cash_means</code>.</p>
+<p>Choice 1 is correct because of the way bootstrapped confidence
+intervals are created. If we made a 95% bootstrapped confidence interval
+from <code>cash_means</code>, it would capture <span class="math inline">95%</span> of the values in <code>cash_means</code>,
+by design. This is not how the interval <span class="math inline">[19.58, 21.58]</span> was created, however; this
+interval comes from the CLT. However bootstrapped and CLT-based
+confidence intervals give very nearly the same results. They are two
+methods to solve the same problem and they create nearly identical
+confidence intervals. So it is correct to say that approximately 95% of
+the values in <code>cash_means</code> fall within a 95% CLT-based
+confidence interval, which is <span class="math inline">[19.58,
+21.58]</span>.</p>
 <p>Choice 2 is incorrect because the interval estimates the mean price,
 not individual book prices.</p>
 <p>Choice 3 is incorrect because confidence intervals are about the
@@ -800,7 +821,10 @@ reliability of the method: if we repeated the whole bootstrapping
 process many times, about <span class="math inline">95%</span> of the
 intervals would contain the true mean. It does not indicate the
 probability of the true mean being within this specific interval because
-this interval is fixed and the true mean is also fixed.</p>
+this interval is fixed and the true mean is also fixed. It doesn’t make
+sense to talk about the probability of a fixed number falling in a fixed
+interval; that’s like asking if there’s a 95% chance that 5 is between 2
+and 10.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -840,13 +864,13 @@ aria-labelledby="heading4_5" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer:</strong> The mean price of books purchased with cash
 at Bill’s Book Bonanza could plausibly be $20.</p>
-<p>Since $20 is within the confidence interval (CI), it is plausible,
-but never guaranteed. This question is referring to a hypothesis test
-where we test whether parameter (in this case, the mean price of books
-purchased with cash) is equal to a specific value ($20). The hypothesis
-test can be conducted by constructing a confidence interval for the
-parameter and checking whether the specific value falls in the
-interval.</p>
+<p>This question is referring to a hypothesis test where we test whether
+parameter (in this case, the mean price of books purchased with cash) is
+equal to a specific value ($20). The hypothesis test can be conducted by
+constructing a confidence interval for the parameter and checking
+whether the specific value falls in the interval. Since $20 is within
+the confidence interval, it is a plausible value for the parameter, but
+never guaranteed.</p>
 <hr/>
 <h5>Difficulty: ⭐️</h5>
 <p>
@@ -939,13 +963,12 @@ aria-labelledby="heading5_2" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer:</strong> Because every book in <code>matilda</code>
 appears exactly once in <code>bookstore</code>.</p>
-<p>When merging two DataFrames, the resulting DataFrame will have the
-same number of rows as the original <code>matilda</code> DataFrame if
-and only if the column being merged (“ISBN” in this case) is unique in
-<code>matilda</code> and has exactly one corresponding match in
-<code>bookstore</code>. This means that every book listed in
-<code>matilda</code> must appear exactly once in <code>bookstore</code>
-with no duplicates or missing entries.</p>
+<p>Think about the merging process. Imagine we go through each row of
+<code>matilda</code>, one row at a time, and look for corresponding rows
+that match in <code>bookstore</code>. If each row of
+<code>matilda</code> matches with exactly one row of
+<code>bookstore</code>, then the merged DataFrame must have the same
+number of rows as <code>matilda</code> started with.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -1105,8 +1128,8 @@ aria-labelledby="heading5_6" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer:</strong> -0.12</p>
-<p>This comes from <span class="math inline">4.53 - 4.65 =
--0.12</span>.</p>
+<p>This comes from subtracting the values provided in the grouped
+DataFrame in the order mystery minus fantasy: <span class="math inline">4.53 - 4.65 = -0.12</span>.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -1144,9 +1167,9 @@ aria-labelledby="heading5_7" data-bs-parent="#accordionExample">
 <p><strong>Answer:</strong> Low values of the observed statistic will
 make him lean towards the alternative hypothesis.</p>
 <p>Since we are subtracting in the order mystery rating minus fantasy
-rating, a low observed statistic would indicate that fantasy books have
-significantly higher ratings than mystery books, thus causing us to
-reject the null in favor of the alternative.</p>
+rating, a low (negative) observed statistic would indicate that fantasy
+books have higher ratings than mystery books. So low values would cause
+us to reject the null in favor of the alternative.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
