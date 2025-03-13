@@ -760,7 +760,7 @@ This is the grey area in the picture below.</p>
 <p>The middle of our interval is 20.58 so we calculate the left endpoint
 as:</p>
 <p><span class="math display">\begin{align*}
-cash \_ left &amp;= 20.58 - 1.5 * \frac{SD}{\sqrt{n}}\\
+\texttt{cash\_left} &amp;= 20.58 - 1.5 * \frac{SD}{\sqrt{n}}\\
 &amp;= 20.58 - 1.5 * \frac{10}{\sqrt{400}}\\
 &amp;= 20.58 - 0.75 \\
 &amp;= 19.83\\
@@ -1318,12 +1318,13 @@ aria-labelledby="heading6_1" data-bs-parent="#accordionExample">
 </header>
 <p>(a). <strong>Answer</strong>: <code>split(",")[0]</code></p>
 <p>The function <code>find_day</code> takes in a string that is a date
-with the format “Day_of_week, Month Day, Year”, and we want the
-Day_of_week part. <code>.split(",")</code> separates the given string by
-“,” and gives us a list containing the separated substrings, which looks
-something like <code>["Saturday", " December 7", " 2024"]</code>. We
-want the first element in the list, so we use <code>[0]</code> to obtain
-the item at the zero-th index position of the list.</p>
+with the format <code>"Day of week, Month Day, Year"</code>, and we want
+the <code>"Day of week"</code> part. <code>.split(",")</code> separates
+the given string by <code>","</code> and gives us a list containing the
+separated substrings, which looks something like
+<code>["Saturday", " December 7", " 2024"]</code>. We want the first
+element in the list, so we use <code>[0]</code> to obtain the first
+element of the list.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -1337,8 +1338,9 @@ hinting that we are performing string indexing to pull out a specific
 character from the string. We want to determine whether the string is
 <code>"Saturday"</code> or <code>"Sunday"</code>. The only thing in
 common for these two days and is not common for the other five days of
-the week is that the string starts with the letter “S”. Thus, we get the
-character at the zero-th index using <code>[0]</code> in this blank.</p>
+the week is that the string starts with the letter <code>"S"</code>.
+Thus, we get the first character using <code>[0]</code> in this
+blank.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -1346,9 +1348,10 @@ character at the zero-th index using <code>[0]</code> in this blank.</p>
 <p>The average score on this problem was 74%.</p>
 <p>(c). <strong>Answer</strong>: <code>"S"</code></p>
 <p>After getting the first character in the string, to check whether it
-is the letter “S”, we use <code>==</code> to evaluate this character
-against <code>"S"</code>. This expression will give us a boolean, either
-<code>True</code> or <code>False</code>, which is then returned.</p>
+is the letter <code>"S"</code>, we use <code>==</code> to evaluate this
+character against <code>"S"</code>. This expression will give us a
+boolean, either <code>True</code> or <code>False</code>, which is then
+returned.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -1411,9 +1414,9 @@ The correct alternative is to use <code>.shape[0]</code>.</p></li>
 (correct): <code>sales_day.get("weekend")</code> gets the
 <code>"weekend</code> column from the <code>sales_day</code> DataFrame.
 We then use this Series to query the <code>sales</code> DataFrame and
-keep only the rows happening on weekends. Lastly. we count the number of
-rows in this sub-DataFrame with <code>.shape[0]</code> and divide by the
-total number of sales to get the proportion.</p></li>
+keep only the rows corresponding to weekends. Lastly, we count the
+number of rows in this filtered DataFrame with <code>.shape[0]</code>
+and divide by the total number of sales to get the proportion.</p></li>
 <li><p><code>sales_day.get("weekend").median()</code> (incorrect): A
 boolean value can be seen as 1 (True) or 0 (False). Since the column
 <code>"weekend"</code> contains all booleans, the median falls on either
@@ -1528,12 +1531,15 @@ distribution.</li>
 <p>Let’s look at each of the options:</p>
 <ul>
 <li>Option 1: Incorrect. It is only comparing one day instead of the
-entire distribution.</li>
-<li>Option 2: Incorrect. Positive and negative differences, if both
-exist, can partially cancel out. We would not be able to tell how big
-the difference is.</li>
-<li>Option 3: Correct. Squared difference avoids the issue of positive
-and negative differences canceling out.</li>
+entire distribution. This is insufficient to tell if two distributions
+are similar. For example, they could have similar Saturday proportions,
+but very different proportions for all other days of the week.</li>
+<li>Option 2: Incorrect. Positive and negative differences will cancel
+out. Since both distributions sum to 1, their difference will sum to 0.
+This means this statsistic tells us nothing about how similar the two
+distributions are, since the result will be 0 every time.</li>
+<li>Option 3: Correct. Squaring the difference avoids the issue of
+positive and negative differences canceling out.</li>
 <li>Option 4: Correct. Absolute difference also avoids the issue of
 positive and negative differences canceling out. Furthermore, this is
 the definition of Total Variation Distance (TVD), which is a common
@@ -1596,12 +1602,13 @@ aria-labelledby="heading7_2" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: 0.06</p>
-<p><span class="math display">\frac{|0.34 - 0.2| + |0.13 - 0.1| + |0.06
-- 0.1| + |0.07 - 0.1| + |0.08 - 0.1| + |0.08 - 0.2| + |0.24 -
-0.2|}{7}</span></p>
-<p><span class="math display">= \frac{0.14 + 0.03 + 0.04 + 0.03 + 0.02 +
-0.12 + 0.04}{7}</span></p>
-<p><span class="math display">= \frac{0.42}{7} = 0.06</span></p>
+<p><span class="math display">\begin{align*}
+\text{mean abs diff} &amp;= \frac{|0.34 - 0.2| + |0.13 - 0.1| + |0.06 -
+0.1| + |0.07 - 0.1| + |0.08 - 0.1| + |0.08 - 0.2| + |0.24 - 0.2|}{7}\\
+&amp;= \frac{0.14 + 0.03 + 0.04 + 0.03 + 0.02 + 0.12 + 0.04}{7}\\
+&amp;= \frac{0.42}{7} \\
+&amp;= 0.06
+\end{align*}</span></p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -1721,14 +1728,12 @@ distribution.</p>
 <p>For hypothesis testing, we simulate based on the null distribution,
 which is the distribution that Hargen proposed. For each of the
 simulated distribution of proportions , we calculate the statistic we
-chose, which is <strong>the mean of the absolute differences in
-proportions between the simulated and Hargen’s proposed
-distributions</strong>. After many simulations, we have calculated
-thousands of mean of absolute differences in proportions, each between
-one simulated distribution and Hargen’s proposed distribution. Lastly,
-we compare the observed statistic with the statistics from the
-simulations to see whether <strong>the observed distribution of books
-sold by day looks like a typical simulated distribution.</strong></p>
+chose. After many simulations, we have calculated thousands of these
+statistics, each between one simulated distribution and Hargen’s
+proposed distribution. Lastly, we compare the observed statistic with
+the statistics from the simulations to see whether <strong>the observed
+distribution of books sold by day looks like a typical simulated
+distribution.</strong></p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️⭐️⭐️</h5>
 <p>
@@ -1845,15 +1850,15 @@ aria-labelledby="heading8_1" data-bs-parent="#accordionExample">
 <p><strong>Answer</strong>: 55</p>
 <center><img src="../assets/images/fa24-final/8_1_cash_above_26.png" width="800"/></center>
 <p>We first locate the bars representing <span class="math inline">\$26</span> or more on the cash transaction
-histogram, which is the three right-most bars. We then calculate the
+histogram, which are the three rightmost bars. We then calculate the
 area of these bars to get the proportion of cash transactions these bars
-correspond to. Lastly, we multiply this proportion by the total count of
-500 to get the count of transactions with a <code>"price"</code> of
-<span class="math inline">\$26</span> or more.</p>
+correspond to.</p>
 <p><span class="math display">\textit{Area} = 0.03 * 2 + 0.02 * 2 +
 0.005 * 2 = 0.06 + 0.04 + 0.01 = 0.11</span></p>
-<p><span class="math inline">\textit{Number of transactions = 0.11 * 500
-= 55}</span></p>
+<p>Lastly, we multiply this proportion by the total count of 500 to get
+the count of transactions with a <code>"price"</code> of <span class="math inline">\$26</span> or more.</p>
+<p><span class="math display">\text{number of transactions} = 0.11 * 500
+= 55</span></p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -1884,8 +1889,8 @@ aria-labelledby="heading8_2" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer</strong>: Not enough information.</p>
 <p>Since the histogram for non-cash transactions only has a bin of <span class="math inline">[4, 8)</span>, we don’t have enough information
-about how many transactions fall within <span class="math inline">[4,
-6)</span>.</p>
+about how many of these transactions fall within <span class="math inline">[4, 6)</span>. In general, we can’t tell where
+within a bin values fall in a histogram.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -1918,8 +1923,8 @@ aria-labelledby="heading8_3" data-bs-parent="#accordionExample">
 <center><img src="../assets/images/fa24-final/8_3_cash.png" width="800"/></center>
 <center><img src="../assets/images/fa24-final/8_3_non_cash.png" width="800"/></center>
 <p>We first calculate the counts for cash and non-cash transactions
-within <span class="math inline">[24, 28)</span> separately. Then we
-combine the two counts and find the proportion that is of 1000 total
+within <span class="math inline">[24, 28)</span> separately. Then we add
+the two counts and find the proportion this represents out of 1000 total
 transactions. Lastly, we determine the height of the bar by dividing the
 area (proportion) by the width <span class="math inline">4</span>.</p>
 <p>Number of cash transactions within <span class="math inline">[24, 28)
@@ -1929,7 +1934,7 @@ area (proportion) by the width <span class="math inline">4</span>.</p>
 28) = (0.02 * 4) * 500 = 0.08 * 500 = 40</span></p>
 <p>Total number of transactions within <span class="math inline">[24,
 28) = 80 + 40 = 120</span></p>
-<p>Proportion of one thousand total transactions (Area of bar) <span class="math inline">= 120 / 1000 = 0.12</span></p>
+<p>Proportion of one thousand total transactions (area of bar) <span class="math inline">= 120 / 1000 = 0.12</span></p>
 <p>Height of bar <span class="math inline">= 0.12 / 4 = 0.03</span></p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
@@ -1964,9 +1969,10 @@ aria-labelledby="heading8_4" data-bs-parent="#accordionExample">
 <p><strong>Answer</strong>: 0.04</p>
 <center><img src="../assets/images/fa24-final/8_4_cash.png" width="800"/></center>
 <center><img src="../assets/images/fa24-final/8_4_non_cash.png" width="800"/></center>
-<p>We first calculate the counts for cash and non-cash transactions
-within <span class="math inline">[12, 16)</span> separately. Then we
-combine the two counts and find the proportion that is of 1000 total
+<p>We can use the same process as we used for the previous part. We
+first calculate the counts for cash and non-cash transactions within
+<span class="math inline">[12, 16)</span> separately. Then we add the
+two counts and find the proportion this represents out of 1000 total
 transactions. Lastly, we determine the height of the bar by dividing the
 area (proportion) by the width <span class="math inline">4</span>.</p>
 <p>Number of cash transactions within <span class="math inline">[12, 16)
@@ -1976,7 +1982,7 @@ area (proportion) by the width <span class="math inline">4</span>.</p>
 16) = (0.025 * 4) * 400 = 0.1 * 400 = 40</span></p>
 <p>Total number of transactions within <span class="math inline">[12,
 16) = 120 + 40 = 160</span></p>
-<p>Proportion of one thousand total transactions (Area of bar) <span class="math inline">= 160 / 1000 = 0.16</span></p>
+<p>Proportion of one thousand total transactions (area of bar) <span class="math inline">= 160 / 1000 = 0.16</span></p>
 <p>Height of bar <span class="math inline">= 0.16 / 4 = 0.04</span></p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
@@ -2290,8 +2296,8 @@ aria-labelledby="heading10_1" data-bs-parent="#accordionExample">
 all books belong to a single genre. This represents the maximum
 deviation from the uniform distribution:</p>
 <ul>
-<li><strong>Uniform distribution probability per genre:</strong> <span class="math inline">0.1</span> (or 10%)</li>
-<li><strong>Extreme case distribution:</strong> <span class="math inline">1</span> for one genre and <span class="math inline">0</span> for all others</li>
+<li><strong>Uniform distribution:</strong> <span class="math inline">0.1</span> probability for all genres</li>
+<li><strong>Single genre distribution:</strong> <span class="math inline">1</span> probability for one genre and <span class="math inline">0</span> probability for all others</li>
 </ul>
 <p><span class="math display">
 TVD = \frac{1}{2} \left( |1 - 0.1| + 9 \times |0 - 0.1| \right) =
@@ -2329,9 +2335,8 @@ aria-labelledby="heading10_2" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer:</strong> False</p>
 <p>The maximum possible TVD is based on proportions and not absolute
-counts. Even if the sample size is increased, the proportions of maximum
-skew (one genre dominating completely) do not change. Thus, the TVD
-remains the same.</p>
+counts. Even if the sample size is increased, the TVD would remain the
+same.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -2364,12 +2369,12 @@ aria-labelledby="heading10_3" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer:</strong> True</p>
-<p>With 11 genres, the uniform probability per genre decreases to about
-<span class="math inline">0.0909</span> from <span class="math inline">0.1</span> with 10 genres. In the most skewed
-scenario (one genre dominates):</p>
+<p>With 11 genres, the uniform probability per genre decreases to <span class="math inline">\frac{1}{11}</span> instead of <span class="math inline">\frac{1}{10}</span> with 10 genres. In the extreme
+scenario where one genre dominates, the TVD is now bigger.</p>
 <p><span class="math display">
-TVD = \frac{1}{2} \left( |1 - 0.0909| + 10 \times |0 - 0.0909| \right) =
-\frac{1}{2} (0.9091 + 0.909) = 0.90905
+TVD = \frac{1}{2} \left( |1 - \frac{1}{11}| + 10 \times |0 -
+\frac{1}{11}| \right) = \frac{1}{2} (\frac{10}{11} + \frac{10}{11}) =
+\frac{10}{11}
 </span></p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
