@@ -1,0 +1,1401 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Winter 2025 Final Exam</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/theme.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Winter 2025 Final Exam</h1>
+</header>
+<p><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<!-- add after bootstrap.min.css -->
+<link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css"/>
+<!-- add after bootstrap.min.js or bootstrap.bundle.min.js -->
+<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script></p>
+<!-- for difficulty gauges-->
+<script src="https://cdn.plot.ly/plotly-2.16.1.min.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B947E6J6H4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B947E6J6H4');
+</script>
+<p><a href="../index.html">← return to practice.dsc10.com</a></p>
+<hr />
+<p><strong>Instructor(s):</strong> Janine Tiefenbruck</p>
+<p>This exam was administered in-person. Students were allowed one page
+of double-sided handwritten notes. No calculators were allowed. Students
+had <strong>3 hours</strong> to take this exam.</p>
+<hr />
+<h2 id="problem-1">Problem 1</h2>
+<p>While browsing the library, Hermione stumbles upon an old book
+containing game logs for all Quidditch matches played at Hogwarts in the
+18th century. Quidditch is a sport played between two houses. It
+features three types of balls:</p>
+<ul>
+<li><p><strong>Quaffle</strong>: Worth 10 points when used to score a
+goal.</p></li>
+<li><p><strong>Bludger</strong>: Does not contribute points. Instead,
+used to distract the other team.</p></li>
+<li><p><strong>Snitch</strong>: Worth 150 points when caught. This
+immediately ends the game.</p></li>
+</ul>
+<p>A game log is a list of actions that occurred during a Quidditch
+match. Each element of a game log is a two-letter string where the first
+letter represents the house that performed the action (<code>"G"</code>
+for Gryffindor, , <code>"H"</code> for Hufflepuff, <code>"R"</code> for
+Ravenclaw, <code>"S"</code> for Slytherin) and the second letter
+indicates the type of Quidditch ball used in the action
+(<code>"Q"</code> for Quaffle, <code>"B"</code> for Bludger,
+<code>"S"</code> for Snitch). For example, <code>"RQ"</code> in a game
+log represents Ravenclaw scoring with the Quaffle to earn 10 points.</p>
+<p>Hermione writes a function, <code>logwarts</code>, to calculate the
+final score of a Quidditch match based on the actions in the game log.
+The inputs are a game log (a list, as described above) and the full
+names of the two houses competing. The output is a list of length 4
+containing the names of the teams and their corresponding scores.
+Example behavior is given below.</p>
+<pre><code>    &gt;&gt;&gt; logwarts([&quot;RQ&quot;, &quot;GQ&quot;, &quot;RB&quot;, &quot;GS&quot;], &quot;Gryffindor&quot;, &quot;Ravenclaw&quot;)
+    [&quot;Gryffindor&quot;, 160, &quot;Ravenclaw&quot;, 10]
+
+    &gt;&gt;&gt; logwarts([&quot;HB&quot;, &quot;HQ&quot;, &quot;HQ&quot;, &quot;SS&quot;], &quot;Hufflepuff&quot;, &quot;Slytherin&quot;)
+    [&quot;Hufflepuff&quot;, 20, &quot;Slytherin&quot;, 150]</code></pre>
+<p>Fill in the blanks in the <code>logwarts</code> function below. Note
+that some of your answers are <strong>used in more than one
+place</strong> in the code.</p>
+<pre><code>    def logwarts(game_log, team1, team2):
+        score1 = __(a)__
+        score2 = __(a)__
+
+        for action in game_log:
+            house = __(b)__
+            ball = __(c)__
+            
+            if __(d)__: 
+                __(e)__:
+                    score1 = score1 + 10
+                __(f)__:
+                    score1 = score1 + 150
+            else:
+                __(e)__:
+                    score2 = score2 + 10
+                __(f)__:
+                    score2 = score2 + 150
+        return [team1, score1, team2, score2]</code></pre>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse1" class="accordion-collapse collapse"
+aria-labelledby="heading1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<hr />
+<h2 id="problem-2">Problem 2</h2>
+<p>The Death Eaters are a powerful group of dark wizards who oppose
+Harry Potter and his allies. Each Death Eater receives a unique
+identification number based on their order of initiation, ranging from
+<code>1</code> to <code>N</code>, where <code>N</code> represents the
+total number of Death Eaters.</p>
+<p>Your task is to estimate the value of <code>N</code> so you can
+understand how many enemies you face. You have a random sample of
+identification numbers in a DataFrame named <code>death_eaters</code>
+containing a single column called <code>"ID"</code>.</p>
+<p><br></p>
+<h3 id="problem-2.1">Problem 2.1</h3>
+<p>Which of the options below would be an appropriate estimate for the
+total number of Death Eaters? Select all that apply.</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> <code>death_eaters.get("ID").max()</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>death_eaters.get("ID").sum()</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>death_eaters.groupby("ID").count()</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>int(death_eaters.get("ID").mean() * 2)</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>death_eaters.shape[0]</code></p></li>
+<li><p><input type="checkbox" disabled="" /> None of the above.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading2_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2_1" aria-expanded="true" aria-controls="collapse2_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse2_1" class="accordion-collapse collapse"
+aria-labelledby="heading2_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-2.2">Problem 2.2</h3>
+<p>Each box that you selected in part (a) is an example of what?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> a distribution</p></li>
+<li><p><input type="radio" disabled="" /> a statistic</p></li>
+<li><p><input type="radio" disabled="" /> a parameter</p></li>
+<li><p><input type="radio" disabled="" /> a resample</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading2_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2_2" aria-expanded="true" aria-controls="collapse2_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse2_2" class="accordion-collapse collapse"
+aria-labelledby="heading2_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-2.3">Problem 2.3</h3>
+<p>Suppose you have access to a function called <code>estimate</code>,
+which takes in a Series of Death Eater ID numbers and returns an
+estimate for <code>N</code>. Fill in the blanks below to do the
+following:</p>
+<ul>
+<li><p>Create an array named <code>boot_estimates</code>, containing
+10,000 of these bootstrapped estimates of <code>N</code>, based on the
+data in <code>death_eaters</code>.</p></li>
+<li><p>Set <code>left_72</code> to the <strong>left endpoint</strong> of
+a 72% confidence interval for <code>N</code>.</p></li>
+</ul>
+<!-- -->
+<pre><code>    boot_estimates = np.array([])
+    
+    for i in np.arange(10000):
+        boot_estimates = np.append(boot_estimates, __(a)__)
+
+    left_72 = __(b)__
+    </code></pre>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading2_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2_3" aria-expanded="true" aria-controls="collapse2_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse2_3" class="accordion-collapse collapse"
+aria-labelledby="heading2_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-3">Problem 3</h2>
+<p>When new students arrive at Hogwarts, they get assigned to one of the
+four houses (Gryffindor, Hufflepuff, Ravenclaw, Slytherin) by a magical
+Sorting Hat.</p>
+<p>Throughout this problem, we’ll assume that the Sorting Hat assigns
+students to houses uniformly at random, meaning that each student has an
+independent 25% chance of winding up in each of the four houses.</p>
+<p>For all parts, give your answer as an <strong>unsimplified
+mathematical expression</strong>.</p>
+<p><br></p>
+<h3 id="problem-3.1">Problem 3.1</h3>
+<p>There are seven siblings in the Weasley family: Bill, Charlie, Percy,
+Fred, George, Ron, and Ginny. What is the probability that all seven of
+them are assigned to Gryffindor?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading3_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_1" aria-expanded="true" aria-controls="collapse3_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse3_1" class="accordion-collapse collapse"
+aria-labelledby="heading3_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<div class="center">
+
+</div>
+<p><br></p>
+<h3 id="problem-3.2">Problem 3.2</h3>
+<p>What is the probability that Fred and George Weasley are assigned to
+the same house?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading3_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_2" aria-expanded="true" aria-controls="collapse3_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse3_2" class="accordion-collapse collapse"
+aria-labelledby="heading3_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<div class="center">
+
+</div>
+<p><br></p>
+<h3 id="problem-3.3">Problem 3.3</h3>
+<p>What is the probability that none of the seven Weasley siblings are
+assigned to Slytherin?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading3_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_3" aria-expanded="true" aria-controls="collapse3_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse3_3" class="accordion-collapse collapse"
+aria-labelledby="heading3_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<div class="center">
+
+</div>
+<p><br></p>
+<h3 id="problem-3.4">Problem 3.4</h3>
+<p>Suppose you are told that none of the seven Weasley siblings is
+assigned to Slytherin. Based on this information, what is the
+probability that at least one of the siblings is assigned to
+Gryffindor?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading3_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_4" aria-expanded="true" aria-controls="collapse3_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse3_4" class="accordion-collapse collapse"
+aria-labelledby="heading3_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<center><img src='../assets/images/wi25-final/hat.jpg' width=400></center>
+<hr />
+<h2 id="problem-4">Problem 4</h2>
+<p>Beneath Gringotts Wizarding Bank, enchanted mine carts transport
+wizards through a complex underground railway on the way to their bank
+vault.</p>
+<p>During one section of the journey to Harry’s vault, the track follows
+the shape of a normal curve, with a peak at <span class="math inline">x
+= 50</span> and a standard deviation of <span
+class="math inline">20</span>.</p>
+<p><br></p>
+<h3 id="problem-4.1">Problem 4.1</h3>
+<p>A ferocious dragon, who lives under this section of the railway, is
+equally likely to be located anywhere within this region. What is the
+probability that the dragon is located in a position with <span
+class="math inline">x \leq 10</span> or <span class="math inline">x \geq
+80</span>? Select all that apply.</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> <code>1 - (scipy.stats.norm.cdf(1.5) - scipy.stats.norm.cdf(-2))</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>2 * scipy.stats.norm.cdf(1.75)</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>scipy.stats.norm.cdf(-2) + scipy.stats.norm.cdf(-1.5)</code></p></li>
+<li><p><input type="checkbox" disabled="" /> 0.95</p></li>
+<li><p><input type="checkbox" disabled="" /> None of the above.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading4_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_1" aria-expanded="true" aria-controls="collapse4_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse4_1" class="accordion-collapse collapse"
+aria-labelledby="heading4_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-4.2">Problem 4.2</h3>
+<p>Harry wants to know where, in this section of the track, the cart’s
+height is changing the fastest. He knows from his earlier public school
+education that the height changes the fastest at the <strong>inflection
+points</strong> of a normal distribution. Where are the inflection
+points in this section of the track?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <span class="math inline">x = 50</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">x = 20</span> and <span class="math inline">x = 80</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">x = 30</span> and <span class="math inline">x = 70</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">x = 0</span> and <span class="math inline">x = 100</span></p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading4_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_2" aria-expanded="true" aria-controls="collapse4_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse4_2" class="accordion-collapse collapse"
+aria-labelledby="heading4_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-4.3">Problem 4.3</h3>
+<p>Next, consider a different region of the track, where the shape
+follows some arbitrary distribution with mean <span
+class="math inline">130</span> and standard deviation <span
+class="math inline">30</span>. We don’t have any information about the
+shape of the distribution, so it is not necessarily normal.</p>
+<p>What is the minimum proportion of area under this section of the
+track within the range <span class="math inline">100 \leq x \leq
+190</span>?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> 0.77</p></li>
+<li><p><input type="radio" disabled="" /> 0.55</p></li>
+<li><p><input type="radio" disabled="" /> 0.38</p></li>
+<li><p><input type="radio" disabled="" /> 0.00</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading4_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_3" aria-expanded="true" aria-controls="collapse4_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse4_3" class="accordion-collapse collapse"
+aria-labelledby="heading4_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-5">Problem 5</h2>
+<p>Among Hogwarts students, Chocolate Frogs are a popular enchanted
+treat. Chocolate Frogs are individually packaged, and every Chocolate
+Frog comes with a collectible card of a famous wizard (ex.”Albus
+Dumbledore"). There are 80 unique cards, and each package contains
+<strong>one card selected uniformly at random from these
+80</strong>.</p>
+<p>Neville would love to get a complete collection with all 80 cards,
+and he wants to know how many Chocolate Frogs he should expect to buy to
+make this happen.</p>
+<center><img src='../assets/images/wi25-final/frog.jpg' width=400></center>
+<p><br></p>
+<h3 id="problem-5.1">Problem 5.1</h3>
+<p>Suppose we have access to a function called
+<code>frog_experiment</code> that takes no inputs and simulates the act
+of buying Chocolate Frogs until a complete collection of cards is
+obtained. The function returns the number of Chocolate Frogs that were
+purchased. Fill in the blanks below to run 10,000 simulations and set
+<code>avg_frog_count</code> to the average number of Chocolate Frogs
+purchased across these experiments.</p>
+<pre><code>    frog_counts = np.array([])  
+    
+    for i in np.arange(10000):
+        frog_counts = np.append(__(a)__)
+    
+    avg_frog_count = __(b)__</code></pre>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading5_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_1" aria-expanded="true" aria-controls="collapse5_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse5_1" class="accordion-collapse collapse"
+aria-labelledby="heading5_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-5.2">Problem 5.2</h3>
+<p>Realistically, Neville can only afford to buy 300 Chocolate Frog
+cards. Using the simulated data in <code>frog_counts</code>, write a
+Python expression that evaluates to an approximation of the probability
+that Neville will be able to complete his collection.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading5_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_2" aria-expanded="true" aria-controls="collapse5_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse5_2" class="accordion-collapse collapse"
+aria-labelledby="heading5_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-5.3">Problem 5.3</h3>
+<p><strong>True or False</strong>: The Central Limit Theorem states that
+the data in <code>frog_counts</code> is roughly normally
+distributed.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading5_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_3" aria-expanded="true" aria-controls="collapse5_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse5_3" class="accordion-collapse collapse"
+aria-labelledby="heading5_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-6">Problem 6</h2>
+<p>Professor Severus Snape is rumored to display favoritism toward
+certain students. Specifically, some believe that he awards more house
+points to students from <strong>wizarding families</strong> (those with
+at least one wizarding parent) than students from <strong>muggle
+families</strong> (those without wizarding parents).</p>
+<p>To investigate this claim, you will perform a <strong>permutation
+test</strong> with these hypotheses:</p>
+<ul>
+<li><p><strong>Null Hypothesis:</strong> Snape awards house points
+<strong>independently of a student’s family background</strong>
+(wizarding family vs. muggle family). Any observed difference is due to
+chance.</p></li>
+<li><p><strong>Alternative Hypothesis:</strong> Snape awards
+<strong>more</strong> house points to students from wizarding families,
+on average.</p></li>
+</ul>
+<p>The DataFrame <code>snape</code> is indexed by <code>"Student"</code>
+and contains information on each student’s family background
+(<code>"Family"</code>) and the number of house points awarded by Snape
+(<code>"Points"</code>). The first few rows of <code>snape</code> are
+shown below.</p>
+<center><img src='../assets/images/wi25-final/snape.jpg' width=400></center>
+<p><br></p>
+<h3 id="problem-6.1">Problem 6.1</h3>
+<p>Which of the following is the most appropriate test statistic for our
+permutation test?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> The total number of house points awarded to students from wizarding
+families minus the total number of house points awarded to students from
+muggle families.</p></li>
+<li><p><input type="radio" disabled="" /> The mean number of house points awarded to students from wizarding
+families minus the mean number of house points awarded to students from
+muggle families.</p></li>
+<li><p><input type="radio" disabled="" /> The number of students from wizarding families minus the number of
+students from muggle families.</p></li>
+<li><p><input type="radio" disabled="" /> The absolute difference between the mean number of house points
+awarded to students from wizarding families and the mean number of house
+points awarded to students from muggle families.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_1" aria-expanded="true" aria-controls="collapse6_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_1" class="accordion-collapse collapse"
+aria-labelledby="heading6_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-6.2">Problem 6.2</h3>
+<p>Fill in the blanks in the function <code>one_stat</code>, which
+calculates one value of the test statistic you chose in part (a), based
+on the data in <code>df</code>, which will have columns called
+<code>"Family"</code> and <code>"Points"</code>.</p>
+<pre><code>    def one_stat(df):
+        grouped = df.groupby(__(a)__).__(b)__
+        return __(c)__</code></pre>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_2" aria-expanded="true" aria-controls="collapse6_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_2" class="accordion-collapse collapse"
+aria-labelledby="heading6_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-6.3">Problem 6.3</h3>
+<p>Fill in the blanks in the function <code>calculate_stats</code>,
+which calculates 1000 simulated values of the test statistic you chose
+in part (a), under the assumptions of the null hypothesis. As before,
+<code>df</code> will have columns called <code>"Family"</code> and
+<code>"Points"</code>.</p>
+<pre><code>    def calculate_stats(df)
+        statistics = np.array([])
+        
+        for i in np.arange(1000):
+            shuffled = df.assign(Points = __(d)__)
+            stat = one_stat(__(e)__)
+            statistics = __(f)__
+    
+        return statistics</code></pre>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_3" aria-expanded="true" aria-controls="collapse6_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_3" class="accordion-collapse collapse"
+aria-labelledby="heading6_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-6.4">Problem 6.4</h3>
+<p>Fill in the blanks to calculate the p-value of the permutation test,
+based on the data in <code>snape</code>.</p>
+<pre><code>    observed = __(g)__
+    simulated = __(h)__
+    p_value = (simulated __(i)__ observed).mean()</code></pre>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_4" aria-expanded="true" aria-controls="collapse6_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_4" class="accordion-collapse collapse"
+aria-labelledby="heading6_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-6.5">Problem 6.5</h3>
+<p>Define <code>mini_snape = snape.take(np.arange(3))</code> as shown
+below.</p>
+<center><img src='../assets/images/wi25-final/snape.jpg' width=400></center>
+<p>Determine the value of the following expression.</p>
+<pre><code>    len(calculate_stats(mini_snape))</code></pre>
+<div class="center">
+
+</div>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_5">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_5" aria-expanded="true" aria-controls="collapse6_5">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_5" class="accordion-collapse collapse"
+aria-labelledby="heading6_5" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-6.6">Problem 6.6</h3>
+<p>With <code>mini_snape</code> defined as above, there will be at most
+three unique values in <code>calculate_stats(mini_snape)</code>. What
+are those three values? Put the <strong>smallest value on the left and
+the largest on the right</strong>.</p>
+<div class="center">
+
+</div>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_6">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_6" aria-expanded="true" aria-controls="collapse6_6">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_6" class="accordion-collapse collapse"
+aria-labelledby="heading6_6" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-7">Problem 7</h2>
+<p>Professor Minerva McGonagall, head of Gryffindor, may also be
+awarding house points unfairly. For this question, we’ll assume that all
+four of the houses contain the same number of students, and we’ll
+investigate whether McGonagall awards points equally to all four
+houses.</p>
+<p>Below is the distribution of points that Professor McGonagall awarded
+during the last academic year.</p>
+<center><img src='../assets/images/wi25-final/points.png' width=400></center>
+<p>You want to test the following hypotheses:</p>
+<ul>
+<li><p><strong>Null Hypothesis</strong>: The distribution of points
+awarded by Professor McGonagall is uniform across all of the
+houses.</p></li>
+<li><p><strong>Alternative Hypothesis</strong>: The distribution of
+points awarded by Professor McGonagall is not uniform across all of the
+houses.</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-7.1">Problem 7.1</h3>
+<p>Which of the following test statistics is appropriate for this
+hypothesis test? Select all that apply.</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> The absolute difference between the number of points awarded to
+Gryffindor and the proposed proportion of points awarded to
+Gryffindor.</p></li>
+<li><p><input type="checkbox" disabled="" /> The difference between the number of points awarded to the house with
+the most points and the house with the least points.</p></li>
+<li><p><input type="checkbox" disabled="" /> The sum of the squared differences in proportions between
+McGonagall’s distribution and <code>[0.5, 0.5, 0.5, 0.5]</code>.</p></li>
+<li><p><input type="checkbox" disabled="" /> The sum of the differences in proportions between McGonagall’s
+distribution and <code>[0.25, 0.25, 0.25, 0.25]</code>.</p></li>
+<li><p><input type="checkbox" disabled="" /> The sum of the squared differences in proportions between
+McGonagall’s distribution and <code>[0.25, 0.25, 0.25, 0.25]</code>.</p></li>
+<li><p><input type="checkbox" disabled="" /> None of the above.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading7_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_1" aria-expanded="true" aria-controls="collapse7_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse7_1" class="accordion-collapse collapse"
+aria-labelledby="heading7_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<center><img src='../assets/images/wi25-final/points.png' width=400></center>
+<p>For the rest of this problem, we will use the following test
+statistic:</p>
+<div class="center">
+<p><strong>The sum of the absolute differences in proportions between
+McGonagall’s distribution and
+<code>[0.25, 0.25, 0.25, 0.25]</code>.</strong></p>
+</div>
+<p><br></p>
+<h3 id="problem-7.2">Problem 7.2</h3>
+<p>Choose the correct way to implement the function
+<code>calculate_test_stat</code>, which takes in two distributions as
+arrays and returns the value of this test statistic.</p>
+<pre><code>    def calculate_test_stat(dist_1, dist_2):
+        return _____</code></pre>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>np.abs(sum(dist_1 - dist_2))</code>.</p></li>
+<li><p><input type="radio" disabled="" /> <code>abs(sum(dist_1 - dist_2))</code>.</p></li>
+<li><p><input type="radio" disabled="" /> <code>sum(np.abs(dist_1 - dist_2))</code>.</p></li>
+<li><p><input type="radio" disabled="" /> <code>sum(abs(dist_1 - dist_2))</code>.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading7_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_2" aria-expanded="true" aria-controls="collapse7_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse7_2" class="accordion-collapse collapse"
+aria-labelledby="heading7_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-7.3">Problem 7.3</h3>
+<p>(10 pts) Fill in the blanks in the code below so that
+<code>simulated_ts</code> is an array containing 10,000 simulated values
+of the test statistic under the null. Note that your answer to blank
+<code>(c)</code> is <strong>used in more than one place</strong> in the
+code.</p>
+<pre><code>    mc_gon = np.arange(__(a)__) # Careful: np.arange, not np.array!
+    null = np.array([0.25, 0.25, 0.25, 0.25])
+    observed_ts = calculate_test_stat(__(b)__)
+
+    simulated_ts = np.array([])
+
+    for i in np.arange(10000):
+        sim = np.random.multinomial(__(c)__, __(d)__) / __(c)__
+        one_simulated_ts = calculate_test_stat(__(e)__)
+        simulated_ts = np.append(simulated_ts, one_simulated_ts)</code></pre>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading7_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_3" aria-expanded="true" aria-controls="collapse7_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse7_3" class="accordion-collapse collapse"
+aria-labelledby="heading7_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-7.4">Problem 7.4</h3>
+<p>Fill in the blank so that <code>reject_null</code> evaluates to
+<code>True</code> if we reject the null hypothesis at the <span
+class="math inline">0.05</span> significance level, and
+<code>False</code> otherwise.</p>
+<pre><code>    reject_null = __(f)__</code></pre>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading7_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_4" aria-expanded="true" aria-controls="collapse7_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse7_4" class="accordion-collapse collapse"
+aria-labelledby="heading7_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-7.5">Problem 7.5</h3>
+<p>Your friend performs the same hypothesis test as you, but uses the
+total variation distance (TVD) as their test statistic instead of the
+one described in the problem. Which of the following statements is
+true?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Your friend’s simulated statistics will be larger than yours, because
+TVD accounts for the magnitude <em>and</em> direction of the differences
+in proportions.</p></li>
+<li><p><input type="radio" disabled="" /> Your friend’s simulated statistics will be larger than yours, but
+<strong>not</strong> because it accounts for the magnitude and direction
+of the differences in proportions.</p></li>
+<li><p><input type="radio" disabled="" /> Your friend’s simulated statistics will be smaller than yours,
+because TVD accounts for the magnitude <em>and</em> direction of the
+differences in proportions.</p></li>
+<li><p><input type="radio" disabled="" /> Your friend’s simulated statistics will be smaller than yours, but
+<strong>not</strong> because it accounts for the magnitude and direction
+of the differences in proportions.</p></li>
+<li><p><input type="radio" disabled="" /> There is no relationship between the statistic you used and the
+statistic your friend used (TVD).</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading7_5">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_5" aria-expanded="true" aria-controls="collapse7_5">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse7_5" class="accordion-collapse collapse"
+aria-labelledby="heading7_5" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-8">Problem 8</h2>
+<p>Professor Filius Flitwick is conducting a study whose results will be
+used to help new Hogwarts students select appropriately sized
+broomsticks for their flying lessons. Professor Flitwick measures
+several wizards’ heights and broomstick lengths, both in centimeters.
+Since broomsticks can only be purchases in specific lengths, the
+scatterplot of broomstick length vs. height has a pattern of horizontal
+stripes:</p>
+<center><img src='../assets/images/wi25-final/brooms.png' width=400></center>
+<p>If we group the wizards in Professor Flitwick’s research study by
+their broomstick length, and average the heights of the wizards in each
+group, we get the following results.</p>
+<center><img src='../assets/images/wi25-final/broom_means.jpg' width=400></center>
+<p>It turns out that the regression line that predicts broomstick length
+(<span class="math inline">y</span>) based on wizard height (<span
+class="math inline">x</span>) passes through the four points
+representing the means of each group. For example, the first row of the
+DataFrame above means that <span class="math inline">(165, 150)</span>
+is a point on the regression line, as you can see in the
+scatterplot.</p>
+<p><br></p>
+<h3 id="problem-8.1">Problem 8.1</h3>
+<p>Based only on the fact that the regression line goes through these
+points, which of the following <em>could</em> represent the relationship
+between the standard deviation of broomstick length (<span
+class="math inline">y</span>) and wizard height (<span
+class="math inline">x</span>)? Select all that apply.</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> <span class="math inline">SD(y) = SD(x)</span></p></li>
+<li><p><input type="checkbox" disabled="" /> <span class="math inline">SD(y) = 4\cdot SD(x)</span></p></li>
+<li><p><input type="checkbox" disabled="" /> <span class="math inline">SD(y) = 2\cdot SD(x)</span></p></li>
+<li><p><input type="checkbox" disabled="" /> <span class="math inline">SD(y) = 5\cdot SD(x)</span></p></li>
+<li><p><input type="checkbox" disabled="" /> <span class="math inline">SD(y) = 3\cdot SD(x)</span></p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading8_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_1" aria-expanded="true" aria-controls="collapse8_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse8_1" class="accordion-collapse collapse"
+aria-labelledby="heading8_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-8.2">Problem 8.2</h3>
+<p>Now suppose you know that <span class="math inline">SD(y) = 3.5 \cdot
+SD(x)</span>. What is the correlation coefficient, <span
+class="math inline">r</span>, between these variables? Give your answer
+as a <strong>simplified fraction</strong>.</p>
+<div class="center">
+
+</div>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading8_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_2" aria-expanded="true" aria-controls="collapse8_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse8_2" class="accordion-collapse collapse"
+aria-labelledby="heading8_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-8.3">Problem 8.3</h3>
+<p>Suppose we convert <strong>all wizard heights</strong> from
+centimeters to inches (1 inch = 2.54 cm). Which of the following will
+change? Select all that apply.</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> The standard deviation of wizard heights.</p></li>
+<li><p><input type="checkbox" disabled="" /> The proportion of wizard heights within three standard deviations of
+the mean.</p></li>
+<li><p><input type="checkbox" disabled="" /> The correlation between wizard height and broom length.</p></li>
+<li><p><input type="checkbox" disabled="" /> The slope of the regression line predicting broom length from wizard
+height.</p></li>
+<li><p><input type="checkbox" disabled="" /> The slope of the regression line predicting wizard height from broom
+length.</p></li>
+<li><p><input type="checkbox" disabled="" /> None of the above.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading8_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_3" aria-expanded="true" aria-controls="collapse8_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse8_3" class="accordion-collapse collapse"
+aria-labelledby="heading8_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-8.4">Problem 8.4</h3>
+<p>Suppose we convert <strong>all wizard heights and all broomstick
+lengths</strong> from centimeters to inches (1 inch = 2.54 cm). Which of
+the following will change, as compared to the original data when both
+variables were measured in centimeters? Select all that apply.</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> The correlation between wizard height and broom length.</p></li>
+<li><p><input type="checkbox" disabled="" /> The slope of the regression line predicting broom length from wizard
+height.</p></li>
+<li><p><input type="checkbox" disabled="" /> The slope of the regression line predicting wizard height from broom
+length.</p></li>
+<li><p><input type="checkbox" disabled="" /> None of the above.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading8_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_4" aria-expanded="true" aria-controls="collapse8_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse8_4" class="accordion-collapse collapse"
+aria-labelledby="heading8_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-8.5">Problem 8.5</h3>
+<p>Professor Flitwick calculates the root mean square error (RMSE) for
+his regression line to be <strong>36 cm</strong>. What does this RMSE
+value suggest about the accuracy of the regression line’s broomstick
+length predictions?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> The predictions are, on average, <span class="math inline">6</span>
+cm off from the actual broomstick lengths.</p></li>
+<li><p><input type="radio" disabled="" /> The predictions are, on average, <span class="math inline">36</span>
+cm off from the actual broomstick lengths.</p></li>
+<li><p><input type="radio" disabled="" /> The predictions are, on average, <span class="math inline">(36)^2</span> cm off from the actual broomstick
+lengths.</p></li>
+<li><p><input type="radio" disabled="" /> Every wizard’s broomstick length differs from the predicted length by
+<span class="math inline">36</span> cm.</p></li>
+<li><p><input type="radio" disabled="" /> The predictions are more accurate for shorter wizards than taller
+wizards.</p></li>
+<li><p><input type="radio" disabled="" /> The RMSE does not tell us anything about prediction accuracy.</p></li>
+<li><p><input type="radio" disabled="" /> None of the above.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading8_5">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_5" aria-expanded="true" aria-controls="collapse8_5">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse8_5" class="accordion-collapse collapse"
+aria-labelledby="heading8_5" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-8.6">Problem 8.6</h3>
+<p>Which of the following plots is the residual plot for Professor
+Flitwick’s data?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Option A:
+<img src="../assets/images/wi25-final/optiona.png" width="400"/></p></li>
+<li><p><input type="radio" disabled="" /> Option B:
+<img src="../assets/images/wi25-final/optionb.png" width="400"/></p></li>
+<li><p><input type="radio" disabled="" /> Option C:
+<img src="../assets/images/wi25-final/optionc.png" width="400"/></p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading8_6">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_6" aria-expanded="true" aria-controls="collapse8_6">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse8_6" class="accordion-collapse collapse"
+aria-labelledby="heading8_6" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-9">Problem 9</h2>
+<p>The Triwizard Tournament is an international competition between
+three wizarding academies: Hogwarts, Durmstrang, and Beauxbatons.</p>
+<p>In a Triwizard Tournament, wizards from each school compete in three
+dangerous magical challenges. If one school wins two or more challenges,
+that school is the <strong>tournament champion</strong>. Otherwise,
+there is no champion, since each school won a single challenge.</p>
+<p>The DataFrame <code>triwiz</code> has a row for each challenge from
+the first 20 Triwizard Tournaments. With 20 tournaments each having 3
+challenges, <code>triwiz</code> has <strong>exactly 60 rows</strong>.
+The first six rows are shown below.</p>
+<center><img src='../assets/images/wi25-final/triwiz.jpg' width=400></center>
+<p>The columns are:</p>
+<ul>
+<li><p><code>"Year" (int)</code>: Triwizard Tournaments are held only
+once every five years.</p></li>
+<li><p><code>"Host" (str)</code>: Triwizard Tournaments are held at one
+of the three participating schools on a rotating basis: Hogwarts,
+Durmstrang, Beauxbatons, back to Hogwarts again, etc.</p></li>
+<li><p><code>"Challenge" (int)</code>: Either <code>1</code>,
+<code>2</code>, or <code>3</code>.</p></li>
+<li><p><code>"Winner" (str)</code>: The school that won the
+challenge.</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-9.1">Problem 9.1</h3>
+<p>(10 pts) Fill in the blanks below to create the DataFrame
+<code>champions</code>, which is indexed by <code>"Winner"</code> and
+has just one column, <code>"Year"</code>, containing <strong>the number
+of years in which each school was the tournament champion</strong>.
+<code>champions</code> is shown in full below.</p>
+<center><img src='../assets/images/wi25-final/champions.jpg' width=400></center>
+<p>Note that the values in the <code>"Year"</code> column add up to 14,
+not 20. That means there were 6 years in which there was a tie (for
+example, 1299 was one such year).</p>
+<pre><code>    grouped = triwiz.groupby(__(a)__).__(b)__.__(c)__
+    filtered = grouped[__(d)__] 
+    champions = filtered.groupby(__(e)__).__(f)__.__(g)__</code></pre>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading9_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_1" aria-expanded="true" aria-controls="collapse9_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse9_1" class="accordion-collapse collapse"
+aria-labelledby="heading9_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-9.2">Problem 9.2</h3>
+<p>How many rows are in the DataFrame that results from merging
+<code>triwiz</code> with itself on <code>"Year"</code>? Give your answer
+as an <strong>integer</strong>.</p>
+<div class="center">
+
+</div>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading9_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_2" aria-expanded="true" aria-controls="collapse9_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse9_2" class="accordion-collapse collapse"
+aria-labelledby="heading9_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-9.3">Problem 9.3</h3>
+<p>How many rows are in the DataFrame that results from merging
+<code>triwiz</code> with itself on <code>"Challenge"</code>? Give your
+answer as an <strong>integer</strong>.</p>
+<div class="center">
+
+</div>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading9_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_3" aria-expanded="true" aria-controls="collapse9_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse9_3" class="accordion-collapse collapse"
+aria-labelledby="heading9_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-9.4">Problem 9.4</h3>
+<p>How many rows are in the DataFrame that results from merging
+<code>triwiz</code> with itself on <code>"Host"</code>? Select the
+expression that evaluates to this number.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <span class="math inline">2\cdot 6^2 + 7^2</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">2\cdot 7^2 + 6^2</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">2\cdot 18^2 + 21^2</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">2\cdot 21^2 + 18^2</span></p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading9_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_4" aria-expanded="true" aria-controls="collapse9_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse9_4" class="accordion-collapse collapse"
+aria-labelledby="heading9_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-10">Problem 10</h2>
+<p>Bertie Bott’s Every Flavor Beans are a popular treat in the wizarding
+world. They are jellybean candies sold in <strong>boxes of 100
+beans</strong>, containing a variety of flavors including chocolate,
+peppermint, spinach, liver, grass, earwax, and paper. Luna’s favorite
+flavor is bacon.</p>
+<p>Luna wants to estimate the proportion of bacon-flavored beans
+produced at the Bertie Bott’s bean factory. She buys a box of Bertie
+Bott’s Every Flavor Beans and finds that <strong>4 of the 100
+beans</strong> inside are bacon-flavored. Using this sample, she decides
+to construct an <strong>86<span class="math inline">\%</span> CLT-based
+confidence interval</strong> for the proportion of bacon-flavored beans
+produced at the factory.</p>
+<p><br></p>
+<h3 id="problem-10.1">Problem 10.1</h3>
+<p>Let’s begin by solving a related problem that will help us in the
+later parts of this question. Consider the following fact:</p>
+<p><strong>For a sample of size 100 consisting of <span
+class="math inline">0</span>’s and <span class="math inline">1</span>’s,
+the maximum possible width of an <span class="math inline">86\%</span>
+CLT-based confidence interval is approximately <span
+class="math inline">0.15</span>.</strong></p>
+<p>Use this fact to find the value of <code>z</code> such that
+<code>scipy.stats.norm.cdf(z)</code> evaluates to <code>0.07</code>.
+Give your answer as a <strong>number to one decimal place</strong>.</p>
+<div class="center">
+
+</div>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading10_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10_1" aria-expanded="true" aria-controls="collapse10_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse10_1" class="accordion-collapse collapse"
+aria-labelledby="heading10_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-10.2">Problem 10.2</h3>
+<p>Suppose that Luna’s sample has a standard deviation of <span
+class="math inline">0.2</span>. What are the endpoints of her <span
+class="math inline">86\%</span> confidence interval? Give each endpoint
+as a <strong>number to two decimal places</strong>.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading10_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10_2" aria-expanded="true" aria-controls="collapse10_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse10_2" class="accordion-collapse collapse"
+aria-labelledby="heading10_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-10.3">Problem 10.3</h3>
+<p>Hermione thinks she can do a better job of estimating the proportion
+of bacon-flavored beans, though she’ll need a bigger sample to do so.
+Hermione will collect a new sample and use it to construct another <span
+class="math inline">86\%</span> confidence interval for the same
+parameter.</p>
+<p>Under the assumption that Hermione’s sample will have the same
+standard deviation as Luna’s sample, which was 0.2, <strong>how many
+boxes</strong> of Bertie Bott’s Every Flavor Beans must Hermione buy to
+guarantee that the width of her <span class="math inline">86\%</span>
+confidence interval is at most <span class="math inline">0.012</span>?
+Give your answer as an <strong>integer</strong>.</p>
+<div class="center">
+
+</div>
+<p><strong>Remember:</strong> There are 100 beans in each box.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading10_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10_3" aria-expanded="true" aria-controls="collapse10_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse10_3" class="accordion-collapse collapse"
+aria-labelledby="heading10_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="section"><span class="math display"> </span></h2>
+<h4
+id="feedback-find-an-error-still-confused-have-a-suggestion-let-us-know-here.">👋
+Feedback: Find an error? Still confused? Have a suggestion?
+<a href="https://forms.gle/WZ71FchnXU1K154d7">Let us know
+here</u></a>.</h4>
+<hr />
+</body>
+</html>
