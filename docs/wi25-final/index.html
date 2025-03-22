@@ -392,6 +392,38 @@ aria-labelledby="heading2_1" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
+<p><strong>Answer:</strong> <code>death_eaters.get("ID").max()</code>
+and <code>int(death_eaters.get("ID").mean() * 2)</code></p>
+<ul>
+<li><p>Option 1: <code>death_eaters.get("ID").max()</code> returns the
+maximum ID from the sample. This is an appropriate estimate since the
+population size must be at least the size of the largest ID in our
+sample. For instance, if the maximum ID observed is 250, then the total
+number of Death Eaters must be at least 250.</p></li>
+<li><p>Option 2: <code>death_eaters.get("ID").sum()</code> returns the
+sum of all ID numbers in the sample. The total sum of IDs has no
+meaningful connection to the population size, which makes this an
+inappropriate estimate.</p></li>
+<li><p>Option 3: <code>death_eaters.groupby("ID").count()</code> groups
+the data by ID and counts occurrences. Since each ID is unique and
+<code>death_eaters</code> only includes the <code>"ID"</code> column,
+grouping simply shows that each ID appears once. This is not an
+appropriate estimate for <code>N</code>.</p></li>
+<li><p>Option 4: <code>int(death_eaters.get("ID").mean() * 2)</code>
+returns twice the mean of the sample IDs as an integer. The mean of a
+random sample of the numbers 1 through <code>N</code> usually falls
+about halfway between 1 and <code>N</code>. So we can appropriately
+estimate <code>N</code> by doubling this mean.</p></li>
+<li><p>Option 5: <code>death_eaters.shape[0]</code> returns the number
+of rows in <code>death_eaters</code> (ie. the sample size). The sample
+size does not reflect the total population size, making it an
+inappropriate estimate.</p></li>
+</ul>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 66%.</p>
 </div>
 </div>
 </div>
@@ -418,6 +450,15 @@ aria-labelledby="heading2_2" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
+<p><strong>Answer:</strong> a statistic</p>
+<p>The options in part (a) calculate a numerical value from the random
+sample <code>death_eaters</code>. This fits the definition of a
+statistic.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 82%.</p>
 </div>
 </div>
 </div>
@@ -443,6 +484,7 @@ a 72% confidence interval for <code>N</code>.</p></li>
 
     left_72 = __(b)__
     </code></pre>
+<p>What goes in blank (a)?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading2_3">
@@ -456,6 +498,66 @@ aria-labelledby="heading2_3" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
+<p><strong>Answer:</strong>
+<code>estimate(death_eaters.sample(death_eaters.shape[0], replace=True).get("ID"))</code></p>
+<p>In the given code, we use a for loop to generate 10,000 bootstrapped
+estimates of <code>N</code> and append them to the array
+<code>boot_estimates</code>. Blank (a) specifically computes one
+bootstrapped estimate of <code>N</code>. Here’s how key parts of the
+solution work:</p>
+<ul>
+<li><p><code>death_eaters.sample(death_eaters.shape[0], replace=True)</code>:
+To bootstrap, we need to resample the data with replacement. The
+<a href="https://dsc-courses.github.io/bpd-reference/docs/statistical-inference/random%20sampling/df.sample()/" target="_blank"><code>sample()</code>
+function</a> takes as arguments the sample size
+(<code>death_eaters.shape[0]</code>) and whether to replace
+(<code>replace=True</code>).</p></li>
+<li><p><code>.get("ID")</code>: Since <code>estimate()</code> takes a
+Series as input, we need to extract the ID column from the
+resample.</p></li>
+<li><p><code>estimate()</code>: The resampled ID column is passed into
+the <code>estimate()</code> function to generate one bootstrapped
+estimate of N.</p></li>
+</ul>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 62%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-2.4">Problem 2.4</h3>
+<p>What goes in blank (b)?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading2_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2_4" aria-expanded="true" aria-controls="collapse2_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse2_4" class="accordion-collapse collapse"
+aria-labelledby="heading2_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong>
+<code>np.percentile(boot_estimates, 14)</code></p>
+<p>A 72% confidence interval captures the middle 72% of our
+distribution. This leaves 28% of the data outside the interval, with 14%
+from the lower tail and 14% from the upper tail. Thus, the left endpoint
+corresponds to the 14th percentile of <code>boot_estimates</code>. The
+<a href="https://dsc-courses.github.io/bpd-reference/docs/documentation/arrays-and-numpy/np.percentile()/" target="_blank"><code>np.percentile()</code>
+function</a> takes as arguments the array to compute the percentile
+(<code>boot_estimates</code>) and the desired percentile (14).</p>
+<hr/>
+<h5>Difficulty: ⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 91%.</p>
 </div>
 </div>
 </div>
@@ -1542,10 +1644,48 @@ aria-labelledby="heading10_1" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
+<p><strong>Answer:</strong> <span class="math inline">-1.5</span></p>
+<p>The 86% confidence interval for the population mean is given by:</p>
+<p><span class="math display">
+\left[
+\text{sample mean} - |z| \cdot \frac{\text{sample
+SD}}{\sqrt{\text{sample size}}}, \
+\text{sample mean} + |z| \cdot \frac{\text{sample
+SD}}{\sqrt{\text{sample size}}}
+\right]
+</span></p>
+<p>Since the width is equal to the difference between the right and left
+endpoints,</p>
+<p><span class="math display">
+\text{width} = 2 \cdot |z| \cdot \frac{\text{sample
+SD}}{\sqrt{\text{sample size}}}
+</span></p>
+<p>We solve for <span class="math inline">|z|</span>. The maximum width
+of our CI is given to be <span class="math inline">0.15</span>, so we
+must also use the maximum possible standard deviation, <span class="math inline">0.5</span>. we substitute the known values to
+obtain:</p>
+<p><span class="math display">
+0.15 = 2 \cdot |z| \cdot \frac{0.5}{\sqrt{100}}
+</span></p>
+<p>which leaves <span class="math inline">|z| = 1.5</span> after
+computation. To find the <span class="math inline">z</span> such that
+<code>scipy.stats.norm.cdf(z)</code> evaluates to <code>0.07</code>, we
+realize that <span class="math inline">z</span> is the point under the
+normal curve, in standard units, left of which represents <span class="math inline">7\%</span> of the area under the entire curve. Note
+that <code>scipy.stats.norm.cdf(0)</code> evaluates to <code>0.5</code>
+(Recall: half of the area is left of the mean, which is zero in standard
+units). We must therefore take a negative value for <span class="math inline">z</span>. Thus <span class="math inline">z =
+-1.5</span>.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 55%.</p>
 </div>
 </div>
 </div>
 </div>
+<p><br></p>
 <p><br></p>
 <h3 id="problem-10.2">Problem 10.2</h3>
 <p>Suppose that Luna’s sample has a standard deviation of <span
@@ -1565,10 +1705,38 @@ aria-labelledby="heading10_2" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
+<p><strong>Answer:</strong> <span class="math inline">[0.01, \
+0.07]</span></p>
+<p>Recall the formula for the width of an <span class="math inline">86\%</span> confidence interval:</p>
+<p><span class="math display">
+\text{width} = 2 \cdot |z| \cdot \frac{\text{sample
+SD}}{\sqrt{\text{sample size}}}
+</span></p>
+<p>where we found <span class="math inline">|z| = 1.5</span> in part
+(a). Instead of using the maximum sample SD, we will now use <span class="math inline">0.2</span> and compute the new width of the
+confidence interval. This results in</p>
+<p><span class="math display">
+\text{width} = 2 \cdot 1.5 \cdot \frac{0.2}{\sqrt{10}} = 0.06
+</span></p>
+<p>Since this is a CLT-based confidence interval for the population
+mean, the interval must be centered at the mean. We compute the interval
+using the structure from part (a), which leaves</p>
+<p><span class="math display">
+\left[
+0.04 - \frac{1}{2} \cdot 0.06, \
+0.04 + \frac{1}{2} \cdot 0.06
+\right] = [0.01, \ 0.07]
+</span></p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 37%.</p>
 </div>
 </div>
 </div>
 </div>
+<p><br></p>
 <p><br></p>
 <h3 id="problem-10.3">Problem 10.3</h3>
 <p>Hermione thinks she can do a better job of estimating the proportion
@@ -1599,6 +1767,40 @@ aria-labelledby="heading10_3" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
+<p><strong>Answer:</strong> <span class="math inline">25</span>
+boxes</p>
+<p>Recall the formula for the width of an <span class="math inline">86\%</span> confidence interval:</p>
+<p><span class="math display">
+\text{width} = 2 \cdot |z| \cdot \frac{\text{sample
+SD}}{\sqrt{\text{sample size}}}
+</span></p>
+<p>where we must again use the fact that <span class="math inline">|z| =
+1.5</span> from part (a). Here, we want a width that is <em>no
+larger</em> than <span class="math inline">0.012</span>,
+<strong>given</strong> that our sample SD remains <span class="math inline">0.2</span>. Plugging everything in:</p>
+<p><span class="math display">
+0.012 \geq 2 \cdot 1.5 \cdot \frac{0.2}{\sqrt{n}}
+</span></p>
+<p>Rearranging the expression to solve for <span class="math inline">n</span>, we get</p>
+<p><span class="math display">
+\begin{align*}
+n &amp;\geq \left( \frac{3 \cdot 0.2}{0.012} \right)^2 \\
+n &amp;\geq \left( \frac{600}{12} \right)^2 \\
+n &amp;\geq (50)^2 \\
+n &amp;\geq 2500
+\end{align*}
+</span></p>
+<p>However, <span class="math inline">2500</span> isn’t our final
+answer. The question asks for the <strong>number of boxes</strong>
+Hermione must buy, given that each box contains 100 beans. The bound we
+computed above for <span class="math inline">n</span> corresponds to the
+minimum number of <strong>beans</strong> Hermione must observe. To get
+the minimum number of boxes, we simply divide the bound by <span class="math inline">100</span>. The final answer is <span class="math inline">25</span> boxes.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 37%.</p>
 </div>
 </div>
 </div>
