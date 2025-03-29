@@ -566,8 +566,9 @@ solution work:</p>
 <ul>
 <li><p><code>death_eaters.sample(death_eaters.shape[0], replace=True)</code>:
 To bootstrap, we need to resample the data with replacement. The
-<a href="https://dsc-courses.github.io/bpd-reference/docs/statistical-inference/random%20sampling/df.sample()/" target="_blank"><code>sample()</code>
-function</a> takes as arguments the sample size
+<code>sample()</code> function
+<a href="https://dsc-courses.github.io/bpd-reference/docs/statistical-inference/random%20sampling/df.sample()/" target="_blank">(see
+here)</a> takes as arguments the sample size
 (<code>death_eaters.shape[0]</code>) and whether to replace
 (<code>replace=True</code>).</p></li>
 <li><p><code>.get("ID")</code>: Since <code>estimate()</code> takes a
@@ -608,8 +609,9 @@ aria-labelledby="heading2_4" data-bs-parent="#accordionExample">
 distribution. This leaves 28% of the data outside the interval, with 14%
 from the lower tail and 14% from the upper tail. Thus, the left endpoint
 corresponds to the 14th percentile of <code>boot_estimates</code>. The
-<a href="https://dsc-courses.github.io/bpd-reference/docs/documentation/arrays-and-numpy/np.percentile()/" target="_blank"><code>np.percentile()</code>
-function</a> takes as arguments the array to compute the percentile
+<code>np.percentile()</code> function
+<a href="https://dsc-courses.github.io/bpd-reference/docs/documentation/arrays-and-numpy/np.percentile()/" target="_blank">(see
+here)</a> takes as arguments the array to compute the percentile
 (<code>boot_estimates</code>) and the desired percentile (14).</p>
 <hr/>
 <h5>Difficulty: ⭐️</h5>
@@ -881,13 +883,15 @@ proportion of area between <span class="math inline">x = 100</span> and
 <span class="math inline">x = 190</span>.</p>
 <p>Since the distribution isn’t normal and we don’t know its shape, we
 can’t use the empirical rule (68-95-99.7) or z-scores. We might try
-using Chebyshev’s Theorem, but that only works for symmetric intervals
-around the mean. This interval isn’t symmetric (it’s 1 standard
-deviation below the mean and 2 above), so Chebyshev’s Theorem doesn’t
-apply.</p>
-<p>Because we have no other information, we can’t guarantee that any
-data falls in this range. So, the minimum possible proportion of area is
-0.00.</p>
+using Chebyshev’s Inequality, but that only works for intervals that are
+equally far below the mean as above the mean. This interval is not like
+that (it’s 1 standard deviation below the mean and 2 above), so
+Chebyshev’s Inequality doesn’t apply. The most we can say using
+Chebyshev’s Inequality is that in the interval from 1 standard deviation
+below the mean to 1 standard deviation above the mean, we can get at
+least <span class="math inline">1 - \frac{1}{0^2} = 0</span> percent of
+the data. We can’t make any additional guarantees. So, the minimum
+possible proportion of area is 0.00.</p>
 </div>
 </div>
 </div>
@@ -1421,8 +1425,8 @@ one value assigned here):</p>
 </ul>
 <p><span class="math display">
 \begin{align*}
-\frac{15+7}{2} = 11 \\
-11 -13 = -2
+\frac{15+7}{2} &amp;= 11 \\
+11 - 13 &amp;= -2
 \end{align*}
 </span></p>
 <p>Scenario 2:</p>
@@ -1430,8 +1434,8 @@ one value assigned here):</p>
 <li>Wizarding: 13, 7</li>
 <li>Muggle: 15 <span class="math display">
 \begin{align*}
-\frac{13+7}{2} = 10 \\
-10 -15 = -5
+\frac{13+7}{2} &amp;= 10 \\
+10 - 15 &amp;= -5
 \end{align*}
 </span></li>
 </ul>
@@ -1442,8 +1446,8 @@ one value assigned here):</p>
 </ul>
 <p><span class="math display">
 \begin{align*}
-\frac{13+15}{2} = 24 \\
-14 - 7 = 7
+\frac{13+15}{2} &amp;= 14 \\
+14 - 7 &amp;= 7
 \end{align*}
 </span></p>
 <p>Thus, our answer from least to greatest is -5, -2, and 7.</p>
@@ -1528,25 +1532,26 @@ of points between the top and lowest house we be greater than 0.
 Therefore we are “measuring” the alternative.</p>
 <p><strong>Option 3:</strong> This test statistic measures the sum of
 the squared differences in proportions between McGonagall’s distribution
-and [0.5, 0.5, 0.5, 0.5]. However, [0.5, 0.5, 0.5, 0.5] does not
-represent a valid probability distribution because the total sum exceeds
-1. As a result, this test statistic is not meaningful in assessing
-whether the point distribution is uniform across houses.</p>
+and <code>[0.5, 0.5, 0.5, 0.5]</code>. However,
+<code>[0.5, 0.5, 0.5, 0.5]</code> does not represent a valid probability
+distribution because the total sum exceeds 1. As a result, this test
+statistic is not meaningful in assessing whether the point distribution
+is uniform across houses.</p>
 <p><strong>Option 4:</strong> When we measure the sum of the
 differences, the information on “how close” the data is to the
-alternative can be unseen. For example, a distribution of [0.25, 0.25,
-0.25, 0.25] is what we’d expect under the null and a distribution of
-[0.0, 0.5, 0.0, 0.5] would support the alternative. However, using this
-test statistic we would see a result of 0.0 therefore not
-differentiating them.</p>
-<p><strong>Option 5:</strong> Under the null hypothesis [0.25, 0.25,
-0.25, 0.25] is the “expected” distribution. Additionally, since the
-alternative hypothesis states that McGongall’s assignments are not
-uniform (aka is the distribution of points non-uniform), a house
-supports the alternative if its points are significantly less than
-<strong><em>or</em></strong> greater than 0.25. Squaring the differences
-allows the test statistic to be greater in either case and therefore
-would be a valid statistic.</p>
+alternative can be unseen. For example, a distribution of
+<code>[0.25, 0.25, 0.25, 0.25]</code> is what we’d expect under the null
+and a distribution of <code>[0.0, 0.5, 0.0, 0.5]</code> would support
+the alternative. However, using this test statistic we would see a
+result of 0 therefore not differentiating them.</p>
+<p><strong>Option 5:</strong> Under the null hypothesis
+<code>[0.25, 0.25, 0.25, 0.25]</code> is the “expected” distribution.
+Additionally, since the alternative hypothesis states that McGongall’s
+assignments are not uniform (aka is the distribution of points
+non-uniform), a house supports the alternative if its points are
+significantly less than <strong><em>or</em></strong> greater than 0.25.
+Squaring the differences allows the test statistic to be greater in
+either case and therefore would be a valid statistic.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -1593,12 +1598,15 @@ aria-labelledby="heading7_2" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer:</strong>
 <code>sum(np.abs(dist_1 - dist_2))</code></p>
-<p>A valid test statistic in this problem would find how far dist_1
-differs from dist_2. Since we’re looking at <a href="https://dsc-courses.github.io/bpd-reference/docs/statistical-inference/permutation_test/#code-example-absolute-difference">“how
+<p>A valid test statistic in this problem would find how far
+<code>dist_1</code> differs from <code>dist_2</code>. Since we’re
+looking at <a href="https://dsc-courses.github.io/bpd-reference/docs/statistical-inference/permutation_test/#code-example-absolute-difference">“how
 different”</a> the distributions are, we need to take the absolute value
-(aka a measure of distance/difference) and then add them up. np.abs()
-needs to be used over abs() because dist_1 and dist_2 are numpy arrays
-of proportions.</p>
+(aka a measure of distance/difference) and then add them up.
+<code>np.abs()</code> needs to be used over <code>abs()</code> because
+<code>dist_1</code> and <code>dist_2</code> are <strong>arrays</strong>
+and the built-in function <code>abs</code> only works for individual
+numbers.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -1804,8 +1812,8 @@ aria-labelledby="heading7_8" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer:</strong>
 <code>(simulated_ts &gt;= observed_ts).mean() &lt;= 0.05</code></p>
-<p>reject_null should evaluate to a boolean statement therefore we must
-test whether our <a href="https://dsc-courses.github.io/bpd-reference/docs/statistical-inference/p_value/">p-value</a>
+<p><code>reject_null</code> should evaluate to a boolean statement
+therefore we must test whether our <a href="https://dsc-courses.github.io/bpd-reference/docs/statistical-inference/p_value/">p-value</a>
 is less than or equal to 0.05. Taking the mean of
 <code>(simulated_ts &gt;= observed_ts)</code> tells us the proportion of
 simulated test statistics that are equal to the value that was observed
@@ -2167,15 +2175,15 @@ aria-labelledby="heading8_6" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer</strong>: Option B</p>
 <p>A residual plot shows the difference between actual and predicted
-values (y - ŷ) plotted against the predictor variable (x).</p>
+values plotted against the predictor variable (x).</p>
 <p>Since broomsticks come in specific sizes (150, 175, 200, 225 cm), the
 residuals will form horizontal bands at each height level.</p>
 <ul>
 <li><strong>Option A</strong> shows diagonal bands that don’t match the
 horizontal pattern we expect from the broomstick lengths.</li>
-<li><strong>Option B</strong> shows clear horizontal bands of residuals
-that trend downward as height increases. This pattern matches what we
-would expect given the broomstick lengths and indicates some
+<li><strong>Option B</strong> shows diagonal bands of residuals that
+trend downward as height increases. This pattern matches what we would
+expect given the broomstick lengths and indicates some
 under/over-prediction at different height values.</li>
 <li><strong>Option C</strong> shows vertical columns of fairly random
 residuals, which doesn’t capture the relationship between residuals and
@@ -2462,19 +2470,19 @@ aria-labelledby="heading9_8" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer:</strong> 180</p>
-<p>The most important part of this question is understanding how the
-BabyPandas merge function works. The merge used in BabyPandas is an
-inner merge meaning that when merging the two dataframes together by
-<code>"Year"</code>, BabyPandas is matching every row in
-<code>triwiz</code> with every other row that has the same value in the
-<code>"Year"</code> column. This means that for each year, you’ll match
-all the rows from that year with each other. Since there are three
-challenges per year, that means that each year appears 3 times in the
-dataframe. Since you are matching all rows from each year with each
-other, this means you will end up with <span class="math inline">3 *
-3</span> or 9 rows per year. Since there are 20 years in the dataframe,
-we can multiply these together to get 180 total rows in the merged
-dataframe.</p>
+<p>The most important part of this question is understanding how
+<code>merge</code> works in <code>babypandas</code>. Start by
+<a href="https://dsc10.com/diagrams/#merging">reviewing this diagram</a>
+from lecture.</p>
+<p>When we merge two DataFrames together by <code>"Year"</code>, we are
+matching every row in <code>triwiz</code> with every other row that has
+the same value in the <code>"Year"</code> column. This means that for
+each year, we’ll match all the rows from that year with each other.
+Since there are three challenges per year, that means that each year
+appears 3 times in the DataFrame. Since we are matching all rows from
+each year with each other, this means we will end up with <span class="math inline">3 * 3</span> or 9 rows per year. Since there are 20
+years in the DataFrame, we can multiply these together to get 180 total
+rows in the merged DataFrame.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -2507,10 +2515,12 @@ aria-labelledby="heading9_9" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer:</strong> 1200</p>
 <p>Similar to the previous part, we are now matching all rows from a
-given challenge to each other. There are 3 challenges per triwizard cup.
-That means that each challenge appears 20 times. As a result, for each
-of the 3 challenges there are <span class="math inline">20 * 20</span>
-or 400 rows. Therefore, we have 1200 rows total.</p>
+given challenge to each other. There are 3 challenges per tournament, so
+the values in the <code>"Challenge"</code> column are <code>1</code>,
+<code>2</code>, and <code>3</code>. Each such values appears 20 times,
+once for each year. As a result, for each of the 3 challenges there are
+<span class="math inline">20 * 20</span> or 400 rows. Therefore, we have
+<span class="math inline">400 * 3 = 1200</span> rows total.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -2547,19 +2557,19 @@ aria-labelledby="heading9_10" data-bs-parent="#accordionExample">
 <p><strong>Answer:</strong> <span class="math inline">2 * 21^2 +
 18^2</span></p>
 <p>The key to understanding how this problem works is by understanding
-how many times each school ends up hosting the triwizard cup within this
+how many times each school ends up hosting the tournament within this
 dataset. It is stated that the host is determined on a rotating basis.
-Based on the dataframe head we are given, we can presume the order is
-Hogwarts, Durmstrang, and then Beauxbatons. Since there are only 20
-years in this dataset, the last school in the rotation will have one
-less host than the other 2. Thus, we have determined that Hogwarts hosts
-7 times, Durmstrang hosts 7 times, and Beauxbatons hosts 6 times. Since
-for each year a school hosts, they appear three times in the dataframe,
+Based on the DataFrame description, we know the order is Hogwarts,
+Durmstrang, and then Beauxbatons. Since there are only 20 years in this
+dataset, the last school in the rotation will have one less host than
+the other two schools. Thus, we have determined that Hogwarts hosts 7
+times, Durmstrang hosts 7 times, and Beauxbatons hosts 6 times. Since
+for each year a school hosts, they appear three times in the DataFrame,
 each school appears 21 times, 21 times, and 18 times respectively. As
 stated in the above questions when merging we are matching all rows from
 a given host to each other. Therefore, the total rows can be expressed
-as <span class="math inline">21^2 + 21^2 + 18^2</span>. This most
-closely aligns with the last answer choice.</p>
+as <span class="math inline">21^2 + 21^2 + 18^2</span>. This matches the
+last answer choice.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
 <p>
