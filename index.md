@@ -18,7 +18,7 @@ In all cases, you should work on these problems **on paper**, since your quizzes
 
 ---
 
-### <a href="pretest/index.html">🧮 Pretest: Due Wednesday, January 8th</a>
+### <a href="pretest/index.html">🧮 Pretest: Due Thursday, April 3rd</a>
 
 DSC 10's only prerequisite is high school algebra.
 In order to gauge your preparedness for the type of math you'll see
@@ -27,8 +27,7 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
 
 ---
 
-### 💯 Discussions for Winter 2025
-
+### 💯 Discussions for Spring 2025
 
 
 <center>
@@ -51,7 +50,7 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
       <td>Wednesday, January 8th</td>
       <td><a href="disc01/index.html">Getting Started With Jupyter Notebooks</a></td>
     </tr>
-    <tr>
+<!--    <tr>
       <th scope="row">2</th>
       <td>Monday, January 13th</td>
       <td><a href="disc02/index.html">Basic Python and Arrays</a></td>
@@ -100,58 +99,11 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
       <th scope="row">11</th>
       <td>Monday, March 10th</td>
       <td><a href="disc11/index.html">Regression</a></td>
-    </tr>
+    </tr>  -->
   </tbody>
 </table>
 </center> 
-    <!-- <tr>
-      <th scope="row">2</th>
-      <td>Monday, October 7th</td>
-      <td><a href="disc02/index.html">Arrays and DataFrames</a></td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Monday, October 14th</td>
-      <td><a href="disc03/index.html">Querying, Grouping, and Plotting</a></td>
-    </tr>
-    <tr>
-      <th scope="row">4</th>
-      <td>Monday, October 21st</td>
-      <td><a href="disc04/index.html">Functions, DataFrames, and Control Flow</a></td>
-    </tr>
-    <tr>
-      <th scope="row">5</th>
-      <td>Monday, October 28th</td>
-      <td><a href="disc05/index.html">Probability and Simulation</a></td>
-    </tr>
-    <tr>
-      <th scope="row">6</th>
-      <td>Monday, November 4th</td>
-      <td><a href="disc06/index.html">Sampling, Bootstrapping, and Confidence Intervals</a></td>
-    </tr>
-    <tr>
-      <th scope="row">7</th>
-      <td>Monday, November 11th</td>
-      <td><a href="disc06-5/index.html">The Normal Distribution and the CLT</a></td>
-    </tr>
-    <tr>
-      <th scope="row">8</th>
-      <td>Monday, November 18th</td>
-      <td><a href="disc07/index.html">Choosing Sample Sizes, Hypothesis Testing, and Permutation Testing</a></td>
-    </tr>
-    <tr>
-      <th scope="row">9</th>
-      <td>Wednesday, November 27th</td>
-      <td><a href="disc08/index.html">Hypothesis Testing and Permutation Testing</a></td>
-    </tr>
-    <tr>
-      <th scope="row">10</th>
-      <td>Monday, December 2nd</td>
-      <td><a href="disc09/index.html">Regression</a></td>
-    </tr>
-  </tbody>
-</table>
-</center> -->
+
 
 
 ---
@@ -179,6 +131,8 @@ Each exam linked here lists the conditions under which the exam was given, inclu
       <th scope="row">Winter 2025</th>
       <td>Janine Tiefenbruck</td>
       <td><a href='wi25-midterm/index.html'>Midterm</a>
+      <br>
+      <a href='wi25-final/index.html'>Final</a>
       </td>
     </tr>
     <tr>
@@ -186,7 +140,7 @@ Each exam linked here lists the conditions under which the exam was given, inclu
       <td>Janine Tiefenbruck</td>
       <td><a href='fa24-midterm/index.html'>Midterm</a>
       <br>
-      <a href='fa24-final/index.html'>Final 🆕</a>
+      <a href='fa24-final/index.html'>Final</a>
       </td>
     </tr>
     <tr>
@@ -317,7 +271,8 @@ We've provided answers to all quiz questions, but you won't find detailed explan
       <td>
       <a href='wi25-quiz1/index.html'>Quiz 1</a> •
       <a href='wi25-quiz2/index.html'>Quiz 2</a> •
-      <a href='wi25-quiz3/index.html'>Quiz 3</a>
+      <a href='wi25-quiz3/index.html'>Quiz 3</a> •
+      <a href='wi25-quiz4/index.html'>Quiz 4</a>
       </td>
       </tr>  
       <tr>
