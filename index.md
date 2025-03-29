@@ -47,7 +47,7 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
   <tbody>
     <tr>
       <th scope="row">1</th>
-      <td>Wednesday, January 8th</td>
+      <td>Wednesday, April 2nd</td>
       <td><a href="disc01/index.html">Getting Started With Jupyter Notebooks</a></td>
     </tr>
 <!--    <tr>
