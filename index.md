@@ -50,11 +50,12 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
       <td>Wednesday, April 2nd</td>
       <td><a href="disc01/index.html">Getting Started With Jupyter Notebooks</a></td>
     </tr>
-<!--    <tr>
+    <tr>
       <th scope="row">2</th>
-      <td>Monday, January 13th</td>
-      <td><a href="disc02/index.html">Basic Python and Arrays</a></td>
+      <td>Wednesday, April 9th</td>
+      <td><a href="disc02/index.html">Arrays and DataFrames</a></td>
     </tr>
+<!--    
     <tr>
       <th scope="row">3</th>
       <td>Wednesday, January 15th</td>
@@ -272,7 +273,8 @@ We've provided answers to all quiz questions, but you won't find detailed explan
       <a href='wi25-quiz1/index.html'>Quiz 1</a> •
       <a href='wi25-quiz2/index.html'>Quiz 2</a> •
       <a href='wi25-quiz3/index.html'>Quiz 3</a> •
-      <a href='wi25-quiz4/index.html'>Quiz 4</a>
+      <a href='wi25-quiz4/index.html'>Quiz 4</a> •
+      <a href='wi25-quiz5/index.html'>Quiz 5</a>
       </td>
       </tr>  
       <tr>
