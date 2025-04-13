@@ -55,12 +55,12 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
       <td>Wednesday, April 9th</td>
       <td><a href="disc02/index.html">Arrays and DataFrames</a></td>
     </tr>
-<!--    
     <tr>
       <th scope="row">3</th>
-      <td>Wednesday, January 15th</td>
-      <td><a href="disc03/index.html">DataFrames, Querying, and Grouping</a></td>
+      <td>Monday, April 14th</td>
+      <td><a href="disc03/index.html">Querying, Grouping, and Plotting</a></td>
     </tr>
+<!--    
     <tr>
       <th scope="row">4</th>
       <td>Monday, January 27th</td>
