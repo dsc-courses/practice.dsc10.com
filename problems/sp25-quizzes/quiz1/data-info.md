@@ -3,10 +3,4 @@ A player named Steve has several storage chests in which he keeps items he owns.
 
 The `items` DataFrame contains all the items Steve has in his chests. It is indexed by `"Item"` (name of the item). The columns are `"Quantity"` (number of such items) and `"Chest"` (name of the chest where **all** such items are stored). The first few rows are shown below, though `items` has more rows than pictured.
 
-| Item          | Quantity | Chest     |
-|---------------|----------|-----------|
-| Golden Carrot | 12       | Food      |
-| Cobblestone   | 429      | Materials |
-| Rabbit Stew   | 8        | Food      |
-| Wood          | 38       | Materials |
-| Emerald       | 2        | Gems      |
+<center><img src="../../assets/images/sp25-quizzes/quiz1df.jpg" width=400></center>
