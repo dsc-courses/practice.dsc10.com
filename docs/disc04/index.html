@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-  <title>Discussion 4: Histograms and Functions</title>
+  <title>Discussion 4: Functions, DataFrames, and Control Flow</title>
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -107,7 +107,8 @@
 </head>
 <body>
 <header id="title-block-header">
-<h1 class="title">Discussion 4: Histograms and Functions</h1>
+<h1 class="title">Discussion 4: Functions, DataFrames, and Control
+Flow</h1>
 </header>
 <p><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
@@ -138,276 +139,234 @@ these problems during the discussion section</b>; the problems we don’t
 cover can be used for extra practice.</p>
 <hr />
 <h2 id="problem-1">Problem 1</h2>
-<p>You have a DataFrame called <code>prices</code> that contains
-information about food prices at 18 different grocery stores. There is
-column called <code>'broccoli'</code> that contains the price in dollars
-for one pound of broccoli at each grocery store. There is also a column
-called <code>'ice_cream'</code> that contains the price in dollars for a
-pint of store-brand ice cream.</p>
+<p>In the <code>ikea</code> DataFrame, the first word of each string in
+the <code>'product'</code> column represents the product line. For
+example the HEMNES line of products includes several different products,
+such as beds, dressers, and bedside tables.</p>
+<p>The code below assigns a new column to the <code>ikea</code>
+DataFrame containing the product line associated with each product.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>(ikea.assign(product_line <span class="op">=</span> ikea.get(<span class="st">&#39;product&#39;</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>                                .<span class="bu">apply</span>(extract_product_line)))</span></code></pre></div>
 <p><br></p>
 <h3 id="problem-1.1">Problem 1.1</h3>
-<p>Using the code,</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>prices.plot(kind<span class="op">=</span><span class="st">&#39;hist&#39;</span>, y<span class="op">=</span><span class="st">&#39;broccoli&#39;</span>, bins<span class="op">=</span>np.arange(<span class="fl">0.8</span>, <span class="fl">2.11</span>, <span class="fl">0.1</span>), density<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
-<p>we produced the histogram below:</p>
-<center><img src='../assets/images/wi21-midterm/broccoli.png' width=40%></center>
-<p>How many grocery stores sold broccoli for a price greater than or
-equal to $1.30 per pound, but less than $1.40 per pound (the tallest
-bar)?</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading1_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1_1" aria-expanded="true" aria-controls="collapse1_1">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse1_1" class="accordion-collapse collapse"
-aria-labelledby="heading1_1" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> 4 grocery stores</p>
-<p>We are given that the bins start at 0.8 and have a width of 0.1,
-which means one of the bins has endpoints 1.3 and 1.4. This bin (the
-tallest bar) includes all grocery stores that sold broccoli for a price
-greater than or equal to $1.30 per pound, but less than $1.40 per
-pound.</p>
-<p>This bar has a width of 0.1 and we’d estimate the height to be around
-2.2, though we can’t say exactly. Multiplying these values, the area of
-the bar is about 0.22, which means about 22 percent of the grocery
-stores fall into this bin. There are 18 grocery stores in total, as we
-are told in the introduction to this question. We can compute using a
-calculator that 22 percent of 18 is 3.96. Since the actual number of
-grocery stores this represents must be a whole number, this bin must
-represent 4 grocery stores.</p>
-<p>The reason for the slight discrepancy between 3.96 and 4 is that we
-used 2.2 for the height of the bar, a number that we determined by eye.
-We don’t know the exact height of the bar. It is reassuring to do the
-calculation and get a value that’s very close to an integer, since we
-know the final answer must be an integer.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 71%.</p>
-</div>
-</div>
-</div>
-</div>
+<p>What are the input and output types of the
+<code>extract_product_line</code> function?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> takes a string as input, returns a string</p></li>
+<li><p><input type="radio" disabled="" /> takes a string as input, returns a Series</p></li>
+<li><p><input type="radio" disabled="" /> takes a Series as input, returns a string</p></li>
+<li><p><input type="radio" disabled="" /> takes a Series as input, returns a Series</p></li>
+</ul>
 <p><br></p>
 <h3 id="problem-1.2">Problem 1.2</h3>
-<p>Suppose we now plot the same data with different bins, using the
-following line of code:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>prices.plot(kind<span class="op">=</span><span class="st">&#39;hist&#39;</span>, y<span class="op">=</span><span class="st">&#39;broccoli&#39;</span>, bins<span class="op">=</span>[<span class="fl">0.8</span>, <span class="dv">1</span>, <span class="fl">1.1</span>, <span class="fl">1.5</span>, <span class="fl">1.8</span>, <span class="fl">1.9</span>, <span class="fl">2.5</span>], density<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
-<p>What would be the height on the y-axis for the bin corresponding to
-the interval <span class="math inline">[\$1.10, \$1.50)</span>? Input
-your answer below.</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading1_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1_2" aria-expanded="true" aria-controls="collapse1_2">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse1_2" class="accordion-collapse collapse"
-aria-labelledby="heading1_2" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> 1.25</p>
-<p>First, we need to figure out how many grocery stores the bin <span class="math inline">[\$1.10, \$1.50)</span> contains. We already know
-from the previous subpart that there are four grocery stores in the bin
-<span class="math inline">[\$1.30, \$1.40)</span>. We could do similar
-calculations to find the number of grocery stores in each of these
-bins:</p>
-<ul>
-<li><span class="math inline">[\$1.10, \$1.20)</span></li>
-<li><span class="math inline">[\$1.20, \$1.30)</span></li>
-<li><span class="math inline">[\$1.40, \$1.50)</span></li>
-</ul>
-<p>However, it’s much simpler and faster to use the fact that when the
-bins are all equally wide, the height of a bar is proportional to the
-number of data values it contains. So looking at the histogram in the
-previous subpart, since we know the <span class="math inline">[\$1.30,
-\$1.40)</span> bin contains 4 grocery stores, then the <span class="math inline">[\$1.10, \$1.20)</span> bin must contain 1 grocery
-store, since it’s only a quarter as tall. Again, we’re taking advantage
-of the fact that there must be an integer number of grocery stores in
-each bin when we say it’s 1/4 as tall. Our only options are 1/4, 1/2, or
-3/4 as tall, and among those choices, it’s clear.</p>
-<p>Therefore, by looking at the relative heights of the bars, we can
-quickly determine the number of grocery stores in each bin:</p>
-<ul>
-<li><span class="math inline">[\$1.10, \$1.20)</span>: 1 grocery
-store</li>
-<li><span class="math inline">[\$1.20, \$1.30)</span>: 3 grocery
-stores</li>
-<li><span class="math inline">[\$1.30, \$1.40)</span>: 4 grocery
-stores</li>
-<li><span class="math inline">[\$1.40, \$1.50)</span>: 1 grocery
-store</li>
-</ul>
-<p>Adding these numbers together, this means there are 9 grocery stores
-whose broccoli prices fall in the interval <span class="math inline">[\$1.10, \$1.50)</span>. In the new histogram, these
-9 grocery stores will be represented by a bar of width <span class="math inline">1.50-1.10 = 0.4</span>. The area of the bar should
-be <span class="math inline">\frac{9}{18} = 0.5</span>. Therefore the
-height must be <span class="math inline">\frac{0.5}{0.4} =
-1.25</span>.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 33%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-1.3">Problem 1.3</h3>
-<p>You are interested in finding out the number of stores in which a
-pint of ice cream was cheaper than a pound of broccoli. Will you be able
-to determine the answer to this question by looking at the plot produced
-by the code below?</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>prices.get([<span class="st">&#39;broccoli&#39;</span>, <span class="st">&#39;ice_cream&#39;</span>]).plot(kind<span class="op">=</span><span class="st">&#39;barh&#39;</span>)</span></code></pre></div>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> Yes</p></li>
-<li><p><input type="radio" disabled="" /> No</p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading1_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1_3" aria-expanded="true" aria-controls="collapse1_3">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse1_3" class="accordion-collapse collapse"
-aria-labelledby="heading1_3" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> Yes</p>
-<p>When we use <code>.plot</code> without specifying a <code>y</code>
-column, it uses every column in the DataFrame as a <code>y</code> column
-and creates an overlaid plot. Since we first use <code>get</code> with
-the list <code>['broccoli', 'ice_cream']</code>, this keeps the
-<code>'broccoli'</code> and <code>'ice_cream'</code> columns from
-<code>prices</code>, so our bar chart will overlay broccoli prices with
-ice cream prices. Notice that this <code>get</code> is unnecessary
-because <code>prices</code> only has these two columns, so it would have
-been the same to just use <code>prices</code> directly. The resulting
-bar chart will look something like this:</p>
-<center><img src="../assets/images/wi21-midterm/broc_bar.png" width="40%"/></center>
-<p>Each grocery store has its broccoli price represented by the length
-of the blue bar and its ice cream price represented by the length of the
-red bar. We can therefore answer the question by simply counting the
-number of red bars that are shorter than their corresponding blue
-bars.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 78%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-1.4">Problem 1.4</h3>
-<p>You are interested in finding out the number of stores in which a
-pint of ice cream was cheaper than a pound of broccoli. Will you be able
-to determine the answer to this question by looking at the plot produced
-by the code below?</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>prices.get([<span class="st">&#39;broccoli&#39;</span>, <span class="st">&#39;ice_cream&#39;</span>]).plot(kind<span class="op">=</span><span class="st">&#39;hist&#39;</span>)</span></code></pre></div>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> Yes</p></li>
-<li><p><input type="radio" disabled="" /> No</p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading1_4">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1_4" aria-expanded="true" aria-controls="collapse1_4">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse1_4" class="accordion-collapse collapse"
-aria-labelledby="heading1_4" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> No</p>
-<p>This will create an overlaid histogram of broccoli prices and ice
-cream prices. So we will be able to see the distribution of broccoli
-prices together with the distribution of ice cream prices, but we won’t
-be able to pair up particular broccoli prices with ice cream prices at
-the same store. This means we won’t be able to answer the question. The
-overlaid histogram would look something like this:</p>
-<center><img src="../assets/images/wi21-midterm/broc_hist.png" width="40%"/></center>
-<p>This tells us that broadly, ice cream tends to be more expensive than
-broccoli, but we can’t say anything about the number of stores where ice
-cream is cheaper than broccoli.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 81%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-1.5">Problem 1.5</h3>
-<p>Some code and the scatterplot that produced it is shown below:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>(prices.get([<span class="st">&#39;broccoli&#39;</span>, <span class="st">&#39;ice_cream&#39;</span>]).plot(kind<span class="op">=</span><span class="st">&#39;scatter&#39;</span>, x<span class="op">=</span><span class="st">&#39;broccoli&#39;</span>, y<span class="op">=</span><span class="st">&#39;ice_cream&#39;</span>))</span></code></pre></div>
-<center><img src='../assets/images/wi21-midterm/broc_ice_cream.png' width=40%></center>
-<p>Can you use this plot to figure out the number of stores in which a
-pint of ice cream was cheaper than a pound of broccoli?</p>
-<p>If so, say how many such stores there are and explain how you came to
-that conclusion.</p>
-<p>If not, explain why this scatterplot cannot be used to answer the
-question.</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading1_5">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1_5" aria-expanded="true" aria-controls="collapse1_5">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse1_5" class="accordion-collapse collapse"
-aria-labelledby="heading1_5" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> Yes, and there are 2 such stores.</p>
-<p>In this scatterplot, each grocery store is represented as one dot.
-The <span class="math inline">x</span>-coordinate of that dot tells the
-price of broccoli at that store, and the <span class="math inline">y</span>-coordinate tells the price of ice cream. If
-a grocery store’s ice cream price is cheaper than its broccoli price,
-the dot in the scatterplot will have <span class="math inline">y&lt;x</span>. To identify such dots in the
-scatterplot, imagine drawing the line <span class="math inline">y=x</span>. Any dot below this line corresponds to a
-point with <span class="math inline">y&lt;x</span>, which is a grocery
-store where ice cream is cheaper than broccoli. As we can see, there are
-two such stores.</p>
-<center><img src="../assets/images/wi21-midterm/broc_ice_cream2.png" width="40%"/></center>
-<hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 78%.</p>
-</div>
-</div>
-</div>
-</div>
+<p>Complete the return statement in the
+<code>extract_product_line</code> function below.</p>
+<p>For example,
+<code>extract_product_line('HEMNES Daybed frame with 3 drawers, white, Twin')</code>
+should return <code>'HEMNES'</code>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> extract_product_line(x):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> _________</span></code></pre></div>
+<p>What goes in the blank?</p>
 <p><br></p>
 <hr />
 <h2 id="problem-2">Problem 2</h2>
-<p><center><img src='../assets/images/sp22-midterm/cartoon.png' width=20%></center></p>
-<p>Included is a DataFrame named <code>sungod</code> that contains
-information on the artists who have performed at Sun God in years past.
-<strong>For each year that the festival was held, we have one row for
-each artist that performed that year.</strong> The columns are:</p>
+<p>Complete the implementation of the <code>to_minutes</code> function
+below. This function takes as input a string formatted as
+<code>'x hr, y min'</code> where <code>x</code> and <code>y</code>
+represent integers, and returns the corresponding number of minutes,
+<strong>as an integer</strong> (type <code>int</code> in Python).</p>
+<p>For example, <code>to_minutes('3 hr, 5 min')</code> should return
+185.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> to_minutes(time):</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    first_split <span class="op">=</span> time.split(<span class="st">&#39; hr, &#39;</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    second_split <span class="op">=</span> first_split[<span class="dv">1</span>].split(<span class="st">&#39; min&#39;</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> _________</span></code></pre></div>
+<p>What goes in the blank?</p>
+<hr />
+<h2 id="problem-3">Problem 3</h2>
+<p>Consider the function <code>tom_nook</code>, defined below. Recall
+that if <code>x</code> is an integer, <code>x % 2</code> is
+<code>0</code> if <code>x</code> is even and <code>1</code> if
+<code>x</code> is odd.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> tom_nook(crossing):</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    bells <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> nook <span class="kw">in</span> np.arange(crossing):</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> nook <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>            bells <span class="op">=</span> bells <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>            bells <span class="op">=</span> bells <span class="op">-</span> <span class="dv">2</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> bells</span></code></pre></div>
+<p>What value does <code>tom_nook(8)</code> evaluate to?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> -6</p></li>
+<li><p><input type="radio" disabled="" /> -4</p></li>
+<li><p><input type="radio" disabled="" /> -2</p></li>
+<li><p><input type="radio" disabled="" /> 0</p></li>
+<li><p><input type="radio" disabled="" /> 2</p></li>
+<li><p><input type="radio" disabled="" /> 4</p></li>
+<li><p><input type="radio" disabled="" /> 6</p></li>
+</ul>
+<hr />
+<h2 id="problem-4">Problem 4</h2>
+<p>The DataFrame <code>evs</code> consists of 32 rows, each of which
+contains information about a different EV model.</p>
+<p>The first few rows of <code>evs</code> are shown below.</p>
+<center><img src='../assets/images/fa22-midterm/form22.png' width=60%></center>
+<p><br></p>
+<p><br><br></p>
+<p>We also have a DataFrame that contains the distribution of
+“BodyStyle” for all “Brands” in <code>evs</code>, other than Nissan.</p>
+<center><img src='../assets/images/fa22-midterm/midq6.png' width=50%></center>
+<p>Suppose we’ve run the following few lines of code.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>tesla <span class="op">=</span> evs[evs.get(<span class="st">&quot;Brand&quot;</span>) <span class="op">==</span> <span class="st">&quot;Tesla&quot;</span>]</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>bmw <span class="op">=</span> evs[evs.get(<span class="st">&quot;Brand&quot;</span>) <span class="op">==</span> <span class="st">&quot;BMW&quot;</span>]</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>audi <span class="op">=</span> evs[evs.get(<span class="st">&quot;Brand&quot;</span>) <span class="op">==</span> <span class="st">&quot;Audi&quot;</span>]</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>combo <span class="op">=</span> tesla.merge(bmw, on<span class="op">=</span><span class="st">&quot;BodyStyle&quot;</span>).merge(audi, on<span class="op">=</span><span class="st">&quot;BodyStyle&quot;</span>)</span></code></pre></div>
+<p>How many rows does the DataFrame <code>combo</code> have?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> 21</p></li>
+<li><p><input type="radio" disabled="" /> 24</p></li>
+<li><p><input type="radio" disabled="" /> 35</p></li>
+<li><p><input type="radio" disabled="" /> 65</p></li>
+<li><p><input type="radio" disabled="" /> 72</p></li>
+<li><p><input type="radio" disabled="" /> 96</p></li>
+</ul>
+<hr />
+<h2 id="problem-5">Problem 5</h2>
+<p>The <code>sums</code> function takes in an array of numbers and
+outputs the cumulative sum for each item in the array. The cumulative
+sum for an element is the current element plus the sum of all the
+previous elements in the array.</p>
+<p>For example:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> sums(np.array([<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]))</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>array([<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">10</span>, <span class="dv">15</span>])</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> sums(np.array([<span class="dv">100</span>, <span class="dv">1</span>, <span class="dv">1</span>]))</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>array([<span class="dv">100</span>, <span class="dv">101</span>, <span class="dv">102</span>])</span></code></pre></div>
+<p>The incomplete definition of <code>sums</code> is shown below.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> sums(arr):</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    res <span class="op">=</span> _________</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>             (a)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    res <span class="op">=</span> np.append(res, arr[<span class="dv">0</span>])</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> _________:</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>                (b)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>        res <span class="op">=</span> np.append(res, _________)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>                                (c)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> res</span></code></pre></div>
+<p><br></p>
+<h3 id="problem-5.1">Problem 5.1</h3>
+<p>Fill in blank (a).</p>
+<p><br></p>
+<h3 id="problem-5.2">Problem 5.2</h3>
+<p>Fill in blank (b).</p>
+<p><br></p>
+<h3 id="problem-5.3">Problem 5.3</h3>
+<p>Fill in blank (c).</p>
+<p><br></p>
+<hr />
+<h2 id="problem-6">Problem 6</h2>
+<p>Teresa and Sophia are bored while waiting in line at Bistro and
+decide to start flipping a UCSD-themed coin, with a picture of King
+Triton’s face as the heads side and a picture of his mermaid-like tail
+as the tails side.</p>
+<center><img src='../assets/images/sp23-midterm/king_triton.png' width=200></center>
+<p><br></p>
+<p>Teresa flips the coin 21 times and sees 13 heads and 8 tails. She
+stores this information in a DataFrame named <code>teresa</code> that
+has 21 rows and 2 columns, such that:</p>
+<ul>
+<li><p>The <code>"flips"</code> column contains <code>"Heads"</code> 13
+times and <code>"Tails"</code> 8 times.</p></li>
+<li><p>The <code>"Wolftown"</code> column contains <code>"Teresa"</code>
+21 times.</p></li>
+</ul>
+<p>Then, Sophia flips the coin 11 times and sees 4 heads and 7 tails.
+She stores this information in a DataFrame named <code>sophia</code>
+that has 11 rows and 2 columns, such that:</p>
+<ul>
+<li><p>The <code>"flips"</code> column contains <code>"Heads"</code> 4
+times and <code>"Tails"</code> 7 times.</p></li>
+<li><p>The <code>"Makai"</code> column contains <code>"Sophia"</code> 11
+times.</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-6.1">Problem 6.1</h3>
+<p>How many rows are in the following DataFrame? Give your answer as an
+integer.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>    teresa.merge(sophia, on<span class="op">=</span><span class="st">&quot;flips&quot;</span>)</span></code></pre></div>
+<p><em>Hint: The answer is less than 200.</em></p>
+<p><br></p>
+<p><br></p>
+<h3 id="problem-6.2">Problem 6.2</h3>
+<p>Let <span class="math inline">A</span> be your answer to the previous
+part. Now, suppose that:</p>
+<ul>
+<li><p><code>teresa</code> contains an additional row, whose
+<code>"flips"</code> value is <code>"Total"</code> and whose
+<code>"Wolftown"</code> value is 21.</p></li>
+<li><p><code>sophia</code> contains an additional row, whose
+<code>"flips"</code> value is <code>"Total"</code> and whose
+<code>"Makai"</code> value is 11.</p></li>
+</ul>
+<p>Suppose we again merge <code>teresa</code> and <code>sophia</code> on
+the <code>"flips"</code> column. In terms of <span
+class="math inline">A</span>, how many rows are in the new merged
+DataFrame?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <span class="math inline">A</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">A+1</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">A+2</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">A+4</span></p></li>
+<li><p><input type="radio" disabled="" /> <span class="math inline">A+231</span></p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-7">Problem 7</h2>
+<p>In recent years, there has been an explosion of board games that
+teach computer programming skills, including <em>CoderMindz</em>,
+<em>Robot Turtles</em>, and <em>Code Monkey Island</em>. Many such games
+were made possible by Kickstarter crowdfunding campaigns.</p>
+<p>Suppose that in one such game, players must prove their understanding
+of functions and conditional statements by answering questions about the
+function <code>wham</code>, defined below. Like players of this game,
+you’ll also need to answer questions about this function.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="kw">def</span> wham(a, b):</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>   <span class="cf">if</span> a <span class="op">&lt;</span> b:</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>       <span class="cf">return</span> a <span class="op">+</span> <span class="dv">2</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span>   <span class="cf">if</span> a <span class="op">+</span> <span class="dv">2</span> <span class="op">==</span> b:</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span>       <span class="bu">print</span>(a <span class="op">+</span> <span class="dv">3</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span>       <span class="cf">return</span> b <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span>   <span class="cf">elif</span> a <span class="op">-</span> <span class="dv">1</span> <span class="op">&gt;</span> b:</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="dv">8</span>       <span class="bu">print</span>(a)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="dv">9</span>       <span class="cf">return</span> a <span class="op">+</span> <span class="dv">2</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span>  <span class="cf">else</span>:</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="dv">11</span>      <span class="cf">return</span> a <span class="op">+</span> <span class="dv">1</span></span></code></pre></div>
+<p><br></p>
+<h3 id="problem-7.1">Problem 7.1</h3>
+<p>What is printed when we run <code>print(wham(6, 4))</code>?</p>
+<p><br></p>
+<h3 id="problem-7.2">Problem 7.2</h3>
+<p>Give an example of a pair of integers <code>a</code> and
+<code>b</code> such that <code>wham(a, b)</code> returns
+<code>a + 1</code>.</p>
+<p><br></p>
+<h3 id="problem-7.3">Problem 7.3</h3>
+<p>Which of the following lines of code will never be executed, for any
+input?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> 3</p></li>
+<li><p><input type="radio" disabled="" /> 6</p></li>
+<li><p><input type="radio" disabled="" /> 9</p></li>
+<li><p><input type="radio" disabled="" /> 11</p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-8">Problem 8</h2>
+<p>We’ll be looking at a DataFrame named <code>sungod</code> that
+contains information on the artists who have performed at Sun God in
+years past. <strong>For each year that the festival was held, we have
+one row for each artist that performed that year.</strong> The columns
+are:</p>
 <ul>
 <li><code>'Year'</code> (<code>int</code>): the year of the
 festival</li>
@@ -424,613 +383,251 @@ than pictured here).</p>
 <center><img src='../assets/images/sp22-midterm/sungod.png' width=30%></center>
 <p>Assume:</p>
 <ul>
-<li><p>Only one artist ever appeared at a time (for example, we can’t
-have two separate artists with a <code>'Year'</code> of 2015 and an
-<code>'Appearance_Order'</code> of 3).</p></li>
-<li><p>An artist may appear in multiple different Sun God festivals
-(they could be invited back).</p></li>
-<li><p>We have already run <code>import babypandas as bpd</code> and
-<code>import numpy as np</code>. <br><br></p></li>
+<li>Only one artist ever appeared at a time (for example, we can’t have
+two separate artists with a <code>'Year'</code> of 2015 and an
+<code>'Appearance_Order'</code> of 3).</li>
+<li>An artist may appear in multiple different Sun God festivals (they
+could be invited back).</li>
+<li>We have already run <code>import babypandas as bpd</code> and
+<code>import numpy as np</code>. <br><br></li>
 </ul>
-<p>On the graph paper below, draw the histogram that would be produced
-by this code.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>(</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>sungod.take(np.arange(<span class="dv">5</span>))</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>      .plot(kind<span class="op">=</span><span class="st">&#39;hist&#39;</span>, density<span class="op">=</span><span class="va">True</span>, </span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>      bins<span class="op">=</span>np.arange(<span class="dv">0</span>, <span class="dv">7</span>, <span class="dv">2</span>), y<span class="op">=</span><span class="st">&#39;Appearance_Order&#39;</span>)<span class="op">;</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<p>In your drawing, make sure to label the height of each bar in the
-histogram on the vertical axis. You can scale the axes however you like,
-and the two axes don’t need to be on the same scale.</p>
-<center><img src='../assets/images/sp22-midterm/graph-paper.png' width=250></center>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="true" aria-controls="collapse2">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse2" class="accordion-collapse collapse"
-aria-labelledby="heading2" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong></p>
-<center><img src="../assets/images/sp22-midterm/graph-paper-soln.png" width="330"/></center>
-<p>To draw the histogram, we first need to bin the data and figure out
-how many data values fall into each bin. The code includes
-<code>bins=np.arange(0, 7, 2)</code> which means the bin endpoints are
-<span class="math inline">0, 2, 4, 6</span>. This gives us three bins:
-<span class="math inline">[0, 2)</span>, <span class="math inline">[2,
-4)</span>, and <span class="math inline">[4, 6]</span>. Remember that
-all bins, except for the last one, include the left endpoint but not the
-right. The last bin includes both endpoints.</p>
-<p>Now that we know what the bins are, we can count up the number of
-values in each bin. We need to look at the
-<code>'Appearance_Order'</code> column of
-<code>sungod.take(np.arange(5))</code>, or the first five rows of
-<code>sungod</code>. The values there are <span class="math inline">1,
-4, 3, 1, 3</span>. The two <span class="math inline">1</span>s fall into
-the first bin <span class="math inline">[0, 2)</span>. The two <span class="math inline">3</span>s fall into the second bin <span class="math inline">[2, 4)</span>, and the one <span class="math inline">4</span> falls into the last bin <span class="math inline">[4, 6]</span>. This means the proportion of values
-in each bin are <span class="math inline">\frac{2}{5}, \frac{2}{5},
-\frac{1}{5}</span> from left to right.</p>
-<p>To figure out the height of each bar in the histogram, we use the
-fact that the area of a bar in a density histogram should equal the
-proportion of values in that bin. The area of a rectangle is height
-times width, so height is area divided by width.</p>
-<p>For the bin <span class="math inline">[0, 2)</span>, the area is
-<span class="math inline">\frac{2}{5} = 0.4</span> and the width is
-<span class="math inline">2</span>, so the height is <span class="math inline">\frac{0.4}{2} = 0.2</span>.</p>
-<p>For the bin <span class="math inline">[2, 4)</span>, the area is
-<span class="math inline">\frac{2}{5} = 0.4</span> and the width is
-<span class="math inline">2</span>, so the height is <span class="math inline">\frac{0.4}{2} = 0.2</span>.</p>
-<p>For the bin <span class="math inline">[4, 6]</span>, the area is
-<span class="math inline">\frac{1}{5} = 0.2</span> and the width is
-<span class="math inline">2</span>, so the height is <span class="math inline">\frac{0.2}{2} = 0.1</span>.</p>
-<p>Since the bins are all the same width, the fact that there an equal
-number of values in the first two bins and half as many in the third bin
-means the first two bars should be equally tall and the third should be
-half as tall. We can use this to draw the rest of the histogram quickly
-once we’ve drawn the first bar.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 45%.</p>
-</div>
-</div>
-</div>
-</div>
-<hr />
-<h2 id="problem-3">Problem 3</h2>
-<p>Nintendo collected data on the heights of a sample of <em>Animal
-Crossing: New Horizons</em> players. A histogram of the heights in their
-sample is given below.</p>
-<center><img src="../../assets/images/fa23-quizzes/histogram.png" width=400></center>
-<p>What <strong>percentage</strong> of players in Nintendo’s sample are
-at least 62.5 inches tall? Give your answer as an integer rounded to the
-<strong>nearest multiple of 5</strong>.</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="true" aria-controls="collapse3">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse3" class="accordion-collapse collapse"
-aria-labelledby="heading3" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer</strong>: 80%</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 73%.</p>
-</div>
-</div>
-</div>
-</div>
-<hr />
-<h2 id="problem-4">Problem 4</h2>
-<p>Suppose there are 200 students enrolled in DSC 10, and that the
-histogram below displays the distribution of the number of Instagram
-followers each student has, measured in 100s. That is, if a student is
-represented in the first bin, they have between 0 and 200 Instagram
-followers.</p>
-<center><img src='../assets/images/sp23-midterm/histogram.png' width=60%></center>
-<p><br></p>
-<h3 id="problem-4.1">Problem 4.1</h3>
-<p>How many students in DSC 10 have between 200 and 800 Instagram
-followers? Give your answer as an integer.</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading4_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_1" aria-expanded="true" aria-controls="collapse4_1">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse4_1" class="accordion-collapse collapse"
-aria-labelledby="heading4_1" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer</strong>: 90</p>
-<p>Remember, the key property of histograms is that the proportion of
-values in a bin is equal to the area of the corresponding bar. To find
-the number of values in the range 2-8 (the <span class="math inline">x</span>-axis is measured in hundreds), we’ll need
-to find the proportion of values in the range 2-8 and multiply that by
-200, which is the total number of students in DSC 10. To find the
-proportion of values in the range 2-8, we’ll need to find the areas of
-the 2-4, 4-6, and 6-8 bars.</p>
-<p>Area of the 2-4 bar: <span class="math inline">\text{width} \cdot
-\text{height} = 2 \cdot 0.1 = 0.2</span></p>
-<p>Area of the 4-6 bar: <span class="math inline">\text{width} \cdot
-\text{height} = 2 \cdot 0.0625 = 0.125</span>.</p>
-<p>Area of the 6-8 bar: <span class="math inline">\text{width} \cdot
-\text{height} = 2 \cdot 0.0625 = 0.125</span>.</p>
-<p>Then, the total proportion of values in the range 2-8 is <span class="math inline">0.2 + 0.125 + 0.125 = 0.45</span>, so the total
-number of students with between 200 and 800 Instagram followers is <span class="math inline">0.45 \cdot 200 = 90</span>.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 49%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-4.2">Problem 4.2</h3>
-<p>Suppose the height of a bar in the above histogram is <span
-class="math inline">h</span>. How many students are represented in the
-corresponding bin, in terms of <span class="math inline">h</span>?</p>
-<p><em>Hint: Just as in the first subpart, you’ll need to use the
-assumption from the start of the problem.</em></p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> <span class="math inline">20 \cdot h</span></p></li>
-<li><p><input type="radio" disabled="" /> <span class="math inline">100 \cdot h</span></p></li>
-<li><p><input type="radio" disabled="" /> <span class="math inline">200 \cdot h</span></p></li>
-<li><p><input type="radio" disabled="" /> <span class="math inline">400 \cdot h</span></p></li>
-<li><p><input type="radio" disabled="" /> <span class="math inline">800 \cdot h</span></p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading4_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_2" aria-expanded="true" aria-controls="collapse4_2">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse4_2" class="accordion-collapse collapse"
-aria-labelledby="heading4_2" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer</strong>: <span class="math inline">400 \cdot
-h</span></p>
-<p>As we said at the start of the last solution, the key property of
-histograms is that the proportion of values in a bin is equal to the
-area of the corresponding bar. Then, the number of students represented
-bar a bar is the total number of students in DSC 10 (200) multiplied by
-the area of the bar.</p>
-<p>Since all bars in this histogram have a width of 2, the area of a bar
-in this histogram is <span class="math inline">\text{width} \cdot
-\text{height} = 2 \cdot h</span>. If there are 200 students in total,
-then the number of students represented in a bar with height <span class="math inline">h</span> is <span class="math inline">200 \cdot 2
-\cdot h = 400 \cdot h</span>.</p>
-<p>To verify our answer, we can check to see if it makes sense in the
-context of the previous subpart. The 2-4 bin has a height of <span class="math inline">0.1</span>, and <span class="math inline">400 \cdot
-0.1 = 40</span>. The total number of students in the range 2-8 was 90,
-so it makes sense that 40 of them came from the 2-4 bar, since the 2-4
-bar takes up about half of the area of the 2-8 range.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 36%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<hr />
-<h2 id="problem-5">Problem 5</h2>
-<p>The DataFrame <code>uc</code> has information about the number of
-degrees awarded by each University of California campus, for each of the
-past six academic years <code>"2018-2019"</code> through
-<code>"2023-2024"</code>. Since there are ten UC campuses and six years
-of data, there are 60 rows. The columns are <code>"Campus" (str)</code>,
-<code>"Year" (str)</code>, and <code>"Degrees" (int)</code>.
-<br><br></p>
-<h3 id="problem-5.1">Problem 5.1</h3>
-<p>Typically, graduation ceremonies happen only at the end of an
-academic year. For example, students who earn a degree in the 2024-2025
-academic year celebrate with a graduation ceremony in 2025.</p>
-<p>The function <code>ceremony_year</code> takes as input a string
-formatted like those in the <code>"Year"</code> column of , and
-<strong>returns an <code>int</code> corresponding to the year of the
-graduation ceremony</strong> for that academic year. For example,
-<code>ceremony_year("2024-2025")</code> should return <code>2025</code>.
-Fill in the return statement of this function below.</p>
-<pre><code>def ceremony_year(academic_year):
-    return</code></pre>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading5_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_1" aria-expanded="true" aria-controls="collapse5_1">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse5_1" class="accordion-collapse collapse"
-aria-labelledby="heading5_1" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer:</strong>
-<code>int(academic_year.split("-")[1])</code></p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 70%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<div class="center">
-
-</div>
-<p><br></p>
-<h3 id="problem-5.2">Problem 5.2</h3>
-<p>What does the following expression evaluate to? Write your answer
-exactly how the output would appear in Python.</p>
-<pre><code>uc.get(&quot;Year&quot;).apply(ceremony_year).min()</code></pre>
-<div class="center">
-
-</div>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading5_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_2" aria-expanded="true" aria-controls="collapse5_2">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse5_2" class="accordion-collapse collapse"
-aria-labelledby="heading5_2" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer:</strong> <code>2019</code></p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 87%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<hr />
-<h2 id="problem-6">Problem 6</h2>
-<p>In the <code>ikea</code> DataFrame, the first word of each string in
-the <code>'product'</code> column represents the product line. For
-example the HEMNES line of products includes several different products,
-such as beds, dressers, and bedside tables.</p>
-<p>The code below assigns a new column to the <code>ikea</code>
-DataFrame containing the product line associated with each product.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>(ikea.assign(product_line <span class="op">=</span> ikea.get(<span class="st">&#39;product&#39;</span>)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>                                .<span class="bu">apply</span>(extract_product_line)))</span></code></pre></div>
-<p><br></p>
-<h3 id="problem-6.1">Problem 6.1</h3>
-<p>What are the input and output types of the
-<code>extract_product_line</code> function?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> takes a string as input, returns a string</p></li>
-<li><p><input type="radio" disabled="" /> takes a string as input, returns a Series</p></li>
-<li><p><input type="radio" disabled="" /> takes a Series as input, returns a string</p></li>
-<li><p><input type="radio" disabled="" /> takes a Series as input, returns a Series</p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading6_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_1" aria-expanded="true" aria-controls="collapse6_1">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse6_1" class="accordion-collapse collapse"
-aria-labelledby="heading6_1" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> takes a string as input, returns a
-string</p>
-<p>To use the Series method <code>.apply</code>, we first need a Series,
-containing values of any type. We pass in the name of a function to
-<code>.apply</code> and essentially, <code>.apply</code> calls the given
-function on each value of the Series, producing a Series with the
-resulting outputs of those function calls. In this case,
-<code>.apply(extract_product_line)</code> is called on the Series
-<code>ikea.get('product')</code>, which contains string values. This
-means the function <code>extract_product_line</code> must take strings
-as inputs. We’re told that the code assigns a new column to the
-<code>ikea</code> DataFrame containing the product line associated with
-each product, and we know that the product line is a string, as it’s the
-first word of the product name. This means the function
-<code>extract_product_line</code> must output a string.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 72%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-6.2">Problem 6.2</h3>
-<p>Complete the return statement in the
-<code>extract_product_line</code> function below.</p>
-<p>For example,
-<code>extract_product_line('HEMNES Daybed frame with 3 drawers, white, Twin')</code>
-should return <code>'HEMNES'</code>.</p>
+<p>Fill in the blank in the code below so that
+<code>chronological</code> is a DataFrame with the same rows as
+<code>sungod</code>, but ordered chronologically by appearance on stage.
+That is, earlier years should come before later years, and within a
+single year, artists should appear in the DataFrame in the order they
+appeared on stage at Sun God. Note that <code>groupby</code>
+automatically sorts the index in ascending order.</p>
 <div class="sourceCode" id="cb10"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> extract_product_line(x):</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> _________</span></code></pre></div>
-<p>What goes in the blank?</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading6_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_2" aria-expanded="true" aria-controls="collapse6_2">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse6_2" class="accordion-collapse collapse"
-aria-labelledby="heading6_2" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> <code>x.split(' ')[0]</code></p>
-<p>This function should take as input a string <code>x</code>,
-representing a product name, and return the first word of that string,
-representing the product line. Since words are separated by spaces, we
-want to split the string on the space character <code>' '</code>.</p>
-<p>It’s also correct to answer <code>x.split()[0]</code> without
-specifying to split on spaces, because the default behavior of the
-string <code>.split</code> method is to split on any whitespace, which
-includes any number of spaces, tabs, newlines, etc. Since we’re only
-extracting the first word, which will be separated from the rest of the
-product name by a single space, it’s equivalent to split using single
-spaces and using the default of any whitespace. </p>
-<hr/>
-<h5>Difficulty:
-⭐️⭐️</h5>
-<p>The average score on this problem was 84%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<hr />
-<h2 id="problem-7">Problem 7</h2>
-<p>Complete the implementation of the <code>to_minutes</code> function
-below. This function takes as input a string formatted as
-<code>'x hr, y min'</code> where <code>x</code> and <code>y</code>
-represent integers, and returns the corresponding number of minutes,
-<strong>as an integer</strong> (type <code>int</code> in Python).</p>
-<p>For example, <code>to_minutes('3 hr, 5 min')</code> should return
-185.</p>
-<div class="sourceCode" id="cb11"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> to_minutes(time):</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    first_split <span class="op">=</span> time.split(<span class="st">&#39; hr, &#39;</span>)</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    second_split <span class="op">=</span> first_split[<span class="dv">1</span>].split(<span class="st">&#39; min&#39;</span>)</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> _________</span></code></pre></div>
-<p>What goes in the blank?</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading7">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7" aria-expanded="true" aria-controls="collapse7">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse7" class="accordion-collapse collapse"
-aria-labelledby="heading7" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong>
-<code>int(first_split[0])*60+int(second_split[0])</code></p>
-<p>As the last subpart demonstrated, if we want to compare times, it
-doesn’t make sense to do so when times are represented as strings. In
-the <code>to_minutes</code> function, we convert a time string into an
-integer number of minutes.</p>
-<p>The first step is to understand the logic. Every hour contains 60
-minutes, so for a time string formatted like <code>x hr, y min'</code>
-the total number of minutes comes from multiplying the value of
-<code>x</code> by 60 and adding <code>y</code>.</p>
-<p>The second step is to understand how to extract the <code>x</code>
-and <code>y</code> values from the time string using the string methods
-<code>.split</code>. The string method <code>.split</code> takes as
-input some separator string and breaks the string into pieces at each
-instance of the separator string. It then returns a list of all those
-pieces. The first line of code, therefore, creates a list called
-<code>first_split</code> containing two elements. The first element,
-accessed by <code>first_split[0]</code> contains the part of the time
-string that comes before <code>' hr, '</code>. That is,
-<code>first_split[0]</code> evaluates to the string <code>x</code>.</p>
-<p>Similarly, <code>first_split[1]</code> contains the part of the time
-string that comes after <code>' hr, '</code>. So it is formatted like
-<code>'y min'</code>. If we split this string again using the separator
-of <code>' min'</code>, the result will be a list whose first element is
-the string <code>'y'</code>. This list is saved as
-<code>second_split</code> so <code>second_split[0]</code> evaluates to
-the string <code>y</code>.</p>
-<p>Now we have the pieces we need to compute the number of minutes,
-using the idea of multiplying the value of <code>x</code> by 60 and
-adding <code>y</code>. We have to be careful with data types here, as
-the bolded instructions warn us that the function must return an
-integer. Right now, <code>first_split[0]</code> evaluates to the string
-<code>x</code> and <code>second_split[0]</code> evaluates to the string
-<code>y</code>. We need to convert these strings to integers before we
-can multiply and add. Once we convert using the <code>int</code>
-function, then we can multiply the number of hours by 60 and add the
-number of minutes. Therefore, the solution is
-<code>int(first_split[0])*60+int(second_split[0])</code>.</p>
-<p>Note that failure to convert strings to integers using the
-<code>int</code> function would lead to very different behavior. Let’s
-take the example time string of <code>'3 hr, 5 min'</code> as input to
-our function. With the return statement as
-<code>int(first_split[0])*60+int(second_split[0])</code>, the function
-would return 185 on this input, as desired. With the return statement as
-<code>first_split[0]*60+second_split[0]</code>, the function would
-return a string of length 61, looking something like this
-<code>'3333...33335'</code>. That’s because the <code>*</code> and
-<code>+</code> symbols do have meaning for strings, they’re just
-different meanings than when used with integers.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 71%.</p>
-</div>
-</div>
-</div>
-</div>
-<hr />
-<h2 id="problem-8">Problem 8</h2>
-<p>An art museum records information about its collection in a DataFrame
-called <code>art</code>. The columns of <code>art</code> are as
-follows:</p>
-<ul>
-<li><code>"title" (str)</code>: the name of the art piece.</li>
-<li><code>"artist" (str)</code>: the name of the artist.</li>
-<li><code>"year" (int)</code>: the year the art piece was produced.</li>
-<li><code>"price" (float)</code>: the selling price of the art piece in
-dollars <br><br></li>
-</ul>
-<h3 id="problem-8.1">Problem 8.1</h3>
-<p>Which of the following correctly plots a density histogram showing
-the distribution of <code>"price"</code> in <code>art</code>? Select all
-that apply.</p>
+class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>chronological <span class="op">=</span> sungod.groupby(___________).<span class="bu">max</span>().reset_index()</span></code></pre></div>
 <ul class="task-list">
-<li><p><input type="checkbox" disabled="" /> <code>art.get(["price"]).plot(kind="hist", density=True)</code></p></li>
-<li><p><input type="checkbox" disabled="" /> <code>art.get(["price"]).plot(kind="hist")</code></p></li>
-<li><p><input type="checkbox" disabled="" /> <code>art.drop(columns=["artist", "year", "price"]).plot(kind="hist", density=True)</code></p></li>
-<li><p><input type="checkbox" disabled="" /> <code>art.plot(kind="hist", y="price")</code></p></li>
-<li><p><input type="checkbox" disabled="" /> <code>art.plot(kind="hist", y="price", density=True)</code></p></li>
-<li><p><input type="checkbox" disabled="" /> <code>art.plot(kind="hist", x="price", density=True)</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>['Year', 'Artist', 'Appearance_Order']</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>['Year', 'Appearance_Order']</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>['Appearance_Order', 'Year']</code></p></li>
+<li><p><input type="radio" disabled="" /> None of the above.</p></li>
 </ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading8_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_1" aria-expanded="true" aria-controls="collapse8_1">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse8_1" class="accordion-collapse collapse"
-aria-labelledby="heading8_1" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer</strong>: Options 1 and 5</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 83%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-8.2">Problem 8.2</h3>
-<p>The density histogram below shows the distribution of
-<code>"price"</code> in <code>art</code>. If the museum has 100 art
-pieces in total, how many pieces cost at least $3,000 but less than
-$4,500?</p>
-<center><img src="../../assets/images/sp24-quizzes/prices.png" width=400></center>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading8_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_2" aria-expanded="true" aria-controls="collapse8_2">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse8_2" class="accordion-collapse collapse"
-aria-labelledby="heading8_2" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer</strong>: 30</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 55%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
 <hr />
 <h2 id="problem-9">Problem 9</h2>
-<p>The <code>laptops</code> DataFrame contains information on various
-factors that influence the pricing of laptops. Each row represents a
-laptop, and the columns are:</p>
+<p>Another DataFrame called <code>music</code> contains a row for every
+music artist that has ever released a song. The columns are:</p>
 <ul>
-<li><code>"Mfr" (str)</code>: the company that manufactures the laptop,
-like “Apple” or “Dell”.</li>
-<li><code>"Model" (str)</code>: the model name of the laptop, such as
-“MacBook Pro”.</li>
-<li><code>"OS" (str)</code>: the operating system, such as “macOS” or
-“Windows 11”.</li>
-<li><code>"Screen Size" (float)</code>: the diagonal length of the
-screen, in inches.</li>
-<li><code>"Price" (float)</code>: the price of the laptop, in dollars.
-<br><br></li>
+<li><code>'Name'</code> (<code>str</code>): the name of the music
+artist</li>
+<li><code>'Genre'</code> (<code>str</code>): the primary genre of the
+artist</li>
+<li><code>'Top_Hit'</code> (<code>str</code>): the most popular song by
+that artist, based on sales, radio play, and streaming</li>
+<li><code>'Top_Hit_Year'</code> (<code>int</code>): the year in which
+the top hit song was released</li>
 </ul>
-<p>A density histogram of <code>"Screen Size"</code> is shown below.</p>
-<center><img src="../../assets/images/wi24-quizzes/histogram.png" width=400></center>
-<p>What <strong>percentage</strong> of computer models have a
-<code>"Screen Size"</code> of at least 16 inches but less than 18
-inches? Give your answer as an integer rounded to the <strong>nearest
-multiple of 5</strong>.</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading9">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9" aria-expanded="true" aria-controls="collapse9">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse9" class="accordion-collapse collapse"
-aria-labelledby="heading9" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer</strong> 35%</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 72%.</p>
-</div>
-</div>
-</div>
-</div>
+<p>You want to know how many musical genres have been represented at Sun
+God since its inception in 1983. Which of the following expressions
+produces a DataFrame called <code>merged</code> that could help
+determine the answer?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>merged = sungod.merge(music, left_on='Year', right_on='Top_Hit_Year')</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>merged = music.merge(sungod, left_on='Year', right_on='Top_Hit_Year')</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>merged = sungod.merge(music, left_on='Artist', right_on='Name')</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>merged = music.merge(sungod, left_on='Artist', right_on='Name')</code></p></li>
+</ul>
+<hr />
+<h2 id="problem-10">Problem 10</h2>
+<p>Consider an artist that has only appeared once at Sun God. At the
+time of their Sun God performance, we’ll call the artist</p>
+<ul>
+<li><strong>outdated</strong> if their top hit came out more than five
+years prior,</li>
+<li><strong>trending</strong> if their top hit came out within the five
+years prior, and</li>
+<li><strong>up-and-coming</strong> if their top hit came out after they
+appeared at Sun God.</li>
+</ul>
+<p>Complete the function below so it outputs the appropriate description
+for any input artist who has appeared exactly once at Sun God.</p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> classify_artist(artist):</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    filtered <span class="op">=</span> merged[merged.get(<span class="st">&#39;Artist&#39;</span>) <span class="op">==</span> artist]</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    year <span class="op">=</span> filtered.get(<span class="st">&#39;Year&#39;</span>).iloc[<span class="dv">0</span>]</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    top_hit_year <span class="op">=</span> filtered.get(<span class="st">&#39;Top_Hit_Year&#39;</span>).iloc[<span class="dv">0</span>]</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> ___(a)___ <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;up-and-coming&#39;</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> ___(b)___:</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;outdated&#39;</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;trending&#39;</span></span></code></pre></div>
+<p><br></p>
+<h3 id="problem-10.1">Problem 10.1</h3>
+<p>What goes in blank (a)?</p>
+<p><br> <br></p>
+<h3 id="problem-10.2">Problem 10.2</h3>
+<p>What goes in blank (b)?</p>
+<p><br></p>
+<hr />
+<h2 id="problem-11">Problem 11</h2>
+<p>King Triton, UCSD’s mascot, is quite the traveler! For this question,
+we will be working with the <code>flights</code> DataFrame, which
+details several facts about each of the flights that King Triton has
+been on over the past few years. The first few rows of
+<code>flights</code> are shown below.</p>
+<center><img src='../assets/images/fa21-midterm/flights.png' width=40%></center>
+<p><br></p>
+<p>Here’s a description of the columns in <code>flights</code>:</p>
+<ul>
+<li><code>'DATE'</code>: the date on which the flight occurred. Assume
+that there were no “redeye” flights that spanned multiple days.</li>
+<li><code>'FLIGHT'</code>: the flight number. Note that this is not
+unique; airlines reuse flight numbers on a daily basis.</li>
+<li><code>'FROM'</code> and <code>'TO'</code>: the 3-letter airport code
+for the departure and arrival airports, respectively. Note that it’s not
+possible to have a flight from and to the same airport.</li>
+<li><code>'DIST'</code>: the distance of the flight, in miles.</li>
+<li><code>'HOURS'</code>: the length of the flight, in hours.</li>
+<li><code>'SEAT'</code>: the kind of seat King Triton sat in on the
+flight; the only possible values are <code>'WINDOW'</code>,
+<code>'MIDDLE'</code>, and <code>'AISLE'</code>. <br><br></li>
+</ul>
+<p>Suppose we create a DataFrame called <code>socal</code> containing
+only King Triton’s flights departing from SAN, LAX, or SNA (John Wayne
+Airport in Orange County). <code>socal</code> has 10 rows; the bar chart
+below shows how many of these 10 flights departed from each airport.</p>
+<center><img src='../assets/images/fa21-midterm/socal.png' width=30%></center>
+<p><br></p>
+<p>Consider the DataFrame that results from merging <code>socal</code>
+with itself, as follows:</p>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>double_merge <span class="op">=</span> socal.merge(socal, left_on<span class="op">=</span><span class="st">&#39;FROM&#39;</span>, right_on<span class="op">=</span><span class="st">&#39;FROM&#39;</span>)</span></code></pre></div>
+<p>How many rows does <code>double_merge</code> have?</p>
+<hr />
+<h2 id="problem-12">Problem 12</h2>
+<p>We define a “route” to be a departure and arrival airport pair. For
+example, all flights from <code>'SFO'</code> to <code>'SAN'</code> make
+up the “SFO to SAN route”. This is different from the “SAN to SFO
+route”.</p>
+<p>Fill in the blanks below so that
+<code>most_frequent.get('FROM').iloc[0]</code> and
+<code>most_frequent.get('TO').iloc[0]</code> correspond to the departure
+and destination airports of the route that King Triton has spent the
+<strong>most time flying on</strong>.</p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>most_frequent <span class="op">=</span> flights.groupby(__(a)__).__(b)__</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>most_frequent <span class="op">=</span> most_frequent.reset_index().sort_values(__(c)__)</span></code></pre></div>
+<p><br></p>
+<h3 id="problem-12.1">Problem 12.1</h3>
+<p>What goes in blank (a)?</p>
+<p><br></p>
+<h3 id="problem-12.2">Problem 12.2</h3>
+<p>What goes in blank (b)?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>count()</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>mean()</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>sum()</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>max()</code></p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-12.3">Problem 12.3</h3>
+<p>What goes in blank (c)?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>by='HOURS', ascending=True</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>by='HOURS', ascending=False</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>by='HOURS', descending=True</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>by='DIST', ascending=False</code></p></li>
+</ul>
+<p><br></p>
+<hr />
+<h2 id="problem-13">Problem 13</h2>
+<p>We define the seasons as follows:</p>
+<center>
+<table class="table" style="width:30%">
+  <thead>
+    <tr>
+      <th scope="col">Season</th>
+      <th scope="col">Month</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">Spring</th>
+      <td>March, April, May</td>
+    </tr>
+    <tr>
+      <th scope="row">Summer</th>
+      <td>June, July, August</td>
+    </tr>
+    <tr>
+      <th scope="row">Fall</th>
+      <td>September, October, November</td>
+    </tr>
+    <tr>
+      <th scope="row">Winter</th>
+      <td>December, January, February</td>
+    </tr>
+  </tbody>
+</table>
+</center>
+<p><br></p>
+<h3 id="problem-13.1">Problem 13.1</h3>
+<p>We want to create a function <code>date_to_season</code> that takes
+in a <code>date</code> as formatted in the <code>'DATE'</code> column of
+<code>flights</code> and returns the season corresponding to that date.
+Which of the following implementations of <code>date_to_season</code>
+works correctly? <strong>Select all that apply.</strong></p>
+<p>Option 1:</p>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> date_to_season(date):</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    month_as_num <span class="op">=</span> <span class="bu">int</span>(date.split(<span class="st">&#39;-&#39;</span>)[<span class="dv">1</span>])</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> month_as_num <span class="op">&gt;=</span> <span class="dv">3</span> <span class="kw">and</span> month_as_num <span class="op">&lt;</span> <span class="dv">6</span>:</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Spring&#39;</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> month_as_num <span class="op">&gt;=</span> <span class="dv">6</span> <span class="kw">and</span> month_as_num <span class="op">&lt;</span> <span class="dv">9</span>:</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Summer&#39;</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> month_as_num <span class="op">&gt;=</span> <span class="dv">9</span> <span class="kw">and</span> month_as_num <span class="op">&lt;</span> <span class="dv">12</span>:</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Fall&#39;</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Winter&#39;</span></span></code></pre></div>
+<p>Option 2:</p>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> date_to_season(date):</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    month_as_num <span class="op">=</span> <span class="bu">int</span>(date.split(<span class="st">&#39;-&#39;</span>)[<span class="dv">1</span>])</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> month_as_num <span class="op">&gt;=</span> <span class="dv">3</span> <span class="kw">and</span> month_as_num <span class="op">&lt;</span> <span class="dv">6</span>:</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Spring&#39;</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> month_as_num <span class="op">&gt;=</span> <span class="dv">6</span> <span class="kw">and</span> month_as_num <span class="op">&lt;</span> <span class="dv">9</span>:</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Summer&#39;</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> month_as_num <span class="op">&gt;=</span> <span class="dv">9</span> <span class="kw">and</span> month_as_num <span class="op">&lt;</span> <span class="dv">12</span>:</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Fall&#39;</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Winter&#39;</span></span></code></pre></div>
+<p>Option 3:</p>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> date_to_season(date):</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    month_as_num <span class="op">=</span> <span class="bu">int</span>(date.split(<span class="st">&#39;-&#39;</span>)[<span class="dv">1</span>])</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> month_as_num <span class="op">&lt;</span> <span class="dv">3</span>:</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Winter&#39;</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> month_as_num <span class="op">&lt;</span> <span class="dv">6</span>:</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Spring&#39;</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> month_as_num <span class="op">&lt;</span> <span class="dv">9</span>:</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Summer&#39;</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> month_as_num <span class="op">&lt;</span> <span class="dv">12</span>:</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Fall&#39;</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">&#39;Winter&#39;</span> </span></code></pre></div>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> Option 1</p></li>
+<li><p><input type="checkbox" disabled="" /> Option 2</p></li>
+<li><p><input type="checkbox" disabled="" /> Option 3</p></li>
+<li><p><input type="checkbox" disabled="" /> None of these implementations of <code>date_to_season</code> work
+correctly</p></li>
+</ul>
+<p><br></p>
+<h3 id="problem-13.2">Problem 13.2</h3>
+<p>Assuming we’ve defined <code>date_to_season</code> correctly in the
+previous part, which of the following lines of code correctly computes
+the season for each flight in <code>flights</code>?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>date_to_season(flights.get('DATE'))</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>date_to_season.apply(flights).get('DATE')</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>flights.apply(date_to_season).get('DATE')</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>flights.get('DATE').apply(date_to_season)</code></p></li>
+</ul>
+<p><br></p>
 <hr />
 <h2 id="section"><span class="math display"> </span></h2>
 <h4

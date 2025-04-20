@@ -60,6 +60,11 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
       <td>Monday, April 14th</td>
       <td><a href="disc03/index.html">Querying, Grouping, and Plotting</a></td>
     </tr>
+    <tr>
+      <th scope="row">4</th>
+      <td>Monday, April 21st</td>
+      <td><a href="disc04/index.html">Functions, DataFrames, and Control Flow</a></td>
+    </tr>
 <!--    
     <tr>
       <th scope="row">4</th>
@@ -267,6 +272,13 @@ We've provided answers to all quiz questions, but you won't find detailed explan
   </thead>
   <tbody>
     <tr>
+      <th scope="row">Spring 2025</th>
+      <td>Janine Tiefenbruck</td>
+      <td>
+        <a href='sp25-quiz1/index.html'>Quiz 1</a>
+      </td>
+    </tr>
+    <tr>
       <th scope="row">Winter 2025</th>
       <td>Janine Tiefenbruck</td>
       <td>
@@ -276,8 +288,8 @@ We've provided answers to all quiz questions, but you won't find detailed explan
       <a href='wi25-quiz4/index.html'>Quiz 4</a> •
       <a href='wi25-quiz5/index.html'>Quiz 5</a>
       </td>
-      </tr>  
-      <tr>
+    </tr>  
+    <tr>
       <th scope="row">Fall 2024</th>
       <td>Janine Tiefenbruck</td>
       <td>
