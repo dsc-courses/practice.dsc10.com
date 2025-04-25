@@ -1,0 +1,3 @@
+The DataFrame `ghibli` contains information about all 25 films produced by Studio Ghibli, the acclaimed Japanese animation studio. For each film, we have its `"Name"`, `"Director"`, `"Budget"` and `"Revenue"` (both in millions of dollars), primary `"Genre"`, and `"Runtime"` in minutes. `ghibli` has 25 rows. The first two are shown below.
+
+<center><img src="../../assets/images/sp25-quizzes/quiz2_df.jpg" width=700></center>
