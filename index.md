@@ -139,6 +139,12 @@ Each exam linked here lists the conditions under which the exam was given, inclu
   </thead>
   <tbody>
     <tr>
+      <th scope="row">Spring 2025</th>
+      <td>Janine Tiefenbruck</td>
+      <td><a href='sp25-midterm/index.html'>Midterm</a>
+      </td>
+    </tr>
+    <tr>
       <th scope="row">Winter 2025</th>
       <td>Janine Tiefenbruck</td>
       <td><a href='wi25-midterm/index.html'>Midterm</a>
