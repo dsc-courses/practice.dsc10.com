@@ -87,7 +87,7 @@
   </style>
   <link rel="stylesheet" href="../assets/theme.css" />
   <script defer=""
-  src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
  var mathElements = document.getElementsByClassName("math");
  var macros = [];
@@ -103,7 +103,7 @@
 }}});
   </script>
   <link rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
 </head>
 <body>
 <header id="title-block-header">
@@ -900,9 +900,18 @@ aria-labelledby="heading7_1" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer (a):</strong>
 <code>np.arange(n), k, replace=False</code></p>
+<p>This makes sure that exactly k winners are chosen randomly from n
+participants without replacement, since no person can win more than
+once.</p>
 <p><strong>Answer (b):</strong>
 <code>0 in winners and 1 in winners</code> (can be any two numbers)</p>
+<p>Assuming Jason and Ray are represented by IDs 0 and 1, this checks
+whether both of them are in the list of winners for that trial. However,
+because we never specify what number Jason and Ray are, you could use
+any two numbers (ie: <code>1 in winners and 2 in winners</code>)</p>
 <p><strong>Answer (c):</strong> <code>count/10000</code></p>
+<p>This computes the estimated probability as the fraction of trials
+where both Jason and Ray won out of 10,000 simulations.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
 <p>
@@ -930,6 +939,8 @@ aria-labelledby="heading7_2" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer:</strong> <code>1.0</code></p>
+<p>Since k is equal to n, everyone wins by default, meaning Jason and
+Ray will always be among the winners.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -974,6 +985,24 @@ aria-labelledby="heading7_3" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer:</strong> <code>len(results)/10000</code> and
 <code>(results == "WIN!").mean()</code></p>
+<ul>
+<li><p><code>len(results)/10000</code> calculates the proportion of
+trials that resulted in “WIN!”, which gives the probability.</p></li>
+<li><p><code>(results == "WIN!").mean()</code> works too because
+<code>(results == "WIN!")</code> gives a boolean array of True/False,
+and .mean() calculates the proportion of True values, which again gives
+the estimated probability.</p></li>
+<li><p><code>(results == "WIN!").sum()</code>: This counts the number of
+“WIN!” results but does not divide by 10000, so it gives a raw count,
+not a probability.</p></li>
+<li><p><code>np.count_nonzero(results)</code>: This counts all non empty
+entries, but since results contains only “WIN!” strings, this is just
+len(results) and is equivalent to the raw count of wins, not the
+probability.</p></li>
+<li><p><code>np.random.choice(results)</code>: This randomly picks an
+element from results. It is unrelated to calculating a probability and
+makes no sense in this context.</p></li>
+</ul>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
