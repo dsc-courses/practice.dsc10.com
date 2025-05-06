@@ -70,6 +70,11 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
       <td>Monday, April 28th</td>
       <td><a href="disc05/index.html">Probability and Simulation</a></td>
     </tr>
+    <tr>
+      <th scope="row">6</th>
+      <td>Wednesday, May 7th</td>
+      <td><a href="disc06/index.html">Sampling, Bootstrapping, and Confidence Intervals</a></td>
+    </tr>
 <!--    
     <tr>
       <th scope="row">4</th>
