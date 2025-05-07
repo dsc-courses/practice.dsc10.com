@@ -21,8 +21,9 @@
       vertical-align: middle;
     }
     /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -33,7 +34,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -87,7 +88,7 @@
   </style>
   <link rel="stylesheet" href="../assets/theme.css" />
   <script defer=""
-  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
  var mathElements = document.getElementsByClassName("math");
  var macros = [];
@@ -103,7 +104,7 @@
 }}});
   </script>
   <link rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
+  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
 </head>
 <body>
 <header id="title-block-header">
@@ -685,6 +686,28 @@ aria-labelledby="heading5_3" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer:</strong> <code>trade_partners</code> and
 <code>trade_partners.groupby("Continent").sum()</code></p>
+<p>Solving this problem is best done by working through each answer
+choice and eliminating the incorrect ones. In the problem statement, we
+are told that the <code>Proportion</code> column contains floats
+representing the proportion of US imports coming from each country.
+Since the <code>Proportion</code> column contains proportions, the sum
+of that column should equal one. Therefore, the first answer choice is a
+correct option. Moving on to the second choice, grouping by the
+continent and taking the mean proportion of each continent results in
+the proportion column containing mean proportions of groups. Since we
+are no longer working with all of the proportions and instead averages,
+we can not guarantee the sum of the <code>Proportion</code> column is
+one. However, because the third answer choice takes the sum of the
+proportions in each Continent, all of the proportions are still
+accounted for. As a result, the sum of the proportions column in the new
+dataframe would still add to one. Finally, as we determined in the
+previous part of the question, the <code>merged</code> dataframe
+contains all of the rows in <code>tariffs</code>, but not all of the
+rows in <code>trade_partners</code>. Per the problem description the
+rows in the <code>Proportion</code> column of
+<code>trade_partners</code> should sum to one, since some of those rows
+are omitted in <code>merged</code>, it is impossible for the
+<code>Proportion</code> column in merged to sum to one.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -714,6 +737,28 @@ aria-labelledby="heading5_4" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer:</strong>
 <code>merged.groupby("Continent").median().plot(kind="barh", y="Reciprocal Tariff");</code></p>
+<p>This question calls for a visualization which shows the median
+reciprocal tariff for each continent. The first part of solving this
+problem involves correctly identifying what dataframe to use when
+plotting the data. In this case, the problem asks for a link between
+<code>Reciprocal Tariff</code>, a column in the <code>tariffs</code>
+dataframe, and <code>Continent</code>, a column in the
+<code>trade_partners</code> dataframe. Therefore, the
+<code>merged</code> dataframe must be used to create the plot. Within
+the <code>merged</code> dataframe, the question calls for median
+reciprocal tariffs for each continent. Currently, the
+<code>merged</code> dataframe has one row for each country rather than
+continent. Thus, before plotting the data, the <code>merged</code>
+dataframe must be grouped by <code>Continent</code> and aggregated by
+the <code>median()</code> to get the median
+<code>Reciprocal Tariff</code> for each continent. From there, all that
+is left is plotting the data. Since there exists one categorical
+variable, <code>Continent</code>, and one numerical variable,
+<code>Reciprocal Tariff</code>, a bar chart is appropriate here.
+Finally, because the dataframe is already indexed by continent after the
+groupby statement, all that needs to be specified within the
+<code>plot</code> function is the y variable, in this case,
+<code>Reciprocal Tariff</code>.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
