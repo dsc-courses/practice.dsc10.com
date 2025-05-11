@@ -75,6 +75,11 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
       <td>Wednesday, May 7th</td>
       <td><a href="disc06/index.html">Sampling, Bootstrapping, and Confidence Intervals</a></td>
     </tr>
+    <tr>
+      <th scope="row">7</th>
+      <td>Monday, May 12th</td>
+      <td><a href="disc07/index.html">Standardization and the Normal Distribution</a></td>
+    </tr>
 <!--    
     <tr>
       <th scope="row">4</th>
