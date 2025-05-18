@@ -80,6 +80,11 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
       <td>Monday, May 12th</td>
       <td><a href="disc07/index.html">Standardization and the Normal Distribution</a></td>
     </tr>
+    <tr>
+      <th scope="row">8</th>
+      <td>Monday, May 17th</td>
+      <td><a href="disc08/index.html">The Central Limit Theorem and Hypothesis Testing</a></td>
+    </tr>
 <!--    
     <tr>
       <th scope="row">4</th>
@@ -297,7 +302,8 @@ We've provided answers to all quiz questions, but you won't find detailed explan
       <td>Janine Tiefenbruck</td>
       <td>
         <a href='sp25-quiz1/index.html'>Quiz 1</a> •
-        <a href='sp25-quiz2/index.html'>Quiz 2</a>
+        <a href='sp25-quiz2/index.html'>Quiz 2</a> •
+        <a href='sp25-quiz3/index.html'>Quiz 3</a>
       </td>
     </tr>
     <tr>
