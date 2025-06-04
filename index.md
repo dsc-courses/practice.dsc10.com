@@ -313,7 +313,8 @@ We've provided answers to all quiz questions, but you won't find detailed explan
       <td>
         <a href='sp25-quiz1/index.html'>Quiz 1</a> •
         <a href='sp25-quiz2/index.html'>Quiz 2</a> •
-        <a href='sp25-quiz3/index.html'>Quiz 3</a>
+        <a href='sp25-quiz3/index.html'>Quiz 3</a> •
+        <a href='sp25-quiz5/index.html'>Quiz 5</a>
       </td>
     </tr>
     <tr>
