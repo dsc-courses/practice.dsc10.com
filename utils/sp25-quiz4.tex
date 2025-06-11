@@ -1,0 +1,233 @@
+\documentclass[twoside,12pt]{article}
+
+\usepackage{dsctemplate}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{nicefrac}
+\usepackage{minted}
+\usetikzlibrary{quotes,angles,positioning,arrows.meta}
+\usetikzlibrary{calc}
+\usepackage{enumitem}
+\usepackage{fancyvrb}
+\usepackage{dirtytalk}
+\usepackage{comment}
+
+\DefineVerbatimEnvironment{verbatim}{Verbatim}{xleftmargin=.5in}
+
+% configuration
+% ----------------------------------------------https://www.overleaf.com/project/65a60c6c6d7cf6b99f9607b4--------------------------------
+
+% control whether solutions are shown or hidden
+\showsolntrue
+
+% page headers only on odd pages
+\pagestyle{fancy}
+\fancyhead{}
+\fancyhead[RO]{PID: \rule{3in}{.5pt}}
+\renewcommand{\headrulewidth}{0pt}
+% \pagenumbering{gobble}
+
+% ------------------------------------------------------------------------------
+
+\begin{document}
+
+
+\thispagestyle{empty}
+
+\vspace{-5.5in}
+
+\pstitle{%
+    Quiz 4
+}{DSC 10, Spring 2025}
+
+\vspace{-.3in}
+
+\begin{tabular}{rl}
+    Full Name: & \inlineresponsebox[4in]{Solutions}\\
+    PID: & \inlineresponsebox[4in]{A12345678}\vspace{.1in}\\
+    Quiz Time: & \bubble{3PM} \bubble{3:30PM} \bubble{4PM} \bubble{4:30PM} \vspace{.3in} \\ 
+\end{tabular}
+
+\vspace{.1in}
+
+\hline
+
+\vspace{.1in}
+
+\textbf{Instructions:}
+    \begin{itemize}
+        \item This quiz consists of 3 questions. You have a total of 20 minutes to complete it.
+        \item Please write \textbf{clearly} in the provided answer boxes; we will not grade work that appears elsewhere. Completely fill in bubbles and square boxes; if we cannot tell which option(s) you selected, you may lose points.
+        
+            \bubble{A bubble means that you should only \textbf{select one choice}.}
+            
+            \squarebubble{A square box means you should \textbf{select all that apply}.}
+        \item If your answer is a string, make sure to put it in quotes. If your answer is a float, make sure to include a decimal point.
+        \item You may use one handwritten sheet of notes. No calculators and no computers.
+    \end{itemize}
+
+\vspace{.1in}
+
+\hline
+
+\vspace{2in}
+
+\noindent By signing below, you are agreeing that you will behave honestly and fairly during
+and after this quiz. 
+
+\begin{tabular}{rl}
+    \: \: \: \: \: Signature: & \inlineresponsebox[4in]{}\\
+\end{tabular}
+
+\vfill
+
+\begin{center}
+{\huge Version A} \vspace{.2in}
+
+Please do not open your quiz until instructed to do so.
+
+\end{center}
+
+\newpage
+
+\begin{probset}
+
+\begin{prob}
+
+You want to test the following hypotheses:
+
+\medskip
+\textbf{Null Hypothesis:} Everyone who applies for an internship at Google has \textbf{a 20\% chance} of receiving a job offer, independently of all other applicants.
+
+\smallskip
+\textbf{Alternative Hypothesis:} Everyone who applies for an internship at Google has \textbf{a more than 20\% chance} of receiving a job offer, independently of all other applicants.
+
+\medskip
+To test these hypotheses, you collected information from 50 applicants and found that 16 of them received a job offer.
+
+\begin{subprobset}
+    \begin{subprob} Fill in the blanks in the code below to calculate the p-value for a hypothesis test where the test statistic is the number of applicants, out of 50, who receive a job offer.
+    \begin{verbatim}
+offers_array = np.array([])
+
+for i in np.arange(10000):
+    num_offers = ___(a)___
+    offers_array = ___(b)___
+
+p_value = ___(c)___
+p_value
+    \end{verbatim}
+
+    \medskip
+    \texttt{(a)}: \inlineresponsebox[5.8in]{\texttt{np.random.multinomial(50, [0.2, 0.8])[0]} or \texttt{np.random.choice([0,1], 50, p = [0.80, 0.20]).sum()}}
+    \texttt{(b)}: \inlineresponsebox[5.8in]{\texttt{np.append(offers\_array, num\_offers)}}
+    \texttt{(c)}: \inlineresponsebox[5.8in]{\texttt{np.count\_nonzero(offers\_array >= 16)/10000} or \texttt{np.mean(offers\_array >= 16)}}
+    \end{subprob}
+
+    \begin{subprob}
+    Suppose the p-value comes out to $0.03$. What conclusion do we draw?
+
+    \smallskip
+    
+    \bubble{We reject the null hypothesis at both the $0.01$ and $0.05$ significance levels.} 
+
+    \smallskip
+    
+    \correctbubble{We fail to reject the null hypothesis at the $0.01$ significance level and we reject the\\ \hspace*{1.2em} null hypothesis at the $0.05$ significance level.}
+
+    \smallskip
+
+    \bubble{We reject the null hypothesis at the $0.01$ significance level and we fail to reject the\\ \hspace*{1.2em} null hypothesis at the $0.05$ significance level.}
+
+    \smallskip
+    
+    \bubble{We fail to reject the null hypothesis at both the $0.01$ and $0.05$ significance levels.}
+    
+    \end{subprob}
+    \newpage
+    \begin{subprob}
+        Which of the following test statistics would have also been appropriate to test these hypotheses? Select all that apply.
+
+        \smallskip
+
+        \correctsquarebubble{Number of applicants, out of 50, who do not receive a job offer.} 
+
+        \smallskip
+        
+        \correctsquarebubble{Proportion of applicants that receive a job offer.}
+    
+        \smallskip
+    
+        \squarebubble{The sum of the absolute differences between $[0.2, 0.8]$ and the distribution of\\ \hspace*{1.2em} applicants into two categories: those getting a job offer and those not getting a job\\ \hspace*{1.2em} offer.}
+    
+        \smallskip
+        
+        \squarebubble{Absolute difference between 20 and the number of applicants, out of 50, who receive\\ \hspace*{1.2em} a job offer.}
+
+        \smallskip
+        
+        \squarebubble{None of the above.}
+    
+    \end{subprob}
+\end{subprobset}
+
+\end{prob}
+
+\bigskip
+
+\begin{prob}
+
+According to Indeed, a popular job website, the hourly pay for data science interns across the US has a mean of 24 and a standard deviation of 6. You take a random sample of 64 data science interns. In your sample, the hourly pay has a mean of 25 and a standard deviation of 4. Suppose you bootstrap your sample 10,000 times, calculate the mean hourly pay from each resample, and plot a histogram of these resampled means. Which of the following best describes this histogram?
+
+\bubble {Roughly normal with a mean of 24 and a standard deviation of 6.}
+
+\smallskip
+
+\bubble{Roughly normal with a mean of 24 and a standard deviation of 0.75.}
+
+\smallskip
+
+\bubble{Roughly normal with a mean of 25 and a standard deviation of 4.}
+
+\smallskip
+
+\correctbubble{Roughly normal with a mean of 25 and a standard deviation of 0.5.}
+
+\smallskip
+
+\bubble{None of the above.}
+
+\end{prob}
+
+\bigskip
+
+\begin{prob}
+You are interested in estimating the average wait time between an interview and an internship offer being made. You take a random sample of $n$ internship offers and find that in this sample, the average wait time is $d$ days and the standard deviation is 4 days. 
+
+You construct a 95\% CLT-based confidence interval for the true average wait time, in days, which comes out to $[10.4, 13.6]$. Find $n$ and $d$.
+
+    \begin{center}  
+    \text{$n$ =} \inlineresponsebox[1.5in]{\texttt{25}}{} 
+    \hspace{0.5in}
+    \text{$d$ =} \inlineresponsebox[1.5in]{\texttt{12}}{}  
+    \end{center}
+    
+\end{prob}
+\end{probset}
+
+
+\newpage
+
+\begin{center}
+\textbf{Reminders:}
+\begin{itemize}
+    \item \textbf{Write your PID} on the front page and on the top right corner of page 3.
+    \item If your answer is a string, make sure to put it in \textbf{quotes}.
+    \item If your answer is a float, make sure to include a \textbf{decimal point}.
+    \item Stay in your seat until the quiz is over. No leaving early.
+\end{itemize}
+\end{center}
+
+\end{document}
