@@ -424,6 +424,186 @@ we can simply take
 </div>
 <p><br></p>
 <hr />
+<h2 id="problem-3">Problem 3</h2>
+<p>So far, we have seen one way that children have tickets entered into
+the reaping: they receive one ticket when they are <span
+class="math inline">12</span> years old, and then each year thereafter,
+an additional ticket is added onto the previous year’s total. This means
+<span class="math inline">13</span>-year-olds have two tickets, <span
+class="math inline">14</span>-year-olds have three tickets, and so on.
+We’ll call these tickets <strong>age tickets</strong>.</p>
+<p>In this problem only, we’ll consider another way that a child may
+<em>choose</em> to enter tickets into the reaping in addition to the
+mandatory age tickets. If a child wishes, they can guarantee food
+rations for their family members, including themselves, at the price of
+<strong>one ticket per person</strong>. We’ll call these tickets
+<strong>food tickets</strong>. Like age tickets, food tickets are
+compounded each year, adding onto last year’s total.</p>
+<p>As an example, let’s calculate the number of tickets that Katniss
+Everdeen has entered into the drawing at the reaping. Katniss is <span
+class="math inline">16</span> years old, and every year, she has bought
+food for 3 family members (herself, her mother, and her sister Prim).
+This means:</p>
+<ul>
+<li><p>At age <span class="math inline">12</span>, Katniss had one age
+ticket and three food tickets, making <span class="math inline">4</span>
+tickets total.</p></li>
+<li><p>At age <span class="math inline">13</span>, Katniss had one age
+ticket and three food tickets <strong>in addition to</strong> the <span
+class="math inline">4</span> tickets from the year before, making <span
+class="math inline">8</span> tickets total.</p></li>
+<li><p>At age <span class="math inline">14</span>, Katniss again had one
+age ticket and three food tickets <strong>in addition to</strong> the
+<span class="math inline">8</span> tickets from the year before, making
+<span class="math inline">12</span> tickets total.</p></li>
+</ul>
+<p>This pattern continues, and by the time Katniss is <span
+class="math inline">16</span>, she has <span
+class="math inline">20</span> tickets.</p>
+<p>In other words, Katniss had <span class="math inline">4</span>
+tickets entered when she was <span class="math inline">12</span> years,
+and <span class="math inline">4</span> more with each passing year. The
+array <code>np.arange(4, 24, 4)</code> contains the number of tickets
+Katniss entered each year, starting at age <span
+class="math inline">12</span>, up to and including her current age of
+<span class="math inline">16</span> years old.</p>
+<p><br></p>
+<h3 id="problem-3.1">Problem 3.1</h3>
+<p>Fill in the blanks below to define the function
+<code>tix_array</code> which takes in a child’s current <code>age</code>
+between <span class="math inline">12</span> and <span
+class="math inline">18</span> (inclusive) and a number of family
+members, <code>k</code>. The function returns an array similar Katniss’s
+array above, representing the number of tickets they entered into the
+reaping each year since they were <span class="math inline">12</span>
+years old, assuming that they buy food for their whole family every
+year.</p>
+<p><strong>Tip:</strong> <code>tix_array(16, 3)</code> should be the
+same as the array <code>np.arange(4, 24, 4)</code>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> tix_array(age, k):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.arange(__(a)__, __(b)__, __(c)__)</span></code></pre></div>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading3_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_1" aria-expanded="true" aria-controls="collapse3_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse3_1" class="accordion-collapse collapse"
+aria-labelledby="heading3_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>:</p>
+<p><code>(a)</code>: <code>k + 1</code></p>
+<p><code>(b)</code>: <code>(ages - 10) * (k + 1)</code></p>
+<p><code>(c)</code>: <code>k + 1</code></p>
+<p>At age 12 each kid gets 1 ticket for their age and <code>k</code>
+food tickets; therefore, the starting value of our list must be must be
+at <code>k + 1</code> because that’s how many tickets they get when they
+first enter. Next, we want the list to go up to the kid’s current age.
+This means we can stop at <code>(age - 10) * (k + 1)</code> to cover all
+of the years beginning from age 12 all the way till their current age.
+Finally, each year the ki adds the same number of tickets one for their
+increase in age and another <code>k</code> for food. Thus, the step is
+<code>k + 1</code>.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-3.2">Problem 3.2</h3>
+<p>The DataFrame <code>reaping</code> contains information on the
+children of District 12 between the ages of <span
+class="math inline">12</span> and <span class="math inline">18</span>.
+For each child, we have their <code>"name"</code>, <code>"age"</code>,
+<code>"family_size"</code> which includes themselves, and a boolean
+variable <code>"buying_food"</code>. A value of <code>True</code> means
+the child always buys food for their entire family, and
+<code>False</code> means the child never buys food for anyone. The first
+few rows of <code>reaping</code> are shown below, but there are many
+more rows than pictured.</p>
+<center><img src="../../assets/images/sp25-final/reaping_df.jpg" width=300></center>
+<p>Fill in the blanks in the code below to add a new column,
+<code>"tickets"</code>, to <code>reaping</code> that contains the number
+of tickets that the child will have entered into the drawing in the
+current year.</p>
+<p><strong>Hint:</strong> In Python, <code>True</code> is treated as
+<span class="math inline">1</span> and <code>False</code> is treated as
+<span class="math inline">0</span> when doing arithmetic!</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>tickets_per_year <span class="op">=</span> __(d)__ <span class="op">*</span> __(e)__ <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>current_tickets <span class="op">=</span> tickets_per_year <span class="op">*</span> (__(f)__)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>reaping <span class="op">=</span> reaping.assign(tickets <span class="op">=</span> current_tickets)</span></code></pre></div>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading3_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_2" aria-expanded="true" aria-controls="collapse3_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse3_2" class="accordion-collapse collapse"
+aria-labelledby="heading3_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>:</p>
+<p><code>(d)</code>: <code>reaping.get("buying_food")</code></p>
+<p><code>(e)</code>: <code>reaping.get("family_size")</code></p>
+<p><code>(f)</code>: <code>reaping.get("age") - 11</code></p>
+<p>We use the <code>"buying_food"</code> column to extract whether a
+child chose to get extra food rations. This value consists of
+<code>bool</code> values, and because of the way booleans are encoded in
+python we can use this column as part of the math.</p>
+<p>We use <code>"family_size"</code> because the child needs one food
+ticket per each one of their family members. Multiplying it by
+<code>"buying_food"</code> column from the previous part gives the
+correct number of food tickets per year which is either the full family
+size (if they are buying food) or 0 (if they are not buying food).</p>
+<p>Finally we can use our shortcut to calculate the number of years a
+child has been entering tickets, our shortcut being subtracting the age
+of each child found in the <code>"age"</code> column by 11.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-3.3">Problem 3.3</h3>
+<p>For this subpart, assume that the <code>tix_array</code> function was
+defined correctly in part <span class="math inline">(a)</span>, and that
+the <code>"tickets"</code> column was added correctly to the
+<code>reaping</code> DataFrame in part <span
+class="math inline">(b)</span>. Fill in the blanks in the code below so
+that the following expression evaluates to <code>True</code>.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>reaping.get(<span class="st">&quot;tickets&quot;</span>).iloc[<span class="dv">7</span>] <span class="op">==</span> tix_array(__(g)__, __(h)__)[<span class="op">-</span><span class="dv">1</span>]</span></code></pre></div>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading3_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_3" aria-expanded="true" aria-controls="collapse3_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse3_3" class="accordion-collapse collapse"
+aria-labelledby="heading3_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>:</p>
+<p><code>(g)</code>: <code>reaping.get("age").iloc[7]</code></p>
+<p><code>(h)</code>: <code>reaping.get("family_size").iloc[7]</code></p>
+<p>The left side of the equation looks to access the number of tickets
+associated with the 8th child. To check this using the tix_array
+function we need to use the current age of the 8th child and the family
+size of the 8th child as inputs. We can get these values by extracting
+them from their respective columns.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
 <h2 id="section"><span class="math display"> </span></h2>
 <h4
 id="feedback-find-an-error-still-confused-have-a-suggestion-let-us-know-here.">👋
