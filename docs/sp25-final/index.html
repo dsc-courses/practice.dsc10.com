@@ -702,6 +702,264 @@ for scores greater than 8.</p>
 </div>
 </div>
 <hr />
+<h2 id="problem-5">Problem 5</h2>
+<p>The night before the Hunger Games begins, each tribute is interviewed
+in front of a live audience. During this interview, the host asks each
+tribute a few personal questions and reveals their overall score from
+the training camp. These interviews are broadcast across the country, so
+that the residents of Panem can get to know the tributes better and form
+opinions about who they want to win.</p>
+<p>The Capitol wants to understand public perceptions of the tributes
+after the interviews for the 74th Hunger Games. They conduct a survey of
+a sample of residents from all 12 districts, asking them two
+questions:</p>
+<ol type="1">
+<li><p>“What district do you live in?"</p></li>
+<li><p>“Who do you think will win this year’s Hunger Games?"</p></li>
+</ol>
+<p>The survey results are in the DataFrame <code>survey</code>, with
+columns <code>"District"</code> and <code>"Tribute"</code> which contain
+each person’s answers to the two questions above. The first few rows of
+<code>survey</code> are shown below.</p>
+<center><img src="../../assets/images/sp25-final/survey_df.png"" width=300></center>
+<p>In this problem, we will try to estimate the proportion of residents
+from a given district who think a certain tribute will win the Hunger
+Games.</p>
+<p><br></p>
+<h3 id="problem-5.1">Problem 5.1</h3>
+<p>What proportion of residents in District 11 think Peeta will win?
+Write <strong>one line of code</strong> that evaluates to this
+proportion <strong>in our sample</strong>, based on the data in
+<code>survey</code>.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading5_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_1" aria-expanded="true" aria-controls="collapse5_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse5_1" class="accordion-collapse collapse"
+aria-labelledby="heading5_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>:
+<code>survey[(survey.get("Tribute") == "Peeta") &amp; (survey.get("District") == 11)].shape[0] / survey[survey.get("District") == 11].shape[0]</code></p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-5.2">Problem 5.2</h3>
+<p>Next, we want to create a 95% confidence interval for the proportion
+of <strong>all</strong> residents from a given district who think a
+certain tribute will win. Fill in the blanks in the function
+<code>win_CI</code> below. This function takes the name of a tribute and
+the number of a district and returns the endpoints of a 95% bootstrapped
+confidence interval for the proportion of all residents of that district
+who think that tribute will win, based on the data in
+<code>survey</code>.</p>
+<p>For example <code>win_ci("Peeta", 11)</code> returns the endpoints of
+a 95% confidence interval for the proportion of all residents from
+District 11 who think Peeta will win.</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> win_ci(tribute, district):</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>            only_district <span class="op">=</span> survey[survey.get(<span class="st">&quot;District&quot;</span>) <span class="op">==</span> district]</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>            props <span class="op">=</span> np.array([])</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>                resample <span class="op">=</span> __(a)__</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>                tribute_count <span class="op">=</span> __(b)__</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>                boot_prop <span class="op">=</span> tribute_count <span class="op">/</span> __(c)__</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>                props <span class="op">=</span> np.append(props, boot_prop)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> [np.percentile(props, <span class="fl">2.5</span>), np.percentile(props, <span class="fl">97.5</span>)]</span></code></pre></div>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading5_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_2" aria-expanded="true" aria-controls="collapse5_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse5_2" class="accordion-collapse collapse"
+aria-labelledby="heading5_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><code>(a)</code>:
+<code>only_district.sample(only_district.shape[0], replace=True)</code></p>
+<p>For the first blank we have to create a bootstrapped sample from just
+the rows in the given district. We sample with replacement here as we do
+when we bootstrap to keep the same number of rows. That being said we
+use the <code>.sample</code> function with replacement to get our sample
+from the <code>only_district</code> dataframe containing the rows in the
+given district. Within our sample we want the number of rows to be the
+same size as the <code>only_district</code> dataframe. so we set the
+size argument to be <code>only_district.shape[0]</code>.</p>
+<p><code>(b)</code>:
+<code>resample[resample.get("Tribute") == tribute].shape[0]</code></p>
+<p>Now we want to find how many times the given tribute appears in the
+bootstrapped sample. To do that we query the dataframe for the given
+tribute and the take the size of our query using
+<code>.shape[0]</code>.</p>
+<p><code>(c)</code>: <code>resample.shape[0]</code></p>
+<p>The denominator of our resample is just the total number of people in
+the resample. That being said to fill this blank all we need to do is
+use <code>.shape[0]</code> to take the size of the resample.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-5.3">Problem 5.3</h3>
+<p>Suppose we were to plot a histogram of <code>props</code> within the
+function <code>win_CI</code>. Which of the following best describes this
+histogram?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> The histogram reflects the shape of the population.</p></li>
+<li><p><input type="radio" disabled="" /> The histogram reflects the shape of the data in
+<code>survey</code>.</p></li>
+<li><p><input type="radio" disabled="" /> The histogram reflects the shape of the data in <code>survey</code>
+which corresponds to the given district.</p></li>
+<li><p><input type="radio" disabled="" /> The histogram is roughly normal because of the Central Limit Theorem
+(CLT).</p></li>
+<li><p><input type="radio" disabled="" /> The histogram is roughly normal, but not because of the CLT.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading5_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_3" aria-expanded="true" aria-controls="collapse5_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse5_3" class="accordion-collapse collapse"
+aria-labelledby="heading5_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: The histogram is roughly normal because of
+the Central Limit Theorem (CLT).</p>
+<p>The props histogram shows the ditribution of proportions from a bunch
+of random resamples. Per the CLT, the distribution of sample stats like
+proportions will be basically normal, regardless of the shape of the
+original dataset.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-5.4">Problem 5.4</h3>
+<p>Suppose we now compute the following:</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p><code>win_ci("Katniss", 4)</code></p>
+</blockquote>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>[0.25, 0.72]</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p><code>win_ci("Katniss", 12)</code></p>
+</blockquote>
+</blockquote>
+</blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>[0.50, 0.70]</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>Which of the following reasons best explains why the second interval
+is narrower than the first?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> More people live in District 12 than District 4.</p></li>
+<li><p><input type="radio" disabled="" /> More people live in District 4 than District 12.</p></li>
+<li><p><input type="radio" disabled="" /> A greater fraction of District 12 residents than District 4 residents
+think Katniss will win.</p></li>
+<li><p><input type="radio" disabled="" /> A greater fraction of District 4 residents than District 12 residents
+think Katniss will win.</p></li>
+<li><p><input type="radio" disabled="" /> There are more survey participants from District 12 than District
+4.</p></li>
+<li><p><input type="radio" disabled="" /> There are more survey participants from District 4 than District
+12.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading5_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_4" aria-expanded="true" aria-controls="collapse5_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse5_4" class="accordion-collapse collapse"
+aria-labelledby="heading5_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: There are more survey participants from
+District 12 than District 4.</p>
+<p>Confidence intervals get narrower when there is an increase in sample
+size. This is because the variation present in the bootstrapped
+estimates is smaller. Therefore, we can say there were more survey
+participants from District 12 than District 4.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-5.5">Problem 5.5</h3>
+<p>Suppose we want to redo our survey so that our confidence interval
+for the proportion of District 12 residents who think Katniss will win
+has a width of at most <span class="math inline">0.10</span>. We will
+assume that our new sample’s standard deviation will be the same as our
+original sample’s standard deviation. Which of the following best
+describes how to achieve this?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Our new sample should have twice as many people from District 12. It
+doesn’t matter how many people the sample contains overall.</p></li>
+<li><p><input type="radio" disabled="" /> Our new sample should have four times as many people from District
+12. It doesn’t matter how many people the sample contains overall.</p></li>
+<li><p><input type="radio" disabled="" /> Our new sample should have twice as many people overall. It doesn’t
+matter how many of them are from District 12.</p></li>
+<li><p><input type="radio" disabled="" /> Our new sample should have four times as many people overall. It
+doesn’t matter how many of them are from District 12.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading5_5">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_5" aria-expanded="true" aria-controls="collapse5_5">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse5_5" class="accordion-collapse collapse"
+aria-labelledby="heading5_5" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: Our new sample should have four times as
+many people overall. It doesn’t matter how many of them are from
+District 12.</p>
+<p>The width of our confidence interval is determined by the standard
+error which decreases at the factor of <span class="math inline">\frac{1}{\sqrt(n)}</span> to half the width, we need
+the denominator to increase by a factor of 2. Therefore, we need 4x more
+data, as the square root of 4 is 2.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
 <h2 id="section"><span class="math display"> </span></h2>
 <h4
 id="feedback-find-an-error-still-confused-have-a-suggestion-let-us-know-here.">👋
