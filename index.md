@@ -24,11 +24,15 @@ In all cases, you should work on these problems **on paper**, since your quizzes
 DSC 10's only prerequisite is high school algebra.
 In order to gauge your preparedness for the type of math you'll see
 in this class, you should work through <b><a href="pretest/index.html">these practice problems</a></b> on your own. This pretest will help you identify any gaps in your background knowledge and it will teach you some useful test-taking skills.
+<br><br>
+This pretest is due **Thursday, October 2nd at 11:59PM**. Write your solutions on paper, and show your work, then submit to Gradescope.<br><br>
+The pretest will be graded based on honest effort, not on the correctness of your responses. You will earn participation credit for completing the pretest to the best of your ability.<br><br>
+We will release solutions to the pretest at the beginning of Week 2. You are highly encouraged to check how you did and learn from the solutions. 
 
 
 ---
 
-### 💯 Discussions for Spring 2025
+### 💯 Discussions for Fall 2025
 
 
 <center>
@@ -48,9 +52,10 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
   <tbody>
     <tr>
       <th scope="row">1</th>
-      <td>Wednesday, April 2nd</td>
-      <td><a href="disc01/index.html">Getting Started With Jupyter Notebooks</a></td>
+      <td>Monday, September 29th</td>
+      <td>Getting Started With Jupyter Notebooks</td>
     </tr>
+<!--
     <tr>
       <th scope="row">2</th>
       <td>Wednesday, April 9th</td>
@@ -96,47 +101,7 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
       <td>Wednesday, June 4th</td>
       <td><a href="disc10/index.html">Regression</a></td>
     </tr>
-<!--    
-    <tr>
-      <th scope="row">4</th>
-      <td>Monday, January 27th</td>
-      <td><a href="disc04/index.html">Histograms and Functions</a></td>
-    </tr>
-    <tr>
-      <th scope="row">5</th>
-      <td>Wednesday, January 29th</td>
-      <td><a href="disc05/index.html">Functions, Merging, and Control Flow</a></td>
-    </tr>
-    <tr>
-      <th scope="row">6</th>
-      <td>Monday, February 3rd</td>
-      <td><a href="disc06/index.html">Probability and Simulation</a></td>
-    </tr>
-    <tr>
-      <th scope="row">7</th>
-      <td>Wednesday, February 12th</td>
-      <td><a href="disc07/index.html">Sampling, Bootstrapping, and Confidence Intervals</a></td>
-    </tr>
-    <tr>
-      <th scope="row">8</th>
-      <td>Wednesday, February 19th</td>
-      <td><a href="disc08/index.html">Standardization and The Normal Distribution</a></td>
-    </tr>
-    <tr>
-      <th scope="row">9</th>
-      <td>Monday, February 24th</td>
-      <td><a href="disc09/index.html">The Central Limit Theorem</a></td>
-    </tr>
-    <tr>
-      <th scope="row">10</th>
-      <td>Monday, March 3rd</td>
-      <td><a href="disc10/index.html">Hypothesis Testing and Permutation Testing</a></td>
-    </tr>
-    <tr>
-      <th scope="row">11</th>
-      <td>Monday, March 10th</td>
-      <td><a href="disc11/index.html">Regression</a></td>
-    </tr>  -->
+-->
   </tbody>
 </table>
 </center> 
