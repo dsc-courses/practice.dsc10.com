@@ -10,8 +10,7 @@ title: Home – DSC 10 Practice
 
 This site contains practice problems taken from old DSC 10 quizzes and exams. We've organized problems in a few ways:
 
-1. As **discussions**. Each discussion problem set contains problems about a particular topic. We will not have discussion sections for Summer 2025, but you can access Spring 2025's discussion problem sets below.
-<!-- Come to discussions to work on these problem sets in groups, with the help of our course staff.  -->
+1. As **discussions**. Each discussion problem set contains problems about a particular topic. Come to discussions to work on these problem sets in groups, with the help of our course staff. 
 1. As **practice exams**. Work through these in the weeks leading up to exams.
 1. As **practice quizzes**. Work through these to practice for quizzes.
 
