@@ -52,7 +52,7 @@ We will release solutions to the pretest at the beginning of Week 2. You are hig
     <tr>
       <th scope="row">1</th>
       <td>Monday, September 29th</td>
-      <td>Getting Started With Jupyter Notebooks</td>
+      <td><a href="disc01/index.html">Getting Started With Jupyter Notebooks</a></td>
     </tr>
 <!--
     <tr>
