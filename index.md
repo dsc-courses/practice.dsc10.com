@@ -54,12 +54,13 @@ We will release solutions to the pretest at the beginning of Week 2. You are hig
       <td>Monday, September 29th</td>
       <td><a href="disc01/index.html">Getting Started With Jupyter Notebooks</a></td>
     </tr>
-<!--
     <tr>
       <th scope="row">2</th>
-      <td>Wednesday, April 9th</td>
+      <td>Monday, October 6th</td>
       <td><a href="disc02/index.html">Arrays and DataFrames</a></td>
     </tr>
+<!--
+    
     <tr>
       <th scope="row">3</th>
       <td>Monday, April 14th</td>
