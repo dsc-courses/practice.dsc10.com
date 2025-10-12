@@ -59,13 +59,13 @@ We will release solutions to the pretest at the beginning of Week 2. You are hig
       <td>Monday, October 6th</td>
       <td><a href="disc02/index.html">Arrays and DataFrames</a></td>
     </tr>
-<!--
-    
     <tr>
       <th scope="row">3</th>
-      <td>Monday, April 14th</td>
+      <td>Monday, October 13th</td>
       <td><a href="disc03/index.html">Querying, Grouping, and Plotting</a></td>
     </tr>
+<!--
+    
     <tr>
       <th scope="row">4</th>
       <td>Monday, April 21st</td>
