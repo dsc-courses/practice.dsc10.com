@@ -1,3 +1,7 @@
+---
+lecture: 17
+---
+
 # BEGIN PROB
 Oren has a random sample of 200 dog prices in an array called `oren`. He has
 also bootstrapped his sample 1,000 times and stored the mean of each

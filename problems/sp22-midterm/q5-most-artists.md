@@ -1,3 +1,7 @@
+---
+lecture: 5
+---
+
 # BEGIN PROB
 
 What was the largest number of artists that ever performed in a single Sun God festival? **Select all expressions that evaluate to the correct answer.**

@@ -1,3 +1,7 @@
+---
+lecture: 25
+---
+
 # BEGIN PROB
 
 Now let's study the relationship between a penguin's bill length (in millimeters) and mass (in grams). Suppose we're given that

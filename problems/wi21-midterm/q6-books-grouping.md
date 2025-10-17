@@ -1,3 +1,7 @@
+---
+lecture: 5
+---
+
 # BEGIN PROB
 
 You are given a DataFrame called `books` that contains columns `'author'` (string), `'title'` (string), `'num_chapters'` (int), and `'publication_year'` (int).

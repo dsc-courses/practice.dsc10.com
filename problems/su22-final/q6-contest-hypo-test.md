@@ -1,3 +1,7 @@
+---
+lecture: 20
+---
+
 # BEGIN PROB
 Every year, the American Kennel Club holds a Photo Contest for dogs.
 Eric wants to know whether **toy dogs win disproportionately more

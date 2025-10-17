@@ -1,3 +1,7 @@
+---
+lecture: 11
+---
+
 # BEGIN PROB
 
 Each individual penguin in our dataset is of a certain species (Adelie, Chinstrap, or Gentoo) and comes from a particular island in Antarctica (Biscoe, Dream, or Torgerson). There are 330 penguins in our dataset, grouped by species and island as shown below.

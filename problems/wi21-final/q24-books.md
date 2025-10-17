@@ -1,3 +1,7 @@
+---
+lecture: 24
+---
+
 # BEGIN PROB
 
 *Are nonfiction books longer than fiction books?*

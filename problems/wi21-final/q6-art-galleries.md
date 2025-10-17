@@ -1,3 +1,7 @@
+---
+lecture: 7
+---
+
 # BEGIN PROB
 
 Suppose you have a dataset of 29 art galleries that includes the number of pieces of art in each gallery. 

@@ -1,3 +1,7 @@
+---
+lecture: 11
+---
+
 # BEGIN PROB
 
 **True or False**: If you roll two dice, the probability of rolling two fives is the same as the probability of rolling a six and a three.

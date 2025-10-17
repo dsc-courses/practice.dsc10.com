@@ -1,3 +1,7 @@
+---
+lecture: 9
+---
+
 # BEGIN PROB
 
 Recall that we have the complete set of currently available discounts in the DataFrame `offers`. 

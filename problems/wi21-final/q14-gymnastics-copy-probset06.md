@@ -1,3 +1,7 @@
+---
+lecture: 15
+---
+
 # BEGIN PROB
 
 The data visualization below shows all Olympic gold medals for women’s gymnastics, broken down by the age of the gymnast. 

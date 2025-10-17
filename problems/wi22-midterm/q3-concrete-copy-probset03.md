@@ -1,3 +1,7 @@
+---
+lecture: 8
+---
+
 # BEGIN PROB
 
 In this question, we'll take a closer look at the `'material'` column of `sky`.

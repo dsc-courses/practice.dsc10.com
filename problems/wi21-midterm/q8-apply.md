@@ -1,3 +1,7 @@
+---
+lecture: 8
+---
+
 # BEGIN PROB
 
 Which of the following best describes the input and output types of the `.apply` Series method?

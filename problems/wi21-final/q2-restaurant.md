@@ -1,3 +1,7 @@
+---
+lecture: 4
+---
+
 # BEGIN PROB
 
 The command `.set_index` can take as input one column, to be used as the index, or a sequence of columns to be used as a nested index (sometimes called a MultiIndex). A MultiIndex is the default behavior of the dataframe returned by .groupby with multiple columns.

@@ -1,3 +1,7 @@
+---
+lecture: 17
+---
+
 # BEGIN PROB
 
 The `season` DataFrame contains statistics on all players in the WNBA in the 2021 season. The first few rows of `season` are shown below.

@@ -1,3 +1,7 @@
+---
+lecture: 4
+---
+
 # BEGIN PROB
 
 Suppose you are given a DataFrame of employees for a given company. The DataFrame, called `employees`, is indexed by `'employee_id'` (string) with a column called `'years'` (int) that contains the number of years each employee has worked for the company.

@@ -1,3 +1,7 @@
+---
+lecture: 24
+---
+
 # BEGIN PROB
 
 Raine is helping settle a debate between two friends on the "superior\"

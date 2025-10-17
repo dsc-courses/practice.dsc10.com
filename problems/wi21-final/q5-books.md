@@ -1,3 +1,7 @@
+---
+lecture: 9
+---
+
 # BEGIN PROB
 
 You are given a table called books that contains columns `'author'` (`str`), `'title'` (`str`), `'num_chapters'` (`int`), and `'publication_year'` (`int`).

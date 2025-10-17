@@ -1,3 +1,7 @@
+---
+lecture: 5
+---
+
 # BEGIN PROB
 
 In this question, we'll keep working with the `art_museums` DataFrame.

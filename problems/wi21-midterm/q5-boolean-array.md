@@ -1,3 +1,7 @@
+---
+lecture: 5
+---
+
 # BEGIN PROB
 
 Suppose `df` is a DataFrame and `b` is any boolean array whose length is the same as the number of rows of `df`. 

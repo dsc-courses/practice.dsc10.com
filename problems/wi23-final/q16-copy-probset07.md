@@ -1,3 +1,7 @@
+---
+lecture: 20
+---
+
 # BEGIN PROB
 We collect data on the play times of 100 games of *Chutes and Ladders* (sometimes known as *Snakes and Ladders*).
 

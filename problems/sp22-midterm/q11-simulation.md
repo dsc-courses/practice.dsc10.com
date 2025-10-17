@@ -1,3 +1,7 @@
+---
+lecture: 12
+---
+
 # BEGIN PROB
 
 The fine print of the Sun God festival website says "Ticket does not guarantee entry. Venue subject to capacity restrictions."  RIMAC field, where the 2022 festival will be held, has a capacity of 20,000 people. Let’s say that UCSD distributes 21,000 tickets to Sun God 2022 because prior data shows that 5% of tickets distributed are never actually redeemed. Let’s suppose that each person with a ticket this year has a 5% chance of not attending (independently of all others).  What is the probability that at least one student who has a ticket cannot get in due to the capacity restriction? Fill in the blanks in the code below so that `prob_angry_student` evaluates to an approximation of this probability.

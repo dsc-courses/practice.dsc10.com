@@ -1,3 +1,7 @@
+---
+lecture: 24
+---
+
 # BEGIN PROB
 
 Laura built the LAPPLAND TV storage unit in 2 hours and 30 minutes, and she thinks she worked at an average speed. If you want to see whether the average time to build the TV storage unit is indeed 2 hours and 30 minutes using the sample of assembly times in `app_data`, which of the following tools **could** you use to help you? Select all that apply.

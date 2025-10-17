@@ -1,3 +1,7 @@
+---
+lecture: 18
+---
+
 # BEGIN PROB
 Suppose you want to estimate the proportion of UCSD students that love
 dogs using a survey with a yes/no question. If you poll 400 students,

@@ -1,3 +1,7 @@
+---
+lecture: 11
+---
+
 # BEGIN PROB
 
 Suppose you have a DataFrame called `plum` with 31 rows.

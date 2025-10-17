@@ -1,3 +1,7 @@
+---
+lecture: 12
+---
+
 # BEGIN PROB
 
 Billina Records, a new record company focused on creating new TikTok audios, has its offices on the 23rd floor of a skyscraper with 75 floors (numbered 1 through 75). The owners of the building promised that 10 different random floors will be selected to be renovated.

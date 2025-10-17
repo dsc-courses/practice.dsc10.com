@@ -1,3 +1,7 @@
+---
+lecture: 8
+---
+
 # BEGIN PROB
 
 Complete the implementation of the `to_minutes` function below. This function takes as input a string formatted as `'x hr, y min'` where `x` and `y` represent integers, and returns the corresponding number of minutes, **as an integer** (type `int` in Python).

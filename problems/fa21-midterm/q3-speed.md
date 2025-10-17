@@ -1,3 +1,7 @@
+---
+lecture: 4
+---
+
 # BEGIN PROB
 
 Fill in the blanks below so that the result is a DataFrame with the same columns as `flights` plus a new column, `'SPEED'`, containing the average speed of each flight, in miles per hour.

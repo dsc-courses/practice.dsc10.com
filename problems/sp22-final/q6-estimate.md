@@ -1,3 +1,7 @@
+---
+lecture: 13
+---
+
 # BEGIN PROB
 
 We want to use `app_data` to estimate the average amount of time it takes to build an IKEA bed (any product in the `'bed'` category). Which of the following strategies would be an appropriate way to estimate this quantity? Select all that apply.

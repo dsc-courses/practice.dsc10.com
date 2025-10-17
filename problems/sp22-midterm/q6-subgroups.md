@@ -1,3 +1,7 @@
+---
+lecture: 9
+---
+
 # BEGIN PROB
 
 Fill in the blank in the code below so that `chronological` is a DataFrame with the same rows as `sungod`, but ordered chronologically by appearance on stage. That is, earlier years should come before later years, and within a single year, artists should appear in the DataFrame in the order they appeared on stage at Sun God. Note that `groupby` automatically sorts the index in ascending order.

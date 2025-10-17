@@ -1,3 +1,7 @@
+---
+lecture: 22
+---
+
 # BEGIN PROB
 
 Give an example of a dataset and a question you would want to answer about that dataset which you could answer by performing a permutation test (also known as an A/B test). 

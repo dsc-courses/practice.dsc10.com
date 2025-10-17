@@ -1,3 +1,7 @@
+---
+lecture: 22
+---
+
 # BEGIN PROB
 
 We're now interested in investigating the differences between the masses of Adelie penguins and Chinstrap penguins. Specifically, our null hypothesis is that their masses are drawn from the same population distribution, and any observed differences are due to chance only.

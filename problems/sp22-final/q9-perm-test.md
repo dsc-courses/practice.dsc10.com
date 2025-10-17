@@ -1,3 +1,7 @@
+---
+lecture: 22
+---
+
 # BEGIN PROB
 
 You are browsing the IKEA showroom, deciding whether to purchase the BILLY bookcase or the LOMMARP bookcase. You are concerned about the amount of time it will take to assemble your new bookcase, so you look up the assembly times reported in `app_data`. Thinking of the data in `app_data` as a random sample of all IKEA purchases, you want to perform a permutation test to test the following hypotheses.

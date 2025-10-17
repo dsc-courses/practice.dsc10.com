@@ -1,3 +1,7 @@
+---
+lecture: 11
+---
+
 # BEGIN PROB
 
 It turns out that King Triton is so busy that he doesn't even book his own flights – he has a travel agent who books his flights for him. He doesn't get to choose the airline that he flies on, but his travel agent gave him the following table, which describes the probability of each of his flights in 2022 being on Delta, United, American, or another airline:

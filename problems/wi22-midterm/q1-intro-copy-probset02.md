@@ -1,3 +1,7 @@
+---
+lecture: 5
+---
+
 # BEGIN PROB
 
 Below, identify the data type of the result of each of the following expressions, or select "error" if you believe the expression results in an error.

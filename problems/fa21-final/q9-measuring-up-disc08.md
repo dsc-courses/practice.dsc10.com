@@ -1,3 +1,7 @@
+---
+lecture: 22
+---
+
 # BEGIN PROB
 
 Researchers from the San Diego Zoo, located within Balboa Park, collected physical measurements of three species of penguins (Adelie, Chinstrap, or Gentoo) in a region of Antarctica. One piece of information they tracked for each of 330 penguins was its mass in grams. The average penguin mass is 4200 grams, and the standard deviation is 840 grams.

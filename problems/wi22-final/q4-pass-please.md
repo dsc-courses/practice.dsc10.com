@@ -1,3 +1,7 @@
+---
+lecture: 22
+---
+
 # BEGIN PROB
 
 Consider the definition of the function `diff_in_group_means`:

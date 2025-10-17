@@ -1,3 +1,7 @@
+---
+lecture: 8
+---
+
 # BEGIN PROB
 
 Note that each part of Question 3 depends on previous parts of Question 3.

@@ -1,3 +1,7 @@
+---
+lecture: 8
+---
+
 # BEGIN PROB
 
 In the `ikea` DataFrame, the first word of each string in the `'product'` column represents the product line. For example the HEMNES line of products includes several different products, such as beds, dressers, and bedside tables.

@@ -1,3 +1,7 @@
+---
+lecture: 4
+---
+
 # BEGIN PROB
 
 Assume you have a DataFrame named `ikea` that contains information about IKEA products, including columns called `'product'`(`str`): the name of the product, `'assembly_cost'`(`int`): the assembly cost of each product, and `'packages'`(`int`): the number of packages each product comes in. Complete the expression below so that it evaluates to the name of the product for which the average assembly cost per package is lowest.

@@ -1,3 +1,7 @@
+---
+lecture: 6
+---
+
 # BEGIN PROB
 
 The expression below evaluates to `True`.

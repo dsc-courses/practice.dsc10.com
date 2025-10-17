@@ -1,3 +1,7 @@
+---
+lecture: 25
+---
+
 # BEGIN PROB
 Sam wants to fit a linear model to predict a dog's height using its
 weight.

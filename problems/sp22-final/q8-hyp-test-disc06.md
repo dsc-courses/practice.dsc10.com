@@ -1,3 +1,7 @@
+---
+lecture: 20
+---
+
 # BEGIN PROB
 
 For this question, let's think of the data in `app_data` as a random sample of all IKEA purchases and use it to test the following hypotheses.

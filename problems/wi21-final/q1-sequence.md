@@ -1,3 +1,7 @@
+---
+lecture: 3
+---
+
 # BEGIN PROB
 
 One way to use `np.arange` to produce the sequence `[2, 6, 10, 14]` is `np.arange(2, 15, 4)`. This gives three inputs to np.arange. 

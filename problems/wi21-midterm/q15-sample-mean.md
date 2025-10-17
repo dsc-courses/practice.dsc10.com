@@ -1,3 +1,7 @@
+---
+lecture: 13
+---
+
 # BEGIN PROB
 
 Suppose we take a uniform random sample with replacement from a population, and use the sample mean as an estimate for the population mean. Which of the following is correct?

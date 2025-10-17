@@ -1,3 +1,7 @@
+---
+lecture: 10
+---
+
 # BEGIN PROB
 
 The `sums` function takes in an array of numbers and outputs the
