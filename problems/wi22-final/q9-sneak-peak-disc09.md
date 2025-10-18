@@ -1,3 +1,7 @@
+---
+lecture: 17
+---
+
 # BEGIN PROB
 
 Answer the following questions about a basketball dataset.

@@ -1,3 +1,7 @@
+---
+lecture: 12
+---
+
 # BEGIN PROB
 
 King Triton has boarded a Southwest flight. For in-flight refreshments, Southwest serves four types of cookies – chocolate chip, gingerbread, oatmeal, and peanut butter.

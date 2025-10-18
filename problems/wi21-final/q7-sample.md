@@ -1,3 +1,7 @@
+---
+lecture: 13
+---
+
 # BEGIN PROB
 
 Assume `df` is a DataFrame with distinct rows. Which of the following best describes `df.sample(10)`?

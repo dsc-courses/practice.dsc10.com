@@ -1,3 +1,7 @@
+---
+lecture: 11
+---
+
 # BEGIN PROB
 
 While they are not skyscrapers, New Sixth College at UCSD has four relatively tall residential buildings, which we'll call Building A, Building B, Building C, and Building D. Suppose each building has 10 floors.

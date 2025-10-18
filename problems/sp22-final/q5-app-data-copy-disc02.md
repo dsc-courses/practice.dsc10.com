@@ -1,3 +1,7 @@
+---
+lecture: 8
+---
+
 # BEGIN PROB
 Suppose that when someone downloads the app, the app requires them to choose a username, which must be different from all other registered usernames. 
 

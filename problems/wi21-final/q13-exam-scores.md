@@ -1,3 +1,7 @@
+---
+lecture: 16
+---
+
 # BEGIN PROB
 
 * Hector earned a 77 on an exam where the mean was 70 and the standard deviation was 5. 

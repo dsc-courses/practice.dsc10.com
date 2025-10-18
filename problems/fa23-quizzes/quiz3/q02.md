@@ -1,3 +1,7 @@
+---
+lecture: 15
+---
+
 # BEGIN PROB
 
 Suppose we have access to a simple random sample of all US Costco

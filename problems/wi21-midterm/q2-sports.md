@@ -1,3 +1,7 @@
+---
+lecture: 4
+---
+
 # BEGIN PROB
 You are given a DataFrame called `sports`, indexed by `'Sport'` containing one column, `'PlayersPerTeam'`. The first few rows of the DataFrame are shown below:
 

@@ -1,3 +1,7 @@
+---
+lecture: 10
+---
+
 # BEGIN PROB
 
 Consider an artist that has only appeared once at Sun God. At the time of their Sun God performance, we'll call the artist 

@@ -1,3 +1,7 @@
+---
+lecture: 9
+---
+
 # BEGIN PROB
 
 Another DataFrame called `music` contains a row for every music artist that has ever released a song. The columns are:

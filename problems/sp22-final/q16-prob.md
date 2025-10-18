@@ -1,3 +1,7 @@
+---
+lecture: 11
+---
+
 # BEGIN PROB
 
 The HAUGA bedroom furniture set includes two items, a bed frame and a bedside table. Suppose the amount of time it takes someone to assemble the bed frame is a random quantity drawn from the probability distribution below.

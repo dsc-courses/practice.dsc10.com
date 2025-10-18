@@ -1,3 +1,7 @@
+---
+lecture: 14
+---
+
 # BEGIN PROB
 
 Suppose you do an experiment in which you do some random process 500 times and calculate the value of some statistic, which is a count of how many times a certain phenomenon occurred out of the 500 trials. You repeat the experiment 10,000 times and draw a histogram of the 10,000 statistics.

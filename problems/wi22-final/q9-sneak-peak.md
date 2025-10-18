@@ -1,3 +1,7 @@
+---
+lecture: 17
+---
+
 # BEGIN PROB
 
 For your convenience, we show the first few rows of `season` again below.

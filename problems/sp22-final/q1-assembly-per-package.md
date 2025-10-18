@@ -1,3 +1,7 @@
+---
+lecture: 4
+---
+
 # BEGIN PROB
 
 Complete the expression below so that it evaluates to the name of the product for which the average assembly cost per package is lowest.

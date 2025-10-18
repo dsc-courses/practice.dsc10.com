@@ -1,3 +1,7 @@
+---
+lecture: 22
+---
+
 # BEGIN PROB
 
 Suppose Tiffany has a random sample of dogs. Select the most

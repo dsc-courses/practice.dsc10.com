@@ -1,3 +1,7 @@
+---
+lecture: 7
+---
+
 # BEGIN PROB
 
 Consider the following line plot, which depicts the number of skyscrapers built per year.

@@ -1,3 +1,7 @@
+---
+lecture: 9
+---
+
 # BEGIN PROB
 
 We also have a DataFrame that contains the distribution of "BodyStyle" for all "Brands" in `evs`, other than Nissan.

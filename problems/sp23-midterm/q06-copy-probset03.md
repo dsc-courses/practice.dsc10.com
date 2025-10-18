@@ -1,3 +1,7 @@
+---
+lecture: 7
+---
+
 # BEGIN PROB
 
 Suppose there are 200 students enrolled in DSC 10, and that the histogram below displays the distribution of the number of Instagram

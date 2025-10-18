@@ -1,3 +1,7 @@
+---
+lecture: 13
+---
+
 # BEGIN PROB
 Shivani wrote a function called `doggos` defined as follows:
 

@@ -1,3 +1,7 @@
+---
+lecture: 9
+---
+
 # BEGIN PROB
 
 If we merge a table with `n` rows with a table with `m` rows, how many rows does the resulting table have?

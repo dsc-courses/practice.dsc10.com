@@ -1,3 +1,7 @@
+---
+lecture: 9
+---
+
 # BEGIN PROB
 
 Vanessa is a big Formula 1 racing fan, and wants to plan a trip to

@@ -1,3 +1,7 @@
+---
+lecture: 10
+---
+
 # BEGIN PROB
 
 We define the seasons as follows:

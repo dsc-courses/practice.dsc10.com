@@ -1,3 +1,7 @@
+---
+lecture: 17
+---
+
 # BEGIN PROB
 The DataFrame `apps` contains application data for a random sample of 1,000 applicants for a particular credit card from the 1990s. The `"age"` column contains the applicants' ages, in years, to the nearest twelfth of a year.
 

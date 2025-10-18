@@ -1,3 +1,7 @@
+---
+lecture: 7
+---
+
 # BEGIN PROB
 
 Recall, the interval $[a, b)$ refers to numbers greater than or equal to $a$ and less than $b$, and the interval $[a, b]$ refers to numbers greater than or equal to $a$ and less than or equal to $b$.

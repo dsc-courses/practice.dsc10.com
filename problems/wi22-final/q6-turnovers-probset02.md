@@ -1,3 +1,7 @@
+---
+lecture: 16
+---
+
 # BEGIN PROB
 
 In addition to the `plum` DataFrame, we also have access to the `season` DataFrame, which contains statistics on all players in the WNBA in the 2021 season. The first few rows of `season` are shown below. (Remember to keep the data description from the top of the exam open in another tab!)

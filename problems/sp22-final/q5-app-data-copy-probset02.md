@@ -1,3 +1,7 @@
+---
+lecture: 8
+---
+
 # BEGIN PROB
 
 Recall that an IKEA fan created an app for people to log the amount of time it takes them to assemble an IKEA product. We have this data in `app_data`.

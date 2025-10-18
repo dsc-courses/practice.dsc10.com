@@ -1,3 +1,7 @@
+---
+lecture: 7
+---
+
 # BEGIN PROB
 
 You have a DataFrame called `prices` that contains information about food prices at 18 different grocery stores. There is column called `'broccoli'` that contains the price in dollars for one pound of broccoli at each grocery store. There is also a column called `'ice_cream'` that contains the price in dollars for a pint of store-brand ice cream.

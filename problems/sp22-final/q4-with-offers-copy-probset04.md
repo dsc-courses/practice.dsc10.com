@@ -1,3 +1,7 @@
+---
+lecture: 9
+---
+
 # BEGIN PROB
 
 For each offer currently available, the DataFrame `offers` has a separate row for each category of products to which the offer can be applied. The columns are:

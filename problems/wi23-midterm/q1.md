@@ -1,3 +1,7 @@
+---
+lecture: 4
+---
+
 # BEGIN PROB
 
 # BEGIN SUBPROB

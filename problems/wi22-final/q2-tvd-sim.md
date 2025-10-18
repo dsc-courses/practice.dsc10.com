@@ -1,3 +1,7 @@
+---
+lecture: 21
+---
+
 # BEGIN PROB
 
 Let's suppose there are 4 different types of shots a basketball player can take – layups, midrange shots, threes, and free throws.

@@ -1,3 +1,7 @@
+---
+lecture: 5
+---
+
 # BEGIN PROB
 
 Complete the expression below so that it evaluates to a DataFrame indexed by `'category'` with one column called `'price'` containing the median cost of the products in each category.

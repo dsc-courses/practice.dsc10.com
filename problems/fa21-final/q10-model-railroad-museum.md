@@ -1,3 +1,7 @@
+---
+lecture: 21
+---
+
 # BEGIN PROB
 
 At the San Diego Model Railroad Museum, there are different admission prices for children, adults, and seniors. Over a period of time, as tickets are sold, employees keep track of how many of each type of ticket are sold. These ticket counts (in the order child, adult, senior) are stored as follows.

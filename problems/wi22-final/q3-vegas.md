@@ -1,3 +1,7 @@
+---
+lecture: 20
+---
+
 # BEGIN PROB
 
 ESPN (a large sports news network) states that the Las Vegas Aces have a 60% chance of winning their upcoming game. You're curious as to how they came up with this estimate, and you decide to conduct a hypothesis test for the following hypotheses:

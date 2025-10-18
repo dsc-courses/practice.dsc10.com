@@ -1,3 +1,7 @@
+---
+lecture: 7
+---
+
 # BEGIN PROB
 
 On the graph paper below, draw the histogram that would be produced by this code.

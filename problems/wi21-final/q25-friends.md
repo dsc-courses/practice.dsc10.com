@@ -1,3 +1,7 @@
+---
+lecture: 24
+---
+
 # BEGIN PROB
 
 *Do people have more friends as they get older?*

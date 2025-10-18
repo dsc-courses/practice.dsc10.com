@@ -1,3 +1,7 @@
+---
+lecture: 25
+---
+
 # BEGIN PROB
 
 Let's switch our attention to the relationship between the number of points per game and the number of assists per game for all players in `season`. Using `season`, we compute the following information:

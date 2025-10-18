@@ -1,3 +1,7 @@
+---
+lecture: 11
+---
+
 # BEGIN PROB
 
 Suppose you are booking a flight and you have no control over which airline you fly on. Below is a table with multiple airlines and the probability of a flight being on a specific airline. 

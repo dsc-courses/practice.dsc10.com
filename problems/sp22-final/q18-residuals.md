@@ -1,3 +1,7 @@
+---
+lecture: 25
+---
+
 # BEGIN PROB
 
 For each IKEA desk, we know the cost of producing the desk, in dollars, and the current sale price of the desk, in dollars. We want to predict sale price based on production cost using linear regression. 

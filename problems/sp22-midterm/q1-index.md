@@ -1,3 +1,7 @@
+---
+lecture: 4
+---
+
 # BEGIN PROB
 
 Which of the following is a valid reason **not** to set the index of `sungod` to `'Artist'`? **Select all correct answers.**

@@ -1,3 +1,7 @@
+---
+lecture: 5
+---
+
 # BEGIN PROB
 
 We define a "route" to be a departure and arrival airport pair. For example, all flights from `'SFO'` to `'SAN'` make up the "SFO to SAN route". This is different from the "SAN to SFO route".

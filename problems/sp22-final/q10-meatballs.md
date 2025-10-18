@@ -1,3 +1,7 @@
+---
+lecture: 10
+---
+
 # BEGIN PROB
 
 IKEA is piloting a new rewards program where customers can earn free Swedish meatball plates from the in-store cafe when they purchase expensive items. Meatball plates are awarded as follows. Assume the item price is always an integer.

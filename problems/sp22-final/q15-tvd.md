@@ -1,3 +1,7 @@
+---
+lecture: 20
+---
+
 # BEGIN PROB
 
 There are 52 IKEA locations in the United States, and there are 50 states. 

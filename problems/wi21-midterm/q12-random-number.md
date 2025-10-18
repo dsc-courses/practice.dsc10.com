@@ -1,3 +1,7 @@
+---
+lecture: 11
+---
+
 # BEGIN PROB
 
 You generate a three-digit number by randomly choosing each digit to be a number 0 through 9, inclusive. Each digit is equally likely to be chosen.

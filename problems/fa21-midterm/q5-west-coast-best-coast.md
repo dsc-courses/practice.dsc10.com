@@ -1,3 +1,7 @@
+---
+lecture: 9
+---
+
 # BEGIN PROB
 
 Suppose we create a DataFrame called `socal` containing only King Triton's flights departing from SAN, LAX, or SNA (John Wayne Airport in Orange County). `socal` has 10 rows; the bar chart below shows how many of these 10 flights departed from each airport.

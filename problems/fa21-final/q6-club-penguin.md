@@ -1,3 +1,7 @@
+---
+lecture: 16
+---
+
 # BEGIN PROB
 
 Researchers from the San Diego Zoo, located within Balboa Park, collected physical measurements of several species of penguins in a region of Antarctica. 

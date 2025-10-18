@@ -1,3 +1,7 @@
+---
+lecture: 16
+---
+
 # BEGIN PROB
 
 Suppose you have correctly implemented the function `area_between(x, y)` so that it returns the area under the armchair curve between `x` and `y`, assuming the inputs satisfy `-4 <= x <= y <= 12`. 

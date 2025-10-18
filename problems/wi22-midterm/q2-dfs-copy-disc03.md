@@ -1,3 +1,7 @@
+---
+lecture: 5
+---
+
 # BEGIN PROB
 
 In this question, we'll write code to learn more about the skyscrapers in the beautiful city of San Diego. (Unrelated fun fact – since the San Diego Airport is so close to downtown, buildings in downtown San Diego legally cannot be taller than 152 meters.)

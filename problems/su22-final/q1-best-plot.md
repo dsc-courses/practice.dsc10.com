@@ -1,3 +1,7 @@
+---
+lecture: 6
+---
+
 # BEGIN PROB
 
 Choose the best visualization to answer each of the following questions.

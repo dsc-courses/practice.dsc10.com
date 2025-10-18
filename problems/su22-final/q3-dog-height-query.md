@@ -1,3 +1,7 @@
+---
+lecture: 5
+---
+
 # BEGIN PROB
 
 The following code computes an array containing the unique kinds of

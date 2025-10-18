@@ -1,3 +1,7 @@
+---
+lecture: 5
+---
+
 # BEGIN PROB
 
 Write one line of code below to create a DataFrame called `openers` containing the artists that appeared first on stage at a past Sun God festival. The DataFrame `openers` should have all the same columns as `sungod`. 

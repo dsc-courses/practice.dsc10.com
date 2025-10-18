@@ -1,3 +1,7 @@
+---
+lecture: 9
+---
+
 # BEGIN PROB
 
 Suppose we have access to another DataFrame, `new_york`, that contains the latitude and longitude of every single skyscraper in New York City that is also in `sky`. The first few rows of `new_york` are shown below.

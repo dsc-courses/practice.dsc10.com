@@ -1,3 +1,7 @@
+---
+lecture: 4
+---
+
 # BEGIN PROB
 
 Suppose in a new cell, we type the following.

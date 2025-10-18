@@ -1,3 +1,7 @@
+---
+lecture: 19
+---
+
 # BEGIN PROB
 
 You order 25 large pizzas from your local pizzeria. The pizzeria claims that these pizzas are 16 inches in diameter, but you’re not so sure. You measure each pizza’s diameter and collect a dataset of 25 actual pizza diameters. You want to run a hypothesis test to determine whether the pizzeria’s claim is accurate.
