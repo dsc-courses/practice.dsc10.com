@@ -64,13 +64,13 @@ We will release solutions to the pretest at the beginning of Week 2. You are hig
       <td>Monday, October 13th</td>
       <td><a href="disc03/index.html">Querying, Grouping, and Plotting</a></td>
     </tr>
-<!--
-    
     <tr>
       <th scope="row">4</th>
-      <td>Monday, April 21st</td>
+      <td>Monday, October 20th</td>
       <td><a href="disc04/index.html">Functions, DataFrames, and Control Flow</a></td>
     </tr>
+<!--
+    
     <tr>
       <th scope="row">5</th>
       <td>Monday, April 28th</td>
@@ -275,6 +275,13 @@ We've provided answers to all quiz questions, but you won't find detailed explan
     </tr>
   </thead>
   <tbody>
+    <tr>
+      <th scope="row">Fall 2025</th>
+      <td>Janine Tiefenbruck, Peter Chi</td>
+      <td>
+        <a href='fa25-quiz1/index.html'>Quiz 1</a> 
+      </td>
+    </tr>
     <tr>
       <th scope="row">Spring 2025</th>
       <td>Janine Tiefenbruck</td>
