@@ -69,13 +69,13 @@ We will release solutions to the pretest at the beginning of Week 2. You are hig
       <td>Monday, October 20th</td>
       <td><a href="disc04/index.html">Functions, DataFrames, and Control Flow</a></td>
     </tr>
-<!--
-    
     <tr>
       <th scope="row">5</th>
-      <td>Monday, April 28th</td>
+      <td>Monday, October 27th</td>
       <td><a href="disc05/index.html">Probability and Simulation</a></td>
     </tr>
+<!--
+    
     <tr>
       <th scope="row">6</th>
       <td>Wednesday, May 7th</td>
@@ -279,7 +279,8 @@ We've provided answers to all quiz questions, but you won't find detailed explan
       <th scope="row">Fall 2025</th>
       <td>Janine Tiefenbruck, Peter Chi</td>
       <td>
-        <a href='fa25-quiz1/index.html'>Quiz 1</a> 
+        <a href='fa25-quiz1/index.html'>Quiz 1</a> •
+        <a href='fa25-quiz2/index.html'>Quiz 2</a>
       </td>
     </tr>
     <tr>
