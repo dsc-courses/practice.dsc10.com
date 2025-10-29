@@ -2,7 +2,16 @@ name: Preview Deploy
 
 on:
   pull_request:
-    branches: [ master, main ]   # triggers on PRs into master or main
+    branches: [ master, main ]
+    paths:
+      - 'run.py'
+      - 'run-utf8.py'
+      - 'requirements.txt'
+      - 'problems/**'
+      - 'pages/**'
+      - 'utils/**'
+      - 'templates/**'
+      - '.github/workflows/pages-preview.yml'
 
 permissions:
   contents: read
@@ -15,32 +24,41 @@ concurrency:
 
 jobs:
   build:
+    name: Build static site
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      # Python toolchain for your generator
+      # Python with pip cache (speeds up installs a lot)
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+          cache: 'pip'
+          cache-dependency-path: requirements.txt
 
-      # Your site build depends on pandoc
-      - run: sudo apt-get update && sudo apt-get install -y pandoc
+      # Pandoc is required by your generator
+      - name: Install pandoc
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pandoc
 
-      # Install deps and build the static site into ./docs
-      - run: pip install -r requirements.txt
-      - run: python run.py
+      - name: Install Python deps
+        run: pip install -r requirements.txt
 
-      # Upload the generated site as the Pages artifact
-      - uses: actions/upload-pages-artifact@v3
+      - name: Build site
+        run: python run.py
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
         with:
           path: ./docs
 
   deploy:
+    name: Deploy preview
     needs: build
     runs-on: ubuntu-latest
     environment:
-      name: preview
+      name: preview           # Make sure Settings → Environments → preview allows all branches
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - id: deployment
