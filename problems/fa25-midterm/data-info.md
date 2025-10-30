@@ -11,6 +11,7 @@ The DataFrame `words` is indexed by `"word"` and contains the following columns:
 
 The first few rows of `words` are shown below, though there are many more rows than pictured.
 
-<center><img src="https://raw.githubusercontent.com/dsc-courses/practice.dsc10.com/refs/heads/master/assets/images/fa25-midterm/preview.jpg" width=400></center>
+<center><img src="https://raw.githubusercontent.com/dsc-courses/practice.dsc10.com/refs/heads/master/assets/images/fa25-midterm/preview.jpg" width=400></center> \
+
 
 Assume that we have already run `import babypandas as bpd` and `import numpy as np`.
