@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Fall 2025 Midterm Exam</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/theme.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Fall 2025 Midterm Exam</h1>
+</header>
+<p><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<!-- add after bootstrap.min.css -->
+<link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css"/>
+<!-- add after bootstrap.min.js or bootstrap.bundle.min.js -->
+<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script></p>
+<!-- for difficulty gauges-->
+<script src="https://cdn.plot.ly/plotly-2.16.1.min.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B947E6J6H4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B947E6J6H4');
+</script>
+<p><a href="../index.html">← return to practice.dsc10.com</a></p>
+<hr />
+<p><strong>Instructor(s):</strong> Janine Tiefenbruck, Peter Chi</p>
+<p>This exam was administered in-person. The exam was closed-notes,
+except students were allowed to bring their own double-sided cheat
+sheet. No calculators were allowed. Students had <strong>50
+minutes</strong> to take this exam.</p>
+<hr />
+<p>The English language is considered a challenging language to learn,
+largely because there are exceptions to just about every “rule”!</p>
+<p>In this exam, we’ll work with a data set of English words that
+appeared in texts used by Indian undergraduate students learning
+English. The students were asked to read the texts and mark the words
+they found difficult.</p>
+<p>The DataFrame <code>words</code> is indexed by <code>"word"</code>
+and contains the following columns:</p>
+<ul>
+<li><code>"freq"</code> (<code>int</code>): The frequency of the word,
+or the number of times it appeared in the texts.</li>
+<li><code>"length"</code> (<code>int</code>): The length of the word, or
+the number of letters it contains.</li>
+<li><code>"ps"</code> (<code>str</code>): The part of speech of the word
+(e.g. noun, verb, adjective). This is formatted as an ordered pair,
+where the first component is the word, and the second component is a tag
+indicating the part of speech (e.g. VBD for past tense verb). The tags
+and their meanings are determined by a system known as the Penn Treebank
+part of speech tagging system.</li>
+<li><code>"diff"</code> (<code>int</code>): The number of students who
+marked the word difficult.</li>
+</ul>
+<p>The first few rows of <code>words</code> are shown below, though
+there are many more rows than pictured.</p>
+<center><img src="https://raw.githubusercontent.com/dsc-courses/practice.dsc10.com/refs/heads/master/assets/images/fa25-midterm/preview.jpg" width=400></center>
+<p>Assume that we have already run <code>import babypandas as bpd</code>
+and <code>import numpy as np</code>.</p>
+<hr />
+<h2 id="problem-1">Problem 1</h2>
+<p>Each value in the <code>"ps"</code> column is a string formatted like
+<code>"(word, tag)"</code>, where the first part is the word and the
+second part is a tag indicating the word’s part of speech
+(e.g. <code>"(getting, VBG)"</code>). Note that the word and the part of
+speech tag are each enclosed in single quotes. To clean the column so
+that <code>"ps"</code> contains <strong>only</strong> the part of speech
+tag, we run the following line of code.</p>
+<pre><code>    words = words.assign(ps = words.get(&quot;ps&quot;).apply(fix_ps))</code></pre>
+<p>After we run this line of code, the first five rows of
+<code>words</code> should appear as follows.</p>
+<center><img src="https://raw.githubusercontent.com/dsc-courses/practice.dsc10.com/refs/heads/master/assets/images/fa25-midterm/ps-fix.jpg" width=400></center>
+<p>Which of the following options correctly define the function
+<code>fix_ps</code> to produce the desired result? <strong>Select all
+that apply.</strong></p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> <code>def fix_ps(x): return x.split("'")[3]</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>def fix_ps(x): return x.split(",")[1].strip("')")</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>def fix_ps(x): return x.split(", ")[1].strip("')")</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>def fix_ps(x): return x.split(", ")[1].strip(")").strip("'")</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>def fix_ps(x): return x.split(", ")[1].strip("'").strip(")")</code></p></li>
+<li><p><input type="checkbox" disabled="" /> None of the above.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse1" class="accordion-collapse collapse"
+aria-labelledby="heading1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p>Let’s consider all the answer options using
+<code>x = "(’getting’, ’VBG’)"</code> as our example.</p>
+<p><strong>Option 1:</strong><br/>
+<code>x.split("’") = ["(", "getting", ", ", "VBG", ")"][3] = "VBG"</code><br/>
+This is exactly what we want.</p>
+<p><strong>Option 2:</strong><br/>
+<code>1. x.split(",") = ["(’getting’", " ’VBG’)"][1] = " ’VBG’)"</code><br/>
+<code>2. " ’VBG’)" .strip("’)") = " ’VBG"</code><br/>
+Note that <code>strip</code> does not remove the exact substring it’s
+given; instead, it removes all leading and trailing characters that
+appear in the given set of characters.So, this code removes any
+leading/trailing instances of single quote <code>"’"</code> and right
+parenthesis <code>")"</code>. <code>" ’VBG’)"</code> starts with a
+space, which is not in the argument to <code>strip</code>, so nothing is
+removed from the front. It ends with both <code>"’"</code> and
+<code>")"</code>, so both are removed, leaving <code>" ’VBG"</code>.
+Thus, this option is incorrect.<br/>
+</p>
+<p><strong>Option 3:</strong><br/>
+<code>1. x.split(", ") = ["(’getting’", "’VBG’)"][1] = "’VBG’)"</code><br/>
+<code>2. "’VBG’)" .strip("’)") = "VBG"</code><br/>
+Here, <code>strip</code> removes any leading and trailing instances of
+<code>"’"</code> and <code>")"</code>. <code>"’VBG’)"</code> starts with
+<code>"’"</code>, which is removed; it ends with <code>"’"</code> and
+<code>")"</code>, which are also removed, leaving <code>"VBG"</code>.
+Thus, this option is correct.<br/>
+</p>
+<p><strong>Option 4:</strong><br/>
+<code>1. x.split(", ") = ["(’getting’", "’VBG’)"][1] = "’VBG’)"</code><br/>
+<code>2. "’VBG’)" .strip(")") = "’VBG’"</code><br/>
+<code>3. "’VBG’" .strip("’") = "VBG"</code><br/>
+The first strip removes any leading and trailing instances of
+<code>")"</code>, so the last character of <code>"’VBG’)"</code> is
+removed to become <code>"’VBG’"</code>. The second strip removes any
+leading and trailing instances of <code>"’"</code>, so the first and
+last characters of <code>"’VBG’"</code> are removed to become
+<code>"VBG"</code>. Thus, this option is correct.<br/>
+</p>
+<p><strong>Option 5:</strong><br/>
+<code>1. x.split(", ") = ["(’getting’", "’VBG’)"][1] = "’VBG’)"</code><br/>
+<code>2. "’VBG’)".strip(" ’") = "VBG’)"</code><br/>
+<code>3. "VBG’)".strip(")") = "VBG’"</code><br/>
+The first strip removes any leading and trailing instances of
+<code>" "</code> and <code>"’"</code>, so the first character of
+<code>"’VBG’)"</code> is removed to become <code>"VBG’)"</code>. The
+second strip removes any leading and trailing instances of
+<code>")"</code>, so the last character of <code>"VBG’)"</code> is
+removed to become <code>"VBG’"</code>. Incorrect.<br/>
+</p>
+<p><strong>Therefore, the correct options are 1, 3, and 4.</strong></p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 57%.</p>
+</div>
+</div>
+</div>
+</div>
+<hr />
+<h2 id="problem-2">Problem 2</h2>
+<p>In the early 1990s, computational linguists developed the Penn
+Treebank part of speech tagging system. In this system, there are <span
+class="math inline">36</span> tags that represent different parts of
+speech. The tags, their meanings, and a few examples are given in the
+<code>tags</code> DataFrame, whose first five rows are shown here.</p>
+<center><img src="https://raw.githubusercontent.com/dsc-courses/practice.dsc10.com/refs/heads/master/assets/images/fa25-midterm/tags.jpg" width=400></center>
+<p>All of the values in the <code>"ps"</code> column of
+<code>words</code> are tags from the Penn Treebank system. Remember,
+we’re assuming that we’ve already applied the <code>fix_ps</code>
+function from the previous problem.</p>
+<p><br></p>
+<h3 id="problem-2.1">Problem 2.1</h3>
+<p>We want to merge <code>words</code> with <code>tags</code> so that we
+can see the meaning of each word’s part of speech tag more easily. Fill
+in the blank in the code below to accomplish this.</p>
+<p>Note that the index is lost when merging, so in order to keep
+<code>"word"</code> as the index of our result, we have to use
+<code>reset_index()</code> before merging, then set the index to
+<code>"word"</code> again after merging.</p>
+<pre><code>merged = words.reset_index().merge(__(a)__).set_index(&quot;word&quot;)
+merged</code></pre>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading2_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2_1" aria-expanded="true" aria-controls="collapse2_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse2_1" class="accordion-collapse collapse"
+aria-labelledby="heading2_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><code>(a)</code>: <code>tags, left on="ps", right on="tag"</code></p>
+<p>We want to merge the words dataframe with the tags dataframe, and we
+want both to merge on the column with the tags in them. In the words df,
+this is the <code>"ps"</code> column, and in the tags df this is the
+<code>"tag"</code> column.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 75%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<p><br></p>
+<h3 id="problem-2.2">Problem 2.2</h3>
+<p>Suppose <code>words</code> contains <span
+class="math inline">5357</span> rows and <code>tags</code> contains
+<span class="math inline">36</span> rows. How many rows does
+<code>merged</code> contain? Give your answer as an integer or a
+mathematical expression that evaluates to an integer.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading2_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2_2" aria-expanded="true" aria-controls="collapse2_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse2_2" class="accordion-collapse collapse"
+aria-labelledby="heading2_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: <code>5357</code></p>
+<p>When we merge <code>words</code> with <code>tags</code>, we know that
+there are 36 unique rows in tags. This means that for every row in
+<code>words</code>, there is only one row in <code>tags</code> that it
+will be able to merge with in this new df. This means that every row in
+<code>words</code> corresponds to only one row in , meaning that the new
+merged df will have the same amount of rows as the <code>words</code>
+df, or 5337.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 62%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-3">Problem 3</h2>
+<p>Below is a bar chart and the code that produced it.</p>
+<center><img src="https://raw.githubusercontent.com/dsc-courses/practice.dsc10.com/refs/heads/master/assets/images/fa25-midterm/bar.png" width=400></center>
+<pre><code>(words.sort_values(by=&quot;diff&quot;, ascending=False).take(np.arange(20))
+      .plot(kind=&#39;barh&#39;, y=&quot;diff&quot;));</code></pre>
+<p>Determine whether each statement below is true or false.</p>
+<p><br></p>
+<h3 id="problem-3.1">Problem 3.1</h3>
+<p>Students found the word “decades" more difficult than any other
+word.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading3_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_1" aria-expanded="true" aria-controls="collapse3_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse3_1" class="accordion-collapse collapse"
+aria-labelledby="heading3_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: False</p>
+<p>We can see on the bar chart that there were 5 other words with the
+same diff value as decades, so the answer is False.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 83%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<p><br></p>
+<h3 id="problem-3.2">Problem 3.2</h3>
+<p>If we removed <code>ascending = False</code> from the code, the bar
+chart would show the same information, except the bars would appear in
+the opposite order from top to bottom.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading3_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_2" aria-expanded="true" aria-controls="collapse3_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse3_2" class="accordion-collapse collapse"
+aria-labelledby="heading3_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: False</p>
+<p>We are only plotting the first 20 rows of words after sorting it. So,
+currently we have plotted the 20 words with the highest diff value. If
+we removed ascending = False then it would sort in ascending order and
+we would only be plotting the 20 words with the lowest diff value. They
+would not be the same words.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 46%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<p><br></p>
+<h3 id="problem-3.3">Problem 3.3</h3>
+<p>This bar chart shows all words that more than 20 students found
+difficult. If we changed <code>np.arange(20)</code> to
+<code>np.arange(15)</code> in the code, the bar chart would instead show
+all words that more than 15 students found difficult.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading3_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_3" aria-expanded="true" aria-controls="collapse3_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse3_3" class="accordion-collapse collapse"
+aria-labelledby="heading3_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: False</p>
+<p><code>.take(np.arange(20))</code> takes the elements at those
+positional indices. <code>.take(np.arange(15))</code> would take less
+elements, so there is no way that it would include more students in the
+bar chart</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 80%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-4">Problem 4</h2>
+<p>The function below classifies the length of a word as
+<code>"short"</code>, <code>"medium"</code>, or <code>"long"</code>. Its
+input, <code>x</code>, represents the length of a word and will always
+be a positive integer.</p>
+<pre><code>def classify_length(x):
+    if x &lt;= 6:
+        return &quot;short&quot;
+    elif x &lt;= 10:
+        return &quot;medium&quot;
+    else:
+        return &quot;long&quot;</code></pre>
+<p>Fill in the blanks of the function below so that
+<code>classify_length_2</code> gives the same output as
+<code>classify_length</code> on all positive integer inputs. Each blank
+must be filled in with a <strong>single line</strong> of code.</p>
+<pre><code>def classify_length_2(x):
+    if __(a)__:
+        return &quot;medium&quot;
+    if x &gt;= 7:
+        __(b)__
+    __(c)__</code></pre>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="true" aria-controls="collapse4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse4" class="accordion-collapse collapse"
+aria-labelledby="heading4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><code>(a)</code>: <code>x &gt; 6 and x &lt;= 10</code></p>
+<p>We know that we need to return medium given this condition, so the
+answer is <code>x &gt; 6 and x &lt;= 10</code>. x &gt; 6 comes from the
+short condition, x = 10 is in the original classify length.</p>
+<p><code>(b)</code>: <code>return "long"</code></p>
+<p>Since the condition has x be larger, we know that we should
+<code>return "long"</code>.</p>
+<p><code>(c)</code>: <code>return "short"</code>.</p>
+<p>This will be the last, non-covered classification, so it should be
+<code>return "short"</code>.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 79%.</p>
+</div>
+</div>
+</div>
+</div>
+<hr />
+<h2 id="problem-5">Problem 5</h2>
+<p>Suppose we have a function <code>classify_difficulty</code> that
+takes as input the number of students that marked a word difficult, and
+returns a difficulty rating of the word: <code>"easy"</code>,
+<code>"moderate"</code>, or <code>"hard"</code>. Define the DataFrame
+<code>grouped</code> as follows. Note that this uses the
+<code>classify_length</code> function from the previous problem.</p>
+<pre><code>grouped = (words.assign( diff_category = 
+                        words.get(&quot;diff&quot;).apply(classify_difficulty),
+                        length_category = 
+                        words.get(&quot;length&quot;).apply(classify_length)
+                        )
+                .groupby([&quot;diff_category&quot;, &quot;length_category&quot;])
+                .count()
+                .reset_index()
+           )</code></pre>
+<p>Suppose there is <strong>at least one word</strong> with every
+possible pair of values for <code>"diff_category"</code> and
+<code>"length_category"</code>.</p>
+<p><br></p>
+<h3 id="problem-5.1">Problem 5.1</h3>
+<p>How many rows does <code>grouped</code> have? Give your answer as an
+integer.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading5_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_1" aria-expanded="true" aria-controls="collapse5_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse5_1" class="accordion-collapse collapse"
+aria-labelledby="heading5_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: <code>9</code></p>
+<p>The code groups the dataframe by two columns, so the number of rows
+will be the number of combinations between the two rows. So the two
+columns are ‘diff_category’: ("easy", "moderate", "hard") and
+‘length_category’: ("short", "medium", "long"), and 3 columns x 3
+columns = <code>9 columns</code>.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 77%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<p><br></p>
+<h3 id="problem-5.2">Problem 5.2</h3>
+<p>Fill in the blank to set <code>num</code> to the number of words
+whose <code>"diff_category"</code> is <code>"hard"</code> and whose
+<code>"length_category"</code> is <code>"short"</code>. Recall that
+<code>.groupby</code> arranges the rows of its output in alphabetical
+order.</p>
+<pre><code>num = grouped.get(&quot;ps&quot;).iloc[__(a)__]</code></pre>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading5_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_2" aria-expanded="true" aria-controls="collapse5_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse5_2" class="accordion-collapse collapse"
+aria-labelledby="heading5_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><code>(a)</code>: <code>5</code></p>
+<p>As stated in the last answer, the options for the two indicies are
+’diff category’: (”easy”, ”moderate”, ”hard”) and ’length category’:
+(”short”, ”medium”, ”long”), with ’diff category’ coming first then
+’length category’. We want to find the row that is “hard” and ”short”.
+If we sort each index alphabetically, we get (”easy”, ”hard”,
+”moderate”) and (”medium”, ”long”, ”short”). Then, the dataframe looks
+like ”easy” difficulty for indices 0-2, ”hard” dif- ficulty for 3-5, and
+medium for 6-8, with each difficulty’s first row being ”medium”, second
+being ”long”, and last being ”short”. Since we want the hard, short
+word, we go hard → indices 3-5, then hard and short → index 5.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 52%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<p><br></p>
+<h3 id="problem-5.3">Problem 5.3</h3>
+<p>We want to determine the proportion of <code>"short"</code> words
+that are <code>"hard"</code>. Fill in the blanks in the code below such
+that <code>prop</code> evaluates to this proportion.</p>
+<pre><code>denom = grouped[__(b)__].get(&quot;freq&quot;).__(c)__
+prop = num / denom</code></pre>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading5_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_3" aria-expanded="true" aria-controls="collapse5_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse5_3" class="accordion-collapse collapse"
+aria-labelledby="heading5_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><code>(b)</code>:
+<code>grouped.get("length category") == short</code></p>
+<p>We want the proportion of short words that are hard. Remember,
+proportions are usually a part of the data divided by the whole sample
+space. We already have the row that is the part of the data, which we
+did in part b. Therefore, the denom should be the whole sample space,
+which in this case is the total amount of short words. So, when we
+query, we want only the short words, which we get by querying with
+<code>grouped.get("length category") == short</code>.</p>
+<p><code>(c)</code>: <code>.sum()</code></p>
+<p>Once we get the <code>freq</code> column, we’re left with one row
+indexed by <code>"short"</code> with three subentries for each
+difficulty, so we need to use<code>.sum()</code></p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 38%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-6">Problem 6</h2>
+<p>The DataFrame <code>long</code> was created by taking the <span
+class="math inline">500</span> rows of <code>words</code> corresponding
+to words whose <code>"length"</code> is more than <span
+class="math inline">10</span>. Of the <span
+class="math inline">500</span> words in <code>long</code>,</p>
+<ul>
+<li><span class="math inline">100</span> words were marked difficult by
+<span class="math inline">5</span> or more students, and</li>
+<li>no words were marked difficult by more than <span
+class="math inline">25</span> students.</li>
+</ul>
+<p>The density histogram below was created using the data in the
+<code>"diff"</code> column of <code>long</code>. The <code>bins</code>
+argument was set as <code>bins=np.arange(5, 30, 5)</code> so the
+histogram <strong>does not include</strong> words that fewer than 5
+students marked difficult.</p>
+<center><img src="https://raw.githubusercontent.com/dsc-courses/practice.dsc10.com/refs/heads/master/assets/images/fa25-midterm/hist.png" width=400></center>
+<p><br></p>
+<h3 id="problem-6.1">Problem 6.1</h3>
+<p>How many words were marked difficult by <span
+class="math inline">10</span> or more students? Give your answer as an
+integer.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_1" aria-expanded="true" aria-controls="collapse6_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_1" class="accordion-collapse collapse"
+aria-labelledby="heading6_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: <span class="math inline">50</span></p>
+<p>To find the number of words marked difficult by 10 or more students,
+we can calculate <span class="math inline">100 \; -</span> {the number
+of words marked difficult by at least 5 students or less than 10
+students}, or <span class="math inline">100 \; -</span> {the number of
+words in bin [5,10)}.<br/>
+</p>
+<p>Number of words in bin <span class="math inline">[5,10) =
+(5)(.10)(100) = 50</span><br/>
+</p>
+<p><span class="math inline">100 - 50 = 50</span> words marked difficult
+by at least 10 students.<br/>
+</p>
+<p>We can also use <span class="math inline">1 \; -</span> {proportion
+of total words in bin <span class="math inline">[5,10)</span>}, then
+multiply by 100. Similarly, we can directly calculate the necessary
+proportion of students by using the area of 3 rightmost bins.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<p><br></p>
+<h3 id="problem-6.2">Problem 6.2</h3>
+<p>Suppose we regenerated the histogram using the same data, but setting
+the <code>bins</code> argument as
+<code>bins=np.arange(0, 30, 5)</code>.</p>
+<ol type="1">
+<li><p>What would be the height of the bar <span class="math inline">[5,
+10)</span>? Give your answer as a decimal number.</p></li>
+<li><p>What would be the height of the bar <span class="math inline">[0,
+5)</span>? Give your answer as a decimal number.</p></li>
+</ol>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_2" aria-expanded="true" aria-controls="collapse6_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_2" class="accordion-collapse collapse"
+aria-labelledby="heading6_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer (Part 1)</strong>: <span class="math inline">0.02</span></p>
+<p>We know that there are 50 words in the bin <span class="math inline">[5,10)</span>.<br/>
+Now, however, the histogram is showing all 500 words. So the proportion
+of words in bin <span class="math inline">[5,10)</span> is <span class="math inline">\frac{50}{500} = 0.1</span>.<br/>
+To find the height of bar <span class="math inline">[5,10)</span>, we
+use:</p>
+<p><span class="math inline">5 \cdot {h} = 0.1</span><br/>
+<span class="math inline">h = \frac{0.1}{5} = 0.02</span></p>
+<p><strong>Answer (Part 2)</strong>: <span class="math inline">0.16</span></p>
+<p>We know that 100 words were marked difficult by 5 or more students,
+so that means <span class="math inline">500 - 100 = 400</span> words
+were marked difficult by less than 5 students.<br/>
+<br/>
+So <span class="math inline">\frac{400}{500} = 0.8 =</span><br/>
+{proportion of total words that less than 5 students found
+difficult}.<br/>
+</p>
+<p>To find the height of bar <span class="math inline">[0,5)</span>, we
+use:</p>
+<p><span class="math inline">5 \cdot {h} = 0.8</span><br/>
+<span class="math inline">h = \frac{0.8}{5} = 0.16</span></p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 57%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-7">Problem 7</h2>
+<p>Fill in the blanks below to estimate the probability that a randomly
+generated three-letter lowercase sequence forms a real English word
+represented in the <code>words</code> DataFrame.</p>
+<pre><code>letters = __(a)__
+for letter in &quot;abcdefghijklmnopqrstuvwxyz&quot;:
+    letters = np.append(letters, letter)
+
+repetitions = 10000
+found = 0
+
+for i in np.arange(repetitions):
+    seq = &quot;&quot;.join(np.random.choice(__(b)__, 3, replace=True))
+    if __(c)__:
+        found = found + 1
+
+prob_real_word = __(d)__
+prob_real_word</code></pre>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading7">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7" aria-expanded="true" aria-controls="collapse7">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse7" class="accordion-collapse collapse"
+aria-labelledby="heading7" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><code>(a)</code>: <code>np.array([])</code></p>
+<p>Both arrays and lists are appendable, meaning we can keep adding ele-
+ments one by one. We start with an empty container so that in the for
+loop, each letter from <code>”abcdefghijklmnopqrstuvwxyz”</code> can be
+added into it. We need this container (letters) so that by the end of
+the loop, we have a full collection of all lowercase letters. Later,
+we’ll use this collection as the pool to randomly pick letters from. So
+whether we start with an empty array <code>(np.array([]))</code> or an
+empty list <code>([])</code>, the purpose is the same to store all 26
+lowercase letters that the pro- gram will later draw from when
+generating random three-letter words.</p>
+<p><code>(b)</code>: <code>letters</code></p>
+<p>The function <code>np.random.choice()</code> randomly selects
+elements from a given ar- ray. We want to generate a random 3-letter
+sequence from the alphabet.
+<code>np.random.choice(letters, 3, replace=True)</code> means “randomly
+choose 3 letters from the letters array, allowing repetition.” We use
+<code>re- place=True</code> because letters can repeat (e.g., “mom”,
+“dad”). The result is something like [’m’, ’o’, ’m’]. Then
+<code>””.join(...)</code> combines them into ”mom”.</p>
+<p><code>(c)</code>: <code>seq in words.index</code></p>
+<p>After generating a random sequence like ”mom”, we need to check if
+it’s a real English word. The problem says that the real En- glish words
+are represented in the index of the DataFrame words. So we use: if seq
+in words.index: This condition is True when the randomly generated
+sequence matches a word stored in the dataset. Every time that happens,
+we increment the counter found by 1.</p>
+<p><code>(d)</code>: <code>found / repetitions</code></p>
+<p>Finally, we estimate the probability. The logic is: Probability =
+(Number of successful outcomes) / (Total trials). In this case, a
+“successful outcome” is when the randomly generated three-letter
+sequence that forms an English word appears in the words DataFrame
+(index). Since we repeated the experiment 10,000 times, prob real
+world=found/repetitions gives the estimated probability.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 65%.</p>
+</div>
+</div>
+</div>
+</div>
+<hr />
+<h2 id="problem-8">Problem 8</h2>
+<p>Suppose that for each word in the English language, Matt has a <span
+class="math inline">70\%</span> chance of finding it difficult. Suppose
+also that the difficulty of each word is independent of the difficulty
+of any other word.</p>
+<p>For all parts of this problem, give your answer as a decimal number
+or as an unsimplified mathematical expression.</p>
+<p><br></p>
+<h3 id="problem-8.1">Problem 8.1</h3>
+<p>If Matt reads a sentence of <span class="math inline">10</span>
+words, what is the probability that he finds <strong>every</strong> word
+difficult?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading8_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_1" aria-expanded="true" aria-controls="collapse8_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse8_1" class="accordion-collapse collapse"
+aria-labelledby="heading8_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: <span class="math inline">(0.7)^{10}</span></p>
+<p>Each word is independent, so the probability of finding 10 straight
+words difficult is just the probability of finding any particular word
+difficult to the tenth power.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 89%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<p><br></p>
+<h3 id="problem-8.2">Problem 8.2</h3>
+<p>If Matt reads a sentence of <span class="math inline">10</span>
+words, what is the probability that he finds <strong>at least
+one</strong> word difficult?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading8_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_2" aria-expanded="true" aria-controls="collapse8_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse8_2" class="accordion-collapse collapse"
+aria-labelledby="heading8_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: <span class="math inline">1 -
+(0.3)^{10}</span></p>
+<p>This is a problem where it’s easier to find the probability that the
+given event <strong>doesn’t</strong> happen. The only way this would not
+happen is if Matt finds absolutely none of the words difficult. That
+would have a probability of <span class="math inline">(1-0.7)^{10}</span>, and our answer is going to be 1
+minus that.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 62%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<p>Now suppose that Ryan finds the English language slightly more
+difficult, as it’s not his first language:</p>
+<ul>
+<li>For each word, if Matt finds it difficult, there’s a <span
+class="math inline">90\%</span> chance that Ryan finds it
+difficult.</li>
+<li>For each word, if Matt doesn’t find it difficult, there’s still a
+<span class="math inline">50\%</span> chance that Ryan finds it
+difficult.</li>
+</ul>
+<p><br></p>
+<h3 id="problem-8.3">Problem 8.3</h3>
+<p>For any given word, what is the probability that <strong>at least one
+of Matt and Ryan</strong> finds it difficult?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading8_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_3" aria-expanded="true" aria-controls="collapse8_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse8_3" class="accordion-collapse collapse"
+aria-labelledby="heading8_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: <span class="math inline">1 - 0.3 * 0.5 =
+0.85</span></p>
+<p>For this problem its easier to find the probability that this
+<strong>doesn’t</strong> happen. The only way this would not happen
+would be if both Matt and Ryan don’t find the word difficult. For Matt,
+that happens with probability <span class="math inline">0.3</span>. And
+then given that Matt doesn’t find the word difficult, Ryan has a <span class="math inline">0.5</span> probability of not finding the word
+difficult. Multiplying those two probabilities and subtracting from 1
+gives us our answer.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 34%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<p><br></p>
+<h3 id="problem-8.4">Problem 8.4</h3>
+<p>What is the probability that for <strong>every</strong> word in a
+sentence of <span class="math inline">10</span> words, <strong>exactly
+one of Matt and Ryan</strong> finds the word difficult?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading8_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_4" aria-expanded="true" aria-controls="collapse8_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse8_4" class="accordion-collapse collapse"
+aria-labelledby="heading8_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: <span class="math inline">(0.7 * 0.1 + 0.3 *
+0.5)^{10} = (0.22)^{10}</span></p>
+<p>Since each word is independent, we only need to find the probability
+that for one particular word either Matt or Ryan finds it difficult but
+not both, and then we can take that probability to the power of 10. The
+first case is that Matt finds a word difficult but Ryan doesn’t. The
+first part happens with probability <span class="math inline">0.7</span>, and given that Matt found the word
+difficult, the second part happens with probability <span class="math inline">0.1</span>. We multiply those to get one part of our
+sum. The other case is that Matt doesn’t find a word difficult but Ryan
+does. The first part happens with probability <span class="math inline">0.3</span>, and given that, the second part happens
+with probability <span class="math inline">0.5</span>. Multiplying these
+two gives us the second part of our sum.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 17%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="section"><span class="math display"> </span></h2>
+<h4
+id="feedback-find-an-error-still-confused-have-a-suggestion-let-us-know-here.">👋
+Feedback: Find an error? Still confused? Have a suggestion?
+<a href="https://forms.gle/WZ71FchnXU1K154d7">Let us know
+here</u></a>.</h4>
+<hr />
+</body>
+</html>
