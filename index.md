@@ -26,7 +26,7 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
 <br><br>
 This pretest is due **Thursday, October 2nd at 11:59PM**. Write your solutions on paper or a tablet, show your work, then submit to Gradescope.<br><br>
 The pretest will be graded based on honest effort, not on the correctness of your responses. You will earn participation credit for completing the pretest to the best of your ability.<br><br>
-We will release solutions to the pretest at the beginning of Week 2. You are highly encouraged to check how you did and learn from the solutions. 
+We will release solutions to the pretest at the beginning of Week 2. You are highly encouraged to check how you did and learn from the solutions.  
 
 
 ---
@@ -73,15 +73,13 @@ We will release solutions to the pretest at the beginning of Week 2. You are hig
       <th scope="row">5</th>
       <td>Monday, October 27th</td>
       <td><a href="disc05/index.html">Probability and Simulation</a></td>
-    </tr>
-<!--
-    
+    </tr>  
     <tr>
       <th scope="row">6</th>
-      <td>Wednesday, May 7th</td>
+      <td>Monday, November 3rd</td>
       <td><a href="disc06/index.html">Sampling, Bootstrapping, and Confidence Intervals</a></td>
     </tr>
-    <tr>
+<!--    <tr>
       <th scope="row">7</th>
       <td>Monday, May 12th</td>
       <td><a href="disc07/index.html">Standardization and the Normal Distribution</a></td>
