@@ -84,7 +84,7 @@ We will release solutions to the pretest at the beginning of Week 2. You are hig
       <td>Monday, November 10th</td>
       <td><a href="disc07/index.html">Standardization and the Normal Distribution</a></td>
     </tr>
-<!--    
+<!--     
     <tr>
       <th scope="row">8</th>
       <td>Monday, May 19th</td>
