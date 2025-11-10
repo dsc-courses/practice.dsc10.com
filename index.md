@@ -79,11 +79,12 @@ We will release solutions to the pretest at the beginning of Week 2. You are hig
       <td>Monday, November 3rd</td>
       <td><a href="disc06/index.html">Sampling, Bootstrapping, and Confidence Intervals</a></td>
     </tr>
-<!--    <tr>
+    <tr>
       <th scope="row">7</th>
-      <td>Monday, May 12th</td>
+      <td>Monday, November 10th</td>
       <td><a href="disc07/index.html">Standardization and the Normal Distribution</a></td>
     </tr>
+<!--    
     <tr>
       <th scope="row">8</th>
       <td>Monday, May 19th</td>
