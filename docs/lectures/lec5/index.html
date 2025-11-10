@@ -89,7 +89,7 @@
     code span.vs { color: #4070a0; } /* VerbatimString */
     code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../../assets/theme.css" />
+  <link rel="stylesheet" href="..\..\assets\theme.css" />
   <script defer=""
   src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
@@ -2292,15 +2292,12 @@ aria-labelledby="heading18_2" data-bs-parent="#accordionExample">
 <p><br></p>
 <hr />
 <h2 id="problem-19">Problem 19</h2>
-<p>The following code computes an array containing the unique kinds of
-dogs that are heavier than 20 kg <strong>or</strong> taller than 40 cm
-on average.</p>
+<p>The following code computes the breed of the cheapest toy dog.</p>
 <div class="sourceCode" id="cb30"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>foo <span class="op">=</span> df.__(a)__.__(b)__</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>np.array(foo[__(c)__].__d__)</span></code></pre></div>
+class="sourceCode py"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>df[__(a)__].__(b)__.__(c)__</span></code></pre></div>
 <p><br></p>
 <h3 id="problem-19.1">Problem 19.1</h3>
-<p>Fill in blank (a).</p>
+<p>Fill in part (a).</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading19_1">
@@ -2314,26 +2311,27 @@ aria-labelledby="heading19_1" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer: </strong> <code>groupby('kind')</code></p>
-<p>We start this problem by grouping the dataframe by
-<code>'kind'</code> since we’re only interested in whether each unique
-<code>'kind'</code> of dog fits some sort of constraint. We don’t quite
-perform querying yet since we need to group the DataFrame first. In
-other words, we first need to group the DataFrame into each
-<code>'kind'</code> before we could apply any sort of boolean
-conditionals.</p>
+<p><strong>Answer: </strong> <code>df.get('kind') == 'toy'</code></p>
+<p>To find the cheapest toy dog, we can start by narrowing down our
+dataframe to only include dogs that are of kind toy. We do this by
+constructing the following boolean condition:
+<code>df.get('kind') == 'toy'</code>, which will check whether a dog is
+of kind toy (i.e. whether or not a given row’s <code>'kind'</code> value
+is equal to <code>'toy'</code>). As a result,
+<code>df[df.get('kind') == 'toy']</code> will retrieve all rows for
+which the <code>'kind'</code> column is equal to <code>'toy'</code>.</p>
 <hr/>
 <h5>Difficulty: ⭐️</h5>
 <p>
 </p>
-<p>The average score on this problem was 97%.</p>
+<p>The average score on this problem was 91%.</p>
 </div>
 </div>
 </div>
 </div>
 <p><br></p>
 <h3 id="problem-19.2">Problem 19.2</h3>
-<p>Fill in blank (b).</p>
+<p>Fill in part (b).</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading19_2">
@@ -2347,24 +2345,31 @@ aria-labelledby="heading19_2" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer: </strong> <code>.mean()</code></p>
-<p>After we do <code>.groupby('kind')</code>, we need to apply
-<code>.mean()</code> since the problem asks if each unique
-<code>'kind'</code> of dog satisfies certain constraints <strong>on
-average</strong>. <code>.mean()</code> calculates the average of each
-column of each group which is what we want.</p>
+<p><strong>Answer: </strong> <code>.sort_values('price')</code></p>
+<p>Next, we can sort the resulting dataframe by price, which will make
+the minimum price (i.e. the cheapest toy dog) easily accessible to us
+later on. To sort the dataframe, simply use <code>.sort_values()</code>,
+with parameter <code>'price'</code> as follows:
+<code>.sort_values('price')</code></p>
 <hr/>
-<h5>Difficulty: ⭐️</h5>
+<h5>Difficulty: ⭐️⭐️</h5>
 <p>
 </p>
-<p>The average score on this problem was 94%.</p>
+<p>The average score on this problem was 86%.</p>
 </div>
 </div>
 </div>
 </div>
 <p><br></p>
 <h3 id="problem-19.3">Problem 19.3</h3>
-<p>Fill in blank (c).</p>
+<p>Which of the following can fill in blank (c)? <strong>Select all that
+apply.</strong></p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> <code>loc[0]</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>iloc[0]</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>index[0]</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>min()</code></p></li>
+</ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading19_3">
@@ -2378,94 +2383,30 @@ aria-labelledby="heading19_3" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer: </strong>
-<code>(foo.get('weight') &gt; 20 | foo.get('height') &gt; 40)</code></p>
-<p>Once we have grouped the dogs by <code>'kind'</code> and have
-calculated the average stats of each kind of dog, we can do some
-querying with two conditionals: <code>foo.get('weight') &gt; 20</code>
-gets the kinds of dogs that are heavier than 20 kg on average and
-<code>foo.get('height') &gt; 40)</code> gets the kinds of dogs that are
-taller than 40 cm on average. We combine these two conditions with the
-<code>|</code> operator since we want the kind of dogs that satisfy
-either condition.</p>
+<p><strong>Answer: </strong> <code>index[0]</code></p>
+<ul>
+<li><code>loc[0]</code>: <code>loc</code> retrieves an element by the
+row label, which in this case is by <code>'breed'</code>, not by index
+value. Furthermore, <code>loc</code> actually returns the entire row,
+which is not what we are looking for. (Note that we are trying to find
+the singular <code>'breed'</code> of the cheapest toy dog.)<br/>
+</li>
+<li><code>iloc[0]</code>: While <code>iloc</code> does retrieve elements
+by index position, <code>iloc</code> actually returns the entire row,
+which is not what we are looking for.</li>
+<li><code>index[0]</code>: Note that since <code>'breed'</code> is the
+index column of our dataframe, and since we have already filtered and
+sorted the dataframe, simply taking the <code>'breed'</code> at index 0,
+or <code>index[0]</code> will return the <code>'breed'</code> of the
+cheapest toy dog.</li>
+<li><code>min()</code>: <code>min()</code> is a method used to find the
+smallest value on a series not a dataframe.</li>
+</ul>
 <hr/>
-<h5>Difficulty: ⭐️</h5>
+<h5>Difficulty: ⭐️⭐️</h5>
 <p>
 </p>
-<p>The average score on this problem was 93%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-19.4">Problem 19.4</h3>
-<p>Which of the following should fill in blank (d)?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> <code>.index</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>.unique()</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>.get('kind')</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>.get(['kind'])</code></p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading19_4">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse19_4" aria-expanded="true" aria-controls="collapse19_4">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse19_4" class="accordion-collapse collapse"
-aria-labelledby="heading19_4" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> <code>.index</code></p>
-<p>Note that earlier, we did <code>groupby('kind')</code>, which
-automatically sets each unique <code>'kind'</code> as the index. Since
-this is what we want anyways, simply doing <code>.index</code> will give
-us all the kinds of dogs that satisfy the given conditions.</p>
-<p></p>
-<hr/>
-<h5>Difficulty: ⭐️</h5>
-<p>The average score on this problem was
-94%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-19.5">Problem 19.5</h3>
-<p>Let’s say that right after blank (b), we added
-<code>reset_index()</code>. Now, which of the following should fill in
-blank (d)?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> <code>.index</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>.unique()</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>.get('kind')</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>.get(['kind'])</code></p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading19_5">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse19_5" aria-expanded="true" aria-controls="collapse19_5">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse19_5" class="accordion-collapse collapse"
-aria-labelledby="heading19_5" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> <code>.get('kind')</code></p>
-<p>Now that we have reset the index of the dataframe,
-<code>'kind'</code> is once again its own column so we could simply do
-<code>.get('kind')</code>.</p>
-<hr/>
-<h5>Difficulty: ⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 100%.</p>
+<p>The average score on this problem was 81%.</p>
 </div>
 </div>
 </div>
@@ -2617,12 +2558,15 @@ us all the kinds of dogs that satisfy the given conditions.</p>
 <p><br></p>
 <hr />
 <h2 id="problem-21">Problem 21</h2>
-<p>The following code computes the breed of the cheapest toy dog.</p>
+<p>The following code computes an array containing the unique kinds of
+dogs that are heavier than 20 kg <strong>or</strong> taller than 40 cm
+on average.</p>
 <div class="sourceCode" id="cb32"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>df[__(a)__].__(b)__.__(c)__</span></code></pre></div>
+class="sourceCode py"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>foo <span class="op">=</span> df.__(a)__.__(b)__</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>np.array(foo[__(c)__].__d__)</span></code></pre></div>
 <p><br></p>
 <h3 id="problem-21.1">Problem 21.1</h3>
-<p>Fill in part (a).</p>
+<p>Fill in blank (a).</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading21_1">
@@ -2636,27 +2580,26 @@ aria-labelledby="heading21_1" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer: </strong> <code>df.get('kind') == 'toy'</code></p>
-<p>To find the cheapest toy dog, we can start by narrowing down our
-dataframe to only include dogs that are of kind toy. We do this by
-constructing the following boolean condition:
-<code>df.get('kind') == 'toy'</code>, which will check whether a dog is
-of kind toy (i.e. whether or not a given row’s <code>'kind'</code> value
-is equal to <code>'toy'</code>). As a result,
-<code>df[df.get('kind') == 'toy']</code> will retrieve all rows for
-which the <code>'kind'</code> column is equal to <code>'toy'</code>.</p>
+<p><strong>Answer: </strong> <code>groupby('kind')</code></p>
+<p>We start this problem by grouping the dataframe by
+<code>'kind'</code> since we’re only interested in whether each unique
+<code>'kind'</code> of dog fits some sort of constraint. We don’t quite
+perform querying yet since we need to group the DataFrame first. In
+other words, we first need to group the DataFrame into each
+<code>'kind'</code> before we could apply any sort of boolean
+conditionals.</p>
 <hr/>
 <h5>Difficulty: ⭐️</h5>
 <p>
 </p>
-<p>The average score on this problem was 91%.</p>
+<p>The average score on this problem was 97%.</p>
 </div>
 </div>
 </div>
 </div>
 <p><br></p>
 <h3 id="problem-21.2">Problem 21.2</h3>
-<p>Fill in part (b).</p>
+<p>Fill in blank (b).</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading21_2">
@@ -2670,31 +2613,24 @@ aria-labelledby="heading21_2" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer: </strong> <code>.sort_values('price')</code></p>
-<p>Next, we can sort the resulting dataframe by price, which will make
-the minimum price (i.e. the cheapest toy dog) easily accessible to us
-later on. To sort the dataframe, simply use <code>.sort_values()</code>,
-with parameter <code>'price'</code> as follows:
-<code>.sort_values('price')</code></p>
+<p><strong>Answer: </strong> <code>.mean()</code></p>
+<p>After we do <code>.groupby('kind')</code>, we need to apply
+<code>.mean()</code> since the problem asks if each unique
+<code>'kind'</code> of dog satisfies certain constraints <strong>on
+average</strong>. <code>.mean()</code> calculates the average of each
+column of each group which is what we want.</p>
 <hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
+<h5>Difficulty: ⭐️</h5>
 <p>
 </p>
-<p>The average score on this problem was 86%.</p>
+<p>The average score on this problem was 94%.</p>
 </div>
 </div>
 </div>
 </div>
 <p><br></p>
 <h3 id="problem-21.3">Problem 21.3</h3>
-<p>Which of the following can fill in blank (c)? <strong>Select all that
-apply.</strong></p>
-<ul class="task-list">
-<li><p><input type="checkbox" disabled="" /> <code>loc[0]</code></p></li>
-<li><p><input type="checkbox" disabled="" /> <code>iloc[0]</code></p></li>
-<li><p><input type="checkbox" disabled="" /> <code>index[0]</code></p></li>
-<li><p><input type="checkbox" disabled="" /> <code>min()</code></p></li>
-</ul>
+<p>Fill in blank (c).</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading21_3">
@@ -2708,30 +2644,94 @@ aria-labelledby="heading21_3" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer: </strong> <code>index[0]</code></p>
-<ul>
-<li><code>loc[0]</code>: <code>loc</code> retrieves an element by the
-row label, which in this case is by <code>'breed'</code>, not by index
-value. Furthermore, <code>loc</code> actually returns the entire row,
-which is not what we are looking for. (Note that we are trying to find
-the singular <code>'breed'</code> of the cheapest toy dog.)<br/>
-</li>
-<li><code>iloc[0]</code>: While <code>iloc</code> does retrieve elements
-by index position, <code>iloc</code> actually returns the entire row,
-which is not what we are looking for.</li>
-<li><code>index[0]</code>: Note that since <code>'breed'</code> is the
-index column of our dataframe, and since we have already filtered and
-sorted the dataframe, simply taking the <code>'breed'</code> at index 0,
-or <code>index[0]</code> will return the <code>'breed'</code> of the
-cheapest toy dog.</li>
-<li><code>min()</code>: <code>min()</code> is a method used to find the
-smallest value on a series not a dataframe.</li>
-</ul>
+<p><strong>Answer: </strong>
+<code>(foo.get('weight') &gt; 20 | foo.get('height') &gt; 40)</code></p>
+<p>Once we have grouped the dogs by <code>'kind'</code> and have
+calculated the average stats of each kind of dog, we can do some
+querying with two conditionals: <code>foo.get('weight') &gt; 20</code>
+gets the kinds of dogs that are heavier than 20 kg on average and
+<code>foo.get('height') &gt; 40)</code> gets the kinds of dogs that are
+taller than 40 cm on average. We combine these two conditions with the
+<code>|</code> operator since we want the kind of dogs that satisfy
+either condition.</p>
 <hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
+<h5>Difficulty: ⭐️</h5>
 <p>
 </p>
-<p>The average score on this problem was 81%.</p>
+<p>The average score on this problem was 93%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-21.4">Problem 21.4</h3>
+<p>Which of the following should fill in blank (d)?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>.index</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>.unique()</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>.get('kind')</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>.get(['kind'])</code></p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading21_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21_4" aria-expanded="true" aria-controls="collapse21_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse21_4" class="accordion-collapse collapse"
+aria-labelledby="heading21_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> <code>.index</code></p>
+<p>Note that earlier, we did <code>groupby('kind')</code>, which
+automatically sets each unique <code>'kind'</code> as the index. Since
+this is what we want anyways, simply doing <code>.index</code> will give
+us all the kinds of dogs that satisfy the given conditions.</p>
+<p></p>
+<hr/>
+<h5>Difficulty: ⭐️</h5>
+<p>The average score on this problem was
+94%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-21.5">Problem 21.5</h3>
+<p>Let’s say that right after blank (b), we added
+<code>reset_index()</code>. Now, which of the following should fill in
+blank (d)?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>.index</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>.unique()</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>.get('kind')</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>.get(['kind'])</code></p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading21_5">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21_5" aria-expanded="true" aria-controls="collapse21_5">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse21_5" class="accordion-collapse collapse"
+aria-labelledby="heading21_5" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> <code>.get('kind')</code></p>
+<p>Now that we have reset the index of the dataframe,
+<code>'kind'</code> is once again its own column so we could simply do
+<code>.get('kind')</code>.</p>
+<hr/>
+<h5>Difficulty: ⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 100%.</p>
 </div>
 </div>
 </div>
@@ -3575,19 +3575,22 @@ mean of strings.</p>
 </div>
 <hr />
 <h2 id="problem-29">Problem 29</h2>
-<p>In this question, we’ll write code to learn more about the
-skyscrapers in the beautiful city of San Diego. (Unrelated fun fact –
-since the San Diego Airport is so close to downtown, buildings in
-downtown San Diego legally cannot be taller than 152 meters.)</p>
+<p>Below, identify the data type of the result of each of the following
+expressions, or select “error” if you believe the expression results in
+an error.</p>
 <p><br></p>
 <h3 id="problem-29.1">Problem 29.1</h3>
-<p>Below, fill in the blank to create a DataFrame, named
-<code>san_tall</code>, consisting of just the skyscrapers in San Diego
-that are over 100 meters tall.</p>
 <div class="sourceCode" id="cb45"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>condition <span class="op">=</span> ______</span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>san_tall <span class="op">=</span> sky[(sky.get(<span class="st">&#39;city&#39;</span>) <span class="op">==</span> <span class="st">&#39;San Diego&#39;</span>) <span class="op">&amp;</span> condition]</span></code></pre></div>
-<p>What goes in the blank?</p>
+class="sourceCode py"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>sky.sort_values(<span class="st">&#39;height&#39;</span>)</span></code></pre></div>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> int or float</p></li>
+<li><p><input type="radio" disabled="" /> Boolean</p></li>
+<li><p><input type="radio" disabled="" /> string</p></li>
+<li><p><input type="radio" disabled="" /> array</p></li>
+<li><p><input type="radio" disabled="" /> Series</p></li>
+<li><p><input type="radio" disabled="" /> DataFrame</p></li>
+<li><p><input type="radio" disabled="" /> error</p></li>
+</ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading29_1">
@@ -3601,34 +3604,33 @@ aria-labelledby="heading29_1" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer:</strong> <code>sky.get('height') &gt; 100</code></p>
-<p>We need to query for all of the skyscrapers that satisfy two
-conditions – the <code>'city'</code> must be <code>'San Diego'</code>
-and the <code>'height'</code> must be above 100. The first condition was
-already implemented for us, so we just need to construct a Boolean
-Series that implements the second condition.</p>
-<p>Here, we want all of the rows where <code>'height'</code> is above
-100, so we <code>get</code> the <code>'height'</code> column and compare
-it to 100 like so: <code>sky.get('height') &gt; 100</code>.</p>
+<p><strong>Answer:</strong> DataFrame</p>
+<p><code>sky</code> is a DataFrame. All the <code>sort_values</code>
+method does is change the order of the rows in the Series/DataFrame it
+is called on, it does not change the data structure. As such,
+<code>sky.sort_values('height')</code> is also a DataFrame.</p>
 <hr/>
-<h5>Difficulty: ⭐️</h5>
+<h5>Difficulty: ⭐️⭐️</h5>
 <p>
 </p>
-<p>The average score on this problem was 95%.</p>
+<p>The average score on this problem was 87%.</p>
 </div>
 </div>
 </div>
 </div>
 <p><br></p>
 <h3 id="problem-29.2">Problem 29.2</h3>
-<p>Suppose <code>san_tall</code> from the previous part was created
-correctly. Fill in the blanks so that <code>height_many_floors</code>
-evaluates to the <strong>height (in meters)</strong> of the skyscraper
-with the <strong>most floors</strong>, amongst all skyscrapers in San
-Diego that are over 100 meters tall.</p>
 <div class="sourceCode" id="cb46"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>height_many_floors <span class="op">=</span> san_tall.______.iloc[<span class="dv">0</span>]</span></code></pre></div>
-<p>What goes in the blank?</p>
+class="sourceCode py"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>sky.sort_values(<span class="st">&#39;height&#39;</span>).get(<span class="st">&#39;material&#39;</span>).loc[<span class="dv">0</span>]</span></code></pre></div>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> int or float</p></li>
+<li><p><input type="radio" disabled="" /> Boolean</p></li>
+<li><p><input type="radio" disabled="" /> string</p></li>
+<li><p><input type="radio" disabled="" /> array</p></li>
+<li><p><input type="radio" disabled="" /> Series</p></li>
+<li><p><input type="radio" disabled="" /> DataFrame</p></li>
+<li><p><input type="radio" disabled="" /> error</p></li>
+</ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading29_2">
@@ -3642,45 +3644,41 @@ aria-labelledby="heading29_2" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer:</strong>
-<code>sort_values('floors', ascending=False).get('height')</code></p>
-<p>The end of the line given to us is <code>.iloc[0]</code>. We know
-that <code>.iloc[0]</code> extracts the first element in whatever Series
-it is called on, so what comes before <code>.iloc[0]</code> must be a
-Series where the first element is the <code>'height'</code> of the
-skyscraper with the most floors, among all skyscrapers in San Diego that
-are over 100 meters tall. The DataFrame we are working with,
-<code>san_tall</code>, already only has skyscrapers in San Diego that
-are over 100 meters tall.</p>
-<p>This means that in the blank, all we need to do is:</p>
-<ol type="1">
-<li>Sort skyscrapers by <code>'floors'</code> in decreasing order (so
-that the first row is the skyscraper with the most
-<code>'floors'</code>).</li>
-<li>Extract the <code>'height'</code> column.</li>
-</ol>
-<p>As such, a complete answer is
-<code>height_many_floors = san_tall.sort_values('floors', ascending=False).get('height').iloc[0]</code>.</p>
+<p><strong>Answer:</strong> error</p>
+<p><code>sky.sort_values('height')</code> is a DataFrame, and
+<code>sky.sort_values('height').get('material')</code> is a Series
+corresponding to the <code>'material'</code> column, sorted by
+<code>'height'</code> in increasing order. So far, there are no
+errors.</p>
+<p>Remember, the <code>.loc</code> <em>accessor</em> is used to access
+elements in a Series based on their index.
+<code>sky.sort_values('height').get('material').loc[0]</code> is asking
+for the element in the
+<code>sky.sort_values('height').get('material')</code> Series with index
+0. However, the index of <code>sky</code> is made up of building names.
+Since there is no building named <code>0</code>, <code>.loc[0]</code>
+causes an error.</p>
 <hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<h5>Difficulty: ⭐️⭐️</h5>
 <p>
 </p>
-<p>The average score on this problem was 74%.</p>
+<p>The average score on this problem was 79%.</p>
 </div>
 </div>
 </div>
 </div>
 <p><br></p>
 <h3 id="problem-29.3">Problem 29.3</h3>
-<p><code>height_many_floors</code>, the value you computed in the
-previous part (2.2) was a number.</p>
-<p><strong>True or False:</strong> Assuming that the DataFrame
-<code>san_tall</code> contains all skyscrapers in San Diego,
-<code>height_many_floors</code> is the height (in meters) of the
-<strong>tallest</strong> skyscraper in San Diego.</p>
+<div class="sourceCode" id="cb47"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>sky.sort_values(<span class="st">&#39;height&#39;</span>).get(<span class="st">&#39;material&#39;</span>).iloc[<span class="dv">0</span>]</span></code></pre></div>
 <ul class="task-list">
-<li><p><input type="radio" disabled="" /> True</p></li>
-<li><p><input type="radio" disabled="" /> False</p></li>
+<li><p><input type="radio" disabled="" /> int or float</p></li>
+<li><p><input type="radio" disabled="" /> Boolean</p></li>
+<li><p><input type="radio" disabled="" /> string</p></li>
+<li><p><input type="radio" disabled="" /> array</p></li>
+<li><p><input type="radio" disabled="" /> Series</p></li>
+<li><p><input type="radio" disabled="" /> DataFrame</p></li>
+<li><p><input type="radio" disabled="" /> error</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
@@ -3695,22 +3693,150 @@ aria-labelledby="heading29_3" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer:</strong> False</p>
-<p><code>height_many_floors</code> is the height of the skyscraper with
-the most <code>'floors'</code>. However, this is not necessarily the
-tallest skyscraper (i.e. the skyscraper with the largest
-<code>'height'</code>)! Consider the following scenario:</p>
-<ul>
-<li>Building A: 15 floors, height of 150 feet</li>
-<li>Building B: 20 floors, height of 100 feet</li>
-</ul>
-<p><code>height_many_floors</code> would be 100, but it is not the
-<code>'height'</code> of the taller building.</p>
+<p><strong>Answer:</strong> string</p>
+<p>As we mentioned above,
+<code>sky.sort_values('height').get('material')</code> is a Series
+containing values from the <code>'material'</code> column (but sorted).
+Remember, there is no element in this Series with an index of 0, so
+<code>sky.sort_values('height').get('material').loc[0]</code> errors.
+However, <code>.iloc[0]</code> works differently than
+<code>.loc[0]</code>; <code>.iloc[0]</code> will give us the first
+element in a Series (independent of what’s in the index). So,
+<code>sky.sort_values('height').get('material').iloc[0]</code> gives us
+back a value from the <code>'material'</code> column, which is made up
+of strings, so it gives us a string. (Specifically, it gives us the
+<code>'material'</code> type of the skyscraper with the smallest
+<code>'height'</code>.)</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
 </p>
-<p>The average score on this problem was 84%.</p>
+<p>The average score on this problem was 89%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-29.4">Problem 29.4</h3>
+<div class="sourceCode" id="cb48"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>sky.get(<span class="st">&#39;floors&#39;</span>).<span class="bu">max</span>()</span></code></pre></div>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> int or float</p></li>
+<li><p><input type="radio" disabled="" /> Boolean</p></li>
+<li><p><input type="radio" disabled="" /> string</p></li>
+<li><p><input type="radio" disabled="" /> array</p></li>
+<li><p><input type="radio" disabled="" /> Series</p></li>
+<li><p><input type="radio" disabled="" /> DataFrame</p></li>
+<li><p><input type="radio" disabled="" /> error</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading29_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse29_4" aria-expanded="true" aria-controls="collapse29_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse29_4" class="accordion-collapse collapse"
+aria-labelledby="heading29_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> int or float</p>
+<p>The Series <code>sky.get('floors')</code> is made up of integers, and
+<code>sky.get('floors').max()</code> evaluates to the largest number in
+the Series, which is also an integer.</p>
+<hr/>
+<h5>Difficulty: ⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 91%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-29.5">Problem 29.5</h3>
+<div class="sourceCode" id="cb49"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>sky.groupby(<span class="st">&#39;material&#39;</span>).<span class="bu">max</span>()</span></code></pre></div>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> int or float</p></li>
+<li><p><input type="radio" disabled="" /> Boolean</p></li>
+<li><p><input type="radio" disabled="" /> string</p></li>
+<li><p><input type="radio" disabled="" /> array</p></li>
+<li><p><input type="radio" disabled="" /> Series</p></li>
+<li><p><input type="radio" disabled="" /> DataFrame</p></li>
+<li><p><input type="radio" disabled="" /> error</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading29_5">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse29_5" aria-expanded="true" aria-controls="collapse29_5">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse29_5" class="accordion-collapse collapse"
+aria-labelledby="heading29_5" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> DataFrame</p>
+<p>When grouping and using an aggregation method, the result is always a
+DataFrame. The DataFrame <code>sky.groupby('material').max()</code>
+contains all of the columns in <code>sky</code>, minus
+<code>'material'</code>, which has been moved to the index. It contains
+one row for each unique <code>'material'</code>.</p>
+<p>Note that no columns were “dropped”, as may happen when using
+<code>.mean()</code>, because <code>.max()</code> can work on Series’ of
+any type. You can take the max of strings, while you cannot take the
+mean of strings.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 78%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-29.6">Problem 29.6</h3>
+<div class="sourceCode" id="cb50"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>sky.index[<span class="dv">0</span>]</span></code></pre></div>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> int or float</p></li>
+<li><p><input type="radio" disabled="" /> Boolean</p></li>
+<li><p><input type="radio" disabled="" /> string</p></li>
+<li><p><input type="radio" disabled="" /> array</p></li>
+<li><p><input type="radio" disabled="" /> Series</p></li>
+<li><p><input type="radio" disabled="" /> DataFrame</p></li>
+<li><p><input type="radio" disabled="" /> error</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading29_6">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse29_6" aria-expanded="true" aria-controls="collapse29_6">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse29_6" class="accordion-collapse collapse"
+aria-labelledby="heading29_6" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> string</p>
+<p><code>sky.index</code> contains the values
+<code>'Bayard-Condict Building'</code>,
+<code>'The Yacht Club at Portofino'</code>,
+<code>'City Investing Building'</code>, etc. <code>sky.index[0]</code>
+is then <code>'Bayard-Condict Building'</code>, which is a string.</p>
+<hr/>
+<h5>Difficulty: ⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 91%.</p>
 </div>
 </div>
 </div>
@@ -3723,8 +3849,8 @@ expressions, or select “error” if you believe the expression results in
 an error.</p>
 <p><br></p>
 <h3 id="problem-30.1">Problem 30.1</h3>
-<div class="sourceCode" id="cb47"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>sky.get(<span class="st">&#39;city&#39;</span>).<span class="bu">apply</span>(<span class="bu">len</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>sky.get(<span class="st">&#39;city&#39;</span>).<span class="bu">apply</span>(<span class="bu">len</span>)</span></code></pre></div>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> int or float</p></li>
 <li><p><input type="radio" disabled="" /> Boolean</p></li>
@@ -3765,8 +3891,8 @@ the lengths of the names of each <code>'city'</code>.</p>
 </div>
 <p><br></p>
 <h3 id="problem-30.2">Problem 30.2</h3>
-<div class="sourceCode" id="cb48"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>sky.get(<span class="st">&#39;city&#39;</span>).<span class="bu">apply</span>(<span class="bu">max</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>sky.get(<span class="st">&#39;city&#39;</span>).<span class="bu">apply</span>(<span class="bu">max</span>)</span></code></pre></div>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> int or float</p></li>
 <li><p><input type="radio" disabled="" /> Boolean</p></li>
@@ -3831,8 +3957,8 @@ expressions, or select “error” if you believe the expression results in
 an error.</p>
 <p><br></p>
 <h3 id="problem-31.1">Problem 31.1</h3>
-<div class="sourceCode" id="cb49"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>sky.sort_values(<span class="st">&#39;height&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>sky.sort_values(<span class="st">&#39;height&#39;</span>)</span></code></pre></div>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> int or float</p></li>
 <li><p><input type="radio" disabled="" /> Boolean</p></li>
@@ -3871,8 +3997,8 @@ is called on, it does not change the data structure. As such,
 </div>
 <p><br></p>
 <h3 id="problem-31.2">Problem 31.2</h3>
-<div class="sourceCode" id="cb50"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>sky.sort_values(<span class="st">&#39;height&#39;</span>).get(<span class="st">&#39;material&#39;</span>).loc[<span class="dv">0</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>sky.sort_values(<span class="st">&#39;height&#39;</span>).get(<span class="st">&#39;material&#39;</span>).loc[<span class="dv">0</span>]</span></code></pre></div>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> int or float</p></li>
 <li><p><input type="radio" disabled="" /> Boolean</p></li>
@@ -3920,8 +4046,8 @@ causes an error.</p>
 </div>
 <p><br></p>
 <h3 id="problem-31.3">Problem 31.3</h3>
-<div class="sourceCode" id="cb51"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>sky.sort_values(<span class="st">&#39;height&#39;</span>).get(<span class="st">&#39;material&#39;</span>).iloc[<span class="dv">0</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>sky.sort_values(<span class="st">&#39;height&#39;</span>).get(<span class="st">&#39;material&#39;</span>).iloc[<span class="dv">0</span>]</span></code></pre></div>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> int or float</p></li>
 <li><p><input type="radio" disabled="" /> Boolean</p></li>
@@ -3969,8 +4095,8 @@ of strings, so it gives us a string. (Specifically, it gives us the
 </div>
 <p><br></p>
 <h3 id="problem-31.4">Problem 31.4</h3>
-<div class="sourceCode" id="cb52"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>sky.get(<span class="st">&#39;floors&#39;</span>).<span class="bu">max</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>sky.get(<span class="st">&#39;city&#39;</span>).<span class="bu">apply</span>(<span class="bu">len</span>)</span></code></pre></div>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> int or float</p></li>
 <li><p><input type="radio" disabled="" /> Boolean</p></li>
@@ -3993,23 +4119,26 @@ aria-labelledby="heading31_4" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer:</strong> int or float</p>
-<p>The Series <code>sky.get('floors')</code> is made up of integers, and
-<code>sky.get('floors').max()</code> evaluates to the largest number in
-the Series, which is also an integer.</p>
+<p><strong>Answer:</strong> Series</p>
+<p>The <code>.apply</code> method takes in a function and evaluates that
+function on every element in a Series. Here,
+<code>sky.get('city').apply(len)</code> is using the function
+<code>len</code> on every element in the Series
+<code>sky.get('city')</code>. The result is also a Series, containing
+the lengths of the names of each <code>'city'</code>.</p>
 <hr/>
-<h5>Difficulty: ⭐️</h5>
+<h5>Difficulty: ⭐️⭐️</h5>
 <p>
 </p>
-<p>The average score on this problem was 91%.</p>
+<p>The average score on this problem was 79%.</p>
 </div>
 </div>
 </div>
 </div>
 <p><br></p>
 <h3 id="problem-31.5">Problem 31.5</h3>
-<div class="sourceCode" id="cb53"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>sky.groupby(<span class="st">&#39;material&#39;</span>).<span class="bu">max</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>sky.get(<span class="st">&#39;city&#39;</span>).<span class="bu">apply</span>(<span class="bu">max</span>)</span></code></pre></div>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> int or float</p></li>
 <li><p><input type="radio" disabled="" /> Boolean</p></li>
@@ -4028,278 +4157,6 @@ Click to view the solution.
 </h2>
 <div id="collapse31_5" class="accordion-collapse collapse"
 aria-labelledby="heading31_5" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer:</strong> DataFrame</p>
-<p>When grouping and using an aggregation method, the result is always a
-DataFrame. The DataFrame <code>sky.groupby('material').max()</code>
-contains all of the columns in <code>sky</code>, minus
-<code>'material'</code>, which has been moved to the index. It contains
-one row for each unique <code>'material'</code>.</p>
-<p>Note that no columns were “dropped”, as may happen when using
-<code>.mean()</code>, because <code>.max()</code> can work on Series’ of
-any type. You can take the max of strings, while you cannot take the
-mean of strings.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 78%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-31.6">Problem 31.6</h3>
-<div class="sourceCode" id="cb54"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>sky.index[<span class="dv">0</span>]</span></code></pre></div>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> int or float</p></li>
-<li><p><input type="radio" disabled="" /> Boolean</p></li>
-<li><p><input type="radio" disabled="" /> string</p></li>
-<li><p><input type="radio" disabled="" /> array</p></li>
-<li><p><input type="radio" disabled="" /> Series</p></li>
-<li><p><input type="radio" disabled="" /> DataFrame</p></li>
-<li><p><input type="radio" disabled="" /> error</p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading31_6">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse31_6" aria-expanded="true" aria-controls="collapse31_6">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse31_6" class="accordion-collapse collapse"
-aria-labelledby="heading31_6" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer:</strong> string</p>
-<p><code>sky.index</code> contains the values
-<code>'Bayard-Condict Building'</code>,
-<code>'The Yacht Club at Portofino'</code>,
-<code>'City Investing Building'</code>, etc. <code>sky.index[0]</code>
-is then <code>'Bayard-Condict Building'</code>, which is a string.</p>
-<hr/>
-<h5>Difficulty: ⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 91%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<hr />
-<h2 id="problem-32">Problem 32</h2>
-<p>Below, identify the data type of the result of each of the following
-expressions, or select “error” if you believe the expression results in
-an error.</p>
-<p><br></p>
-<h3 id="problem-32.1">Problem 32.1</h3>
-<div class="sourceCode" id="cb55"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>sky.sort_values(<span class="st">&#39;height&#39;</span>)</span></code></pre></div>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> int or float</p></li>
-<li><p><input type="radio" disabled="" /> Boolean</p></li>
-<li><p><input type="radio" disabled="" /> string</p></li>
-<li><p><input type="radio" disabled="" /> array</p></li>
-<li><p><input type="radio" disabled="" /> Series</p></li>
-<li><p><input type="radio" disabled="" /> DataFrame</p></li>
-<li><p><input type="radio" disabled="" /> error</p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading32_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse32_1" aria-expanded="true" aria-controls="collapse32_1">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse32_1" class="accordion-collapse collapse"
-aria-labelledby="heading32_1" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer:</strong> DataFrame</p>
-<p><code>sky</code> is a DataFrame. All the <code>sort_values</code>
-method does is change the order of the rows in the Series/DataFrame it
-is called on, it does not change the data structure. As such,
-<code>sky.sort_values('height')</code> is also a DataFrame.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 87%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-32.2">Problem 32.2</h3>
-<div class="sourceCode" id="cb56"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>sky.sort_values(<span class="st">&#39;height&#39;</span>).get(<span class="st">&#39;material&#39;</span>).loc[<span class="dv">0</span>]</span></code></pre></div>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> int or float</p></li>
-<li><p><input type="radio" disabled="" /> Boolean</p></li>
-<li><p><input type="radio" disabled="" /> string</p></li>
-<li><p><input type="radio" disabled="" /> array</p></li>
-<li><p><input type="radio" disabled="" /> Series</p></li>
-<li><p><input type="radio" disabled="" /> DataFrame</p></li>
-<li><p><input type="radio" disabled="" /> error</p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading32_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse32_2" aria-expanded="true" aria-controls="collapse32_2">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse32_2" class="accordion-collapse collapse"
-aria-labelledby="heading32_2" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer:</strong> error</p>
-<p><code>sky.sort_values('height')</code> is a DataFrame, and
-<code>sky.sort_values('height').get('material')</code> is a Series
-corresponding to the <code>'material'</code> column, sorted by
-<code>'height'</code> in increasing order. So far, there are no
-errors.</p>
-<p>Remember, the <code>.loc</code> <em>accessor</em> is used to access
-elements in a Series based on their index.
-<code>sky.sort_values('height').get('material').loc[0]</code> is asking
-for the element in the
-<code>sky.sort_values('height').get('material')</code> Series with index
-0. However, the index of <code>sky</code> is made up of building names.
-Since there is no building named <code>0</code>, <code>.loc[0]</code>
-causes an error.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 79%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-32.3">Problem 32.3</h3>
-<div class="sourceCode" id="cb57"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>sky.sort_values(<span class="st">&#39;height&#39;</span>).get(<span class="st">&#39;material&#39;</span>).iloc[<span class="dv">0</span>]</span></code></pre></div>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> int or float</p></li>
-<li><p><input type="radio" disabled="" /> Boolean</p></li>
-<li><p><input type="radio" disabled="" /> string</p></li>
-<li><p><input type="radio" disabled="" /> array</p></li>
-<li><p><input type="radio" disabled="" /> Series</p></li>
-<li><p><input type="radio" disabled="" /> DataFrame</p></li>
-<li><p><input type="radio" disabled="" /> error</p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading32_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse32_3" aria-expanded="true" aria-controls="collapse32_3">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse32_3" class="accordion-collapse collapse"
-aria-labelledby="heading32_3" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer:</strong> string</p>
-<p>As we mentioned above,
-<code>sky.sort_values('height').get('material')</code> is a Series
-containing values from the <code>'material'</code> column (but sorted).
-Remember, there is no element in this Series with an index of 0, so
-<code>sky.sort_values('height').get('material').loc[0]</code> errors.
-However, <code>.iloc[0]</code> works differently than
-<code>.loc[0]</code>; <code>.iloc[0]</code> will give us the first
-element in a Series (independent of what’s in the index). So,
-<code>sky.sort_values('height').get('material').iloc[0]</code> gives us
-back a value from the <code>'material'</code> column, which is made up
-of strings, so it gives us a string. (Specifically, it gives us the
-<code>'material'</code> type of the skyscraper with the smallest
-<code>'height'</code>.)</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 89%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-32.4">Problem 32.4</h3>
-<div class="sourceCode" id="cb58"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>sky.get(<span class="st">&#39;city&#39;</span>).<span class="bu">apply</span>(<span class="bu">len</span>)</span></code></pre></div>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> int or float</p></li>
-<li><p><input type="radio" disabled="" /> Boolean</p></li>
-<li><p><input type="radio" disabled="" /> string</p></li>
-<li><p><input type="radio" disabled="" /> array</p></li>
-<li><p><input type="radio" disabled="" /> Series</p></li>
-<li><p><input type="radio" disabled="" /> DataFrame</p></li>
-<li><p><input type="radio" disabled="" /> error</p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading32_4">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse32_4" aria-expanded="true" aria-controls="collapse32_4">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse32_4" class="accordion-collapse collapse"
-aria-labelledby="heading32_4" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer:</strong> Series</p>
-<p>The <code>.apply</code> method takes in a function and evaluates that
-function on every element in a Series. Here,
-<code>sky.get('city').apply(len)</code> is using the function
-<code>len</code> on every element in the Series
-<code>sky.get('city')</code>. The result is also a Series, containing
-the lengths of the names of each <code>'city'</code>.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 79%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-32.5">Problem 32.5</h3>
-<div class="sourceCode" id="cb59"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>sky.get(<span class="st">&#39;city&#39;</span>).<span class="bu">apply</span>(<span class="bu">max</span>)</span></code></pre></div>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> int or float</p></li>
-<li><p><input type="radio" disabled="" /> Boolean</p></li>
-<li><p><input type="radio" disabled="" /> string</p></li>
-<li><p><input type="radio" disabled="" /> array</p></li>
-<li><p><input type="radio" disabled="" /> Series</p></li>
-<li><p><input type="radio" disabled="" /> DataFrame</p></li>
-<li><p><input type="radio" disabled="" /> error</p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading32_5">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse32_5" aria-expanded="true" aria-controls="collapse32_5">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse32_5" class="accordion-collapse collapse"
-aria-labelledby="heading32_5" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -4339,9 +4196,9 @@ credit to both “error” and “Series”.)</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-32.6">Problem 32.6</h3>
-<div class="sourceCode" id="cb60"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>sky.get(<span class="st">&#39;floors&#39;</span>).<span class="bu">max</span>()</span></code></pre></div>
+<h3 id="problem-31.6">Problem 31.6</h3>
+<div class="sourceCode" id="cb58"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>sky.get(<span class="st">&#39;floors&#39;</span>).<span class="bu">max</span>()</span></code></pre></div>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> int or float</p></li>
 <li><p><input type="radio" disabled="" /> Boolean</p></li>
@@ -4353,13 +4210,13 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb60-1"><a href=
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading32_6">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse32_6" aria-expanded="true" aria-controls="collapse32_6">
+<h2 class="accordion-header" id="heading31_6">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse31_6" aria-expanded="true" aria-controls="collapse31_6">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse32_6" class="accordion-collapse collapse"
-aria-labelledby="heading32_6" data-bs-parent="#accordionExample">
+<div id="collapse31_6" class="accordion-collapse collapse"
+aria-labelledby="heading31_6" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -4378,9 +4235,9 @@ the Series, which is also an integer.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-32.7">Problem 32.7</h3>
-<div class="sourceCode" id="cb61"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>sky.groupby(<span class="st">&#39;material&#39;</span>).<span class="bu">max</span>()</span></code></pre></div>
+<h3 id="problem-31.7">Problem 31.7</h3>
+<div class="sourceCode" id="cb59"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>sky.groupby(<span class="st">&#39;material&#39;</span>).<span class="bu">max</span>()</span></code></pre></div>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> int or float</p></li>
 <li><p><input type="radio" disabled="" /> Boolean</p></li>
@@ -4392,13 +4249,13 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb61-1"><a href=
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading32_7">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse32_7" aria-expanded="true" aria-controls="collapse32_7">
+<h2 class="accordion-header" id="heading31_7">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse31_7" aria-expanded="true" aria-controls="collapse31_7">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse32_7" class="accordion-collapse collapse"
-aria-labelledby="heading32_7" data-bs-parent="#accordionExample">
+<div id="collapse31_7" class="accordion-collapse collapse"
+aria-labelledby="heading31_7" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -4423,9 +4280,9 @@ mean of strings.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-32.8">Problem 32.8</h3>
-<div class="sourceCode" id="cb62"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>sky.index[<span class="dv">0</span>]</span></code></pre></div>
+<h3 id="problem-31.8">Problem 31.8</h3>
+<div class="sourceCode" id="cb60"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>sky.index[<span class="dv">0</span>]</span></code></pre></div>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> int or float</p></li>
 <li><p><input type="radio" disabled="" /> Boolean</p></li>
@@ -4437,13 +4294,13 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb62-1"><a href=
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading32_8">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse32_8" aria-expanded="true" aria-controls="collapse32_8">
+<h2 class="accordion-header" id="heading31_8">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse31_8" aria-expanded="true" aria-controls="collapse31_8">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse32_8" class="accordion-collapse collapse"
-aria-labelledby="heading32_8" data-bs-parent="#accordionExample">
+<div id="collapse31_8" class="accordion-collapse collapse"
+aria-labelledby="heading31_8" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -4465,7 +4322,7 @@ is then <code>'Bayard-Condict Building'</code>, which is a string.</p>
 </div>
 <p><br></p>
 <hr />
-<h2 id="problem-33">Problem 33</h2>
+<h2 id="problem-32">Problem 32</h2>
 <p>In this question, we’ll write code to learn more about the
 skyscrapers in the beautiful city of San Diego. (Unrelated fun fact –
 since the San Diego Airport is so close to downtown, buildings in
@@ -4473,19 +4330,19 @@ downtown San Diego legally cannot be taller than 152 meters.)</p>
 <p>Below, fill in the blank to create a DataFrame, named
 <code>san_tall</code>, consisting of just the skyscrapers in San Diego
 that are over 100 meters tall.</p>
-<div class="sourceCode" id="cb63"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>condition <span class="op">=</span> ______</span>
-<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>san_tall <span class="op">=</span> sky[(sky.get(<span class="st">&#39;city&#39;</span>) <span class="op">==</span> <span class="st">&#39;San Diego&#39;</span>) <span class="op">&amp;</span> condition]</span></code></pre></div>
+<div class="sourceCode" id="cb61"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>condition <span class="op">=</span> ______</span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>san_tall <span class="op">=</span> sky[(sky.get(<span class="st">&#39;city&#39;</span>) <span class="op">==</span> <span class="st">&#39;San Diego&#39;</span>) <span class="op">&amp;</span> condition]</span></code></pre></div>
 <p>What goes in the blank?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading33">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse33" aria-expanded="true" aria-controls="collapse33">
+<h2 class="accordion-header" id="heading32">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse32" aria-expanded="true" aria-controls="collapse32">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse33" class="accordion-collapse collapse"
-aria-labelledby="heading33" data-bs-parent="#accordionExample">
+<div id="collapse32" class="accordion-collapse collapse"
+aria-labelledby="heading32" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -4508,6 +4365,149 @@ it to 100 like so: <code>sky.get('height') &gt; 100</code>.</p>
 </div>
 </div>
 </div>
+<hr />
+<h2 id="problem-33">Problem 33</h2>
+<p>In this question, we’ll write code to learn more about the
+skyscrapers in the beautiful city of San Diego. (Unrelated fun fact –
+since the San Diego Airport is so close to downtown, buildings in
+downtown San Diego legally cannot be taller than 152 meters.)</p>
+<p><br></p>
+<h3 id="problem-33.1">Problem 33.1</h3>
+<p>Below, fill in the blank to create a DataFrame, named
+<code>san_tall</code>, consisting of just the skyscrapers in San Diego
+that are over 100 meters tall.</p>
+<div class="sourceCode" id="cb62"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a>condition <span class="op">=</span> ______</span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>san_tall <span class="op">=</span> sky[(sky.get(<span class="st">&#39;city&#39;</span>) <span class="op">==</span> <span class="st">&#39;San Diego&#39;</span>) <span class="op">&amp;</span> condition]</span></code></pre></div>
+<p>What goes in the blank?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading33_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse33_1" aria-expanded="true" aria-controls="collapse33_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse33_1" class="accordion-collapse collapse"
+aria-labelledby="heading33_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> <code>sky.get('height') &gt; 100</code></p>
+<p>We need to query for all of the skyscrapers that satisfy two
+conditions – the <code>'city'</code> must be <code>'San Diego'</code>
+and the <code>'height'</code> must be above 100. The first condition was
+already implemented for us, so we just need to construct a Boolean
+Series that implements the second condition.</p>
+<p>Here, we want all of the rows where <code>'height'</code> is above
+100, so we <code>get</code> the <code>'height'</code> column and compare
+it to 100 like so: <code>sky.get('height') &gt; 100</code>.</p>
+<hr/>
+<h5>Difficulty: ⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 95%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-33.2">Problem 33.2</h3>
+<p>Suppose <code>san_tall</code> from the previous part was created
+correctly. Fill in the blanks so that <code>height_many_floors</code>
+evaluates to the <strong>height (in meters)</strong> of the skyscraper
+with the <strong>most floors</strong>, amongst all skyscrapers in San
+Diego that are over 100 meters tall.</p>
+<div class="sourceCode" id="cb63"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>height_many_floors <span class="op">=</span> san_tall.______.iloc[<span class="dv">0</span>]</span></code></pre></div>
+<p>What goes in the blank?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading33_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse33_2" aria-expanded="true" aria-controls="collapse33_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse33_2" class="accordion-collapse collapse"
+aria-labelledby="heading33_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong>
+<code>sort_values('floors', ascending=False).get('height')</code></p>
+<p>The end of the line given to us is <code>.iloc[0]</code>. We know
+that <code>.iloc[0]</code> extracts the first element in whatever Series
+it is called on, so what comes before <code>.iloc[0]</code> must be a
+Series where the first element is the <code>'height'</code> of the
+skyscraper with the most floors, among all skyscrapers in San Diego that
+are over 100 meters tall. The DataFrame we are working with,
+<code>san_tall</code>, already only has skyscrapers in San Diego that
+are over 100 meters tall.</p>
+<p>This means that in the blank, all we need to do is:</p>
+<ol type="1">
+<li>Sort skyscrapers by <code>'floors'</code> in decreasing order (so
+that the first row is the skyscraper with the most
+<code>'floors'</code>).</li>
+<li>Extract the <code>'height'</code> column.</li>
+</ol>
+<p>As such, a complete answer is
+<code>height_many_floors = san_tall.sort_values('floors', ascending=False).get('height').iloc[0]</code>.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 74%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-33.3">Problem 33.3</h3>
+<p><code>height_many_floors</code>, the value you computed in the
+previous part (2.2) was a number.</p>
+<p><strong>True or False:</strong> Assuming that the DataFrame
+<code>san_tall</code> contains all skyscrapers in San Diego,
+<code>height_many_floors</code> is the height (in meters) of the
+<strong>tallest</strong> skyscraper in San Diego.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading33_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse33_3" aria-expanded="true" aria-controls="collapse33_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse33_3" class="accordion-collapse collapse"
+aria-labelledby="heading33_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> False</p>
+<p><code>height_many_floors</code> is the height of the skyscraper with
+the most <code>'floors'</code>. However, this is not necessarily the
+tallest skyscraper (i.e. the skyscraper with the largest
+<code>'height'</code>)! Consider the following scenario:</p>
+<ul>
+<li>Building A: 15 floors, height of 150 feet</li>
+<li>Building B: 20 floors, height of 100 feet</li>
+</ul>
+<p><code>height_many_floors</code> would be 100, but it is not the
+<code>'height'</code> of the taller building.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 84%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
 <hr />
 <p class="meta"><em>Source:</em> wi23-final — Q2</p>
 <h2 id="problem-34">Problem 34</h2>

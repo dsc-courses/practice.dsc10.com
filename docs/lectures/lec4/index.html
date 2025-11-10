@@ -89,7 +89,25 @@
     code span.vs { color: #4070a0; } /* VerbatimString */
     code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../../assets/theme.css" />
+  <link rel="stylesheet" href="..\..\assets\theme.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
 </head>
 <body>
 <header id="title-block-header">
@@ -533,8 +551,14 @@ selected.</p></li>
 </div>
 <hr />
 <h2 id="problem-6">Problem 6</h2>
-<p>Complete the expression below so that it evaluates to the name of the
-product for which the average assembly cost per package is lowest.</p>
+<p>Assume you have a DataFrame named <code>ikea</code> that contains
+information about IKEA products, including columns called
+<code>'product'</code>(<code>str</code>): the name of the product,
+<code>'assembly_cost'</code>(<code>int</code>): the assembly cost of
+each product, and <code>'packages'</code>(<code>int</code>): the number
+of packages each product comes in. Complete the expression below so that
+it evaluates to the name of the product for which the average assembly
+cost per package is lowest.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>(ikea.assign(assembly_per_package <span class="op">=</span> ___(a)___)</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>     .sort_values(by<span class="op">=</span><span class="st">&#39;assembly_per_package&#39;</span>).___(b)___)</span></code></pre></div>
 <p><br></p>
@@ -603,14 +627,8 @@ element of that Series by integer position.</p>
 <p><br></p>
 <hr />
 <h2 id="problem-7">Problem 7</h2>
-<p>Assume you have a DataFrame named <code>ikea</code> that contains
-information about IKEA products, including columns called
-<code>'product'</code>(<code>str</code>): the name of the product,
-<code>'assembly_cost'</code>(<code>int</code>): the assembly cost of
-each product, and <code>'packages'</code>(<code>int</code>): the number
-of packages each product comes in. Complete the expression below so that
-it evaluates to the name of the product for which the average assembly
-cost per package is lowest.</p>
+<p>Complete the expression below so that it evaluates to the name of the
+product for which the average assembly cost per package is lowest.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>(ikea.assign(assembly_per_package <span class="op">=</span> ___(a)___)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>     .sort_values(by<span class="op">=</span><span class="st">&#39;assembly_per_package&#39;</span>).___(b)___)</span></code></pre></div>
 <p><br></p>
@@ -1103,17 +1121,65 @@ generates [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]. Both correctly sum up to
 </div>
 <p><br></p>
 <hr />
-<p class="meta"><em>Source:</em> su24-midterm — Q1</p>
+<p class="meta"><em>Source:</em> sp25-final — Q3</p>
 <h2 id="problem-12">Problem 12</h2>
+<p>So far, we have seen one way that children have tickets entered into
+the reaping: they receive one ticket when they are <span
+class="math inline">12</span> years old, and then each year thereafter,
+an additional ticket is added onto the previous year’s total. This means
+<span class="math inline">13</span>-year-olds have two tickets, <span
+class="math inline">14</span>-year-olds have three tickets, and so on.
+We’ll call these tickets <strong>age tickets</strong>.</p>
+<p>In this problem only, we’ll consider another way that a child may
+<em>choose</em> to enter tickets into the reaping in addition to the
+mandatory age tickets. If a child wishes, they can guarantee food
+rations for their family members, including themselves, at the price of
+<strong>one ticket per person</strong>. We’ll call these tickets
+<strong>food tickets</strong>. Like age tickets, food tickets are
+compounded each year, adding onto last year’s total.</p>
+<p>As an example, let’s calculate the number of tickets that Katniss
+Everdeen has entered into the drawing at the reaping. Katniss is <span
+class="math inline">16</span> years old, and every year, she has bought
+food for 3 family members (herself, her mother, and her sister Prim).
+This means:</p>
+<ul>
+<li><p>At age <span class="math inline">12</span>, Katniss had one age
+ticket and three food tickets, making <span class="math inline">4</span>
+tickets total.</p></li>
+<li><p>At age <span class="math inline">13</span>, Katniss had one age
+ticket and three food tickets <strong>in addition to</strong> the <span
+class="math inline">4</span> tickets from the year before, making <span
+class="math inline">8</span> tickets total.</p></li>
+<li><p>At age <span class="math inline">14</span>, Katniss again had one
+age ticket and three food tickets <strong>in addition to</strong> the
+<span class="math inline">8</span> tickets from the year before, making
+<span class="math inline">12</span> tickets total.</p></li>
+</ul>
+<p>This pattern continues, and by the time Katniss is <span
+class="math inline">16</span>, she has <span
+class="math inline">20</span> tickets.</p>
+<p>In other words, Katniss had <span class="math inline">4</span>
+tickets entered when she was <span class="math inline">12</span> years,
+and <span class="math inline">4</span> more with each passing year. The
+array <code>np.arange(4, 24, 4)</code> contains the number of tickets
+Katniss entered each year, starting at age <span
+class="math inline">12</span>, up to and including her current age of
+<span class="math inline">16</span> years old.</p>
 <p><br></p>
 <h3 id="problem-12.1">Problem 12.1</h3>
-<p>Which column of <code>kart</code> would work best as the index?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> <code>"Ranking"</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>"Team"</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>"Division"</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>"Total Points"</code></p></li>
-</ul>
+<p>Fill in the blanks below to define the function
+<code>tix_array</code> which takes in a child’s current <code>age</code>
+between <span class="math inline">12</span> and <span
+class="math inline">18</span> (inclusive) and a number of family
+members, <code>k</code>. The function returns an array similar Katniss’s
+array above, representing the number of tickets they entered into the
+reaping each year since they were <span class="math inline">12</span>
+years old, assuming that they buy food for their whole family every
+year.</p>
+<p><strong>Tip:</strong> <code>tix_array(16, 3)</code> should be the
+same as the array <code>np.arange(4, 24, 4)</code>.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> tix_array(age, k):</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.arange(__(a)__, __(b)__, __(c)__)</span></code></pre></div>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading12_1">
@@ -1123,6 +1189,156 @@ Click to view the solution.
 </h2>
 <div id="collapse12_1" class="accordion-collapse collapse"
 aria-labelledby="heading12_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>:</p>
+<p><code>(a)</code>: <code>k + 1</code></p>
+<p><code>(b)</code>: <code>(ages - 10) * (k + 1)</code></p>
+<p><code>(c)</code>: <code>k + 1</code></p>
+<p>At age 12 each kid gets 1 ticket for their age and <code>k</code>
+food tickets; therefore, the starting value of our list must be must be
+at <code>k + 1</code> because that’s how many tickets they get when they
+first enter. Next, we want the list to go up to the kid’s current age.
+This means we can stop at <code>(age - 10) * (k + 1)</code> to cover all
+of the years beginning from age 12 all the way till their current age.
+Finally, each year the ki adds the same number of tickets one for their
+increase in age and another <code>k</code> for food. Thus, the step is
+<code>k + 1</code>.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 52%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-12.2">Problem 12.2</h3>
+<p>The DataFrame <code>reaping</code> contains information on the
+children of District 12 between the ages of <span
+class="math inline">12</span> and <span class="math inline">18</span>.
+For each child, we have their <code>"name"</code>, <code>"age"</code>,
+<code>"family_size"</code> which includes themselves, and a boolean
+variable <code>"buying_food"</code>. A value of <code>True</code> means
+the child always buys food for their entire family, and
+<code>False</code> means the child never buys food for anyone. The first
+few rows of <code>reaping</code> are shown below, but there are many
+more rows than pictured.</p>
+<center><img src="../../assets/images/sp25-final/reaping_df.jpg" width=300></center>
+<p>Fill in the blanks in the code below to add a new column,
+<code>"tickets"</code>, to <code>reaping</code> that contains the number
+of tickets that the child will have entered into the drawing in the
+current year.</p>
+<p><strong>Hint:</strong> In Python, <code>True</code> is treated as
+<span class="math inline">1</span> and <code>False</code> is treated as
+<span class="math inline">0</span> when doing arithmetic!</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>tickets_per_year <span class="op">=</span> __(d)__ <span class="op">*</span> __(e)__ <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>current_tickets <span class="op">=</span> tickets_per_year <span class="op">*</span> (__(f)__)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>reaping <span class="op">=</span> reaping.assign(tickets <span class="op">=</span> current_tickets)</span></code></pre></div>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading12_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12_2" aria-expanded="true" aria-controls="collapse12_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse12_2" class="accordion-collapse collapse"
+aria-labelledby="heading12_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>:</p>
+<p><code>(d)</code>: <code>reaping.get("buying_food")</code></p>
+<p><code>(e)</code>: <code>reaping.get("family_size")</code></p>
+<p><code>(f)</code>: <code>reaping.get("age") - 11</code></p>
+<p>We use the <code>"buying_food"</code> column to extract whether a
+child chose to get extra food rations. This value consists of
+<code>bool</code> values, and because of the way booleans are encoded in
+python we can use this column as part of the math.</p>
+<p>We use <code>"family_size"</code> because the child needs one food
+ticket per each one of their family members. Multiplying it by
+<code>"buying_food"</code> column from the previous part gives the
+correct number of food tickets per year which is either the full family
+size (if they are buying food) or 0 (if they are not buying food).</p>
+<p>Finally we can use our shortcut to calculate the number of years a
+child has been entering tickets, our shortcut being subtracting the age
+of each child found in the <code>"age"</code> column by 11.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 61%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-12.3">Problem 12.3</h3>
+<p>For this subpart, assume that the <code>tix_array</code> function was
+defined correctly in part <span class="math inline">(a)</span>, and that
+the <code>"tickets"</code> column was added correctly to the
+<code>reaping</code> DataFrame in part <span
+class="math inline">(b)</span>. Fill in the blanks in the code below so
+that the following expression evaluates to <code>True</code>.</p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>reaping.get(<span class="st">&quot;tickets&quot;</span>).iloc[<span class="dv">7</span>] <span class="op">==</span> tix_array(__(g)__, __(h)__)[<span class="op">-</span><span class="dv">1</span>]</span></code></pre></div>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading12_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12_3" aria-expanded="true" aria-controls="collapse12_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse12_3" class="accordion-collapse collapse"
+aria-labelledby="heading12_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>:</p>
+<p><code>(g)</code>: <code>reaping.get("age").iloc[7]</code></p>
+<p><code>(h)</code>: <code>reaping.get("family_size").iloc[7]</code></p>
+<p>The left side of the equation looks to access the number of tickets
+associated with the 8th child. To check this using the tix_array
+function we need to use the current age of the 8th child and the family
+size of the 8th child as inputs. We can get these values by extracting
+them from their respective columns.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 85%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<p class="meta"><em>Source:</em> su24-midterm — Q1</p>
+<h2 id="problem-13">Problem 13</h2>
+<p><br></p>
+<h3 id="problem-13.1">Problem 13.1</h3>
+<p>Which column of <code>kart</code> would work best as the index?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>"Ranking"</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>"Team"</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>"Division"</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>"Total Points"</code></p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading13_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13_1" aria-expanded="true" aria-controls="collapse13_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse13_1" class="accordion-collapse collapse"
+aria-labelledby="heading13_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -1142,18 +1358,18 @@ each row represents a unique team.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-12.2">Problem 12.2</h3>
+<h3 id="problem-13.2">Problem 13.2</h3>
 <p>Write a line of python code that sets the index of <code>kart</code>
 to the column that you identified in part (1).</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading12_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12_2" aria-expanded="true" aria-controls="collapse12_2">
+<h2 class="accordion-header" id="heading13_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13_2" aria-expanded="true" aria-controls="collapse13_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse12_2" class="accordion-collapse collapse"
-aria-labelledby="heading12_2" data-bs-parent="#accordionExample">
+<div id="collapse13_2" class="accordion-collapse collapse"
+aria-labelledby="heading13_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -1173,28 +1389,29 @@ change.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-12.3">Problem 12.3</h3>
+<h3 id="problem-13.3">Problem 13.3</h3>
 <p>Fill in the blanks below to complete the implementation of the
 function <code>division_to _int</code>, which takes in a string,
 <code>division</code>, the name of a division, and returns the
 division’s number as an <code>int</code>. Example behavior is given
 below.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>  <span class="op">&gt;&gt;&gt;</span> division_to_int(<span class="st">&quot;Division 1&quot;</span>)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="op">&gt;&gt;&gt;</span> division_to_int(<span class="st">&quot;Division 2&quot;</span>)</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span></span></code></pre></div>
-<div class="sourceCode" id="cb10"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> division_to_int(division):</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  __(i)__ __(ii)__(division.__(iii)__[__(iv)__])</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>  <span class="op">&gt;&gt;&gt;</span> division_to_int(<span class="st">&quot;Division 1&quot;</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="op">&gt;&gt;&gt;</span> division_to_int(<span class="st">&quot;Division 2&quot;</span>)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> division_to_int(division):</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  __(i)__ __(ii)__(division.__(iii)__[__(iv)__])</span></code></pre></div>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading12_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12_3" aria-expanded="true" aria-controls="collapse12_3">
+<h2 class="accordion-header" id="heading13_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13_3" aria-expanded="true" aria-controls="collapse13_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse12_3" class="accordion-collapse collapse"
-aria-labelledby="heading12_3" data-bs-parent="#accordionExample">
+<div id="collapse13_3" class="accordion-collapse collapse"
+aria-labelledby="heading13_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -1242,20 +1459,20 @@ was 52%.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-12.4">Problem 12.4</h3>
+<h3 id="problem-13.4">Problem 13.4</h3>
 <p>Write a <em>single</em> line of code that applies
 <code>division_to_int</code> to the existing <code>"Division"</code>
 column, and updates the <code>"Division"</code> column in
 <code>kart</code>.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading12_4">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12_4" aria-expanded="true" aria-controls="collapse12_4">
+<h2 class="accordion-header" id="heading13_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13_4" aria-expanded="true" aria-controls="collapse13_4">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse12_4" class="accordion-collapse collapse"
-aria-labelledby="heading12_4" data-bs-parent="#accordionExample">
+<div id="collapse13_4" class="accordion-collapse collapse"
+aria-labelledby="heading13_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -1288,21 +1505,21 @@ been made and that <code>kart</code> is the same DataFrame that was
 described on the attached information sheet.</p>
 <hr />
 <p class="meta"><em>Source:</em> su24-midterm — Q3</p>
-<h2 id="problem-13">Problem 13</h2>
+<h2 id="problem-14">Problem 14</h2>
 <p>Fill in the blanks so that the expression below evaluates to the
 <code>"University"</code> of the lowest scoring Division 2 team over the
 whole season.</p>
-<div class="sourceCode" id="cb11"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>kart[__(a)__].__(b)__(__(c)__).get(<span class="st">&quot;University&quot;</span>).iloc[<span class="dv">0</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>kart[__(a)__].__(b)__(__(c)__).get(<span class="st">&quot;University&quot;</span>).iloc[<span class="dv">0</span>]</span></code></pre></div>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading13">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13" aria-expanded="true" aria-controls="collapse13">
+<h2 class="accordion-header" id="heading14">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse14" aria-expanded="true" aria-controls="collapse14">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse13" class="accordion-collapse collapse"
-aria-labelledby="heading13" data-bs-parent="#accordionExample">
+<div id="collapse14" class="accordion-collapse collapse"
+aria-labelledby="heading14" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -1342,7 +1559,7 @@ to specify the order of ranking since the default behavior of
 </div>
 </div>
 <hr />
-<h2 id="problem-14">Problem 14</h2>
+<h2 id="problem-15">Problem 15</h2>
 <p>The command <code>.set_index</code> can take as input one column, to
 be used as the index, or a sequence of columns to be used as a nested
 index (sometimes called a MultiIndex). A MultiIndex is the default
@@ -1368,13 +1585,13 @@ this dataset?</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading14">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse14" aria-expanded="true" aria-controls="collapse14">
+<h2 class="accordion-header" id="heading15">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15" aria-expanded="true" aria-controls="collapse15">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse14" class="accordion-collapse collapse"
-aria-labelledby="heading14" data-bs-parent="#accordionExample">
+<div id="collapse15" class="accordion-collapse collapse"
+aria-labelledby="heading15" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -1405,110 +1622,6 @@ for.</p>
 </div>
 </div>
 </div>
-<hr />
-<h2 id="problem-15">Problem 15</h2>
-<p>Suppose you are given a DataFrame of employees for a given company.
-The DataFrame, called <code>employees</code>, is indexed by
-<code>'employee_id'</code> (string) with a column called
-<code>'years'</code> (int) that contains the number of years each
-employee has worked for the company.</p>
-<p><br></p>
-<h3 id="problem-15.1">Problem 15.1</h3>
-<p>Suppose that the code</p>
-<div class="sourceCode" id="cb12"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>employees.sort_values(by<span class="op">=</span><span class="st">&#39;years&#39;</span>, ascending<span class="op">=</span><span class="va">False</span>).index[<span class="dv">0</span>]</span></code></pre></div>
-<p>outputs <code>'2476'</code>.</p>
-<p>True or False: The number of years that employee 2476 has worked for
-the company is greater than the number of years that any other employee
-has worked for the company.</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> True</p></li>
-<li><p><input type="radio" disabled="" /> False</p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading15_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15_1" aria-expanded="true" aria-controls="collapse15_1">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse15_1" class="accordion-collapse collapse"
-aria-labelledby="heading15_1" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> False</p>
-<p>This is false because there could be other employees who worked at
-the company equally long as employee 2476.</p>
-<p>The code says that when the <code>employees</code> DataFrame is
-sorted in descending order of <code>'years'</code>, employee 2476 is in
-the first row. There might, however, be a tie among several employees
-for their value of <code>'years'</code>. In that case, employee 2476 may
-wind up in the first row of the sorted DataFrame, but we cannot say that
-the number of years employee 2476 has worked for the company is greater
-than the number of years that any other employee has worked for the
-company.</p>
-<p>If the statement had said <em>greater than or equal to</em> instead
-of <em>greater than</em>, the statement would have been true.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 29%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-15.2">Problem 15.2</h3>
-<p>What will be the output of the following code?</p>
-<div class="sourceCode" id="cb13"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>employees.assign(start<span class="op">=</span><span class="dv">2021</span><span class="op">-</span>employees.get(<span class="st">&#39;years&#39;</span>))</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>employees.sort_values(by<span class="op">=</span><span class="st">&#39;start&#39;</span>).index.iloc[<span class="op">-</span><span class="dv">1</span>]</span></code></pre></div>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> the employee id of an employee who has worked there for the most
-years</p></li>
-<li><p><input type="radio" disabled="" /> the employee id of an employee who has worked there for the fewest
-years</p></li>
-<li><p><input type="radio" disabled="" /> an error message complaining about <code>iloc[-1]</code></p></li>
-<li><p><input type="radio" disabled="" /> an error message complaining about something else</p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading15_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15_2" aria-expanded="true" aria-controls="collapse15_2">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse15_2" class="accordion-collapse collapse"
-aria-labelledby="heading15_2" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> an error message complaining about
-something else</p>
-<p>The problem is that the first line of code does not actually add a
-new column to the <code>employees</code> DataFrame because the
-expression is not saved. So the second line tries to sort by a column,
-<code>'start'</code>, that doesn’t exist in the <code>employees</code>
-DataFrame and runs into an error when it can’t find a column by that
-name.</p>
-<p>This code also has a problem with <code>iloc[-1]</code>, since
-<code>iloc</code> cannot be used on the index, but since the problem
-with the missing <code>'start'</code> column is encountered first, that
-will be the error message displayed.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 27%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
 <hr />
 <h2 id="problem-16">Problem 16</h2>
 <p>You are given a DataFrame called <code>sports</code>, indexed by
@@ -1587,17 +1700,24 @@ considered a column.</p>
 </div>
 </div>
 <hr />
-<p class="meta"><em>Source:</em> wi23-midterm — Q1</p>
 <h2 id="problem-17">Problem 17</h2>
+<p>Suppose you are given a DataFrame of employees for a given company.
+The DataFrame, called <code>employees</code>, is indexed by
+<code>'employee_id'</code> (string) with a column called
+<code>'years'</code> (int) that contains the number of years each
+employee has worked for the company.</p>
 <p><br></p>
 <h3 id="problem-17.1">Problem 17.1</h3>
-<p>Which column would be an appropriate index for storms?</p>
+<p>Suppose that the code</p>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>employees.sort_values(by<span class="op">=</span><span class="st">&#39;years&#39;</span>, ascending<span class="op">=</span><span class="va">False</span>).index[<span class="dv">0</span>]</span></code></pre></div>
+<p>outputs <code>'2476'</code>.</p>
+<p>True or False: The number of years that employee 2476 has worked for
+the company is greater than the number of years that any other employee
+has worked for the company.</p>
 <ul class="task-list">
-<li><p><input type="radio" disabled="" /> <code>'Name'</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>'Date'</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>'Time'</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>'Latitude'</code></p></li>
-<li><p><input type="radio" disabled="" /> None of these</p></li>
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
@@ -1608,6 +1728,103 @@ Click to view the solution.
 </h2>
 <div id="collapse17_1" class="accordion-collapse collapse"
 aria-labelledby="heading17_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> False</p>
+<p>This is false because there could be other employees who worked at
+the company equally long as employee 2476.</p>
+<p>The code says that when the <code>employees</code> DataFrame is
+sorted in descending order of <code>'years'</code>, employee 2476 is in
+the first row. There might, however, be a tie among several employees
+for their value of <code>'years'</code>. In that case, employee 2476 may
+wind up in the first row of the sorted DataFrame, but we cannot say that
+the number of years employee 2476 has worked for the company is greater
+than the number of years that any other employee has worked for the
+company.</p>
+<p>If the statement had said <em>greater than or equal to</em> instead
+of <em>greater than</em>, the statement would have been true.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 29%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-17.2">Problem 17.2</h3>
+<p>What will be the output of the following code?</p>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>employees.assign(start<span class="op">=</span><span class="dv">2021</span><span class="op">-</span>employees.get(<span class="st">&#39;years&#39;</span>))</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>employees.sort_values(by<span class="op">=</span><span class="st">&#39;start&#39;</span>).index.iloc[<span class="op">-</span><span class="dv">1</span>]</span></code></pre></div>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> the employee id of an employee who has worked there for the most
+years</p></li>
+<li><p><input type="radio" disabled="" /> the employee id of an employee who has worked there for the fewest
+years</p></li>
+<li><p><input type="radio" disabled="" /> an error message complaining about <code>iloc[-1]</code></p></li>
+<li><p><input type="radio" disabled="" /> an error message complaining about something else</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading17_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse17_2" aria-expanded="true" aria-controls="collapse17_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse17_2" class="accordion-collapse collapse"
+aria-labelledby="heading17_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> an error message complaining about
+something else</p>
+<p>The problem is that the first line of code does not actually add a
+new column to the <code>employees</code> DataFrame because the
+expression is not saved. So the second line tries to sort by a column,
+<code>'start'</code>, that doesn’t exist in the <code>employees</code>
+DataFrame and runs into an error when it can’t find a column by that
+name.</p>
+<p>This code also has a problem with <code>iloc[-1]</code>, since
+<code>iloc</code> cannot be used on the index, but since the problem
+with the missing <code>'start'</code> column is encountered first, that
+will be the error message displayed.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 27%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<p class="meta"><em>Source:</em> wi23-midterm — Q1</p>
+<h2 id="problem-18">Problem 18</h2>
+<p><br></p>
+<h3 id="problem-18.1">Problem 18.1</h3>
+<p>Which column would be an appropriate index for storms?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>'Name'</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>'Date'</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>'Time'</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>'Latitude'</code></p></li>
+<li><p><input type="radio" disabled="" /> None of these</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading18_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse18_1" aria-expanded="true" aria-controls="collapse18_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse18_1" class="accordion-collapse collapse"
+aria-labelledby="heading18_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -1631,9 +1848,9 @@ latitude.</p>
 <p><br></p>
 <hr />
 <p class="meta"><em>Source:</em> wi23-midterm — Q4</p>
-<h2 id="problem-18">Problem 18</h2>
+<h2 id="problem-19">Problem 19</h2>
 <p><br></p>
-<h3 id="problem-18.1">Problem 18.1</h3>
+<h3 id="problem-19.1">Problem 19.1</h3>
 <p>Suppose there are <code>n</code> different storms included in
 <code>storms</code>. Say we create a new DataFrame from
 <code>storms</code> by adding a column called <code>'Duration'</code>
@@ -1659,13 +1876,13 @@ will evaluate to <code>n</code>.</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading18_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse18_1" aria-expanded="true" aria-controls="collapse18_1">
+<h2 class="accordion-header" id="heading19_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse19_1" aria-expanded="true" aria-controls="collapse19_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse18_1" class="accordion-collapse collapse"
-aria-labelledby="heading18_1" data-bs-parent="#accordionExample">
+<div id="collapse19_1" class="accordion-collapse collapse"
+aria-labelledby="heading19_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -1712,7 +1929,7 @@ DataFrame example above.</p>
 <p><br></p>
 <hr />
 <p class="meta"><em>Source:</em> wi24-final — Q1</p>
-<h2 id="problem-19">Problem 19</h2>
+<h2 id="problem-20">Problem 20</h2>
 <p>Which of the following columns would be an appropriate index for the
 <code>olympians</code> DataFrame?</p>
 <ul class="task-list">
@@ -1723,13 +1940,13 @@ DataFrame example above.</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading19">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse19" aria-expanded="true" aria-controls="collapse19">
+<h2 class="accordion-header" id="heading20">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse20" aria-expanded="true" aria-controls="collapse20">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse19" class="accordion-collapse collapse"
-aria-labelledby="heading19" data-bs-parent="#accordionExample">
+<div id="collapse20" class="accordion-collapse collapse"
+aria-labelledby="heading20" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -1755,7 +1972,7 @@ index.</p>
 </div>
 <hr />
 <p class="meta"><em>Source:</em> wi25-midterm — Q1</p>
-<h2 id="problem-20">Problem 20</h2>
+<h2 id="problem-21">Problem 21</h2>
 <p>Which of the following columns would be an appropriate index for the
 <code>dining</code> DataFrame?</p>
 <ul class="task-list">
@@ -1767,13 +1984,13 @@ index.</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading20">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse20" aria-expanded="true" aria-controls="collapse20">
+<h2 class="accordion-header" id="heading21">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21" aria-expanded="true" aria-controls="collapse21">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse20" class="accordion-collapse collapse"
-aria-labelledby="heading20" data-bs-parent="#accordionExample">
+<div id="collapse21" class="accordion-collapse collapse"
+aria-labelledby="heading21" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>

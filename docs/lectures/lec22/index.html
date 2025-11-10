@@ -89,7 +89,7 @@
     code span.vs { color: #4070a0; } /* VerbatimString */
     code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="../../assets/theme.css" />
+  <link rel="stylesheet" href="..\..\assets\theme.css" />
   <script defer=""
   src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
@@ -138,8 +138,14 @@ Practice Questions</h1>
 (rendered directly from the original exam/quiz sources).</p>
 <hr />
 <h2 id="problem-1">Problem 1</h2>
-<p>We’re now interested in investigating the differences between the
-masses of Adelie penguins and Chinstrap penguins. Specifically, our null
+<p>Researchers from the San Diego Zoo, located within Balboa Park,
+collected physical measurements of three species of penguins (Adelie,
+Chinstrap, or Gentoo) in a region of Antarctica. One piece of
+information they tracked for each of 330 penguins was its mass in grams.
+The average penguin mass is 4200 grams, and the standard deviation is
+840 grams.</p>
+<p>We’re interested in investigating the differences between the masses
+of Adelie penguins and Chinstrap penguins. Specifically, our null
 hypothesis is that their masses are drawn from the same population
 distribution, and any observed differences are due to chance only.</p>
 <p>Below, we have a snippet of working code for this hypothesis test,
@@ -311,9 +317,29 @@ aria-labelledby="heading1_3" data-bs-parent="#accordionExample">
 </div>
 <p><br></p>
 <h3 id="problem-1.4">Problem 1.4</h3>
+<p>For your convenience, we copy the code for the hypothesis test
+below.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>stats <span class="op">=</span> np.array([])</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>num_reps <span class="op">=</span> <span class="dv">500</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(num_reps):</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (a) starts ---</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    shuffled <span class="op">=</span> np.random.permutation(adelie_chinstrap.get(<span class="st">&#39;species&#39;</span>))</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (a) ends ---</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (b) starts ---</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    with_shuffled <span class="op">=</span> adelie_chinstrap.assign(species<span class="op">=</span>shuffled)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (b) ends ---</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    grouped <span class="op">=</span> with_shuffled.groupby(<span class="st">&#39;species&#39;</span>).mean()</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (c) starts ---</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    stat <span class="op">=</span> grouped.get(<span class="st">&#39;mass&#39;</span>).iloc[<span class="dv">0</span>] <span class="op">-</span> grouped.get(<span class="st">&#39;mass&#39;</span>).iloc[<span class="dv">1</span>]</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (c) ends ---</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>    stats <span class="op">=</span> np.append(stats, stat)</span></code></pre></div>
 <p>What would happen if we removed <code>line (a)</code>, and replaced
 <code>line (b)</code> with</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>with_shuffled <span class="op">=</span> adelie_chinstrap.sample(adelie_chinstrap.shape[<span class="dv">0</span>], replace<span class="op">=</span><span class="va">False</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>with_shuffled <span class="op">=</span> adelie_chinstrap.sample(adelie_chinstrap.shape[<span class="dv">0</span>], replace<span class="op">=</span><span class="va">False</span>)</span></code></pre></div>
 <p>Select the best answer.</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> This would still run a valid hypothesis test</p></li>
@@ -359,9 +385,29 @@ the same).</p>
 </div>
 <p><br></p>
 <h3 id="problem-1.5">Problem 1.5</h3>
+<p>For your convenience, we copy the code for the hypothesis test
+below.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>stats <span class="op">=</span> np.array([])</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>num_reps <span class="op">=</span> <span class="dv">500</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(num_reps):</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (a) starts ---</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    shuffled <span class="op">=</span> np.random.permutation(adelie_chinstrap.get(<span class="st">&#39;species&#39;</span>))</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (a) ends ---</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (b) starts ---</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    with_shuffled <span class="op">=</span> adelie_chinstrap.assign(species<span class="op">=</span>shuffled)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (b) ends ---</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    grouped <span class="op">=</span> with_shuffled.groupby(<span class="st">&#39;species&#39;</span>).mean()</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (c) starts ---</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    stat <span class="op">=</span> grouped.get(<span class="st">&#39;mass&#39;</span>).iloc[<span class="dv">0</span>] <span class="op">-</span> grouped.get(<span class="st">&#39;mass&#39;</span>).iloc[<span class="dv">1</span>]</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (c) ends ---</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    stats <span class="op">=</span> np.append(stats, stat)</span></code></pre></div>
 <p>What would happen if we removed <code>line (a)</code>, and replaced
 <code>line (b)</code> with</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>with_shuffled <span class="op">=</span> adelie_chinstrap.sample(adelie_chinstrap.shape[<span class="dv">0</span>], replace<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>with_shuffled <span class="op">=</span> adelie_chinstrap.sample(adelie_chinstrap.shape[<span class="dv">0</span>], replace<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
 <p>Select the best answer.</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> This would still run a valid hypothesis test</p></li>
@@ -408,14 +454,35 @@ species. However, the code may change the size of the two species.</p>
 </div>
 <p><br></p>
 <h3 id="problem-1.6">Problem 1.6</h3>
+<p>For your convenience, we copy the code for the hypothesis test
+below.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>stats <span class="op">=</span> np.array([])</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>num_reps <span class="op">=</span> <span class="dv">500</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(num_reps):</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (a) starts ---</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    shuffled <span class="op">=</span> np.random.permutation(adelie_chinstrap.get(<span class="st">&#39;species&#39;</span>))</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (a) ends ---</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (b) starts ---</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    with_shuffled <span class="op">=</span> adelie_chinstrap.assign(species<span class="op">=</span>shuffled)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (b) ends ---</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    grouped <span class="op">=</span> with_shuffled.groupby(<span class="st">&#39;species&#39;</span>).mean()</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (c) starts ---</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    stat <span class="op">=</span> grouped.get(<span class="st">&#39;mass&#39;</span>).iloc[<span class="dv">0</span>] <span class="op">-</span> grouped.get(<span class="st">&#39;mass&#39;</span>).iloc[<span class="dv">1</span>]</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (c) ends ---</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    stats <span class="op">=</span> np.append(stats, stat)</span></code></pre></div>
 <p>What would happen if we replaced <code>line (a)</code> with</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>with_shuffled <span class="op">=</span> adelie_chinstrap.assign(</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    species<span class="op">=</span>np.random.permutation(adelie_chinstrap.get(<span class="st">&#39;species&#39;</span>)</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>with_shuffled <span class="op">=</span> adelie_chinstrap.assign(</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    species<span class="op">=</span>np.random.permutation(adelie_chinstrap.get(<span class="st">&#39;species&#39;</span>)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <p>and replaced line (b) with</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>with_shuffled <span class="op">=</span> with_shuffled.assign(</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    mass<span class="op">=</span>np.random.permutation(adelie_chinstrap.get(<span class="st">&#39;mass&#39;</span>)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>with_shuffled <span class="op">=</span> with_shuffled.assign(</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    mass<span class="op">=</span>np.random.permutation(adelie_chinstrap.get(<span class="st">&#39;mass&#39;</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <p>Select the best answer.</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> This would still run a valid hypothesis test</p></li>
@@ -460,7 +527,6 @@ back to the DataFrame. This fulfills our goal.</p>
 empirical distribution for the test statistic. In red is the observed
 statistic.</p>
 <center><img src='../../assets/images/fa21-final/measuring_up_his.png' width=40%></center>
-<p><br></p>
 <p>Suppose our alternative hypothesis is that Chinstrap penguins weigh
 more on average than Adelie penguins. Which of the following is closest
 to the p-value for our hypothesis test?</p>
@@ -510,38 +576,33 @@ the observed statistic).</p>
 <p><br></p>
 <hr />
 <h2 id="problem-2">Problem 2</h2>
-<p>Researchers from the San Diego Zoo, located within Balboa Park,
-collected physical measurements of three species of penguins (Adelie,
-Chinstrap, or Gentoo) in a region of Antarctica. One piece of
-information they tracked for each of 330 penguins was its mass in grams.
-The average penguin mass is 4200 grams, and the standard deviation is
-840 grams.</p>
-<p>We’re interested in investigating the differences between the masses
-of Adelie penguins and Chinstrap penguins. Specifically, our null
+<p>We’re now interested in investigating the differences between the
+masses of Adelie penguins and Chinstrap penguins. Specifically, our null
 hypothesis is that their masses are drawn from the same population
 distribution, and any observed differences are due to chance only.</p>
 <p>Below, we have a snippet of working code for this hypothesis test,
 for a specific test statistic. Assume that <code>adelie_chinstrap</code>
 is a DataFrame of only Adelie and Chinstrap penguins, with just two
 columns – <code>'species'</code> and <code>'mass'</code>.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>stats <span class="op">=</span> np.array([])</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>num_reps <span class="op">=</span> <span class="dv">500</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(num_reps):</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (a) starts ---</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    shuffled <span class="op">=</span> np.random.permutation(adelie_chinstrap.get(<span class="st">&#39;species&#39;</span>))</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (a) ends ---</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (b) starts ---</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    with_shuffled <span class="op">=</span> adelie_chinstrap.assign(species<span class="op">=</span>shuffled)</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (b) ends ---</span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    grouped <span class="op">=</span> with_shuffled.groupby(<span class="st">&#39;species&#39;</span>).mean()</span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (c) starts ---</span></span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    stat <span class="op">=</span> grouped.get(<span class="st">&#39;mass&#39;</span>).iloc[<span class="dv">0</span>] <span class="op">-</span> grouped.get(<span class="st">&#39;mass&#39;</span>).iloc[<span class="dv">1</span>]</span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (c) ends ---</span></span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    stats <span class="op">=</span> np.append(stats, stat)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>stats <span class="op">=</span> np.array([])</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>num_reps <span class="op">=</span> <span class="dv">500</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(num_reps):</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (a) starts ---</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    shuffled <span class="op">=</span> np.random.permutation(adelie_chinstrap.get(<span class="st">&#39;species&#39;</span>))</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (a) ends ---</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (b) starts ---</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    with_shuffled <span class="op">=</span> adelie_chinstrap.assign(species<span class="op">=</span>shuffled)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (b) ends ---</span></span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>    grouped <span class="op">=</span> with_shuffled.groupby(<span class="st">&#39;species&#39;</span>).mean()</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (c) starts ---</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>    stat <span class="op">=</span> grouped.get(<span class="st">&#39;mass&#39;</span>).iloc[<span class="dv">0</span>] <span class="op">-</span> grouped.get(<span class="st">&#39;mass&#39;</span>).iloc[<span class="dv">1</span>]</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (c) ends ---</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>    stats <span class="op">=</span> np.append(stats, stat)</span></code></pre></div>
 <p><br></p>
 <h3 id="problem-2.1">Problem 2.1</h3>
 <p>Which of the following statements best describe the procedure
@@ -604,10 +665,11 @@ difference between mean mass of the two species by first getting the
 following options compute the exact same statistic as line (c) currently
 does?</p>
 <p>Option 1:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>stat <span class="op">=</span> grouped.get(<span class="st">&#39;mass&#39;</span>).loc[<span class="st">&#39;Adelie&#39;</span>] <span class="op">-</span> grouped.get(<span class="st">&#39;mass&#39;</span>).loc[<span class="st">&#39;Chinstrap&#39;</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>stat <span class="op">=</span> grouped.get(<span class="st">&#39;mass&#39;</span>).loc[<span class="st">&#39;Adelie&#39;</span>] <span class="op">-</span> grouped.get(<span class="st">&#39;mass&#39;</span>).loc[<span class="st">&#39;Chinstrap&#39;</span>]</span></code></pre></div>
 <p>Option 2:</p>
-<div class="sourceCode" id="cb10"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>stat <span class="op">=</span> grouped.get(<span class="st">&#39;mass&#39;</span>).loc[<span class="st">&#39;Chinstrap&#39;</span>] <span class="op">-</span> grouped.get(<span class="st">&#39;mass&#39;</span>).loc[<span class="st">&#39;Adelie&#39;</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>stat <span class="op">=</span> grouped.get(<span class="st">&#39;mass&#39;</span>).loc[<span class="st">&#39;Chinstrap&#39;</span>] <span class="op">-</span> grouped.get(<span class="st">&#39;mass&#39;</span>).loc[<span class="st">&#39;Adelie&#39;</span>]</span></code></pre></div>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> Option 1 only</p></li>
 <li><p><input type="radio" disabled="" /> Option 2 only</p></li>
@@ -690,31 +752,10 @@ aria-labelledby="heading2_3" data-bs-parent="#accordionExample">
 </div>
 <p><br></p>
 <h3 id="problem-2.4">Problem 2.4</h3>
-<p>For your convenience, we copy the code for the hypothesis test
-below.</p>
-<div class="sourceCode" id="cb11"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>stats <span class="op">=</span> np.array([])</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>num_reps <span class="op">=</span> <span class="dv">500</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(num_reps):</span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (a) starts ---</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    shuffled <span class="op">=</span> np.random.permutation(adelie_chinstrap.get(<span class="st">&#39;species&#39;</span>))</span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (a) ends ---</span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (b) starts ---</span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    with_shuffled <span class="op">=</span> adelie_chinstrap.assign(species<span class="op">=</span>shuffled)</span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (b) ends ---</span></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>    grouped <span class="op">=</span> with_shuffled.groupby(<span class="st">&#39;species&#39;</span>).mean()</span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (c) starts ---</span></span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>    stat <span class="op">=</span> grouped.get(<span class="st">&#39;mass&#39;</span>).iloc[<span class="dv">0</span>] <span class="op">-</span> grouped.get(<span class="st">&#39;mass&#39;</span>).iloc[<span class="dv">1</span>]</span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (c) ends ---</span></span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>    stats <span class="op">=</span> np.append(stats, stat)</span></code></pre></div>
 <p>What would happen if we removed <code>line (a)</code>, and replaced
 <code>line (b)</code> with</p>
-<div class="sourceCode" id="cb12"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>with_shuffled <span class="op">=</span> adelie_chinstrap.sample(adelie_chinstrap.shape[<span class="dv">0</span>], replace<span class="op">=</span><span class="va">False</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>with_shuffled <span class="op">=</span> adelie_chinstrap.sample(adelie_chinstrap.shape[<span class="dv">0</span>], replace<span class="op">=</span><span class="va">False</span>)</span></code></pre></div>
 <p>Select the best answer.</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> This would still run a valid hypothesis test</p></li>
@@ -760,31 +801,10 @@ the same).</p>
 </div>
 <p><br></p>
 <h3 id="problem-2.5">Problem 2.5</h3>
-<p>For your convenience, we copy the code for the hypothesis test
-below.</p>
-<div class="sourceCode" id="cb13"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>stats <span class="op">=</span> np.array([])</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>num_reps <span class="op">=</span> <span class="dv">500</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(num_reps):</span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (a) starts ---</span></span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    shuffled <span class="op">=</span> np.random.permutation(adelie_chinstrap.get(<span class="st">&#39;species&#39;</span>))</span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (a) ends ---</span></span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (b) starts ---</span></span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    with_shuffled <span class="op">=</span> adelie_chinstrap.assign(species<span class="op">=</span>shuffled)</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (b) ends ---</span></span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    grouped <span class="op">=</span> with_shuffled.groupby(<span class="st">&#39;species&#39;</span>).mean()</span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (c) starts ---</span></span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    stat <span class="op">=</span> grouped.get(<span class="st">&#39;mass&#39;</span>).iloc[<span class="dv">0</span>] <span class="op">-</span> grouped.get(<span class="st">&#39;mass&#39;</span>).iloc[<span class="dv">1</span>]</span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (c) ends ---</span></span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    stats <span class="op">=</span> np.append(stats, stat)</span></code></pre></div>
 <p>What would happen if we removed <code>line (a)</code>, and replaced
 <code>line (b)</code> with</p>
-<div class="sourceCode" id="cb14"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>with_shuffled <span class="op">=</span> adelie_chinstrap.sample(adelie_chinstrap.shape[<span class="dv">0</span>], replace<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>with_shuffled <span class="op">=</span> adelie_chinstrap.sample(adelie_chinstrap.shape[<span class="dv">0</span>], replace<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
 <p>Select the best answer.</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> This would still run a valid hypothesis test</p></li>
@@ -831,27 +851,6 @@ species. However, the code may change the size of the two species.</p>
 </div>
 <p><br></p>
 <h3 id="problem-2.6">Problem 2.6</h3>
-<p>For your convenience, we copy the code for the hypothesis test
-below.</p>
-<div class="sourceCode" id="cb15"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>stats <span class="op">=</span> np.array([])</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>num_reps <span class="op">=</span> <span class="dv">500</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(num_reps):</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (a) starts ---</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    shuffled <span class="op">=</span> np.random.permutation(adelie_chinstrap.get(<span class="st">&#39;species&#39;</span>))</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (a) ends ---</span></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (b) starts ---</span></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    with_shuffled <span class="op">=</span> adelie_chinstrap.assign(species<span class="op">=</span>shuffled)</span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (b) ends ---</span></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>    grouped <span class="op">=</span> with_shuffled.groupby(<span class="st">&#39;species&#39;</span>).mean()</span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (c) starts ---</span></span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>    stat <span class="op">=</span> grouped.get(<span class="st">&#39;mass&#39;</span>).iloc[<span class="dv">0</span>] <span class="op">-</span> grouped.get(<span class="st">&#39;mass&#39;</span>).iloc[<span class="dv">1</span>]</span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- line (c) ends ---</span></span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>    stats <span class="op">=</span> np.append(stats, stat)</span></code></pre></div>
 <p>What would happen if we replaced <code>line (a)</code> with</p>
 <div class="sourceCode" id="cb16"><pre
 class="sourceCode py"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>with_shuffled <span class="op">=</span> adelie_chinstrap.assign(</span>
@@ -906,6 +905,7 @@ back to the DataFrame. This fulfills our goal.</p>
 empirical distribution for the test statistic. In red is the observed
 statistic.</p>
 <center><img src='../../assets/images/fa21-final/measuring_up_his.png' width=40%></center>
+<p><br></p>
 <p>Suppose our alternative hypothesis is that Chinstrap penguins weigh
 more on average than Adelie penguins. Which of the following is closest
 to the p-value for our hypothesis test?</p>
@@ -2632,7 +2632,8 @@ hours is 0. (They created a confidence interval for the true value of
 <p>Answer the following true/false questions.</p>
 <p><br></p>
 <h3 id="problem-9.1">Problem 9.1</h3>
-<p><code>df.groupby("kind").mean()</code> will have 5 columns.</p>
+<p>For a given sample, a 90% confidence interval is narrower than a 95%
+confidence interval.</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> True</p></li>
 <li><p><input type="radio" disabled="" /> False</p></li>
@@ -2651,45 +2652,6 @@ aria-labelledby="heading9_1" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer: </strong> True</p>
-<p>Referring to <code>df</code> at the beginning of the exam, we could
-see that 5 of the columns have numerical values as inputs, and thus
-<code>df.groupby("kind").mean()</code> will return the mean of these 5
-numerical columns</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 74%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<hr />
-<h2 id="problem-10">Problem 10</h2>
-<p>Answer the following true/false questions.</p>
-<p><br></p>
-<h3 id="problem-10.1">Problem 10.1</h3>
-<p>For a given sample, a 90% confidence interval is narrower than a 95%
-confidence interval.</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> True</p></li>
-<li><p><input type="radio" disabled="" /> False</p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading10_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10_1" aria-expanded="true" aria-controls="collapse10_1">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse10_1" class="accordion-collapse collapse"
-aria-labelledby="heading10_1" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> True</p>
 <p>The more narrow an interval is, the less confident one is that the
 intervals one creates will contain the true population parameter.</p>
 <hr/>
@@ -2703,7 +2665,7 @@ intervals one creates will contain the true population parameter.</p>
 </div>
 <p><br></p>
 <p><br></p>
-<h3 id="problem-10.2">Problem 10.2</h3>
+<h3 id="problem-9.2">Problem 9.2</h3>
 <p>The distribution of sample proportions is roughly normal for large
 samples because of the Central Limit Theorem.</p>
 <ul class="task-list">
@@ -2712,13 +2674,13 @@ samples because of the Central Limit Theorem.</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading10_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10_2" aria-expanded="true" aria-controls="collapse10_2">
+<h2 class="accordion-header" id="heading9_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_2" aria-expanded="true" aria-controls="collapse9_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse10_2" class="accordion-collapse collapse"
-aria-labelledby="heading10_2" data-bs-parent="#accordionExample">
+<div id="collapse9_2" class="accordion-collapse collapse"
+aria-labelledby="heading9_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -2737,7 +2699,7 @@ proportion is a mean of 0s and 1s.</p>
 </div>
 <p><br></p>
 <p><br></p>
-<h3 id="problem-10.3">Problem 10.3</h3>
+<h3 id="problem-9.3">Problem 9.3</h3>
 <p>Chebyshev’s inequality implies that we can always create at least a
 96% confidence interval from a bootstrap distribution using the mean of
 the distribution plus or minus 5 standard deviations.</p>
@@ -2747,13 +2709,13 @@ the distribution plus or minus 5 standard deviations.</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading10_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10_3" aria-expanded="true" aria-controls="collapse10_3">
+<h2 class="accordion-header" id="heading9_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_3" aria-expanded="true" aria-controls="collapse9_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse10_3" class="accordion-collapse collapse"
-aria-labelledby="heading10_3" data-bs-parent="#accordionExample">
+<div id="collapse9_3" class="accordion-collapse collapse"
+aria-labelledby="heading9_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -2774,163 +2736,48 @@ mean.</p>
 </div>
 <p><br></p>
 <hr />
-<h2 id="problem-11">Problem 11</h2>
-<p>Suppose Tiffany has a random sample of dogs. Select the most
-appropriate technique to answer each of the following questions using
-Tiffany’s dog sample.</p>
+<h2 id="problem-10">Problem 10</h2>
+<p>Answer the following true/false questions.</p>
 <p><br></p>
-<h3 id="problem-11.1">Problem 11.1</h3>
-<p>Do small dogs typically live longer than medium and large dogs?</p>
+<h3 id="problem-10.1">Problem 10.1</h3>
+<p><code>df.groupby("kind").mean()</code> will have 5 columns.</p>
 <ul class="task-list">
-<li><p><input type="radio" disabled="" /> Standard hypothesis test</p></li>
-<li><p><input type="radio" disabled="" /> Permutation test</p></li>
-<li><p><input type="radio" disabled="" /> Bootstrapping</p></li>
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading11_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11_1" aria-expanded="true" aria-controls="collapse11_1">
+<h2 class="accordion-header" id="heading10_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10_1" aria-expanded="true" aria-controls="collapse10_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse11_1" class="accordion-collapse collapse"
-aria-labelledby="heading11_1" data-bs-parent="#accordionExample">
+<div id="collapse10_1" class="accordion-collapse collapse"
+aria-labelledby="heading10_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer: </strong> Option 2: Permutation test.</p>
-<p>We have two parameters: dog size and life expectancy. Here if there
-was no significant statistical difference between the life expectancy of
-different dog sizes, randomly assigning our sampled life expectancy to
-each dog should lead us to observe similar observations to the observed
-statistic. Thus using a permutation test to comapre the two groups makes
-the most sense. We’re not really trying to estimate a spcecific value so
-bootstrapping isn’t a good idea here. Also, there’s not really a good
-way to randomly generate life expectancies so a hypothesis test is not a
-good idea here.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 77%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-11.2">Problem 11.2</h3>
-<p>Does Tiffany’s sample have an even distribution of dog kinds?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> Standard hypothesis test</p></li>
-<li><p><input type="radio" disabled="" /> Permutation test</p></li>
-<li><p><input type="radio" disabled="" /> Bootstrapping</p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading11_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11_2" aria-expanded="true" aria-controls="collapse11_2">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse11_2" class="accordion-collapse collapse"
-aria-labelledby="heading11_2" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> Option 1: Standard hypothesis test.</p>
-<p>We’re not really comparing a variable between two groups, but rather
-looking at the overall distribution, so Permutation testing wouldn’t
-work too well here. Again, we’re not really trying to estimate anything
-here so bootstrapping isn’t a good idea. This leaves us with the
-Standard Hypothesis Test, which makes sense if we use Total Variation
-Distance as our test statistic.</p>
+<p><strong>Answer: </strong> True</p>
+<p>Referring to <code>df</code> at the beginning of the exam, we could
+see that 5 of the columns have numerical values as inputs, and thus
+<code>df.groupby("kind").mean()</code> will return the mean of these 5
+numerical columns</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
 </p>
-<p>The average score on this problem was 51%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-11.3">Problem 11.3</h3>
-<p>What’s the median weight for herding dogs?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> Standard hypothesis test</p></li>
-<li><p><input type="radio" disabled="" /> Permutation test</p></li>
-<li><p><input type="radio" disabled="" /> Bootstrapping</p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading11_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11_3" aria-expanded="true" aria-controls="collapse11_3">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse11_3" class="accordion-collapse collapse"
-aria-labelledby="heading11_3" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> Option 3: Bootstrapping</p>
-<p>Here we’re trying to determine a specific value, which immediately
-leads us to bootstrapping. The other two tests wouldn’t really make
-sense in this context.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 83%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-11.4">Problem 11.4</h3>
-<p>Do dogs live longer than 12 years on average?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> Standard hypothesis test</p></li>
-<li><p><input type="radio" disabled="" /> Permutation test</p></li>
-<li><p><input type="radio" disabled="" /> Bootstrapping</p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading11_4">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11_4" aria-expanded="true" aria-controls="collapse11_4">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse11_4" class="accordion-collapse collapse"
-aria-labelledby="heading11_4" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> Option 3: Bootstrapping</p>
-<p>While the wording here might throw us off, we’re really just trying
-to determine the average life expectancy of dogs, and then see how that
-compares to 12. This leads us to bootstrapping since we’re trying to
-determine a specific value. The other two tests wouldn’t really make
-sense in this context.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 43%.</p>
+<p>The average score on this problem was 74%.</p>
 </div>
 </div>
 </div>
 </div>
 <p><br></p>
 <hr />
-<h2 id="problem-12">Problem 12</h2>
+<h2 id="problem-11">Problem 11</h2>
 <p>Answer the following true/false questions.</p>
 <p><br></p>
-<h3 id="problem-12.1">Problem 12.1</h3>
+<h3 id="problem-11.1">Problem 11.1</h3>
 <p><span style="color:red"><b>Note: This problem is out of scope; it
 covers material no longer included in the course.</b></span></p>
 <p>When John Snow took off the handle from the Broad Street pump, the
@@ -2942,13 +2789,13 @@ that cholera was caused by dirty water.</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading12_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12_1" aria-expanded="true" aria-controls="collapse12_1">
+<h2 class="accordion-header" id="heading11_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11_1" aria-expanded="true" aria-controls="collapse11_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse12_1" class="accordion-collapse collapse"
-aria-labelledby="heading12_1" data-bs-parent="#accordionExample">
+<div id="collapse11_1" class="accordion-collapse collapse"
+aria-labelledby="heading11_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -2971,7 +2818,7 @@ causality.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-12.2">Problem 12.2</h3>
+<h3 id="problem-11.2">Problem 11.2</h3>
 <p>If you get a p-value of 0.009 using a permutation test, you can
 conclude causality.</p>
 <ul class="task-list">
@@ -2980,13 +2827,13 @@ conclude causality.</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading12_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12_2" aria-expanded="true" aria-controls="collapse12_2">
+<h2 class="accordion-header" id="heading11_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11_2" aria-expanded="true" aria-controls="collapse11_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse12_2" class="accordion-collapse collapse"
-aria-labelledby="heading12_2" data-bs-parent="#accordionExample">
+<div id="collapse11_2" class="accordion-collapse collapse"
+aria-labelledby="heading11_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -3005,7 +2852,7 @@ hypothesis, not to prove the alternative hypothesis.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-12.3">Problem 12.3</h3>
+<h3 id="problem-11.3">Problem 11.3</h3>
 <p><code>df.groupby("kind").mean()</code> will have 5 columns.</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> True</p></li>
@@ -3013,13 +2860,13 @@ hypothesis, not to prove the alternative hypothesis.</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading12_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12_3" aria-expanded="true" aria-controls="collapse12_3">
+<h2 class="accordion-header" id="heading11_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11_3" aria-expanded="true" aria-controls="collapse11_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse12_3" class="accordion-collapse collapse"
-aria-labelledby="heading12_3" data-bs-parent="#accordionExample">
+<div id="collapse11_3" class="accordion-collapse collapse"
+aria-labelledby="heading11_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -3039,18 +2886,18 @@ numerical columns</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-12.4">Problem 12.4</h3>
+<h3 id="problem-11.4">Problem 11.4</h3>
 <p>If the 95% confidence interval for dog price is [650, 900], there is
 a 95% chance that the population dog price is between $650 and $900.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading12_4">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12_4" aria-expanded="true" aria-controls="collapse12_4">
+<h2 class="accordion-header" id="heading11_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11_4" aria-expanded="true" aria-controls="collapse11_4">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse12_4" class="accordion-collapse collapse"
-aria-labelledby="heading12_4" data-bs-parent="#accordionExample">
+<div id="collapse11_4" class="accordion-collapse collapse"
+aria-labelledby="heading11_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -3073,7 +2920,7 @@ is already fixed.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-12.5">Problem 12.5</h3>
+<h3 id="problem-11.5">Problem 11.5</h3>
 <p>For a given sample, an 90% confidence interval is narrower than a 95%
 confidence interval.</p>
 <ul class="task-list">
@@ -3082,13 +2929,13 @@ confidence interval.</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading12_5">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12_5" aria-expanded="true" aria-controls="collapse12_5">
+<h2 class="accordion-header" id="heading11_5">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11_5" aria-expanded="true" aria-controls="collapse11_5">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse12_5" class="accordion-collapse collapse"
-aria-labelledby="heading12_5" data-bs-parent="#accordionExample">
+<div id="collapse11_5" class="accordion-collapse collapse"
+aria-labelledby="heading11_5" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -3106,7 +2953,7 @@ intervals one creates will contain the true population parameter.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-12.6">Problem 12.6</h3>
+<h3 id="problem-11.6">Problem 11.6</h3>
 <p>If you tried to bootstrap your sample 1,000 times but accidentally
 sampled <strong>without</strong> replacement, the standard deviation of
 your test statistics is always equal to 0.</p>
@@ -3116,13 +2963,13 @@ your test statistics is always equal to 0.</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading12_6">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12_6" aria-expanded="true" aria-controls="collapse12_6">
+<h2 class="accordion-header" id="heading11_6">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11_6" aria-expanded="true" aria-controls="collapse11_6">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse12_6" class="accordion-collapse collapse"
-aria-labelledby="heading12_6" data-bs-parent="#accordionExample">
+<div id="collapse11_6" class="accordion-collapse collapse"
+aria-labelledby="heading11_6" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -3142,7 +2989,7 @@ sample, and thus the std of the test statistic is 0.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-12.7">Problem 12.7</h3>
+<h3 id="problem-11.7">Problem 11.7</h3>
 <p>You run a permutation test and store 500 simulated test statistics in
 an array called <code>stats</code>. You can construct a 95% confidence
 interval by finding the 2.5th and 97.5th percentiles of
@@ -3153,13 +3000,13 @@ interval by finding the 2.5th and 97.5th percentiles of
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading12_7">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12_7" aria-expanded="true" aria-controls="collapse12_7">
+<h2 class="accordion-header" id="heading11_7">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11_7" aria-expanded="true" aria-controls="collapse11_7">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse12_7" class="accordion-collapse collapse"
-aria-labelledby="heading12_7" data-bs-parent="#accordionExample">
+<div id="collapse11_7" class="accordion-collapse collapse"
+aria-labelledby="heading11_7" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -3177,7 +3024,7 @@ bootstrapping to add variation to our samples.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-12.8">Problem 12.8</h3>
+<h3 id="problem-11.8">Problem 11.8</h3>
 <p>The distribution of sample proportions is roughly normal for large
 samples because of the Central Limit Theorem.</p>
 <ul class="task-list">
@@ -3186,13 +3033,13 @@ samples because of the Central Limit Theorem.</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading12_8">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12_8" aria-expanded="true" aria-controls="collapse12_8">
+<h2 class="accordion-header" id="heading11_8">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11_8" aria-expanded="true" aria-controls="collapse11_8">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse12_8" class="accordion-collapse collapse"
-aria-labelledby="heading12_8" data-bs-parent="#accordionExample">
+<div id="collapse11_8" class="accordion-collapse collapse"
+aria-labelledby="heading11_8" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -3209,7 +3056,7 @@ aria-labelledby="heading12_8" data-bs-parent="#accordionExample">
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-12.9">Problem 12.9</h3>
+<h3 id="problem-11.9">Problem 11.9</h3>
 <p><span style="color:red"><b>Note: This problem is out of scope; it
 covers material no longer included in the course.</b></span></p>
 <p>The 20th percentile of the sequence [10, 30, 50, 40, 9, 70] is
@@ -3220,13 +3067,13 @@ covers material no longer included in the course.</b></span></p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading12_9">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12_9" aria-expanded="true" aria-controls="collapse12_9">
+<h2 class="accordion-header" id="heading11_9">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11_9" aria-expanded="true" aria-controls="collapse11_9">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse12_9" class="accordion-collapse collapse"
-aria-labelledby="heading12_9" data-bs-parent="#accordionExample">
+<div id="collapse11_9" class="accordion-collapse collapse"
+aria-labelledby="heading11_9" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -3256,19 +3103,19 @@ set is 10, not 30.</p></li>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-12.10">Problem 12.10</h3>
+<h3 id="problem-11.10">Problem 11.10</h3>
 <p>Chebyshev’s inequality implies that we can always create a 96%
 confidence interval from a bootstrap distribution using the mean of the
 distribution plus or minus 5 standard deviations.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading12_10">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12_10" aria-expanded="true" aria-controls="collapse12_10">
+<h2 class="accordion-header" id="heading11_10">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11_10" aria-expanded="true" aria-controls="collapse11_10">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse12_10" class="accordion-collapse collapse"
-aria-labelledby="heading12_10" data-bs-parent="#accordionExample">
+<div id="collapse11_10" class="accordion-collapse collapse"
+aria-labelledby="heading11_10" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -3283,6 +3130,159 @@ mean.</p>
 <p>
 </p>
 <p>The average score on this problem was 51%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-12">Problem 12</h2>
+<p>Suppose Tiffany has a random sample of dogs. Select the most
+appropriate technique to answer each of the following questions using
+Tiffany’s dog sample.</p>
+<p><br></p>
+<h3 id="problem-12.1">Problem 12.1</h3>
+<p>Do small dogs typically live longer than medium and large dogs?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Standard hypothesis test</p></li>
+<li><p><input type="radio" disabled="" /> Permutation test</p></li>
+<li><p><input type="radio" disabled="" /> Bootstrapping</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading12_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12_1" aria-expanded="true" aria-controls="collapse12_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse12_1" class="accordion-collapse collapse"
+aria-labelledby="heading12_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> Option 2: Permutation test.</p>
+<p>We have two parameters: dog size and life expectancy. Here if there
+was no significant statistical difference between the life expectancy of
+different dog sizes, randomly assigning our sampled life expectancy to
+each dog should lead us to observe similar observations to the observed
+statistic. Thus using a permutation test to comapre the two groups makes
+the most sense. We’re not really trying to estimate a spcecific value so
+bootstrapping isn’t a good idea here. Also, there’s not really a good
+way to randomly generate life expectancies so a hypothesis test is not a
+good idea here.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 77%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-12.2">Problem 12.2</h3>
+<p>Does Tiffany’s sample have an even distribution of dog kinds?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Standard hypothesis test</p></li>
+<li><p><input type="radio" disabled="" /> Permutation test</p></li>
+<li><p><input type="radio" disabled="" /> Bootstrapping</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading12_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12_2" aria-expanded="true" aria-controls="collapse12_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse12_2" class="accordion-collapse collapse"
+aria-labelledby="heading12_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> Option 1: Standard hypothesis test.</p>
+<p>We’re not really comparing a variable between two groups, but rather
+looking at the overall distribution, so Permutation testing wouldn’t
+work too well here. Again, we’re not really trying to estimate anything
+here so bootstrapping isn’t a good idea. This leaves us with the
+Standard Hypothesis Test, which makes sense if we use Total Variation
+Distance as our test statistic.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 51%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-12.3">Problem 12.3</h3>
+<p>What’s the median weight for herding dogs?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Standard hypothesis test</p></li>
+<li><p><input type="radio" disabled="" /> Permutation test</p></li>
+<li><p><input type="radio" disabled="" /> Bootstrapping</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading12_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12_3" aria-expanded="true" aria-controls="collapse12_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse12_3" class="accordion-collapse collapse"
+aria-labelledby="heading12_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> Option 3: Bootstrapping</p>
+<p>Here we’re trying to determine a specific value, which immediately
+leads us to bootstrapping. The other two tests wouldn’t really make
+sense in this context.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 83%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-12.4">Problem 12.4</h3>
+<p>Do dogs live longer than 12 years on average?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Standard hypothesis test</p></li>
+<li><p><input type="radio" disabled="" /> Permutation test</p></li>
+<li><p><input type="radio" disabled="" /> Bootstrapping</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading12_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12_4" aria-expanded="true" aria-controls="collapse12_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse12_4" class="accordion-collapse collapse"
+aria-labelledby="heading12_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> Option 3: Bootstrapping</p>
+<p>While the wording here might throw us off, we’re really just trying
+to determine the average life expectancy of dogs, and then see how that
+compares to 12. This leads us to bootstrapping since we’re trying to
+determine a specific value. The other two tests wouldn’t really make
+sense in this context.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 43%.</p>
 </div>
 </div>
 </div>
@@ -3823,15 +3823,36 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb29-1"><a href=
 <p><br></p>
 <h3 id="problem-16.1">Problem 16.1</h3>
 <p>It turns out that Kelsey Plum averages 0.61 more assists in games
-that she wins (“winning games”) than in games that she loses (“losing
-games”). Fill in the blanks below so that <code>observed_diff</code>
-evaluates to -0.61.</p>
+that she wins than in games that she loses. After observing that Kelsey
+Plum averages more assists in winning games than in losing games, we
+become interested in conducting a permutation test for the following
+hypotheses:</p>
+<ul>
+<li><strong>Null Hypothesis:</strong> The number of assists Kelsey Plum
+makes in winning games and in losing games come from the same
+distribution.</li>
+<li><strong>Alternative Hypothesis:</strong> The number of assists
+Kelsey Plum makes in winning games is higher on average than the number
+of assists that she makes in losing games.</li>
+</ul>
+<p>To conduct our permutation test, we place the following code in a
+<code>for</code>-loop.</p>
 <div class="sourceCode" id="cb30"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>observed_diff <span class="op">=</span> diff_in_group_means(plum, __(a)__, __(b)__)</span></code></pre></div>
-<ol type="1">
-<li><p>What goes in blank (a)?</p></li>
-<li><p>What goes in blank (b)?</p></li>
-</ol>
+class="sourceCode py"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>won <span class="op">=</span> plum.get(<span class="st">&#39;Won&#39;</span>)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>ast <span class="op">=</span> plum.get(<span class="st">&#39;AST&#39;</span>)</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>shuffled <span class="op">=</span> plum.assign(Won_shuffled<span class="op">=</span>np.random.permutation(won)) <span class="op">\</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>               .assign(AST_shuffled<span class="op">=</span>np.random.permutation(ast))</span></code></pre></div>
+<p>Which of the following options <strong>does not</strong> compute a
+valid simulated test statistic for this permutation test?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>diff_in_group_means(shuffled, 'Won', 'AST')</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>diff_in_group_means(shuffled, 'Won', 'AST_shuffled')</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>diff_in_group_means(shuffled, 'Won_shuffled, 'AST')</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>diff_in_group_means(shuffled, 'Won_shuffled, 'AST_shuffled')</code></p></li>
+<li><p><input type="radio" disabled="" /> More than one of these options do not compute a valid simulated test
+statistic for this permutation test</p></li>
+</ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading16_1">
@@ -3845,80 +3866,9 @@ aria-labelledby="heading16_1" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answers:</strong> <code>'Won'</code>, <code>'AST'</code></p>
-<p>To compute the number of assists Kelsey Plum averages in winning and
-losing games, we need to group by <code>'Won'</code>. Once doing so, and
-using the <code>.mean()</code> aggregation method, we need to access
-elements in the <code>'AST'</code> column.</p>
-<p>The second argument to <code>diff_in_group_means</code>,
-<code>group_col</code>, is the column we’re grouping by, and so blank
-(a) must be filled by <code>'Won'</code>. Then, the second argument,
-<code>num_col</code>, must be <code>'AST'</code>.</p>
-<p>Note that after extracting the Series containing the average number
-of assists in wins and losses, we are returning the value with the index
-<code>False</code> (“loss”) minus the value with the index
-<code>True</code> (“win”). So, throughout this problem, keep in mind
-that we are computing “losses minus wins”. Since our observation was
-that she averaged 0.61 more assists in wins than in losses, it makes
-sense that <code>diff_in_group_means(plum, 'Won', 'AST')</code> is -0.61
-(rather than +0.61).</p>
-<hr/>
-<h5>Difficulty: ⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 94%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-16.2">Problem 16.2</h3>
-<p>After observing that Kelsey Plum averages more assists in winning
-games than in losing games, we become interested in conducting a
-permutation test for the following hypotheses:</p>
-<ul>
-<li><strong>Null Hypothesis:</strong> The number of assists Kelsey Plum
-makes in winning games and in losing games come from the same
-distribution.</li>
-<li><strong>Alternative Hypothesis:</strong> The number of assists
-Kelsey Plum makes in winning games is higher on average than the number
-of assists that she makes in losing games.</li>
-</ul>
-<p>To conduct our permutation test, we place the following code in a
-<code>for</code>-loop.</p>
-<div class="sourceCode" id="cb31"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>won <span class="op">=</span> plum.get(<span class="st">&#39;Won&#39;</span>)</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>ast <span class="op">=</span> plum.get(<span class="st">&#39;AST&#39;</span>)</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>shuffled <span class="op">=</span> plum.assign(Won_shuffled<span class="op">=</span>np.random.permutation(won)) <span class="op">\</span></span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>               .assign(AST_shuffled<span class="op">=</span>np.random.permutation(ast))</span></code></pre></div>
-<p>Which of the following options <strong>does not</strong> compute a
-valid simulated test statistic for this permutation test?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> <code>diff_in_group_means(shuffled, 'Won', 'AST')</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>diff_in_group_means(shuffled, 'Won', 'AST_shuffled')</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>diff_in_group_means(shuffled, 'Won_shuffled, 'AST')</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>diff_in_group_means(shuffled, 'Won_shuffled, 'AST_shuffled')</code></p></li>
-<li><p><input type="radio" disabled="" /> More than one of these options do not compute a valid simulated test
-statistic for this permutation test</p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading16_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16_2" aria-expanded="true" aria-controls="collapse16_2">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse16_2" class="accordion-collapse collapse"
-aria-labelledby="heading16_2" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
 <p><strong>Answer:</strong>
 <code>diff_in_group_means(shuffled, 'Won', 'AST')</code></p>
-<p>As we saw in the previous subpart,
-<code>diff_in_group_means(shuffled, 'Won', 'AST')</code> computes the
+<p><code>diff_in_group_means(shuffled, 'Won', 'AST')</code> computes the
 observed test statistic, which is -0.61. There is no randomness involved
 in the observed test statistic; each time we run the line
 <code>diff_in_group_means(shuffled, 'Won', 'AST')</code> we will see the
@@ -3949,9 +3899,9 @@ invalid one.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-16.3">Problem 16.3</h3>
+<h3 id="problem-16.2">Problem 16.2</h3>
 <p>Suppose we generate 10,000 simulated test statistics, using one of
-the valid options from Question 4.2. The empirical distribution of test
+the valid options from Question 1.1. The empirical distribution of test
 statistics, with a red line at <code>observed_diff</code>, is shown
 below.</p>
 <center><img src='../../assets/images/wi22-final/quarter-hist.png' width=50%></center>
@@ -3975,13 +3925,13 @@ assists in wins than losses is roughly a quarter.</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading16_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16_3" aria-expanded="true" aria-controls="collapse16_3">
+<h2 class="accordion-header" id="heading16_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16_2" aria-expanded="true" aria-controls="collapse16_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse16_3" class="accordion-collapse collapse"
-aria-labelledby="heading16_3" data-bs-parent="#accordionExample">
+<div id="collapse16_2" class="accordion-collapse collapse"
+aria-labelledby="heading16_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -4034,59 +3984,70 @@ extreme than the observed, under the null. The “or more” corresponds to
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-16.4">Problem 16.4</h3>
-<p><strong>True or False:</strong> The histogram drawn in the previous
-subpart is a density histogram.</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> True</p></li>
-<li><p><input type="radio" disabled="" /> False</p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading16_4">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16_4" aria-expanded="true" aria-controls="collapse16_4">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse16_4" class="accordion-collapse collapse"
-aria-labelledby="heading16_4" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer:</strong> False</p>
-<p>The area of a density histogram is 1. The area of the histogram drawn
-in the previous subpart is much larger than 1. In fact, the area of this
-histogram is in the hundreds or thousands; you can draw a rectangle
-stretching from -1 to 1 on the <span class="math inline">x</span>-axis
-and 0 to 300 on the <span class="math inline">y</span>-axis that has
-area <span class="math inline">2 \cdot 300 = 600</span>, and this
-rectangle is much smaller than the larger histogram.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 82%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
 <hr />
 <h2 id="problem-17">Problem 17</h2>
 <p>Consider the definition of the function
 <code>diff_in_group_means</code>:</p>
-<div class="sourceCode" id="cb32"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> diff_in_group_means(df, group_col, num_col):</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>    s <span class="op">=</span> df.groupby(group_col).mean().get(num_col)</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> s.loc[<span class="va">False</span>] <span class="op">-</span> s.loc[<span class="va">True</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> diff_in_group_means(df, group_col, num_col):</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    s <span class="op">=</span> df.groupby(group_col).mean().get(num_col)</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> s.loc[<span class="va">False</span>] <span class="op">-</span> s.loc[<span class="va">True</span>]</span></code></pre></div>
 <p><br></p>
 <h3 id="problem-17.1">Problem 17.1</h3>
 <p>It turns out that Kelsey Plum averages 0.61 more assists in games
-that she wins than in games that she loses. After observing that Kelsey
-Plum averages more assists in winning games than in losing games, we
-become interested in conducting a permutation test for the following
-hypotheses:</p>
+that she wins (“winning games”) than in games that she loses (“losing
+games”). Fill in the blanks below so that <code>observed_diff</code>
+evaluates to -0.61.</p>
+<div class="sourceCode" id="cb32"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>observed_diff <span class="op">=</span> diff_in_group_means(plum, __(a)__, __(b)__)</span></code></pre></div>
+<ol type="1">
+<li><p>What goes in blank (a)?</p></li>
+<li><p>What goes in blank (b)?</p></li>
+</ol>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading17_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse17_1" aria-expanded="true" aria-controls="collapse17_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse17_1" class="accordion-collapse collapse"
+aria-labelledby="heading17_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answers:</strong> <code>'Won'</code>, <code>'AST'</code></p>
+<p>To compute the number of assists Kelsey Plum averages in winning and
+losing games, we need to group by <code>'Won'</code>. Once doing so, and
+using the <code>.mean()</code> aggregation method, we need to access
+elements in the <code>'AST'</code> column.</p>
+<p>The second argument to <code>diff_in_group_means</code>,
+<code>group_col</code>, is the column we’re grouping by, and so blank
+(a) must be filled by <code>'Won'</code>. Then, the second argument,
+<code>num_col</code>, must be <code>'AST'</code>.</p>
+<p>Note that after extracting the Series containing the average number
+of assists in wins and losses, we are returning the value with the index
+<code>False</code> (“loss”) minus the value with the index
+<code>True</code> (“win”). So, throughout this problem, keep in mind
+that we are computing “losses minus wins”. Since our observation was
+that she averaged 0.61 more assists in wins than in losses, it makes
+sense that <code>diff_in_group_means(plum, 'Won', 'AST')</code> is -0.61
+(rather than +0.61).</p>
+<hr/>
+<h5>Difficulty: ⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 94%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-17.2">Problem 17.2</h3>
+<p>After observing that Kelsey Plum averages more assists in winning
+games than in losing games, we become interested in conducting a
+permutation test for the following hypotheses:</p>
 <ul>
 <li><strong>Null Hypothesis:</strong> The number of assists Kelsey Plum
 makes in winning games and in losing games come from the same
@@ -4115,20 +4076,21 @@ statistic for this permutation test</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading17_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse17_1" aria-expanded="true" aria-controls="collapse17_1">
+<h2 class="accordion-header" id="heading17_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse17_2" aria-expanded="true" aria-controls="collapse17_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse17_1" class="accordion-collapse collapse"
-aria-labelledby="heading17_1" data-bs-parent="#accordionExample">
+<div id="collapse17_2" class="accordion-collapse collapse"
+aria-labelledby="heading17_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer:</strong>
 <code>diff_in_group_means(shuffled, 'Won', 'AST')</code></p>
-<p><code>diff_in_group_means(shuffled, 'Won', 'AST')</code> computes the
+<p>As we saw in the previous subpart,
+<code>diff_in_group_means(shuffled, 'Won', 'AST')</code> computes the
 observed test statistic, which is -0.61. There is no randomness involved
 in the observed test statistic; each time we run the line
 <code>diff_in_group_means(shuffled, 'Won', 'AST')</code> we will see the
@@ -4159,9 +4121,9 @@ invalid one.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-17.2">Problem 17.2</h3>
+<h3 id="problem-17.3">Problem 17.3</h3>
 <p>Suppose we generate 10,000 simulated test statistics, using one of
-the valid options from Question 1.1. The empirical distribution of test
+the valid options from part 1. The empirical distribution of test
 statistics, with a red line at <code>observed_diff</code>, is shown
 below.</p>
 <center><img src='../../assets/images/wi22-final/quarter-hist.png' width=50%></center>
@@ -4185,13 +4147,13 @@ assists in wins than losses is roughly a quarter.</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading17_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse17_2" aria-expanded="true" aria-controls="collapse17_2">
+<h2 class="accordion-header" id="heading17_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse17_3" aria-expanded="true" aria-controls="collapse17_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse17_2" class="accordion-collapse collapse"
-aria-labelledby="heading17_2" data-bs-parent="#accordionExample">
+<div id="collapse17_3" class="accordion-collapse collapse"
+aria-labelledby="heading17_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -4383,7 +4345,7 @@ invalid one.</p>
 <p><br></p>
 <h3 id="problem-18.3">Problem 18.3</h3>
 <p>Suppose we generate 10,000 simulated test statistics, using one of
-the valid options from part 1. The empirical distribution of test
+the valid options from Question 4.2. The empirical distribution of test
 statistics, with a red line at <code>observed_diff</code>, is shown
 below.</p>
 <center><img src='../../assets/images/wi22-final/quarter-hist.png' width=50%></center>
@@ -4461,6 +4423,44 @@ extreme than the observed, under the null. The “or more” corresponds to
 <p>
 </p>
 <p>The average score on this problem was 70%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-18.4">Problem 18.4</h3>
+<p><strong>True or False:</strong> The histogram drawn in the previous
+subpart is a density histogram.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading18_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse18_4" aria-expanded="true" aria-controls="collapse18_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse18_4" class="accordion-collapse collapse"
+aria-labelledby="heading18_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> False</p>
+<p>The area of a density histogram is 1. The area of the histogram drawn
+in the previous subpart is much larger than 1. In fact, the area of this
+histogram is in the hundreds or thousands; you can draw a rectangle
+stretching from -1 to 1 on the <span class="math inline">x</span>-axis
+and 0 to 300 on the <span class="math inline">y</span>-axis that has
+area <span class="math inline">2 \cdot 300 = 600</span>, and this
+rectangle is much smaller than the larger histogram.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 82%.</p>
 </div>
 </div>
 </div>
