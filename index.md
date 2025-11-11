@@ -116,24 +116,39 @@ Each exam linked here lists the conditions under which the exam was given, inclu
 <center>
 <table class="table" style="width:60%">
     <colgroup>
-       <col span="1" style="width: 25%;">
-       <col span="1" style="width: 35%;">
-       <col span="1" style="width: 40%;">
+      <col span="1" style="width: 20%;">
+      <col span="1" style="width: 25%;">
+      <col span="1" style="width: 20%;">
+      <col span="1" style="width: 35%;">
     </colgroup>
   <thead>
     <tr>
       <th scope="col">Quarter</th>
       <th scope="col">Instructor(s)</th>
       <th scope="col">Exam</th>
+      <th scope="col">Theme</th>
     </tr>
   </thead>
   <tbody>
+    <tr>
+      <th scope="row">Fall 2025</th>
+      <td>Janine Tiefenbruck</td>
+      <td><a href='fa25-midterm/index.html'>Midterm</a>
+      </td>
+      <td>
+        English language<br>
+      </td>
+    </tr>
     <tr>
       <th scope="row">Spring 2025</th>
       <td>Janine Tiefenbruck</td>
       <td><a href='sp25-midterm/index.html'>Midterm</a>
       <br>
       <a href='sp25-final/index.html'>Final</a>
+      </td>
+      <td>
+        Tariffs, trade<br>
+        Hunger Games
       </td>
     </tr>
     <tr>
@@ -143,6 +158,10 @@ Each exam linked here lists the conditions under which the exam was given, inclu
       <br>
       <a href='wi25-final/index.html'>Final</a>
       </td>
+      <td>
+        Dining Halls<br>
+        Harry Potter
+      </td>
     </tr>
     <tr>
       <th scope="row">Fall 2024</th>
@@ -150,6 +169,10 @@ Each exam linked here lists the conditions under which the exam was given, inclu
       <td><a href='fa24-midterm/index.html'>Midterm</a>
       <br>
       <a href='fa24-final/index.html'>Final</a>
+      </td>
+      <td>
+        Halloween<br>
+        Bookstore, genres
       </td>
     </tr>
     <tr>
@@ -159,6 +182,10 @@ Each exam linked here lists the conditions under which the exam was given, inclu
       <br>
       <a href='su24-final/index.html'>Final</a>
       </td>
+      <td>
+        Mario Kart<br>
+        Tour de France
+      </td>
     </tr>
     <tr>
       <th scope="row">Spring 2024</th>
@@ -166,6 +193,10 @@ Each exam linked here lists the conditions under which the exam was given, inclu
       <td><a href='sp24-midterm/index.html'>Midterm</a>
       <br>
       <a href='sp24-final/index.html'>Final</a>
+      </td>
+      <td>
+        Phone numbers<br>
+        Apartments, rent
       </td>
     </tr>
     <tr>
@@ -175,6 +206,10 @@ Each exam linked here lists the conditions under which the exam was given, inclu
           <br>
           <a href='wi24-final/index.html'>Final</a>
       </td>
+      <td>
+        Clue<br>
+        Olympics
+      </td>
     </tr>
     <tr>
       <th scope="row">Fall 2023</th>
@@ -183,12 +218,20 @@ Each exam linked here lists the conditions under which the exam was given, inclu
           <br>
           <a href='fa23-final/index.html'>Final</a>
       </td>
+      <td>
+        Cost of living<br>
+        Fraudulent transactions
+      </td>
     </tr>
     <tr>
       <th scope="row">Spring 2023</th>
       <td>Suraj Rampure</td>
       <td><a href='sp23-midterm/index.html'>Midterm</a><br>
           <a href='sp23-final/index.html'>Final</a></b>
+      </td>
+      <td>
+        UCSD, DSC10<br>
+        Sunshine in cities
       </td>
     </tr>
     <tr>
@@ -198,6 +241,10 @@ Each exam linked here lists the conditions under which the exam was given, inclu
           <br>
           <a href='wi23-final/index.html'>Final</a>
       </td>
+      <td>
+        Tropical storms<br>
+        Board games
+      </td>
     </tr>
     <tr>
       <th scope="row">Fall 2022</th>
@@ -206,11 +253,18 @@ Each exam linked here lists the conditions under which the exam was given, inclu
           <br>
           <a href='fa22-final/index.html'>Final</a>
       </td>
+      <td>
+        Electric vehicles<br>
+        Board games
+      </td>
     </tr>
     <tr>
       <th scope="row">Summer 2022</th>
       <td>Sam Lau</td>
       <td><a href='su22-final/index.html'>Final</a>
+      </td>
+        <td>
+        Dogs
       </td>
     </tr>
     <tr>
@@ -220,6 +274,10 @@ Each exam linked here lists the conditions under which the exam was given, inclu
           <br>
           <a href='sp22-final/index.html'>Final</a>
       </td>
+      <td>
+        Sun God festival<br>
+        IKEA
+      </td>
     </tr>
     <tr>
       <th scope="row">Winter 2022</th>
@@ -228,6 +286,10 @@ Each exam linked here lists the conditions under which the exam was given, inclu
           <br>
           <a href='wi22-final/index.html'>Final</a>
       </td>
+      <td>
+        Skyscrapers<br>
+        WNBA
+      </td>
     </tr>
     <tr>
       <th scope="row">Fall 2021</th>
@@ -235,7 +297,11 @@ Each exam linked here lists the conditions under which the exam was given, inclu
       <td><a href='fa21-midterm/index.html'>Midterm</a>
           <br>
           <a href='fa21-final/index.html'>Final</a>
-          </td>
+      </td>
+      <td>
+        King Triton's flights<br>
+        Art musuems
+      </td>
     </tr>
     <tr>
       <th scope="row">Winter 2021</th>
@@ -262,15 +328,17 @@ We've provided answers to all quiz questions, but you won't find detailed explan
 <center>
 <table class="table" style="width:60%">
   <colgroup>
+    <col span="1" style="width: 20%;">
     <col span="1" style="width: 25%;">
+    <col span="1" style="width: 20%;">
     <col span="1" style="width: 35%;">
-    <col span="1" style="width: 40%;">
   </colgroup>
   <thead>
     <tr>
       <th scope="col">Quarter</th>
       <th scope="col">Instructor(s)</th>
       <th scope="col">Quiz</th>
+      <th scope="col">Theme</th>
     </tr>
   </thead>
   <tbody>
@@ -278,73 +346,142 @@ We've provided answers to all quiz questions, but you won't find detailed explan
       <th scope="row">Fall 2025</th>
       <td>Janine Tiefenbruck, Peter Chi</td>
       <td>
-        <a href='fa25-quiz1/index.html'>Quiz 1</a> •
+        <a href='fa25-quiz1/index.html'>Quiz 1</a>
+        <br>
         <a href='fa25-quiz2/index.html'>Quiz 2</a>
+      </td>
+      <td>
+        Super Smash Brothers<br>
+        Chipotle
       </td>
     </tr>
     <tr>
       <th scope="row">Spring 2025</th>
       <td>Janine Tiefenbruck</td>
       <td>
-        <a href='sp25-quiz1/index.html'>Quiz 1</a> •
-        <a href='sp25-quiz2/index.html'>Quiz 2</a> •
-        <a href='sp25-quiz3/index.html'>Quiz 3</a> •
-        <a href='sp25-quiz4/index.html'>Quiz 4</a> •
+        <a href='sp25-quiz1/index.html'>Quiz 1</a>
+        <br>
+        <a href='sp25-quiz2/index.html'>Quiz 2</a>
+        <br>
+        <a href='sp25-quiz3/index.html'>Quiz 3</a>
+        <br>
+        <a href='sp25-quiz4/index.html'>Quiz 4</a>
+        <br>
         <a href='sp25-quiz5/index.html'>Quiz 5</a>
+      </td>
+      <td>
+        Minecraft<br>
+        Studio Ghibli<br>
+        Concerts<br>
+        Internships<br>
+        Polphony
       </td>
     </tr>
     <tr>
       <th scope="row">Winter 2025</th>
       <td>Janine Tiefenbruck</td>
       <td>
-      <a href='wi25-quiz1/index.html'>Quiz 1</a> •
-      <a href='wi25-quiz2/index.html'>Quiz 2</a> •
-      <a href='wi25-quiz3/index.html'>Quiz 3</a> •
-      <a href='wi25-quiz4/index.html'>Quiz 4</a> •
+      <a href='wi25-quiz1/index.html'>Quiz 1</a>
+      <br>
+      <a href='wi25-quiz2/index.html'>Quiz 2</a>
+      <br>
+      <a href='wi25-quiz3/index.html'>Quiz 3</a>
+      <br>
+      <a href='wi25-quiz4/index.html'>Quiz 4</a>
+      <br>
       <a href='wi25-quiz5/index.html'>Quiz 5</a>
+      </td>
+      <td>
+        Student clubs<br>
+        Blue Bowl<br>
+        Geisel<br>
+        Flowers<br>
+        Tritonlink
       </td>
     </tr>  
     <tr>
       <th scope="row">Fall 2024</th>
       <td>Janine Tiefenbruck</td>
       <td>
-        <a href='fa24-quiz1/index.html'>Quiz 1</a> •
-        <a href='fa24-quiz2/index.html'>Quiz 2</a> •
-        <a href='fa24-quiz3/index.html'>Quiz 3</a> •
+        <a href='fa24-quiz1/index.html'>Quiz 1</a>
+        <br>
+        <a href='fa24-quiz2/index.html'>Quiz 2</a>
+        <br>
+        <a href='fa24-quiz3/index.html'>Quiz 3</a>
+        <br>
         <a href='fa24-quiz4/index.html'>Quiz 4</a>
+      </td>
+      <td>
+        Sea animals<br>
+        UC's<br>
+        Space reptlies<br>
+        Movies
       </td>
     </tr>
     <tr>
       <th scope="row">Spring 2024</th>
       <td>Janine Tiefenbruck</td>
       <td>
-        <a href='sp24-quiz1/index.html'>Quiz 1</a> •
-        <a href='sp24-quiz2/index.html'>Quiz 2</a> •
-        <a href='sp24-quiz3/index.html'>Quiz 3</a> •
-        <a href='sp24-quiz4/index.html'>Quiz 4</a> •
+        <a href='sp24-quiz1/index.html'>Quiz 1</a>
+        <br>
+        <a href='sp24-quiz2/index.html'>Quiz 2</a>
+        <br>
+        <a href='sp24-quiz3/index.html'>Quiz 3</a>
+        <br>
+        <a href='sp24-quiz4/index.html'>Quiz 4</a>
+        <br>
         <a href='sp24-quiz5/index.html'>Quiz 5</a> 
+      </td>
+      <td>
+        Flowers<br>
+        Art<br>
+        Restaurants<br>
+        Trees<br>
+        Bikes
       </td>
     </tr>
     <tr>
       <th scope="row">Winter 2024</th>
       <td>Janine Tiefenbruck</td>
       <td>
-        <a href='wi24-quiz1/index.html'>Quiz 1</a> •
-        <a href='wi24-quiz2/index.html'>Quiz 2</a> •
-        <a href='wi24-quiz3/index.html'>Quiz 3</a> •
-        <a href='wi24-quiz4/index.html'>Quiz 4</a> •
-        <a href='wi24-quiz5/index.html'>Quiz 5</a> •
+        <a href='wi24-quiz1/index.html'>Quiz 1</a>
+        <br>
+        <a href='wi24-quiz2/index.html'>Quiz 2</a>
+        <br>
+        <a href='wi24-quiz3/index.html'>Quiz 3</a>
+        <br>
+        <a href='wi24-quiz4/index.html'>Quiz 4</a>
+        <br>
+        <a href='wi24-quiz5/index.html'>Quiz 5</a>
+        <br>
         <a href='wi24-quiz6/index.html'>Quiz 6</a> 
+      </td>
+      <td>
+        Fruits<br>
+        Laptops<br>
+        Flights<br>
+        Oscars<br>
+        Weather<br>
+        Parking
       </td>
     </tr>
     <tr>
       <th scope="row">Fall 2023</th>
       <td>Rod Albuyeh, Suraj Rampure, Janine Tiefenbruck</td>
       <td>
-        <a href='fa23-quiz1/index.html'>Quiz 1</a> •
-        <a href='fa23-quiz2/index.html'>Quiz 2</a> •
-        <a href='fa23-quiz3/index.html'>Quiz 3</a> •
+        <a href='fa23-quiz1/index.html'>Quiz 1</a>
+        <br>
+        <a href='fa23-quiz2/index.html'>Quiz 2</a>
+        <br>
+        <a href='fa23-quiz3/index.html'>Quiz 3</a>
+        <br>
         <a href='fa23-quiz4/index.html'>Quiz 4</a>
+      </td>
+      <td>
+        Zoo<br>
+        Animal Crossing<br>
+        Costco<br>
+        Streaming services
       </td>
     </tr>
   </tbody>
