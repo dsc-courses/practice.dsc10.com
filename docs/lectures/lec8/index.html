@@ -89,7 +89,7 @@
     code span.vs { color: #4070a0; } /* VerbatimString */
     code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="..\..\assets\theme.css" />
+  <link rel="stylesheet" href="../../assets/theme.css" />
 </head>
 <body>
 <header id="title-block-header">
@@ -1078,17 +1078,470 @@ spaces and using the default of any whitespace. </p>
 <p><br></p>
 <hr />
 <h2 id="problem-9">Problem 9</h2>
+<p>Complete the implementation of the <code>to_minutes</code> function
+below. This function takes as input a string formatted as
+<code>'x hr, y min'</code> where <code>x</code> and <code>y</code>
+represent integers, and returns the corresponding number of minutes,
+<strong>as an integer</strong> (type <code>int</code> in Python).</p>
+<p>For example, <code>to_minutes('3 hr, 5 min')</code> should return
+185.</p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> to_minutes(time):</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    first_split <span class="op">=</span> time.split(<span class="st">&#39; hr, &#39;</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    second_split <span class="op">=</span> first_split[<span class="dv">1</span>].split(<span class="st">&#39; min&#39;</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> _________</span></code></pre></div>
+<p>What goes in the blank?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading9">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9" aria-expanded="true" aria-controls="collapse9">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse9" class="accordion-collapse collapse"
+aria-labelledby="heading9" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong>
+<code>int(first_split[0])*60+int(second_split[0])</code></p>
+<p>As the last subpart demonstrated, if we want to compare times, it
+doesn’t make sense to do so when times are represented as strings. In
+the <code>to_minutes</code> function, we convert a time string into an
+integer number of minutes.</p>
+<p>The first step is to understand the logic. Every hour contains 60
+minutes, so for a time string formatted like <code>x hr, y min'</code>
+the total number of minutes comes from multiplying the value of
+<code>x</code> by 60 and adding <code>y</code>.</p>
+<p>The second step is to understand how to extract the <code>x</code>
+and <code>y</code> values from the time string using the string methods
+<code>.split</code>. The string method <code>.split</code> takes as
+input some separator string and breaks the string into pieces at each
+instance of the separator string. It then returns a list of all those
+pieces. The first line of code, therefore, creates a list called
+<code>first_split</code> containing two elements. The first element,
+accessed by <code>first_split[0]</code> contains the part of the time
+string that comes before <code>' hr, '</code>. That is,
+<code>first_split[0]</code> evaluates to the string <code>x</code>.</p>
+<p>Similarly, <code>first_split[1]</code> contains the part of the time
+string that comes after <code>' hr, '</code>. So it is formatted like
+<code>'y min'</code>. If we split this string again using the separator
+of <code>' min'</code>, the result will be a list whose first element is
+the string <code>'y'</code>. This list is saved as
+<code>second_split</code> so <code>second_split[0]</code> evaluates to
+the string <code>y</code>.</p>
+<p>Now we have the pieces we need to compute the number of minutes,
+using the idea of multiplying the value of <code>x</code> by 60 and
+adding <code>y</code>. We have to be careful with data types here, as
+the bolded instructions warn us that the function must return an
+integer. Right now, <code>first_split[0]</code> evaluates to the string
+<code>x</code> and <code>second_split[0]</code> evaluates to the string
+<code>y</code>. We need to convert these strings to integers before we
+can multiply and add. Once we convert using the <code>int</code>
+function, then we can multiply the number of hours by 60 and add the
+number of minutes. Therefore, the solution is
+<code>int(first_split[0])*60+int(second_split[0])</code>.</p>
+<p>Note that failure to convert strings to integers using the
+<code>int</code> function would lead to very different behavior. Let’s
+take the example time string of <code>'3 hr, 5 min'</code> as input to
+our function. With the return statement as
+<code>int(first_split[0])*60+int(second_split[0])</code>, the function
+would return 185 on this input, as desired. With the return statement as
+<code>first_split[0]*60+second_split[0]</code>, the function would
+return a string of length 61, looking something like this
+<code>'3333...33335'</code>. That’s because the <code>*</code> and
+<code>+</code> symbols do have meaning for strings, they’re just
+different meanings than when used with integers.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 71%.</p>
+</div>
+</div>
+</div>
+</div>
+<hr />
+<h2 id="problem-10">Problem 10</h2>
+<p>Recall that an IKEA fan created an app for people to log the amount
+of time it takes them to assemble an IKEA product. We have this data in
+<code>app_data</code>.</p>
+<p><br></p>
+<h3 id="problem-10.1">Problem 10.1</h3>
+<p>Suppose that when someone downloads the app, the app requires them to
+choose a username, which must be different from all other registered
+usernames.</p>
+<p><strong>True or False</strong>: If <code>app_data</code> had included
+a column with the username of the person who reported each product
+build, it would make sense to index <code>app_data</code> by
+username.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading10_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10_1" aria-expanded="true" aria-controls="collapse10_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse10_1" class="accordion-collapse collapse"
+aria-labelledby="heading10_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> False</p>
+<p>Even though people must have distinct usernames, one person can build
+multiple different IKEA products and log their time for each build. So
+we don’t expect every row of <code>app_data</code> to have a distinct
+username associated with it, and therefore username would not be
+suitable as an index, since the index should have distinct values.
+</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>The average score on this problem was
+52%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-10.2">Problem 10.2</h3>
+<p>What does the code below evaluate to?</p>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>(app_data.take(np.arange(<span class="dv">4</span>))</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>         .sort_values(by<span class="op">=</span><span class="st">&#39;assembly_time&#39;</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>         .get(<span class="st">&#39;assembly_time&#39;</span>)</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>         .iloc[<span class="dv">0</span>])</span></code></pre></div>
+<p><em>Hint:</em> The <code>'assembly_time'</code> column contains
+strings.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading10_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10_2" aria-expanded="true" aria-controls="collapse10_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse10_2" class="accordion-collapse collapse"
+aria-labelledby="heading10_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> <code>'1 hr, 45 min'</code></p>
+<p>The code says that we should take the first four rows of
+<code>app_data</code> (which we can see in the preview at the start of
+this exam), sort the rows in ascending order of
+<code>'assembly_time'</code>, and extract the very first entry of the
+<code>'assembly_time'</code> column. In other words, we have to find the
+<code>'assembly_time'</code> value that would be first when sorted in
+ascending order. As given in the hint, the <code>'assembly_time'</code>
+column contains strings, and strings get sorted alphabetically, so we
+are looking for the assembly time, among the first four, that would come
+first alphabetically. This is <code>'1 hr, 45 min'</code>.</p>
+<p>Note that first alphabetically does not correspond to the least
+amount of time. <code>'1 hr, 5 min'</code> represents less time than
+<code>'1 hr, 45 min'</code>, but in alphabetical order
+<code>'1 hr, 45 min'</code> comes before <code>'1 hr, 5 min'</code>
+because both start with the same characters <code>'1 hr, '</code> and
+comparing the next character, <code>'4'</code> comes before
+<code>'5'</code>. </p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
+<p>The average score
+on this problem was 46%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-11">Problem 11</h2>
+<p>Suppose that when someone downloads the app, the app requires them to
+choose a username, which must be different from all other registered
+usernames.</p>
+<p><strong>True or False</strong>: If <code>app_data</code> had included
+a column with the username of the person who reported each product
+build, it would make sense to index <code>app_data</code> by
+username.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading11">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11" aria-expanded="true" aria-controls="collapse11">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse11" class="accordion-collapse collapse"
+aria-labelledby="heading11" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> False</p>
+<p>Even though people must have distinct usernames, one person can build
+multiple different IKEA products and log their time for each build. So
+we don’t expect every row of <code>app_data</code> to have a distinct
+username associated with it, and therefore username would not be
+suitable as an index, since the index should have distinct values.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 52%.</p>
+</div>
+</div>
+</div>
+</div>
+<hr />
+<h2 id="problem-12">Problem 12</h2>
+<p>Recall that an IKEA fan created an app for people to log the amount
+of time it takes them to assemble an IKEA product. We have this data in
+<code>app_data</code>.</p>
+<p><br></p>
+<h3 id="problem-12.1">Problem 12.1</h3>
+<p>Suppose that when someone downloads the app, the app requires them to
+choose a username, which must be different from all other registered
+usernames.</p>
+<p><strong>True or False</strong>: If <code>app_data</code> had included
+a column with the username of the person who reported each product
+build, it would make sense to index <code>app_data</code> by
+username.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> True</p></li>
+<li><p><input type="radio" disabled="" /> False</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading12_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12_1" aria-expanded="true" aria-controls="collapse12_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse12_1" class="accordion-collapse collapse"
+aria-labelledby="heading12_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> False</p>
+<p>Even though people must have distinct usernames, one person can build
+multiple different IKEA products and log their time for each build. So
+we don’t expect every row of <code>app_data</code> to have a distinct
+username associated with it, and therefore username would not be
+suitable as an index, since the index should have distinct values.
+</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>The average score on this problem was
+52%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-12.2">Problem 12.2</h3>
+<p>What does the code below evaluate to?</p>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>(app_data.take(np.arange(<span class="dv">4</span>))</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>         .sort_values(by<span class="op">=</span><span class="st">&#39;assembly_time&#39;</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>         .get(<span class="st">&#39;assembly_time&#39;</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>         .iloc[<span class="dv">0</span>])</span></code></pre></div>
+<p><em>Hint:</em> The <code>'assembly_time'</code> column contains
+strings.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading12_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12_2" aria-expanded="true" aria-controls="collapse12_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse12_2" class="accordion-collapse collapse"
+aria-labelledby="heading12_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> <code>'1 hr, 45 min'</code></p>
+<p>The code says that we should take the first four rows of
+<code>app_data</code> (which we can see in the preview at the start of
+this exam), sort the rows in ascending order of
+<code>'assembly_time'</code>, and extract the very first entry of the
+<code>'assembly_time'</code> column. In other words, we have to find the
+<code>'assembly_time'</code> value that would be first when sorted in
+ascending order. As given in the hint, the <code>'assembly_time'</code>
+column contains strings, and strings get sorted alphabetically, so we
+are looking for the assembly time, among the first four, that would come
+first alphabetically. This is <code>'1 hr, 45 min'</code>.</p>
+<p>Note that first alphabetically does not correspond to the least
+amount of time. <code>'1 hr, 5 min'</code> represents less time than
+<code>'1 hr, 45 min'</code>, but in alphabetical order
+<code>'1 hr, 45 min'</code> comes before <code>'1 hr, 5 min'</code>
+because both start with the same characters <code>'1 hr, '</code> and
+comparing the next character, <code>'4'</code> comes before
+<code>'5'</code>. </p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
+<p>The average score
+on this problem was 46%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-12.3">Problem 12.3</h3>
+<p>Complete the implementation of the <code>to_minutes</code> function
+below. This function takes as input a string formatted as
+<code>'x hr, y min'</code> where <code>x</code> and <code>y</code>
+represent integers, and returns the corresponding number of minutes,
+<strong>as an integer</strong> (type <code>int</code> in Python).</p>
+<p>For example, <code>to_minutes('3 hr, 5 min')</code> should return
+185.</p>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> to_minutes(time):</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    first_split <span class="op">=</span> time.split(<span class="st">&#39; hr, &#39;</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    second_split <span class="op">=</span> first_split[<span class="dv">1</span>].split(<span class="st">&#39; min&#39;</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> _________</span></code></pre></div>
+<p>What goes in the blank?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading12_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12_3" aria-expanded="true" aria-controls="collapse12_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse12_3" class="accordion-collapse collapse"
+aria-labelledby="heading12_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong>
+<code>int(first_split[0])*60+int(second_split[0])</code></p>
+<p>As the last subpart demonstrated, if we want to compare times, it
+doesn’t make sense to do so when times are represented as strings. In
+the <code>to_minutes</code> function, we convert a time string into an
+integer number of minutes.</p>
+<p>The first step is to understand the logic. Every hour contains 60
+minutes, so for a time string formatted like <code>x hr, y min'</code>
+the total number of minutes comes from multiplying the value of
+<code>x</code> by 60 and adding <code>y</code>.</p>
+<p>The second step is to understand how to extract the <code>x</code>
+and <code>y</code> values from the time string using the string methods
+<code>.split</code>. The string method <code>.split</code> takes as
+input some separator string and breaks the string into pieces at each
+instance of the separator string. It then returns a list of all those
+pieces. The first line of code, therefore, creates a list called
+<code>first_split</code> containing two elements. The first element,
+accessed by <code>first_split[0]</code> contains the part of the time
+string that comes before <code>' hr, '</code>. That is,
+<code>first_split[0]</code> evaluates to the string <code>x</code>.</p>
+<p>Similarly, <code>first_split[1]</code> contains the part of the time
+string that comes after <code>' hr, '</code>. So it is formatted like
+<code>'y min'</code>. If we split this string again using the separator
+of <code>' min'</code>, the result will be a list whose first element is
+the string <code>'y'</code>. This list is saved as
+<code>second_split</code> so <code>second_split[0]</code> evaluates to
+the string <code>y</code>.</p>
+<p>Now we have the pieces we need to compute the number of minutes,
+using the idea of multiplying the value of <code>x</code> by 60 and
+adding <code>y</code>. We have to be careful with data types here, as
+the bolded instructions warn us that the function must return an
+integer. Right now, <code>first_split[0]</code> evaluates to the string
+<code>x</code> and <code>second_split[0]</code> evaluates to the string
+<code>y</code>. We need to convert these strings to integers before we
+can multiply and add. Once we convert using the <code>int</code>
+function, then we can multiply the number of hours by 60 and add the
+number of minutes. Therefore, the solution is
+<code>int(first_split[0])*60+int(second_split[0])</code>.</p>
+<p>Note that failure to convert strings to integers using the
+<code>int</code> function would lead to very different behavior. Let’s
+take the example time string of <code>'3 hr, 5 min'</code> as input to
+our function. With the return statement as
+<code>int(first_split[0])*60+int(second_split[0])</code>, the function
+would return 185 on this input, as desired. With the return statement as
+<code>first_split[0]*60+second_split[0]</code>, the function would
+return a string of length 61, looking something like this
+<code>'3333...33335'</code>. That’s because the <code>*</code> and
+<code>+</code> symbols do have meaning for strings, they’re just
+different meanings than when used with integers.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 71%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-12.4">Problem 12.4</h3>
+<p>You want to add to <code>app_data</code> a column called
+<code>'minutes'</code> with integer values representing the number of
+minutes it took to assemble each product.</p>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>app_data <span class="op">=</span> app_data.assign(minutes <span class="op">=</span> _________)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>app_data</span></code></pre></div>
+<p>Which of the following should go in the blank?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>to_minutes('assembly_time')</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>to_minutes(app_data.get('assembly_time'))</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>app_data.get('assembly_time').apply(to_minutes)</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>app_data.get('assembly_time').apply(to_minutes(time))</code></p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading12_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12_4" aria-expanded="true" aria-controls="collapse12_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse12_4" class="accordion-collapse collapse"
+aria-labelledby="heading12_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong>
+<code>app_data.get('assembly_time').apply(to_minutes)</code></p>
+<p>We want to create a Series of times in minutes, since it’s to be
+added to the <code>app_data</code> DataFrame using <code>.assign</code>.
+The correct way to do that is to use <code>.apply</code> so that our
+function, which works for one input time string, can be applied
+separately to every time string in the <code>'assembly_time'</code>
+column of <code>app_data</code>. Remember that <code>.apply</code> takes
+as input one parameter, the name of the function to apply, with no
+arguments. The correct syntax is
+<code>app_data.get('assembly_time').apply(to_minutes)</code>.</p>
+<hr/>
+<h5>Difficulty: ⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 98%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-13">Problem 13</h2>
 <p>In the <code>ikea</code> DataFrame, the first word of each string in
 the <code>'product'</code> column represents the product line. For
 example the HEMNES line of products includes several different products,
 such as beds, dressers, and bedside tables.</p>
 <p>The code below assigns a new column to the <code>ikea</code>
 DataFrame containing the product line associated with each product.</p>
-<div class="sourceCode" id="cb13"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>(ikea.assign(product_line <span class="op">=</span> ikea.get(<span class="st">&#39;product&#39;</span>)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>                                .<span class="bu">apply</span>(extract_product_line)))</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>(ikea.assign(product_line <span class="op">=</span> ikea.get(<span class="st">&#39;product&#39;</span>)</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>                                .<span class="bu">apply</span>(extract_product_line)))</span></code></pre></div>
 <p><br></p>
-<h3 id="problem-9.1">Problem 9.1</h3>
+<h3 id="problem-13.1">Problem 13.1</h3>
 <p>What are the input and output types of the
 <code>extract_product_line</code> function?</p>
 <ul class="task-list">
@@ -1099,13 +1552,13 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb13-1"><a href=
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading9_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_1" aria-expanded="true" aria-controls="collapse9_1">
+<h2 class="accordion-header" id="heading13_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13_1" aria-expanded="true" aria-controls="collapse13_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse9_1" class="accordion-collapse collapse"
-aria-labelledby="heading9_1" data-bs-parent="#accordionExample">
+<div id="collapse13_1" class="accordion-collapse collapse"
+aria-labelledby="heading13_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -1135,22 +1588,22 @@ first word of the product name. This means the function
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-9.2">Problem 9.2</h3>
+<h3 id="problem-13.2">Problem 13.2</h3>
 <p>Complete the return statement in the
 <code>extract_product_line</code> function below.</p>
-<div class="sourceCode" id="cb14"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> extract_product_line(x):</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> _________</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> extract_product_line(x):</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> _________</span></code></pre></div>
 <p>What goes in the blank?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading9_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_2" aria-expanded="true" aria-controls="collapse9_2">
+<h2 class="accordion-header" id="heading13_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13_2" aria-expanded="true" aria-controls="collapse13_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse9_2" class="accordion-collapse collapse"
-aria-labelledby="heading9_2" data-bs-parent="#accordionExample">
+<div id="collapse13_2" class="accordion-collapse collapse"
+aria-labelledby="heading13_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -1171,459 +1624,6 @@ spaces and using the default of any whitespace. </p>
 <h5>Difficulty:
 ⭐️⭐️</h5>
 <p>The average score on this problem was 84%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<hr />
-<h2 id="problem-10">Problem 10</h2>
-<p>Suppose that when someone downloads the app, the app requires them to
-choose a username, which must be different from all other registered
-usernames.</p>
-<p><strong>True or False</strong>: If <code>app_data</code> had included
-a column with the username of the person who reported each product
-build, it would make sense to index <code>app_data</code> by
-username.</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> True</p></li>
-<li><p><input type="radio" disabled="" /> False</p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading10">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10" aria-expanded="true" aria-controls="collapse10">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse10" class="accordion-collapse collapse"
-aria-labelledby="heading10" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> False</p>
-<p>Even though people must have distinct usernames, one person can build
-multiple different IKEA products and log their time for each build. So
-we don’t expect every row of <code>app_data</code> to have a distinct
-username associated with it, and therefore username would not be
-suitable as an index, since the index should have distinct values.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 52%.</p>
-</div>
-</div>
-</div>
-</div>
-<hr />
-<h2 id="problem-11">Problem 11</h2>
-<p>Recall that an IKEA fan created an app for people to log the amount
-of time it takes them to assemble an IKEA product. We have this data in
-<code>app_data</code>.</p>
-<p><br></p>
-<h3 id="problem-11.1">Problem 11.1</h3>
-<p>Suppose that when someone downloads the app, the app requires them to
-choose a username, which must be different from all other registered
-usernames.</p>
-<p><strong>True or False</strong>: If <code>app_data</code> had included
-a column with the username of the person who reported each product
-build, it would make sense to index <code>app_data</code> by
-username.</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> True</p></li>
-<li><p><input type="radio" disabled="" /> False</p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading11_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11_1" aria-expanded="true" aria-controls="collapse11_1">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse11_1" class="accordion-collapse collapse"
-aria-labelledby="heading11_1" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> False</p>
-<p>Even though people must have distinct usernames, one person can build
-multiple different IKEA products and log their time for each build. So
-we don’t expect every row of <code>app_data</code> to have a distinct
-username associated with it, and therefore username would not be
-suitable as an index, since the index should have distinct values.
-</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>The average score on this problem was
-52%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-11.2">Problem 11.2</h3>
-<p>What does the code below evaluate to?</p>
-<div class="sourceCode" id="cb15"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>(app_data.take(np.arange(<span class="dv">4</span>))</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>         .sort_values(by<span class="op">=</span><span class="st">&#39;assembly_time&#39;</span>)</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>         .get(<span class="st">&#39;assembly_time&#39;</span>)</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>         .iloc[<span class="dv">0</span>])</span></code></pre></div>
-<p><em>Hint:</em> The <code>'assembly_time'</code> column contains
-strings.</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading11_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11_2" aria-expanded="true" aria-controls="collapse11_2">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse11_2" class="accordion-collapse collapse"
-aria-labelledby="heading11_2" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> <code>'1 hr, 45 min'</code></p>
-<p>The code says that we should take the first four rows of
-<code>app_data</code> (which we can see in the preview at the start of
-this exam), sort the rows in ascending order of
-<code>'assembly_time'</code>, and extract the very first entry of the
-<code>'assembly_time'</code> column. In other words, we have to find the
-<code>'assembly_time'</code> value that would be first when sorted in
-ascending order. As given in the hint, the <code>'assembly_time'</code>
-column contains strings, and strings get sorted alphabetically, so we
-are looking for the assembly time, among the first four, that would come
-first alphabetically. This is <code>'1 hr, 45 min'</code>.</p>
-<p>Note that first alphabetically does not correspond to the least
-amount of time. <code>'1 hr, 5 min'</code> represents less time than
-<code>'1 hr, 45 min'</code>, but in alphabetical order
-<code>'1 hr, 45 min'</code> comes before <code>'1 hr, 5 min'</code>
-because both start with the same characters <code>'1 hr, '</code> and
-comparing the next character, <code>'4'</code> comes before
-<code>'5'</code>. </p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
-<p>The average score
-on this problem was 46%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<hr />
-<h2 id="problem-12">Problem 12</h2>
-<p>Complete the implementation of the <code>to_minutes</code> function
-below. This function takes as input a string formatted as
-<code>'x hr, y min'</code> where <code>x</code> and <code>y</code>
-represent integers, and returns the corresponding number of minutes,
-<strong>as an integer</strong> (type <code>int</code> in Python).</p>
-<p>For example, <code>to_minutes('3 hr, 5 min')</code> should return
-185.</p>
-<div class="sourceCode" id="cb16"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> to_minutes(time):</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    first_split <span class="op">=</span> time.split(<span class="st">&#39; hr, &#39;</span>)</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    second_split <span class="op">=</span> first_split[<span class="dv">1</span>].split(<span class="st">&#39; min&#39;</span>)</span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> _________</span></code></pre></div>
-<p>What goes in the blank?</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading12">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12" aria-expanded="true" aria-controls="collapse12">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse12" class="accordion-collapse collapse"
-aria-labelledby="heading12" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong>
-<code>int(first_split[0])*60+int(second_split[0])</code></p>
-<p>As the last subpart demonstrated, if we want to compare times, it
-doesn’t make sense to do so when times are represented as strings. In
-the <code>to_minutes</code> function, we convert a time string into an
-integer number of minutes.</p>
-<p>The first step is to understand the logic. Every hour contains 60
-minutes, so for a time string formatted like <code>x hr, y min'</code>
-the total number of minutes comes from multiplying the value of
-<code>x</code> by 60 and adding <code>y</code>.</p>
-<p>The second step is to understand how to extract the <code>x</code>
-and <code>y</code> values from the time string using the string methods
-<code>.split</code>. The string method <code>.split</code> takes as
-input some separator string and breaks the string into pieces at each
-instance of the separator string. It then returns a list of all those
-pieces. The first line of code, therefore, creates a list called
-<code>first_split</code> containing two elements. The first element,
-accessed by <code>first_split[0]</code> contains the part of the time
-string that comes before <code>' hr, '</code>. That is,
-<code>first_split[0]</code> evaluates to the string <code>x</code>.</p>
-<p>Similarly, <code>first_split[1]</code> contains the part of the time
-string that comes after <code>' hr, '</code>. So it is formatted like
-<code>'y min'</code>. If we split this string again using the separator
-of <code>' min'</code>, the result will be a list whose first element is
-the string <code>'y'</code>. This list is saved as
-<code>second_split</code> so <code>second_split[0]</code> evaluates to
-the string <code>y</code>.</p>
-<p>Now we have the pieces we need to compute the number of minutes,
-using the idea of multiplying the value of <code>x</code> by 60 and
-adding <code>y</code>. We have to be careful with data types here, as
-the bolded instructions warn us that the function must return an
-integer. Right now, <code>first_split[0]</code> evaluates to the string
-<code>x</code> and <code>second_split[0]</code> evaluates to the string
-<code>y</code>. We need to convert these strings to integers before we
-can multiply and add. Once we convert using the <code>int</code>
-function, then we can multiply the number of hours by 60 and add the
-number of minutes. Therefore, the solution is
-<code>int(first_split[0])*60+int(second_split[0])</code>.</p>
-<p>Note that failure to convert strings to integers using the
-<code>int</code> function would lead to very different behavior. Let’s
-take the example time string of <code>'3 hr, 5 min'</code> as input to
-our function. With the return statement as
-<code>int(first_split[0])*60+int(second_split[0])</code>, the function
-would return 185 on this input, as desired. With the return statement as
-<code>first_split[0]*60+second_split[0]</code>, the function would
-return a string of length 61, looking something like this
-<code>'3333...33335'</code>. That’s because the <code>*</code> and
-<code>+</code> symbols do have meaning for strings, they’re just
-different meanings than when used with integers.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 71%.</p>
-</div>
-</div>
-</div>
-</div>
-<hr />
-<h2 id="problem-13">Problem 13</h2>
-<p>Recall that an IKEA fan created an app for people to log the amount
-of time it takes them to assemble an IKEA product. We have this data in
-<code>app_data</code>.</p>
-<p><br></p>
-<h3 id="problem-13.1">Problem 13.1</h3>
-<p>Suppose that when someone downloads the app, the app requires them to
-choose a username, which must be different from all other registered
-usernames.</p>
-<p><strong>True or False</strong>: If <code>app_data</code> had included
-a column with the username of the person who reported each product
-build, it would make sense to index <code>app_data</code> by
-username.</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> True</p></li>
-<li><p><input type="radio" disabled="" /> False</p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading13_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13_1" aria-expanded="true" aria-controls="collapse13_1">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse13_1" class="accordion-collapse collapse"
-aria-labelledby="heading13_1" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> False</p>
-<p>Even though people must have distinct usernames, one person can build
-multiple different IKEA products and log their time for each build. So
-we don’t expect every row of <code>app_data</code> to have a distinct
-username associated with it, and therefore username would not be
-suitable as an index, since the index should have distinct values.
-</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>The average score on this problem was
-52%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-13.2">Problem 13.2</h3>
-<p>What does the code below evaluate to?</p>
-<div class="sourceCode" id="cb17"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>(app_data.take(np.arange(<span class="dv">4</span>))</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>         .sort_values(by<span class="op">=</span><span class="st">&#39;assembly_time&#39;</span>)</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>         .get(<span class="st">&#39;assembly_time&#39;</span>)</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>         .iloc[<span class="dv">0</span>])</span></code></pre></div>
-<p><em>Hint:</em> The <code>'assembly_time'</code> column contains
-strings.</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading13_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13_2" aria-expanded="true" aria-controls="collapse13_2">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse13_2" class="accordion-collapse collapse"
-aria-labelledby="heading13_2" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> <code>'1 hr, 45 min'</code></p>
-<p>The code says that we should take the first four rows of
-<code>app_data</code> (which we can see in the preview at the start of
-this exam), sort the rows in ascending order of
-<code>'assembly_time'</code>, and extract the very first entry of the
-<code>'assembly_time'</code> column. In other words, we have to find the
-<code>'assembly_time'</code> value that would be first when sorted in
-ascending order. As given in the hint, the <code>'assembly_time'</code>
-column contains strings, and strings get sorted alphabetically, so we
-are looking for the assembly time, among the first four, that would come
-first alphabetically. This is <code>'1 hr, 45 min'</code>.</p>
-<p>Note that first alphabetically does not correspond to the least
-amount of time. <code>'1 hr, 5 min'</code> represents less time than
-<code>'1 hr, 45 min'</code>, but in alphabetical order
-<code>'1 hr, 45 min'</code> comes before <code>'1 hr, 5 min'</code>
-because both start with the same characters <code>'1 hr, '</code> and
-comparing the next character, <code>'4'</code> comes before
-<code>'5'</code>. </p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
-<p>The average score
-on this problem was 46%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-13.3">Problem 13.3</h3>
-<p>Complete the implementation of the <code>to_minutes</code> function
-below. This function takes as input a string formatted as
-<code>'x hr, y min'</code> where <code>x</code> and <code>y</code>
-represent integers, and returns the corresponding number of minutes,
-<strong>as an integer</strong> (type <code>int</code> in Python).</p>
-<p>For example, <code>to_minutes('3 hr, 5 min')</code> should return
-185.</p>
-<div class="sourceCode" id="cb18"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> to_minutes(time):</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    first_split <span class="op">=</span> time.split(<span class="st">&#39; hr, &#39;</span>)</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    second_split <span class="op">=</span> first_split[<span class="dv">1</span>].split(<span class="st">&#39; min&#39;</span>)</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> _________</span></code></pre></div>
-<p>What goes in the blank?</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading13_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13_3" aria-expanded="true" aria-controls="collapse13_3">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse13_3" class="accordion-collapse collapse"
-aria-labelledby="heading13_3" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong>
-<code>int(first_split[0])*60+int(second_split[0])</code></p>
-<p>As the last subpart demonstrated, if we want to compare times, it
-doesn’t make sense to do so when times are represented as strings. In
-the <code>to_minutes</code> function, we convert a time string into an
-integer number of minutes.</p>
-<p>The first step is to understand the logic. Every hour contains 60
-minutes, so for a time string formatted like <code>x hr, y min'</code>
-the total number of minutes comes from multiplying the value of
-<code>x</code> by 60 and adding <code>y</code>.</p>
-<p>The second step is to understand how to extract the <code>x</code>
-and <code>y</code> values from the time string using the string methods
-<code>.split</code>. The string method <code>.split</code> takes as
-input some separator string and breaks the string into pieces at each
-instance of the separator string. It then returns a list of all those
-pieces. The first line of code, therefore, creates a list called
-<code>first_split</code> containing two elements. The first element,
-accessed by <code>first_split[0]</code> contains the part of the time
-string that comes before <code>' hr, '</code>. That is,
-<code>first_split[0]</code> evaluates to the string <code>x</code>.</p>
-<p>Similarly, <code>first_split[1]</code> contains the part of the time
-string that comes after <code>' hr, '</code>. So it is formatted like
-<code>'y min'</code>. If we split this string again using the separator
-of <code>' min'</code>, the result will be a list whose first element is
-the string <code>'y'</code>. This list is saved as
-<code>second_split</code> so <code>second_split[0]</code> evaluates to
-the string <code>y</code>.</p>
-<p>Now we have the pieces we need to compute the number of minutes,
-using the idea of multiplying the value of <code>x</code> by 60 and
-adding <code>y</code>. We have to be careful with data types here, as
-the bolded instructions warn us that the function must return an
-integer. Right now, <code>first_split[0]</code> evaluates to the string
-<code>x</code> and <code>second_split[0]</code> evaluates to the string
-<code>y</code>. We need to convert these strings to integers before we
-can multiply and add. Once we convert using the <code>int</code>
-function, then we can multiply the number of hours by 60 and add the
-number of minutes. Therefore, the solution is
-<code>int(first_split[0])*60+int(second_split[0])</code>.</p>
-<p>Note that failure to convert strings to integers using the
-<code>int</code> function would lead to very different behavior. Let’s
-take the example time string of <code>'3 hr, 5 min'</code> as input to
-our function. With the return statement as
-<code>int(first_split[0])*60+int(second_split[0])</code>, the function
-would return 185 on this input, as desired. With the return statement as
-<code>first_split[0]*60+second_split[0]</code>, the function would
-return a string of length 61, looking something like this
-<code>'3333...33335'</code>. That’s because the <code>*</code> and
-<code>+</code> symbols do have meaning for strings, they’re just
-different meanings than when used with integers.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 71%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-13.4">Problem 13.4</h3>
-<p>You want to add to <code>app_data</code> a column called
-<code>'minutes'</code> with integer values representing the number of
-minutes it took to assemble each product.</p>
-<div class="sourceCode" id="cb19"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>app_data <span class="op">=</span> app_data.assign(minutes <span class="op">=</span> _________)</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>app_data</span></code></pre></div>
-<p>Which of the following should go in the blank?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> <code>to_minutes('assembly_time')</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>to_minutes(app_data.get('assembly_time'))</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>app_data.get('assembly_time').apply(to_minutes)</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>app_data.get('assembly_time').apply(to_minutes(time))</code></p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading13_4">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13_4" aria-expanded="true" aria-controls="collapse13_4">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse13_4" class="accordion-collapse collapse"
-aria-labelledby="heading13_4" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong>
-<code>app_data.get('assembly_time').apply(to_minutes)</code></p>
-<p>We want to create a Series of times in minutes, since it’s to be
-added to the <code>app_data</code> DataFrame using <code>.assign</code>.
-The correct way to do that is to use <code>.apply</code> so that our
-function, which works for one input time string, can be applied
-separately to every time string in the <code>'assembly_time'</code>
-column of <code>app_data</code>. Remember that <code>.apply</code> takes
-as input one parameter, the name of the function to apply, with no
-arguments. The correct syntax is
-<code>app_data.get('assembly_time').apply(to_minutes)</code>.</p>
-<hr/>
-<h5>Difficulty: ⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 98%.</p>
 </div>
 </div>
 </div>
@@ -1895,7 +1895,7 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb22-1"><a href=
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="st">&quot;One&quot;</span> <span class="kw">in</span> s:</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>        n_baths <span class="op">=</span> <span class="dv">1</span></span>
 <span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> <span class="st">&quot;Two&quot;</span> <span class="kw">in</span> s:</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>        n_baths <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>        n_baths <span class="op">=</span> <span class="dv">2</span></span>
 <span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
 <span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>        n_baths <span class="op">=</span> <span class="dv">3</span></span>
 <span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="st">&quot;and a half&quot;</span> <span class="kw">in</span> s:</span>

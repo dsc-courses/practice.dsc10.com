@@ -89,7 +89,7 @@
     code span.vs { color: #4070a0; } /* VerbatimString */
     code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="..\..\assets\theme.css" />
+  <link rel="stylesheet" href="../../assets/theme.css" />
   <script defer=""
   src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
@@ -1121,20 +1121,8 @@ difficulty, so we need to use<code>.sum()</code></p>
 <p><br></p>
 <hr />
 <h2 id="problem-12">Problem 12</h2>
-<p>For each offer currently available, the DataFrame <code>offers</code>
-has a separate row for each category of products to which the offer can
-be applied. The columns are:</p>
-<ul>
-<li><code>'offer'</code> (<code>str</code>): the name of the offer</li>
-<li><code>'category'</code> (<code>str</code>): the category to which
-the offer applies</li>
-<li><code>'percent_off'</code> (<code>int</code>): the percent discount
-when applying this offer to this category</li>
-</ul>
-<p>The full <code>offers</code> DataFrame is shown below. All rows are
-pictured.</p>
-<center><img src='../../assets/images/sp22-final/offersdf.png' height=270></center>
-<p><br></p>
+<p>Recall that we have the complete set of currently available discounts
+in the DataFrame <code>offers</code>.</p>
 <p>The DataFrame <code>with_offers</code> is created as follows.</p>
 <div class="sourceCode" id="cb14"><pre
 class="sourceCode py"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>    (with_offers <span class="op">=</span> ikea.take(np.arange(<span class="dv">6</span>))</span>
@@ -1364,8 +1352,20 @@ original price!</p>
 <p><br></p>
 <hr />
 <h2 id="problem-13">Problem 13</h2>
-<p>Recall that we have the complete set of currently available discounts
-in the DataFrame <code>offers</code>.</p>
+<p>For each offer currently available, the DataFrame <code>offers</code>
+has a separate row for each category of products to which the offer can
+be applied. The columns are:</p>
+<ul>
+<li><code>'offer'</code> (<code>str</code>): the name of the offer</li>
+<li><code>'category'</code> (<code>str</code>): the category to which
+the offer applies</li>
+<li><code>'percent_off'</code> (<code>int</code>): the percent discount
+when applying this offer to this category</li>
+</ul>
+<p>The full <code>offers</code> DataFrame is shown below. All rows are
+pictured.</p>
+<center><img src='../../assets/images/sp22-final/offersdf.png' height=270></center>
+<p><br></p>
 <p>The DataFrame <code>with_offers</code> is created as follows.</p>
 <div class="sourceCode" id="cb17"><pre
 class="sourceCode py"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>    (with_offers <span class="op">=</span> ikea.take(np.arange(<span class="dv">6</span>))</span>
@@ -4233,44 +4233,52 @@ Result: The final DataFrame has 12 rows.</p>
 <p><br></p>
 <hr />
 <h2 id="problem-29">Problem 29</h2>
-<p>If we merge a table with <code>n</code> rows with a table with
-<code>m</code> rows, how many rows does the resulting table have?</p>
+<p>You are given a table called books that contains columns
+<code>'author'</code> (<code>str</code>), <code>'title'</code>
+(<code>str</code>), <code>'num_chapters'</code> (<code>int</code>), and
+<code>'publication_year'</code> (<code>int</code>). <br></p>
+<h3 id="problem-29.1">Problem 29.1</h3>
+<p>What will be the output of the following code?
+<code>books.groupby(“publication_year”).mean().shape[1]</code></p>
 <ul class="task-list">
-<li><p><input type="radio" disabled="" /> <code>n</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>m</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>max(m,n)</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>m * n</code></p></li>
-<li><p><input type="radio" disabled="" /> not enough information to tell</p></li>
+<li><p><input type="radio" disabled="" /> <code>1</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>2</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>3</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>4</code></p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading29">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse29" aria-expanded="true" aria-controls="collapse29">
+<h2 class="accordion-header" id="heading29_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse29_1" aria-expanded="true" aria-controls="collapse29_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse29" class="accordion-collapse collapse"
-aria-labelledby="heading29" data-bs-parent="#accordionExample">
+<div id="collapse29_1" class="accordion-collapse collapse"
+aria-labelledby="heading29_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer: </strong> not enough information to tell</p>
-<p>The question does not provide enough information to know the
-resulting table size with certainty. When merging two tables together,
-the tables can be merged with a inner, left, right, and outer join. Each
-of these joins will produce a different amount of rows. Since the
-question does not provide the type of join, it is impossible to tell the
-resulting table size.</p>
+<p><strong>Answer: </strong> <code>1</code></p>
+<p>The output will return 1. Notice that the final function call is to
+<code>.shape[1]</code>. We know that <code>.shape[1]</code> is a call to
+see how many columns are in the resulting data frame. When we group by
+publication year, there is only one column that will be aggregated by
+the groupby call (which is the <code>'num_chapters'</code> column). The
+other columns are string, and therefore, will not be aggregated in the
+groupby call (since you can’t take the mean of a string). Consequently
+<code>.shape[1]</code> will only result one column for the mean of the
+<code>'num_chapters'</code> column.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
 </p>
-<p>The average score on this problem was 74%.</p>
+<p>The average score on this problem was 67%.</p>
 </div>
 </div>
 </div>
 </div>
+<p><br></p>
 <hr />
 <h2 id="problem-30">Problem 30</h2>
 <p>You are given a table called books that contains columns
@@ -4319,55 +4327,7 @@ groupby call (since you can’t take the mean of a string). Consequently
 </div>
 </div>
 <p><br></p>
-<hr />
-<h2 id="problem-31">Problem 31</h2>
-<p>You are given a table called books that contains columns
-<code>'author'</code> (<code>str</code>), <code>'title'</code>
-(<code>str</code>), <code>'num_chapters'</code> (<code>int</code>), and
-<code>'publication_year'</code> (<code>int</code>). <br></p>
-<h3 id="problem-31.1">Problem 31.1</h3>
-<p>What will be the output of the following code?
-<code>books.groupby(“publication_year”).mean().shape[1]</code></p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> <code>1</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>2</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>3</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>4</code></p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading31_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse31_1" aria-expanded="true" aria-controls="collapse31_1">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse31_1" class="accordion-collapse collapse"
-aria-labelledby="heading31_1" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> <code>1</code></p>
-<p>The output will return 1. Notice that the final function call is to
-<code>.shape[1]</code>. We know that <code>.shape[1]</code> is a call to
-see how many columns are in the resulting data frame. When we group by
-publication year, there is only one column that will be aggregated by
-the groupby call (which is the <code>'num_chapters'</code> column). The
-other columns are string, and therefore, will not be aggregated in the
-groupby call (since you can’t take the mean of a string). Consequently
-<code>.shape[1]</code> will only result one column for the mean of the
-<code>'num_chapters'</code> column.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 67%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-31.2">Problem 31.2</h3>
+<h3 id="problem-30.2">Problem 30.2</h3>
 <p>Which of the following strategies would work to compute the absolute
 difference in the average number of chapters per book for authors “Dean
 Koontz” and “Charles Dickens”?</p>
@@ -4395,13 +4355,13 @@ difference in <code>index[0]</code> and <code>index[1]</code></p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading31_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse31_2" aria-expanded="true" aria-controls="collapse31_2">
+<h2 class="accordion-header" id="heading30_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse30_2" aria-expanded="true" aria-controls="collapse30_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse31_2" class="accordion-collapse collapse"
-aria-labelledby="heading31_2" data-bs-parent="#accordionExample">
+<div id="collapse30_2" class="accordion-collapse collapse"
+aria-labelledby="heading30_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -4430,7 +4390,7 @@ was 80%.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-31.3">Problem 31.3</h3>
+<h3 id="problem-30.3">Problem 30.3</h3>
 <p>Which of the following will produce the same value as the total
 number of books in the table?</p>
 <ul class="task-list">
@@ -4440,13 +4400,13 @@ number of books in the table?</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading31_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse31_3" aria-expanded="true" aria-controls="collapse31_3">
+<h2 class="accordion-header" id="heading30_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse30_3" aria-expanded="true" aria-controls="collapse30_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse31_3" class="accordion-collapse collapse"
-aria-labelledby="heading31_3" data-bs-parent="#accordionExample">
+<div id="collapse30_3" class="accordion-collapse collapse"
+aria-labelledby="heading30_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -4469,6 +4429,46 @@ score on this problem was 56%.</p>
 </div>
 </div>
 <p><br></p>
+<hr />
+<h2 id="problem-31">Problem 31</h2>
+<p>If we merge a table with <code>n</code> rows with a table with
+<code>m</code> rows, how many rows does the resulting table have?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>n</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>m</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>max(m,n)</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>m * n</code></p></li>
+<li><p><input type="radio" disabled="" /> not enough information to tell</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading31">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse31" aria-expanded="true" aria-controls="collapse31">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse31" class="accordion-collapse collapse"
+aria-labelledby="heading31" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> not enough information to tell</p>
+<p>The question does not provide enough information to know the
+resulting table size with certainty. When merging two tables together,
+the tables can be merged with a inner, left, right, and outer join. Each
+of these joins will produce a different amount of rows. Since the
+question does not provide the type of join, it is impossible to tell the
+resulting table size.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 74%.</p>
+</div>
+</div>
+</div>
+</div>
 <hr />
 <h2 id="problem-32">Problem 32</h2>
 <p>Give an example of a dataset and a question you would want to answer
@@ -4540,154 +4540,11 @@ to find the cheapest. </i></p>
 <h2 id="problem-33">Problem 33</h2>
 <p><br></p>
 <h3 id="problem-33.1">Problem 33.1</h3>
-<p>What type of visualization is best suited for visualizing the trend
-in the number of points Kelsey Plum scored per game in 2021?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> Histogram</p></li>
-<li><p><input type="radio" disabled="" /> Bar chart</p></li>
-<li><p><input type="radio" disabled="" /> Line chart</p></li>
-<li><p><input type="radio" disabled="" /> Scatter plot</p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading33_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse33_1" aria-expanded="true" aria-controls="collapse33_1">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse33_1" class="accordion-collapse collapse"
-aria-labelledby="heading33_1" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> Line chart</p>
-<p>Here, there are two quantitative variables (number of points and game
-number), and one of them involves some element of time (game number).
-Line charts are appropriate when one quantitative variable is time.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 75%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-33.2">Problem 33.2</h3>
-<p>Fill in the blanks below so that <code>total_june</code> evaluates to
-the total number of points Kelsey Plum scored in June.</p>
-<div class="sourceCode" id="cb52"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>june_only <span class="op">=</span> plum[__(a)__]</span>
-<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>total_june <span class="op">=</span> june_only.__(b)__</span></code></pre></div>
-<ol type="1">
-<li><p>What goes in blank (a)?</p></li>
-<li><p>What goes in blank (b)?</p></li>
-</ol>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading33_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse33_2" aria-expanded="true" aria-controls="collapse33_2">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse33_2" class="accordion-collapse collapse"
-aria-labelledby="heading33_2" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer:</strong></p>
-<ol type="1">
-<li><p><code>plum.get('Date').str.contains('-06-')</code></p></li>
-<li><p><code>get('PTS').sum()</code></p></li>
-</ol>
-<p>To find the total number of points Kelsey Plum scored in June, one
-approach is to first create a DataFrame with only the rows for June.
-During the month of June, the <code>'Date'</code> values contain
-<code>'-06-'</code> (since June is the 6th month), so
-<code>plum.get('Date').str.contains('-06-')</code> is a Series
-containing <code>True</code> only for the June rows and
-<code>june_only = plum[plum.get('Date').str.contains('-06-')]</code> is
-a DataFrame containing only the June rows.</p>
-<p>Then, all we need is the sum of the <code>'PTS'</code> column, which
-is given by <code>june_only.get('PTS').sum()</code>.</p>
-<hr/>
-<h5>Difficulty: ⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 90%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-33.3">Problem 33.3</h3>
-<p>For your convenience, we show the first few rows of <code>plum</code>
-again below.</p>
-<center><img src='../../assets/images/wi22-final/plum.png' width=40%></center>
-<p>There is exactly one team in the WNBA that Plum’s team did not win
-any games against during the 2021 season. Fill in the blanks below so
-that <code>never_beat</code> evaluates to a string containing the
-three-letter code of that team.</p>
-<div class="sourceCode" id="cb53"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>never_beat <span class="op">=</span> plum.groupby(__(a)__).<span class="bu">sum</span>().__(b)__</span></code></pre></div>
-<ol type="1">
-<li><p>What goes in blank (a)?</p></li>
-<li><p>What goes in blank (b)?</p></li>
-</ol>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading33_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse33_3" aria-expanded="true" aria-controls="collapse33_3">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse33_3" class="accordion-collapse collapse"
-aria-labelledby="heading33_3" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer:</strong></p>
-<ol type="1">
-<li><p><code>'Opp'</code></p></li>
-<li><p><code>sort_values('Won').index[0]</code></p></li>
-</ol>
-<p>The key insight here is that the values in the <code>'Won'</code>
-column are Boolean, and when Boolean values are used in arithmetic they
-are treated as 1s (<code>True</code>) and 0s (<code>False</code>). The
-<code>sum</code> of several <code>'Won'</code> values is the same as the
-number of wins.</p>
-<p>If we group <code>plum</code> by <code>'Opp'</code> and use
-<code>.sum()</code>, the resulting <code>'Won'</code> column contains
-the number of wins that Plum’s team had against each unique opponent. If
-we sort this DataFrame by <code>'Won'</code> in increasing order (which
-is the default behavior of <code>sort_values</code>), the row at the top
-will correspond to the <code>'Opp'</code> that Plum’s team had no wins
-against. Since we grouped by <code>'Opp'</code>, team names are stored
-in the index, so <code>.index[0]</code> will give us the name of the
-desired team.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 67%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<hr />
-<h2 id="problem-34">Problem 34</h2>
-<p><br></p>
-<h3 id="problem-34.1">Problem 34.1</h3>
 <p>Consider the function <code>unknown</code>, defined below.</p>
-<div class="sourceCode" id="cb54"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> unknown(df):</span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>    grouped <span class="op">=</span> plum.groupby(<span class="st">&#39;Opp&#39;</span>).<span class="bu">max</span>().get([<span class="st">&#39;Date&#39;</span>, <span class="st">&#39;PTS&#39;</span>])</span>
-<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.array(grouped.reset_index().index)[df]</span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> unknown(df):</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>    grouped <span class="op">=</span> plum.groupby(<span class="st">&#39;Opp&#39;</span>).<span class="bu">max</span>().get([<span class="st">&#39;Date&#39;</span>, <span class="st">&#39;PTS&#39;</span>])</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.array(grouped.reset_index().index)[df]</span></code></pre></div>
 <p>What does <code>unknown(3)</code> evaluate to?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> <code>'2021-06-05'</code></p></li>
@@ -4701,13 +4558,13 @@ most points</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading34_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse34_1" aria-expanded="true" aria-controls="collapse34_1">
+<h2 class="accordion-header" id="heading33_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse33_1" aria-expanded="true" aria-controls="collapse33_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse34_1" class="accordion-collapse collapse"
-aria-labelledby="heading34_1" data-bs-parent="#accordionExample">
+<div id="collapse33_1" class="accordion-collapse collapse"
+aria-labelledby="heading33_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -4748,7 +4605,7 @@ played the same opponent multiple times).</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-34.2">Problem 34.2</h3>
+<h3 id="problem-33.2">Problem 33.2</h3>
 <p>For your convenience, we show the first few rows of <code>plum</code>
 again below.</p>
 <center><img src='../../assets/images/wi22-final/plum.png' width=40%></center>
@@ -4757,21 +4614,21 @@ in Las Vegas and lost at least one game in Las Vegas. Also, suppose they
 won at least one game in an opponent’s arena and lost at least one game
 in an opponent’s arena.</p>
 <p>Consider the DataFrame <code>home_won</code>, defined below.</p>
-<div class="sourceCode" id="cb55"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>home_won <span class="op">=</span> plum.groupby([<span class="st">&#39;Home&#39;</span>, <span class="st">&#39;Won&#39;</span>]).mean().reset_index()</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>home_won <span class="op">=</span> plum.groupby([<span class="st">&#39;Home&#39;</span>, <span class="st">&#39;Won&#39;</span>]).mean().reset_index()</span></code></pre></div>
 <ol type="1">
 <li><p>How many rows does <code>home_won</code> have?</p></li>
 <li><p>How many columns does <code>home_won</code> have?</p></li>
 </ol>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading34_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse34_2" aria-expanded="true" aria-controls="collapse34_2">
+<h2 class="accordion-header" id="heading33_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse33_2" aria-expanded="true" aria-controls="collapse33_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse34_2" class="accordion-collapse collapse"
-aria-labelledby="heading34_2" data-bs-parent="#accordionExample">
+<div id="collapse33_2" class="accordion-collapse collapse"
+aria-labelledby="heading33_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -4816,16 +4673,16 @@ are restored as regular columns, meaning that
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-34.3">Problem 34.3</h3>
+<h3 id="problem-33.3">Problem 33.3</h3>
 <p>Consider the DataFrame <code>home_won</code> once again.</p>
-<div class="sourceCode" id="cb56"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>home_won <span class="op">=</span> plum.groupby([<span class="st">&#39;Home&#39;</span>, <span class="st">&#39;Won&#39;</span>]).mean().reset_index()</span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>home_won <span class="op">=</span> plum.groupby([<span class="st">&#39;Home&#39;</span>, <span class="st">&#39;Won&#39;</span>]).mean().reset_index()</span></code></pre></div>
 <p>Now consider the DataFrame <code>puzzle</code>, defined below. Note
 that the only difference between <code>home_won</code> and
 <code>puzzle</code> is the use of <code>.count()</code> instead of
 <code>.mean()</code>.</p>
-<div class="sourceCode" id="cb57"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>puzzle <span class="op">=</span> plum.groupby([<span class="st">&#39;Home&#39;</span>, <span class="st">&#39;Won&#39;</span>]).count().reset_index()</span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>puzzle <span class="op">=</span> plum.groupby([<span class="st">&#39;Home&#39;</span>, <span class="st">&#39;Won&#39;</span>]).count().reset_index()</span></code></pre></div>
 <p>How do the number of rows and columns in <code>home_won</code>
 compare to the number of rows and columns in <code>puzzle</code>?</p>
 <ul class="task-list">
@@ -4840,13 +4697,13 @@ number of rows and a different number of columns</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading34_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse34_3" aria-expanded="true" aria-controls="collapse34_3">
+<h2 class="accordion-header" id="heading33_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse33_3" aria-expanded="true" aria-controls="collapse33_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse34_3" class="accordion-collapse collapse"
-aria-labelledby="heading34_3" data-bs-parent="#accordionExample">
+<div id="collapse33_3" class="accordion-collapse collapse"
+aria-labelledby="heading33_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -4878,9 +4735,152 @@ and <code>'Opp'</code> columns are not “lost” when aggregating. Hence,
 </div>
 <p><br></p>
 <hr />
+<h2 id="problem-34">Problem 34</h2>
+<p><br></p>
+<h3 id="problem-34.1">Problem 34.1</h3>
+<p>There is exactly one team in the WNBA that Plum’s team did not win
+any games against during the 2021 season. Fill in the blanks below so
+that <code>never_beat</code> evaluates to a string containing the
+three-letter code of that team.</p>
+<div class="sourceCode" id="cb56"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>never_beat <span class="op">=</span> plum.groupby(__(a)__).<span class="bu">sum</span>().__(b)__</span></code></pre></div>
+<ol type="1">
+<li><p>What goes in blank (a)?</p></li>
+<li><p>What goes in blank (b)?</p></li>
+</ol>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading34_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse34_1" aria-expanded="true" aria-controls="collapse34_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse34_1" class="accordion-collapse collapse"
+aria-labelledby="heading34_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong></p>
+<ol type="1">
+<li><p><code>'Opp'</code></p></li>
+<li><p><code>sort_values('Won').index[0]</code></p></li>
+</ol>
+<p>The key insight here is that the values in the <code>'Won'</code>
+column are Boolean, and when Boolean values are used in arithmetic they
+are treated as 1s (<code>True</code>) and 0s (<code>False</code>). The
+<code>sum</code> of several <code>'Won'</code> values is the same as the
+number of wins.</p>
+<p>If we group <code>plum</code> by <code>'Opp'</code> and use
+<code>.sum()</code>, the resulting <code>'Won'</code> column contains
+the number of wins that Plum’s team had against each unique opponent. If
+we sort this DataFrame by <code>'Won'</code> in increasing order (which
+is the default behavior of <code>sort_values</code>), the row at the top
+will correspond to the <code>'Opp'</code> that Plum’s team had no wins
+against. Since we grouped by <code>'Opp'</code>, team names are stored
+in the index, so <code>.index[0]</code> will give us the name of the
+desired team.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 67%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
 <h2 id="problem-35">Problem 35</h2>
 <p><br></p>
 <h3 id="problem-35.1">Problem 35.1</h3>
+<p>What type of visualization is best suited for visualizing the trend
+in the number of points Kelsey Plum scored per game in 2021?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Histogram</p></li>
+<li><p><input type="radio" disabled="" /> Bar chart</p></li>
+<li><p><input type="radio" disabled="" /> Line chart</p></li>
+<li><p><input type="radio" disabled="" /> Scatter plot</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading35_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse35_1" aria-expanded="true" aria-controls="collapse35_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse35_1" class="accordion-collapse collapse"
+aria-labelledby="heading35_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> Line chart</p>
+<p>Here, there are two quantitative variables (number of points and game
+number), and one of them involves some element of time (game number).
+Line charts are appropriate when one quantitative variable is time.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 75%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-35.2">Problem 35.2</h3>
+<p>Fill in the blanks below so that <code>total_june</code> evaluates to
+the total number of points Kelsey Plum scored in June.</p>
+<div class="sourceCode" id="cb57"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>june_only <span class="op">=</span> plum[__(a)__]</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>total_june <span class="op">=</span> june_only.__(b)__</span></code></pre></div>
+<ol type="1">
+<li><p>What goes in blank (a)?</p></li>
+<li><p>What goes in blank (b)?</p></li>
+</ol>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading35_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse35_2" aria-expanded="true" aria-controls="collapse35_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse35_2" class="accordion-collapse collapse"
+aria-labelledby="heading35_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong></p>
+<ol type="1">
+<li><p><code>plum.get('Date').str.contains('-06-')</code></p></li>
+<li><p><code>get('PTS').sum()</code></p></li>
+</ol>
+<p>To find the total number of points Kelsey Plum scored in June, one
+approach is to first create a DataFrame with only the rows for June.
+During the month of June, the <code>'Date'</code> values contain
+<code>'-06-'</code> (since June is the 6th month), so
+<code>plum.get('Date').str.contains('-06-')</code> is a Series
+containing <code>True</code> only for the June rows and
+<code>june_only = plum[plum.get('Date').str.contains('-06-')]</code> is
+a DataFrame containing only the June rows.</p>
+<p>Then, all we need is the sum of the <code>'PTS'</code> column, which
+is given by <code>june_only.get('PTS').sum()</code>.</p>
+<hr/>
+<h5>Difficulty: ⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 90%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-35.3">Problem 35.3</h3>
+<p>For your convenience, we show the first few rows of <code>plum</code>
+again below.</p>
+<center><img src='../../assets/images/wi22-final/plum.png' width=40%></center>
 <p>There is exactly one team in the WNBA that Plum’s team did not win
 any games against during the 2021 season. Fill in the blanks below so
 that <code>never_beat</code> evaluates to a string containing the
@@ -4893,13 +4893,13 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb58-1"><a href=
 </ol>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading35_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse35_1" aria-expanded="true" aria-controls="collapse35_1">
+<h2 class="accordion-header" id="heading35_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse35_3" aria-expanded="true" aria-controls="collapse35_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse35_1" class="accordion-collapse collapse"
-aria-labelledby="heading35_1" data-bs-parent="#accordionExample">
+<div id="collapse35_3" class="accordion-collapse collapse"
+aria-labelledby="heading35_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
