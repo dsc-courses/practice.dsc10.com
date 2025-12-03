@@ -89,7 +89,7 @@
     code span.vs { color: #4070a0; } /* VerbatimString */
     code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="..\..\assets\theme.css" />
+  <link rel="stylesheet" href="../../assets/theme.css" />
   <script defer=""
   src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
@@ -1609,70 +1609,204 @@ TVD = \frac{1}{2} \left( |1 - \frac{1}{11}| + 10 \times |0 -
 <p><br></p>
 <hr />
 <h2 id="problem-8">Problem 8</h2>
-<p>There are 52 IKEA locations in the United States, and there are 50
-states.</p>
-<p>Which of the following describes how to calculate the total variation
-distance between the distribution of IKEA locations by state and the
-uniform distribution?</p>
+<p>For this question, let’s think of the data in <code>app_data</code>
+as a random sample of all IKEA purchases and use it to test the
+following hypotheses.</p>
+<p><strong>Null Hypothesis</strong>: IKEA sells an equal amount of beds
+(category <code>'bed'</code>) and outdoor furniture (category
+<code>'outdoor'</code>).</p>
+<p><strong>Alternative Hypothesis</strong>: IKEA sells more beds than
+outdoor furniture.</p>
+<p>The DataFrame <code>app_data</code> contains 5000 rows, which form
+our sample. Of these 5000 products,</p>
+<ul>
+<li>1000 are beds,</li>
+<li>1500 are outdoor furniture, and</li>
+<li>2500 are in another category.</li>
+</ul>
+<p><br></p>
+<h3 id="problem-8.1">Problem 8.1</h3>
+<p>Which of the following <strong>could</strong> be used as the test
+statistic for this hypothesis test? Select all that apply.</p>
 <ul class="task-list">
-<li><p><input type="radio" disabled="" /> For each IKEA location, take the absolute difference between 1/50 and
-the number of IKEAs in the same state divided by the total number of
-IKEA locations. Sum these values across all locations and divide by
-two.</p></li>
-<li><p><input type="radio" disabled="" /> For each IKEA location, take the absolute difference between the
-number of IKEAs in the same state and the average number of IKEAs in
-each state. Sum these values across all locations and divide by two.</p></li>
-<li><p><input type="radio" disabled="" /> For each state, take the absolute difference between 1/50 and the
-number of IKEAs in that state divided by the total number of IKEA
-locations. Sum these values across all states and divide by two.</p></li>
-<li><p><input type="radio" disabled="" /> For each state, take the absolute difference between the number of
-IKEAs in that state and the average number of IKEAs in each state. Sum
-these values across all states and divide by two.</p></li>
-<li><p><input type="radio" disabled="" /> None of the above.</p></li>
+<li><p><input type="checkbox" disabled="" /> Among 2500 beds and outdoor furniture items, the absolute difference
+between the proportion of beds and the proportion of outdoor
+furniture.</p></li>
+<li><p><input type="checkbox" disabled="" /> Among 2500 beds and outdoor furniture items, the proportion of
+beds.</p></li>
+<li><p><input type="checkbox" disabled="" /> Among 2500 beds and outdoor furniture items, the number of beds.</p></li>
+<li><p><input type="checkbox" disabled="" /> Among 2500 beds and outdoor furniture items, the number of beds plus
+the number of outdoor furniture items.</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading8">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8" aria-expanded="true" aria-controls="collapse8">
+<h2 class="accordion-header" id="heading8_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_1" aria-expanded="true" aria-controls="collapse8_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse8" class="accordion-collapse collapse"
-aria-labelledby="heading8" data-bs-parent="#accordionExample">
+<div id="collapse8_1" class="accordion-collapse collapse"
+aria-labelledby="heading8_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer: </strong> For each state, take the absolute
-difference between 1/50 and the number of IKEAs in that state divided by
-the total number of IKEA locations. Sum these values across all states
-and divide by two.</p>
-<p>We’re looking at the distribution across states. Since there are 50
-states, the uniform distribution would correspond to having a fraction
-of 1/50 of the IKEA locations in each state. We can picture this as a
-sequence with 50 entries that are all the same: <span class="math display">(1/50, 1/50, 1/50, 1/50, \dots)</span></p>
-<p>We want to compare this to the actual distribution of IKEAs across
-states, which we can think of as a sequence with 50 entries,
-representing the 50 states, but where each entry is the proportion of
-IKEA locations in a given state. For example, maybe the distribution
-starts out like this: <span class="math display">(3/52, 1/52, 0/52,
-1/52, \dots)</span> We can interpret each entry as the number of IKEAs
-in a state divided by the total number of IKEA locations. Note that this
-has nothing to do with the average number of IKEA locations in each
-state, which is 52/50.</p>
-<p>The way we take the TVD of two distributions is to subtract the
-distributions, take the absolute value, sum up the values, and divide by
-2. Since the entries represent states, this process aligns with the
-given answer.</p>
+<p><strong>Answer: </strong> Among 2500 beds and outdoor furniture
+items, the proportion of beds. <br/> Among 2500 beds and outdoor
+furniture items, the number of beds.</p>
+<p>Our test statistic needs to be able to distinguish between the two
+hypotheses. The first option does not do this, because it includes an
+absolute value. If the absolute difference between the proportion of
+beds and the proportion of outdoor furniture were large, it could be
+because IKEA sells more beds than outdoor furniture, but it could also
+be because IKEA sells more outdoor furniture than beds.</p>
+<p>The second option is a valid test statistic, because if the
+proportion of beds is large, that suggests that the alternative
+hypothesis may be true.</p>
+<p>Similarly, the third option works because if the number of beds (out
+of 2500) is large, that suggests that the alternative hypothesis may be
+true.</p>
+<p>The fourth option is invalid because out of 2500 beds and outdoor
+furniture items, the number of beds plus the number of outdoor furniture
+items is always 2500. So the value of this statistic is constant
+regardless of whether the alternative hypothesis is true, which means it
+does not help you distinguish between the two hypotheses.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 78%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-8.2">Problem 8.2</h3>
+<p>Let’s do a hypothesis test with the following test statistic: among
+2500 beds and outdoor furniture items, the proportion of outdoor
+furniture minus the proportion of beds.</p>
+<p>Complete the code below to calculate the observed value of the test
+statistic and save the result as <code>obs_diff</code>.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>    outdoor <span class="op">=</span> (app_data.get(<span class="st">&#39;category&#39;</span>)<span class="op">==</span><span class="st">&#39;outdoor&#39;</span>) </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    bed <span class="op">=</span> (app_data.get(<span class="st">&#39;category&#39;</span>)<span class="op">==</span><span class="st">&#39;bed&#39;</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    obs_diff <span class="op">=</span> ( ___(a)___ <span class="op">-</span> ___(b)___ ) <span class="op">/</span> ___(c)___</span></code></pre></div>
+<p>The table below contains several Python expressions. Choose the
+correct expression to fill in each of the three blanks. Three
+expressions will be used, and two will be unused.</p>
+<center><img src='../../assets/images/sp22-final/q8-table.jpg' width=50%></center>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading8_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_2" aria-expanded="true" aria-controls="collapse8_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse8_2" class="accordion-collapse collapse"
+aria-labelledby="heading8_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> Reading the table from top to bottom, the
+five expressions should be used in the following blanks: None, (b), (a),
+(c), None.</p>
+<p>The correct way to define <code>obs_diff</code> is</p>
+<div id="cb1" class="sourceCode">
+<pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a>    outdoor <span class="op">=</span> (app_data.get(<span class="st">'category'</span>)<span class="op">==</span><span class="st">'outdoor'</span>) </span>
+<span id="cb1-2"><a aria-hidden="true" href="#cb1-2" tabindex="-1"></a>    bed <span class="op">=</span> (app_data.get(<span class="st">'category'</span>)<span class="op">==</span><span class="st">'bed'</span>)</span>
+<span id="cb1-3"><a aria-hidden="true" href="#cb1-3" tabindex="-1"></a>    obs_diff <span class="op">=</span> (app_data[outdoor].shape[<span class="dv">0</span>] <span class="op">-</span> app_data[bed].shape[<span class="dv">0</span>]) <span class="op">/</span> app_data[outdoor <span class="op">|</span> bed].shape[<span class="dv">0</span>]</span></code></pre>
+</div>
+<p>The first provided line of code defines a boolean Series called
+<code>outdoor</code> with a value of <code>True</code> corresponding to
+each outdoor furniture item in <code>app_data</code>. Using this as the
+condition in a query results in a DataFrame of outdoor furniture items,
+and using <code>.shape[0]</code> on this DataFrame gives the number of
+outdoor furniture items. So <code>app_data[outdoor].shape[0]</code>
+represents the number of outdoor furniture items in
+<code>app_data</code>. Similarly, <code>app_data[bed].shape[0]</code>
+represents the number of beds in <code>app_data</code>. Likewise,
+<code>app_data[outdoor | bed].shape[0]</code> represents the total
+number of outdoor furniture items and beds in <code>app_data</code>.
+Notice that we need to use an <em>or</em> condition (<code>|</code>) to
+get a DataFrame that contains both outdoor furniture and beds.</p>
+<p>We are told that the test statistic should be the proportion of
+outdoor furniture minus the proportion of beds. Translating this
+directly into code, this means the test statistic should be calculated
+as</p>
+<div id="cb2" class="sourceCode">
+<pre class="sourceCode py"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" href="#cb2-1" tabindex="-1"></a>    obs_diff <span class="op">=</span> app_data[outdoor].shape[<span class="dv">0</span>]<span class="op">/</span>app_data[outdoor <span class="op">|</span> bed].shape[<span class="dv">0</span>] <span class="op">-</span> app_data[bed].shape[<span class="dv">0</span>]) <span class="op">/</span> app_data[outdoor <span class="op">|</span> bed].shape[<span class="dv">0</span>]</span></code></pre>
+</div>
+<p>Since this is a difference of two fractions with the same
+denominator, we can equivalently subtract the numerators first, then
+divide by the common denominator, using the mathematical fact <span class="math display">\frac{a}{c} - \frac{b}{c} =
+\frac{a-b}{c}.</span></p>
+<p>This yields the answer</p>
+<div id="cb3" class="sourceCode">
+<pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a aria-hidden="true" href="#cb3-1" tabindex="-1"></a>    obs_diff <span class="op">=</span> (app_data[outdoor].shape[<span class="dv">0</span>] <span class="op">-</span> app_data[bed].shape[<span class="dv">0</span>]) <span class="op">/</span> app_data[outdoor <span class="op">|</span> bed].shape[<span class="dv">0</span>]</span></code></pre>
+</div>
+<p>Notice that this is the <em>observed</em> value of the test statistic
+because it’s based on the real-life data in the <code>app_data</code>
+DataFrame, not simulated data.</p>
+<hr/>
+<h5>Difficulty: ⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 90%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-8.3">Problem 8.3</h3>
+<p>Suppose we generate 10,000 simulated values of the test statistic
+according to the null model and store them in an array called
+<code>simulated_diffs</code>. Complete the code below to calculate the
+p-value for the hypothesis test.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>    np.count_nonzero(simulated_diffs _________ obs_diff)<span class="op">/</span><span class="dv">10000</span></span></code></pre></div>
+<p>What goes in the blank?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>&lt;</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>&lt;=</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>&gt;</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>&gt;=</code></p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading8_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_3" aria-expanded="true" aria-controls="collapse8_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse8_3" class="accordion-collapse collapse"
+aria-labelledby="heading8_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> <code>&lt;=</code></p>
+<p>To answer this question, we need to know whether small values or
+large values of the test statistic indicate the alternative hypothesis.
+The alternative hypothesis is that IKEA sells more beds than outdoor
+furniture. Since we’re calculating the proportion of outdoor furniture
+minus the proportion of beds, this difference will be small (negative)
+if the alternative hypothesis is true. Larger (positive) values of the
+test statistic mean that IKEA sells more outdoor furniture than beds. A
+value near 0 means they sell beds and outdoor furniture equally.</p>
+<p>The p-value is defined as the proportion of simulated test statistics
+that are equal to the observed value or more extreme, where extreme
+means in the direction of the alternative. In this case, since small
+values of the test statistic indicate the alternative hypothesis, the
+correct answer is <code>&lt;=</code>.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
 <p>
 </p>
-<p>The average score on this problem was 30%.</p>
+<p>The average score on this problem was 43%.</p>
 </div>
 </div>
 </div>
 </div>
+<p><br></p>
 <hr />
 <h2 id="problem-9">Problem 9</h2>
 <p>For this question, let’s think of the data in <code>app_data</code>
@@ -1753,9 +1887,10 @@ does not help you distinguish between the two hypotheses.</p>
 furniture minus the proportion of beds.</p>
 <p>Complete the code below to calculate the observed value of the test
 statistic and save the result as <code>obs_diff</code>.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>    outdoor <span class="op">=</span> (app_data.get(<span class="st">&#39;category&#39;</span>)<span class="op">==</span><span class="st">&#39;outdoor&#39;</span>) </span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    bed <span class="op">=</span> (app_data.get(<span class="st">&#39;category&#39;</span>)<span class="op">==</span><span class="st">&#39;bed&#39;</span>)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    obs_diff <span class="op">=</span> ( ___(a)___ <span class="op">-</span> ___(b)___ ) <span class="op">/</span> ___(c)___</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>    outdoor <span class="op">=</span> (app_data.get(<span class="st">&#39;category&#39;</span>)<span class="op">==</span><span class="st">&#39;outdoor&#39;</span>) </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    bed <span class="op">=</span> (app_data.get(<span class="st">&#39;category&#39;</span>)<span class="op">==</span><span class="st">&#39;bed&#39;</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    obs_diff <span class="op">=</span> ( ___(a)___ <span class="op">-</span> ___(b)___ ) <span class="op">/</span> ___(c)___</span></code></pre></div>
 <p>The table below contains several Python expressions. Choose the
 correct expression to fill in each of the three blanks. Three
 expressions will be used, and two will be unused.</p>
@@ -1824,207 +1959,6 @@ DataFrame, not simulated data.</p>
 </div>
 <p><br></p>
 <h3 id="problem-9.3">Problem 9.3</h3>
-<p>Suppose we generate 10,000 simulated values of the test statistic
-according to the null model and store them in an array called
-<code>simulated_diffs</code>. Complete the code below to calculate the
-p-value for the hypothesis test.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>    np.count_nonzero(simulated_diffs _________ obs_diff)<span class="op">/</span><span class="dv">10000</span></span></code></pre></div>
-<p>What goes in the blank?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> <code>&lt;</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>&lt;=</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>&gt;</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>&gt;=</code></p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading9_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_3" aria-expanded="true" aria-controls="collapse9_3">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse9_3" class="accordion-collapse collapse"
-aria-labelledby="heading9_3" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> <code>&lt;=</code></p>
-<p>To answer this question, we need to know whether small values or
-large values of the test statistic indicate the alternative hypothesis.
-The alternative hypothesis is that IKEA sells more beds than outdoor
-furniture. Since we’re calculating the proportion of outdoor furniture
-minus the proportion of beds, this difference will be small (negative)
-if the alternative hypothesis is true. Larger (positive) values of the
-test statistic mean that IKEA sells more outdoor furniture than beds. A
-value near 0 means they sell beds and outdoor furniture equally.</p>
-<p>The p-value is defined as the proportion of simulated test statistics
-that are equal to the observed value or more extreme, where extreme
-means in the direction of the alternative. In this case, since small
-values of the test statistic indicate the alternative hypothesis, the
-correct answer is <code>&lt;=</code>.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 43%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<hr />
-<h2 id="problem-10">Problem 10</h2>
-<p>For this question, let’s think of the data in <code>app_data</code>
-as a random sample of all IKEA purchases and use it to test the
-following hypotheses.</p>
-<p><strong>Null Hypothesis</strong>: IKEA sells an equal amount of beds
-(category <code>'bed'</code>) and outdoor furniture (category
-<code>'outdoor'</code>).</p>
-<p><strong>Alternative Hypothesis</strong>: IKEA sells more beds than
-outdoor furniture.</p>
-<p>The DataFrame <code>app_data</code> contains 5000 rows, which form
-our sample. Of these 5000 products,</p>
-<ul>
-<li>1000 are beds,</li>
-<li>1500 are outdoor furniture, and</li>
-<li>2500 are in another category.</li>
-</ul>
-<p><br></p>
-<h3 id="problem-10.1">Problem 10.1</h3>
-<p>Which of the following <strong>could</strong> be used as the test
-statistic for this hypothesis test? Select all that apply.</p>
-<ul class="task-list">
-<li><p><input type="checkbox" disabled="" /> Among 2500 beds and outdoor furniture items, the absolute difference
-between the proportion of beds and the proportion of outdoor
-furniture.</p></li>
-<li><p><input type="checkbox" disabled="" /> Among 2500 beds and outdoor furniture items, the proportion of
-beds.</p></li>
-<li><p><input type="checkbox" disabled="" /> Among 2500 beds and outdoor furniture items, the number of beds.</p></li>
-<li><p><input type="checkbox" disabled="" /> Among 2500 beds and outdoor furniture items, the number of beds plus
-the number of outdoor furniture items.</p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading10_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10_1" aria-expanded="true" aria-controls="collapse10_1">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse10_1" class="accordion-collapse collapse"
-aria-labelledby="heading10_1" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> Among 2500 beds and outdoor furniture
-items, the proportion of beds. <br/> Among 2500 beds and outdoor
-furniture items, the number of beds.</p>
-<p>Our test statistic needs to be able to distinguish between the two
-hypotheses. The first option does not do this, because it includes an
-absolute value. If the absolute difference between the proportion of
-beds and the proportion of outdoor furniture were large, it could be
-because IKEA sells more beds than outdoor furniture, but it could also
-be because IKEA sells more outdoor furniture than beds.</p>
-<p>The second option is a valid test statistic, because if the
-proportion of beds is large, that suggests that the alternative
-hypothesis may be true.</p>
-<p>Similarly, the third option works because if the number of beds (out
-of 2500) is large, that suggests that the alternative hypothesis may be
-true.</p>
-<p>The fourth option is invalid because out of 2500 beds and outdoor
-furniture items, the number of beds plus the number of outdoor furniture
-items is always 2500. So the value of this statistic is constant
-regardless of whether the alternative hypothesis is true, which means it
-does not help you distinguish between the two hypotheses.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 78%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-10.2">Problem 10.2</h3>
-<p>Let’s do a hypothesis test with the following test statistic: among
-2500 beds and outdoor furniture items, the proportion of outdoor
-furniture minus the proportion of beds.</p>
-<p>Complete the code below to calculate the observed value of the test
-statistic and save the result as <code>obs_diff</code>.</p>
-<div class="sourceCode" id="cb10"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>    outdoor <span class="op">=</span> (app_data.get(<span class="st">&#39;category&#39;</span>)<span class="op">==</span><span class="st">&#39;outdoor&#39;</span>) </span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    bed <span class="op">=</span> (app_data.get(<span class="st">&#39;category&#39;</span>)<span class="op">==</span><span class="st">&#39;bed&#39;</span>)</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    obs_diff <span class="op">=</span> ( ___(a)___ <span class="op">-</span> ___(b)___ ) <span class="op">/</span> ___(c)___</span></code></pre></div>
-<p>The table below contains several Python expressions. Choose the
-correct expression to fill in each of the three blanks. Three
-expressions will be used, and two will be unused.</p>
-<center><img src='../../assets/images/sp22-final/q8-table.jpg' width=50%></center>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading10_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10_2" aria-expanded="true" aria-controls="collapse10_2">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse10_2" class="accordion-collapse collapse"
-aria-labelledby="heading10_2" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-<h1 class="title"> </h1>
-</header>
-<p><strong>Answer: </strong> Reading the table from top to bottom, the
-five expressions should be used in the following blanks: None, (b), (a),
-(c), None.</p>
-<p>The correct way to define <code>obs_diff</code> is</p>
-<div id="cb1" class="sourceCode">
-<pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a>    outdoor <span class="op">=</span> (app_data.get(<span class="st">'category'</span>)<span class="op">==</span><span class="st">'outdoor'</span>) </span>
-<span id="cb1-2"><a aria-hidden="true" href="#cb1-2" tabindex="-1"></a>    bed <span class="op">=</span> (app_data.get(<span class="st">'category'</span>)<span class="op">==</span><span class="st">'bed'</span>)</span>
-<span id="cb1-3"><a aria-hidden="true" href="#cb1-3" tabindex="-1"></a>    obs_diff <span class="op">=</span> (app_data[outdoor].shape[<span class="dv">0</span>] <span class="op">-</span> app_data[bed].shape[<span class="dv">0</span>]) <span class="op">/</span> app_data[outdoor <span class="op">|</span> bed].shape[<span class="dv">0</span>]</span></code></pre>
-</div>
-<p>The first provided line of code defines a boolean Series called
-<code>outdoor</code> with a value of <code>True</code> corresponding to
-each outdoor furniture item in <code>app_data</code>. Using this as the
-condition in a query results in a DataFrame of outdoor furniture items,
-and using <code>.shape[0]</code> on this DataFrame gives the number of
-outdoor furniture items. So <code>app_data[outdoor].shape[0]</code>
-represents the number of outdoor furniture items in
-<code>app_data</code>. Similarly, <code>app_data[bed].shape[0]</code>
-represents the number of beds in <code>app_data</code>. Likewise,
-<code>app_data[outdoor | bed].shape[0]</code> represents the total
-number of outdoor furniture items and beds in <code>app_data</code>.
-Notice that we need to use an <em>or</em> condition (<code>|</code>) to
-get a DataFrame that contains both outdoor furniture and beds.</p>
-<p>We are told that the test statistic should be the proportion of
-outdoor furniture minus the proportion of beds. Translating this
-directly into code, this means the test statistic should be calculated
-as</p>
-<div id="cb2" class="sourceCode">
-<pre class="sourceCode py"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" href="#cb2-1" tabindex="-1"></a>    obs_diff <span class="op">=</span> app_data[outdoor].shape[<span class="dv">0</span>]<span class="op">/</span>app_data[outdoor <span class="op">|</span> bed].shape[<span class="dv">0</span>] <span class="op">-</span> app_data[bed].shape[<span class="dv">0</span>]) <span class="op">/</span> app_data[outdoor <span class="op">|</span> bed].shape[<span class="dv">0</span>]</span></code></pre>
-</div>
-<p>Since this is a difference of two fractions with the same
-denominator, we can equivalently subtract the numerators first, then
-divide by the common denominator, using the mathematical fact <span class="math display">\frac{a}{c} - \frac{b}{c} =
-\frac{a-b}{c}.</span></p>
-<p>This yields the answer</p>
-<div id="cb3" class="sourceCode">
-<pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a aria-hidden="true" href="#cb3-1" tabindex="-1"></a>    obs_diff <span class="op">=</span> (app_data[outdoor].shape[<span class="dv">0</span>] <span class="op">-</span> app_data[bed].shape[<span class="dv">0</span>]) <span class="op">/</span> app_data[outdoor <span class="op">|</span> bed].shape[<span class="dv">0</span>]</span></code></pre>
-</div>
-<p>Notice that this is the <em>observed</em> value of the test statistic
-because it’s based on the real-life data in the <code>app_data</code>
-DataFrame, not simulated data.</p>
-<hr/>
-<h5>Difficulty: ⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 90%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-10.3">Problem 10.3</h3>
 <p>Which of the following is a valid way to generate one value of the
 test statistic according to the null model? Select all that apply.</p>
 <p>Way 1:</p>
@@ -2069,13 +2003,13 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb16-1"><a href=
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading10_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10_3" aria-expanded="true" aria-controls="collapse10_3">
+<h2 class="accordion-header" id="heading9_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_3" aria-expanded="true" aria-controls="collapse9_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse10_3" class="accordion-collapse collapse"
-aria-labelledby="heading10_3" data-bs-parent="#accordionExample">
+<div id="collapse9_3" class="accordion-collapse collapse"
+aria-labelledby="heading9_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -2175,7 +2109,7 @@ model.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-10.4">Problem 10.4</h3>
+<h3 id="problem-9.4">Problem 9.4</h3>
 <p>Suppose we generate 10,000 simulated values of the test statistic
 according to the null model and store them in an array called
 <code>simulated_diffs</code>. Complete the code below to calculate the
@@ -2191,13 +2125,13 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb17-1"><a href=
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading10_4">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10_4" aria-expanded="true" aria-controls="collapse10_4">
+<h2 class="accordion-header" id="heading9_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_4" aria-expanded="true" aria-controls="collapse9_4">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse10_4" class="accordion-collapse collapse"
-aria-labelledby="heading10_4" data-bs-parent="#accordionExample">
+<div id="collapse9_4" class="accordion-collapse collapse"
+aria-labelledby="heading9_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 <h1 class="title"> </h1>
@@ -2226,6 +2160,72 @@ correct answer is <code>&lt;=</code>.</p>
 </div>
 </div>
 <p><br></p>
+<hr />
+<h2 id="problem-10">Problem 10</h2>
+<p>There are 52 IKEA locations in the United States, and there are 50
+states.</p>
+<p>Which of the following describes how to calculate the total variation
+distance between the distribution of IKEA locations by state and the
+uniform distribution?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> For each IKEA location, take the absolute difference between 1/50 and
+the number of IKEAs in the same state divided by the total number of
+IKEA locations. Sum these values across all locations and divide by
+two.</p></li>
+<li><p><input type="radio" disabled="" /> For each IKEA location, take the absolute difference between the
+number of IKEAs in the same state and the average number of IKEAs in
+each state. Sum these values across all locations and divide by two.</p></li>
+<li><p><input type="radio" disabled="" /> For each state, take the absolute difference between 1/50 and the
+number of IKEAs in that state divided by the total number of IKEA
+locations. Sum these values across all states and divide by two.</p></li>
+<li><p><input type="radio" disabled="" /> For each state, take the absolute difference between the number of
+IKEAs in that state and the average number of IKEAs in each state. Sum
+these values across all states and divide by two.</p></li>
+<li><p><input type="radio" disabled="" /> None of the above.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading10">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10" aria-expanded="true" aria-controls="collapse10">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse10" class="accordion-collapse collapse"
+aria-labelledby="heading10" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer: </strong> For each state, take the absolute
+difference between 1/50 and the number of IKEAs in that state divided by
+the total number of IKEA locations. Sum these values across all states
+and divide by two.</p>
+<p>We’re looking at the distribution across states. Since there are 50
+states, the uniform distribution would correspond to having a fraction
+of 1/50 of the IKEA locations in each state. We can picture this as a
+sequence with 50 entries that are all the same: <span class="math display">(1/50, 1/50, 1/50, 1/50, \dots)</span></p>
+<p>We want to compare this to the actual distribution of IKEAs across
+states, which we can think of as a sequence with 50 entries,
+representing the 50 states, but where each entry is the proportion of
+IKEA locations in a given state. For example, maybe the distribution
+starts out like this: <span class="math display">(3/52, 1/52, 0/52,
+1/52, \dots)</span> We can interpret each entry as the number of IKEAs
+in a state divided by the total number of IKEA locations. Note that this
+has nothing to do with the average number of IKEA locations in each
+state, which is 52/50.</p>
+<p>The way we take the TVD of two distributions is to subtract the
+distributions, take the absolute value, sum up the values, and divide by
+2. Since the entries represent states, this process aligns with the
+given answer.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 30%.</p>
+</div>
+</div>
+</div>
+</div>
 <hr />
 <p class="meta"><em>Source:</em> sp23-final — Q5</p>
 <h2 id="problem-11">Problem 11</h2>
@@ -3105,8 +3105,10 @@ aria-labelledby="heading14_2" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>:</p>
-<p><code>(a): np.random.permutation(tributes.get("Days))</code></p>
-<p><code>(b): means.loc[True] - means.loc[False]</code></p>
+<p><code>(a)</code>:
+<code>Days = np.random.permutation(tributes.get("Days))</code> OR
+<code>Career = np.random.permutation(tributes.get("Career))</code></p>
+<p><code>(b)</code>: <code>means.loc[True] - means.loc[False]</code></p>
 <p>In blank a we shuffle one of the columns so as to break any real link
 between the Career column and the Days column. This allows us to
 simulate our null hypothesis. After this in blank b, we use
@@ -4034,7 +4036,8 @@ statistic is no different either, and so the p-value we calculate with
 <p><br></p>
 <h3 id="problem-17.4">Problem 17.4</h3>
 <p>Below, we present the same code that is given at the start of the
-problem.</p>
+problem. (Remember to keep the data description from the top of the exam
+open in another tab!)</p>
 <div class="sourceCode" id="cb37"><pre
 class="sourceCode py"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>stats <span class="op">=</span> np.array([])</span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
@@ -4499,8 +4502,7 @@ statistic is no different either, and so the p-value we calculate with
 <p><br></p>
 <h3 id="problem-18.4">Problem 18.4</h3>
 <p>Below, we present the same code that is given at the start of the
-problem. (Remember to keep the data description from the top of the exam
-open in another tab!)</p>
+problem.</p>
 <div class="sourceCode" id="cb49"><pre
 class="sourceCode py"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>stats <span class="op">=</span> np.array([])</span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
