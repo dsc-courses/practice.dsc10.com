@@ -8,9 +8,9 @@ title: Home – DSC 10 Practice
 
 ---
 
-This site contains practice problems taken from old DSC 10 quizzes and exams. We've organized problems in a few ways: 
+This site contains practice problems taken from old DSC 10 quizzes and exams. We've organized problems in a few ways:
 
-1. As **discussions**. Each discussion problem set contains problems about a particular topic. Come to discussions to work on these problem sets in groups, with the help of our course staff. 
+1. As **discussions**. Each discussion problem set contains problems about a particular topic. Come to discussions to work on these problem sets in groups, with the help of our course staff.
 1. As **practice exams**. Work through these in the weeks leading up to exams.
 1. As **practice quizzes**. Work through these to practice for quizzes.
 
@@ -24,15 +24,13 @@ DSC 10's only prerequisite is high school algebra.
 In order to gauge your preparedness for the type of math you'll see
 in this class, you should work through <b><a href="pretest/index.html">these practice problems</a></b> on your own. This pretest will help you identify any gaps in your background knowledge and it will teach you some useful test-taking skills.
 <br><br>
-This pretest is due **Thursday, October 2nd at 11:59PM**. Write your solutions on paper or a tablet, show your work, then submit to Gradescope.<br><br>
+This pretest is due **Friday, January 16th at 11:59PM**. Write your solutions on paper or a tablet, show your work, then submit to Gradescope.<br><br>
 The pretest will be graded based on honest effort, not on the correctness of your responses. You will earn participation credit for completing the pretest to the best of your ability.<br><br>
-We will release solutions to the pretest at the beginning of Week 2. You are highly encouraged to check how you did and learn from the solutions.  
-
+We will release solutions to the pretest at the beginning of Week 3. You are highly encouraged to check how you did and learn from the solutions.
 
 ---
 
-### 💯 Discussions for Fall 2025
-
+### 💯 Discussions for Winter 2026
 
 <center>
 <table class="table" style="width:60%">
@@ -49,7 +47,7 @@ We will release solutions to the pretest at the beginning of Week 2. You are hig
     </tr>
   </thead>
   <tbody>
-    <tr>
+    <!-- <tr>
       <th scope="row">1</th>
       <td>Monday, September 29th</td>
       <td><a href="disc01/index.html">Getting Started With Jupyter Notebooks</a></td>
@@ -98,14 +96,12 @@ We will release solutions to the pretest at the beginning of Week 2. You are hig
       <th scope="row">10</th>
       <td>Monday, December 1st</td>
       <td><a href="disc10/index.html">Regression</a></td>
-    </tr>
+    </tr> -->
 <!--     
 -->
   </tbody>
 </table>
-</center> 
-
-
+</center>
 
 ---
 
