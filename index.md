@@ -24,9 +24,9 @@ DSC 10's only prerequisite is high school algebra.
 In order to gauge your preparedness for the type of math you'll see
 in this class, you should work through <b><a href="pretest/index.html">these practice problems</a></b> on your own. This pretest will help you identify any gaps in your background knowledge and it will teach you some useful test-taking skills.
 <br><br>
-This pretest is due **Friday, January 16th at 11:59PM**. Write your solutions on paper or a tablet, show your work, then submit to Gradescope.<br><br>
+Write your solutions on paper or a tablet, show your work, then submit to Gradescope.<br><br>
 The pretest will be graded based on honest effort, not on the correctness of your responses. You will earn participation credit for completing the pretest to the best of your ability.<br><br>
-We will release solutions to the pretest at the beginning of Week 3. You are highly encouraged to check how you did and learn from the solutions.
+We will later release solutions to the pretest. You are highly encouraged to check how you did and learn from the solutions.
 
 ---
 
