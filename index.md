@@ -128,7 +128,7 @@ Each exam linked here lists the conditions under which the exam was given, inclu
   <tbody>
     <tr>
       <th scope="row">Fall 2025</th>
-      <td>Janine Tiefenbruck</td>
+      <td>Janine Tiefenbruck, Peter Chi</td>
       <td><a href='fa25-midterm/index.html'>Midterm</a>
       </td>
       <td>
