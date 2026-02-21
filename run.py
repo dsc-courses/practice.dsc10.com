@@ -1258,6 +1258,15 @@ def process_page(path, is_exam=True):
     out = read_html_config('include-head.html')
     out += create_top_info(params, is_exam=is_exam)
 
+    # Note for practice quiz/exam: groupby + pandas 2.0 and .get()
+    if 'exams/' in path or 'quizzes/' in path:
+        out += '''
+**Note (groupby / pandas 2.0):** Pandas 2.0+ no longer silently drops columns that can't be aggregated after a `groupby`, so code written for older pandas may behave differently or raise errors. In these practice materials we use `.get()` to select the column(s) we want after `.groupby(...).mean()` (or other aggregations) so that our solutions run on current pandas. On real exams you will not be penalized for omitting `.get()` when the old behavior would have produced the same answer.
+
+---
+
+'''
+
     # Add information for the entire exam
     if 'data_info' in params.keys():
         info_path = os.path.join('problems', f'{params["data_info"]}.md')
