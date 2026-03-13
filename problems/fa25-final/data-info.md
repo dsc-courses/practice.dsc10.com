@@ -13,7 +13,7 @@ Winter is coming, and everyone is feeling the colder weather. In the DataFrame `
 
 The first ten rows of `snow` are shown below. The full DataFrame has many additional rows.
 
-<center><img src="../../assets/images/fa25-final/dataFA25_2.jpg" width=800></center>
+<center><img src="../../assets/images/fa25-final/data-info.jpg" width=800></center>
 
 <br>
 
