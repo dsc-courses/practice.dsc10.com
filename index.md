@@ -130,9 +130,12 @@ Each exam linked here lists the conditions under which the exam was given, inclu
       <th scope="row">Fall 2025</th>
       <td>Janine Tiefenbruck, Peter Chi</td>
       <td><a href='fa25-midterm/index.html'>Midterm</a>
+      <br>
+      <a href='fa25-final/index.html'>Final</a>
       </td>
       <td>
         English language<br>
+        Snow, cities
       </td>
     </tr>
     <tr>
