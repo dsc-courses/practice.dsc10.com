@@ -1,13 +1,16 @@
 # practice.dsc10.com
 
-Repository containing practice problems for DSC 10 (past exams and discussion). Hosted at practice.dsc10.com. Before using the repo, make sure you have the following packages installed (install them all via `pip install`):
+Repository containing practice problems for DSC 10 (past exams and discussion). Hosted at practice.dsc10.com. Before using the repo, install dependencies with uv:
 
+```bash
+# Install uv if you don't have it: brew install uv
+uv sync
 ```
-- BeautifulSoup4
-- pandoc
-- lxml
-- pyyaml
-- regex
+
+Then run the build:
+
+```bash
+uv run python run.py
 ```
 
 **Also, make sure you install [pandoc](https://pandoc.org/installing.html) as a standalone program on your computer.**
