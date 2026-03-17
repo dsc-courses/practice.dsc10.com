@@ -2,6 +2,14 @@
 
 Repository containing practice problems for DSC 10 (past exams and discussions). Hosted at [practice.dsc10.com](https://practice.dsc10.com).
 
+> ⚠️ **Before you do anything, watch this onboarding video first:**
+> ### [▶ Watch the onboarding video](https://www.loom.com/share/cdbc8dcc026c43d6ac48cc2df3f57ea8?sid=202e8678-b073-46ff-91d0-afe775bb2541)
+> This is extremely important. It walks you through the basics of how the practice site works.
+>
+> The main difference between the video and these instructions is that in this branch we now use **uv** instead of pip to manage dependencies. This avoids common issues with Python versions and package conflicts across different machines. 
+>
+> Watch the onboarding video to understand how the practice site works generally, **THEN follow these instructions if you want to use uv instead of pip.**
+
 ---
 
 ## Getting Started
@@ -41,7 +49,7 @@ uv sync
 
 ---
 
-### 4. You're done!
+### 4. Important notes about uv
 
 If you ran `uv sync` for the first time, it will have created a new virtual environment with all the required packages installed.
 
@@ -63,7 +71,7 @@ To rebuild the HTML for a specific exam:
 uv run python run.py pages/exams/fa25-final.yml
 ```
 
-Replace `fa25-final.yml` with whichever exam or discussion you're working on.
+Replace `fa25-final.yml` with whichever exam, discussion or quiz you're working on.
 
 ---
 
@@ -105,21 +113,44 @@ You must commit and push both the markdown files you edited **and** the generate
 
 ```
 practice.dsc10.com/
-├── pages/        # Config files (one per exam/discussion)
-├── problems/     # Markdown files (one per question)
+├── pages/
+│   ├── exams/
+│   │   ├── fa25-final.yml
+│   │   ├── fa25-midterm.yml
+│   │   └── ...
+│   ├── disc/
+│   │   ├── disc01.yml
+│   │   └── ...
+│   └── quizzes/
+├── problems/
+│   ├── fa25-final/
+│   │   ├── data-info.md
+│   │   ├── q01.md
+│   │   ├── q02.md
+│   │   └── ...
+│   └── ...
+├── assets/
+│   └── images/
+│       ├── fa25-final/
+│       │   ├── chicago.jpg
+│       │   ├── snow_scatter.png
+│       │   └── ...
+│       └── ...
 ├── docs/         # Auto-generated HTML — do not edit directly
-├── assets/       # CSS and images used in the site
 ├── run.py        # Build script
-└── index.md      # Source for the homepage
+├── index.md      # Source for the homepage
+├── pyproject.toml  # Python dependencies (managed by uv)
+├── uv.lock         # Exact dependency versions for reproducible installs
+└── .python-version # Python version used for uv
 ```
 
 ---
 
 ### `pages/`
 
-Each page on the site corresponds to a `.yml` config file in this folder, organized into subfolders by type (`exams/`, `disc/`, `quizzes/`, etc.).
+A page is one of the links on the homepage of the practice site. For example, the fall 2025 final is a page, and 2022 quiz 3 is a page. Each page on the site corresponds to a `.yml` config file in this folder, organized into subfolders by type (`exams/`, `disc/`, `quizzes/`, etc.).
 
-Example — `pages/exams/fa25-final.yml`:
+Example Page — `pages/exams/fa25-final.yml`:
 
 ```yaml
 title: 'Fall 2025 Final Exam'
@@ -133,9 +164,9 @@ problems:
   ...
 ```
 
-Key fields:
+Key fields that will be displayed on each page:
 
-- `title` / `instructors` / `context` — displayed at the top of the page
+- `title` / `instructors` / `context` — displayed at the top of the page 
 - `show_solution` — set to `true` to render solutions (used for discussions when needed)
 - `data_info` — path to the dataset description file (relative to `problems/`)
 - `problems` — ordered list of problem files to include (paths relative to `problems/`, no `.md` extension)
@@ -146,7 +177,9 @@ The order of problems in this list determines the order they appear on the site.
 
 ### `problems/`
 
-One markdown file per question, organized into subfolders by exam (e.g. `problems/fa25-final/q01.md`). The filename doesn't matter — order comes from the yml.
+This is where you'll spend a majority of your time. This is where you edit problems for a specific exam, quiz, discussion, etc. There is one markdown file per question — for example, the Fall 2025 Final has 11 markdown files for its 11 questions, plus a `data-info.md` that contains the dataset description shown at the top of the page.
+
+Problems are organized into subfolders by exam (e.g. `problems/fa25-final/q01.md`). The filename doesn't matter — the order questions appear on the site is determined by the yml.
 
 Each file follows this structure:
 
