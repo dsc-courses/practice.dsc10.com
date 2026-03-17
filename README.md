@@ -10,9 +10,9 @@ Repository containing practice problems for DSC 10 (past exams and discussions).
 
 Pandoc is required to build the site. Install it as a standalone program from [pandoc.org/installing.html](https://pandoc.org/installing.html).
 
-### 2. Install uv
+---
 
-<!-- uv manages Python and all Python dependencies automatically — you do not need to install Python separately. -->
+### 2. Install uv
 
 uv is a python package manager and project manager. this is designed to replace pip and poetry.
 
@@ -27,6 +27,8 @@ Or via Homebrew: `brew install uv`
 powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
 ```
 
+---
+
 ### 3. Clone the repo and install dependencies
 
 ```bash
@@ -37,16 +39,21 @@ uv sync
 
 `uv sync` creates a virtual environment and installs all required packages. You only need to run this once (or again if `pyproject.toml` changes).
 
+---
+
 ### 4. You're done!
 
 If you ran `uv sync` for the first time, it will have created a new virtual environment with all the required packages installed.
 
 Some important notes about uv:
+
 - Anytime you want to run something, begin it with `uv run`. For example: `uv run python run.py pages/exams/fa25-final.yml`
 - To add a package: `uv add <package-name>`
 - To remove a package: `uv remove <package-name>`
 
 Always use `uv run python` instead of `python` directly — this ensures you're using the project's dependencies, not anything on your system.
+
+---
 
 ### 5. Testing your changes
 
@@ -58,16 +65,29 @@ uv run python run.py pages/exams/fa25-final.yml
 
 Replace `fa25-final.yml` with whichever exam or discussion you're working on.
 
+---
+
 ### 6. Preview your changes
 
-When you run the build command, it regenerates the corresponding HTML file inside `docs/`. For example, running `uv run python run.py pages/exams/fa25-final.yml` will update `docs/fa25-final/index.html`.
+When you run the build command, it regenerates the corresponding HTML file inside `docs/`. For example, running:
+
+```bash
+uv run python run.py pages/exams/fa25-final.yml
+```
+
+...will update `docs/fa25-final/index.html`.
 
 To preview:
-1. Open `docs/<exam-name>/index.html` in your browser (e.g. `docs/fa25-final/index.html`) or open a live server of the html
+
+1. Open `docs/<exam-name>/index.html` in your browser (e.g. `docs/fa25-final/index.html`)
 2. Run the build command again after making edits
 3. Refresh the browser to see your updated changes
 
-You can keep the HTML file open in your browser and just refresh it each time you rebuild — you do not need to reopen it. **Always preview your changes locally before pushing to main.**
+You can keep the HTML file open in your browser and just refresh it each time you rebuild — you do not need to reopen it.
+
+> **Always preview your changes locally before pushing to main.**
+
+---
 
 ### 7. Push your changes
 
@@ -93,11 +113,14 @@ practice.dsc10.com/
 └── index.md      # Source for the homepage
 ```
 
+---
+
 ### `pages/`
 
 Each page on the site corresponds to a `.yml` config file in this folder, organized into subfolders by type (`exams/`, `disc/`, `quizzes/`, etc.).
 
 Example — `pages/exams/fa25-final.yml`:
+
 ```yaml
 title: 'Fall 2025 Final Exam'
 instructors: Janine Tiefenbruck, Peter Chi
@@ -111,12 +134,15 @@ problems:
 ```
 
 Key fields:
+
 - `title` / `instructors` / `context` — displayed at the top of the page
 - `show_solution` — set to `true` to render solutions (used for discussions when needed)
 - `data_info` — path to the dataset description file (relative to `problems/`)
 - `problems` — ordered list of problem files to include (paths relative to `problems/`, no `.md` extension)
 
 The order of problems in this list determines the order they appear on the site. This also means discussions can mix and match problems from different exams — you just list whatever problems you want.
+
+---
 
 ### `problems/`
 
@@ -155,9 +181,13 @@ To add a difficulty rating, add an `average` tag at the end of the problem with 
 average: 62
 ```
 
+---
+
 ### `docs/`
 
 Auto-generated HTML — **never edit these files directly**. They are regenerated every time you run `run.py`. You need to commit them so the live site updates.
+
+---
 
 ### `assets/images/`
 
@@ -174,6 +204,8 @@ Images used in problem files, organized by exam (e.g. `assets/images/fa25-final/
 - **Answer:** should be bolded, followed by unbolded answer(s), comma-separated if it fits on one line, or each answer on a new line if it doesn't
 - Use `( )` for choose one, `[ ]` for select all — add a space before the text of each option, no blank lines between options
 - For subsubparts, use numbers followed by a period
+
+---
 
 ### LaTeX → Markdown quick reference
 
@@ -197,9 +229,12 @@ Images used in problem files, organized by exam (e.g. `assets/images/fa25-final/
 | `\begin{subprobset}` / `\end{subprobset}` | *(delete)* |
 | `\bigskip` / `\noindent` | *(delete)* |
 
+---
+
 ### Context to provide when adding a new exam
 
 Include the following in the solutions or context blurb:
+
 - All exams are individual (no collaboration allowed)
 - `( )` = choose one, `[ ]` = select all; in their absence, students wrote code by hand
 - In-person = on paper
