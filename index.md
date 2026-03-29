@@ -30,7 +30,7 @@ We will later release solutions to the pretest. You are highly encouraged to che
 
 ---
 
-### 💯 Discussions for Winter 2026
+### 💯 Discussions for Spring 2026
 
 <center>
 <table class="table" style="width:60%">
@@ -47,12 +47,12 @@ We will later release solutions to the pretest. You are highly encouraged to che
     </tr>
   </thead>
   <tbody>
-    <!-- <tr>
+    <tr>
       <th scope="row">1</th>
-      <td>Monday, September 29th</td>
+      <td>Monday, March 30th</td>
       <td><a href="disc01/index.html">Getting Started With Jupyter Notebooks</a></td>
     </tr>
-    <tr>
+    <!-- <tr>
       <th scope="row">2</th>
       <td>Monday, October 6th</td>
       <td><a href="disc02/index.html">Arrays and DataFrames</a></td>
