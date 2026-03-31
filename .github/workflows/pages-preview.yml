@@ -12,6 +12,17 @@ on:
       - 'utils/**'
       - 'templates/**'
       - '.github/workflows/pages-preview.yml'
+  push:
+    branches: [ master, main ]
+    paths:
+      - 'run.py'
+      - 'run-utf8.py'
+      - 'requirements.txt'
+      - 'problems/**'
+      - 'pages/**'
+      - 'utils/**'
+      - 'templates/**'
+      - '.github/workflows/pages-preview.yml'
 
 permissions:
   contents: read
@@ -56,9 +67,10 @@ jobs:
   deploy:
     name: Deploy preview
     needs: build
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main')
     runs-on: ubuntu-latest
     environment:
-      name: preview           # Make sure Settings → Environments → preview allows all branches
+      name: preview
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - id: deployment
