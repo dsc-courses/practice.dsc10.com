@@ -1,0 +1,3 @@
+You are hired as a data analyst for your local coffee shop. The `orders` DataFrame contains information about drink orders, where each row corresponds to an individual drink order. The columns are the type of `drink` (str); the `size` of the drink (str); whether the drink was ordered `to_go` (bool); whether the drink was `iced` (bool); a description of `modifications` made to the drink (str); the `price` of the drink (float); and the `day` of the week on which the drink was purchased (str, with 7 possible values).
+
+<center><img src="../assets/images/wi26-quizzes/quiz2_coffee_orders_df.png" width=600></center>
