@@ -127,6 +127,15 @@ Each exam linked here lists the conditions under which the exam was given, inclu
   </thead>
   <tbody>
     <tr>
+      <th scope="row">Winter 2026</th>
+      <td>Peter Chi, Sam Lau</td>
+      <td><a href='wi26-midterm/index.html'>Midterm</a>
+      </td>
+      <td>
+        Pizza in San Diego
+      </td>
+    </tr>
+    <tr>
       <th scope="row">Fall 2025</th>
       <td>Janine Tiefenbruck, Peter Chi</td>
       <td><a href='fa25-midterm/index.html'>Midterm</a>
