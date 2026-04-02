@@ -642,6 +642,9 @@ warnings.simplefilter('ignore')
 
 DST_FOLDER = 'docs'
 
+# Bare `--katex` uses local paths on Ubuntu CI; CDN keeps GitHub Pages math working.
+PANDOC_KATEX = '--katex=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/'
+
 GAUGE_COUNT = 0
 
 def get_stars_from_average(avg):
@@ -793,7 +796,7 @@ def pandoc(s, kind='md', flags=''):
 
     src_path = os.path.join('temp', f'temp.{kind}')
     dst_path = os.path.join('temp', 'temp.html')
-    os.system(f'pandoc -s --standalone --katex --from markdown-markdown_in_html_blocks+raw_html --metadata title=" " -s {src_path} {flags} -o {dst_path}')
+    os.system(f'pandoc -s --standalone {PANDOC_KATEX} --from markdown-markdown_in_html_blocks+raw_html --metadata title=" " -s {src_path} {flags} -o {dst_path}')
 
     out_path = os.path.join('temp', 'temp.html')
     out_file = open(out_path, 'r', encoding='UTF-8') # CHANGED
@@ -1156,7 +1159,7 @@ def write_lecture_pages():
         dst_html = os.path.join(lec_dir, 'index.html')
         css_path = os.path.join('..','..','assets','theme.css')
         os.system(
-            f'pandoc -s --standalone --katex '
+            f'pandoc -s --standalone {PANDOC_KATEX} '
             f'--from markdown-markdown_in_html_blocks+raw_html '
             f'-c {css_path} '
             f'--metadata title="Lecture {L} — Practice" '
@@ -1331,7 +1334,7 @@ def write_page(path, called_from_write_all_pages=False):
     src_path = os.path.join(DST_FOLDER, f'{assignment_name}.md')
     dst_path = os.path.join(DST_FOLDER, assignment_name, 'index.html')
     css_path = os.path.join('..', 'assets', 'theme.css')
-    os.system(f'pandoc -s --standalone --katex --from markdown-markdown_in_html_blocks+raw_html -c {css_path} --metadata title="{title}" {src_path} -o {dst_path}')
+    os.system(f'pandoc -s --standalone {PANDOC_KATEX} --from markdown-markdown_in_html_blocks+raw_html -c {css_path} --metadata title="{title}" {src_path} -o {dst_path}')
 
     # Delete the intermediate Markdown
     os.remove(src_path)
@@ -1368,7 +1371,7 @@ def update_page(path):
     tmp_path = os.path.join(DST_FOLDER, assignment_name, 'temp.html')
     dst_path = os.path.join(DST_FOLDER, assignment_name, 'index.html')
     css_path = os.path.join('..', 'assets', 'theme.css')
-    os.system(f'pandoc -s --standalone --katex --from markdown-markdown_in_html_blocks+raw_html -c {css_path} --metadata title="{title}" {src_path} -o {tmp_path}')
+    os.system(f'pandoc -s --standalone {PANDOC_KATEX} --from markdown-markdown_in_html_blocks+raw_html -c {css_path} --metadata title="{title}" {src_path} -o {tmp_path}')
 
     # Delete the intermediate Markdown
     os.remove(src_path)
