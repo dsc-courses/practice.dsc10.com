@@ -136,6 +136,22 @@ aria-labelledby="heading1_1" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
+<p><strong>Answer:</strong> None of these.</p>
+<p><strong>Explanation:</strong></p>
+<p>An index needs unique values for each row. Let’s check each
+option:</p>
+<ul>
+<li><code>"store"</code>: Multiple slices from the same restaurant — not
+unique.</li>
+<li><code>"kind"</code>: Multiple restaurants sell the same kind — not
+unique.</li>
+<li><code>"rating"</code>: Multiple pizzas can have the same rating —
+not unique.</li>
+<li><code>"neighborhood"</code>: Multiple places per neighborhood — not
+unique.</li>
+</ul>
+<p>None of these columns uniquely identify each row, so none work as an
+index on their own.</p>
 </div>
 </div>
 </div>
@@ -168,6 +184,19 @@ aria-labelledby="heading1_2" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
+<p><strong>Answer:</strong> A scatter plot of <code>price</code>
+vs. <code>num_ingredients</code>.</p>
+<p><strong>Explanation:</strong></p>
+<p>Both variables are numerical. A scatter plot is the right choice for
+two numerical variables — you can see the relationship, trend, and
+individual points.</p>
+<p>The other options:</p>
+<ul>
+<li>Overlaid histograms show distributions, not relationships between
+the two variables.</li>
+<li>Bar charts treat one variable as categorical, which doesn’t work
+well for continuous numerical data here.</li>
+</ul>
 </div>
 </div>
 </div>
@@ -195,6 +224,27 @@ aria-labelledby="heading1_3" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
+<p><strong>Answer:</strong>
+<code>get(["store", "price_per_slice", "rating"])</code>, then
+<code>mean()</code>, then <code>plot</code> with
+<code>kind="barh"</code> (see below).</p>
+<p><strong>(i)</strong>
+<code>get(["store", "price_per_slice", "rating"])</code></p>
+<p><strong>(ii)</strong> <code>mean()</code></p>
+<p><strong>(iii)</strong> <code>kind="barh"</code></p>
+<p>Full chain:</p>
+<p><code>pizza.get(["store", "price_per_slice", "rating"]).groupby("store").mean().plot(kind="barh")</code></p>
+<p><strong>Explanation:</strong></p>
+<ol type="1">
+<li><code>.get(["store", "price_per_slice", "rating"])</code> — Select
+the columns we need (use a list for multiple columns). Names match the
+Data Description (<code>price_per_slice</code> in code).</li>
+<li><code>.groupby("store")</code> — Group by store.</li>
+<li><code>.mean()</code> — Average <code>price_per_slice</code> and
+<code>rating</code> within each store.</li>
+<li><code>.plot(kind="barh")</code> — Horizontal bar chart
+(<code>"h"</code> means horizontal).</li>
+</ol>
 </div>
 </div>
 </div>
@@ -221,6 +271,14 @@ aria-labelledby="heading2_1" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
+<p><strong>Answer:</strong>
+<code>pizza[pizza.get("num_ingredients") &gt; 10].get("rating").max()</code>
+with blanks filled as below.</p>
+<p><strong>(a)</strong>
+<code>pizza.get("num_ingredients") &gt; 10</code></p>
+<p><strong>(b)</strong> <code>get("rating").max()</code></p>
+<p>Full expression:<br/>
+<code>pizza[pizza.get("num_ingredients") &gt; 10].get("rating").max()</code></p>
 </div>
 </div>
 </div>
@@ -248,6 +306,32 @@ aria-labelledby="heading2_2" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
+<p><strong>Answer:</strong> <code>get("rating").max()</code>,
+<code>sort_values("rating", ascending=False).get("rating").iloc[0]</code>,
+and
+<code>sort_values("rating", ascending=True).get("rating").iloc[-1]</code>
+(select all that apply).</p>
+<p><strong>Explanation:</strong></p>
+<p><code>pizza.get("num_ingredients") &gt; 10</code> creates a boolean
+Series that is <code>True</code> for rows where
+<code>num_ingredients &gt; 10</code>. This goes inside the square
+brackets to filter the DataFrame.</p>
+<p>After filtering, we need the max rating. Three approaches work:</p>
+<ul>
+<li><strong>Option 1:</strong> <code>.get("rating").max()</code> —
+direct; gets the <code>"rating"</code> column and finds the
+maximum.</li>
+<li><strong>Option 2:</strong>
+<code>.sort_values("rating", ascending=False).get("rating").iloc[0]</code>
+— sort high to low, take the first element.</li>
+<li><strong>Option 3:</strong>
+<code>.sort_values("rating", ascending=True).get("rating").iloc[-1]</code>
+— sort low to high, take the last element.</li>
+</ul>
+<p><code>.get("rating").apply(max)</code> does <strong>not</strong>
+work: <code>.apply()</code> applies a function to each element
+individually, not to the whole Series. We want <code>.max()</code>,
+which aggregates the column.</p>
 </div>
 </div>
 </div>
@@ -293,6 +377,15 @@ aria-labelledby="heading3_1" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
+<p><strong>Answer:</strong> The sum of the index positions from
+<code>pizza10</code> for pizzas with rating &gt; 4.</p>
+<p><strong>Explanation:</strong></p>
+<p><code>positions</code> is the array
+<code>[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]</code>.<br/>
+<code>positions[pizza10.get("rating") &gt; 4]</code> filters this array
+to keep only the positions where <code>rating &gt; 4</code>. Then
+<code>.sum()</code> adds up those <strong>position numbers</strong> (not
+the ratings themselves).</p>
 </div>
 </div>
 </div>
@@ -320,6 +413,24 @@ aria-labelledby="heading3_2" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
+<p><strong>Answer:</strong> 23.</p>
+<p><strong>Explanation:</strong></p>
+<p>From the Data Description page, rows with <code>rating &gt; 4</code>
+(strictly greater) are at:</p>
+<ul>
+<li>Position 1: 4.2<br/>
+</li>
+<li>Position 2: 4.5<br/>
+</li>
+<li>Position 5: 4.7<br/>
+</li>
+<li>Position 7: 4.3<br/>
+</li>
+<li>Position 9: 4.1</li>
+</ul>
+<p>Sum: <span class="math inline">1 + 2 + 5 + 7 + 9 = 23</span>.</p>
+<p><strong>Note:</strong> Positions 0 and 8 have rating <span class="math inline">= 4.0</span> exactly, which is <strong>not</strong>
+<span class="math inline">&gt; 4</span>.</p>
 </div>
 </div>
 </div>
@@ -351,6 +462,7 @@ aria-labelledby="heading4_1" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
+<p><strong>Answer:</strong> <code>["rating", "neighborhood"]</code></p>
 </div>
 </div>
 </div>
@@ -371,6 +483,7 @@ aria-labelledby="heading4_2" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
+<p><strong>Answer:</strong> <code>"neighborhood"</code></p>
 </div>
 </div>
 </div>
@@ -391,6 +504,7 @@ aria-labelledby="heading4_3" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
+<p><strong>Answer:</strong> <code>mean()</code></p>
 </div>
 </div>
 </div>
@@ -411,6 +525,7 @@ aria-labelledby="heading4_4" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
+<p><strong>Answer:</strong> <code>by="rating"</code></p>
 </div>
 </div>
 </div>
@@ -431,6 +546,22 @@ aria-labelledby="heading4_5" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
+<p><strong>Answer:</strong> <code>index[0]</code></p>
+<p><strong>Explanation (full pipeline):</strong></p>
+<ol type="1">
+<li><code>.get(["rating", "neighborhood"])</code> — keep both columns:
+<code>"rating"</code> to average and <code>"neighborhood"</code> to
+group by.</li>
+<li><code>.groupby("neighborhood")</code> — one group per
+neighborhood.</li>
+<li><code>.mean()</code> — average <code>"rating"</code> within each
+neighborhood (one row per neighborhood).</li>
+<li><code>.sort_values(by="rating", ascending=False)</code> — sort by
+average rating, highest first.</li>
+<li><code>.index[0]</code> — after sorting, the first row’s index label
+is the name of the neighborhood with the highest average rating (a
+string).</li>
+</ol>
 </div>
 </div>
 </div>
@@ -465,6 +596,35 @@ aria-labelledby="heading5" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
+<p><strong>Answer:</strong><br/>
+<code>pizza.set_index("store").get("gluten_free").sum()</code>,<br/>
+<code>pizza[pizza.get("gluten_free")].get("gluten_free").count()</code>,
+and<br/>
+<code>pizza[pizza.get("gluten_free")].shape[0]</code> (select all that
+apply).</p>
+<p><strong>Select:</strong></p>
+<ul>
+<li><p><code>pizza.set_index("store").get("gluten_free").sum()</code> —
+<code>True</code> counts as 1, so this sums to the total number of
+gluten-free rows.</p></li>
+<li><p><code>pizza[pizza.get("gluten_free")].get("gluten_free").count()</code>
+— filter to gluten-free rows, then count non-null values in that
+column.</p></li>
+<li><p><code>pizza[pizza.get("gluten_free")].shape[0]</code> — filter to
+gluten-free rows, then count rows.</p></li>
+</ul>
+<p><strong>Do not select:</strong></p>
+<ul>
+<li><p><code>pizza.get(["gluten_free", "store"]).groupby("store").sum()</code>
+— returns <strong>per-store</strong> totals (multiple numbers), not one
+integer for the whole table.</p></li>
+<li><p><code>pizza.set_index("store").get("gluten_free").count()</code>
+— counts <strong>all</strong> rows (non-null booleans), not only
+<code>True</code>.</p></li>
+<li><p><code>pizza.get("gluten_free").shape[0]</code> — length of the
+<strong>Series</strong> is the total number of rows in
+<code>pizza</code>, not the number of gluten-free slices.</p></li>
+</ul>
 </div>
 </div>
 </div>
@@ -510,6 +670,21 @@ aria-labelledby="heading6_1" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
+<p><strong>Answer:</strong> <span class="math inline">\frac{1}{2}</span>
+(or <span class="math inline">0.5</span>).</p>
+<p><strong>Explanation:</strong></p>
+<p>Use the complement rule: <span class="math inline">P(\text{at least
+one not suitable}) = 1 - P(\text{both suitable})</span>.</p>
+<ul>
+<li>Bianca suitable: <span class="math inline">1 - \frac{1}{4} =
+\frac{3}{4}</span></li>
+<li>Ella suitable: <span class="math inline">1 - \frac{1}{3} =
+\frac{2}{3}</span></li>
+</ul>
+<p>Independent, so both suitable: <span class="math inline">\frac{3}{4}
+\cdot \frac{2}{3} = \frac{1}{2}</span>.</p>
+<p>At least one not suitable: <span class="math inline">1 - \frac{1}{2}
+= \frac{1}{2}</span>.</p>
 </div>
 </div>
 </div>
@@ -544,6 +719,12 @@ aria-labelledby="heading6_2" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
+<p><strong>Answer:</strong> Not enough information.</p>
+<p><strong>Explanation:</strong></p>
+<p><span class="math inline">P(A \cup B) = P(A) + P(B) - P(A \cap
+B)</span>. We know <span class="math inline">P(A)=\frac{1}{4}</span> and
+<span class="math inline">P(B)=\frac{3}{5}</span>, but <span class="math inline">P(A \cap B)</span> is not determined by the given
+bullets alone, so the union cannot be found from what is given.</p>
 </div>
 </div>
 </div>
@@ -580,6 +761,12 @@ aria-labelledby="heading7_1" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
+<p><strong>Answer:</strong> A DataFrame with 3 rows and 1 column.</p>
+<p><strong>Explanation:</strong></p>
+<p><code>groupby("neighborhood").count()</code> has one row per
+neighborhood (3 neighborhoods in <code>pizza10</code>).
+<code>.get(["rating"])</code> keeps a single column as a one-column
+DataFrame.</p>
 </div>
 </div>
 </div>
@@ -609,6 +796,16 @@ aria-labelledby="heading7_2" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
+<p><strong>Answer:</strong> <strong>(i)</strong>
+<code>return s[0]</code>; <strong>(ii)</strong>
+<code>reset_index().get("neighborhood").apply(first_letter)</code>.</p>
+<p><strong>Explanation:</strong></p>
+<p><code>first_letter</code> returns the first character of a string.
+Neighborhood names live in the <strong>index</strong> of
+<code>neighborhood_counts</code>. <code>reset_index()</code> turns that
+index into a column; <code>.get("neighborhood")</code> selects those
+names as a Series; <code>.apply(first_letter)</code> applies the
+function to each name.</p>
 </div>
 </div>
 </div>
@@ -668,6 +865,12 @@ aria-labelledby="heading8_1" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
+<p><strong>Answer:</strong> 9.</p>
+<p><strong>Explanation:</strong></p>
+<p>Each row of <code>pizza10</code> merges with <code>notes</code> on
+<code>kind</code>. Every kind except <code>"Bamboo"</code> appears in
+<code>notes</code>, so 9 rows match; <code>"Bamboo"</code> has no match
+in <code>notes</code>.</p>
 </div>
 </div>
 </div>
@@ -696,6 +899,32 @@ aria-labelledby="heading8_2" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
+<p><strong>Answer:</strong><br/>
+<code>pizza10.merge(notes.reset_index(), on="kind").shape[0]</code>
+and<br/>
+<code>notes.merge(pizza10, left_index=True, right_on="kind").shape[0]</code>
+(select all that apply).</p>
+<p><strong>Select:</strong></p>
+<ul>
+<li><p><code>pizza10.merge(notes.reset_index(), on="kind").shape[0]</code>
+— <code>reset_index()</code> puts <code>kind</code> in the columns so
+merging on <code>"kind"</code> matches part (a).</p></li>
+<li><p><code>notes.merge(pizza10, left_index=True, right_on="kind").shape[0]</code>
+— merge <code>notes</code>’s index (<code>kind</code>) to
+<code>pizza10</code>’s <code>"kind"</code> column.</p></li>
+</ul>
+<p><strong>Do not select:</strong></p>
+<ul>
+<li><p><code>pizza10.merge(notes, on="kind")</code> — <code>kind</code>
+is the <strong>index</strong> of <code>notes</code>, not a column; this
+merge is not set up correctly.</p></li>
+<li><p><code>notes.merge(pizza10, left_index=True, right_on="store")</code>
+— wrong join key.</p></li>
+<li><p><code>notes.merge(pizza10.reset_index(), on="kind")</code> —
+after <code>reset_index()</code> on <code>pizza10</code>, the merge key
+is not set up the same way as in the working patterns above (per the
+official key, do not select this).</p></li>
+</ul>
 </div>
 </div>
 </div>
@@ -738,6 +967,9 @@ aria-labelledby="heading9_1" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
+<p><strong>Answer:</strong> <code>pizza.get("rating")</code></p>
+<p>Sample <strong>four distinct ratings</strong> without replacement
+(four random slices by rating value).</p>
 </div>
 </div>
 </div>
@@ -758,6 +990,9 @@ aria-labelledby="heading9_2" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
+<p><strong>Answer:</strong>
+<code>promo_ratings[0] + promo_ratings[1]</code></p>
+<p>Sum of the ratings for Ray’s first two sampled values.</p>
 </div>
 </div>
 </div>
@@ -778,6 +1013,9 @@ aria-labelledby="heading9_3" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
+<p><strong>Answer:</strong>
+<code>promo_ratings[2] + promo_ratings[3]</code></p>
+<p>Sum of the ratings for the other two sampled values.</p>
 </div>
 </div>
 </div>
@@ -798,6 +1036,9 @@ aria-labelledby="heading9_4" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
+<p><strong>Answer:</strong> <code>count_eats + 1</code></p>
+<p>So the line reads <code>count_eats = count_eats + 1</code> when Ray
+eats.</p>
 </div>
 </div>
 </div>
@@ -818,6 +1059,8 @@ aria-labelledby="heading9_5" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
+<p><strong>Answer:</strong> <code>count_eats / repetitions</code></p>
+<p>Monte Carlo estimate of the probability.</p>
 </div>
 </div>
 </div>
@@ -847,6 +1090,18 @@ aria-labelledby="heading10" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
+<p><strong>Answer:</strong>
+<code>(2**(np.arange(1, 12, 3))).sum()</code></p>
+<p>The 1st, 4th, 7th, and 10th slices earn <span class="math inline">2^1</span>, <span class="math inline">2^4</span>,
+<span class="math inline">2^7</span>, and <span class="math inline">2^{10}</span> points. Exponents <span class="math inline">1, 4, 7, 10</span> are every third integer starting
+at 1: <code>np.arange(1, 12, 3)</code>.</p>
+<p><strong>Explanation:</strong></p>
+<p><code>np.arange(1, 12, 3)</code> gives <code>[1, 4, 7, 10]</code>;
+<code>2**</code> raises 2 to each power; <code>.sum()</code> adds them
+(without using binary <code>+</code> in your source).</p>
+<p><strong>Alternatives:</strong>
+<code>np.sum(np.array([2**1, 2**4, 2**7, 2**10]))</code>, or
+<code>(2**(np.arange(0, 10, 3) + 1)).sum()</code>, etc.</p>
 </div>
 </div>
 </div>
@@ -870,6 +1125,16 @@ aria-labelledby="heading11" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
+<p><strong>Answer:</strong> <code>"MORGHERITO!"</code></p>
+<p><strong>Explanation:</strong></p>
+<ol type="1">
+<li><code>pizza.get("kind").iloc[6]</code> →
+<code>"Margherita"</code>.</li>
+<li><code>.replace("a", "o")</code> → <code>"Morgherito"</code>.</li>
+<li><code>+ "!"</code> → <code>"Morgherito!"</code>.</li>
+<li><code>.upper()</code> →
+<strong><code>"MORGHERITO!"</code></strong>.</li>
+</ol>
 </div>
 </div>
 </div>
