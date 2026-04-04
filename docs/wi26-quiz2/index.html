@@ -196,6 +196,10 @@ aria-labelledby="heading1_1" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
+<p><strong>Answer:</strong> <code>mod == 'none'</code></p>
+<p>If there are no modifications, the string stored in
+<code>modifications</code> is exactly <code>'none'</code>, so we return
+<code>0</code> in that case.</p>
 </div>
 </div>
 </div>
@@ -216,6 +220,12 @@ aria-labelledby="heading1_2" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
+<p><strong>Answer:</strong> <code>mod.split('+')</code></p>
+<p>When there are modifications, they are distinct pieces separated by
+<code>'+'</code> with no spaces. Splitting on <code>'+'</code> gives one
+string per modification, so <code>len(...)</code> is the number of
+modifications (e.g. <code>"vanilla+lavender"</code> → 2,
+<code>"caramel"</code> → 1).</p>
 </div>
 </div>
 </div>
@@ -236,6 +246,11 @@ aria-labelledby="heading1_3" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
+<p><strong>Answer:</strong>
+<code>orders.get('modifications').apply(count_mods)</code></p>
+<p>Apply <code>count_mods</code> to each value in the
+<code>modifications</code> column to compute the new column
+<code>num_mods</code> for every row.</p>
 </div>
 </div>
 </div>
@@ -262,6 +277,18 @@ aria-labelledby="heading2_1" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
+<p><strong>Answer:</strong> <code>0.3</code> (or equivalently
+<code>3/10</code>).</p>
+<p>Let <span class="math inline">L</span> be the event that a drink is a
+latte and <span class="math inline">I</span> that it is iced. The phrase
+“a latte is iced” means <strong>iced given that it is a latte</strong>,
+i.e. <span class="math inline">P(I \mid L) = 0.6</span>. (The second
+sentence gives the joint probability <span class="math inline">P(I \cap
+L) = 0.18</span>.) Using <span class="math inline">P(I \cap L) = P(I
+\mid L)\, P(L)</span>,</p>
+<p><span class="math display">
+P(L) = \frac{P(I \cap L)}{P(I \mid L)} = \frac{0.18}{0.6} = 0.3.
+</span></p>
 </div>
 </div>
 </div>
@@ -291,6 +318,18 @@ aria-labelledby="heading2_2" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
+<p><strong>Answer:</strong> <code>1 - y / w</code> (equivalently
+<code>(w - y) / w</code>).</p>
+<p>After the <code>groupby</code>, each row of <code>df</code> is one
+<code>(to_go, num_mods)</code> pair, and the <code>'day'</code> column
+holds the <strong>count</strong> of orders in that group (same as group
+size). So <code>w</code> is the sum of all group sizes, i.e. the
+<strong>total number of orders</strong>. The quantity <code>y</code> is
+the sum of group sizes only for groups with <code>num_mods == 0</code>,
+i.e. the number of orders with <strong>no</strong> modifications. Thus
+<span class="math inline">y/w</span> is the probability of zero
+modifications, and <code>1 - y/w</code> is the probability of <strong>at
+least one</strong> modification.</p>
 </div>
 </div>
 </div>
@@ -316,6 +355,18 @@ aria-labelledby="heading3" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
+<p><strong>Answer:</strong> <code>1000</code> drinks.</p>
+<p>The histogram is a <strong>density</strong> histogram, so the
+<strong>area</strong> of each bar is the proportion of orders in that
+price range.</p>
+<ul>
+<li>Prices in <span class="math inline">[3, 4)</span>: area <span class="math inline">= 1 \times 0.30 = 0.30</span>.</li>
+<li>Prices in <span class="math inline">[4, 6)</span>: area <span class="math inline">= 2 \times 0.20 = 0.40</span>.</li>
+</ul>
+<p>So the proportion with price <strong>strictly less than</strong> 6
+dollars is <span class="math inline">0.30 + 0.40 = 0.70</span>.</p>
+<p>If 700 drinks correspond to 70% of the data, the total number of
+drinks is <span class="math inline">700 / 0.70 = 1000</span>.</p>
 </div>
 </div>
 </div>
@@ -338,6 +389,12 @@ aria-labelledby="heading4" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
+<p><strong>Answer:</strong> One acceptable expression is:</p>
+<p><code>orders.get(['day', 'price']).groupby('day').mean().plot(kind='bar')</code></p>
+<p>Group by <code>day</code>, take the mean of <code>price</code> within
+each day (average price per weekday; <code>mean()</code> averages the
+numeric <code>price</code> column), then plot a bar chart. A horizontal
+bar chart (<code>kind='barh'</code>) is also fine if you prefer.</p>
 </div>
 </div>
 </div>
@@ -370,6 +427,21 @@ aria-labelledby="heading5" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
+<p><strong>Answer:</strong> <code>200</code>.</p>
+<p><code>orders.merge(drinks, on='size')</code> performs an
+<strong>inner</strong> merge on <code>size</code>. For each size value
+that appears in <strong>both</strong> DataFrames, <strong>every</strong>
+row in <code>orders</code> with that size pairs with
+<strong>every</strong> row in <code>drinks</code> with that size (all
+combinations). So:</p>
+<ul>
+<li>For <code>'small'</code>: <span class="math inline">400 \times 10 =
+4000</span> rows.</li>
+<li>For <code>'large'</code>: if <span class="math inline">L</span> is
+the number of large drinks in <code>orders</code>, there are <span class="math inline">L \times 5</span> rows.</li>
+</ul>
+<p>We need <span class="math inline">4000 + 5L = 5000</span>, hence
+<span class="math inline">L = 200</span>.</p>
 </div>
 </div>
 </div>
