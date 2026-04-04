@@ -187,6 +187,19 @@ aria-labelledby="heading1" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
+<p><strong>Answer:</strong> <code>"UC San Diego 2026"</code></p>
+<p>Trace through each line:</p>
+<ul>
+<li>Lines 1–3: <code>school = "ucsd"</code>, <code>year = "2026"</code>,
+<code>message = "hello"</code>.</li>
+<li>Line 4: <code>message = school.upper() + " " + year</code>.
+<code>school.upper()</code> is <code>"UCSD"</code>. Concatenating gives
+<code>"UCSD" + " " + "2026"</code> → <code>"UCSD 2026"</code>.</li>
+<li>Line 5: <code>message.replace("SD", " San Diego")</code> replaces
+the substring <code>"SD"</code> inside <code>"UCSD 2026"</code> with
+<code>" San Diego"</code> (note the leading space in the replacement
+string), yielding <code>"UC San Diego 2026"</code>.</li>
+</ul>
 </div>
 </div>
 </div>
@@ -212,6 +225,11 @@ aria-labelledby="heading2_1" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
+<p><strong>Answer:</strong> <code>"44"</code></p>
+<p><code>courses.take(np.arange(4))</code> keeps the first four rows, so
+<code>.shape[0]</code> is <code>4</code>. Then <code>str(4)</code> is
+<code>"4"</code>, and <code>"4" * 2</code> repeats the string twice →
+<code>"44"</code>.</p>
 </div>
 </div>
 </div>
@@ -232,6 +250,11 @@ aria-labelledby="heading2_2" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
+<p><strong>Answer:</strong> <code>False</code></p>
+<p><code>.iloc[0]</code> and <code>.loc[0]</code> both refer to the
+first row (label <code>0</code>), so they read the same enrollment
+value. Comparing a value to itself with <code>!=</code> is always
+<code>False</code> (e.g. <code>120 != 120</code>).</p>
 </div>
 </div>
 </div>
@@ -252,6 +275,11 @@ aria-labelledby="heading2_3" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
+<p><strong>Answer:</strong> <code>1.0</code></p>
+<p><code>courses.shape[1]</code> is the number of columns, which is
+<code>7</code> for this DataFrame. So <code>7 / 7</code> is
+<code>1.0</code> (division in Python 3 returns a float; <code>1.</code>
+is also acceptable).</p>
 </div>
 </div>
 </div>
@@ -280,6 +308,8 @@ aria-labelledby="heading3_1" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
+<p><strong>Answer:</strong> <code>courses.get("Enrollment")</code> —
+current enrollment in each row (numerator of the fraction).</p>
 </div>
 </div>
 </div>
@@ -300,6 +330,11 @@ aria-labelledby="heading3_2" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
+<p><strong>Answer:</strong> <code>courses.get("Capacity")</code></p>
+<p>Percent full is (enrollment ÷ capacity) × 100. Blank (a) is current
+enrollment per row; blank (b) is max capacity per row. Division is
+<strong>element-wise</strong> (row by row), then multiply by 100. For
+example, 120 enrolled and 150 capacity gives (120/150) × 100 = 80.</p>
 </div>
 </div>
 </div>
@@ -332,6 +367,29 @@ aria-labelledby="heading4" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
+<p><strong>Answer:</strong> Select
+<code>courses.groupby("Department").sum().get("Online").loc["CSE"]</code>
+and
+<code>((courses.get("Department") == "CSE") &amp; (courses.get("Online"))).sum()</code>.</p>
+<p>We need an <strong><code>int</code></strong> equal to the number of
+courses that are <strong>both</strong> CSE and online.</p>
+<ul>
+<li>First option: filters to those rows but returns a
+<strong>DataFrame</strong>, not an <code>int</code>.</li>
+<li>Second option: <code>groupby("Department").sum()</code> aggregates;
+for boolean columns, <strong><code>.sum()</code> counts
+<code>True</code></strong> values.
+<code>.get("Online").loc["CSE"]</code> is the count of online courses in
+CSE — an integer. <strong>Correct.</strong></li>
+<li>Third option: <code>((...) &amp; (...))</code> is a boolean Series
+with one entry per row; <strong><code>.shape[0]</code></strong> is the
+<strong>length</strong> of that Series (total number of courses), not
+how many are <code>True</code>. Incorrect.</li>
+<li>Fourth option: summing the boolean Series <strong>counts
+<code>True</code></strong> values (online CSE rows).
+<strong>Correct.</strong></li>
+<li>“None of the above” is wrong because two options work.</li>
+</ul>
 </div>
 </div>
 </div>
@@ -361,6 +419,14 @@ aria-labelledby="heading5_1" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
+<p><strong>Answer:</strong> <code>groupby("Department").mean()</code> —
+full one-liner:</p>
+<p><code>courses.get(["Department", "Enrollment"]).groupby("Department").mean()</code></p>
+<p>Explanation: <code>.get(["Department", "Enrollment"])</code> keeps
+only those columns. <code>.groupby("Department")</code> groups rows by
+department. <code>.mean()</code> computes the mean of numeric columns
+per group — here mean <code>"Enrollment"</code> — producing a DataFrame
+with <code>"Department"</code> as the index and one column of means.</p>
 </div>
 </div>
 </div>
@@ -383,6 +449,11 @@ aria-labelledby="heading5_2" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
+<p><strong>Answer:</strong>
+<code>courses.plot(kind="scatter", x="Capacity", y="Enrollment")</code></p>
+<p><code>kind="scatter"</code> draws a scatter plot; <code>x</code> and
+<code>y</code> name the columns for the horizontal and vertical
+axes.</p>
 </div>
 </div>
 </div>
