@@ -351,6 +351,19 @@ We've provided answers to all quiz questions, but you won't find detailed explan
   </thead>
   <tbody>
     <tr>
+      <th scope="row">Winter 2026</th>
+      <td>Peter Chi, Sam Lau</td>
+      <td>
+        <a href='wi26-quiz1/index.html'>Quiz 1</a>
+        <br>
+        <a href='wi26-quiz2/index.html'>Quiz 2</a>
+      </td>
+      <td>
+        Course enrollment<br>
+        Coffee shop
+      </td>
+    </tr>
+    <tr>
       <th scope="row">Fall 2025</th>
       <td>Janine Tiefenbruck, Peter Chi</td>
       <td>
