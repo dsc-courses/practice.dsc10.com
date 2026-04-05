@@ -357,10 +357,16 @@ We've provided answers to all quiz questions, but you won't find detailed explan
         <a href='wi26-quiz1/index.html'>Quiz 1</a>
         <br>
         <a href='wi26-quiz2/index.html'>Quiz 2</a>
+        <br>
+        <a href='wi26-quiz3/index.html'>Quiz 3</a>
+        <br>
+        <a href='wi26-quiz4/index.html'>Quiz 4</a>
       </td>
       <td>
         Course enrollment<br>
-        Coffee shop
+        Coffee shop<br>
+        Playlist<br>
+        Midterm prep
       </td>
     </tr>
     <tr>
