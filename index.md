@@ -366,7 +366,7 @@ We've provided answers to all quiz questions, but you won't find detailed explan
         Course enrollment<br>
         Coffee shop<br>
         Playlist<br>
-        Midterm prep
+        Tutor Graders
       </td>
     </tr>
     <tr>
