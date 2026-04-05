@@ -129,10 +129,14 @@ Each exam linked here lists the conditions under which the exam was given, inclu
     <tr>
       <th scope="row">Winter 2026</th>
       <td>Peter Chi, Sam Lau</td>
-      <td><a href='wi26-midterm/index.html'>Midterm</a>
+      <td>
+        <a href='wi26-midterm/index.html'>Midterm</a>
+        <br>
+        <a href='wi26-final/index.html'>Final</a>
       </td>
       <td>
-        Pizza in San Diego
+        Pizza in San Diego<br>
+        San Diego Zoo
       </td>
     </tr>
     <tr>
