@@ -52,12 +52,12 @@ We will later release solutions to the pretest. You are highly encouraged to che
       <td>Monday, March 30th</td>
       <td><a href="disc01/index.html">Getting Started With Jupyter Notebooks</a></td>
     </tr>
-    <!-- <tr>
+    <tr>
       <th scope="row">2</th>
-      <td>Monday, October 6th</td>
+      <td>Monday, April 6th</td>
       <td><a href="disc02/index.html">Arrays and DataFrames</a></td>
     </tr>
-    <tr>
+    <!-- <tr>
       <th scope="row">3</th>
       <td>Monday, October 13th</td>
       <td><a href="disc03/index.html">Querying, Grouping, and Plotting</a></td>
