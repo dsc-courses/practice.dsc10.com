@@ -267,7 +267,7 @@ Each exam linked here lists the conditions under which the exam was given, inclu
       </td>
       <td>
         Electric vehicles<br>
-        Board games
+        Credit Card Applications
       </td>
     </tr>
     <tr>
@@ -411,7 +411,7 @@ We've provided answers to all quiz questions, but you won't find detailed explan
         Studio Ghibli<br>
         Concerts<br>
         Internships<br>
-        Polphony
+        Polyphony
       </td>
     </tr>
     <tr>
