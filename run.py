@@ -15,7 +15,6 @@
 
 # GAUGE_COUNT = 0
 
-#
 # def get_stars_from_average(avg):
 #     if avg >= 90:
 #         stars = 1
