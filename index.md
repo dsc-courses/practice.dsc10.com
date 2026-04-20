@@ -20,7 +20,7 @@ In all cases, you should work on these problems **on paper**, since your quizzes
 
 ### <a href="pretest/index.html">🧮 Pretest</a>
 
-DSC 10's only prerequisite is high school algebra.
+DSC 10's only prerequisite is high school algebra. 
 In order to gauge your preparedness for the type of math you'll see
 in this class, you should work through <b><a href="pretest/index.html">these practice problems</a></b> on your own. This pretest will help you identify any gaps in your background knowledge and it will teach you some useful test-taking skills.
 <br><br>
