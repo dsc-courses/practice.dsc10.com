@@ -9,8 +9,8 @@ The `cards` DataFrame describes the cards in the game. It is indexed by card `"n
 
 `cards` has **40 rows** and is **sorted** in ascending order of `"arena_unlocked"`. The first figure below shows the first six rows of `cards`, and the second figure shows the distribution of `"arena_unlocked"` over all 40 rows.
 
-<center><img src="https://raw.githubusercontent.com/dsc-courses/practice.dsc10.com/refs/heads/master/assets/images/sp26-quizzes/cr.jpg" width="800"></center>
+<center><img src="https://raw.githubusercontent.com/dsc-courses/practice.dsc10.com/refs/heads/master/assets/images/sp26-quizzes/cr.jpg" width="400"></center>
 
-<center><img src="https://raw.githubusercontent.com/dsc-courses/practice.dsc10.com/refs/heads/master/assets/images/sp26-quizzes/hist.jpg" width="800"></center>
+<center><img src="https://raw.githubusercontent.com/dsc-courses/practice.dsc10.com/refs/heads/master/assets/images/sp26-quizzes/hist.jpg" width="400"></center>
 
 Assume that we have already run `import babypandas as bpd` and `import numpy as np`.
