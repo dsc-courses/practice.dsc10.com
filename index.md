@@ -67,12 +67,12 @@ We will later release solutions to the pretest. You are highly encouraged to che
       <td>Monday, April 20th</td>
       <td><a href="disc04/index.html">Functions, DataFrames, and Control Flow</a></td>
     </tr>
-    <!-- <tr>
     <tr>
       <th scope="row">5</th>
-      <td>Monday, October 27th</td>
+      <td>Monday, April 27th</td>
       <td><a href="disc05/index.html">Probability and Simulation</a></td>
-    </tr>  
+    </tr> 
+    <!-- <tr> 
     <tr>
       <th scope="row">6</th>
       <td>Monday, November 3rd</td>
