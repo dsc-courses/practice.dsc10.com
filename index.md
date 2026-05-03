@@ -72,12 +72,12 @@ We will later release solutions to the pretest. You are highly encouraged to che
       <td>Monday, April 27th</td>
       <td><a href="disc05/index.html">Probability and Simulation</a></td>
     </tr> 
-    <!-- <tr> 
     <tr>
       <th scope="row">6</th>
-      <td>Monday, November 3rd</td>
+      <td>Monday, May 4th</td>
       <td><a href="disc06/index.html">Sampling, Bootstrapping, and Confidence Intervals</a></td>
     </tr>
+    <!-- <tr> 
     <tr>
       <th scope="row">7</th>
       <td>Monday, November 10th</td>
