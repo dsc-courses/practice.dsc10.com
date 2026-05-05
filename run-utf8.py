@@ -378,7 +378,7 @@ def process_problem(problem_str, problem_num, show_solution):
 
 def process_page(path, is_exam=True):
     '''Takes in a path to a YML file and returns a MD file with everything, along with the title of the page (which we access through params). Defaults to processing exams.'''
-    r_file = open(path, 'r')
+    r_file = open(path, 'r', encoding='UTF-8')
     r = r_file.read()
     r_file.close()
     params = yaml.safe_load(r)
