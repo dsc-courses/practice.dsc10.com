@@ -6,9 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>Lecture 9 — Practice</title>
   <style>
-    /* Default styles provided by pandoc.
-    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
-    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -24,9 +21,8 @@
       vertical-align: middle;
     }
     /* CSS for syntax highlighting */
-    html { -webkit-text-size-adjust: 100%; }
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span { line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -37,7 +33,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -91,7 +87,7 @@
   </style>
   <link rel="stylesheet" href="../../assets/theme.css" />
   <script defer=""
-  src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
  var mathElements = document.getElementsByClassName("math");
  var macros = [];
@@ -107,7 +103,7 @@
 }}});
   </script>
   <link rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
+  href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
 </head>
 <body>
 <header id="title-block-header">
@@ -927,7 +923,7 @@ aria-labelledby="heading10_1" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><code>(a)</code>: <code>tags, left on="ps", right on="tag"</code></p>
+<p><code>(a)</code>: <code>tags, left_on="ps", right_on="tag"</code></p>
 <p>We want to merge the words dataframe with the tags dataframe, and we
 want both to merge on the column with the tags in them. In the words df,
 this is the <code>"ps"</code> column, and in the tags df this is the
@@ -967,9 +963,9 @@ aria-labelledby="heading10_2" data-bs-parent="#accordionExample">
 there are 36 unique rows in tags. This means that for every row in
 <code>words</code>, there is only one row in <code>tags</code> that it
 will be able to merge with in this new df. This means that every row in
-<code>words</code> corresponds to only one row in , meaning that the new
-merged df will have the same amount of rows as the <code>words</code>
-df, or 5337.</p>
+<code>words</code> corresponds to only one row in <code>tags</code>,
+meaning that the new merged df will have the same amount of rows as the
+<code>words</code> df, or 5357.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -1020,10 +1016,10 @@ aria-labelledby="heading11_1" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer</strong>: <code>9</code></p>
 <p>The code groups the dataframe by two columns, so the number of rows
-will be the number of combinations between the two rows. So the two
+will be the number of combinations between the two columns. So the two
 columns are ‘diff_category’: ("easy", "moderate", "hard") and
-‘length_category’: ("short", "medium", "long"), and 3 columns x 3
-columns = <code>9 columns</code>.</p>
+‘length_category’: ("short", "medium", "long"), and 3 categories x 3
+categories = <code>9 rows</code>.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -1061,10 +1057,10 @@ aria-labelledby="heading11_2" data-bs-parent="#accordionExample">
 (”short”, ”medium”, ”long”), with ’diff category’ coming first then
 ’length category’. We want to find the row that is “hard” and ”short”.
 If we sort each index alphabetically, we get (”easy”, ”hard”,
-”moderate”) and (”medium”, ”long”, ”short”). Then, the dataframe looks
+”moderate”) and (”long”, ”medium”, ”short”). Then, the dataframe looks
 like ”easy” difficulty for indices 0-2, ”hard” dif- ficulty for 3-5, and
-medium for 6-8, with each difficulty’s first row being ”medium”, second
-being ”long”, and last being ”short”. Since we want the hard, short
+medium for 6-8, with each difficulty’s first row being ”long”, second
+being ”medium”, and last being ”short”. Since we want the hard, short
 word, we go hard → indices 3-5, then hard and short → index 5.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
@@ -3115,7 +3111,7 @@ like this:</li>
 </ol>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>Bed</th>
 <th>Complex</th>
 <th>Rent</th>
@@ -3123,19 +3119,19 @@ like this:</li>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>One</td>
 <td>Costa Verde Village</td>
 <td>3200</td>
 <td>…</td>
 </tr>
-<tr>
+<tr class="even">
 <td>One</td>
 <td>Westwood</td>
 <td>3000</td>
 <td>…</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>…</td>
 <td>…</td>
 <td>…</td>
@@ -4503,8 +4499,7 @@ that a country won for a specific sport, with columns
 <p><i>We can group by country and then subgroup by sport. We can then
 use a combination of <code>reset_index()</code> and
 <code>sort_values(by = 'medals')</code> and then use <code>.get</code>
-and <code>.iloc[-1]</code> to get the our answer to the
-question.</i></p>
+and <code>.iloc[-1]</code> to get our answer to the question.</i></p>
 <hr/>
 <p><i> Given a data set of cell phone purchase volume at every
 electronics store, we might want to find the difference in popularity of
@@ -6992,7 +6987,7 @@ displays, in each dining hall, the number of menu items that fall into
 each affordability category. This indicates that you will need to group
 by both “Dining Hall” and “Affordability” because when you group by
 multiple columns you get a row for every combination of values in those
-columns. Rembemer that to group by multiple columns, you need to input
+columns. Remember that to group by multiple columns, you need to input
 the columns names in a <strong>list</strong> as an argument in the
 <code>groupby</code> function. The order of the columns does not
 matter.</p>
@@ -7145,21 +7140,21 @@ bread as possible. There are only a few menu items at The Bread Basket,
 shown with their costs in the table below:</p>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th style="text-align: center;"><strong>Bread</strong></th>
 <th style="text-align: center;"><strong>Cost</strong></th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td style="text-align: center;">Sourdough</td>
 <td style="text-align: center;">2</td>
 </tr>
-<tr>
+<tr class="even">
 <td style="text-align: center;">Whole Wheat</td>
 <td style="text-align: center;">3</td>
 </tr>
-<tr>
+<tr class="odd">
 <td style="text-align: center;">Multigrain</td>
 <td style="text-align: center;">4</td>
 </tr>

@@ -128,6 +128,16 @@ Each exam linked here lists the conditions under which the exam was given, inclu
   </thead>
   <tbody>
     <tr>
+      <th scope="row">Spring 2026</th>
+      <td>Janine Tiefenbruck</td>
+      <td>
+        <a href='sp26-midterm/index.html'>Midterm</a>
+      </td>
+      <td>
+        College mascots
+      </td>
+    </tr>
+    <tr>
       <th scope="row">Winter 2026</th>
       <td>Peter Chi, Sam Lau</td>
       <td>
@@ -355,6 +365,19 @@ We've provided answers to all quiz questions, but you won't find detailed explan
     </tr>
   </thead>
   <tbody>
+    <tr>
+      <th scope="row">Spring 2026</th>
+      <td>Janine Tiefenbruck</td>
+      <td>
+        <a href='sp26-quiz1/index.html'>Quiz 1</a>
+        <br>
+        <a href='sp26-quiz2/index.html'>Quiz 2</a>
+      </td>
+      <td>
+        World Cup<br>
+        Clash Royale
+      </td>
+    </tr>
     <tr>
       <th scope="row">Winter 2026</th>
       <td>Peter Chi, Sam Lau</td>
