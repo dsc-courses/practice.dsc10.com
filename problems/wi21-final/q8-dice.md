@@ -11,7 +11,7 @@ lecture: 11
 **Answer: ** False
 
 The probability of rolling two fives can be found with 1/6 * 1/6 = 1/36. The probability of 
-rolling a six and a three can be found with 2/6 (can roll either a 3 or 6) * 1/6 (roll a different side form 3 or 6, depending on what you rolled first) = 1/18.
+rolling a six and a three can be found with 2/6 (can roll either a 3 or 6) * 1/6 (roll a different side from 3 or 6, depending on what you rolled first) = 1/18.
 Therefore, the probabilities are not the same. 
 <average>33</average>
 # END SOLUTION

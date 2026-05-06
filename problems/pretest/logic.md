@@ -54,7 +54,7 @@ This has to be true, because if it were not true, you would have won the prize. 
 
 6\. One or more M&M's was red, orange, or brown. **May be true.**
 
-It could be the case that you had a red, orange, or brown candy among your five, as in the first picture below. But you may have also not had any red, orange, or browns, like in the second picture below. For both groups of candies shown below, you would have failed to win the prize. 
+It could be the case that you had a red, orange, or brown candy among your five, as in the first picture below. But you may have also not had any red, orange, or brown, like in the second picture below. For both groups of candies shown below, you would have failed to win the prize.
 <center><img src='../assets/images/pretest/candy1.jpg' width=50%></center>
 <center><img src='../assets/images/pretest/candy4.jpg' width=50%></center>
 

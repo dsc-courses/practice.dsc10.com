@@ -41,7 +41,7 @@ Let's take a look at the completed implementation.
 best_per_city = art_museums.sort_values('Visitors', ascending=True).groupby('City').last().sort_values('Visitors', ascending=False)
 ```
 
-We first sort the row in `art_museums` by the number of `'Visitors'` in `ascending` order. Then `goupby('City')`, so that we have one row per city. Recall, we need an aggregation method after using `groupby()`. In this question, we use `last()` to only keep the one last row for each city. Since in blank (a) we have sorted the rows by `'Visitors'`, so `last()` keeps the row that contains the name of the most visited museum in that city. At last we sort this new DataFrame by `'Visitors'` in descending order to fulfill the question's requirement.
+We first sort the row in `art_museums` by the number of `'Visitors'` in `ascending` order. Then `groupby('City')`, so that we have one row per city. Recall, we need an aggregation method after using `groupby()`. In this question, we use `last()` to only keep the one last row for each city. Since in blank (a) we have sorted the rows by `'Visitors'`, so `last()` keeps the row that contains the name of the most visited museum in that city. At last we sort this new DataFrame by `'Visitors'` in descending order to fulfill the question's requirement.
 
 <average>65</average>
 

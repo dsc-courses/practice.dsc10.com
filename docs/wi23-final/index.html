@@ -6,9 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>Winter 2023 Final Exam</title>
   <style>
-    /* Default styles provided by pandoc.
-    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
-    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -24,9 +21,8 @@
       vertical-align: middle;
     }
     /* CSS for syntax highlighting */
-    html { -webkit-text-size-adjust: 100%; }
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span { line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -37,7 +33,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -91,7 +87,7 @@
   </style>
   <link rel="stylesheet" href="../assets/theme.css" />
   <script defer=""
-  src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  src="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
  var mathElements = document.getElementsByClassName("math");
  var macros = [];
@@ -107,7 +103,7 @@
 }}});
   </script>
   <link rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css" />
+  href="https://cdn.jsdelivr.net/npm/katex@0.15.1/dist/katex.min.css" />
 </head>
 <body>
 <header id="title-block-header">
@@ -138,16 +134,6 @@ except students were provided a copy of the
 <a href='https://drive.google.com/file/d/1ky0Np67HS2O4LO913P-ing97SJG0j27n/view'>DSC
 10 Reference Sheet<a>. No calculators were allowed. Students had
 <strong>3 hours</strong> to take this exam.</p>
-<hr />
-<p><strong>Note (groupby / pandas 2.0):</strong> Pandas 2.0+ no longer
-silently drops columns that can’t be aggregated after a
-<code>groupby</code>, so code written for older pandas may behave
-differently or raise errors. In these practice materials we use
-<code>.get()</code> to select the column(s) we want after
-<code>.groupby(...).mean()</code> (or other aggregations) so that our
-solutions run on current pandas. On real exams you will not be penalized
-for omitting <code>.get()</code> when the old behavior would have
-produced the same answer.</p>
 <hr />
 <h4 id="video">Video 🎥</h4>
 <p><b><a href="https://podcast.ucsd.edu/watch/sp23/dsc10_a00/28">Here’s
@@ -193,9 +179,6 @@ we have already run <code>import babypandas as bpd</code> and
 <code>import numpy as np</code>.</p>
 <hr />
 <h2 id="problem-1">Problem 1</h2>
-<div class="meta">
-<p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
-8</span></div></p>
 <p>Let’s start by correcting the data in the <code>"Rating"</code>
 column. All the values in this column are strings of length 4. In
 addition, some strings use commas in place of a dot to represent a
@@ -264,9 +247,6 @@ makes this option incorrect.</p>
 </div>
 <hr />
 <h2 id="problem-2">Problem 2</h2>
-<div class="meta">
-<p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
-5</span></div></p>
 <p>You are unsure whether it would make sense to use
 <code>"BGG Rank"</code> as the index of the <code>games</code>
 DataFrame, because you are unsure whether this column has duplicate
@@ -355,14 +335,12 @@ unique or not, so it does not detect duplicates.</p>
 </div>
 </div>
 <hr />
-<h2 id="problem-3">Problem 3</h2>
-<div class="meta">
-<p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
-11</span></div></p>
+<h2 id="problem-3">## Problem 3</h2>
+<h2 id="lecture-11">lecture: 11</h2>
 <p>Notice that <code>"Strategy Games"</code> and
 <code>"Thematic Games"</code> are two of the possible domains, and that
 a game can belong to multiple domains.</p>
-<p>Define the variables strategy and thematic follows.</p>
+<p>Define the variables strategy and thematic as follows.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>strategy <span class="op">=</span> games.get(<span class="st">&quot;Domains&quot;</span>).<span class="bu">str</span>.contains(<span class="st">&quot;Strategy Games&quot;</span>)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>thematic <span class="op">=</span> games.get(<span class="st">&quot;Domains&quot;</span>).<span class="bu">str</span>.contains(<span class="st">&quot;Thematic Games&quot;</span>)</span></code></pre></div>
 <p><br></p>
@@ -441,12 +419,12 @@ from <code>“Strategy Games”</code> will <strong>not</strong> be in
 given <code>“Strategy Games”</code> will it not be in
 <code>“Thematic Games”</code>, which would look like this:
 P(<code>“Thematic Games”</code>
-Compliment|<code>“Strategy Games”</code>). This means the formula would
-look like: (<code>“Thematic Games”</code> Compliment
+complement|<code>“Strategy Games”</code>). This means the formula would
+look like: (<code>“Thematic Games”</code> complement
 <strong>and</strong>
 <code>“Strategy Games”</code>)/<code>“Strategy Games”</code></p>
 <p>This means one possible solution for this would be:
-<code>(games[(strategy == True) &amp; (thematic == False)].shape[0] / games[strategy == True].shape[0]</code>
+<code>(games[(strategy == True) &amp; (thematic == False)].shape[0] / games[strategy == True].shape[0])</code>
 This solution works because we are following the formula to find the
 probability of thematic complement and strategy games over the number of
 times <code>“Strategy Games”</code> are <code>True</code>. Doing
@@ -458,15 +436,17 @@ DataFrame where <code>strategy == True</code> and
 the number of rows or times that <code>True</code> shows up for
 <code>“Strategy Games”</code> and the number of rows or times that
 <code>False</code> shows up for <code>“Thematic Games”</code>
-Compliment.</p>
-<p>Another possible strategy would be using the complement rule: Which
-would be: P(<code>“Thematic Games”</code> Compliment) = 1 -
-P(<code>“Thematic Games”</code>). This would lead you to an answer like:
-<code>(1 - games[strategy &amp; thematic].shape[0]) / games[strategy].shape[0]</code>.
-<code>games[strategy &amp; thematic].shape[0])</code> finds you the
-probability of P(<code>“Thematic Games”</code>), so when plugged into
-the equation above we are able to find P(<code>“Thematic Games”</code>
-Compliment).</p>
+complement.</p>
+<p>Another possible strategy would be using the complement rule:
+P(<code>“Thematic Games”</code> complement |
+<code>“Strategy Games”</code>) = 1 - P(<code>“Thematic Games”</code> |
+<code>“Strategy Games”</code>). This would lead you to an answer like:
+<code>1 - games[strategy &amp; thematic].shape[0] / games[strategy].shape[0]</code>.
+<code>games[strategy &amp; thematic].shape[0] / games[strategy].shape[0]</code>
+finds the probability of P(<code>“Thematic Games”</code> |
+<code>“Strategy Games”</code>), so when plugged into the equation above
+we are able to find P(<code>“Thematic Games”</code> complement |
+<code>“Strategy Games”</code>).</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
 <p>
@@ -534,7 +514,7 @@ using <code>.shape[0]</code>, which will give us the number of games
 that belong to only one domain.</p>
 <p><strong>Option 1:</strong> Let’s step through why Option 1 is
 incorrect.
-<code>games.get(“Domains”).str.split(“ ”).apply(len) == 2.sum()</code>
+<code>(games.get(“Domains”).str.split(“ ”).apply(len) == 2).sum()</code>
 gives you a <code>Series</code> of the <code>“Domains”</code> column,
 then splits each domain by a space. We then get the length of that
 <code>list</code>, check if the length is equal to 2, which would mean
@@ -563,9 +543,6 @@ does not tell us the number of games that belong to only one domain.</p>
 <p><br></p>
 <hr />
 <h2 id="problem-4">Problem 4</h2>
-<div class="meta">
-<p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
-22</span></div></p>
 <p>We want to create a bootstrapped 95% confidence interval for the
 median <code>"Complexity"</code> of all cooperative games, given a
 sample of 100 cooperative games.</p>
@@ -642,10 +619,8 @@ are about the same.</p>
 </div>
 </div>
 <hr />
-<h2 id="problem-5">Problem 5</h2>
-<div class="meta">
-<p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
-13</span></div></p>
+<h2 id="problem-5">## Problem 5</h2>
+<h2 id="lecture-13">lecture: 13</h2>
 <p>As in the previous question, let <code>coop_sample</code> be a sample
 of 100 rows of games, all corresponding to cooperative games.</p>
 <p>Define <code>samp</code> and <code>resamp</code> as follows.</p>
@@ -768,14 +743,14 @@ aria-labelledby="heading5_3" data-bs-parent="#accordionExample">
 <code>samp</code>’s original minimum is never sampled, making
 <code>resamp</code>’s minimum to be greater than <code>samp</code>’s
 min.</p>
-<p><strong>Option 2:</strong>: If <code>samp</code>’s original min is
+<p><strong>Option 2:</strong> If <code>samp</code>’s original min is
 sampled then it will be the same minimum that appears inside of
 <code>resamp</code>.</p>
 <p><strong>Option 3:</strong> It is impossible for <code>resamp</code>’s
 minimum to be less than <code>samp</code>’s minimum. This is because all
 of <code>resamp</code>’s values come from <code>samp</code>. That means
-there cannot be a smaller average inside of <code>resamp</code> that
-never appears in <code>samp</code>.</p>
+there cannot be a smaller value inside of <code>resamp</code> that never
+appears in <code>samp</code>.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -834,10 +809,8 @@ deviation.</p>
 </div>
 <p><br></p>
 <hr />
-<h2 id="problem-6">Problem 6</h2>
-<div class="meta">
-<p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
-22</span></div></p>
+<h2 id="problem-6">## Problem 6</h2>
+<h2 id="lecture-22">lecture: 22</h2>
 <p>Choose the best tool to answer each of the following questions. Note
 the following:</p>
 <ul>
@@ -1013,10 +986,8 @@ the sample to find a test statistic.</p>
 </div>
 <p><br></p>
 <hr />
-<h2 id="problem-7">Problem 7</h2>
-<div class="meta">
-<p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
-24</span></div></p>
+<h2 id="problem-7">## Problem 7</h2>
+<h2 id="lecture-24">lecture: 24</h2>
 <p>We use the regression line to predict a game’s <code>"Rating"</code>
 based on its <code>"Complexity"</code>. We find that for the game
 <em>Wingspan</em>, which has a <code>"Complexity"</code> that is 2
@@ -1154,9 +1125,6 @@ Remembering again that here <code>"Complexity"</code> is our <span class="math i
 <p><br></p>
 <hr />
 <h2 id="problem-8">Problem 8</h2>
-<div class="meta">
-<p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
-24</span></div></p>
 <p>Suppose that for children’s games, <code>"Play Time"</code> and
 <code>"Rating"</code> are negatively linearly associated due to children
 having short attention spans. Suppose that for children’s games, the
@@ -1245,10 +1213,8 @@ is greater than or equal to 3 and less than 4, which is 3.1.</p>
 </div>
 </div>
 <hr />
-<h2 id="problem-9">Problem 9</h2>
-<div class="meta">
-<p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
-22</span></div></p>
+<h2 id="problem-9">## Problem 9</h2>
+<h2 id="lecture-22-1">lecture: 22</h2>
 <p>The function <code>perm_test</code> should take three inputs:</p>
 <ol type="1">
 <li><code>df</code>, a DataFrame.</li>
@@ -1495,10 +1461,8 @@ the answer must be &gt;=.</p>
 </div>
 <p><br></p>
 <hr />
-<h2 id="problem-10">Problem 10</h2>
-<div class="meta">
-<p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
-18</span></div></p>
+<h2 id="problem-10">## Problem 10</h2>
+<h2 id="lecture-18">lecture: 18</h2>
 <p>It’s your first time playing a new game called <em>Brunch Menu</em>.
 The deck contains 96 cards, and each player will be dealt a hand of 9
 cards. The goal of the game is to avoid having certain cards, called
@@ -1630,10 +1594,8 @@ treated like means.</p>
 </div>
 <p><br></p>
 <hr />
-<h2 id="problem-11">Problem 11</h2>
-<div class="meta">
-<p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
-10</span></div></p>
+<h2 id="problem-11">## Problem 11</h2>
+<h2 id="lecture-10">lecture: 10</h2>
 <p>In recent years, there has been an explosion of board games that
 teach computer programming skills, including <em>CoderMindz</em>,
 <em>Robot Turtles</em>, and <em>Code Monkey Island</em>. Many such games
@@ -1783,10 +1745,8 @@ that the <code>return</code> on line 6 never happens.</p>
 </div>
 <p><br></p>
 <hr />
-<h2 id="problem-12">Problem 12</h2>
-<div class="meta">
-<p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
-10</span></div></p>
+<h2 id="problem-12">## Problem 12</h2>
+<h2 id="lecture-10-1">lecture: 10</h2>
 <p>In the game <em>Spot It</em>, players race to identify an object that
 appears on two different cards. Each card contains images of eight
 objects, and exactly one object is common to both cards.</p>
@@ -1892,10 +1852,8 @@ do <code>.iloc[0]</code> to get the element inside of the Series.</p>
 </div>
 <p><br></p>
 <hr />
-<h2 id="problem-13">Problem 13</h2>
-<div class="meta">
-<p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
-12</span></div></p>
+<h2 id="problem-13">## Problem 13</h2>
+<h2 id="lecture-12">lecture: 12</h2>
 <p>Dylan, Harshi, and Selim are playing a variant of a dice game called
 <em>Left, Center, Right</em> (<em>LCR</em>) in which there are 9 chips
 (tokens) and 9 dice. Each player starts off with 3 chips. Each die has
@@ -2172,10 +2130,8 @@ aria-labelledby="heading13_6" data-bs-parent="#accordionExample">
 </div>
 <p><br></p>
 <hr />
-<h2 id="problem-14">Problem 14</h2>
-<div class="meta">
-<p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
-13</span></div></p>
+<h2 id="problem-14">## Problem 14</h2>
+<h2 id="lecture-13-1">lecture: 13</h2>
 <p>Suppose the function <code>simulate_lcr</code> from the last question
 has been correctly implemented, and we want to use it to see how many
 turns a game of <em>Left, Center, Right</em> usually takes.</p>
@@ -2306,13 +2262,13 @@ aria-labelledby="heading14_3" data-bs-parent="#accordionExample">
 <p><strong>Answer:</strong> <span class="math inline">1 -
 (\frac{5}{6})^n</span></p>
 <p>Recall that the die used to play this game has six sides: L, C, R,
-Dot, Dot, Dot. The chance of getting C is <span class="math inline">\frac{1}{6}</span>. So we can take the compliment of
+Dot, Dot, Dot. The chance of getting C is <span class="math inline">\frac{1}{6}</span>. So we can take the complement of
 that to get <span class="math inline">\frac{5}{6}</span>, which is the
 probability of not putting at least one chip into the center and then
-doing (<span class="math inline">\frac{5}{6}</span>)^n. Once again we
-must use the complement rule as to convert it back to the probability of
+doing <span class="math inline">(\frac{5}{6})^n</span>. Once again we
+must use the complement rule to convert it back to the probability of
 putting at least one chip into the center. This gives us the answer:
-<span class="math inline">1 - (\frac{5}{6})</span>^n</p>
+<span class="math inline">1 - (\frac{5}{6})^n</span></p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -2366,10 +2322,8 @@ something we need to consider.)</p>
 </div>
 <p><br></p>
 <hr />
-<h2 id="problem-15">Problem 15</h2>
-<div class="meta">
-<p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
-9</span></div></p>
+<h2 id="problem-15">## Problem 15</h2>
+<h2 id="lecture-9">lecture: 9</h2>
 <p>At a recent game night, you played several new board games and liked
 them so much that you now want to buy copies for yourself.</p>
 <p>The DataFrame <code>stores</code> is shown below in full. Each row
@@ -2550,10 +2504,8 @@ the values up by doing <code>.sum()</code> on the Series.</p>
 </div>
 <p><br></p>
 <hr />
-<h2 id="problem-16">Problem 16</h2>
-<div class="meta">
-<p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
-20</span></div></p>
+<h2 id="problem-16">## Problem 16</h2>
+<h2 id="lecture-20">lecture: 20</h2>
 <p>We collect data on the play times of 100 games of <em>Chutes and
 Ladders</em> (sometimes known as <em>Snakes and Ladders</em>) and want
 to use this data to perform a hypothesis test.</p>
@@ -2768,21 +2720,5 @@ Feedback: Find an error? Still confused? Have a suggestion?
 <a href="https://forms.gle/WZ71FchnXU1K154d7">Let us know
 here</u></a>.</h4>
 <hr />
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
 </body>
 </html>

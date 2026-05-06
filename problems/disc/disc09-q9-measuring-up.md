@@ -40,7 +40,7 @@ Which of the following statements best describe the procedure above?
 
 **Answer:** This is a permutation test, and our test statistic is the difference in the mean Adelie mass and mean Chinstrap mass (Option 4)
 
-Recall, a permutation test helps us decide whether two random samples come from the same distribution. This test matches our goal of testing whether the masses of Adelie penguins and Chinstrap penguins are drawn from the same population distribution. The code above are also doing steps of a permutation test. In part (a), it shuffles `'species'` and stores the shuffled series to `shuffled`. In part (b), it assign the shuffled series of values to `'species'` column. Then, it uses ` grouped = with_shuffled.groupby('species').mean()` to calculate the mean of each species. In part (c), it computes the difference between mean mass of the two species by first getting the `'mass'` column and then accessing mean mass of each group (Adelie and Chinstrap) with positional index `0` and `1`.
+Recall, a permutation test helps us decide whether two random samples come from the same distribution. This test matches our goal of testing whether the masses of Adelie penguins and Chinstrap penguins are drawn from the same population distribution. The code above is also doing steps of a permutation test. In part (a), it shuffles `'species'` and stores the shuffled series to `shuffled`. In part (b), it assigns the shuffled series of values to the `'species'` column. Then, it uses ` grouped = with_shuffled.groupby('species').mean()` to calculate the mean of each species. In part (c), it computes the difference between mean mass of the two species by first getting the `'mass'` column and then accessing mean mass of each group (Adelie and Chinstrap) with positional index `0` and `1`.
 
 <average>98</average>
 
@@ -108,7 +108,7 @@ What would happen if we replaced `line (a)` with
 
 ```py
 with_shuffled = adelie_chinstrap.assign(
-    species=np.random.permutation(adelie_chinstrap.get('species')
+    species=np.random.permutation(adelie_chinstrap.get('species'))
 )
 ```
 
@@ -116,7 +116,7 @@ and replaced line (b) with
 
 ```py
 with_shuffled = with_shuffled.assign(
-    mass=np.random.permutation(adelie_chinstrap.get('mass')
+    mass=np.random.permutation(adelie_chinstrap.get('mass'))
 )
 ```
 
@@ -131,7 +131,7 @@ Select the best answer.
 
 **Answer:** This would still run a valid hypothesis test (Option 1)
 
-Our goal for the permutation test is to randomly assign birth weights to groups, without changing group sizes. The above code shuffles `'species'` and `'mass'` columns and assigns them back to the DataFrame. This fulfills our goal.
+Our goal for the permutation test is to randomly assign masses to groups, without changing group sizes. The above code shuffles `'species'` and `'mass'` columns and assigns them back to the DataFrame. This fulfills our goal.
 
 <average>81</average>
 

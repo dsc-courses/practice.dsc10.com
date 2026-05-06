@@ -22,7 +22,7 @@ Propose a scenario where a randomized controlled trial (RCT) would be **impracti
 
 **Possible answer:** Conducting an experiment to determine if winning the lottery increases happiness in middle-aged adults. 
 
-It is not possible to provide the treatment (winning the lottery) as this is something that happens by chance, and is not something we can control. When we cannot control how participants receive a treatment, a RCT becomes impractical. 
+It is not possible to provide the treatment (winning the lottery) as this is something that happens by chance, and is not something we can control. When we cannot control how participants receive a treatment, an RCT becomes impractical.
 
 # END SOLN
 

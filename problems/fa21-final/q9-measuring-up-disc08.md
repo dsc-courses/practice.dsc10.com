@@ -236,7 +236,7 @@ What would happen if we replaced `line (a)` with
 
 ```py
 with_shuffled = adelie_chinstrap.assign(
-    species=np.random.permutation(adelie_chinstrap.get('species')
+    species=np.random.permutation(adelie_chinstrap.get('species'))
 )
 ```
 
@@ -244,7 +244,7 @@ and replaced line (b) with
 
 ```py
 with_shuffled = with_shuffled.assign(
-    mass=np.random.permutation(adelie_chinstrap.get('mass')
+    mass=np.random.permutation(adelie_chinstrap.get('mass'))
 )
 ```
 
@@ -259,7 +259,7 @@ Select the best answer.
 
 **Answer:** This would still run a valid hypothesis test (Option 1)
 
-Our goal for the permutation test is to randomly assign birth weights to groups, without changing group sizes. The above code shuffles `'species'` and `'mass'` columns and assigns them back to the DataFrame. This fulfills our goal.
+Our goal for the permutation test is to randomly assign masses to groups, without changing group sizes. The above code shuffles `'species'` and `'mass'` columns and assigns them back to the DataFrame. This fulfills our goal.
 
 <average>81</average>
 

@@ -412,7 +412,7 @@ We've provided answers to all quiz questions, but you won't find detailed explan
         Studio Ghibli<br>
         Concerts<br>
         Internships<br>
-        Polphony
+        Polyphony
       </td>
     </tr>
     <tr>
@@ -452,7 +452,7 @@ We've provided answers to all quiz questions, but you won't find detailed explan
       <td>
         Sea animals<br>
         UC's<br>
-        Space reptlies<br>
+        Space reptiles<br>
         Movies
       </td>
     </tr>

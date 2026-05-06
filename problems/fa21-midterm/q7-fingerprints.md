@@ -49,7 +49,7 @@ Let's look at the `x`-values first. If we divide the scatterplot into nine equal
 
 Aside from the middle region, about $\frac{1}{8}$ of the data falls in each region. That means $\frac{3}{8}$ of the data has an `x`-value in the first bin $[0, 2)$, $\frac{2}{8}$ of the data has an `x`-value in the middle bin $[2, 4)$, and $\frac{3}{8}$ of the data has an `x`-value in the rightmost bin $[4, 6]$. This distribution of `x`-values into bins determines what the histogram will look like.
 
-Now, if we look at the `y`-values, we'll find that $\frac{3}{8}$ of the data has a `y`-value in the first bin $[0, 2)$, $\frac{2}{8}$ of the data has a `y`-value in the middle bin $[2, 4)$, and $\frac{3}{8}$ of the data has a `y`-value in the last bin $[4, 6]$. That's the same distribution of data into bins as the `x`-values had, so the histogram of `y`-values will look just like the histogram of `y`-values.
+Now, if we look at the `y`-values, we'll find that $\frac{3}{8}$ of the data has a `y`-value in the first bin $[0, 2)$, $\frac{2}{8}$ of the data has a `y`-value in the middle bin $[2, 4)$, and $\frac{3}{8}$ of the data has a `y`-value in the last bin $[4, 6]$. That's the same distribution of data into bins as the `x`-values had, so the histogram of `y`-values will look just like the histogram of `x`-values.
 
 Alternatively, an easy way to see this is to use the fact that the scatterplot is symmetric over the line $y=x$, the line that makes a 45 degree angle with the origin. In other words, interchanging the `x` and `y` values doesn't change the scatterplot noticeably, so the `x` and `y` values have very similar distributions, and their histograms will be very similar as a result.
 

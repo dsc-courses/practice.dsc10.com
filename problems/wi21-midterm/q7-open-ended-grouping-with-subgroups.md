@@ -18,7 +18,7 @@ Creative responses that are different than ones we've already seen in this class
 
 <i> Question: In which sport did the US win the most medals?</i>
 
-<i>We can group by country and then subgroup by sport. We can then use a combination of `reset_index()` and `sort_values(by = 'medals')`  and then use `.get` and `.iloc[-1]` to get the our answer to the question.</i>
+<i>We can group by country and then subgroup by sport. We can then use a combination of `reset_index()` and `sort_values(by = 'medals')`  and then use `.get` and `.iloc[-1]` to get our answer to the question.</i>
 
 ---
 

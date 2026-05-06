@@ -56,12 +56,12 @@ Fill in blank (c).
 
 # BEGIN SOLUTION
 
-**Answer: ** `(foo.get('weight') > 20 | foo.get(`height`) > 40)`
+**Answer: ** `(foo.get('weight') > 20) | (foo.get('height') > 40)`
 
 Once we have grouped the dogs by `'kind'` and have calculated the average 
 stats of each kind of dog, we can do some querying with two conditionals:
 `foo.get('weight') > 20` gets the kinds of dogs that are heavier 
-than 20 kg on average and `foo.get('height') > 40)` gets the kinds of dogs that
+than 20 kg on average and `foo.get('height') > 40` gets the kinds of dogs that
  are taller than 40 cm on average. We combine these two conditions with the 
 `|` operator since we want the kind of dogs that satisfy either condition.
 

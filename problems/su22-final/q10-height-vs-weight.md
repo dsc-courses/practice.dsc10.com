@@ -58,9 +58,9 @@ r = t.mean()
 
 - Snippet 1: Recall from the reference sheet, the correlation coefficient is `r = (su(x) * su(y)).mean()`.
 
-- Snippet 2: We have to standardize each variable seperately so this snippet doesnt work.
+- Snippet 2: We have to standardize each variable separately so this snippet doesn't work.
 
-- Snippet 3: Note that for this snippet we're standardizing each data point within each variable seperately, and so we're not really standardizing the entire variable correctly. In other words, applying `su(x[i])` to a singular data point is just going to convert this data point to zero, since we're only inputting one data point into `su()`.
+- Snippet 3: Note that for this snippet we're standardizing each data point within each variable separately, and so we're not really standardizing the entire variable correctly. In other words, applying `su(x[i])` to a singular data point is just going to convert this data point to zero, since we're only inputting one data point into `su()`.
 
 - Snippet 4: Note that this code is just the same as Snippet 1, except we're now directly computing the product of each corresponding data points individually. Hence this Snippet works.
 

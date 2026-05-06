@@ -23,7 +23,7 @@ Our sample is the number of visitors on the five days, and our population is the
 
 First, we calculate the sample mean, the average number of visitors in the 5 days, which is $m = \frac{1}{5}\cdot(v_1 + v_2 + v_3 + v_4 + v_5)$. We use this statistic to estimate the population mean, the average number of visitors in this year.
 
-Then, we use the estimated population mean to calculate the estimated pupulation sum, so we multiply the number of days in a year (365) with the estimated population mean. We get $$365 m = \frac{365}{5}\cdot(v_1 + v_2 + v_3 + v_4 + v_5)$$
+Then, we use the estimated population mean to calculate the estimated population sum, so we multiply the number of days in a year (365) with the estimated population mean. We get $$365 m = \frac{365}{5}\cdot(v_1 + v_2 + v_3 + v_4 + v_5)$$
 
 <average>92</average>
 

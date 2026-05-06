@@ -54,15 +54,15 @@ When we divide two arrays of the same length, their corresponding elements get d
 
 # BEGIN SUBPROB
 
-True or False: `min(prices / calories)` is the same as `max(calories / price)`.
+True or False: `min(prices / calories)` is the same as `max(calories / prices)`.
 
 # BEGIN SOLN
 
 **Answer:** False
 
-The former is measured in dollars per calories (a very small number), whereas the latter is measured in calories per dollar (a very big number).
+The former is measured in dollars per calorie (a very small number), whereas the latter is measured in calories per dollar (a very big number).
 
-However, there is a connection between these two values. The product that has the lowest price per calorie is the same product with the most calories per dollar. So these numbers refer to the same grocery store product, and we can convert one value into the other by taking the reciprocal, which swaps the numerator and denominator of a fraction. Therefore, it's true that `min(prices / calories)` is the same as `1 / max(calories / price)`.
+However, there is a connection between these two values. The product that has the lowest price per calorie is the same product with the most calories per dollar. So these numbers refer to the same grocery store product, and we can convert one value into the other by taking the reciprocal, which swaps the numerator and denominator of a fraction. Therefore, it's true that `min(prices / calories)` is the same as `1 / max(calories / prices)`.
 
 # END SOLN
 

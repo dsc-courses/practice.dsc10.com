@@ -32,7 +32,7 @@ Our goal is to estimate **the total number of years that dinosaurs lived on Eart
 The curator at the Museum of Natural History, who happens to have taken a data science course in college, points out that the estimate of the parameter obtained from this sample could certainly have come out differently, if the museum had started with a different sample of bones. The curator suggests trying to understand the distribution of the sample statistic. Which of the following would be an appropriate way to create that distribution?
 
 ( ) bootstrapping the original sample
-( ) using the Centrual Limit Theorem
+( ) using the Central Limit Theorem
 ( ) both bootstrapping and the Central Limit Theorem
 ( ) neither bootstrapping nor the Central Limit Theorem
 

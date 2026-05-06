@@ -1,6 +1,6 @@
 # BEGIN PROB
 
-At a furniture store, suppose every item has a "true value" that represents its worth. Every item in the store has a ticketed price, which is the amount that is printed on the item's price tag that customers will pay, that is 25% higher its true value. The store wants its employees to be able to buy items at their true value. What percent discount does it need to give its employees off the ticketed price to accomplish this?
+At a furniture store, suppose every item has a "true value" that represents its worth. Every item in the store has a ticketed price, which is the amount that is printed on the item's price tag that customers will pay, that is 25% higher than its true value. The store wants its employees to be able to buy items at their true value. What percent discount does it need to give its employees off the ticketed price to accomplish this?
 
 In general, if a store marks up prices by $p$%, what percent discount does it need to give to employees off the ticketed price so that they can buy things at the true value?
 

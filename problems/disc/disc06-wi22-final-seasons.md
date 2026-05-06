@@ -107,7 +107,7 @@ right_b = np.percentile(boot_means, 97.5)
 boot_ci = [left_b, right_b]         
 ```
 
-We find that `boot_ci` is the interval [7.7, 10.3]. However, the mean points per game in `season` is 7, which is not in the interval we found. Which of the following statements is true? (Select all question)
+We find that `boot_ci` is the interval [7.7, 10.3]. However, the mean points per game in `season` is 7, which is not in the interval we found. Which of the following statements is true? (Select all that apply)
 
 [ ] 95% of games in `season` have a number of points between 7.7 and 10.3.
 [ ] 95% of values in `boot_means` fall between 7.7 and 10.3.
@@ -123,7 +123,7 @@ We find that `boot_ci` is the interval [7.7, 10.3]. However, the mean points per
 - 95% of values in `boot_means` fall between the endpoints of the interval we found. 
 - The interval we created did not contain the true mean points per game, but if we collected many original samples and constructed many 95% confidence intervals, then roughly 95% of them would contain the true mean points per game.
 
-The first option is incorrect because the confidence interval describes what we think the *mean* points per game could be. Individual games likely have a very large variety in the number of points scores. Probably very few have between 7.7 and 10.3 points.
+The first option is incorrect because the confidence interval describes what we think the *mean* points per game could be. Individual games likely have a very large variety in the number of points scored. Probably very few have between 7.7 and 10.3 points.
 
 The second option is correct because this is precisely how we calculated the endpoints of our interval, by taking the middle 95% of values in `boot_means`.
 
