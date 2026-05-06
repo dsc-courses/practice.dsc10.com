@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Spring 2026 Midterm Exam</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/theme.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Spring 2026 Midterm Exam</h1>
+</header>
+<p><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<!-- add after bootstrap.min.css -->
+<link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css"/>
+<!-- add after bootstrap.min.js or bootstrap.bundle.min.js -->
+<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script></p>
+<!-- for difficulty gauges-->
+<script src="https://cdn.plot.ly/plotly-2.16.1.min.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B947E6J6H4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B947E6J6H4');
+</script>
+<p><a href="../index.html">← return to practice.dsc10.com</a></p>
+<hr />
+<p><strong>Instructor(s):</strong> Janine Tiefenbruck</p>
+<p>This exam was administered in-person. Students were allowed one page
+of double-sided handwritten notes. No calculators were allowed. Students
+had <strong>50 minutes</strong> to take this exam.</p>
+<hr />
+<p><strong>Note (groupby / pandas 2.0):</strong> Pandas 2.0+ no longer
+silently drops columns that can’t be aggregated after a
+<code>groupby</code>, so code written for older pandas may behave
+differently or raise errors. In these practice materials we use
+<code>.get()</code> to select the column(s) we want after
+<code>.groupby(...).mean()</code> (or other aggregations) so that our
+solutions run on current pandas. On real exams you will not be penalized
+for omitting <code>.get()</code> when the old behavior would have
+produced the same answer.</p>
+<hr />
+<p>A college mascot is a costumed character that represents the school
+at athletic competitions and other major campus events. For example, you
+might see UCSD’s mascot, King Triton, at basketball games and the
+upcoming Sun God Festival.</p>
+<p>College students can apply to serve as the mascot for their school,
+which is quite competitive! Applicants usually need to fall within a
+certain height range to fit the costume. Throughout this exam, we will
+format heights in feet and inches, for example <code>"5ft 7in"</code> or
+<code>"6ft"</code>, omitting inches when the height is a whole number of
+feet, as in the second example. Recall that there are 12 inches in one
+foot.</p>
+<p>The DataFrame <code>mascots</code> has one row for every college or
+university in the US with a named mascot. The columns are:</p>
+<ul>
+<li><code>"school"</code> (<code>str</code>): The name of the school.
+This column has no repeated values.</li>
+<li><code>"mascot"</code> (<code>str</code>): The name of the school’s
+mascot.</li>
+<li><code>"type"</code> (<code>str</code>): Mascot category, either
+<code>"human"</code>, <code>"animal"</code>, or
+<code>"other"</code>.</li>
+<li><code>"height"</code> (<code>str</code>): The range of heights that
+fit into the mascot costume. Values consist of two heights, formatted as
+described above, separated by <code>" - "</code>.</li>
+<li><code>"team"</code> (<code>str</code>): The general name of the
+school’s athletic team.</li>
+<li><code>"colors"</code> (<code>list</code>): A list of the school
+colors. Each school has at least one school color.</li>
+</ul>
+<p>The first few rows of <code>mascots</code> are shown below, though
+<code>mascots</code> has many more rows than pictured.</p>
+<center><img src="https://raw.githubusercontent.com/dsc-courses/practice.dsc10.com/refs/heads/master/assets/images/sp26-midterm/mascots.jpg" width=650></center>
+<p>Throughout this exam, we will refer to <code>mascots</code>
+repeatedly. Assume that we have already run
+<code>import babypandas as bpd</code> and
+<code>import numpy as np</code>.</p>
+<hr />
+<h2 id="problem-1">Problem 1</h2>
+<p>[(16 pts)] Recall that each value in the <code>"height"</code> column
+of <code>mascots</code> is a string with two heights separated by
+<code>" - "</code>. Heights are formatted like <code>"5ft 6in"</code> or
+<code>"6ft"</code>.</p>
+<p>In this problem, you will need to fill in the blanks in the provided
+code to add three new columns to <code>mascots</code>:</p>
+<ul>
+<li><code>"min"</code> (<code>int</code>) The smallest height that fits
+into the mascot costume, measured in <strong>inches</strong>.</li>
+<li><code>"max"</code> (<code>int</code>) The largest height that fits
+into the mascot costume, measured in <strong>inches</strong>.</li>
+<li><code>"range"</code> (<code>int</code>): The difference between the
+smallest and largest heights that fit into the mascot costume, measured
+in <strong>inches</strong>.</li>
+</ul>
+<p>After the blanks have been correctly filled in, the first five rows
+of <code>mascots</code> should appear as follows.</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/dsc-courses/practice.dsc10.com/refs/heads/master/assets/images/sp26-midterm/mascots_after.jpg"
+alt="image" />
+<figcaption aria-hidden="true">image</figcaption>
+</figure>
+<p><br></p>
+<h3 id="problem-1.1">Problem 1.1</h3>
+<p>To start, complete the implementation of the function
+<code>inches</code> which takes as input a single height and returns
+that height in inches, as an int. Example inputs and outputs are given
+below.</p>
+<pre><code>&gt;&gt;&gt; inches(&quot;6ft 11in&quot;)
+83 
+
+&gt;&gt;&gt; inches(&quot;5ft&quot;)
+60
+
+def inches(h):
+    parts = h.split(&quot; &quot;)
+    output = __(a)__
+    if len(parts) == 2:
+        output = __(b)__
+    return output</code></pre>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading1_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1_1" aria-expanded="true" aria-controls="collapse1_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse1_1" class="accordion-collapse collapse"
+aria-labelledby="heading1_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><code>(a):</code> <code>int(parts[0].strip("ft"))*12</code><br/>
+</p>
+<p><code>(b):</code> <code>output + int(parts[1].strip("in"))</code></p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 57%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-1.2">Problem 1.2</h3>
+<p>Fill in the blanks below so that the code adds the three required
+columns to <code>mascots</code>. Feel free to use the
+<code>inches</code> function defined in part (a).</p>
+<pre><code>def min_height(s):
+    return __(c)__
+
+def max_height(s):
+    return __(d)__
+
+mascots = mascots.assign(min = mascots.get(&quot;height&quot;).apply(min_height))
+mascots = mascots.assign(max = mascots.get(&quot;height&quot;).apply(max_height))
+mascots = mascots.assign(range = __(e)__)</code></pre>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading1_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1_2" aria-expanded="true" aria-controls="collapse1_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse1_2" class="accordion-collapse collapse"
+aria-labelledby="heading1_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><code>(c):</code> <code>inches(s.split(" - ")[0])</code><br/>
+</p>
+<p><code>(d):</code> <code>inches(s.split(" - ")[1])</code><br/>
+</p>
+<p><code>(e):</code>
+<code>mascots.get("max") - mascots.get("min")</code></p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 61%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-2">Problem 2</h2>
+<p>[(10 pts)]</p>
+<p>Which of the following expressions evaluate to the name of the school
+with the widest height range for its mascot costume (or any such school,
+in the case of a tie)? <strong>Select all that apply.</strong></p>
+<p><strong>Hint:</strong> <code>.groupby</code> orders rows in ascending
+order of the values in the index.</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> <code>mascots.set_index("school").get("range").max()</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>mascots.set_index("school").sort_values(by="range").index[-1]</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>mascots.groupby("range").max().get("school").iloc[-1]</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>mascots.groupby("school").max().index[-1]</code></p></li>
+<li><p><input type="checkbox" disabled="" /> None of the above.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="true" aria-controls="collapse2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse2" class="accordion-collapse collapse"
+aria-labelledby="heading2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: Options 2, 3, and 5.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 71%.</p>
+</div>
+</div>
+</div>
+</div>
+<hr />
+<h2 id="problem-3">Problem 3</h2>
+<p>[(10 pts)]</p>
+<p>Sofia defines the variables below. Note that <code>hundred</code> is
+a DataFrame containing the first 100 rows of <code>mascots</code>.</p>
+<pre><code>hundred = mascots.take(np.arange(100))
+has_state = hundred.get(&quot;school&quot;).str.contains(&quot;State&quot;)
+is_animal = hundred.get(&quot;type&quot;) == &quot;animal&quot;</code></pre>
+<p><br></p>
+<h3 id="problem-3.1">Problem 3.1</h3>
+<p>What is the data type of <code>is_animal</code>?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> string</p></li>
+<li><p><input type="radio" disabled="" /> boolean</p></li>
+<li><p><input type="radio" disabled="" /> array</p></li>
+<li><p><input type="radio" disabled="" /> Series</p></li>
+<li><p><input type="radio" disabled="" /> DataFrame</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading3_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_1" aria-expanded="true" aria-controls="collapse3_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse3_1" class="accordion-collapse collapse"
+aria-labelledby="heading3_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: Series</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 48%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-3.2">Problem 3.2</h3>
+<p>Sofia randomly selects one row from <code>hundred</code>. Which
+expression evaluates to the conditional probability that she selects a
+school with an <code>"animal"</code> mascot, given that she selects a
+school with <code>"State"</code> in its name?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>(has_state &amp; is_animal).sum() / 100</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>(has_state &amp; is_animal).sum() / is_animal.sum()</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>(has_state &amp; is_animal).sum() / has_state.sum()</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>is_animal.sum() / 100</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>is_animal.sum() / has_state.sum()</code></p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading3_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_2" aria-expanded="true" aria-controls="collapse3_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse3_2" class="accordion-collapse collapse"
+aria-labelledby="heading3_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: Option 3</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 70%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-3.3">Problem 3.3</h3>
+<p>The distribution of mascot <code>"type"</code> in
+<code>hundred</code> is shown in the table below.</p>
+<div class="center">
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><code>"human"</code></th>
+<th style="text-align: center;"><code>"animal"</code></th>
+<th style="text-align: center;"><code>"other"</code></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">40</td>
+<td style="text-align: center;">50</td>
+<td style="text-align: center;">10</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Now, Sofia randomly selects <strong>two rows</strong> from
+<code>hundred</code>, independently and <strong>with
+replacement</strong>. What is the probability that Sofia selects at
+least one school with a <code>"human"</code> mascot? Give your answer as
+a <strong>mathematical expression</strong>, which you do not need to
+simplify.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading3_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_3" aria-expanded="true" aria-controls="collapse3_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse3_3" class="accordion-collapse collapse"
+aria-labelledby="heading3_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>:</p>
+<p><span class="math display">1 - \left(\frac{60}{100}\right)^2 = 1 -
+\left(\frac{3}{5}\right)^2 =
+            1 - \frac{9}{25}
+            = \frac{16}{25}
+            = 0.64</span></p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 57%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-4">Problem 4</h2>
+<p>[(14 pts)]</p>
+<p>Ella creates two histograms as follows.</p>
+<ul>
+<li>Histogram A:</li>
+</ul>
+<!-- -->
+<pre><code>mascots.plot(kind=&quot;hist&quot;, y=&quot;max&quot;, density=True, 
+             bins=np.arange(48, 85, 8))</code></pre>
+<ul>
+<li>Histogram B:</li>
+</ul>
+<!-- -->
+<pre><code>mascots.plot(kind=&quot;hist&quot;, y=&quot;max&quot;, density=True, 
+             bins=np.arange(48, 85, 4))</code></pre>
+<p><br></p>
+<h3 id="problem-4.1">Problem 4.1</h3>
+<p>How many bars are in Histogram A? Give your answer as an
+<strong>integer</strong>.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading4_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_1" aria-expanded="true" aria-controls="collapse4_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse4_1" class="accordion-collapse collapse"
+aria-labelledby="heading4_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: <span class="math inline">4</span></p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 63%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-4.2">Problem 4.2</h3>
+<p>What is the largest value that can be displayed in Histogram B? Give
+your answer as an <strong>integer</strong>.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading4_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_2" aria-expanded="true" aria-controls="collapse4_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse4_2" class="accordion-collapse collapse"
+aria-labelledby="heading4_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: <span class="math inline">84</span></p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 71%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-4.3">Problem 4.3</h3>
+<p>Which of the following statements <strong>must</strong> be true?
+<strong>Select all that apply.</strong></p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> The total area of Histogram A equals the total area of Histogram
+B.</p></li>
+<li><p><input type="checkbox" disabled="" /> If no mascot has a maximum height of 70 or 71 inches, then in both
+histograms, the height of the bar that includes the interval [70, 71] is
+0.</p></li>
+<li><p><input type="checkbox" disabled="" /> The proportion of mascots with maximum height between 65 and 70
+inches (inclusive) can be found by adding the areas of all bars that
+cover any part of the interval [65, 70].</p></li>
+<li><p><input type="checkbox" disabled="" /> The tallest bar in Histogram B is the same height as the tallest bar
+in Histogram A.</p></li>
+<li><p><input type="checkbox" disabled="" /> None of the above.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading4_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_3" aria-expanded="true" aria-controls="collapse4_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse4_3" class="accordion-collapse collapse"
+aria-labelledby="heading4_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: Option 1</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 78%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-5">Problem 5</h2>
+<p>[(10 pts)] Define two DataFrames <code>single</code> and
+<code>double</code> as follows.</p>
+<pre><code>single = mascots.groupby(&quot;range&quot;).count()
+double = mascots.groupby([&quot;min&quot;, &quot;max&quot;]).count()</code></pre>
+<p><br></p>
+<h3 id="problem-5.1">Problem 5.1</h3>
+<p>Which statement below evaluates to <code>True</code>?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>single.shape[0] &lt; double.shape[0]</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>single.shape[0] == double.shape[0]</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>single.shape[0] &gt; double.shape[0]</code></p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading5_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_1" aria-expanded="true" aria-controls="collapse5_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse5_1" class="accordion-collapse collapse"
+aria-labelledby="heading5_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: Option 1</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 68%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-5.2">Problem 5.2</h3>
+<p>Which of the following statements are true? <strong>Select all that
+apply.</strong></p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> If two schools are grouped together in <code>single</code>, they must
+also be grouped together in <code>double</code>.</p></li>
+<li><p><input type="checkbox" disabled="" /> If two schools are grouped together in <code>double</code>, they must
+also be grouped together in <code>single</code>.</p></li>
+<li><p><input type="checkbox" disabled="" /> If two schools are in different groups in <code>single</code>, they
+must also be in different groups in <code>double</code>.</p></li>
+<li><p><input type="checkbox" disabled="" /> If two schools are in different groups in <code>double</code>, they
+must also be in different groups in <code>single</code>.</p></li>
+<li><p><input type="checkbox" disabled="" /> None of the above.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading5_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_2" aria-expanded="true" aria-controls="collapse5_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse5_2" class="accordion-collapse collapse"
+aria-labelledby="heading5_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: Options 2 and 3</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 73%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-5.3">Problem 5.3</h3>
+<p>Which statement below evaluates to <code>True</code>?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>mascots.groupby("height").count().shape[0] &lt; double.shape[0]</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>mascots.groupby("height").count().shape[0] == double.shape[0]</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>mascots.groupby("height").count().shape[0] &gt; double.shape[0]</code></p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading5_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_3" aria-expanded="true" aria-controls="collapse5_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse5_3" class="accordion-collapse collapse"
+aria-labelledby="heading5_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: Option 2</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 68%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-6">Problem 6</h2>
+<p>[(12 pts)]</p>
+<p>Suppose Pranav randomly selects 4 different schools from among those
+included in <code>mascots</code>. Fill in the blanks below to implement
+a simulation that estimates the probability that <strong>at least
+two</strong> of the schools Pranav selected have a mascot of type
+<code>"animal"</code>.</p>
+<pre><code>mascot_types = np.array(mascots.get(&quot;type&quot;))
+
+repetitions = 10000
+count_event = 0
+
+for i in np.arange(repetitions):
+    sample = np.random.choice(__(a)__)
+    
+    num_animals = np.count_nonzero(__(b)__)
+    
+    if __(c)__:
+        count_event += 1
+
+prob = __(d)__</code></pre>
+<p><br></p>
+<h3 id="problem-6.1">Problem 6.1</h3>
+<p>What goes in blank <code>(a)</code>?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>mascot_types, repetitions, replace=True</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>mascot_types, repetitions, replace=False</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>mascot_types, 4, replace=True</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>mascot_types, 4, replace=False</code></p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_1" aria-expanded="true" aria-controls="collapse6_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_1" class="accordion-collapse collapse"
+aria-labelledby="heading6_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: Option 4</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 73%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-6.2">Problem 6.2</h3>
+<p>What goes in blank <code>(b)</code>?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_2" aria-expanded="true" aria-controls="collapse6_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_2" class="accordion-collapse collapse"
+aria-labelledby="heading6_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: <code>sample == "animal"</code></p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 53%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-6.3">Problem 6.3</h3>
+<p>What goes in blank <code>(c)</code>?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_3" aria-expanded="true" aria-controls="collapse6_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_3" class="accordion-collapse collapse"
+aria-labelledby="heading6_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: <code>num_animals &gt;= 2</code></p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 66%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-6.4">Problem 6.4</h3>
+<p>What goes in blank <code>(d)</code>?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>count_event</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>count_event / repetitions</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>count_event / 4</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>np.mean(count_event)</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>count_event.sum() / repetitions</code></p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_4" aria-expanded="true" aria-controls="collapse6_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_4" class="accordion-collapse collapse"
+aria-labelledby="heading6_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: Option 2</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 79%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-7">Problem 7</h2>
+<p>[(12 pts)] The bar chart below was produced from the data in
+<code>mascots</code>. It shows how many schools use each color.</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/dsc-courses/practice.dsc10.com/refs/heads/master/assets/images/sp26-midterm/bar.png"
+style="width:90.0%" alt="image" />
+<figcaption aria-hidden="true">image</figcaption>
+</figure>
+<p><br></p>
+<h3 id="problem-7.1">Problem 7.1</h3>
+<p>If you knew the exact heights of each bar, how could you determine
+the total number of schools in <code>mascots</code>?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Sum the heights of all bars.</p></li>
+<li><p><input type="radio" disabled="" /> Sum the heights of all bars and divide by the number of colors
+(9).</p></li>
+<li><p><input type="radio" disabled="" /> You could not determine the total number of schools from this
+information.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading7_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_1" aria-expanded="true" aria-controls="collapse7_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse7_1" class="accordion-collapse collapse"
+aria-labelledby="heading7_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: Option 3</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 87%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-7.2">Problem 7.2</h3>
+<p>In the bar chart, the height of the blue bar is 2100 and the height
+of the gold bar is 1500. Use this information and the first five rows of
+<code>mascots</code> (provided with the data description) to determine
+the <strong>maximum possible</strong> number of schools in
+<code>mascots</code> whose school colors are blue and gold
+<strong>only</strong>. Give your answer as an
+<strong>integer</strong>.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading7_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_2" aria-expanded="true" aria-controls="collapse7_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse7_2" class="accordion-collapse collapse"
+aria-labelledby="heading7_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: <span class="math inline">1498</span></p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 44%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-7.3">Problem 7.3</h3>
+<p>Write one line of code that uses the <code>mascots</code> DataFrame
+to calculate the sum of the heights of all bars in the bar chart
+above.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading7_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_3" aria-expanded="true" aria-controls="collapse7_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse7_3" class="accordion-collapse collapse"
+aria-labelledby="heading7_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>:
+<code>mascots.get("colors").apply(len).sum()</code></p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 31%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-8">Problem 8</h2>
+<p>[(12 pts)]</p>
+<p>Austin and Ray are contestants on Season One of <em>America’s Next
+Top Mascot</em>, a new reality TV show. In each episode, contestants
+will compete for one of the mascot roles in the DataFrame below, called
+<code>antm</code>. The data includes the name of each mascot and the
+minimum and maximum heights, in inches, for the costume.</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/dsc-courses/practice.dsc10.com/refs/heads/master/assets/images/sp26-midterm/austin.jpg"
+style="width:35.0%" alt="image" />
+<figcaption aria-hidden="true">image</figcaption>
+</figure>
+<p><br></p>
+<h3 id="problem-8.1">Problem 8.1</h3>
+<p>The <em>America’s Next Top Mascot</em> costume director wants to
+identify every pair of costumes where one costume’s maximum height
+exactly equals the other costume’s minimum height. She calls these
+“single-height costume pairs" because there is only a single height that
+can wear both costumes.</p>
+<p>Write one line of code that uses <code>.merge</code> to calculate the
+number of single-height costume pairs in <code>antm</code>. Your answer
+should be a <strong>Python expression that evaluates to an
+integer</strong>.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading8_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_1" aria-expanded="true" aria-controls="collapse8_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse8_1" class="accordion-collapse collapse"
+aria-labelledby="heading8_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>:
+<code>antm.merge(antm, left_on="min", right_on="max").shape[0]</code></p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 67%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-8.2">Problem 8.2</h3>
+<p>What is the number of single-height costume pairs? In other words,
+what number does a correct answer to part (a) evaluate to? Give your
+answer as an <strong>integer</strong>.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading8_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_2" aria-expanded="true" aria-controls="collapse8_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse8_2" class="accordion-collapse collapse"
+aria-labelledby="heading8_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: <span class="math inline">16</span></p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 54%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-8.3">Problem 8.3</h3>
+<p>The last episode of the season will reveal the mascot roles to be
+featured next season. Next season’s mascots are stored in a DataFrame
+called <code>antm2</code> which has the same column names as
+<code>antm</code>, but contains different data (i.e. a different set of
+mascots).</p>
+<p>We don’t have all of <code>antm2</code> available, but do know some
+information about it. First, we know that
+<code>antm2.merge(antm2, on="min")</code> gives a DataFrame with 61
+rows.</p>
+<p>Additionally, we have the table at right, which shows the number of
+mascots in <code>antm2</code> with each minimum height requirement,
+except one value is missing.How many mascots in <code>antm2</code> have
+a minimum height requirement of 66 inches? Give your answer as an
+<strong>integer</strong>.</p>
+<figure>
+<img
+src="https://raw.githubusercontent.com/dsc-courses/practice.dsc10.com/refs/heads/master/assets/images/sp26-midterm/antm2.jpg"
+style="width:70.0%" alt="image" />
+<figcaption aria-hidden="true">image</figcaption>
+</figure>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading8_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_3" aria-expanded="true" aria-controls="collapse8_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse8_3" class="accordion-collapse collapse"
+aria-labelledby="heading8_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: <span class="math inline">7</span></p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 32%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="section"><span class="math display"> </span></h2>
+<h4
+id="feedback-find-an-error-still-confused-have-a-suggestion-let-us-know-here.">👋
+Feedback: Find an error? Still confused? Have a suggestion?
+<a href="https://forms.gle/WZ71FchnXU1K154d7">Let us know
+here</u></a>.</h4>
+<hr />
+</body>
+</html>
