@@ -694,6 +694,8 @@ def format_md_path(name):
     'problems/sp22-midterm/q7-merge.md, problems/sp22-midterm/data-info-for-discussion.md'
     
     '''
+    # Makes sure name path has correct slashes (\ for windows, / for mac, etc)
+    name = os.path.normpath(name)
     if ',' not in name:
         return os.path.join('problems', f'{name}.md')
     else:
@@ -1030,18 +1032,60 @@ def _slug_and_qnum_from_path(md_path: str):
     if len(parts) < 3:
         return None, None
     slug = parts[1]  # 'sp24-final' etc.
+    if len(parts) >= 4 and slug.endswith('-quizzes'):
+        quarter = slug.replace('-quizzes', '')
+        slug = f"{quarter}-{parts[2]}"  # e.g. problems/sp25-quizzes/quiz1/q01.md -> sp25-quiz1
+    elif slug == 'disc':
+        slug = parts[2].split('-')[0]  # e.g. disc01-expressions_math -> disc01
     fname = parts[-1]
     m = re.match(r"q0*([0-9]+)\.md\Z", fname)
     return slug, (int(m.group(1)) if m else None)
 
+def _problem_path_from_page_entry(entry):
+    """Return the question/problem path for a pages/*.yml problem entry."""
+    question_name = entry.split(', ')[0]
+    return os.path.join('problems', f'{question_name}.md')
+
+def _lecture_source_paths():
+    """
+    Return canonical problem sources for lecture pages.
+
+    Discussion pages mostly reuse exam/quiz problems, so include only exams,
+    quizzes, and Discussion 1's own page to avoid duplicated practice problems.
+    """
+    page_paths = []
+    page_paths.extend(glob.glob(os.path.join('pages', 'exams', '*.yml')))
+    page_paths.extend(glob.glob(os.path.join('pages', 'quizzes', '*.yml')))
+    page_paths.append(os.path.join('pages', 'disc', 'disc01.yml'))
+
+    out = []
+    for page_path in page_paths:
+        if not os.path.exists(page_path):
+            continue
+        with open(page_path, 'r', encoding='UTF-8') as f:
+            params = yaml.safe_load(f) or {}
+        for entry in params.get('problems', []):
+            problem_path = _problem_path_from_page_entry(entry)
+            if os.path.exists(problem_path):
+                out.append(problem_path)
+
+    return sorted(set(out))
+
+def _dedupe_key_for_lecture(body):
+    """Normalize a problem body enough to identify repeated copies."""
+    body = re.sub(AVG_REGEXP, '', body)
+    body = re.sub(r'\s+', ' ', body)
+    return body.strip()
+
 def collect_problems_by_lecture():
     """
-    Scan problems/, group by lecture number.
+    Scan canonical exam, quiz, and Discussion 1 problems; group by lecture number.
     Returns: dict[int, list[dict]] with keys like 1..25 and items:
       {'path', 'slug', 'q', 'body'}
     """
     out = defaultdict(list)
-    for md in glob.glob(os.path.join('problems', '*', 'q*.md')):
+    seen_by_lecture = defaultdict(set)
+    for md in _lecture_source_paths():
         with open(md, 'r', encoding='UTF-8') as f:
             raw = f.read()
         fm, body = _parse_frontmatter(raw)
@@ -1049,7 +1093,11 @@ def collect_problems_by_lecture():
         if not lecs:
             continue
         slug, q = _slug_and_qnum_from_path(md)
+        dedupe_key = _dedupe_key_for_lecture(body)
         for L in lecs:
+            if dedupe_key in seen_by_lecture[L]:
+                continue
+            seen_by_lecture[L].add(dedupe_key)
             out[L].append({'path': md, 'slug': slug, 'q': q, 'body': body})
     # sort each list nicely
     for L in out:
@@ -1168,18 +1216,17 @@ def write_lecture_pages():
         )
         os.remove(md_tmp)
 
-    with open(dst_html, 'r', encoding='utf-8') as f:
-        html = f.read()
+        with open(dst_html, 'r', encoding='utf-8') as f:
+            html = f.read()
 
-    # strip Pandoc title (existing line)
-    html = re.sub(r'<h1 class="title">.*?</h1>', '', html, flags=re.S)
+        # strip Pandoc title (existing line)
+        html = re.sub(r'<h1 class="title">.*?</h1>', '', html, flags=re.S)
 
-    # NEW: normalize any remaining relative asset links in the final HTML
-    html = rewrite_paths_for_lecture(html)
+        # NEW: normalize any remaining relative asset links in the final HTML
+        html = rewrite_paths_for_lecture(html)
 
-    with open(dst_html, 'w', encoding='utf-8') as f:
-        f.write(html)
-
+        with open(dst_html, 'w', encoding='utf-8') as f:
+            f.write(html)
 
         written.append(L)
 
