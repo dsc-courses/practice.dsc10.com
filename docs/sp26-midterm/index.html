@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>Spring 2026 Midterm Exam</title>
   <style>
-    code{white-space: pre-wrap;}
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
     div.column{flex: auto; overflow-x: auto;}
@@ -248,7 +250,26 @@ aria-labelledby="heading2" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer</strong>: Options 2, 3, and 5.</p>
+<p><strong>Answer</strong>: Options 2 and 3.</p>
+<p>We want the <strong>name</strong> of the school with the largest
+<code>"range"</code> value.</p>
+<ul>
+<li><strong>Option 1:</strong>
+<code>mascots.set_index("school").get("range").max()</code> returns the
+largest value in the <code>"range"</code> column (an integer), not the
+school’s name.</li>
+<li><strong>Option 2:</strong> Sorting by <code>"range"</code> puts rows
+in ascending order of range, so the last row in the index
+(<code>.index[-1]</code>) is the school with the largest range.</li>
+<li><strong>Option 3:</strong> <code>.groupby("range")</code> orders
+rows by range in ascending order. After <code>.max()</code>, the last
+row of the resulting DataFrame corresponds to the largest range group,
+and <code>.get("school").iloc[-1]</code> returns that school’s
+name.</li>
+<li><strong>Option 4:</strong> <code>.groupby("school")</code> orders
+rows alphabetically by school name, so <code>.index[-1]</code> returns
+the alphabetically last school, which has no relation to the range.</li>
+</ul>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -341,14 +362,14 @@ aria-labelledby="heading3_2" data-bs-parent="#accordionExample">
 <div class="center">
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th style="text-align: center;"><code>"human"</code></th>
 <th style="text-align: center;"><code>"animal"</code></th>
 <th style="text-align: center;"><code>"other"</code></th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td style="text-align: center;">40</td>
 <td style="text-align: center;">50</td>
 <td style="text-align: center;">10</td>
@@ -424,6 +445,10 @@ aria-labelledby="heading4_1" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: <span class="math inline">4</span></p>
+<p><code>np.arange(48, 85, 8)</code> produces the bin edges
+<code>[48, 56, 64, 72, 80]</code>. With 5 edges, we get <span class="math inline">5 - 1 = 4</span> bins, so Histogram A has <span class="math inline">4</span> bars. Note that <span class="math inline">85</span> is not included because
+<code>np.arange</code> stops before its endpoint, and the next value
+<span class="math inline">88</span> would exceed it.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -451,6 +476,11 @@ aria-labelledby="heading4_2" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: <span class="math inline">84</span></p>
+<p><code>np.arange(48, 85, 4)</code> produces the bin edges
+<code>[48, 52, 56, 60, 64, 68, 72, 76, 80, 84]</code>. The largest edge
+is <span class="math inline">84</span>, which is the right edge of the
+rightmost bin and therefore the largest value Histogram B can
+display.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -491,6 +521,26 @@ aria-labelledby="heading4_3" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: Option 1</p>
+<ul>
+<li><strong>Option 1 (TRUE):</strong> Both are density histograms, so
+the total area under each equals <span class="math inline">1</span>,
+regardless of the bin width chosen.</li>
+<li><strong>Option 2 (FALSE):</strong> A bar’s height represents the
+density across its <strong>entire</strong> bin, not just the interval
+<span class="math inline">[70, 71]</span>. In Histogram A, the bin <span class="math inline">[64, 72)</span> contains <span class="math inline">[70, 71]</span>, and there could still be mascots in
+<span class="math inline">[64, 70)</span> or <span class="math inline">[71, 72)</span> contributing to that bar. The same
+logic applies to the bin <span class="math inline">[68, 72)</span> in
+Histogram B.</li>
+<li><strong>Option 3 (FALSE):</strong> Bars that “cover any part of”
+<span class="math inline">[65, 70]</span> extend beyond that interval
+(e.g., the bin <span class="math inline">[64, 72)</span> in Histogram A
+also covers <span class="math inline">[64, 65)</span> and <span class="math inline">[70, 72)</span>). Adding the full areas of these
+bars overcounts.</li>
+<li><strong>Option 4 (FALSE):</strong> Changing bin widths changes the
+heights. A wide bin in Histogram A may merge two narrow bins from
+Histogram B, so the tallest bar heights are not guaranteed to
+match.</li>
+</ul>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -777,6 +827,13 @@ aria-labelledby="heading7_1" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: Option 3</p>
+<p>Each school can have multiple colors, and any school with more than
+one color is counted in multiple bars. For example, a school with school
+colors blue and gold contributes <span class="math inline">1</span> to
+both the blue bar and the gold bar. This means summing the bar heights
+overcounts schools, and we have no way to know <strong>how many</strong>
+schools were double- or triple-counted just from the bar chart, so we
+cannot recover the total number of schools.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -809,6 +866,18 @@ aria-labelledby="heading7_2" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: <span class="math inline">1498</span></p>
+<p>A school whose colors are “blue and gold only” must appear in
+<strong>both</strong> the blue bar (height <span class="math inline">2100</span>) and the gold bar (height <span class="math inline">1500</span>), so the answer is at most <span class="math inline">\min(2100, 1500) = 1500</span>.</p>
+<p>To <strong>maximize</strong> the count, we want as many of the <span class="math inline">1500</span> gold-using schools as possible to also
+use blue, and to use <strong>no other color</strong>. However, the first
+five rows of <code>mascots</code> show specific schools that use gold
+along with a color other than blue (or use gold without blue at all).
+Each such school is one of the <span class="math inline">1500</span>
+gold schools but cannot be counted in our group.</p>
+<p>From the first five rows, exactly <span class="math inline">2</span>
+schools using gold are disqualified in this way, so the maximum possible
+number of “blue and gold only” schools is <span class="math inline">1500
+- 2 = 1498</span>.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
 <p>
@@ -838,6 +907,14 @@ aria-labelledby="heading7_3" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer</strong>:
 <code>mascots.get("colors").apply(len).sum()</code></p>
+<p>The sum of the bar heights counts each school <strong>once for every
+color it has</strong> (a school with <span class="math inline">3</span>
+colors contributes <span class="math inline">1</span> to each of <span class="math inline">3</span> bars, for a total of <span class="math inline">3</span>). So the total bar height equals the total
+number of (school, color) pairs across the dataset.</p>
+<p>The <code>"colors"</code> column contains a list for each school, and
+the length of that list is the number of colors the school has. Applying
+<code>len</code> to each list and then summing gives exactly the total
+count of (school, color) pairs, which equals the sum of bar heights.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
 <p>
@@ -882,6 +959,13 @@ aria-labelledby="heading8_1" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer</strong>:
 <code>antm.merge(antm, left_on="min", right_on="max").shape[0]</code></p>
+<p>A “single-height costume pair” is a pair of costumes where one
+costume’s <code>"max"</code> equals the other costume’s
+<code>"min"</code>. To find these, we merge <code>antm</code> with
+itself, matching the <code>"min"</code> column of the left copy to the
+<code>"max"</code> column of the right copy. Each row in the merged
+DataFrame corresponds to exactly one such pair, so
+<code>.shape[0]</code> gives the count.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -910,6 +994,14 @@ aria-labelledby="heading8_2" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: <span class="math inline">16</span></p>
+<p>This is the value that the expression in part (a) evaluates to when
+run on <code>antm</code>. Going through the <code>"min"</code> and
+<code>"max"</code> columns of <code>antm</code> and counting how many
+(costume A, costume B) pairs satisfy <code>A.min == B.max</code>, we
+find <span class="math inline">16</span> such pairs. Equivalently, for
+each <code>"max"</code> value in the table, count how many costumes have
+that value as their <code>"min"</code>, then sum those counts across all
+rows; the total is <span class="math inline">16</span>.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -950,6 +1042,25 @@ aria-labelledby="heading8_3" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: <span class="math inline">7</span></p>
+<p>When we merge a DataFrame with itself on <code>"min"</code>, every
+row pairs up with every other row that shares the same
+<code>"min"</code> value (including itself). So if a particular
+<code>"min"</code> value appears <span class="math inline">n</span>
+times in <code>antm2</code>, it contributes <span class="math inline">n
+\times n = n^2</span> rows to the merged DataFrame.</p>
+<p>The total number of rows is therefore the <strong>sum of
+squares</strong> of the counts in the table:</p>
+<p><span class="math display">n_1^2 + n_2^2 + \dots + x^2 =
+61</span></p>
+<p>where <span class="math inline">x</span> is the missing count for
+<code>"min"</code> <span class="math inline">= 66</span>. Plugging in
+the known counts from the table, the squares of the visible values sum
+to <span class="math inline">12</span>, leaving:</p>
+<p><span class="math display">x^2 = 61 - 12 = 49 \implies x =
+7</span></p>
+<p>So <span class="math inline">7</span> mascots in <code>antm2</code>
+have a minimum height requirement of <span class="math inline">66</span>
+inches.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
 <p>
