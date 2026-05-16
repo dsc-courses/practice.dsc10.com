@@ -278,7 +278,7 @@ Each exam linked here lists the conditions under which the exam was given, inclu
       </td>
       <td>
         Electric vehicles<br>
-        Board games
+        Credit Card Applications
       </td>
     </tr>
     <tr>
