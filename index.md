@@ -82,12 +82,12 @@ We will later release solutions to the pretest. You are highly encouraged to che
       <td>Monday, May 11th</td>
       <td><a href="disc07/index.html">Standardization and the Normal Distribution</a></td>
     </tr>
-    <!-- <tr> 
-     <tr>
+    <tr>
       <th scope="row">8</th>
-      <td>Monday, November 17th</td>
+      <td>Monday, May 18th</td>
       <td><a href="disc08/index.html">The Central Limit Theorem and Hypothesis Testing</a></td>
     </tr>
+    <!-- <tr> 
     <tr>
       <th scope="row">9</th>
       <td>Monday, November 24th</td>
