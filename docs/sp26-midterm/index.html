@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
@@ -9,6 +9,7 @@
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
     */
+    code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
     div.column{flex: auto; overflow-x: auto;}
@@ -168,9 +169,26 @@ aria-labelledby="heading1_1" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><code>(a):</code> <code>int(parts[0].strip("ft"))*12</code><br/>
-</p>
-<p><code>(b):</code> <code>output + int(parts[1].strip("in"))</code></p>
+<p><strong>Answer (a):</strong>
+<code>int(parts[0].strip("ft"))*12</code></p>
+<p><strong>Answer (b):</strong>
+<code>output + int(parts[1].strip("in"))</code></p>
+<p>After <code>parts = h.split(" ")</code>, the first piece is always
+the feet part (for example <code>"6ft"</code> or
+<code>"5ft"</code>).</p>
+<ul>
+<li><strong>Blank (a):</strong> Strip <code>"ft"</code> from
+<code>parts[0]</code> and convert to an integer, then multiply by <span class="math inline">12</span> to get inches from feet. For
+<code>"6ft"</code>, this gives <span class="math inline">6 \times 12 =
+72</span>.</li>
+<li><strong>Blank (b):</strong> If there is a second piece (like
+<code>"11in"</code>), strip <code>"in"</code>, convert to an integer,
+and add it to <code>output</code>. If there is only one piece (like
+<code>"5ft"</code>), we skip this step and return just the feet
+converted to inches.</li>
+</ul>
+<p>For example, <code>inches("6ft 11in")</code> gives <span class="math inline">72 + 11 = 83</span>, and <code>inches("5ft")</code>
+gives <span class="math inline">60</span>.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -207,12 +225,27 @@ aria-labelledby="heading1_2" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><code>(c):</code> <code>inches(s.split(" - ")[0])</code><br/>
-</p>
-<p><code>(d):</code> <code>inches(s.split(" - ")[1])</code><br/>
-</p>
-<p><code>(e):</code>
+<p><strong>Answer (c):</strong>
+<code>inches(s.split(" - ")[0])</code></p>
+<p><strong>Answer (d):</strong>
+<code>inches(s.split(" - ")[1])</code></p>
+<p><strong>Answer (e):</strong>
 <code>mascots.get("max") - mascots.get("min")</code></p>
+<p>Each value in <code>"height"</code> looks like
+<code>"5ft 6in - 6ft 2in"</code>. Splitting on <code>" - "</code>
+separates the smaller and larger costume heights.</p>
+<ul>
+<li><strong>Blank (c):</strong> The first piece is the minimum height;
+apply <code>inches</code> to convert it to inches.</li>
+<li><strong>Blank (d):</strong> The second piece is the maximum height;
+apply <code>inches</code> to convert it to inches.</li>
+<li><strong>Blank (e):</strong> After <code>.assign</code> creates
+<code>"min"</code> and <code>"max"</code> columns, subtract the two
+Series element-wise to get <code>"range"</code> for each row.</li>
+</ul>
+<p>The <code>.apply(min_height)</code> and
+<code>.apply(max_height)</code> calls run these functions on every
+height string in the <code>"height"</code> column.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -309,7 +342,13 @@ aria-labelledby="heading3_1" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer</strong>: Series</p>
+<p><strong>Answer:</strong> Series</p>
+<p><code>is_animal</code> is defined as
+<code>hundred.get("type") == "animal"</code>. Comparing a Series to a
+string with <code>==</code> checks each row and returns a
+<strong>boolean Series</strong> with one
+<code>True</code>/<code>False</code> value per row. It is not a single
+boolean, string, array, or DataFrame.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
 <p>
@@ -345,7 +384,22 @@ aria-labelledby="heading3_2" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer</strong>: Option 3</p>
+<p><strong>Answer:</strong> Option 3 —
+<code>(has_state &amp; is_animal).sum() / has_state.sum()</code></p>
+<p>We want <span class="math inline">P(\text{animal} \mid
+\text{State})</span>, the probability of an animal mascot
+<strong>given</strong> that the school name contains
+<code>"State"</code>.</p>
+<p>By the definition of conditional probability, <span class="math display">P(\text{animal} \mid \text{State}) =
+\frac{P(\text{animal and State})}{P(\text{State})}.</span></p>
+<ul>
+<li>The numerator counts rows where both conditions are true:
+<code>(has_state &amp; is_animal).sum()</code>.</li>
+<li>The denominator counts rows where <code>has_state</code> is true:
+<code>has_state.sum()</code>.</li>
+</ul>
+<p>The other options either divide by <span class="math inline">100</span> (the full sample size, not the given
+condition) or use the wrong numerator or denominator.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -396,12 +450,27 @@ aria-labelledby="heading3_3" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer</strong>:</p>
-<p><span class="math display">1 - \left(\frac{60}{100}\right)^2 = 1 -
-\left(\frac{3}{5}\right)^2 =
-            1 - \frac{9}{25}
-            = \frac{16}{25}
-            = 0.64</span></p>
+<p><strong>Answer:</strong></p>
+<p><span class="math display">1 -
+\left(\frac{60}{100}\right)^2</span></p>
+<p>In <code>hundred</code>, <span class="math inline">40</span> out of
+<span class="math inline">100</span> schools have a <code>"human"</code>
+mascot, so <span class="math inline">60</span> out of <span class="math inline">100</span> do <strong>not</strong> have a human
+mascot.</p>
+<p>Sofia selects <strong>two rows with replacement</strong>,
+independently. It is easier to find the probability of the complement:
+<strong>neither</strong> pick is human.</p>
+<ul>
+<li>On one pick, <span class="math inline">P(\text{not human}) =
+\frac{60}{100}</span>.</li>
+<li>With independent picks, <span class="math inline">P(\text{neither
+human}) = \left(\frac{60}{100}\right)^2</span>.</li>
+</ul>
+<p>So <span class="math display">P(\text{at least one human}) = 1 -
+\left(\frac{60}{100}\right)^2.</span></p>
+<p>You can simplify if you want: <span class="math inline">1 -
+\left(\frac{3}{5}\right)^2 = 1 - \frac{9}{25} = \frac{16}{25} =
+0.64</span>.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -738,7 +807,19 @@ aria-labelledby="heading6_1" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer</strong>: Option 4</p>
+<p><strong>Answer:</strong> Option 4 —
+<code>mascot_types, 4, replace=False</code></p>
+<p>Pranav selects <strong>4 different schools</strong>, so each
+simulation draw should be a sample of size <span class="math inline">4</span> <strong>without replacement</strong> from
+the array of mascot types.</p>
+<ul>
+<li><code>np.random.choice(mascot_types, 4, replace=False)</code> draws
+<span class="math inline">4</span> types from <code>mascot_types</code>
+without putting them back.</li>
+<li><code>replace=True</code> would allow the same school/type to be
+chosen more than once, which does not match “4 different schools.”</li>
+<li>Using <code>repetitions</code> as the sample size would draw <span class="math inline">10{,}000</span> values per trial, not <span class="math inline">4</span>.</li>
+</ul>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -764,7 +845,13 @@ aria-labelledby="heading6_2" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer</strong>: <code>sample == "animal"</code></p>
+<p><strong>Answer:</strong> <code>sample == "animal"</code></p>
+<p><code>sample</code> is an array of <span class="math inline">4</span>
+mascot types from one simulated selection. The expression
+<code>sample == "animal"</code> compares each entry to
+<code>"animal"</code> and returns a boolean array.
+<code>np.count_nonzero</code> then counts how many of the <span class="math inline">4</span> schools in this sample have an animal
+mascot.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -790,7 +877,11 @@ aria-labelledby="heading6_3" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer</strong>: <code>num_animals &gt;= 2</code></p>
+<p><strong>Answer:</strong> <code>num_animals &gt;= 2</code></p>
+<p>The simulation counts how often the event “at least two of the four
+selected schools have an animal mascot” happens. After counting animals
+in the sample with <code>num_animals</code>, we check whether that count
+is <span class="math inline">2</span> or more.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -823,7 +914,22 @@ aria-labelledby="heading6_4" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer</strong>: Option 2</p>
+<p><strong>Answer:</strong> Option 2 —
+<code>count_event / repetitions</code></p>
+<p>After <span class="math inline">10{,}000</span> repetitions,
+<code>count_event</code> is the number of simulations where at least two
+animal mascots were selected. Dividing by <code>repetitions</code> gives
+the simulated proportion: <span class="math display">\hat{p} =
+\frac{\text{number of successes}}{10{,}000},</span> which estimates the
+probability of interest.</p>
+<ul>
+<li><code>count_event</code> alone is a count, not a probability.</li>
+<li><code>count_event / 4</code> would divide by the sample size within
+one trial, not the number of simulations.</li>
+<li><code>np.mean(count_event)</code> does not apply here because
+<code>count_event</code> is a single integer, not an array of
+outcomes.</li>
+</ul>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
