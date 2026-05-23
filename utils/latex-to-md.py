@@ -2,7 +2,7 @@
 # Converts an exam .tex file to a set of .md files, one for each problem
 # Usage: python latex-to-md.py exam.tex out_folder
 # After running, out_folder will contain one .md file per problem in exam.tex
-# NOTE: After running, make sure that there aren't blank lines between MC options, otherwise run.py won't work. Manually fix this.
+# NOTE: This script normalizes MC options to avoid wrapped/spaced options that break run.py parsing.
 
 import os
 import sys
@@ -31,7 +31,12 @@ def replace_tags(prob_str):
 
     def make_repl(mc_bubble):
         def repl(matchobj):
-            return regex_map[mc_bubble] + ' ' + re.findall(mc_bubble, matchobj[0])[0]
+            bubble_text = matchobj.group(1)
+            # Flatten explicit LaTeX line breaks/indentation to avoid broken MC option lines in Markdown.
+            bubble_text = re.sub(r'\\\\\s*\\hspace\*?\{[^}]*\}\s*', ' ', bubble_text)
+            bubble_text = re.sub(r'\\\\\s*', ' ', bubble_text)
+            bubble_text = re.sub(r'\s+', ' ', bubble_text).strip()
+            return regex_map[mc_bubble] + ' ' + bubble_text
         return repl
 
     for mc_bubble in regex_map:
@@ -42,7 +47,7 @@ def replace_tags(prob_str):
 def pandoc_tex_to_md(prob_str_tex):
     with open('temp.tex', 'w') as f:
         f.write(prob_str_tex)
-    os.system(f'pandoc -s temp.tex -o temp.md')
+    os.system('pandoc -s --wrap=none temp.tex -o temp.md')
     with open('temp.md', 'r') as f:
         text = f.read()
     os.remove('temp.tex')
@@ -57,6 +62,26 @@ def remove_leading_slash(prob_str_md):
                              .replace('\\( \\)', '( )')
 
     return prob_str_md
+
+def remove_blank_lines_between_mc_options(prob_str_md):
+    def is_mc_option_line(line):
+        return re.match(r'^\s*[\(\[][\sX][\)\]]\s+', line) is not None
+
+    lines = prob_str_md.splitlines()
+    cleaned_lines = []
+    for i, line in enumerate(lines):
+        if line.strip():
+            cleaned_lines.append(line)
+            continue
+
+        prev_line = cleaned_lines[-1] if cleaned_lines else ''
+        next_line = lines[i + 1] if i + 1 < len(lines) else ''
+
+        if is_mc_option_line(prev_line) and is_mc_option_line(next_line):
+            continue
+        cleaned_lines.append(line)
+
+    return '\n'.join(cleaned_lines)
 
 def split_probs_to_files(prob_str_md):
     probs = re.findall(r'# BEGIN PROB[\W\w]*?# END PROB', prob_str_md)
@@ -102,6 +127,7 @@ if __name__ == '__main__':
     # print(prob_str_md[:10000])
 
     prob_str_md = remove_leading_slash(prob_str_md)
+    prob_str_md = remove_blank_lines_between_mc_options(prob_str_md)
 
     # Step 4: Split by # BEGIN PROB
     probs = split_probs_to_files(prob_str_md)
