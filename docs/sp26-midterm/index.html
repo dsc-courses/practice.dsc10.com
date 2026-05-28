@@ -6,9 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>Spring 2026 Midterm Exam</title>
   <style>
-    /* Default styles provided by pandoc.
-    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
-    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -24,7 +21,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="../assets/theme.css" />
+  <link rel="stylesheet" href="..\assets\theme.css" />
   <script defer=""
   src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
@@ -145,7 +142,7 @@ of <code>mascots</code> should appear as follows.</p>
 that height in inches, as an int. Example inputs and outputs are given
 below.</p>
 <pre><code>&gt;&gt;&gt; inches(&quot;6ft 11in&quot;)
-83 
+83
 
 &gt;&gt;&gt; inches(&quot;5ft&quot;)
 60
@@ -173,19 +170,22 @@ aria-labelledby="heading1_1" data-bs-parent="#accordionExample">
 <code>int(parts[0].strip("ft"))*12</code></p>
 <p><strong>Answer (b):</strong>
 <code>output + int(parts[1].strip("in"))</code></p>
-<p>After <code>parts = h.split(" ")</code>, the first piece is always
-the feet part (for example <code>"6ft"</code> or
-<code>"5ft"</code>).</p>
+<p><code>parts = h.split(" ")</code> gives us a list. Its length is 1 if
+the height doesn’t contain any inches (ex: <code>["6ft"]</code>). Its
+length is 2 if there is a inch aspect (ex:
+<code>["6ft", "11in"]</code>). Regardless, the value at index 0 always
+is the feet value (ex: <code>"6ft"</code>).</p>
 <ul>
 <li><strong>Blank (a):</strong> Strip <code>"ft"</code> from
 <code>parts[0]</code> and convert to an integer, then multiply by <span class="math inline">12</span> to get inches from feet. For
 <code>"6ft"</code>, this gives <span class="math inline">6 \times 12 =
 72</span>.</li>
-<li><strong>Blank (b):</strong> If there is a second piece (like
+<li><strong>Blank (b):</strong> If there is a second piece (ex:
 <code>"11in"</code>), strip <code>"in"</code>, convert to an integer,
-and add it to <code>output</code>. If there is only one piece (like
-<code>"5ft"</code>), we skip this step and return just the feet
-converted to inches.</li>
+and add it to <code>output</code>, which already contains the feet
+converted to inches. If there is only one piece (ex:
+<code>"6ft"</code>), we skip this step and return
+<code>output</code>.</li>
 </ul>
 <p>For example, <code>inches("6ft 11in")</code> gives <span class="math inline">72 + 11 = 83</span>, and <code>inches("5ft")</code>
 gives <span class="math inline">60</span>.</p>
@@ -233,13 +233,14 @@ aria-labelledby="heading1_2" data-bs-parent="#accordionExample">
 <code>mascots.get("max") - mascots.get("min")</code></p>
 <p>Each value in <code>"height"</code> looks like
 <code>"5ft 6in - 6ft 2in"</code>. Splitting on <code>" - "</code>
-separates the smaller and larger costume heights.</p>
+separates the minimum and maximum costume heights into a list of length
+2 (ex: <code>["5ft 6 in", "6ft 2in"]</code>).</p>
 <ul>
 <li><strong>Blank (c):</strong> The first piece is the minimum height;
-apply <code>inches</code> to convert it to inches.</li>
+apply your function <code>inches</code> to convert it to inches.</li>
 <li><strong>Blank (d):</strong> The second piece is the maximum height;
-apply <code>inches</code> to convert it to inches.</li>
-<li><strong>Blank (e):</strong> After <code>.assign</code> creates
+apply your function <code>inches</code> to convert it to inches.</li>
+<li><strong>Blank (e):</strong> After <code>.assign</code> creates the
 <code>"min"</code> and <code>"max"</code> columns, subtract the two
 Series element-wise to get <code>"range"</code> for each row.</li>
 </ul>
@@ -391,7 +392,8 @@ aria-labelledby="heading3_2" data-bs-parent="#accordionExample">
 <strong>given</strong> that the school name contains
 <code>"State"</code>.</p>
 <p>By the definition of conditional probability, <span class="math display">P(\text{animal} \mid \text{State}) =
-\frac{P(\text{animal and State})}{P(\text{State})}.</span></p>
+\frac{P(\text{animal and State})}{P(\text{State})} =
+\frac{\text{Count(animal and State)}}{\text{Count(State)}} .</span></p>
 <ul>
 <li>The numerator counts rows where both conditions are true:
 <code>(has_state &amp; is_animal).sum()</code>.</li>
@@ -414,22 +416,9 @@ condition) or use the wrong numerator or denominator.</p>
 <p>The distribution of mascot <code>"type"</code> in
 <code>hundred</code> is shown in the table below.</p>
 <div class="center">
-<table>
-<thead>
-<tr>
-<th style="text-align: center;"><code>"human"</code></th>
-<th style="text-align: center;"><code>"animal"</code></th>
-<th style="text-align: center;"><code>"other"</code></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: center;">40</td>
-<td style="text-align: center;">50</td>
-<td style="text-align: center;">10</td>
-</tr>
-</tbody>
-</table>
+<p><code>"human"</code> <code>"animal"</code> <code>"other"</code></p>
+<hr />
+<pre><code>  40           50          10</code></pre>
 </div>
 <p>Now, Sofia randomly selects <strong>two rows</strong> from
 <code>hundred</code>, independently and <strong>with
@@ -458,15 +447,17 @@ aria-labelledby="heading3_3" data-bs-parent="#accordionExample">
 mascot, so <span class="math inline">60</span> out of <span class="math inline">100</span> do <strong>not</strong> have a human
 mascot.</p>
 <p>Sofia selects <strong>two rows with replacement</strong>,
-independently. It is easier to find the probability of the complement:
-<strong>neither</strong> pick is human.</p>
+independently. Because there are multiple ways Sofia can select a school
+with <em>at least</em> one human mascot (ex: both are human mascots, one
+of them is, the other one is), it is easier to find the probability of
+the complement: <strong>neither</strong> pick is human.</p>
 <ul>
 <li>On one pick, <span class="math inline">P(\text{not human}) =
 \frac{60}{100}</span>.</li>
 <li>With independent picks, <span class="math inline">P(\text{neither
 human}) = \left(\frac{60}{100}\right)^2</span>.</li>
 </ul>
-<p>So <span class="math display">P(\text{at least one human}) = 1 -
+<p>So: <span class="math display">P(\text{at least one human}) = 1 -
 \left(\frac{60}{100}\right)^2.</span></p>
 <p>You can simplify if you want: <span class="math inline">1 -
 \left(\frac{3}{5}\right)^2 = 1 - \frac{9}{25} = \frac{16}{25} =
@@ -647,16 +638,20 @@ aria-labelledby="heading5_1" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer</strong>: Option 1</p>
+<p><strong>Answer</strong>: Option 1
+(<code>single.shape[0] &lt; double.shape[0]</code>)</p>
 <p><code>single</code> groups by <code>"range"</code> alone, so its
 number of rows equals the number of distinct range values.
 <code>double</code> groups by the <em>pair</em>
 <code>("min", "max")</code>, which is a finer grouping — two schools can
 have the same range but different <code>(min, max)</code> pairs (e.g.,
 heights 60–66 and 62–68 both have a range of 6, but different min/max
-values). So <code>double</code> will always have at least as many rows
-as <code>single</code>, and typically more, meaning
+values). Therefore, <code>double</code> will always have at least as
+many rows as <code>single</code>, and typically more, meaning
 <code>single.shape[0] &lt; double.shape[0]</code>.</p>
+<p>Note: these values would be equal if each mascot had a unique height
+range. However, based on <code>mascots</code> from the given datasheet,
+the first two rows have the same range, so this is not possible.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -697,25 +692,25 @@ aria-labelledby="heading5_2" data-bs-parent="#accordionExample">
 <p><strong>Answer</strong>: Options 2 and 3</p>
 <ul>
 <li><p><strong>Option 1 (FALSE):</strong> Two schools grouped together
-in <code>single</code> share the same <code>"range"</code>. But they
-could have different <code>(min, max)</code> pairs (same difference,
-different actual heights), so they need <em>not</em> be in the same
-group in <code>double</code>.</p></li>
+in <code>single</code> share the same <code>"range"</code>. However,
+they could have different <code>(min, max)</code> pairs (same
+difference, different actual heights), so they need <em>not</em> be in
+the same group in <code>double</code>.</p></li>
 <li><p><strong>Option 2 (TRUE):</strong> Two schools grouped together in
 <code>double</code> share the same <code>(min, max)</code> pair. Since
 <code>range = max − min</code>, they must also share the same range, so
 they are guaranteed to be in the same group in
 <code>single</code>.</p></li>
-<li><p><strong>Option 3 (TRUE):</strong> If two schools are in
-<em>different</em> groups in <code>single</code>, they have different
-ranges. Since <code>range = max − min</code>, they cannot share the same
+<li><p><strong>Option 3 (TRUE):</strong> If two schools are in different
+groups in <code>single</code>, they have different ranges. Since
+<code>range = max − min</code>, they cannot share the same
 <code>(min, max)</code> pair, so they must also be in different groups
 in <code>double</code>.</p></li>
 <li><p><strong>Option 4 (FALSE):</strong> Two schools in different
 groups in <code>double</code> have different <code>(min, max)</code>
 pairs, but could still have the same <code>range</code> (e.g., 60–66 and
-62–68 are different pairs but both have range 6). So they may end up in
-the <em>same</em> group in <code>single</code>.</p></li>
+62–68 are different pairs but both have range 6). Therefore, they may
+end up in the same group in <code>single</code>.</p></li>
 </ul>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
@@ -747,12 +742,13 @@ aria-labelledby="heading5_3" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer</strong>: Option 2</p>
-<p>Grouping by <code>"height"</code> groups by the original string
-(e.g., <code>"5ft 6in - 6ft 2in"</code>). Each unique height string
-corresponds to exactly one unique <code>(min, max)</code> pair, and vice
-versa — every unique <code>(min, max)</code> pair maps back to exactly
-one height string. So the two groupbys produce the same number of
+<p><strong>Answer</strong>: Option 2
+(<code>mascots.groupby("height").count().shape[0] == double.shape[0]</code>)</p>
+<p>Grouping by <code>"height"</code> groups by the original string (ex:
+<code>"5ft 6in - 6ft 2in"</code>). Each unique height string corresponds
+to exactly one unique <code>(min, max)</code> pair, and vice versa —
+every unique <code>(min, max)</code> pair maps back to exactly one
+height string. Therefore, the two groupbys produce the same number of
 groups, and the two shapes are equal.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
@@ -778,9 +774,9 @@ count_event = 0
 
 for i in np.arange(repetitions):
     sample = np.random.choice(__(a)__)
-    
+
     num_animals = np.count_nonzero(__(b)__)
-    
+
     if __(c)__:
         count_event += 1
 
@@ -807,8 +803,8 @@ aria-labelledby="heading6_1" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer:</strong> Option 4 —
-<code>mascot_types, 4, replace=False</code></p>
+<p><strong>Answer:</strong> Option 4
+(<code>mascot_types, 4, replace=False</code>)</p>
 <p>Pranav selects <strong>4 different schools</strong>, so each
 simulation draw should be a sample of size <span class="math inline">4</span> <strong>without replacement</strong> from
 the array of mascot types.</p>
@@ -851,7 +847,8 @@ mascot types from one simulated selection. The expression
 <code>sample == "animal"</code> compares each entry to
 <code>"animal"</code> and returns a boolean array.
 <code>np.count_nonzero</code> then counts how many of the <span class="math inline">4</span> schools in this sample have an animal
-mascot.</p>
+mascot. Keep in mind that adding up a sequence of booleans results in
+the total number of <code>True</code>’s.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -879,9 +876,10 @@ aria-labelledby="heading6_3" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer:</strong> <code>num_animals &gt;= 2</code></p>
 <p>The simulation counts how often the event “at least two of the four
-selected schools have an animal mascot” happens. After counting animals
-in the sample with <code>num_animals</code>, we check whether that count
-is <span class="math inline">2</span> or more.</p>
+selected schools have an animal mascot” happens. After counting the
+number of animals in the sample stored in <code>num_animals</code>, we
+check whether that count is <span class="math inline">2</span> or
+more.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -914,8 +912,8 @@ aria-labelledby="heading6_4" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer:</strong> Option 2 —
-<code>count_event / repetitions</code></p>
+<p><strong>Answer:</strong> Option 2
+(<code>count_event / repetitions</code>)</p>
 <p>After <span class="math inline">10{,}000</span> repetitions,
 <code>count_event</code> is the number of simulations where at least two
 animal mascots were selected. Dividing by <code>repetitions</code> gives
@@ -927,8 +925,8 @@ probability of interest.</p>
 <li><code>count_event / 4</code> would divide by the sample size within
 one trial, not the number of simulations.</li>
 <li><code>np.mean(count_event)</code> does not apply here because
-<code>count_event</code> is a single integer, not an array of
-outcomes.</li>
+<code>count_event</code> is a single integer, and taking of the mean
+would not result in a probability.</li>
 </ul>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
@@ -973,10 +971,10 @@ aria-labelledby="heading7_1" data-bs-parent="#accordionExample">
 <p>Each school can have multiple colors, and any school with more than
 one color is counted in multiple bars. For example, a school with school
 colors blue and gold contributes <span class="math inline">1</span> to
-both the blue bar and the gold bar. This means summing the bar heights
-overcounts schools, and we have no way to know <strong>how many</strong>
-schools were double- or triple-counted just from the bar chart, so we
-cannot recover the total number of schools.</p>
+both the blue bar and the gold bar. This means that summing the bar
+heights overcounts schools, and we have no way to know how many schools
+were double or triple-counted (more…) just from the bar chart.
+Therefore, we cannot recover the total number of schools.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -1052,12 +1050,13 @@ aria-labelledby="heading7_3" data-bs-parent="#accordionExample">
 <code>mascots.get("colors").apply(len).sum()</code></p>
 <p>The sum of the bar heights counts each school <strong>once for every
 color it has</strong> (a school with <span class="math inline">3</span>
-colors contributes <span class="math inline">1</span> to each of <span class="math inline">3</span> bars, for a total of <span class="math inline">3</span>). So the total bar height equals the total
-number of (school, color) pairs across the dataset.</p>
+colors contributes <span class="math inline">1</span> to each of <span class="math inline">3</span> bars, for a total of <span class="math inline">3</span>). This means that the total bar height
+equals the total number of (school, color) pairs across the dataset.</p>
 <p>The <code>"colors"</code> column contains a list for each school, and
 the length of that list is the number of colors the school has. Applying
-<code>len</code> to each list and then summing gives exactly the total
-count of (school, color) pairs, which equals the sum of bar heights.</p>
+<code>len</code> to each list and then summing it all gives exactly the
+total count of (school, color) pairs, which equals the sum of bar
+heights.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
 <p>
@@ -1145,6 +1144,12 @@ find <span class="math inline">16</span> such pairs. Equivalently, for
 each <code>"max"</code> value in the table, count how many costumes have
 that value as their <code>"min"</code>, then sum those counts across all
 rows; the total is <span class="math inline">16</span>.</p>
+<p>Looking at <code>antm</code>, we can see there are <strong>4</strong>
+mascots that have a minimum height of <span class="math inline">66</span>, and <strong>2</strong> mascots with a
+maximum height of <span class="math inline">66</span>. Additionally,
+there are <strong>2</strong> with a minimum of <span class="math inline">71</span> and <strong>4</strong> with a maximum of
+<span class="math inline">71</span>. This gives us a total of <span class="math inline">4 \times 2 + 2 \times 4 = 16</span> single-height
+costume pairs.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -1187,10 +1192,10 @@ aria-labelledby="heading8_3" data-bs-parent="#accordionExample">
 <p><strong>Answer</strong>: <span class="math inline">7</span></p>
 <p>When we merge a DataFrame with itself on <code>"min"</code>, every
 row pairs up with every other row that shares the same
-<code>"min"</code> value (including itself). So if a particular
-<code>"min"</code> value appears <span class="math inline">n</span>
-times in <code>antm2</code>, it contributes <span class="math inline">n
-\times n = n^2</span> rows to the merged DataFrame.</p>
+<code>"min"</code> value (including itself). This means that if a
+particular <code>"min"</code> value appears <span class="math inline">n</span> times in <code>antm2</code>, it contributes
+<span class="math inline">n \times n = n^2</span> rows to the merged
+DataFrame.</p>
 <p>The total number of rows is therefore the <strong>sum of
 squares</strong> of the counts in the table:</p>
 <p><span class="math display">n_1^2 + n_2^2 + \dots + x^2 =
@@ -1201,9 +1206,8 @@ the known counts from the table, the squares of the visible values sum
 to <span class="math inline">12</span>, leaving:</p>
 <p><span class="math display">x^2 = 61 - 12 = 49 \implies x =
 7</span></p>
-<p>So <span class="math inline">7</span> mascots in <code>antm2</code>
-have a minimum height requirement of <span class="math inline">66</span>
-inches.</p>
+<p>Therefore, <span class="math inline">7</span> mascots in
+<code>antm2</code> have a minimum height requirement of <span class="math inline">66</span> inches.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
 <p>
