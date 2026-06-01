@@ -709,7 +709,7 @@ def format_md_paths(names):
     return paths
 
 def read_html_config(path):
-    f = open(path, 'r')
+    f = open(path, 'r', encoding="UTF-8")
     r = f.read()
     f.close()
     return r + '\n\n'
@@ -1298,7 +1298,7 @@ def process_problem(problem_str, problem_num, show_solution, lecture_html=""):
 
 def process_page(path, is_exam=True):
     '''Takes in a path to a YML file and returns a MD file with everything, along with the title of the page (which we access through params). Defaults to processing exams.'''
-    r_file = open(path, 'r')
+    r_file = open(path, 'r', encoding="UTF-8")
     r = r_file.read()
     r_file.close()
     params = yaml.safe_load(r)
@@ -1519,7 +1519,7 @@ if __name__ == '__main__':
             # These are all the files we would want to check for edits.
             listen_files = []
             for path in all_paths:
-                r_file = open(path, 'r')
+                r_file = open(path, 'r', encoding='UTF-8')
                 r = r_file.read()
                 r_file.close()
                 params = yaml.safe_load(r)
@@ -1549,7 +1549,7 @@ if __name__ == '__main__':
                                 # When a yml file is updated, update tracked problems
                                 if ".yml" in path:
                                     print(f"Updating tracked problems for {section[0]}")
-                                    r_file = open(path, 'r')
+                                    r_file = open(path, 'r', encoding='UTF-8')
                                     r = r_file.read()
                                     r_file.close()
                                     new_problems = yaml.safe_load(r).get("problems",[])
