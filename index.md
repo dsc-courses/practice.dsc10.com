@@ -109,7 +109,7 @@ We will later release solutions to the pretest. You are highly encouraged to che
 
 ### 📝 Exams
 
-Each exam linked here lists the conditions under which the exam was given, including the allotted amount of time and the resources allowed. For the best preparation, work through all the questions on an exam in order under these same conditions, writing down your answers on paper as you go, then check all your answers at the end. It is recommended that you prioritize the most recent exams first in your studying.
+Each exam linked here lists the conditions under which the exam was given, including the allotted amount of time and the resources allowed. For the best preparation, work through all the questions on an exam in order under these same conditions, writing down your answers on paper as you go, then check all your answers at the end. It is recommended that you prioritize exams written by your instructor, and that you work in reverse chronological order.
 
 <center>
 <table class="table" style="width:60%">
