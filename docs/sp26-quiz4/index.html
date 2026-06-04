@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Spring 2026 Quiz 4</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/theme.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Spring 2026 Quiz 4</h1>
+</header>
+<p><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<!-- add after bootstrap.min.css -->
+<link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css"/>
+<!-- add after bootstrap.min.js or bootstrap.bundle.min.js -->
+<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script></p>
+<!-- for difficulty gauges-->
+<script src="https://cdn.plot.ly/plotly-2.16.1.min.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B947E6J6H4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B947E6J6H4');
+</script>
+<p><a href="../index.html">← return to practice.dsc10.com</a></p>
+<hr />
+<p>This quiz was administered in-person. It was closed-book and
+closed-note; students <strong>were not</strong> allowed to use the DSC
+10 Reference Sheet. Students had <strong>20 minutes</strong> to work on
+the quiz.<br><br>This quiz covered Lectures 18-21 of the <a
+href="https://dsc-courses.github.io/dsc10-2026-sp">Spring 2026 offering
+of DSC 10</a>.</p>
+<hr />
+<p><strong>Note (groupby / pandas 2.0):</strong> Pandas 2.0+ no longer
+silently drops columns that can’t be aggregated after a
+<code>groupby</code>, so code written for older pandas may behave
+differently or raise errors. In these practice materials we use
+<code>.get()</code> to select the column(s) we want after
+<code>.groupby(...).mean()</code> (or other aggregations) so that our
+solutions run on current pandas. On real exams you will not be penalized
+for omitting <code>.get()</code> when the old behavior would have
+produced the same answer.</p>
+<hr />
+<p>Comic-Con is a massive pop culture and entertainment convention held
+each summer at the San Diego Convention Center. UC San Diego is
+capitalizing on its proximity to this major event and is offering Comic
+Con weekend accommodations in empty dorm rooms.</p>
+<p>UCSD housing coordinators Pranav and Ray each processed a random
+sample of 25 Comic Con housing reservations. The <code>res</code>
+DataFrame has 50 rows, each of which represents a reservation processed
+by Pranav or Ray. Below are column descriptions and a preview of the
+first few rows of the DataFrame.</p>
+<ul>
+<li><code>"coordinator"</code> (<code>str</code>): either
+<code>"Pranav"</code> or <code>"Ray"</code></li>
+<li><code>"package"</code> (<code>str</code>): either
+<code>"early_bird"</code> or <code>"standard"</code></li>
+<li><code>"dates"</code> (<code>str</code>): either
+<code>"Jul22-26"</code> or <code>"Jul23-27"</code></li>
+<li><code>"price"</code> (<code>float</code>): <code>760.50</code> for
+<code>"early_bird"</code> and <code>845.00</code> for
+<code>"standard"</code></li>
+</ul>
+<center><img src="https://raw.githubusercontent.com/dsc-courses/practice.dsc10.com/refs/heads/master/assets/images/sp26-quizzes/res.png" width=400></center>
+<hr />
+<h2 id="problem-1">Problem 1</h2>
+<p><br></p>
+<h3 id="problem-1.1">Problem 1.1</h3>
+<p>::: tabular @p0.5@p0.4@ The number of reservations for each of the
+<code>"dates"</code> processed by each coordinator are given in the
+table to the right. &amp;</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th style="text-align: center;"><code>"Pranav"</code></th>
+<th style="text-align: center;"><code>"Ray"</code></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>"Jul22-26"</code></td>
+<td style="text-align: center;">20</td>
+<td style="text-align: center;">18</td>
+</tr>
+<tr class="even">
+<td><code>"Jul23-27"</code></td>
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">7</td>
+</tr>
+</tbody>
+</table>
+<p><br />
+</p>
+<p>Compute the total variation distance (TVD) between Pranav’s
+distribution of <code>"dates"</code> and Ray’s distribution of
+<code>"dates"</code>. Give your answer as an <strong>exact decimal or
+simplified fraction</strong>.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading1_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1_1" aria-expanded="true" aria-controls="collapse1_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse1_1" class="accordion-collapse collapse"
+aria-labelledby="heading1_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: <span class="math inline">0.08</span></p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 37%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<p><br></p>
+<h3 id="problem-1.2">Problem 1.2</h3>
+<div class="tabular">
+<p>@p0.5@p0.4@ The table to the right shows how many reservations of
+each <code>"package"</code> type were processed by each coordinator.
+&amp;</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th style="text-align: center;"><code>"Pranav"</code></th>
+<th style="text-align: center;"><code>"Ray"</code></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>"early_bird"</code></td>
+<td style="text-align: center;"><code>p</code></td>
+<td style="text-align: center;"><code>r</code></td>
+</tr>
+<tr class="even">
+<td><code>"standard"</code></td>
+<td style="text-align: center;"><code>25 - p</code></td>
+<td style="text-align: center;"><code>25 - r</code></td>
+</tr>
+</tbody>
+</table>
+<p><br />
+</p>
+</div>
+<p>Which of the following expressions correctly computes the TVD between
+Pranav’s distribution of <code>"package"</code> type and Ray’s
+distribution of <code>"package"</code> type?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>(p - r) / 25</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>abs(p - r) / 25</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>0.5 * abs(p - r) / 25</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>0.5 * sum(abs(p / 25 - r / 25))</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>0.5 * (abs(p - r) + abs((25 - p) - (25 - r)))</code></p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading1_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1_2" aria-expanded="true" aria-controls="collapse1_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse1_2" class="accordion-collapse collapse"
+aria-labelledby="heading1_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: Option B</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 14%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-2">Problem 2</h2>
+<p>Pranav is doing a hypothesis test with the following null hypothesis:
+in the population of reservations, each reservation has a <span
+class="math inline">30\%</span> chance of being
+<code>"early_bird"</code>. His test statistic is the
+<strong>percentage</strong> of <code>"early_bird"</code> reservations,
+and his observed data is <strong>all</strong> of the data in
+<code>res</code>. Write one line of code to calculate one simulated
+value of the test statistic under the assumptions of the null. Your code
+should produce an <strong>integer between 0 and 100</strong>.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="true" aria-controls="collapse2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse2" class="accordion-collapse collapse"
+aria-labelledby="heading2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>:
+<code>np.random.multinomial(50, [0.3, 0.7])[0] / 50 * 100</code></p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 45%.</p>
+</div>
+</div>
+</div>
+</div>
+<hr />
+<h2 id="problem-3">Problem 3</h2>
+<p>The housing director, Ella, wants to know whether Ray’s reservations
+have significantly higher prices than Pranav’s. Ella has access to
+<code>res</code> but no knowledge of the population distribution of
+reservation prices.</p>
+<p><br></p>
+<h3 id="problem-3.1">Problem 3.1</h3>
+<p>Which pair of hypotheses should be used for Ella’s test? Select the
+best answer.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Null: The mean price for Ray equals the mean price for Pranav. Alt:
+The mean price for Ray does not equal the mean price for Pranav.</p></li>
+<li><p><input type="radio" disabled="" /> Null: Ray’s prices come from a population with mean $802.75. Alt:
+Ray’s prices come from a population with mean larger than $802.75.</p></li>
+<li><p><input type="radio" disabled="" /> Null: Pranav and Ray’s reservations come from the same price
+distribution. Alt: Ray’s reservations come from a price distribution
+with a larger mean than Pranav’s.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading3_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_1" aria-expanded="true" aria-controls="collapse3_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse3_1" class="accordion-collapse collapse"
+aria-labelledby="heading3_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: Option 3</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 84%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-3.2">Problem 3.2</h3>
+<p>Which of the following approaches are appropriate for Ella’s goal?
+Select all that apply.</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> Run a permutation test by shuffling coordinator labels and using the
+difference in mean prices as the test statistic.</p></li>
+<li><p><input type="checkbox" disabled="" /> Run a permutation test by shuffling prices and using the absolute
+difference in mean prices as the test statistic.</p></li>
+<li><p><input type="checkbox" disabled="" /> Bootstrap a 95% confidence interval for the difference in mean
+prices, then check whether 0 is in the interval.</p></li>
+<li><p><input type="checkbox" disabled="" /> Run a standard hypothesis test to see whether Ray’s sample mean looks
+like the mean of a simple random sample taken from <code>res</code>, or
+whether it is too high.</p></li>
+<li><p><input type="checkbox" disabled="" /> None of the above.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading3_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_2" aria-expanded="true" aria-controls="collapse3_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse3_2" class="accordion-collapse collapse"
+aria-labelledby="heading3_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: Options 1 and 4.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 54%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-3.3">Problem 3.3</h3>
+<p>Suppose Ella performs a test where the test statistic is Pranav’s
+mean price minus Ray’s mean price. The observed value of the test
+statistic is <span class="math inline">-50.7</span>. Which simulated
+statistics should be counted when computing the p-value?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Simulated statistics greater than or equal to <span class="math inline">-50.7</span>.</p></li>
+<li><p><input type="radio" disabled="" /> Simulated statistics less than or equal to <span class="math inline">-50.7</span>.</p></li>
+<li><p><input type="radio" disabled="" /> Simulated statistics whose absolute value is greater than or equal to
+<span class="math inline">50.7</span>.</p></li>
+<li><p><input type="radio" disabled="" /> Simulated statistics whose absolute value is less than or equal to
+<span class="math inline">50.7</span>.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading3_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_3" aria-expanded="true" aria-controls="collapse3_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse3_3" class="accordion-collapse collapse"
+aria-labelledby="heading3_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: Option 2</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 59%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="section"><span class="math display"> </span></h2>
+<h4
+id="feedback-find-an-error-still-confused-have-a-suggestion-let-us-know-here.">👋
+Feedback: Find an error? Still confused? Have a suggestion?
+<a href="https://forms.gle/WZ71FchnXU1K154d7">Let us know
+here</u></a>.</h4>
+<hr />
+</body>
+</html>

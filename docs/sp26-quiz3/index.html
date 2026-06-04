@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Spring 2026 Quiz 3</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/theme.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Spring 2026 Quiz 3</h1>
+</header>
+<p><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<!-- add after bootstrap.min.css -->
+<link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css"/>
+<!-- add after bootstrap.min.js or bootstrap.bundle.min.js -->
+<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script></p>
+<!-- for difficulty gauges-->
+<script src="https://cdn.plot.ly/plotly-2.16.1.min.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B947E6J6H4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B947E6J6H4');
+</script>
+<p><a href="../index.html">← return to practice.dsc10.com</a></p>
+<hr />
+<p>This quiz was administered in-person. It was closed-book and
+closed-note; students <strong>were not</strong> allowed to use the DSC
+10 Reference Sheet. Students had <strong>20 minutes</strong> to work on
+the quiz.<br><br>This quiz covered Lectures 13-18 of the <a
+href="https://dsc-courses.github.io/dsc10-2026-sp">Spring 2026 offering
+of DSC 10</a>.</p>
+<hr />
+<p><strong>Note (groupby / pandas 2.0):</strong> Pandas 2.0+ no longer
+silently drops columns that can’t be aggregated after a
+<code>groupby</code>, so code written for older pandas may behave
+differently or raise errors. In these practice materials we use
+<code>.get()</code> to select the column(s) we want after
+<code>.groupby(...).mean()</code> (or other aggregations) so that our
+solutions run on current pandas. On real exams you will not be penalized
+for omitting <code>.get()</code> when the old behavior would have
+produced the same answer.</p>
+<hr />
+<p>Regal jumping spiders (<em>Phidippus regius</em>) are gaining
+popularity as pets, and are known for their ability to jump many times
+more than their body length. Sofia’s sister has a pet jumping spider
+named Elise, whose jumps we will study in this quiz.</p>
+<p>The <code>elise</code> DataFrame contains 400 rows (i.e. recorded
+jumps) and has the following columns:</p>
+<ul>
+<li><code>"distance"</code> (<code>int</code>): the horizontal distance,
+in millimeters, of Elise’s jump</li>
+<li><code>"time"</code> (<code>str</code>): the time of day during which
+the jump occurred—either <code>"morning"</code>,
+<code>"afternoon"</code>, or <code>"night"</code></li>
+<li><code>"humidity"</code> (<code>int</code>): the percent humidity of
+Elise’s enclosure, at the time of the jump</li>
+</ul>
+<center><img src="https://raw.githubusercontent.com/dsc-courses/practice.dsc10.com/refs/heads/master/assets/images/sp26-quizzes/elise.png" width=400></center>
+<hr />
+<h2 id="problem-1">Problem 1</h2>
+<p>Jumping spiders prefer humidity to be between <span
+class="math inline">50</span> and <span class="math inline">70</span>
+percent. Suppose the <code>"humidity"</code> column has mean 60, and the
+range <span class="math inline">[48, 72]</span> is the smallest range
+guaranteed to contain at least <span class="math inline">75\%</span> of
+the values in <code>"humidity"</code>. What is the standard deviation of
+<code>"humidity"</code>?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse1" class="accordion-collapse collapse"
+aria-labelledby="heading1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: <span class="math inline">6</span></p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 55%.</p>
+</div>
+</div>
+</div>
+</div>
+<hr />
+<h2 id="problem-2">Problem 2</h2>
+<p><br></p>
+<h3 id="problem-2.1">Problem 2.1</h3>
+<p>Elise tends to be most active during the afternoon. Fill in the
+blanks below to produce 10,000 bootstrapped estimates of Elise’s mean
+jumping distance during the afternoon. Store these estimates in the
+array <code>aft_means</code>.</p>
+<pre><code>aft = elise[__(a)__]
+aft_means = np.array([])
+
+for i in np.arange(10000):
+    resample = __(b)__
+    estimate = resample.get(&quot;distance&quot;).mean()
+    aft_means = __(c)__</code></pre>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading2_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2_1" aria-expanded="true" aria-controls="collapse2_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse2_1" class="accordion-collapse collapse"
+aria-labelledby="heading2_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><code>(a)</code>: <code>elise.get("time") == "afternoon"</code></p>
+<p><code>(b)</code>:
+<code>aft.sample(aft.shape[0], replace=True)</code></p>
+<p><code>(c)</code>: <code>np.append(aft_means, estimate)</code></p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 75%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-2.2">Problem 2.2</h3>
+<p>Write code to compute the endpoints of a <span
+class="math inline">70\%</span> bootstrapped confidence interval for
+Elise’s mean afternoon jumping distance, using the values in
+<code>aft_means</code>.</p>
+<pre><code>left = __(d)__
+right = __(e)__</code></pre>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading2_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2_2" aria-expanded="true" aria-controls="collapse2_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse2_2" class="accordion-collapse collapse"
+aria-labelledby="heading2_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><code>(d)</code>: <code>np.percentile(aft_means, 15)</code></p>
+<p><code>(e)</code>: <code>np.percentile(aft_means, 85)</code></p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 81%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-3">Problem 3</h2>
+<p>A jump is considered a long jump if it is at least 100 millimeters in
+length. Sofia creates a new DataFrame called <code>long</code>,
+containing only the rows in <code>elise</code> that correspond to long
+jumps. Suppose the distribution of the <code>"distance"</code> column in
+<code>long</code> is approximately normal, with mean 144 and variance
+36.</p>
+<p><br></p>
+<h3 id="problem-3.1">Problem 3.1</h3>
+<p>Fill in the blank to add a new column to <code>long</code> called
+<code>"distance_su"</code>, containing the same information as the
+<code>"distance"</code> column but converted to standard units.</p>
+<pre><code>standard_units = __(a)__
+long = long.assign(distance_su = standard_units)</code></pre>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading3_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_1" aria-expanded="true" aria-controls="collapse3_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse3_1" class="accordion-collapse collapse"
+aria-labelledby="heading3_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><code>(a)</code>: <code>(long.get("distance") - 144)/6</code></p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 51%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-3.2">Problem 3.2</h3>
+<p>Is <code>"distance_su"</code> approximately normally distributed?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Yes</p></li>
+<li><p><input type="radio" disabled="" /> No</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading3_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_2" aria-expanded="true" aria-controls="collapse3_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse3_2" class="accordion-collapse collapse"
+aria-labelledby="heading3_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: Yes</p>
+<hr/>
+<h5>Difficulty: ⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 91%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-3.3">Problem 3.3</h3>
+<p>Assume we have run <code>from scipy import stats</code>. Using
+<code>stats.norm.cdf</code>, write a Python expression that evaluates to
+the approximate proportion of distances in <code>long</code> that are at
+least 140 millimeters.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading3_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_3" aria-expanded="true" aria-controls="collapse3_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse3_3" class="accordion-collapse collapse"
+aria-labelledby="heading3_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: <code>1 - stats.norm.cdf(-2/3)</code></p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 36%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-3.4">Problem 3.4</h3>
+<p>The data in <code>long</code> can be thought of a sample from the
+population of all long jumps that Elise takes. Suppose we use the data
+in <code>long</code> to create a 95% CLT-based confidence interval for
+the mean distance of all long jumps by Elise (a population parameter).
+The resulting interval is wider than we’d like, so we decide to collect
+a new sample that is just large enough to guarantee that the width of
+the resulting 95% confidence interval is no more than <span
+class="math inline">\frac32</span>, assuming the new sample has the same
+standard deviation as the original. How large of a sample should we
+take? Give your answer as an integer.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading3_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_4" aria-expanded="true" aria-controls="collapse3_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse3_4" class="accordion-collapse collapse"
+aria-labelledby="heading3_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer</strong>: <span class="math inline">256</span></p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 45%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="section"><span class="math display"> </span></h2>
+<h4
+id="feedback-find-an-error-still-confused-have-a-suggestion-let-us-know-here.">👋
+Feedback: Find an error? Still confused? Have a suggestion?
+<a href="https://forms.gle/WZ71FchnXU1K154d7">Let us know
+here</u></a>.</h4>
+<hr />
+</body>
+</html>
