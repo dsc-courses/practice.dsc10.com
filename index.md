@@ -28,7 +28,7 @@ Write your solutions on paper or a tablet, show your work, then submit to Grades
 The pretest will be graded based on honest effort, not on the correctness of your responses. You will earn participation credit for completing the pretest to the best of your ability.<br><br>
 We will later release solutions to the pretest. You are highly encouraged to check how you did and learn from the solutions.
 
----
+<!-- ---
 
 ### 💯 Discussions for Spring 2026
 
@@ -97,13 +97,9 @@ We will later release solutions to the pretest. You are highly encouraged to che
       <td>Monday, June 1st</td>
       <td><a href="disc10/index.html">Regression</a></td>
     </tr>
-    <!-- <tr> 
- -->
-<!--     
--->
   </tbody>
 </table>
-</center>
+</center> -->
 
 ---
 
