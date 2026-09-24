@@ -369,10 +369,16 @@ We've provided answers to all quiz questions, but you won't find detailed explan
         <a href='sp26-quiz1/index.html'>Quiz 1</a>
         <br>
         <a href='sp26-quiz2/index.html'>Quiz 2</a>
+        <br>
+        <a href='sp26-quiz3/index.html'>Quiz 3</a>
+        <br>
+        <a href='sp26-quiz4/index.html'>Quiz 4</a>
       </td>
       <td>
         World Cup<br>
-        Clash Royale
+        Clash Royale<br>
+        Jumping spiders<br>
+        Comic Con
       </td>
     </tr>
     <tr>
