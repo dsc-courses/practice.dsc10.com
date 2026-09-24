@@ -28,9 +28,9 @@ Write your solutions on paper or a tablet, show your work, then submit to Grades
 The pretest will be graded based on honest effort, not on the correctness of your responses. You will earn participation credit for completing the pretest to the best of your ability.<br><br>
 We will later release solutions to the pretest. You are highly encouraged to check how you did and learn from the solutions.
 
-<!-- ---
+---
 
-### 💯 Discussions for Spring 2026
+### 💯 Discussions for Fall 2026
 
 <center>
 <table class="table" style="width:60%">
@@ -49,10 +49,10 @@ We will later release solutions to the pretest. You are highly encouraged to che
   <tbody>
     <tr>
       <th scope="row">1</th>
-      <td>Monday, March 30th</td>
+      <td>Monday, September 28th</td>
       <td><a href="disc01/index.html">Getting Started With Jupyter Notebooks</a></td>
     </tr>
-    <tr>
+    <!--<tr>
       <th scope="row">2</th>
       <td>Monday, April 6th</td>
       <td><a href="disc02/index.html">Arrays and DataFrames</a></td>
@@ -96,10 +96,10 @@ We will later release solutions to the pretest. You are highly encouraged to che
       <th scope="row">10</th>
       <td>Monday, June 1st</td>
       <td><a href="disc10/index.html">Regression</a></td>
-    </tr>
+    </tr>-->
   </tbody>
 </table>
-</center> -->
+</center> 
 
 ---
 
