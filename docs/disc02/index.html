@@ -1,30 +1,17 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>Discussion 2: Arrays and DataFrames</title>
   <style>
-    /* Default styles provided by pandoc.
-    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
-    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-    /* The extra [class] is a hack that increases specificity enough to
-       override a similar rule in reveal.js */
-    ul.task-list[class]{list-style: none;}
-    ul.task-list li input[type="checkbox"] {
-      font-size: inherit;
-      width: 0.8em;
-      margin: 0 0.8em 0.2em -1.6em;
-      vertical-align: middle;
-    }
-    /* CSS for syntax highlighting */
-    html { -webkit-text-size-adjust: 100%; }
+    ul.task-list{list-style: none;}
     pre > code.sourceCode { white-space: pre; position: relative; }
     pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -63,7 +50,7 @@
     code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
     code span.at { color: #7d9029; } /* Attribute */
     code span.bn { color: #40a070; } /* BaseN */
-    code span.bu { color: #008000; } /* BuiltIn */
+    code span.bu { } /* BuiltIn */
     code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
     code span.ch { color: #4070a0; } /* Char */
     code span.cn { color: #880000; } /* Constant */
@@ -76,7 +63,7 @@
     code span.ex { } /* Extension */
     code span.fl { color: #40a070; } /* Float */
     code span.fu { color: #06287e; } /* Function */
-    code span.im { color: #008000; font-weight: bold; } /* Import */
+    code span.im { } /* Import */
     code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
     code span.kw { color: #007020; font-weight: bold; } /* Keyword */
     code span.op { color: #666666; } /* Operator */
@@ -90,35 +77,31 @@
     code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="../assets/theme.css" />
-  <script defer=""
-  src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
- var mathElements = document.getElementsByClassName("math");
- var macros = [];
- for (var i = 0; i < mathElements.length; i++) {
-  var texText = mathElements[i].firstChild;
-  if (mathElements[i].tagName == "SPAN") {
-   katex.render(texText.data, mathElements[i], {
-    displayMode: mathElements[i].classList.contains('display'),
-    throwOnError: false,
-    macros: macros,
-    fleqn: false
-   });
-}}});
+   var mathElements = document.getElementsByClassName("math");
+   var macros = [];
+   for (var i = 0; i < mathElements.length; i++) {
+    var texText = mathElements[i].firstChild;
+    if (mathElements[i].tagName == "SPAN") {
+     katex.render(texText.data, mathElements[i], {
+      displayMode: mathElements[i].classList.contains('display'),
+      throwOnError: false,
+      macros: macros,
+      fleqn: false
+     });
+  }}});
   </script>
-  <link rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
 </head>
 <body>
 <header id="title-block-header">
 <h1 class="title">Discussion 2: Arrays and DataFrames</h1>
 </header>
-<p><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-<!-- add after bootstrap.min.css -->
-<link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css"/>
-<!-- add after bootstrap.min.js or bootstrap.bundle.min.js -->
-<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script></p>
+<p><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> <!-- add after bootstrap.min.css --> <link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css"/> <!-- add after bootstrap.min.js or bootstrap.bundle.min.js --> <script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script></p>
 <!-- for difficulty gauges-->
 <script src="https://cdn.plot.ly/plotly-2.16.1.min.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -132,19 +115,10 @@
 </script>
 <p><a href="../index.html">← return to practice.dsc10.com</a></p>
 <hr />
-<p>These problems are taken from past quizzes and exams. Work on them
-<strong>on paper</strong>, since the quizzes and exams you take in this
-course will also be on paper. <br><br>We encourage you to complete these
-problems during discussion section. Solutions will be made available
-after all discussion sections have concluded. You don’t need to submit
-your answers anywhere.<br><br><b>Note: We do not plan to cover all of
-these problems during the discussion section</b>; the problems we don’t
-cover can be used for extra practice.</p>
+<p>These problems are taken from past quizzes and exams. Work on them <strong>on paper</strong>, since the quizzes and exams you take in this course will also be on paper. <br><br>You will be working on these problems during your discussion section in <strong>groups of 2-4</strong>. Groupwork must be submitted on Gradescope for participation credit (<strong>due Tuesday at 11:59pm</strong>), in addition to in-person attendance. Solutions will be made available after all discussion sections have concluded.<br><br><b>Note: We do not plan to cover all of these problems during the discussion section</b>; the problems we don’t cover can be used for extra practice.</p>
 <hr />
 <h2 id="problem-1">Problem 1</h2>
-<p><code>prices</code> is an array of prices, in dollars, of different
-products at the grocery store. Similarly, <code>calories</code> is an
-array of the calories in these same products, in the same order.</p>
+<p><code>prices</code> is an array of prices, in dollars, of different products at the grocery store. Similarly, <code>calories</code> is an array of the calories in these same products, in the same order.</p>
 <p><br></p>
 <h3 id="problem-1.1">Problem 1.1</h3>
 <p>What does <code>type(prices[0])</code> evaluate to?</p>
@@ -165,20 +139,15 @@ array of the calories in these same products, in the same order.</p>
 </ul>
 <p><br></p>
 <h3 id="problem-1.3">Problem 1.3</h3>
-<p>When we divide two arrays of the same length, their corresponding
-elements get divided, and the result is a new array of the same length
-as the two originals. In one sentence, interpret the meaning of
-<code>min(prices / calories)</code>.</p>
+<p>When we divide two arrays of the same length, their corresponding elements get divided, and the result is a new array of the same length as the two originals. In one sentence, interpret the meaning of <code>min(prices / calories)</code>.</p>
 <p><br></p>
 <h3 id="problem-1.4">Problem 1.4</h3>
-<p>True or False: <code>min(prices / calories)</code> is the same as
-<code>max(calories / prices)</code>.</p>
+<p>True or False: <code>min(prices / calories)</code> is the same as <code>max(calories / prices)</code>.</p>
 <p><br></p>
 <hr />
 <h2 id="problem-2">Problem 2</h2>
-<div class="meta">
-<p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
-3</span></div></p>
+<div class='meta'>
+<p><span class="pill pill-lecture" title="Lecture number(s)">Lecture 3</span></div></p>
 <p>Consider the following four assignment statements.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>bass <span class="op">=</span> <span class="st">&quot;5&quot;</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>tuna <span class="op">=</span> <span class="dv">2</span></span>
@@ -199,8 +168,7 @@ as the two originals. In one sentence, interpret the meaning of
 </ul>
 <p><br></p>
 <h3 id="problem-2.3">Problem 2.3</h3>
-<p>Which of the following expressions evaluates to
-<code>"DSC10"</code>?</p>
+<p>Which of the following expressions evaluates to <code>"DSC10"</code>?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> <code>gold[3].replace("o", "s").title() + str(gold[0] + gold[1])</code></p></li>
 <li><p><input type="radio" disabled="" /> <code>gold[3].replace("o", "s").upper() + str(gold[0] + int(gold[1]))</code></p></li>
@@ -210,35 +178,26 @@ as the two originals. In one sentence, interpret the meaning of
 <p><br></p>
 <hr />
 <h2 id="problem-3">Problem 3</h2>
-<p>Evaluate the expression
-<code>(np.arange(1, 7, 2.5) * np.arange(8, 2, -2))[2]</code> .</p>
+<p>Evaluate the expression <code>(np.arange(1, 7, 2.5) * np.arange(8, 2, -2))[2]</code> .</p>
 <hr />
 <h2 id="problem-4">Problem 4</h2>
-<div class="meta">
-<p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
-3</span></div></p>
-<p>Suppose <code>x</code> and <code>y</code> are both <code>int</code>s
-that have been previously defined, with <code>x &lt; y</code>. Now,
-define:</p>
+<div class='meta'>
+<p><span class="pill pill-lecture" title="Lecture number(s)">Lecture 3</span></div></p>
+<p>Suppose <code>x</code> and <code>y</code> are both <code>int</code>s that have been previously defined, with <code>x &lt; y</code>. Now, define:</p>
 <pre><code>peach = np.arange(x, y, 2)</code></pre>
-<p>Say that the <em>spread</em> of <code>peach</code> is the difference
-between the largest and smallest values in <code>peach</code>. The
-spread should be a non-negative integer.</p>
+<p>Say that the <em>spread</em> of <code>peach</code> is the difference between the largest and smallest values in <code>peach</code>. The spread should be a non-negative integer.</p>
 <p><br></p>
 <h3 id="problem-4.1">Problem 4.1</h3>
-<p><strong>Using array methods</strong>, write an expression that
-evaluates to the spread of <code>peach</code>.</p>
+<p><strong>Using array methods</strong>, write an expression that evaluates to the spread of <code>peach</code>.</p>
 <p><br></p>
 <h3 id="problem-4.2">Problem 4.2</h3>
-<p><strong>Without using any methods or functions</strong>, write an
-expression that evaluates to the spread of <code>peach</code>.<br />
+<p><strong>Without using any methods or functions</strong>, write an expression that evaluates to the spread of <code>peach</code>.<br />
 <em>Hint:</em> Use <code>[ ]</code>.</p>
 <p><br></p>
 <h3 id="problem-4.3">Problem 4.3</h3>
 <p>Choose the correct way to fill in the blank in this sentence:</p>
 <div class="center">
-<p><em>The spread of</em> <code>peach</code> <em>is</em> ______ <em>the
-value of</em> <code>y - x</code>.</p>
+<p><em>The spread of</em> <code>peach</code> <em>is</em> ______ <em>the value of</em> <code>y - x</code>.</p>
 </div>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> always less than</p></li>
@@ -250,53 +209,36 @@ value of</em> <code>y - x</code>.</p>
 <p><br></p>
 <hr />
 <h2 id="problem-5">Problem 5</h2>
-<div class="meta">
-<p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
-3</span></div></p>
+<div class='meta'>
+<p><span class="pill pill-lecture" title="Lecture number(s)">Lecture 3</span></div></p>
 <p>Consider the following assignment statement.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>puffin <span class="op">=</span> np.array([<span class="dv">5</span>, <span class="dv">9</span>, <span class="dv">13</span>, <span class="dv">17</span>, <span class="dv">21</span>])</span></code></pre></div>
 <p><br></p>
 <h3 id="problem-5.1">Problem 5.1</h3>
-<p>Provide arguments to call <code>np.arange</code> with so that the
-array <code>penguin</code> is identical to the array
-<code>puffin</code>.</p>
+<p>Provide arguments to call <code>np.arange</code> with so that the array <code>penguin</code> is identical to the array <code>puffin</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>penguin <span class="op">=</span> np.arange(____)</span></code></pre></div>
 <p><br></p>
 <h3 id="problem-5.2">Problem 5.2</h3>
-<p>Fill in the blanks so that the array <code>parrot</code> is also
-identical to the array <code>puffin</code>.<br />
-<em>Hint: Start by choosing</em> <code>y</code> <em>so that</em>
-<code>parrot</code> <em>has length 5.</em></p>
+<p>Fill in the blanks so that the array <code>parrot</code> is also identical to the array <code>puffin</code>.<br />
+<em>Hint: Start by choosing</em> <code>y</code> <em>so that</em> <code>parrot</code> <em>has length 5.</em></p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>parrot <span class="op">=</span> __(x)__ <span class="op">*</span> np.arange(<span class="dv">0</span>, __(y)__, <span class="dv">2</span>) <span class="op">+</span> __(z)__</span></code></pre></div>
 <p><br></p>
 <hr />
 <h2 id="problem-6">Problem 6</h2>
-<div class="meta">
-<p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
-5</span></div> For the problems that follow, we will work with a dataset
-consisting of various skyscrapers in the US, which we’ve loaded into a
-DataFrame called <code>sky</code>. The first few rows of
-<code>sky</code> are shown below (though the full DataFrame has more
-rows):</p>
+<div class='meta'>
+<p><span class="pill pill-lecture" title="Lecture number(s)">Lecture 5</span></div> For the problems that follow, we will work with a dataset consisting of various skyscrapers in the US, which we’ve loaded into a DataFrame called <code>sky</code>. The first few rows of <code>sky</code> are shown below (though the full DataFrame has more rows):</p>
 <center><img src='../assets/images/wi22-midterm/sky.png' width=60%></center>
 <p>&nbsp;</p>
-<p>Each row of <code>sky</code> corresponds to a single skyscraper. For
-each skyscraper, we have:</p>
+<p>Each row of <code>sky</code> corresponds to a single skyscraper. For each skyscraper, we have:</p>
 <ul>
-<li><p>its name, which is stored in the index of <code>sky</code>
-(string)</p></li>
+<li><p>its name, which is stored in the index of <code>sky</code> (string)</p></li>
 <li><p>the <code>'material'</code> it is made up of (string)</p></li>
-<li><p>the <code>'city'</code> in the US where it is located
-(string)</p></li>
-<li><p>the number of <code>'floors'</code> (levels) it contains
-(int)</p></li>
+<li><p>the <code>'city'</code> in the US where it is located (string)</p></li>
+<li><p>the number of <code>'floors'</code> (levels) it contains (int)</p></li>
 <li><p>its <code>'height'</code> in meters (float), and</p></li>
-<li><p>the <code>'year'</code> in which it was opened (int)
-<br><br></p></li>
+<li><p>the <code>'year'</code> in which it was opened (int) <br><br></p></li>
 </ul>
-<p>Below, identify the data type of the result of each of the following
-expressions, or select “error” if you believe the expression results in
-an error.</p>
+<p>Below, identify the data type of the result of each of the following expressions, or select “error” if you believe the expression results in an error.</p>
 <p><br></p>
 <h3 id="problem-6.1">Problem 6.1</h3>
 <div class="sourceCode" id="cb6"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>sky.sort_values(<span class="st">&#39;height&#39;</span>)</span></code></pre></div>
@@ -347,8 +289,7 @@ an error.</p>
 </ul>
 <p><br></p>
 <h3 id="problem-6.5">Problem 6.5</h3>
-<div class="sourceCode" id="cb10"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>sky.index[<span class="dv">0</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>sky.index[<span class="dv">0</span>]</span></code></pre></div>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> int or float</p></li>
 <li><p><input type="radio" disabled="" /> Boolean</p></li>
@@ -363,33 +304,24 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href=
 <h2 id="problem-7">Problem 7</h2>
 <p><br></p>
 <h3 id="problem-7.1">Problem 7.1</h3>
-<p>Write a single line of code that evaluates to the name of the tallest
-skyscraper in the <code>sky</code> DataFrame.</p>
+<p>Write a single line of code that evaluates to the name of the tallest skyscraper in the <code>sky</code> DataFrame.</p>
 <p><br></p>
 <h3 id="problem-7.2">Problem 7.2</h3>
-<p>Write a single line of code that evaluates to the average number of
-floors across all skyscrapers in the DataFrame.</p>
+<p>Write a single line of code that evaluates to the average number of floors across all skyscrapers in the DataFrame.</p>
 <p><br></p>
 <hr />
 <h2 id="problem-8">Problem 8</h2>
-<div class="meta">
-<p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
-4</span></div></p>
-<p>Suppose <code>students</code> is a DataFrame of all students who took
-DSC 10 last quarter. <code>students</code> has one row per student,
-where:</p>
+<div class='meta'>
+<p><span class="pill pill-lecture" title="Lecture number(s)">Lecture 4</span></div></p>
+<p>Suppose <code>students</code> is a DataFrame of all students who took DSC 10 last quarter. <code>students</code> has one row per student, where:</p>
 <ul>
-<li><p>The index contains students’ PIDs as strings starting with
-<code>"A"</code>.</p></li>
-<li><p>The <code>"Overall"</code> column contains students’ overall
-percentage grades as floats.</p></li>
-<li><p>The <code>"Animal"</code> column contains students’ favorite
-animals as strings.</p></li>
+<li><p>The index contains students’ PIDs as strings starting with <code>"A"</code>.</p></li>
+<li><p>The <code>"Overall"</code> column contains students’ overall percentage grades as floats.</p></li>
+<li><p>The <code>"Animal"</code> column contains students’ favorite animals as strings.</p></li>
 </ul>
 <p><br></p>
 <h3 id="problem-8.1">Problem 8.1</h3>
-<p>What type is <code>students.get("Overall")</code>? If this expression
-errors, select “this errors."</p>
+<p>What type is <code>students.get("Overall")</code>? If this expression errors, select "this errors."</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> float</p></li>
 <li><p><input type="radio" disabled="" /> string</p></li>
@@ -399,8 +331,7 @@ errors, select “this errors."</p>
 </ul>
 <p><br></p>
 <h3 id="problem-8.2">Problem 8.2</h3>
-<p>What type is <code>students.get("PID")</code>? If this expression
-errors, select “this errors."</p>
+<p>What type is <code>students.get("PID")</code>? If this expression errors, select "this errors."</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> float</p></li>
 <li><p><input type="radio" disabled="" /> string</p></li>
@@ -409,23 +340,15 @@ errors, select “this errors."</p>
 <li><p><input type="radio" disabled="" /> this errors</p></li>
 </ul>
 <p><br></p>
-<p>Vanessa is one student who took DSC 10 last quarter. Her PID is
-A12345678, she earned the sixth-highest overall percentage grade in the
-class, and her favorite animal is the giraffe.</p>
+<p>Vanessa is one student who took DSC 10 last quarter. Her PID is A12345678, she earned the sixth-highest overall percentage grade in the class, and her favorite animal is the giraffe.</p>
 <p><br></p>
 <h3 id="problem-8.3">Problem 8.3</h3>
-<p>Supposing that <code>students</code> is already sorted by
-<code>"Overall"</code> in <strong>descending</strong> order, fill in the
-blanks so that <code>animal_one</code> and <code>animal_two</code>
-<strong>both</strong> evaluate to <code>"giraffe"</code>.</p>
-<div class="sourceCode" id="cb11"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>animal_one <span class="op">=</span> students.get(__(x)__).loc[__(y)__]</span>
+<p>Supposing that <code>students</code> is already sorted by <code>"Overall"</code> in <strong>descending</strong> order, fill in the blanks so that <code>animal_one</code> and <code>animal_two</code> <strong>both</strong> evaluate to <code>"giraffe"</code>.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>animal_one <span class="op">=</span> students.get(__(x)__).loc[__(y)__]</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>animal_two <span class="op">=</span> students.get(__(x)__).iloc[__(z)__]</span></code></pre></div>
 <p><br></p>
 <h3 id="problem-8.4">Problem 8.4</h3>
-<p>If <code>students</code> wasn’t already sorted by
-<code>"Overall"</code> in descending order, which of your answers would
-need to change?</p>
+<p>If <code>students</code> wasn’t already sorted by <code>"Overall"</code> in descending order, which of your answers would need to change?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> Neither <code>y</code> nor <code>z</code> would need to change</p></li>
 <li><p><input type="radio" disabled="" /> Both <code>y</code> and <code>z</code> would need to change</p></li>
@@ -435,37 +358,32 @@ need to change?</p>
 <p><br></p>
 <hr />
 <h2 id="problem-9">Problem 9</h2>
-<div class="meta">
-<p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
-4</span></div></p>
-<p>You are given a DataFrame called <code>sports</code>, indexed by
-<code>'Sport'</code> containing one column,
-<code>'PlayersPerTeam'</code>. The first few rows of the DataFrame are
-shown below:</p>
+<div class='meta'>
+<p><span class="pill pill-lecture" title="Lecture number(s)">Lecture 4</span></div></p>
+<p>You are given a DataFrame called <code>sports</code>, indexed by <code>'Sport'</code> containing one column, <code>'PlayersPerTeam'</code>. The first few rows of the DataFrame are shown below:</p>
 <table>
 <thead>
-<tr>
+<tr class="header">
 <th>Sport</th>
 <th>PlayersPerTeam</th>
 </tr>
 </thead>
 <tbody>
-<tr>
+<tr class="odd">
 <td>baseball</td>
 <td>9</td>
 </tr>
-<tr>
+<tr class="even">
 <td>basketball</td>
 <td>5</td>
 </tr>
-<tr>
+<tr class="odd">
 <td>field hockey</td>
 <td>11</td>
 </tr>
 </tbody>
 </table>
-<p><br /> Which of the following evaluates to
-<code>'basketball'</code>?</p>
+<p><br /> Which of the following evaluates to <code>'basketball'</code>?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> <code>sports.loc[1]</code></p></li>
 <li><p><input type="radio" disabled="" /> <code>sports.iloc[1]</code></p></li>
@@ -474,23 +392,15 @@ shown below:</p>
 </ul>
 <hr />
 <h2 id="problem-10">Problem 10</h2>
-<div class="meta">
-<p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
-4</span></div></p>
-<p>Suppose you are given a DataFrame of employees for a given company.
-The DataFrame, called <code>employees</code>, is indexed by
-<code>'employee_id'</code> (string) with a column called
-<code>'years'</code> (int) that contains the number of years each
-employee has worked for the company.</p>
+<div class='meta'>
+<p><span class="pill pill-lecture" title="Lecture number(s)">Lecture 4</span></div></p>
+<p>Suppose you are given a DataFrame of employees for a given company. The DataFrame, called <code>employees</code>, is indexed by <code>'employee_id'</code> (string) with a column called <code>'years'</code> (int) that contains the number of years each employee has worked for the company.</p>
 <p><br></p>
 <h3 id="problem-10.1">Problem 10.1</h3>
 <p>Suppose that the code</p>
-<div class="sourceCode" id="cb12"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>employees.sort_values(by<span class="op">=</span><span class="st">&#39;years&#39;</span>, ascending<span class="op">=</span><span class="va">False</span>).index[<span class="dv">0</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>employees.sort_values(by<span class="op">=</span><span class="st">&#39;years&#39;</span>, ascending<span class="op">=</span><span class="va">False</span>).index[<span class="dv">0</span>]</span></code></pre></div>
 <p>outputs <code>'2476'</code>.</p>
-<p>True or False: The number of years that employee 2476 has worked for
-the company is greater than the number of years that any other employee
-has worked for the company.</p>
+<p>True or False: The number of years that employee 2476 has worked for the company is greater than the number of years that any other employee has worked for the company.</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> True</p></li>
 <li><p><input type="radio" disabled="" /> False</p></li>
@@ -498,32 +408,18 @@ has worked for the company.</p>
 <p><br></p>
 <h3 id="problem-10.2">Problem 10.2</h3>
 <p>What will be the output of the following code?</p>
-<div class="sourceCode" id="cb13"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>employees.assign(start<span class="op">=</span><span class="dv">2021</span><span class="op">-</span>employees.get(<span class="st">&#39;years&#39;</span>))</span>
+<div class="sourceCode" id="cb13"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>employees.assign(start<span class="op">=</span><span class="dv">2021</span><span class="op">-</span>employees.get(<span class="st">&#39;years&#39;</span>))</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>employees.sort_values(by<span class="op">=</span><span class="st">&#39;start&#39;</span>).index.iloc[<span class="op">-</span><span class="dv">1</span>]</span></code></pre></div>
 <ul class="task-list">
-<li><p><input type="radio" disabled="" /> the employee id of an employee who has worked there for the most
-years</p></li>
-<li><p><input type="radio" disabled="" /> the employee id of an employee who has worked there for the fewest
-years</p></li>
+<li><p><input type="radio" disabled="" /> the employee id of an employee who has worked there for the most years</p></li>
+<li><p><input type="radio" disabled="" /> the employee id of an employee who has worked there for the fewest years</p></li>
 <li><p><input type="radio" disabled="" /> an error message complaining about <code>iloc[-1]</code></p></li>
 <li><p><input type="radio" disabled="" /> an error message complaining about something else</p></li>
 </ul>
 <p><br></p>
 <hr />
 <h2 id="section"><span class="math display"> </span></h2>
-<h4
-id="feedback-find-an-error-still-confused-have-a-suggestion-let-us-know-here.">👋
-Feedback: Find an error? Still confused? Have a suggestion?
-<a href="https://forms.gle/WZ71FchnXU1K154d7">Let us know
-here</u></a>.</h4>
+<h4 id="feedback-find-an-error-still-confused-have-a-suggestion-let-us-know-here.">👋 Feedback: Find an error? Still confused? Have a suggestion? <a href="https://forms.gle/WZ71FchnXU1K154d7">Let us know here</u></a>.</h4>
 <hr />
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
 </body>
 </html>
