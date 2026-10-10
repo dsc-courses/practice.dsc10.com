@@ -20,7 +20,7 @@ In all cases, you should work on these problems **on paper**, since your quizzes
 
 ### <a href="pretest/index.html">🧮 Pretest</a>
 
-DSC 10's only prerequisite is high school algebra. 
+DSC 10's only prerequisite is high school algebra.
 In order to gauge your preparedness for the type of math you'll see
 in this class, you should work through <b><a href="pretest/index.html">these practice problems</a></b> on your own. This pretest will help you identify any gaps in your background knowledge and it will teach you some useful test-taking skills.
 <br><br>
@@ -57,12 +57,12 @@ We will later release solutions to the pretest. You are highly encouraged to che
       <td>Monday, October 5th</td>
       <td><a href="disc02/index.html">Arrays and DataFrames</a></td>
     </tr>
-    <!--tr>
+    <tr>
       <th scope="row">3</th>
-      <td>Monday, April 13th</td>
+      <td>Monday, October 12th</td>
       <td><a href="disc03/index.html">Querying, Grouping, and Plotting</a></td>
     </tr>
-    <tr>
+    <!--tr>
       <th scope="row">4</th>
       <td>Monday, April 20th</td>
       <td><a href="disc04/index.html">Functions, DataFrames, and Control Flow</a></td>
@@ -99,7 +99,7 @@ We will later release solutions to the pretest. You are highly encouraged to che
     </tr>-->
   </tbody>
 </table>
-</center> 
+</center>
 
 ---
 
