@@ -363,6 +363,12 @@ We've provided answers to all quiz questions, but you won't find detailed explan
   </thead>
   <tbody>
     <tr>
+      <th scope="row">Fall 2026</th>
+      <td>Janine Tiefenbruck, Peter Chi</td>
+      <td><a href='fa26-quiz1/index.html'>Quiz 1</a></td>
+      <td>Coleman's Catch</td>
+    </tr>
+    <tr>
       <th scope="row">Spring 2026</th>
       <td>Janine Tiefenbruck</td>
       <td>
