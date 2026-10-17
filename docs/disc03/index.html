@@ -1,21 +1,18 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
   <meta charset="utf-8" />
-  <meta name="generator" content="pandoc 3.12.1" />
+  <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>Discussion 3: Querying, Grouping, and Plotting</title>
   <style>
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
     */
+    code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: 1.5em;}
-    div.column{flex: auto;}
-    @media screen {
-    div.columns{gap: min(4vw, 1.5em);}
-    div.column{overflow-x: auto;}
-    }
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     /* The extra [class] is a hack that increases specificity enough to
        override a similar rule in reveal.js */
@@ -195,14 +192,19 @@ aria-labelledby="heading1_1" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer: </strong> <code>groupby('kind')</code></p>
-<p>We start this problem by grouping the dataframe by
-<code>'kind'</code> since we’re only interested in whether each unique
-<code>'kind'</code> of dog fits some sort of constraint. We don’t quite
-perform querying yet since we need to group the DataFrame first. In
-other words, we first need to group the DataFrame into each
-<code>'kind'</code> before we could apply any sort of boolean
-conditionals.</p>
+<p><strong>Answer: </strong>
+<code>get(['kind', 'weight', 'height']).groupby('kind')</code></p>
+<p>We start by selecting the columns this aggregation needs.
+<code>'kind'</code> is the column we group by, and <code>'weight'</code>
+and <code>'height'</code> are the columns we will average and then
+filter on. The other columns, including the string column
+<code>'size'</code>, cannot be averaged. <code>.mean()</code> errors if
+those columns are still present, so <code>.get()</code> removes them
+before grouping.</p>
+<p>We then group by <code>'kind'</code>, since we’re only interested in
+whether each unique <code>'kind'</code> of dog fits some sort of
+constraint. We don’t query yet, because we need one row per
+<code>'kind'</code> before we can apply the condition.</p>
 <hr/>
 <h5>Difficulty: ⭐️</h5>
 <p>
@@ -1010,24 +1012,23 @@ aria-labelledby="heading7_1" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer:</strong> <code>.groupby("Brand")</code></p>
+<p><strong>Answer:</strong>
+<code>.get(["Brand", "Seats", "TopSpeed", "Range"]).groupby("Brand")</code></p>
 <p>When we group by a column, the resulting DataFrame contains one row
 for every unique value in that column. The question specified that we
 wanted some information <em>per</em> <code>"Brand"</code>, which implies
 that grouping by <code>"Brand"</code> is necessary.</p>
-<p>After grouping, we need to use an aggregation method. Here, we wanted
-the resulting DataFrame to be such that the <code>"Seats"</code> column
-contained the average number of <code>"Seats"</code> per
-<code>"Brand"</code>; this is accomplished by using
-<code>.mean()</code>, which is already done for us.</p>
-<p>Note: With the provided solution, the resulting DataFrame also has
-other columns. For instance, it has a <code>"Range"</code> column that
-contains the average <code>"Range"</code> for each <code>"Brand"</code>.
+<p><code>"Model"</code> and <code>"BodyStyle"</code> are strings.
+<code>.mean()</code> errors if those columns are still present, so we
+use <code>.get()</code> first and keep only <code>"Brand"</code> plus
+the numeric columns. After that selection, <code>.mean()</code> — which
+is already in the prompt — averages <code>"Seats"</code>,
+<code>"TopSpeed"</code>, and <code>"Range"</code> within each brand.</p>
+<p>The resulting DataFrame still has columns besides
+<code>"Seats"</code>. For instance, it has a <code>"Range"</code> column
+with the average <code>"Range"</code> for each <code>"Brand"</code>.
 That’s fine, since we were told that the resulting DataFrame may have
-other columns in it as well. If we wanted to ensure that the only column
-in the resulting DataFrame was <code>"Seats"</code>, we could have used
-<code>.get(["Brand", "Seats"])</code> before grouping, though this was
-not necessary.</p>
+other columns in it as well.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -1694,7 +1695,7 @@ bar takes up about half of the area of the 2-8 range.</p>
 </div>
 <p><br></p>
 <hr />
-<h2 id="section"><span class="math display"></span></h2>
+<h2 id="section"><span class="math display"> </span></h2>
 <h4
 id="feedback-find-an-error-still-confused-have-a-suggestion-let-us-know-here.">👋
 Feedback: Find an error? Still confused? Have a suggestion?

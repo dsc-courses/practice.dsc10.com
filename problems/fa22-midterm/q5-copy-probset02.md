@@ -20,13 +20,13 @@ well.)
 
 # BEGIN SOLUTION
 
-**Answer:** `.groupby("Brand")`
+**Answer:** `.get(["Brand", "Seats", "TopSpeed", "Range"]).groupby("Brand")`
 
 When we group by a column, the resulting DataFrame contains one row for every unique value in that column. The question specified that we wanted some information _per_ `"Brand"`, which implies that grouping by `"Brand"` is necessary.
 
-After grouping, we need to use an aggregation method. Here, we wanted the resulting DataFrame to be such that the `"Seats"` column contained the average number of `"Seats"` per `"Brand"`; this is accomplished by using `.mean()`, which is already done for us.
+`"Model"` and `"BodyStyle"` are strings. `.mean()` errors if those columns are still present, so we use `.get()` first and keep only `"Brand"` plus the numeric columns. After that selection, `.mean()` — which is already in the prompt — averages `"Seats"`, `"TopSpeed"`, and `"Range"` within each brand.
 
-Note: With the provided solution, the resulting DataFrame also has other columns. For instance, it has a `"Range"` column that contains the average `"Range"` for each `"Brand"`. That's fine, since we were told that the resulting DataFrame may have other columns in it as well. If we wanted to ensure that the only column in the resulting DataFrame was `"Seats"`, we could have used `.get(["Brand", "Seats"])` before grouping, though this was not necessary.
+The resulting DataFrame still has columns besides `"Seats"`. For instance, it has a `"Range"` column with the average `"Range"` for each `"Brand"`. That's fine, since we were told that the resulting DataFrame may have other columns in it as well.
 
 <average>76</average>
 
