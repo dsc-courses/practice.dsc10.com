@@ -77,9 +77,9 @@ sun.groupby("Country").sum().get("City").iloc[0]
 
 Let's break down the code:
 
-- `sun.groupby("Country").sum()`: This groups the `sun` DataFrame by the `"Country"` column and computes the sum for each numeric column within each country group. Since `"City"` is non-numeric, it will be dropped.
+- `sun.groupby("Country").sum()`: This groups the `sun` DataFrame by the `"Country"` column. `"City"` is a string, so `.sum()` errors before it can add the numeric columns.
 
-- `.get("City")`: This operation attempts to retrieve the `"City"` column from the resulting DataFrame. However, since the `"City"` column was dropped in the previous step, this will raise a KeyError, indicating that the column is not present in the DataFrame.
+- `.get("City")`: This line is never reached. The error happens at `.sum()`.
 
 <average>73</average>
 

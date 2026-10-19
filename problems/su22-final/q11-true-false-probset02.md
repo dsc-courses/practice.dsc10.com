@@ -14,9 +14,9 @@ Answer the following true/false questions.
 
 # BEGIN SOLUTION
 
-**Answer: ** True
+**Answer: ** False
 
-Referring to `df` at the beginning of the exam, we could see that 5 of the columns have numerical values as inputs, and thus `df.groupby("kind").mean()` will return the mean of these 5 numerical columns
+`df` has five numeric columns, but it also has the string column `'size'`. Grouping by `'kind'` moves `'kind'` into the index and leaves `'size'` in the table. `.mean()` tries to average every remaining column, including `'size'`, and raises an error. It does not return a DataFrame with 5 columns.
 
 <average>74</average>
 

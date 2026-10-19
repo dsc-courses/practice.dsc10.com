@@ -19,13 +19,11 @@ Fill in blank (a).
 
 # BEGIN SOLUTION
 
-**Answer: ** `groupby('kind')` 
+**Answer: ** `get(['kind', 'weight', 'height']).groupby('kind')` 
 
-We start this problem by grouping the dataframe by `'kind'` since we're only 
-interested in whether each unique `'kind'` of dog fits some sort of constraint.
-We don't quite perform querying yet since we need to group the DataFrame first. 
-In other words, we first need to group the DataFrame into each 
-`'kind'` before we could apply any sort of boolean conditionals.
+We start by selecting the columns this aggregation needs. `'kind'` is the column we group by, and `'weight'` and `'height'` are the columns we will average and then filter on. The other columns, including the string column `'size'`, cannot be averaged. `.mean()` errors if those columns are still present, so `.get()` removes them before grouping.
+
+We then group by `'kind'`, since we're only interested in whether each unique `'kind'` of dog fits some sort of constraint. We don't query yet, because we need one row per `'kind'` before we can apply the condition.
 
 <average>97</average>
 # END SOLUTION

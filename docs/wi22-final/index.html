@@ -6,6 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>Winter 2022 Final Exam</title>
   <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -21,8 +24,9 @@
       vertical-align: middle;
     }
     /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -33,7 +37,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -180,7 +184,7 @@ turnovers are bad!)</li>
 easy to refer to this data description as you work through the exam.</p>
 <hr />
 <h2 id="problem-1">Problem 1</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 9</span></div></p>
 <p><br></p>
@@ -341,7 +345,7 @@ in Las Vegas and lost at least one game in Las Vegas. Also, suppose they
 won at least one game in an opponent’s arena and lost at least one game
 in an opponent’s arena.</p>
 <p>Consider the DataFrame <code>home_won</code>, defined below.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>home_won <span class="op">=</span> plum.groupby([<span class="st">&#39;Home&#39;</span>, <span class="st">&#39;Won&#39;</span>]).mean().reset_index()</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>home_won <span class="op">=</span> plum.drop(columns<span class="op">=</span>[<span class="st">&#39;Date&#39;</span>, <span class="st">&#39;Opp&#39;</span>]).groupby([<span class="st">&#39;Home&#39;</span>, <span class="st">&#39;Won&#39;</span>]).mean().reset_index()</span></code></pre></div>
 <ol type="1">
 <li><p>How many rows does <code>home_won</code> have?</p></li>
 <li><p>How many columns does <code>home_won</code> have?</p></li>
@@ -360,8 +364,8 @@ aria-labelledby="heading1_4" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer:</strong> 4 rows and 5 columns.</p>
-<p><code>plum.groupby(['Home', 'Won']).mean()</code> contains one row
-for every unique combination of <code>'Home'</code> and
+<p><code>plum.drop(columns=['Date', 'Opp']).groupby(['Home', 'Won']).mean()</code>
+contains one row for every unique combination of <code>'Home'</code> and
 <code>'Won'</code>. There are two values of <code>'Home'</code> -
 <code>True</code> and <code>False</code> – and two values of
 <code>'Won'</code> – <code>True</code> and <code>False</code> – leading
@@ -372,23 +376,14 @@ given in the problem:</p>
 game in Las Vegas and lost at least one game in Las Vegas. Also, suppose
 they won at least one game in an opponent’s arena and lost at least one
 game in an opponent’s arena.</em></p>
-<p><code>plum</code> started with 7 columns: <code>'Date'</code>,
-<code>'Opp'</code>, <code>'Home'</code>, <code>'Won'</code>,
-<code>'PTS'</code>, <code>'AST'</code>, and <code>'TOV'</code>. After
-grouping by <code>['Home', 'Won']</code> and using <code>.mean()</code>,
-<code>'Home'</code> and <code>'Won'</code> become the index. The
-resulting DataFrame contains all of the columns that the
-<code>.mean()</code> aggregation method can work on. We cannot take the
-mean of <code>'Date'</code> and <code>'Opp'</code>, because those
-columns are strings, so
-<code>plum.groupby(['Home', 'Won']).mean()</code> contains a
-<code>MultiIndex</code> with 2 “columns” – <code>'Home'</code> and
-<code>'Won'</code> – and 3 regular columns – <code>'PTS'</code>
-<code>'AST'</code>, and <code>'TOV'</code>. Then, when using
-<code>.reset_index()</code>, <code>'Home'</code> and <code>'Won'</code>
-are restored as regular columns, meaning that
-<code>plum.groupby(['Home', 'Won']).mean().reset_index()</code> has
-<span class="math inline">2 + 3 = 5</span> columns.</p>
+<p><code>.drop(columns=['Date', 'Opp'])</code> removes the two string
+columns, so <code>.mean()</code> can run. After grouping by
+<code>['Home', 'Won']</code>, those two columns become the index, and
+the remaining columns are <code>'PTS'</code>, <code>'AST'</code>, and
+<code>'TOV'</code>. <code>.reset_index()</code> restores
+<code>'Home'</code> and <code>'Won'</code> as regular columns, so
+<code>home_won</code> has <span class="math inline">2 + 3 = 5</span>
+columns.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -401,11 +396,10 @@ are restored as regular columns, meaning that
 <p><br></p>
 <h3 id="problem-1.5">Problem 1.5</h3>
 <p>Consider the DataFrame <code>home_won</code> once again.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>home_won <span class="op">=</span> plum.groupby([<span class="st">&#39;Home&#39;</span>, <span class="st">&#39;Won&#39;</span>]).mean().reset_index()</span></code></pre></div>
-<p>Now consider the DataFrame <code>puzzle</code>, defined below. Note
-that the only difference between <code>home_won</code> and
-<code>puzzle</code> is the use of <code>.count()</code> instead of
-<code>.mean()</code>.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>home_won <span class="op">=</span> plum.drop(columns<span class="op">=</span>[<span class="st">&#39;Date&#39;</span>, <span class="st">&#39;Opp&#39;</span>]).groupby([<span class="st">&#39;Home&#39;</span>, <span class="st">&#39;Won&#39;</span>]).mean().reset_index()</span></code></pre></div>
+<p>Now consider the DataFrame <code>puzzle</code>, defined below.
+<code>puzzle</code> groups the original <code>plum</code> table and uses
+<code>.count()</code> instead of <code>.mean()</code>.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>puzzle <span class="op">=</span> plum.groupby([<span class="st">&#39;Home&#39;</span>, <span class="st">&#39;Won&#39;</span>]).count().reset_index()</span></code></pre></div>
 <p>How do the number of rows and columns in <code>home_won</code>
 compare to the number of rows and columns in <code>puzzle</code>?</p>
@@ -435,19 +429,15 @@ aria-labelledby="heading1_5" data-bs-parent="#accordionExample">
 <p><strong>Answer: </strong> <code>home_won</code> and
 <code>puzzle</code> have the same number of rows, but a different number
 of columns</p>
-<p>All that changed between <code>home_won</code> and
-<code>puzzle</code> is the aggregation method. The aggregation method
-has no influence on the number of rows in the output DataFrame, as there
-is still one row for each of the 4 unique combinations of
-<code>'Home'</code> and <code>'Won'</code>.</p>
-<p>However, <code>puzzle</code> has 7 columns, instead of 5. In the
-solution to the above subpart, we noticed that we could not use
-<code>.mean()</code> on the <code>'Date'</code> and <code>'Opp'</code>
-columns, since they contained strings. However, we can use
-<code>.count()</code> (since <code>.count()</code> just determines the
-number of non-NA values in each group), and so the <code>'Date'</code>
-and <code>'Opp'</code> columns are not “lost” when aggregating. Hence,
-<code>puzzle</code> has 2 more columns than <code>home_won</code>.</p>
+<p>Both tables have one row for each of the 4 unique combinations of
+<code>'Home'</code> and <code>'Won'</code>, so they have the same number
+of rows.</p>
+<p><code>puzzle</code> counts every column in <code>plum</code>,
+including <code>'Date'</code> and <code>'Opp'</code>.
+<code>.count()</code> can count string columns. <code>home_won</code>
+averaged the table after those two columns were removed, so it has 5
+columns. <code>puzzle</code> has 7. They have the same number of rows
+and a different number of columns.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -466,7 +456,7 @@ again below.</p>
 any games against during the 2021 season. Fill in the blanks below so
 that <code>never_beat</code> evaluates to a string containing the
 three-letter code of that team.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>never_beat <span class="op">=</span> plum.groupby(__(a)__).<span class="bu">sum</span>().__(b)__</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>never_beat <span class="op">=</span> plum.get([<span class="st">&quot;Opp&quot;</span>, <span class="st">&quot;Won&quot;</span>]).groupby(__(a)__).<span class="bu">sum</span>().__(b)__</span></code></pre></div>
 <ol type="1">
 <li><p>What goes in blank (a)?</p></li>
 <li><p>What goes in blank (b)?</p></li>
@@ -573,7 +563,7 @@ number of losses multiplied by -1, as desired.</p>
 <p><br></p>
 <hr />
 <h2 id="problem-2">Problem 2</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 21</span></div></p>
 <p>Let’s suppose there are 4 different types of shots a basketball
@@ -968,7 +958,7 @@ normal.</p>
 <p><br></p>
 <hr />
 <h2 id="problem-3">Problem 3</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 20</span></div></p>
 <p>ESPN (a large sports news network) states that the Las Vegas Aces
@@ -1437,14 +1427,14 @@ number between 0 and 31 and <code>sim</code> is
 <p><br></p>
 <hr />
 <h2 id="problem-4">Problem 4</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 22</span></div></p>
 <p>Consider the definition of the function
 <code>diff_in_group_means</code>:</p>
 <div class="sourceCode" id="cb22"><pre
 class="sourceCode py"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> diff_in_group_means(df, group_col, num_col):</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    s <span class="op">=</span> df.groupby(group_col).mean().get(num_col)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    s <span class="op">=</span> df.get([group_col, num_col]).groupby(group_col).mean().get(num_col)</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> s.loc[<span class="va">False</span>] <span class="op">-</span> s.loc[<span class="va">True</span>]</span></code></pre></div>
 <p><br></p>
 <h3 id="problem-4.1">Problem 4.1</h3>
@@ -1700,7 +1690,7 @@ rectangle is much smaller than the larger histogram.</p>
 <p><br></p>
 <hr />
 <h2 id="problem-5">Problem 5</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 11</span></div></p>
 <p>Recall, <code>plum</code> has 31 rows.</p>
@@ -1975,7 +1965,7 @@ P(\text{31 rows are returned}) \\ &amp;= \frac{1}{2^{31}} +
 <p><br></p>
 <hr />
 <h2 id="problem-6">Problem 6</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 16</span></div></p>
 <p>In addition to the <code>plum</code> DataFrame, we also have access
@@ -2199,7 +2189,7 @@ the previous subpart.</p>
 <p><br></p>
 <hr />
 <h2 id="problem-7">Problem 7</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 25</span></div></p>
 <p>Let’s switch our attention to the relationship between the number of
@@ -2488,7 +2478,7 @@ SD of assists per game is 1.5. So, <span class="math inline">a = r \cdot
 <p><br></p>
 <hr />
 <h2 id="problem-8">Problem 8</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 16</span></div></p>
 <p><br></p>
@@ -2620,7 +2610,7 @@ percentile is the number at position 13, which is 14.81.</p>
 <p><br></p>
 <hr />
 <h2 id="problem-9">Problem 9</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 17</span></div></p>
 <p>For your convenience, we show the first few rows of
@@ -3131,5 +3121,14 @@ Feedback: Find an error? Still confused? Have a suggestion?
 <a href="https://forms.gle/WZ71FchnXU1K154d7">Let us know
 here</u></a>.</h4>
 <hr />
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </body>
 </html>

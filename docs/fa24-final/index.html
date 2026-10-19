@@ -6,6 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>Fall 2024 Final Exam</title>
   <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -21,7 +24,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="..\assets\theme.css" />
+  <link rel="stylesheet" href="../assets/theme.css" />
   <script defer=""
   src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
   <script>document.addEventListener("DOMContentLoaded", function () {
@@ -1041,13 +1044,13 @@ aria-labelledby="heading5_3" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer:</strong>
-<code>top_two = merged.groupby("genre").mean().sort_values(by="rating", ascending=False).take([0, 1])</code></p>
-<p>We first groupby the <code>merged</code> DataFrame by
-<code>"genre"</code> and calculates the mean rating for each genre. Then
-we sort these genres by their average rating in descending order so the
-higest rated are at the top. Finally, we select the top two genres with
-the highest average ratings using <code>.take([0, 1])</code>, which
-keeps only the first two rows.</p>
+<code>top_two = merged.get(["genre", "rating"]).groupby("genre").mean().sort_values(by="rating", ascending=False).take([0, 1])</code></p>
+<p>We first keep <code>"genre"</code> and <code>"rating"</code>, then
+group by <code>"genre"</code> and calculate the mean rating for each
+genre. Then we sort these genres by their average rating in descending
+order so the higest rated are at the top. Finally, we select the top two
+genres with the highest average ratings using
+<code>.take([0, 1])</code>, which keeps only the first two rows.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -1223,7 +1226,7 @@ permutation test.</p>
 rating_stats = np.array([])
 for i in np.arange(10000):
     shuffled = just_two.assign(shuffled = __(a)__)
-    grouped = shuffled.groupby(&quot;genre&quot;).mean().get(&quot;shuffled&quot;)
+    grouped = shuffled.get([&quot;genre&quot;, &quot;shuffled&quot;]).groupby(&quot;genre&quot;).mean().get(&quot;shuffled&quot;)
     mystery_mean = grouped.iloc[__(b)__]
     fantasy_mean = grouped.iloc[__(c)__]
     rating_stats = np.append(rating_stats, mystery_mean - fantasy_mean)</code></pre>

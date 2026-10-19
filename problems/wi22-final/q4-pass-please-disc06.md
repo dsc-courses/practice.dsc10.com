@@ -8,7 +8,7 @@ Consider the definition of the function `diff_in_group_means`:
 
 ```py
 def diff_in_group_means(df, group_col, num_col):
-    s = df.groupby(group_col).mean().get(num_col)
+    s = df.get([group_col, num_col]).groupby(group_col).mean().get(num_col)
     return s.loc[False] - s.loc[True]
 ```
 

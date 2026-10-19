@@ -51,7 +51,7 @@ Suppose that Plum's team, the Las Vegas Aces, won at least one game in Las Vegas
 Consider the DataFrame `home_won`, defined below.
 
 ```py
-home_won = plum.groupby(['Home', 'Won']).mean().reset_index()
+home_won = plum.drop(columns=['Date', 'Opp']).groupby(['Home', 'Won']).mean().reset_index()
 ``` 
 
 1. How many rows does `home_won` have?
@@ -62,11 +62,11 @@ home_won = plum.groupby(['Home', 'Won']).mean().reset_index()
 
 **Answer:** 4 rows and 5 columns.
 
-`plum.groupby(['Home', 'Won']).mean()` contains one row for every unique combination of `'Home'` and `'Won'`. There are two values of `'Home'` - `True` and `False` – and two values of `'Won'` – `True` and `False` – leading to 4 combinations. We can assume that there was at least one row in `plum` for each of these 4 combinations due to the assumption given in the problem:
+`plum.drop(columns=['Date', 'Opp']).groupby(['Home', 'Won']).mean()` contains one row for every unique combination of `'Home'` and `'Won'`. There are two values of `'Home'` - `True` and `False` – and two values of `'Won'` – `True` and `False` – leading to 4 combinations. We can assume that there was at least one row in `plum` for each of these 4 combinations due to the assumption given in the problem:
 
 _Suppose that Plum's team, the Las Vegas Aces, won at least one game in Las Vegas and lost at least one game in Las Vegas. Also, suppose they won at least one game in an opponent's arena and lost at least one game in an opponent's arena._
 
-`plum` started with 7 columns: `'Date'`, `'Opp'`, `'Home'`, `'Won'`, `'PTS'`, `'AST'`, and `'TOV'`. After grouping by `['Home', 'Won']` and using `.mean()`, `'Home'` and `'Won'` become the index. The resulting DataFrame contains all of the columns that the `.mean()` aggregation method can work on. We cannot take the mean of `'Date'` and `'Opp'`, because those columns are strings, so `plum.groupby(['Home', 'Won']).mean()` contains a `MultiIndex` with 2 "columns" – `'Home'` and `'Won'` – and 3 regular columns – `'PTS'` `'AST'`, and `'TOV'`. Then, when using `.reset_index()`, `'Home'` and `'Won'` are restored as regular columns, meaning that `plum.groupby(['Home', 'Won']).mean().reset_index()` has $2 + 3 = 5$ columns.
+`.drop(columns=['Date', 'Opp'])` removes the two string columns, so `.mean()` can run. After grouping by `['Home', 'Won']`, those two columns become the index, and the remaining columns are `'PTS'`, `'AST'`, and `'TOV'`. `.reset_index()` restores `'Home'` and `'Won'` as regular columns, so `home_won` has $2 + 3 = 5$ columns.
 
 <average>78</average>
 
@@ -79,10 +79,10 @@ _Suppose that Plum's team, the Las Vegas Aces, won at least one game in Las Vega
 Consider the DataFrame `home_won` once again.
 
 ```py
-home_won = plum.groupby(['Home', 'Won']).mean().reset_index()
+home_won = plum.drop(columns=['Date', 'Opp']).groupby(['Home', 'Won']).mean().reset_index()
 ``` 
 
-Now consider the DataFrame `puzzle`, defined below. Note that the only difference between `home_won` and `puzzle` is the use of `.count()` instead of `.mean()`.
+Now consider the DataFrame `puzzle`, defined below. `puzzle` groups the original `plum` table and uses `.count()` instead of `.mean()`.
 
 ```py
 puzzle = plum.groupby(['Home', 'Won']).count().reset_index()
@@ -99,9 +99,9 @@ How do the number of rows and columns in `home_won` compare to the number of row
 
 **Answer: ** `home_won` and `puzzle` have the same number of rows, but a different number of columns
 
-All that changed between `home_won` and `puzzle` is the aggregation method. The aggregation method has no influence on the number of rows in the output DataFrame, as there is still one row for each of the 4 unique combinations of `'Home'` and `'Won'`.
+Both tables have one row for each of the 4 unique combinations of `'Home'` and `'Won'`, so they have the same number of rows.
 
-However, `puzzle` has 7 columns, instead of 5. In the solution to the above subpart, we noticed that we could not use `.mean()` on the `'Date'` and `'Opp'` columns, since they contained strings. However, we can use `.count()` (since `.count()` just determines the number of non-NA values in each group), and so the `'Date'` and `'Opp'` columns are not "lost" when aggregating. Hence, `puzzle` has 2 more columns than `home_won`.
+`puzzle` counts every column in `plum`, including `'Date'` and `'Opp'`. `.count()` can count string columns. `home_won` averaged the table after those two columns were removed, so it has 5 columns. `puzzle` has 7. They have the same number of rows and a different number of columns.
 
 <average>85</average>
 
