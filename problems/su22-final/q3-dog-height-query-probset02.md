@@ -10,7 +10,7 @@ average.
 
 ```py
 foo = df.__(a)__.__(b)__
-np.array(foo[__(c)__].__d__)
+np.array(foo[__(c)__].__(d)__)
 ```
 
 # BEGIN SUBPROB
@@ -19,7 +19,7 @@ Fill in blank (a).
 
 # BEGIN SOLUTION
 
-**Answer: ** `get(['kind', 'weight', 'height']).groupby('kind')` 
+**Answer: ** `get(['kind', 'weight', 'height']).groupby('kind')`
 
 We start by selecting the columns this aggregation needs. `'kind'` is the column we group by, and `'weight'` and `'height'` are the columns we will average and then filter on. The string column `'size'` cannot be averaged. The other numeric columns are not needed for this calculation, so `.get()` keeps only the relevant columns before grouping.
 
@@ -36,7 +36,7 @@ Fill in blank (b).
 
 # BEGIN SOLUTION
 
-**Answer: ** `.mean()` 
+**Answer: ** `mean()`
 
 After we do `.groupby('kind')`, we need to apply `.mean()` since the problem asks if 
 each unique `'kind'` of dog satisfies certain constraints **on average**. 
@@ -72,14 +72,14 @@ than 20 kg on average and `foo.get('height') > 40` gets the kinds of dogs that
 
 Which of the following should fill in blank (d)?
 
-( ) `.index`
-( ) `.unique()`
-( ) `.get('kind')`
-( ) `.get(['kind'])`
+( ) `index`
+( ) `unique()`
+( ) `get('kind')`
+( ) `get(['kind'])`
 
 # BEGIN SOLUTION
 
-**Answer: ** `.index` 
+**Answer: ** `index`
 
 Note that earlier, we did `groupby('kind')`, which automatically sets each unique
  `'kind'` as the index. Since this is what we want anyways, simply doing `.index`

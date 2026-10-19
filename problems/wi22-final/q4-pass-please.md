@@ -61,8 +61,8 @@ Which of the following options **does not** compute a valid simulated test stati
 
 ( ) `diff_in_group_means(shuffled, 'Won', 'AST')`
 ( ) `diff_in_group_means(shuffled, 'Won', 'AST_shuffled')`
-( ) `diff_in_group_means(shuffled, 'Won_shuffled, 'AST')`
-( ) `diff_in_group_means(shuffled, 'Won_shuffled, 'AST_shuffled')`
+( ) `diff_in_group_means(shuffled, 'Won_shuffled', 'AST')`
+( ) `diff_in_group_means(shuffled, 'Won_shuffled', 'AST_shuffled')`
 ( ) More than one of these options do not compute a valid simulated test statistic for this permutation test
 
 # BEGIN SOLN
