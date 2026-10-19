@@ -64,7 +64,7 @@ We will later release solutions to the pretest. You are highly encouraged to che
     </tr>
     <tr>
       <th scope="row">4</th>
-      <td>Monday, April 20th</td>
+      <td>Monday, October 19</td>
       <td><a href="disc04/index.html">Functions, DataFrames, and Control Flow</a></td>
     </tr>
     <!--tr>
