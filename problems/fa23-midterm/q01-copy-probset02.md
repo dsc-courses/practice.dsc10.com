@@ -27,7 +27,7 @@ When we grouped `living_cost` by `"family_type"`, `families` is a DataFrame with
 
 `sorted_families` is the `families` DataFrame, but sorted in ascending order based on the  `"avg_housing_cost"` column. The first row of `sorted_families` is the `"family_type"` with the lowest median  `"avg_housing_cost"`, and the last row of `sorted_families` is the `"family_type"` with the highest median  `"avg_housing_cost"`.
 
-In the last line of code, we’re getting the `"avg_childcare_cost"` column from the `sorted_families` DataFrame. We then use `iloc` to get the first entry in the `"avg_childcare_cost"` column. Since `sorted_families` is sorted in ascending order, this means that we’re getting the lowest median in the column. Therefore, `result` evaluates to the median `"avg_childcare_cost"` of the `"family_type"` with the lowest median `"avg_housing_cost"`.
+In the last line of code, we’re getting the `"avg_childcare_cost"` column from the `sorted_families` DataFrame. We then use `iloc` to get the first entry in the `"avg_childcare_cost"` column. Since `sorted_families` is sorted by `"avg_housing_cost"`, this entry belongs to the family type with the lowest median housing cost; it is not necessarily the lowest median childcare cost. Therefore, `result` evaluates to the median `"avg_childcare_cost"` of the `"family_type"` with the lowest median `"avg_housing_cost"`.
 
 <average>82</average>
 
@@ -82,7 +82,7 @@ Which of the following DataFrames has exactly four columns?
 None of these DataFrames has exactly four columns.
 
 - `.min()` runs on strings, so `"state"` and `"county"` stay. After grouping by `"family_type"`, six columns remain.
-- `.sum()` errors. `"state"` and `"county"` are strings, and `.sum()` cannot add them.
+- `.sum()` concatenates the strings in `"state"` and `"county"` and sums the numeric columns, so it also has six columns.
 - `.count()` also keeps every remaining column, so it has six columns too.
 
 <average>35</average>

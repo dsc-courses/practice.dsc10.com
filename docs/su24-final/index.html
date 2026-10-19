@@ -1361,7 +1361,7 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href=
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    simulated_stats <span class="op">=</span> np.array([])</span>
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
 <span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>        shuffled <span class="op">=</span> stages.assign(shuffled <span class="op">=</span> np.random.__(i)__(stages.get(<span class="st">&quot;Distance&quot;</span>)))</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>        shuffled_means <span class="op">=</span> shuffled.get([<span class="st">&quot;class&quot;</span>, <span class="st">&quot;Distance&quot;</span>]).groupby(<span class="st">&quot;class&quot;</span>).mean().get(<span class="st">&quot;Distance&quot;</span>)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>        shuffled_means <span class="op">=</span> shuffled.get([<span class="st">&quot;class&quot;</span>, <span class="st">&quot;shuffled&quot;</span>]).groupby(<span class="st">&quot;class&quot;</span>).mean().get(<span class="st">&quot;shuffled&quot;</span>)</span>
 <span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>        simulated_stat <span class="op">=</span> (shuffled_means.loc[<span class="st">&quot;flat&quot;</span>] <span class="op">-</span> shuffled_means.loc[<span class="st">&quot;mountain&quot;</span>])</span>
 <span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>        simulated_stats <span class="op">=</span> __(ii)__(simulated_stats, simulated_stat)</span>
 <span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    </span>
@@ -1389,21 +1389,21 @@ aria-labelledby="heading6_2" data-bs-parent="#accordionExample">
 <p>The first step in a permutation test simulation is to shuffle the
 labels or the values. So since this first line in the for loop is
 assigning a column called ‘shuffled’, we know we need to use
-<code>np.random.permutation()</code> on the <code>"Distances"</code>
-column. The next line gets the new means for each group after shuffling
-the values and <code>simulated_stat</code> is the simulated difference
-in means. Now we know we want to save this simulated statistic and we
-have the <code>simulated_stats</code> array, so we want to use an
-<code>np.append</code> in (ii) to save this statistic in the array.
-Finally after the simulation is complete, we calculate the p-value using
-the array of simulated statistics. The p-value is the probability of
-seeing the observed result under the null hypothesis.
-<code>simulated_stats &lt;= observed_stat</code> returns an array of 0’s
-and 1’s depending on whether each simulated statistic is less than or
-equal to the observed statistic. Now, to get the probability of seeing a
-result equal to or less than the observed, we can simply take the mean
-of this array since the mean of an array of 0’s and 1’s is equivalent to
-the probability.</p>
+<code>np.random.permutation()</code> on the <code>"Distance"</code>
+column. The next line averages the <code>"shuffled"</code> distances
+within each <code>"class"</code> group and <code>simulated_stat</code>
+is the simulated difference in means. Now we know we want to save this
+simulated statistic and we have the <code>simulated_stats</code> array,
+so we want to use an <code>np.append</code> in (ii) to save this
+statistic in the array. Finally after the simulation is complete, we
+calculate the p-value using the array of simulated statistics. The
+p-value is the probability of seeing the observed result under the null
+hypothesis. <code>simulated_stats &lt;= observed_stat</code> returns an
+array of 0’s and 1’s depending on whether each simulated statistic is
+less than or equal to the observed statistic. Now, to get the
+probability of seeing a result equal to or less than the observed, we
+can simply take the mean of this array since the mean of an array of 0’s
+and 1’s is equivalent to the probability.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>

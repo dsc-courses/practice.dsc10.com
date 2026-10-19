@@ -1327,16 +1327,13 @@ of candy)</p>
 we’re summing the per-piece prices, not the total spent. This gives
 wrong totals. For example, if a house has 30 pieces at $0.20 and 20 at
 $0.10, summing prices gives $0.30 instead of $8.00.</p>
-<p><strong>Way 2</strong>: This first calculates price/quantity for each
-candy type, then takes the mean of these ratios. This is mathematically
-incorrect for finding average cost per piece.</p>
-<ul>
-<li>For Twix: $0.20/30 = $0.00667 per piece</li>
-<li>For Laffy Taffy: $0.10/20 = $0.005 per piece</li>
-<li>Takes mean: ($0.00667 + $0.005)/2 = $0.00583</li>
-<li>This is wrong because it’s taking mean of ratios instead of ratio of
-totals</li>
-</ul>
+<p><strong>Way 2</strong>: This divides each per-piece price by its
+quantity, then sums those ratios for each house. The subsequent
+<code>.mean()</code> is a single mean across houses, not an average cost
+per piece for each house. For the example house, the grouped
+<code>x</code> would be <span class="math inline">0.20/30 + 0.10/20
+\approx 0.01167</span>, which does not represent the total spent or the
+average cost per piece.</p>
 <p><strong>Way 3</strong>: Similar to Way 2, but even more problematic
 as it divides by quantity twice.</p>
 <ul>
@@ -1345,16 +1342,12 @@ as it divides by quantity twice.</p>
 <li>Sums these: $0.00667 + $0.005 = $0.01167</li>
 <li>Divides by total quantity again: $0.01167/50 = $0.000233</li>
 </ul>
-<p><strong>Way 4</strong>: Correctly calculates total spent (x =
-quantity * price) but then takes the mean of the totals instead of
-dividing by total quantity.</p>
-<ul>
-<li>For Twix: 30 × $0.20 = $6.00</li>
-<li>For Laffy Taffy: 20 × $0.10 = $2.00</li>
-<li>Takes mean of these totals: ($6.00 + $2.00)/2 = $4.00 (wrong)</li>
-<li>This is wrong because it takes mean of totals instead of dividing by
-total quantity</li>
-</ul>
+<p><strong>Way 4</strong>: This correctly computes total expenditure for
+each house, but then takes one mean across those house totals instead of
+dividing each house’s total by its number of pieces. For the example
+house, the grouped <code>x</code> is <span class="math inline">6 + 2 =
+8</span>, not the required <span class="math inline">8/50 =
+0.16</span>.</p>
 <p><strong>Way 5</strong>: This is correct because:</p>
 <ul>
 <li>First calculates total spent on each candy type (quantity * price

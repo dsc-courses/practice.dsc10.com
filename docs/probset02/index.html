@@ -1175,10 +1175,9 @@ aria-labelledby="heading9_1" data-bs-parent="#accordionExample">
 <p>We start by selecting the columns this aggregation needs.
 <code>'kind'</code> is the column we group by, and <code>'weight'</code>
 and <code>'height'</code> are the columns we will average and then
-filter on. The other columns, including the string column
-<code>'size'</code>, cannot be averaged. <code>.mean()</code> errors if
-those columns are still present, so <code>.get()</code> removes them
-before grouping.</p>
+filter on. The string column <code>'size'</code> cannot be averaged. The
+other numeric columns are not needed for this calculation, so
+<code>.get()</code> keeps only the relevant columns before grouping.</p>
 <p>We then group by <code>'kind'</code>, since we’re only interested in
 whether each unique <code>'kind'</code> of dog fits some sort of
 constraint. We don’t query yet, because we need one row per
@@ -1435,22 +1434,13 @@ aria-labelledby="heading11_1" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer:</strong>
-<code>.get(["Brand", "Seats", "TopSpeed", "Range"]).groupby("Brand")</code></p>
-<p>When we group by a column, the resulting DataFrame contains one row
-for every unique value in that column. The question specified that we
-wanted some information <em>per</em> <code>"Brand"</code>, which implies
-that grouping by <code>"Brand"</code> is necessary.</p>
-<p><code>"Model"</code> and <code>"BodyStyle"</code> are strings.
-<code>.mean()</code> errors if those columns are still present, so we
-use <code>.get()</code> first and keep only <code>"Brand"</code> plus
-the numeric columns. After that selection, <code>.mean()</code> — which
-is already in the prompt — averages <code>"Seats"</code>,
-<code>"TopSpeed"</code>, and <code>"Range"</code> within each brand.</p>
-<p>The resulting DataFrame still has columns besides
-<code>"Seats"</code>. For instance, it has a <code>"Range"</code> column
-with the average <code>"Range"</code> for each <code>"Brand"</code>.
-That’s fine, since we were told that the resulting DataFrame may have
-other columns in it as well.</p>
+<code>.get(["Brand", "Seats"]).groupby("Brand")</code></p>
+<p>We select <code>"Brand"</code> and <code>"Seats"</code>, then group
+by <code>"Brand"</code> to get one row per brand. The
+<code>.mean()</code> already provided in the prompt calculates the
+average number of seats for each brand. Selecting these columns leaves
+out <code>"Model"</code> and <code>"BodyStyle"</code>, which are strings
+and cannot be averaged.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>

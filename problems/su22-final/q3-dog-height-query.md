@@ -21,7 +21,7 @@ Fill in blank (a).
 
 **Answer: ** `get(['kind', 'weight', 'height']).groupby('kind')` 
 
-We start by selecting the columns this aggregation needs. `'kind'` is the column we group by, and `'weight'` and `'height'` are the columns we will average and then filter on. The other columns, including the string column `'size'`, cannot be averaged. `.mean()` errors if those columns are still present, so `.get()` removes them before grouping.
+We start by selecting the columns this aggregation needs. `'kind'` is the column we group by, and `'weight'` and `'height'` are the columns we will average and then filter on. The string column `'size'` cannot be averaged. The other numeric columns are not needed for this calculation, so `.get()` keeps only the relevant columns before grouping.
 
 We then group by `'kind'`, since we're only interested in whether each unique `'kind'` of dog fits some sort of constraint. We don't query yet, because we need one row per `'kind'` before we can apply the condition.
 

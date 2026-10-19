@@ -6,6 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>Lecture 2 — Practice</title>
   <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -21,8 +24,9 @@
       vertical-align: middle;
     }
     /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -33,7 +37,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -263,7 +267,7 @@ was 61%.</p>
 <h3 id="problem-1.3">Problem 1.3</h3>
 <p>Fill in the blanks below so that <code>lucky_prop</code> is one value
 in the Series <code>many_props</code>.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>    many_props <span class="op">=</span> luck.groupby(__(a)__).mean().get(__(b)__)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>    many_props <span class="op">=</span> luck.get([<span class="st">&quot;card&quot;</span>, <span class="st">&quot;is_fraud&quot;</span>, <span class="st">&quot;is_lucky&quot;</span>]).groupby(__(a)__).mean().get(__(b)__)</span></code></pre></div>
 <ol type="1">
 <li><p>What goes in blank (a)?</p></li>
 <li><p>What goes in blank (b)?</p></li>
@@ -281,8 +285,8 @@ aria-labelledby="heading1_3" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 
 </header>
-<p><strong>Answer:</strong> (a): <code>[""card"", "is_fraud"]</code>,
-(b): <code>"is_lucky"</code></p>
+<p><strong>Answer:</strong> (a): <code>["card", "is_fraud"]</code>, (b):
+<code>"is_lucky"</code></p>
 <p>(a): <code>lucky_prop</code> is the proportion of fraudulent “visa”
 card transactions that have a lucky amount. The idea is to create a
 Series with the proportions of fraudulent or non-fraudulent transactions
@@ -292,7 +296,7 @@ and the column that describes whether a transaction is fraudulent
 (<code>"is_fraud"</code>). Putting this in the proper syntax for a
 <code>groupby</code> with multiple columns, we have
 <code>["card", "is_fraud"]</code>. The order doesn’t matter, so
-<code>["is_fraud", ""card""]</code> is also correct.</p>
+<code>["is_fraud", "card"]</code> is also correct.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -300,10 +304,10 @@ and the column that describes whether a transaction is fraudulent
 <p>The average score on this problem was 55%.</p>
 <p>(b): Once we have this grouped DataFrame, we know that the entry in
 each column will be the mean of that column for some combination of
-<code>"is_fraud"</code> and <code>"method"</code>. And, since
+<code>"is_fraud"</code> and <code>"card"</code>. And, since
 <code>"is_lucky"</code> contains Booleans, we know that this mean is
 equivalent to the proportion of transactions which were lucky for each
-<code>"is_fraud"</code> and <code>"method"</code> combination. One such
+<code>"is_fraud"</code> and <code>"card"</code> combination. One such
 combination is fraudulent “visa” transactions, so
 <code>lucky_prop</code> is one element of this Series.</p>
 <hr/>
@@ -878,6 +882,45 @@ aria-labelledby="heading9" data-bs-parent="#accordionExample">
 <p>
 </p>
 <p>The average score on this problem was 87%.</p>
+</div>
+</div>
+</div>
+</div>
+<hr />
+<p class="meta"><em>Source:</em> wi26-midterm — Q11</p>
+<h2 id="problem-10">Problem 10</h2>
+<p>The management of Pizza by Peter is rebranding. The new name is the
+output of the following line of code. Write the new name as a
+string.</p>
+<pre><code>(pizza.get(&quot;kind&quot;).iloc[6].replace(&quot;a&quot;, &quot;o&quot;) + &quot;!&quot;).upper()</code></pre>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading10">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10" aria-expanded="true" aria-controls="collapse10">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse10" class="accordion-collapse collapse"
+aria-labelledby="heading10" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer:</strong> <code>"MORGHERITO!"</code></p>
+<p><strong>Explanation:</strong></p>
+<ol type="1">
+<li><code>pizza.get("kind").iloc[6]</code> →
+<code>"Margherita"</code>.</li>
+<li><code>.replace("a", "o")</code> → <code>"Morgherito"</code>.</li>
+<li><code>+ "!"</code> → <code>"Morgherito!"</code>.</li>
+<li><code>.upper()</code> →
+<strong><code>"MORGHERITO!"</code></strong>.</li>
+</ol>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 70%.</p>
 </div>
 </div>
 </div>

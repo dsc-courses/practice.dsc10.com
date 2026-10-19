@@ -6,6 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>Lecture 8 — Practice</title>
   <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -21,8 +24,9 @@
       vertical-align: middle;
     }
     /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -33,7 +37,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -257,24 +261,14 @@ aria-labelledby="heading2_1" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 
 </header>
-<p><strong>Answer:</strong> <code>.groupby("Brand")</code></p>
-<p>When we group by a column, the resulting DataFrame contains one row
-for every unique value in that column. The question specified that we
-wanted some information <em>per</em> <code>"Brand"</code>, which implies
-that grouping by <code>"Brand"</code> is necessary.</p>
-<p>After grouping, we need to use an aggregation method. Here, we wanted
-the resulting DataFrame to be such that the <code>"Seats"</code> column
-contained the average number of <code>"Seats"</code> per
-<code>"Brand"</code>; this is accomplished by using
-<code>.mean()</code>, which is already done for us.</p>
-<p>Note: With the provided solution, the resulting DataFrame also has
-other columns. For instance, it has a <code>"Range"</code> column that
-contains the average <code>"Range"</code> for each <code>"Brand"</code>.
-That’s fine, since we were told that the resulting DataFrame may have
-other columns in it as well. If we wanted to ensure that the only column
-in the resulting DataFrame was <code>"Seats"</code>, we could have used
-<code>.get(["Brand", "Seats"])</code> before grouping, though this was
-not necessary.</p>
+<p><strong>Answer:</strong>
+<code>.get(["Brand", "Seats"]).groupby("Brand")</code></p>
+<p>We select <code>"Brand"</code> and <code>"Seats"</code>, then group
+by <code>"Brand"</code> to get one row per brand. The
+<code>.mean()</code> already provided in the prompt calculates the
+average number of seats for each brand. Selecting these columns leaves
+out <code>"Model"</code> and <code>"BodyStyle"</code>, which are strings
+and cannot be averaged.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -3592,11 +3586,10 @@ aria-labelledby="heading27_4" data-bs-parent="#accordionExample">
 
 </header>
 <p><strong>Answer (h):</strong>
-<code>groupby('Dining Hall').mean()</code></p>
-<p>Since we want to compare the average wait time for each Dining Hall
-we know we need to aggregate each Dining Hall and find the mean of the
-<code>"Wait"</code> column. This can be done using
-<code>groupby('Dining Hall').mean()</code>.</p>
+<code>get(['Dining Hall', 'Wait']).groupby('Dining Hall').mean()</code></p>
+<p>We keep <code>"Dining Hall"</code> and <code>"Wait"</code>, then
+group by dining hall and average the wait times. This can be done using
+<code>get(['Dining Hall', 'Wait']).groupby('Dining Hall').mean()</code>.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -3694,8 +3687,213 @@ aria-labelledby="heading28" data-bs-parent="#accordionExample">
 </div>
 </div>
 <hr />
-<p class="meta"><em>Source:</em> wi26-quiz2 — Q1</p>
+<p class="meta"><em>Source:</em> wi26-final — Q4</p>
 <h2 id="problem-29">Problem 29</h2>
+<p>Bianca is writing helper functions for the San Diego Zoo’s animal
+tracking tools. Complete the code below so that <code>mystery</code>
+returns a string made of the <strong>first letter of each word</strong>
+in a species name. Then, Bianca can use blank <strong>(b)</strong> to
+create <code>bianca</code>, a copy of <code>zoo</code> with one extra
+column called <code>initials</code>. For example,
+<code>mystery("Giant Panda")</code> should return <code>"GP"</code>.</p>
+<div class="sourceCode" id="cb55"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> mystery(value):</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>    _____(a)_____</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> result</span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>bianca <span class="op">=</span> zoo.assign(initials<span class="op">=</span>_____(b)_____)</span></code></pre></div>
+<p><br></p>
+<h3 id="problem-29.1">Problem 29.1</h3>
+<p><strong>(a)</strong> Which snippets could replace blank
+<strong>(a)</strong>? <strong>Select all</strong> that apply.</p>
+<p><strong>Snippet 1.</strong></p>
+<div class="sourceCode" id="cb56"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> <span class="st">&quot;&quot;</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> word <span class="kw">in</span> value:</span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> result <span class="op">+</span> word[<span class="dv">0</span>]</span></code></pre></div>
+<p><strong>Snippet 2.</strong></p>
+<div class="sourceCode" id="cb57"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>words <span class="op">=</span> value.split()</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> <span class="st">&quot;&quot;</span></span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> word <span class="kw">in</span> words:</span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>    result <span class="op">=</span> result <span class="op">+</span> word[<span class="dv">0</span>]</span></code></pre></div>
+<p><strong>Snippet 3.</strong></p>
+<div class="sourceCode" id="cb58"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> bpd.DataFrame().assign(word<span class="op">=</span>value.split())</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> temp.get(<span class="st">&#39;word&#39;</span>).get(<span class="dv">0</span>)</span></code></pre></div>
+<p><strong>Snippet 4.</strong></p>
+<div class="sourceCode" id="cb59"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>words <span class="op">=</span> np.array(value.split())</span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="bu">len</span>(words)):</span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>    words[i] <span class="op">=</span> words[i][<span class="dv">0</span>]</span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> <span class="st">&#39;&#39;</span>.join(words)</span></code></pre></div>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> Snippet 1</p></li>
+<li><p><input type="checkbox" disabled="" /> Snippet 2</p></li>
+<li><p><input type="checkbox" disabled="" /> Snippet 3</p></li>
+<li><p><input type="checkbox" disabled="" /> Snippet 4</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading29_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse29_1" aria-expanded="true" aria-controls="collapse29_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse29_1" class="accordion-collapse collapse"
+aria-labelledby="heading29_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer:</strong> <strong>Snippet 2</strong> and
+<strong>Snippet 4</strong></p>
+<ul>
+<li><strong>Snippet 2:</strong> Splits the species name into words, then
+concatenates the first letter of each word.</li>
+<li><strong>Snippet 4:</strong> Puts words in a NumPy array, replaces
+each word by its first character, then joins into one string.</li>
+<li><strong>Snippet 1:</strong> Loops over <strong>characters</strong>
+of <code>value</code>, not words, so it does not produce initials.</li>
+<li><strong>Snippet 3:</strong> Does not build the full initials string
+from all words in the intended way (see exam rubric).</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-29.2">Problem 29.2</h3>
+<p><strong>(b)</strong> Which snippets could replace blank
+<strong>(b)</strong>? <strong>Select all</strong> that apply.</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> <code>zoo.get('species').apply(mystery)</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>zoo.apply(mystery).get('species')</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>mystery(zoo.get('species'))</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>zoo.mystery('species')</code></p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading29_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse29_2" aria-expanded="true" aria-controls="collapse29_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse29_2" class="accordion-collapse collapse"
+aria-labelledby="heading29_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer:</strong> Only
+<code>zoo.get('species').apply(mystery)</code> (the first option).</p>
+<p>Apply <code>mystery</code> to each value in the <code>species</code>
+column. The other options apply <code>mystery</code> incorrectly or call
+a method that does not exist.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<p class="meta"><em>Source:</em> wi26-midterm — Q7</p>
+<h2 id="problem-30">Problem 30</h2>
+<p>Recall from Question 3 that the DataFrame <code>pizza10</code>
+consists of exactly the 10 rows shown on the Data Description page. Now
+consider the following code:</p>
+<pre><code>neighborhood_counts = (pizza10.groupby(&#39;neighborhood&#39;)
+                              .count().get([&#39;rating&#39;]))</code></pre>
+<p><br></p>
+<h3 id="problem-30.1">Problem 30.1</h3>
+<p>What type of object is <code>neighborhood_counts</code>?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> A DataFrame with 3 rows and 1 column</p></li>
+<li><p><input type="radio" disabled="" /> A DataFrame with 10 rows and 1 column</p></li>
+<li><p><input type="radio" disabled="" /> A Series with 3 elements where the index contains neighborhood
+names</p></li>
+<li><p><input type="radio" disabled="" /> A Series with 3 elements where the index is 0, 1, 2</p></li>
+<li><p><input type="radio" disabled="" /> An array with 3 elements</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading30_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse30_1" aria-expanded="true" aria-controls="collapse30_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse30_1" class="accordion-collapse collapse"
+aria-labelledby="heading30_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer:</strong> A DataFrame with 3 rows and 1 column.</p>
+<p><strong>Explanation:</strong></p>
+<p><code>groupby("neighborhood").count()</code> has one row per
+neighborhood (3 neighborhoods in <code>pizza10</code>).
+<code>.get(["rating"])</code> keeps a single column as a one-column
+DataFrame.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 51%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-30.2">Problem 30.2</h3>
+<p>We want to apply a function to the neighborhood names (which are
+currently in the index). Fill in the blanks to complete the code below
+so that <code>neighborhood_firstchar</code> is a Series where each
+element is the first letter of the entire string consisting of each
+neighborhood name. Note that your answer to (ii) may need to contain
+multiple methods sequentially.</p>
+<pre><code>def first_letter(s):
+    ____(i)____
+
+neighborhood_firstchar = neighborhood_counts.________(ii)________</code></pre>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading30_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse30_2" aria-expanded="true" aria-controls="collapse30_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse30_2" class="accordion-collapse collapse"
+aria-labelledby="heading30_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer:</strong> <strong>(i)</strong>
+<code>return s[0]</code>; <strong>(ii)</strong>
+<code>reset_index().get("neighborhood").apply(first_letter)</code>.</p>
+<p><strong>Explanation:</strong></p>
+<p><code>first_letter</code> returns the first character of a string.
+Neighborhood names live in the <strong>index</strong> of
+<code>neighborhood_counts</code>. <code>reset_index()</code> turns that
+index into a column; <code>.get("neighborhood")</code> selects those
+names as a Series; <code>.apply(first_letter)</code> applies the
+function to each name.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 49%. </p>
+<hr/>
+<h5>Difficulty:
+⭐️⭐️⭐️</h5>
+<p>The average score on this problem was 62%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<p class="meta"><em>Source:</em> wi26-quiz2 — Q1</p>
+<h2 id="problem-31">Problem 31</h2>
 <p>If there are zero modifications made to a drink, the entry in the
 <code>modifications</code> column will be <code>'none'</code>.
 Otherwise, all modifications will be distinct and separated by a
@@ -3709,26 +3907,26 @@ function to assign a new column to <code>orders</code> called
 to each drink in <code>orders</code>. For example, the entries of the
 <code>num_mods</code> column for rows 0, 1, 2 should be 2, 1, 0,
 respectively.</p>
-<div class="sourceCode" id="cb55"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> count_mods(mod):</span>
-<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> ___(a)___:</span>
-<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">0</span></span>
-<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
-<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">len</span>(___(b)___)</span>
-<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a>orders <span class="op">=</span> orders.assign(num_mods<span class="op">=</span>___(c)___)</span></code></pre></div>
+<div class="sourceCode" id="cb62"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> count_mods(mod):</span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> ___(a)___:</span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">0</span></span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="bu">len</span>(___(b)___)</span>
+<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-7"><a href="#cb62-7" aria-hidden="true" tabindex="-1"></a>orders <span class="op">=</span> orders.assign(num_mods<span class="op">=</span>___(c)___)</span></code></pre></div>
 <p><br></p>
-<h3 id="problem-29.1">Problem 29.1</h3>
+<h3 id="problem-31.1">Problem 31.1</h3>
 <p><strong>(a)</strong>:</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading29_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse29_1" aria-expanded="true" aria-controls="collapse29_1">
+<h2 class="accordion-header" id="heading31_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse31_1" aria-expanded="true" aria-controls="collapse31_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse29_1" class="accordion-collapse collapse"
-aria-labelledby="heading29_1" data-bs-parent="#accordionExample">
+<div id="collapse31_1" class="accordion-collapse collapse"
+aria-labelledby="heading31_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3747,17 +3945,17 @@ aria-labelledby="heading29_1" data-bs-parent="#accordionExample">
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-29.2">Problem 29.2</h3>
+<h3 id="problem-31.2">Problem 31.2</h3>
 <p><strong>(b)</strong>:</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading29_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse29_2" aria-expanded="true" aria-controls="collapse29_2">
+<h2 class="accordion-header" id="heading31_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse31_2" aria-expanded="true" aria-controls="collapse31_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse29_2" class="accordion-collapse collapse"
-aria-labelledby="heading29_2" data-bs-parent="#accordionExample">
+<div id="collapse31_2" class="accordion-collapse collapse"
+aria-labelledby="heading31_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3778,17 +3976,17 @@ modifications (e.g. <code>"vanilla+lavender"</code> → 2,
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-29.3">Problem 29.3</h3>
+<h3 id="problem-31.3">Problem 31.3</h3>
 <p><strong>(c)</strong>:</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading29_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse29_3" aria-expanded="true" aria-controls="collapse29_3">
+<h2 class="accordion-header" id="heading31_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse31_3" aria-expanded="true" aria-controls="collapse31_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse29_3" class="accordion-collapse collapse"
-aria-labelledby="heading29_3" data-bs-parent="#accordionExample">
+<div id="collapse31_3" class="accordion-collapse collapse"
+aria-labelledby="heading31_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
