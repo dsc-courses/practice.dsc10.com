@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.12" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Summer 2026 Midterm Exam</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="..\assets\theme.css" />
+  <script defer=""
+  src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Summer 2026 Midterm Exam</h1>
+</header>
+<p><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<!-- add after bootstrap.min.css -->
+<link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css"/>
+<!-- add after bootstrap.min.js or bootstrap.bundle.min.js -->
+<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script></p>
+<!-- for difficulty gauges-->
+<script src="https://cdn.plot.ly/plotly-2.16.1.min.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B947E6J6H4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-B947E6J6H4');
+</script>
+<p><a href="../index.html">← return to practice.dsc10.com</a></p>
+<hr />
+<p><strong>Instructor(s):</strong> Janine Tiefenbruck</p>
+<p>This exam was administered in-person. Students were allowed one page
+of double-sided handwritten notes. No calculators were allowed. The exam
+consisted of 8 questions worth 100 points total.</p>
+<hr />
+<p><strong>Note (groupby / pandas 2.0):</strong> Pandas 2.0+ no longer
+silently drops columns that can’t be aggregated after a
+<code>groupby</code>, so code written for older pandas may behave
+differently or raise errors. In these practice materials we use
+<code>.get()</code> to select the column(s) we want after
+<code>.groupby(...).mean()</code> (or other aggregations) so that our
+solutions run on current pandas. On real exams you will not be penalized
+for omitting <code>.get()</code> when the old behavior would have
+produced the same answer.</p>
+<hr />
+<p>Unidentified flying objects (or UFOs) are objects seen in the sky
+that cannot be explained by the observer. These objects seem to be
+something other than planes, birds, etc. Some people believe that UFOs
+are actually extraterrestrial spacecrafts that suggest the possibility
+of alien life.</p>
+<p>UFO sightings are reports describing where and when an individual
+observed a UFO. The DataFrame <code>ufo</code> has one row for every
+reported UFO sighting in the state of Nevada. The columns are:</p>
+<ul>
+<li><code>"zipcode"</code> (<code>str</code>): The zip code of the town
+where the sighting was reported.</li>
+<li><code>"shape"</code> (<code>str</code>): The reported shape of the
+UFO, either <code>"cylinder"</code>, <code>"sphere"</code>, or
+<code>"disk"</code>.</li>
+<li><code>"time"</code> (<code>str</code>): The time at which the
+sighting began, formatted as 24-hour time as <code>"HH:MM"</code>.</li>
+<li><code>"duration"</code> (<code>str</code>): How long the sighting
+lasted, formatted using a combination of hours (<code>h</code>), minutes
+(<code>m</code>), and seconds (<code>s</code>), e.g. <code>"2m"</code>
+or <code>"1h 45m 3s"</code>.</li>
+</ul>
+<p>The first few rows of <code>ufo</code> are shown below, though
+<code>ufo</code> has many more rows than pictured.</p>
+<center><img src='../assets/images/su26-midterm/ufo.png' width=600></center>
+<p><br></p>
+<p>Throughout this exam, we will refer to <code>ufo</code> repeatedly.
+Assume that we have already run <code>import babypandas as bpd</code>
+and <code>import numpy as np</code>.</p>
+<hr />
+<h2 id="problem-1">Problem 1</h2>
+<p><br></p>
+<h3 id="problem-1.1">Problem 1.1</h3>
+<p>Complete the implementation of the function <code>minutes</code>
+which takes as input a single duration as a string and returns that
+duration in minutes, as an <code>int</code>. Example inputs and outputs
+are given below.</p>
+<pre><code>&gt;&gt;&gt; minutes(&quot;22m&quot;)
+22
+
+&gt;&gt;&gt; minutes(&quot;4m 45s&quot;)   # seconds do not contribute to the output
+4
+
+&gt;&gt;&gt; minutes(&quot;1h 31m 2s&quot;)
+91</code></pre>
+<p>Fill in blanks (i), (ii), and (iii).</p>
+<pre><code>def minutes(d):
+    total = 0
+    parts = __(i)__
+    for part in parts:
+        if part[-1] == &quot;h&quot;:
+            total = __(ii)__
+        if part[-1] == &quot;m&quot;:
+            total = __(iii)__
+    return total</code></pre>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading1_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1_1" aria-expanded="true" aria-controls="collapse1_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse1_1" class="accordion-collapse collapse"
+aria-labelledby="heading1_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer (i):</strong> <code>d.split(" ")</code></p>
+<p><strong>Answer (ii):</strong>
+<code>total + int(part.strip("h")) * 60</code></p>
+<p><strong>Answer (iii):</strong>
+<code>total + int(part.strip("m"))</code></p>
+<p>The pieces of a duration are separated by spaces, so
+<code>d.split(" ")</code> breaks the string into a list with one element
+per piece. For example, <code>"1h 31m 2s"</code> becomes
+<code>["1h", "31m", "2s"]</code>.</p>
+<p>The <code>for</code> loop then looks at the last character of each
+piece to decide what unit it is measured in.</p>
+<ul>
+<li><strong>Blank (ii):</strong> If the piece ends in <code>"h"</code>,
+it’s a number of hours. Strip off the <code>"h"</code>, convert what’s
+left to an <code>int</code>, and multiply by <span class="math inline">60</span> to convert hours to minutes. Add that to
+the running total.</li>
+<li><strong>Blank (iii):</strong> If the piece ends in <code>"m"</code>,
+it’s already a number of minutes, so just strip the <code>"m"</code>,
+convert to an <code>int</code>, and add it to the running total.</li>
+</ul>
+<p>Notice there is no <code>if</code> statement for pieces ending in
+<code>"s"</code>. That’s intentional: seconds do not contribute to the
+output, so those pieces are simply ignored.</p>
+<p>Tracing through <code>minutes("1h 31m 2s")</code>: the piece
+<code>"1h"</code> contributes <span class="math inline">1 \cdot 60 =
+60</span>, the piece <code>"31m"</code> contributes <span class="math inline">31</span>, and the piece <code>"2s"</code>
+contributes nothing, for a total of <span class="math inline">91</span>.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-1.2">Problem 1.2</h3>
+<p>Complete the line of code to replace the <code>"duration"</code>
+column in the <code>ufo</code> DataFrame so that
+<code>ufo.get(["duration"])</code> results in the DataFrame shown below
+(only the first few rows are shown). Utilize the <code>minutes</code>
+function you defined in part (a).</p>
+<center><img src='../assets/images/su26-midterm/duration.png' width=200></center>
+<p><br></p>
+<pre><code>ufo = ufo.assign(__(i)__)</code></pre>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading1_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1_2" aria-expanded="true" aria-controls="collapse1_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse1_2" class="accordion-collapse collapse"
+aria-labelledby="heading1_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer (i):</strong>
+<code>duration=ufo.get("duration").apply(minutes)</code></p>
+<p>Assigning to a column name that already exists
+<strong>replaces</strong> that column, which is what we want here.</p>
+<p><code>ufo.get("duration")</code> is a Series of duration strings.
+Calling <code>.apply(minutes)</code> on that Series runs the
+<code>minutes</code> function on every element and returns a new Series
+of the corresponding integers. Note that we pass <code>minutes</code>
+without parentheses — we want to hand <code>.apply</code> the function
+itself, not call it.</p>
+<p>Since the new column is named <code>duration</code>, we write it as
+the keyword argument <code>duration=...</code> inside
+<code>.assign</code>.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-1.3">Problem 1.3</h3>
+<p><strong>For the rest of the exam, we’ll assume that <code>ufo</code>
+contains the updated <code>"duration"</code> column.</strong></p>
+<p>The following four expressions are each intended to find the duration
+of the longest sighting in minutes. <strong>Select all that are
+correct.</strong></p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> <code>ufo.take(np.arange(5)).get("duration").iloc[0]</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>ufo.get("duration").max()</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>ufo.sort_values("duration").get("duration").iloc[-1]</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>ufo.sort_values("duration", ascending=False).get("duration").loc[0]</code></p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading1_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1_3" aria-expanded="true" aria-controls="collapse1_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse1_3" class="accordion-collapse collapse"
+aria-labelledby="heading1_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> Options 2 and 3.</p>
+<ul>
+<li><strong>Option 1:</strong> <code>ufo.take(np.arange(5))</code> keeps
+only the first five rows, and <code>.iloc[0]</code> then grabs the
+duration of the very first row. There’s no reason the first row would
+hold the largest duration, so this is incorrect.</li>
+<li><strong>Option 2:</strong> <code>.max()</code> on the
+<code>"duration"</code> Series returns the largest duration directly.
+Correct.</li>
+<li><strong>Option 3:</strong> <code>.sort_values("duration")</code>
+sorts in <strong>ascending</strong> order by default, so the largest
+duration ends up in the last position, and <code>.iloc[-1]</code>
+retrieves it. Correct.</li>
+<li><strong>Option 4:</strong> Sorting in descending order does put the
+largest duration in the first <em>position</em>, but
+<code>.loc[0]</code> looks up the element with <strong>index
+label</strong> <code>0</code>, not the element in position
+<code>0</code>. Sorting rearranges the rows but carries the original
+index labels along, so <code>.loc[0]</code> still returns the duration
+of the row that was originally row <code>0</code>. To make this work
+we’d need <code>.iloc[0]</code> instead.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-2">Problem 2</h2>
+<p>Define the variables <code>once</code> and <code>twice</code> as
+follows.</p>
+<pre><code>once = ufo.groupby(&quot;zipcode&quot;).count()
+twice = once.groupby(&quot;shape&quot;).count()</code></pre>
+<p><br></p>
+<h3 id="problem-2.1">Problem 2.1</h3>
+<p>Determine the <strong>value</strong> resulting from the following
+expression. You may indicate that the value cannot be determined or the
+expression produces an error.</p>
+<pre><code>((once.get(&quot;duration&quot;) &lt; 2) &amp; (once.get(&quot;duration&quot;) &gt;= 2)).sum()</code></pre>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading2_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2_1" aria-expanded="true" aria-controls="collapse2_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse2_1" class="accordion-collapse collapse"
+aria-labelledby="heading2_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> <code>0</code></p>
+<p>The two conditions being combined are exact opposites of one another:
+a number cannot be both strictly less than <span class="math inline">2</span> and greater than or equal to <span class="math inline">2</span> at the same time. Combining them with
+<code>&amp;</code> therefore produces a Series containing
+<code>False</code> in every position, no matter what’s in
+<code>once</code>.</p>
+<p>Summing a Boolean Series counts the number of <code>True</code>
+values, and since there are none, the result is <span class="math inline">0</span>. We don’t need to know anything about the
+contents of <code>ufo</code> to answer this.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-2.2">Problem 2.2</h3>
+<p>What can we conclude using <strong>only</strong> the
+<code>twice</code> DataFrame? <strong>Select only one of the
+options</strong> and in no more than three sentences, explain your
+answer.</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> The zip codes where exactly 3 UFO sightings occurred.</p></li>
+<li><p><input type="radio" disabled="" /> The number of sightings for each UFO shape where exactly 3 distinct
+zip codes were reported.</p></li>
+<li><p><input type="radio" disabled="" /> The number of zip codes where exactly 3 distinct UFO shapes were
+reported.</p></li>
+<li><p><input type="radio" disabled="" /> The number of zip codes where exactly 3 UFO sightings occurred.</p></li>
+<li><p><input type="radio" disabled="" /> The number of sightings where the UFO shape was spherical.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading2_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2_2" aria-expanded="true" aria-controls="collapse2_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse2_2" class="accordion-collapse collapse"
+aria-labelledby="heading2_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> The number of zip codes where exactly 3 UFO
+sightings occurred.</p>
+<p>Work from the inside out.
+<code>once = ufo.groupby("zipcode").count()</code> has one row per zip
+code, and every column of <code>once</code> holds the same number: the
+count of sightings in that zip code. In particular, the
+<code>"shape"</code> column of <code>once</code> is a <em>number of
+sightings</em>, not a shape.</p>
+<p>So <code>twice = once.groupby("shape").count()</code> groups the zip
+codes by their number of sightings. Its index is a number of sightings
+and each entry counts how many zip codes had that many sightings.
+Looking up the row labeled <code>3</code> in <code>twice</code> tells us
+the number of zip codes where exactly <span class="math inline">3</span>
+sightings occurred.</p>
+<p>Here is the code that inspired the other options:</p>
+<ul>
+<li><em>The zip codes where exactly 3 UFO sightings occurred:</em>
+<code>ufo.groupby("zipcode").count()</code></li>
+<li><em>The number of sightings for each UFO shape where exactly 3
+distinct zip codes were reported:</em>
+<code>ufo.groupby(["zipcode", "shape"]).count()</code></li>
+<li><em>The number of zip codes where exactly 3 distinct UFO shapes were
+reported:</em>
+<code>ufo.groupby(["zipcode", "shape"]).count()</code></li>
+<li><em>The number of sightings where the UFO shape was spherical:</em>
+<code>ufo.groupby("shape").count()</code></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-3">Problem 3</h2>
+<p>The <code>"time"</code> column in <code>ufo</code> describes the time
+at which a UFO was initially sighted. The times are formatted in 24-hour
+time which uses hours <code>00</code> through <code>23</code>. For
+example, <code>13:51</code> is the same as 1:51 PM.</p>
+<p>We want to create a function named <code>time_of_day</code> which
+takes in a time and returns the corresponding category, defined by the
+table below.</p>
+<table>
+<thead>
+<tr>
+<th>hour range</th>
+<th>category</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>00:00–04:59</td>
+<td><code>"night"</code></td>
+</tr>
+<tr>
+<td>05:00–11:59</td>
+<td><code>"morning"</code></td>
+</tr>
+<tr>
+<td>12:00–16:59</td>
+<td><code>"afternoon"</code></td>
+</tr>
+<tr>
+<td>17:00–23:59</td>
+<td><code>"evening"</code></td>
+</tr>
+</tbody>
+</table>
+<p>Example inputs and outputs are given below.</p>
+<pre><code>&gt;&gt;&gt; time_of_day(&quot;00:00&quot;)
+&quot;night&quot;
+
+&gt;&gt;&gt; time_of_day(&quot;13:37&quot;)
+&quot;afternoon&quot;
+
+&gt;&gt;&gt; time_of_day(&quot;23:59&quot;)
+&quot;evening&quot;</code></pre>
+<p><br></p>
+<h3 id="problem-3.1">Problem 3.1</h3>
+<p>Consider the following implementations for <code>time_of_day</code>.
+Which of the following implementations are correct? <strong>Select all
+that apply.</strong></p>
+<p><strong>Implementation 1:</strong></p>
+<pre><code>def time_of_day(time):
+    hour_part = int(time.split(&quot;:&quot;)[0])
+    if hour_part &gt;= 17 or hour_part &lt; 24:
+        return &quot;evening&quot;
+    elif hour_part &gt;= 12 or hour_part &lt; 17:
+        return &quot;afternoon&quot;
+    elif hour_part &gt;= 5 or hour_part &lt; 12:
+        return &quot;morning&quot;
+    else:
+        return &quot;night&quot;</code></pre>
+<p><strong>Implementation 2:</strong></p>
+<pre><code>def time_of_day(time):
+    hour_part = int(time.split(&quot;:&quot;)[0])
+    if hour_part &lt; 5:
+        return &quot;night&quot;
+    if hour_part &lt; 12:
+        return &quot;morning&quot;
+    if hour_part &lt; 17:
+        return &quot;afternoon&quot;
+    if hour_part &gt;= 0:
+        return &quot;evening&quot;</code></pre>
+<p><strong>Implementation 3:</strong></p>
+<pre><code>def time_of_day(time):
+    hour_part = int(time.split(&quot;:&quot;)[0])
+    if hour_part &gt;= 17:
+        return &quot;morning&quot;
+    elif hour_part &gt;= 12:
+        return &quot;night&quot;
+    elif hour_part &gt;= 5:
+        return &quot;afternoon&quot;
+    else:
+        return &quot;evening&quot;</code></pre>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> Implementation 1</p></li>
+<li><p><input type="checkbox" disabled="" /> Implementation 2</p></li>
+<li><p><input type="checkbox" disabled="" /> Implementation 3</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading3_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_1" aria-expanded="true" aria-controls="collapse3_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse3_1" class="accordion-collapse collapse"
+aria-labelledby="heading3_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> Implementation 2 only.</p>
+<p>All three implementations extract the hour correctly with
+<code>int(time.split(":")[0])</code>; the difference is in the
+conditions.</p>
+<ul>
+<li><strong>Implementation 1:</strong> The conditions use
+<code>or</code> where they should use <code>and</code>. Every valid hour
+satisfies <code>hour_part &lt; 24</code>, so the very first condition
+<code>hour_part &gt;= 17 or hour_part &lt; 24</code> is
+<code>True</code> for <em>every</em> time, and the function always
+returns <code>"evening"</code>.</li>
+<li><strong>Implementation 2:</strong> Correct. Because each
+<code>if</code> returns immediately, reaching the second <code>if</code>
+already guarantees <code>hour_part &gt;= 5</code>, reaching the third
+guarantees <code>hour_part &gt;= 12</code>, and reaching the fourth
+guarantees <code>hour_part &gt;= 17</code>. So the one-sided comparisons
+are enough, and the categories come out exactly as specified. (The final
+<code>if hour_part &gt;= 0</code> is always <code>True</code> at that
+point, so it behaves like an <code>else</code>.)</li>
+<li><strong>Implementation 3:</strong> The structure is right, but the
+returned labels are shuffled. Hours <span class="math inline">17</span>
+and later should be <code>"evening"</code>, not
+<code>"morning"</code>.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-3.2">Problem 3.2</h3>
+<p>Suppose we use a correct implementation of <code>time_of_day</code>
+to add another column called <code>"time_of_day"</code> to the
+<code>ufo</code> DataFrame. Every entry in the <code>"time"</code>
+column has a converted value in the <code>"time_of_day"</code>
+column.</p>
+<center><img src='../assets/images/su26-midterm/time_of_day.png' width=600></center>
+<p><br></p>
+<p>Which type of data visualization should be used to compare
+<strong>average duration</strong> to the original <code>"time"</code>
+column? <strong>Select only one of the options.</strong></p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> line plot</p></li>
+<li><p><input type="radio" disabled="" /> scatter plot</p></li>
+<li><p><input type="radio" disabled="" /> bar chart</p></li>
+<li><p><input type="radio" disabled="" /> histogram</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading3_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_2" aria-expanded="true" aria-controls="collapse3_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse3_2" class="accordion-collapse collapse"
+aria-labelledby="heading3_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> Line plot.</p>
+<p>The <code>"time"</code> column is a sequence of times running from
+<code>00:00</code> to <code>23:59</code>, so it behaves like a numerical
+variable with a natural order. Here we’re plotting one average duration
+per time, so we have one variable (average duration) measured across a
+sequence — exactly the situation a line plot is designed for. Line plots
+are the standard choice for showing how a quantity changes over
+time.</p>
+<p>A scatter plot would be used for two numerical variables measured on
+each individual, a bar chart for a categorical variable, and a histogram
+for the distribution of a single numerical variable.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-3.3">Problem 3.3</h3>
+<p>Which type of data visualization should be used to compare
+<strong>average duration</strong> to the new <code>"time_of_day"</code>
+column? <strong>Select only one of the options.</strong></p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> line plot</p></li>
+<li><p><input type="radio" disabled="" /> scatter plot</p></li>
+<li><p><input type="radio" disabled="" /> bar chart</p></li>
+<li><p><input type="radio" disabled="" /> histogram</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading3_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3_3" aria-expanded="true" aria-controls="collapse3_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse3_3" class="accordion-collapse collapse"
+aria-labelledby="heading3_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> Bar chart.</p>
+<p>Unlike <code>"time"</code>, the <code>"time_of_day"</code> column is
+<strong>categorical</strong> — it takes only the four values
+<code>"night"</code>, <code>"morning"</code>, <code>"afternoon"</code>,
+and <code>"evening"</code>. Bar charts are used to show a numerical
+quantity (here, average duration) for each category of a categorical
+variable.</p>
+<p>A line plot would incorrectly suggest a continuous trend between
+categories, while scatter plots and histograms both require numerical
+data.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-4">Problem 4</h2>
+<p>Janine was in Las Vegas last year when she spotted a UFO. She
+remembers that the UFO was either disk-shaped or cylinder-shaped, but
+she does not remember which.</p>
+<p>Write a Python expression that evaluates to the time at which this
+sighting could have occurred. If there are multiple possible sightings
+matching these conditions, your expression should evaluate to the time
+of the earliest one.</p>
+<p>The zip code of Las Vegas is <code>"89109"</code>. The earliest time
+is the one with the smallest hour value; ties are broken by the smallest
+minute value (i.e. <code>"00:10"</code> is earlier than
+<code>"23:57"</code>, <code>"04:10"</code> is earlier than
+<code>"04:11"</code>).</p>
+<p><strong>Hint:</strong> Since <code>"time"</code> is a string in
+<code>"HH:MM"</code> format, comparing these strings alphabetically
+gives the same result as comparing them chronologically.</p>
+<p>You may write on multiple lines, but your code should represent a
+<strong>single expression</strong> in Python.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="true" aria-controls="collapse4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse4" class="accordion-collapse collapse"
+aria-labelledby="heading4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong></p>
+<pre><code>ufo[(ufo.get("zipcode") == "89109") &amp;
+    ((ufo.get("shape") == "disk") |
+     (ufo.get("shape") == "cylinder"))].get("time").min()</code></pre>
+<p>We build this up one piece at a time.</p>
+<ul>
+<li><code>ufo.get("zipcode") == "89109"</code> is a Boolean Series that
+is <code>True</code> for sightings in Las Vegas.</li>
+<li><code>(ufo.get("shape") == "disk") | (ufo.get("shape") == "cylinder")</code>
+is <code>True</code> for sightings of either shape Janine might have
+seen. We use <code>|</code> (or) here, not <code>&amp;</code>, since a
+single sighting can’t be both shapes at once — requiring both would
+leave us with no rows at all.</li>
+<li>Combining the two conditions with <code>&amp;</code> keeps only the
+rows that satisfy both, and querying <code>ufo</code> with that Series
+gives the DataFrame of candidate sightings.</li>
+</ul>
+<p>Note the parentheses around each individual comparison. They’re
+required, because <code>&amp;</code> and <code>|</code> have higher
+precedence than <code>==</code> in Python.</p>
+<p>Finally, <code>.get("time")</code> pulls out the times of those
+sightings and <code>.min()</code> finds the smallest one. Thanks to the
+hint, the alphabetically smallest <code>"HH:MM"</code> string is also
+the chronologically earliest time, so <code>.min()</code> is exactly
+what we want.</p>
+<p>An equivalent approach sorts instead of using
+<code>.min()</code>:</p>
+<pre><code>ufo[(ufo.get("zipcode") == "89109") &amp;
+    ((ufo.get("shape") == "disk") |
+     (ufo.get("shape") == "cylinder"))].sort_values("time").get("time").iloc[0]</code></pre>
+</div>
+</div>
+</div>
+</div>
+<hr />
+<h2 id="problem-5">Problem 5</h2>
+<p>The density histogram below was created using data in the
+<code>"duration"</code> column of <code>ufo</code>.</p>
+<center><img src='../assets/images/su26-midterm/histogram.png' width=550></center>
+<p><br></p>
+<h3 id="problem-5.1">Problem 5.1</h3>
+<p>Use the histogram above to determine the result of the following
+expression. You do <strong>not</strong> have to simplify your answer.
+<strong>Show your work.</strong></p>
+<pre><code>ufo[(ufo.get(&quot;duration&quot;) &gt;= 50) &amp; (ufo.get(&quot;duration&quot;) &lt; 150)].shape[0] / ufo.shape[0]</code></pre>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading5_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_1" aria-expanded="true" aria-controls="collapse5_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse5_1" class="accordion-collapse collapse"
+aria-labelledby="heading5_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> <span class="math inline">(0.004 \cdot 50) +
+(0.002 \cdot 50) = 0.30</span></p>
+<p>The expression counts the sightings whose duration is at least <span class="math inline">50</span> minutes and less than <span class="math inline">150</span> minutes, then divides by the total number
+of sightings. That’s the <strong>proportion</strong> of sightings in the
+interval <span class="math inline">[50, 150)</span>.</p>
+<p>In a density histogram, the <em>area</em> of a bar equals the
+proportion of values that fall in that bin. The interval <span class="math inline">[50, 150)</span> is covered exactly by two bins:</p>
+<ul>
+<li>The bin <span class="math inline">[50, 100)</span> has height <span class="math inline">0.004</span> and width <span class="math inline">50</span>, so its area is <span class="math inline">0.004 \cdot 50 = 0.2</span>.</li>
+<li>The bin <span class="math inline">[100, 150)</span> has height <span class="math inline">0.002</span> and width <span class="math inline">50</span>, so its area is <span class="math inline">0.002 \cdot 50 = 0.1</span>.</li>
+</ul>
+<p>Adding the two areas gives <span class="math inline">0.2 + 0.1 =
+0.30</span>, so <span class="math inline">30\%</span> of sightings fall
+in this range.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-5.2">Problem 5.2</h3>
+<p>We want a better look at shorter duration sightings. Consider a
+DataFrame <code>short</code> which only includes sightings that lasted
+less than an hour. We plot <code>short</code> with the following
+command:</p>
+<pre><code>short.plot(kind=&quot;hist&quot;, y=&quot;duration&quot;, bins=np.arange(0, 70, 10))</code></pre>
+<p>What can we conclude using <strong>only</strong> the new histogram
+and the number of rows in <code>short</code>? <strong>Select all that
+apply.</strong></p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> The duration in minutes of the shortest recorded sighting.</p></li>
+<li><p><input type="checkbox" disabled="" /> The number of sightings that were exactly 20 minutes long.</p></li>
+<li><p><input type="checkbox" disabled="" /> The number of sightings that were strictly less than 30 minutes
+long.</p></li>
+<li><p><input type="checkbox" disabled="" /> The number of sightings that were at least 40 minutes long and
+strictly less than 50 minutes long.</p></li>
+<li><p><input type="checkbox" disabled="" /> The number of sightings that were over an hour.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading5_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_2" aria-expanded="true" aria-controls="collapse5_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse5_2" class="accordion-collapse collapse"
+aria-labelledby="heading5_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> Options 3 and 4.</p>
+<p>The bins are <code>np.arange(0, 70, 10)</code>, which gives the edges
+<span class="math inline">0, 10, 20,
+30, 40, 50, 60</span> — that is, the bins <span class="math inline">[0,
+10)</span>, <span class="math inline">[10, 20)</span>, <span class="math inline">[20, 30)</span>, <span class="math inline">[30,
+40)</span>, <span class="math inline">[40, 50)</span>, and <span class="math inline">[50, 60]</span>. A histogram tells us the proportion
+of values in each bin, and nothing about how the values are spread out
+<em>within</em> a bin. Multiplying a proportion by the number of rows in
+<code>short</code> converts it into a count.</p>
+<ul>
+<li><strong>Option 1:</strong> The shortest sighting falls somewhere in
+the leftmost non-empty bin, but the histogram doesn’t tell us where in
+that bin, so we can’t recover its exact duration.</li>
+<li><strong>Option 2:</strong> A single value like exactly <span class="math inline">20</span> minutes sits inside the bin <span class="math inline">[20, 30)</span>, and the histogram doesn’t break
+that bin down any further.</li>
+<li><strong>Option 3:</strong> “Strictly less than 30 minutes” is
+exactly the first three bins, <span class="math inline">[0, 10)</span>,
+<span class="math inline">[10, 20)</span>, and <span class="math inline">[20, 30)</span>. Add their areas and multiply by the
+number of rows in <code>short</code>.</li>
+<li><strong>Option 4:</strong> “At least 40 and strictly less than 50”
+is precisely the bin <span class="math inline">[40, 50)</span>, so its
+area times the number of rows in <code>short</code> gives the
+count.</li>
+<li><strong>Option 5:</strong> <code>short</code> only contains
+sightings that lasted less than an hour, so sightings over an hour
+aren’t in this histogram at all. We’d need information about the full
+<code>ufo</code> DataFrame to answer this.</li>
+</ul>
+<p>The general rule: a histogram can answer a question only when the
+interval in the question lines up exactly with bin boundaries.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-6">Problem 6</h2>
+<p>The DataFrame <code>farms</code> contains information about eight
+Nevada farms. Each row includes the name of the farm as the index as
+well as the <code>"zipcode"</code>, <code>"town"</code>, and
+<code>"state"</code> of the farm. The DataFrame <code>farms</code> is
+shown below in its entirety.</p>
+<center><img src='../assets/images/su26-midterm/farms.png' width=500></center>
+<p><br></p>
+<p>The DataFrame <code>rural</code> only contains zip codes which appear
+both in <code>ufo</code> and <code>farms</code>. Each row in
+<code>rural</code> contains the number of <code>"sightings"</code> that
+occurred in <code>ufo</code> at a given zip code. The DataFrame
+<code>rural</code> is shown below in its entirety.</p>
+<center><img src='../assets/images/su26-midterm/rural.png' width=250></center>
+<p><br></p>
+<h3 id="problem-6.1">Problem 6.1</h3>
+<p>What does <code>mystery1</code> evaluate to? Give your answer as an
+<strong>integer</strong>.</p>
+<pre><code>mystery1 = rural.merge(farms, left_index=True, right_on=&quot;zipcode&quot;).shape[0]</code></pre>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_1" aria-expanded="true" aria-controls="collapse6_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_1" class="accordion-collapse collapse"
+aria-labelledby="heading6_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> <code>5</code></p>
+<p>This merge matches the <strong>index</strong> of <code>rural</code>
+(the zip codes <code>89101</code>, <code>89301</code>, and
+<code>89801</code>) against the <code>"zipcode"</code>
+<strong>column</strong> of <code>farms</code>. A merge produces one row
+for every pair of matching rows, so we count the farms sitting in each
+of <code>rural</code>’s zip codes:</p>
+<ul>
+<li><code>89101</code>: one farm (First Fruits) → <span class="math inline">1</span> row</li>
+<li><code>89301</code>: two farms (Rolling Horse, Ana’s Village) → <span class="math inline">2</span> rows</li>
+<li><code>89801</code>: two farms (Nevada Hay, Blue Lizard) → <span class="math inline">2</span> rows</li>
+</ul>
+<p>That gives <span class="math inline">1 + 2 + 2 = 5</span> rows in
+total. The farms in <code>89406</code>, <code>89446</code>, and
+<code>89808</code> don’t appear because those zip codes aren’t in
+<code>rural</code>.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-6.2">Problem 6.2</h3>
+<p>What does <code>mystery2</code> evaluate to? Give your answer as an
+<strong>integer</strong>.</p>
+<p><strong>Hint:</strong> You do not need to know all of the rows in the
+<code>ufo</code> DataFrame.</p>
+<pre><code>mystery2 = ufo.merge(farms, on=&quot;zipcode&quot;).shape[0]</code></pre>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_2" aria-expanded="true" aria-controls="collapse6_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_2" class="accordion-collapse collapse"
+aria-labelledby="heading6_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> <code>17</code></p>
+<p>This merge matches the <code>"zipcode"</code> column of
+<code>ufo</code> against the <code>"zipcode"</code> column of
+<code>farms</code>. Each sighting in a given zip code pairs with each
+farm in that same zip code, so the number of resulting rows is</p>
+<p><span class="math display">\text{(sightings in that zip code)} \times
+\text{(farms in that zip code)}</span></p>
+<p>summed over all zip codes that appear in both DataFrames.</p>
+<p>This is exactly where <code>rural</code> comes in: it lists the zip
+codes appearing in both <code>ufo</code> and <code>farms</code>, along
+with the number of sightings in each. That’s why we don’t need to see
+all of <code>ufo</code>.</p>
+<ul>
+<li><code>89101</code>: <span class="math inline">1</span> sighting
+<span class="math inline">\times</span> <span class="math inline">1</span> farm <span class="math inline">=
+1</span></li>
+<li><code>89301</code>: <span class="math inline">5</span> sightings
+<span class="math inline">\times</span> <span class="math inline">2</span> farms <span class="math inline">=
+10</span></li>
+<li><code>89801</code>: <span class="math inline">3</span> sightings
+<span class="math inline">\times</span> <span class="math inline">2</span> farms <span class="math inline">=
+6</span></li>
+</ul>
+<p>Altogether, <span class="math inline">1 + 10 + 6 = 17</span>
+rows.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-7">Problem 7</h2>
+<p><br></p>
+<h3 id="problem-7.1">Problem 7.1</h3>
+<p>Ray defines the probability of events regarding a single UFO
+sighting:</p>
+<ul>
+<li><span class="math inline">C</span> is the event in which a UFO is
+cylinder-shaped, with <span class="math inline">P(C) = 0.3</span>.</li>
+<li><span class="math inline">D</span> is the event in which a UFO is
+disk-shaped. <span class="math inline">P(D)</span> is unknown, but the
+event <span class="math inline">D</span> is <strong>at least twice as
+likely</strong> as the event <span class="math inline">C</span>.</li>
+</ul>
+<p>Recall a UFO may either be <code>"cylinder"</code>,
+<code>"sphere"</code>, or <code>"disk"</code>.</p>
+<p><span class="math inline">S</span> is the event in which a UFO is
+sphere-shaped. What is the maximum possible value of <span
+class="math inline">P(S)</span>? <strong>Show your work.</strong></p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading7_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_1" aria-expanded="true" aria-controls="collapse7_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse7_1" class="accordion-collapse collapse"
+aria-labelledby="heading7_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> <span class="math inline">0.1</span></p>
+<p>Every UFO is exactly one of the three shapes, so the three events are
+mutually exclusive and together cover every possibility:</p>
+<p><span class="math display">P(C) + P(D) + P(S) = 1</span></p>
+<p>Substituting <span class="math inline">P(C) = 0.3</span> and
+rearranging,</p>
+<p><span class="math display">P(S) = 1 - 0.3 - P(D) = 0.7 -
+P(D)</span></p>
+<p>To make <span class="math inline">P(S)</span> as large as possible,
+we want <span class="math inline">P(D)</span> as small as possible.
+We’re told <span class="math inline">D</span> is at least twice as
+likely as <span class="math inline">C</span>, so</p>
+<p><span class="math display">P(D) \geq 2 \cdot 0.3 = 0.6</span></p>
+<p>The smallest allowed value is <span class="math inline">P(D) =
+0.6</span>, which gives</p>
+<p><span class="math display">P(S) = 0.7 - 0.6 = 0.1</span></p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-7.2">Problem 7.2</h3>
+<p>Marta learns the following about her rural town:</p>
+<ul>
+<li>On any given night, the probability of a UFO sighting occurring in
+town is <span class="math inline">0.2</span>.</li>
+<li>There are 5 farms in Marta’s town. On nights where a UFO is sighted,
+there is <span class="math inline">0.3</span> probability that a crop
+circle is created at a farm, independently for each farm.</li>
+</ul>
+<p>What is the probability that a UFO is sighted <strong>and</strong> at
+least one crop circle is created on any given night? You do
+<strong>not</strong> have to simplify your answer. <strong>Show your
+work.</strong></p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading7_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_2" aria-expanded="true" aria-controls="collapse7_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse7_2" class="accordion-collapse collapse"
+aria-labelledby="heading7_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer:</strong> <span class="math inline">0.2 \cdot (1 -
+0.7^5)</span></p>
+<p>We need both things to happen, so we multiply the probability of a
+sighting by the probability of at least one crop circle <em>given</em>
+that a sighting occurred.</p>
+<p>The probability of a sighting is <span class="math inline">0.2</span>.</p>
+<p>For the second piece, “at least one” is easiest to handle through its
+complement, which is “no crop circles at all.” Each farm independently
+avoids a crop circle with probability <span class="math inline">1 - 0.3
+= 0.7</span>, and since the five farms are independent, the probability
+that <strong>none</strong> of them gets a crop circle is</p>
+<p><span class="math display">0.7^5</span></p>
+<p>So the probability that at least one crop circle is created, on a
+night when a UFO is sighted, is <span class="math inline">1 -
+0.7^5</span>.</p>
+<p>Multiplying the two pieces together gives</p>
+<p><span class="math display">0.2 \cdot (1 - 0.7^5)</span></p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<h2 id="problem-8">Problem 8</h2>
+<p>Lauren is a rancher in a small town. She observes that every time a
+UFO is sighted, 5 different cows go missing (however, they always
+eventually reappear). There are 100 cows in town, and Lauren owns 23 of
+the 100 cows.</p>
+<p>Complete the simulation below to estimate the probability that
+exactly two of Lauren’s cows are abducted after a UFO sighting. Assume
+the missing cows are selected at random from the set of all cows.</p>
+<p>Fill in blanks (i), (ii), (iii), and (iv).</p>
+<pre><code>all_cows = np.arange(100)
+
+repetitions = 10000
+count_event = 0
+
+for i in np.arange(repetitions):
+    abducted = np.random.choice(__(i)__)
+
+    laurens_cows = abducted &lt;= __(ii)__
+    n = np.count_nonzero(laurens_cows)
+
+    if __(iii)__:
+        count_event = count_event + 1
+
+prob = __(iv)__</code></pre>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading8">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8" aria-expanded="true" aria-controls="collapse8">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse8" class="accordion-collapse collapse"
+aria-labelledby="heading8" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+<h1 class="title"> </h1>
+</header>
+<p><strong>Answer (i):</strong>
+<code>all_cows, 5, replace=False</code></p>
+<p><strong>Answer (ii):</strong> <code>22</code></p>
+<p><strong>Answer (iii):</strong> <code>n == 2</code></p>
+<p><strong>Answer (iv):</strong>
+<code>count_event / repetitions</code></p>
+<ul>
+<li><strong>Blank (i):</strong> Each sighting takes <span class="math inline">5</span> cows from the town’s <span class="math inline">100</span> cows, so we draw <span class="math inline">5</span> elements from <code>all_cows</code>. Since
+the problem says 5 <strong>different</strong> cows go missing, we must
+sample <strong>without</strong> replacement, hence
+<code>replace=False</code>.</li>
+<li><strong>Blank (ii):</strong> <code>all_cows</code> is
+<code>np.arange(100)</code>, i.e. the numbers <span class="math inline">0</span> through <span class="math inline">99</span>. Lauren owns <span class="math inline">23</span> of them, and the natural way to label her
+cows is as the first <span class="math inline">23</span> numbers, <span class="math inline">0</span> through <span class="math inline">22</span>. So a cow belongs to Lauren exactly when
+its number is less than or equal to <span class="math inline">22</span>.
+The comparison <code>abducted &lt;= 22</code> produces a Boolean array,
+and <code>np.count_nonzero</code> counts the <code>True</code> values,
+so <code>n</code> is the number of Lauren’s cows that were abducted.
+Note that writing <code>23</code> here would incorrectly give Lauren
+<span class="math inline">24</span> cows.</li>
+<li><strong>Blank (iii):</strong> We’re estimating the probability that
+<strong>exactly</strong> two of Lauren’s cows are taken, so the
+condition is <code>n == 2</code>. Writing <code>n &gt;= 2</code> would
+answer a different question.</li>
+<li><strong>Blank (iv):</strong> An empirical probability is the number
+of repetitions in which the event happened divided by the total number
+of repetitions.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<hr />
+<h2 id="section"><span class="math display"> </span></h2>
+<h4
+id="feedback-find-an-error-still-confused-have-a-suggestion-let-us-know-here.">👋
+Feedback: Find an error? Still confused? Have a suggestion?
+<a href="https://forms.gle/WZ71FchnXU1K154d7">Let us know
+here</u></a>.</h4>
+<hr />
+</body>
+</html>
