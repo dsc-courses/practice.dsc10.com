@@ -9,7 +9,7 @@ lecture: 9
 There is exactly one team in the WNBA that Plum's team did not win any games against during the 2021 season. Fill in the blanks below so that `never_beat` evaluates to a string containing the three-letter code of that team.
 
 ```py
-never_beat = plum.groupby(__(a)__).sum().__(b)__
+never_beat = plum.get(["Opp", "Won"]).groupby(__(a)__).sum().__(b)__
 ```
 
 1. What goes in blank (a)?

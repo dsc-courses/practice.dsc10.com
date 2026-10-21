@@ -6,6 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>Lecture 9 — Practice</title>
   <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -21,8 +24,9 @@
       vertical-align: middle;
     }
     /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -33,7 +37,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -269,7 +273,7 @@ Midterm</a>).</p>
 <p class="meta"><em>Source:</em> fa23-final — Q2</p>
 <h2 id="problem-3">Problem 3</h2>
 <p>Consider the DataFrame <code>combo</code>, defined below.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>    combo <span class="op">=</span> txn.groupby([<span class="st">&quot;is_fraud&quot;</span>, <span class="st">&quot;method&quot;</span>, <span class="st">&quot;card&quot;</span>]).mean()</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>    combo <span class="op">=</span> txn.drop(columns<span class="op">=</span>[<span class="st">&quot;browser&quot;</span>]).groupby([<span class="st">&quot;is_fraud&quot;</span>, <span class="st">&quot;method&quot;</span>, <span class="st">&quot;card&quot;</span>]).mean()</span></code></pre></div>
 <p><br></p>
 <h3 id="problem-3.1">Problem 3.1</h3>
 <p>What is the maximum possible value of <code>combo.shape[0]</code>?
@@ -293,7 +297,7 @@ aria-labelledby="heading3_1" data-bs-parent="#accordionExample">
 <code>"is_fraud"</code>, <code>"method"</code>, and <code>"card"</code>,
 we will have one row for each unique combination of values in these
 columns. There are 2 possible values for <code>"is_fraud"</code>, 2
-possible values for <code>"method"</code>, and 2 possible values for
+possible values for <code>"method"</code>, and 4 possible values for
 <code>"card"</code>, so the total number of possibilities is 2 * 2 * 4 =
 16. This is the maximum number possible because 16 combinations of
 <code>"is_fraud"</code>, <code>"method"</code>, and <code>"card"</code>
@@ -332,13 +336,12 @@ aria-labelledby="heading3_2" data-bs-parent="#accordionExample">
 
 </header>
 <p><strong>Answer:</strong> 2</p>
-<p><code>combo.shape[1]</code> will give us the number of columns of the
-DataFrame. In this case, we’re using <code>.mean()</code> as our
-aggregation function, so the resulting DataFrame will only have columns
-with numeric types (since BabyPandas automatically ignores columns which
-have a data type incompatible with the aggregation function). In this
-case, <code>"amount"</code> and <code>"lifetime"</code> are the only
-numeric columns, so <code>combo</code> will have 2 columns.</p>
+<p><code>combo.shape[1]</code> is the number of columns.
+<code>.drop(columns=["browser"])</code> removes the leftover string
+column, so <code>.mean()</code> can run. <code>"is_fraud"</code>,
+<code>"method"</code>, and <code>"card"</code> become the index. The
+remaining columns are <code>"amount"</code> and <code>"lifetime"</code>,
+so <code>combo</code> has 2 columns.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
 <p>
@@ -713,7 +716,7 @@ aria-labelledby="heading7" data-bs-parent="#accordionExample">
 <h2 id="problem-8">Problem 8</h2>
 <p>Select the correct way to fill in the blank such that the code below
 evaluates to <code>True</code>.</p>
-<pre><code>treat.groupby(______).mean().shape[0] == treat.shape[0]</code></pre>
+<pre><code>treat.groupby(______).count().shape[0] == treat.shape[0]</code></pre>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> <code>"address"</code></p></li>
 <li><p><input type="radio" disabled="" /> <code>"candy"</code></p></li>
@@ -1610,12 +1613,13 @@ hours in the specified month.</p>
 <code>sun</code> are unique.</p>
 <p>Consider the DataFrame <code>cities</code> defined below.</p>
 <div class="sourceCode" id="cb22"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>cities <span class="op">=</span> sun.groupby(<span class="st">&quot;City&quot;</span>).mean().reset_index()</span></code></pre></div>
+class="sourceCode py"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>cities <span class="op">=</span> sun.drop(columns<span class="op">=</span>[<span class="st">&quot;Country&quot;</span>]).groupby(<span class="st">&quot;City&quot;</span>).mean().reset_index()</span></code></pre></div>
 <p>Fill in the blanks so that the DataFrame that results from the
 sequence of steps described below is identical to
 <code>cities</code>.</p>
-<p>“Sort <code>sun</code> by <strong>(c)</strong> in
-<strong>(d)</strong> order <strong>(e)</strong>.”</p>
+<p>“Sort <code>sun.drop(columns=["Country"])</code> by
+<strong>(c)</strong> in <strong>(d)</strong> order
+<strong>(e)</strong>.”</p>
 <p>What goes in blank (c)?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> <code>"Country"</code></p></li>
@@ -1655,12 +1659,13 @@ aria-labelledby="heading18_2" data-bs-parent="#accordionExample">
 
 </header>
 <p><strong>Answer</strong>: (c): <code>"City"</code>, (d): ascending,
-(e): drop the <code>"Country"</code> column, and reset the index</p>
+(e): and reset the index</p>
 <p>Let’s start by understanding the code provided in the question:<br/>
-The <code>.groupby("City")</code> method groups the data in the
-<code>sun</code> DataFrame by unique city names. Since every city name
-in the DataFrame is unique, this means that each group will consist of
-just one row corresponding to that city.</p>
+<code>.drop(columns=["Country"])</code> removes the only string column
+that is not the grouping column, so <code>.mean()</code> can run. The
+<code>.groupby("City")</code> method then groups the remaining rows by
+unique city names. Since every city name is unique, each group is one
+row.</p>
 <p>After grouping by city, the <code>.mean()</code> method computes the
 average of each column for each group. Again, as each city name is
 unique, this operation doesn’t aggregate multiple rows but merely
@@ -1678,12 +1683,11 @@ index to 0, 1, 2, 3, …</p>
 When we group on <code>"City"</code>, the index of the DataFrame is set
 to <code>"City"</code> names, sorted in ascending alphabetical order
 (this is always the behavior of <code>groupby</code>). Since all city
-names are unique, the number of rows in
-<code>sun.groupby("City").mean()</code> is the same as the number of
-rows in <code>sun</code>, and so grouping on <code>"City"</code>
-effectively sorts the DataFrame by <code>"City"</code> and sets the
-index to <code>"City"</code>. To replicate the order in
-<code>cities</code>, then, we must sort <code>sun</code> by the
+names are unique, the number of rows after grouping is the same as the
+number of rows in <code>sun</code>, and so grouping on
+<code>"City"</code> effectively sorts the DataFrame by
+<code>"City"</code> and sets the index to <code>"City"</code>. To
+replicate the order in <code>cities</code>, then, we must sort by the
 <code>"City"</code> column in ascending order.</p>
 <hr/>
 <h5>Difficulty: ⭐️</h5>
@@ -1699,18 +1703,12 @@ Addressed above.</p>
 </p>
 <p>The average score on this problem was 77%.</p>
 <p><br/><br/></p>
-<p><strong>What goes in blank (e)?</strong> , drop the
-<code>"Country"</code> column, and reset the index<br/>
-In the provided code, after grouping by <code>"City"</code> and
-computing the mean, we reset the index. This means the
-<code>"City"</code> column is no longer the index but a regular column,
-and the DataFrame gets a fresh integer index. To replicate this
-structure, we need to reset the index in our sorted DataFrame.
-Additionally, when we applied the <code>.mean()</code> method after
-grouping, any non-numeric columns (like <code>"Country"</code>) that we
-can’t take the mean of are automatically excluded from the resulting
-DataFrame. To match the structure of <code>cities</code>, then, we must
-drop the <code>"Country"</code> column from our sorted DataFrame.</p>
+<p><strong>What goes in blank (e)?</strong> and reset the index<br/>
+<code>"Country"</code> is already removed in the DataFrame we are
+sorting. After grouping by <code>"City"</code>, <code>"City"</code> is
+the index, and <code>.reset_index()</code> makes it a regular column
+again with a fresh integer index. Sorting does not do that, so we still
+reset the index.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
 <p>
@@ -1726,8 +1724,8 @@ drop the <code>"Country"</code> column from our sorted DataFrame.</p>
 <p>True or False: In the code below, <code>Z</code> is guaranteed to
 evaluate to <code>True</code>.</p>
 <div class="sourceCode" id="cb23"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> sun.groupby([<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Year&quot;</span>]).mean().shape[<span class="dv">0</span>]</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> sun.groupby(<span class="st">&quot;Country&quot;</span>).mean().shape[<span class="dv">0</span>]</span>
+class="sourceCode py"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> sun.groupby([<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Year&quot;</span>]).count().shape[<span class="dv">0</span>]</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> sun.groupby(<span class="st">&quot;Country&quot;</span>).count().shape[<span class="dv">0</span>]</span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> (x <span class="op">&gt;=</span> y)</span></code></pre></div>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> True</p></li>
@@ -1749,18 +1747,19 @@ aria-labelledby="heading18_3" data-bs-parent="#accordionExample">
 <p><strong>Answer</strong>: True<br/>
 Let’s us look at each line of code separately:</p>
 <ul>
-<li><p><code>x = sun.groupby(["Country", "Year"]).mean().shape[0]</code>:
+<li><p><code>x = sun.groupby(["Country", "Year"]).count().shape[0]</code>:
 This line groups the <code>sun</code> DataFrame by both
-<code>"Country"</code> and <code>"Year"</code>, then computes the mean.
-As a result, each unique combination of <code>"Country"</code> and
-<code>"Year"</code> will have its own row. For instance, if there are
-three different values in the <code>"Year"</code> column for a
-particular country, that country will appear three times in the
-DataFrame <code>sun.groupby(["Country", "Year"]).mean()</code>.</p></li>
-<li><p><code>y = sun.groupby("Country").mean().shape[0]</code>: When
+<code>"Country"</code> and <code>"Year"</code>, then counts the rows in
+each group. Each unique combination of <code>"Country"</code> and
+<code>"Year"</code> has its own row. For instance, if there are three
+different values in the <code>"Year"</code> column for a particular
+country, that country will appear three times in the result.</p></li>
+<li><p><code>y = sun.groupby("Country").count().shape[0]</code>: When
 grouping by <code>"Country"</code> alone, each unique country in the
 <code>sun</code> DataFrame is represented by one row, independent of the
-information in other columns.</p></li>
+information in other columns. <code>.count()</code> is used here because
+we only need the number of groups, and <code>.count()</code> still runs
+when <code>"City"</code> is in the table.</p></li>
 <li><p><code>z = (x &gt;= y)</code>: This comparison checks whether the
 number of rows produced by grouping by both <code>"Country"</code> and
 <code>"Year"</code> (which is <code>x</code>) is greater than or equal
@@ -1876,7 +1875,7 @@ alphabetically.</p></li>
 <h3 id="problem-18.5">Problem 18.5</h3>
 <p>What does the following expression evaluate to?</p>
 <div class="sourceCode" id="cb25"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>sun.groupby(<span class="st">&quot;Country&quot;</span>).<span class="bu">sum</span>().get(<span class="st">&quot;City&quot;</span>).iloc[<span class="dv">0</span>]</span></code></pre></div>
+class="sourceCode py"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>sun.groupby(<span class="st">&quot;Country&quot;</span>).mean().get(<span class="st">&quot;City&quot;</span>).iloc[<span class="dv">0</span>]</span></code></pre></div>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> A</p></li>
 <li><p><input type="radio" disabled="" /> B</p></li>
@@ -1903,15 +1902,12 @@ aria-labelledby="heading18_5" data-bs-parent="#accordionExample">
 </p>
 <p>Let’s break down the code:</p>
 <ul>
-<li><p><code>sun.groupby("Country").sum()</code>: This groups the
-<code>sun</code> DataFrame by the <code>"Country"</code> column and
-computes the sum for each numeric column within each country group.
-Since <code>"City"</code> is non-numeric, it will be dropped.</p></li>
-<li><p><code>.get("City")</code>: This operation attempts to retrieve
-the <code>"City"</code> column from the resulting DataFrame. However,
-since the <code>"City"</code> column was dropped in the previous step,
-this will raise a KeyError, indicating that the column is not present in
-the DataFrame.</p></li>
+<li><p><code>sun.groupby("Country").mean()</code>: This groups the
+<code>sun</code> DataFrame by the <code>"Country"</code> column.
+<code>"City"</code> contains strings, so <code>.mean()</code> cannot
+average it and raises an error.</p></li>
+<li><p><code>.get("City")</code>: This line is never reached. The error
+happens at <code>.mean()</code>.</p></li>
 </ul>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
@@ -2511,7 +2507,7 @@ gives an incorrect answer, or errors.</p>
 </ol>
 <div class="sourceCode" id="cb31"><pre
 class="sourceCode py"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>studio <span class="op">=</span> apts[apts.get(<span class="st">&quot;Bed&quot;</span>) <span class="op">==</span> <span class="st">&quot;Studio&quot;</span>]</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>studio_avg <span class="op">=</span> studio.groupby(<span class="st">&quot;Complex&quot;</span>).mean().reset_index()</span></code></pre></div>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>studio_avg <span class="op">=</span> studio.drop(columns<span class="op">=</span>[<span class="st">&quot;Bed&quot;</span>, <span class="st">&quot;Bath&quot;</span>, <span class="st">&quot;Neighborhood&quot;</span>, <span class="st">&quot;Lease Term&quot;</span>]).groupby(<span class="st">&quot;Complex&quot;</span>).mean().reset_index()</span></code></pre></div>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> Works as intended</p></li>
 <li><p><input type="radio" disabled="" /> Gives an incorrect answer</p></li>
@@ -2531,7 +2527,7 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb32-1"><a href=
 <li></li>
 </ol>
 <div class="sourceCode" id="cb33"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>grouped <span class="op">=</span> apts.groupby([<span class="st">&quot;Bed&quot;</span>, <span class="st">&quot;Complex&quot;</span>]).mean().reset_index()</span>
+class="sourceCode py"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>grouped <span class="op">=</span> apts.drop(columns<span class="op">=</span>[<span class="st">&quot;Bath&quot;</span>, <span class="st">&quot;Neighborhood&quot;</span>, <span class="st">&quot;Lease Term&quot;</span>]).groupby([<span class="st">&quot;Bed&quot;</span>, <span class="st">&quot;Complex&quot;</span>]).mean().reset_index()</span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>studio_avg <span class="op">=</span> grouped[grouped.get(<span class="st">&quot;Bed&quot;</span>) <span class="op">==</span> <span class="st">&quot;Studio&quot;</span>]</span></code></pre></div>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> Works as intended</p></li>
@@ -2542,7 +2538,7 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb33-1"><a href=
 <li></li>
 </ol>
 <div class="sourceCode" id="cb34"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>grouped <span class="op">=</span> apts.groupby(<span class="st">&quot;Complex&quot;</span>).mean().reset_index()</span>
+class="sourceCode py"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>grouped <span class="op">=</span> apts.get([<span class="st">&quot;Complex&quot;</span>, <span class="st">&quot;Rent&quot;</span>, <span class="st">&quot;Laundry&quot;</span>, <span class="st">&quot;Sqft&quot;</span>]).groupby(<span class="st">&quot;Complex&quot;</span>).mean().reset_index()</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>studio_avg <span class="op">=</span> grouped[grouped.get(<span class="st">&quot;Bed&quot;</span>) <span class="op">==</span> <span class="st">&quot;Studio&quot;</span>]</span></code></pre></div>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> Works as intended</p></li>
@@ -2570,15 +2566,14 @@ aria-labelledby="heading22_1" data-bs-parent="#accordionExample">
 <li><strong>(iv) Errors</strong></li>
 </ul>
 <ol type="i">
-<li><code>studio</code> is set to a DataFrame that is queried from the
-<code>apts</code> DataFrame so that it contains only rows that have the
-<code>"Studio"</code> value in <code>"Bed"</code>. Then, with
-<code>studio</code>, it groups by the <code>"Complex"</code> and
-aggregates by the mean. Finally, it resets its index. Since we have a
-DataFrame that only has <code>"Studio"</code>s , grouping by the
-<code>"Complex"</code> will take the mean of every numerical column -
-including the rent - in the DataFrame per <code>"Complex"</code>,
-effectively reaching our goal.</li>
+<li><code>studio</code> is the rows of <code>apts</code> where
+<code>"Bed"</code> is <code>"Studio"</code>.
+<code>.drop(columns=["Bed", "Bath", "Neighborhood", "Lease Term"])</code>
+removes the string columns, so <code>.mean()</code> can run. Grouping by
+<code>"Complex"</code> then averages <code>"Rent"</code>,
+<code>"Laundry"</code>, and <code>"Sqft"</code> for each complex, and
+<code>.reset_index()</code> makes <code>"Complex"</code> a column again.
+That is the requested table.</li>
 </ol>
 <hr/>
 <h5>Difficulty: ⭐️</h5>
@@ -2600,19 +2595,18 @@ for.</li>
 <p>The average score on this problem was 95%.</p>
 <p><br/><br/></p>
 <ol start="3" type="i">
-<li><code>grouped</code> is made through first grouping by both the
-<code>"Bed"</code> and <code>"Complex"</code> columns then taking the
-mean and resetting the index. Since we are grouping by both of these
-columns, we separate each type of <code>"Bed"</code> by the
-<code>"Complex"</code> it belongs to while aggregating by the mean for
-every numerical column. After resetting the index, we are left with a
-DataFrame that contains the mean of every <code>"Bed"</code> and
-<code>"Complex"</code> combination. A sample of the DataFrame might look
-like this:</li>
+<li><code>.drop(columns=["Bath", "Neighborhood", "Lease Term"])</code>
+removes the string columns that are not used for grouping, so
+<code>.mean()</code> can run. Grouping by <code>"Bed"</code> and
+<code>"Complex"</code> averages the remaining numeric columns for each
+bedroom type in each complex. After <code>.reset_index()</code>,
+<code>"Bed"</code> is a column again, and filtering it to
+<code>"Studio"</code> leaves the requested rows. A sample of the
+DataFrame might look like this:</li>
 </ol>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>Bed</th>
 <th>Complex</th>
 <th>Rent</th>
@@ -2620,19 +2614,19 @@ like this:</li>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>One</td>
 <td>Costa Verde Village</td>
 <td>3200</td>
 <td>…</td>
 </tr>
-<tr class="even">
+<tr>
 <td>One</td>
 <td>Westwood</td>
 <td>3000</td>
 <td>…</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>…</td>
 <td>…</td>
 <td>…</td>
@@ -2654,16 +2648,11 @@ solution the question requests for.</p>
 <p>The average score on this problem was 84%.</p>
 <p><br/><br/></p>
 <ol start="4" type="i">
-<li>For this <code>grouped</code>, we only <code>.groupby()</code> the
-<code>"Complex"</code> column, aggregate by the mean, and reset index.
-Then, we attempt to assign <code>studio_avg</code> to the resulting
-DataFrame of a query from our <code>grouped</code> DataFrame. However,
-this wouldn’t work at all because when we grouped by
-<code>"Complex"</code> and aggregated by the mean to create
-<code>grouped</code>, the <code>.groupby()</code> removed our
-<code>"Bed"</code> column since it isn’t numerical. Therefore, when we
-attempt to query by <code>"Bed"</code>, babypandas cannot locate such
-column since it was removed - resulting in an error.</li>
+<li><code>.get(["Complex", "Rent", "Laundry", "Sqft"])</code> keeps
+<code>"Complex"</code> and the numeric columns, so <code>.mean()</code>
+can run. <code>"Bed"</code> is not in that table. The next line queries
+<code>"Bed"</code>, and that column is not there, so the code
+errors.</li>
 </ol>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
@@ -2679,7 +2668,7 @@ column since it was removed - resulting in an error.</li>
 <p>Consider the DataFrame <code>alternate_approach</code> defined as
 follows</p>
 <div class="sourceCode" id="cb35"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>grouped <span class="op">=</span> apts.groupby([<span class="st">&quot;Bed&quot;</span>, <span class="st">&quot;Complex&quot;</span>]).mean().reset_index()</span>
+class="sourceCode py"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>grouped <span class="op">=</span> apts.drop(columns<span class="op">=</span>[<span class="st">&quot;Bath&quot;</span>, <span class="st">&quot;Neighborhood&quot;</span>, <span class="st">&quot;Lease Term&quot;</span>]).groupby([<span class="st">&quot;Bed&quot;</span>, <span class="st">&quot;Complex&quot;</span>]).mean().reset_index()</span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>alternate_approach <span class="op">=</span> grouped.groupby(<span class="st">&quot;Complex&quot;</span>).<span class="bu">min</span>()</span></code></pre></div>
 <p>Suppose that the <code>"Rent"</code> column of
 <code>alternate_approach</code> has all the same values as the
@@ -2712,17 +2701,17 @@ aria-labelledby="heading22_2" data-bs-parent="#accordionExample">
 
 </header>
 <p><strong>Answer:</strong> Options 2 and 5</p>
-<p><code>alternate approach</code> first groups by <code>"Bed"</code>
-and <code>"Complex"</code> , takes the mean of all the columns, and
-resets the index such that <code>"Bed"</code> and <code>"Complex"</code>
-are no longer indexes. Now there is one row per <code>"Bed"</code> and
-<code>"Complex"</code> combination that exists in <code>apts</code> and
-all columns contain the mean value for each of these <code>"Bed"</code>
-and <code>"Complex"</code> combinations. Then it groups by
-<code>"Complex"</code> again, taking the minimum value of all columns.
-The output is a DataFrame indexed by <code>"Complex"</code> where the
-<code>"Rent"</code>column contains the minimum rent (from of all the
-average prices for each type of <code>"Bed"</code>).</p>
+<p><code>alternate_approach</code> first drops <code>"Bath"</code>,
+<code>"Neighborhood"</code>, and <code>"Lease Term"</code>, groups by
+<code>"Bed"</code> and <code>"Complex"</code>, takes the mean, and
+resets the index. <code>"Bed"</code> and <code>"Complex"</code> are
+columns again, and <code>"Rent"</code>, <code>"Laundry"</code>, and
+<code>"Sqft"</code> hold the mean for each bedroom type in each complex.
+It then groups by <code>"Complex"</code> and takes the minimum.
+<code>.min()</code> can run with the string column <code>"Bed"</code>
+still present. The output is a DataFrame indexed by
+<code>"Complex"</code> where the <code>"Rent"</code> column contains the
+minimum of the average rents for each bedroom type.</p>
 <ul>
 <li>Option 1 is incorrect. This is not necessarily true. The
 <code>"Rent"</code> column in <code>alternate_approach</code>in contains
@@ -3287,7 +3276,7 @@ aria-labelledby="heading27_4" data-bs-parent="#accordionExample">
 
 </header>
 <p><strong>Answer:</strong>
-<code>merged.groupby("Continent").median().plot(kind="barh", y="Reciprocal Tariff");</code></p>
+<code>merged.get(["Continent", "Reciprocal Tariff"]).groupby("Continent").median().plot(kind="barh", y="Reciprocal Tariff");</code></p>
 <p>This question calls for a visualization which shows the median
 reciprocal tariff for each continent. The first part of solving this
 problem involves correctly identifying what dataframe to use when
@@ -3609,7 +3598,7 @@ before Stage 12.</p></li>
 meaning of <code>mystery</code>.</p>
 <p>“The __(i)__ __(ii)__ of the __(iii)__ __(iv)__ .”</p>
 <div class="sourceCode" id="cb47"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>mystery <span class="op">=</span> kart.groupby(<span class="st">&quot;Region&quot;</span>).mean().get(<span class="st">&quot;Ranking&quot;</span>).<span class="bu">min</span>()</span></code></pre></div>
+class="sourceCode py"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>mystery <span class="op">=</span> kart.get([<span class="st">&quot;Region&quot;</span>, <span class="st">&quot;Ranking&quot;</span>]).groupby(<span class="st">&quot;Region&quot;</span>).mean().get(<span class="st">&quot;Ranking&quot;</span>).<span class="bu">min</span>()</span></code></pre></div>
 <p>What goes in (i)?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> average</p></li>
@@ -4012,7 +4001,7 @@ resulting table size.</p>
 <code>'publication_year'</code> (<code>int</code>). <br></p>
 <h3 id="problem-34.1">Problem 34.1</h3>
 <p>What will be the output of the following code?
-<code>books.groupby(“publication_year”).mean().shape[1]</code></p>
+<code>books.get(['publication_year', 'num_chapters']).groupby('publication_year').mean().shape[1]</code></p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> <code>1</code></p></li>
 <li><p><input type="radio" disabled="" /> <code>2</code></p></li>
@@ -4033,15 +4022,14 @@ aria-labelledby="heading34_1" data-bs-parent="#accordionExample">
 
 </header>
 <p><strong>Answer: </strong> <code>1</code></p>
-<p>The output will return 1. Notice that the final function call is to
-<code>.shape[1]</code>. We know that <code>.shape[1]</code> is a call to
-see how many columns are in the resulting data frame. When we group by
-publication year, there is only one column that will be aggregated by
-the groupby call (which is the <code>'num_chapters'</code> column). The
-other columns are string, and therefore, will not be aggregated in the
-groupby call (since you can’t take the mean of a string). Consequently
-<code>.shape[1]</code> will only result one column for the mean of the
-<code>'num_chapters'</code> column.</p>
+<p>The output will return 1. <code>.shape[1]</code> is the number of
+columns in the result.
+<code>.get(['publication_year', 'num_chapters'])</code> keeps the
+grouping column and <code>'num_chapters'</code>. <code>'author'</code>
+and <code>'title'</code> are strings, so they are left out and
+<code>.mean()</code> can run. Grouping by
+<code>'publication_year'</code> moves that column to the index, leaving
+<code>'num_chapters'</code> as the only column.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -4383,7 +4371,7 @@ won at least one game in an opponent’s arena and lost at least one game
 in an opponent’s arena.</p>
 <p>Consider the DataFrame <code>home_won</code>, defined below.</p>
 <div class="sourceCode" id="cb53"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>home_won <span class="op">=</span> plum.groupby([<span class="st">&#39;Home&#39;</span>, <span class="st">&#39;Won&#39;</span>]).mean().reset_index()</span></code></pre></div>
+class="sourceCode py"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>home_won <span class="op">=</span> plum.drop(columns<span class="op">=</span>[<span class="st">&#39;Date&#39;</span>, <span class="st">&#39;Opp&#39;</span>]).groupby([<span class="st">&#39;Home&#39;</span>, <span class="st">&#39;Won&#39;</span>]).mean().reset_index()</span></code></pre></div>
 <ol type="1">
 <li><p>How many rows does <code>home_won</code> have?</p></li>
 <li><p>How many columns does <code>home_won</code> have?</p></li>
@@ -4402,8 +4390,8 @@ aria-labelledby="heading36_4" data-bs-parent="#accordionExample">
 
 </header>
 <p><strong>Answer:</strong> 4 rows and 5 columns.</p>
-<p><code>plum.groupby(['Home', 'Won']).mean()</code> contains one row
-for every unique combination of <code>'Home'</code> and
+<p><code>plum.drop(columns=['Date', 'Opp']).groupby(['Home', 'Won']).mean()</code>
+contains one row for every unique combination of <code>'Home'</code> and
 <code>'Won'</code>. There are two values of <code>'Home'</code> -
 <code>True</code> and <code>False</code> – and two values of
 <code>'Won'</code> – <code>True</code> and <code>False</code> – leading
@@ -4414,23 +4402,14 @@ given in the problem:</p>
 game in Las Vegas and lost at least one game in Las Vegas. Also, suppose
 they won at least one game in an opponent’s arena and lost at least one
 game in an opponent’s arena.</em></p>
-<p><code>plum</code> started with 7 columns: <code>'Date'</code>,
-<code>'Opp'</code>, <code>'Home'</code>, <code>'Won'</code>,
-<code>'PTS'</code>, <code>'AST'</code>, and <code>'TOV'</code>. After
-grouping by <code>['Home', 'Won']</code> and using <code>.mean()</code>,
-<code>'Home'</code> and <code>'Won'</code> become the index. The
-resulting DataFrame contains all of the columns that the
-<code>.mean()</code> aggregation method can work on. We cannot take the
-mean of <code>'Date'</code> and <code>'Opp'</code>, because those
-columns are strings, so
-<code>plum.groupby(['Home', 'Won']).mean()</code> contains a
-<code>MultiIndex</code> with 2 “columns” – <code>'Home'</code> and
-<code>'Won'</code> – and 3 regular columns – <code>'PTS'</code>
-<code>'AST'</code>, and <code>'TOV'</code>. Then, when using
-<code>.reset_index()</code>, <code>'Home'</code> and <code>'Won'</code>
-are restored as regular columns, meaning that
-<code>plum.groupby(['Home', 'Won']).mean().reset_index()</code> has
-<span class="math inline">2 + 3 = 5</span> columns.</p>
+<p><code>.drop(columns=['Date', 'Opp'])</code> removes the two string
+columns, so <code>.mean()</code> can run. After grouping by
+<code>['Home', 'Won']</code>, those two columns become the index, and
+the remaining columns are <code>'PTS'</code>, <code>'AST'</code>, and
+<code>'TOV'</code>. <code>.reset_index()</code> restores
+<code>'Home'</code> and <code>'Won'</code> as regular columns, so
+<code>home_won</code> has <span class="math inline">2 + 3 = 5</span>
+columns.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -4444,11 +4423,10 @@ are restored as regular columns, meaning that
 <h3 id="problem-36.5">Problem 36.5</h3>
 <p>Consider the DataFrame <code>home_won</code> once again.</p>
 <div class="sourceCode" id="cb54"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>home_won <span class="op">=</span> plum.groupby([<span class="st">&#39;Home&#39;</span>, <span class="st">&#39;Won&#39;</span>]).mean().reset_index()</span></code></pre></div>
-<p>Now consider the DataFrame <code>puzzle</code>, defined below. Note
-that the only difference between <code>home_won</code> and
-<code>puzzle</code> is the use of <code>.count()</code> instead of
-<code>.mean()</code>.</p>
+class="sourceCode py"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>home_won <span class="op">=</span> plum.drop(columns<span class="op">=</span>[<span class="st">&#39;Date&#39;</span>, <span class="st">&#39;Opp&#39;</span>]).groupby([<span class="st">&#39;Home&#39;</span>, <span class="st">&#39;Won&#39;</span>]).mean().reset_index()</span></code></pre></div>
+<p>Now consider the DataFrame <code>puzzle</code>, defined below.
+<code>puzzle</code> groups the original <code>plum</code> table and uses
+<code>.count()</code> instead of <code>.mean()</code>.</p>
 <div class="sourceCode" id="cb55"><pre
 class="sourceCode py"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>puzzle <span class="op">=</span> plum.groupby([<span class="st">&#39;Home&#39;</span>, <span class="st">&#39;Won&#39;</span>]).count().reset_index()</span></code></pre></div>
 <p>How do the number of rows and columns in <code>home_won</code>
@@ -4479,19 +4457,15 @@ aria-labelledby="heading36_5" data-bs-parent="#accordionExample">
 <p><strong>Answer: </strong> <code>home_won</code> and
 <code>puzzle</code> have the same number of rows, but a different number
 of columns</p>
-<p>All that changed between <code>home_won</code> and
-<code>puzzle</code> is the aggregation method. The aggregation method
-has no influence on the number of rows in the output DataFrame, as there
-is still one row for each of the 4 unique combinations of
-<code>'Home'</code> and <code>'Won'</code>.</p>
-<p>However, <code>puzzle</code> has 7 columns, instead of 5. In the
-solution to the above subpart, we noticed that we could not use
-<code>.mean()</code> on the <code>'Date'</code> and <code>'Opp'</code>
-columns, since they contained strings. However, we can use
-<code>.count()</code> (since <code>.count()</code> just determines the
-number of non-NA values in each group), and so the <code>'Date'</code>
-and <code>'Opp'</code> columns are not “lost” when aggregating. Hence,
-<code>puzzle</code> has 2 more columns than <code>home_won</code>.</p>
+<p>Both tables have one row for each of the 4 unique combinations of
+<code>'Home'</code> and <code>'Won'</code>, so they have the same number
+of rows.</p>
+<p><code>puzzle</code> counts every column in <code>plum</code>,
+including <code>'Date'</code> and <code>'Opp'</code>.
+<code>.count()</code> can count string columns. <code>home_won</code>
+averaged the table after those two columns were removed, so it has 5
+columns. <code>puzzle</code> has 7. They have the same number of rows
+and a different number of columns.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -4511,7 +4485,7 @@ any games against during the 2021 season. Fill in the blanks below so
 that <code>never_beat</code> evaluates to a string containing the
 three-letter code of that team.</p>
 <div class="sourceCode" id="cb56"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>never_beat <span class="op">=</span> plum.groupby(__(a)__).<span class="bu">sum</span>().__(b)__</span></code></pre></div>
+class="sourceCode py"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>never_beat <span class="op">=</span> plum.get([<span class="st">&quot;Opp&quot;</span>, <span class="st">&quot;Won&quot;</span>]).groupby(__(a)__).<span class="bu">sum</span>().__(b)__</span></code></pre></div>
 <ol type="1">
 <li><p>What goes in blank (a)?</p></li>
 <li><p>What goes in blank (b)?</p></li>
@@ -6453,21 +6427,21 @@ bread as possible. There are only a few menu items at The Bread Basket,
 shown with their costs in the table below:</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th style="text-align: center;"><strong>Bread</strong></th>
 <th style="text-align: center;"><strong>Cost</strong></th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td style="text-align: center;">Sourdough</td>
 <td style="text-align: center;">2</td>
 </tr>
-<tr class="even">
+<tr>
 <td style="text-align: center;">Whole Wheat</td>
 <td style="text-align: center;">3</td>
 </tr>
-<tr class="odd">
+<tr>
 <td style="text-align: center;">Multigrain</td>
 <td style="text-align: center;">4</td>
 </tr>
@@ -6781,20 +6755,216 @@ aria-labelledby="heading50_2" data-bs-parent="#accordionExample">
 </div>
 <p><br></p>
 <hr />
-<p class="meta"><em>Source:</em> wi26-quiz2 — Q4</p>
+<p class="meta"><em>Source:</em> wi26-final — Q2</p>
 <h2 id="problem-51">Problem 51</h2>
+<p>Kate is the San Diego Zoo’s newest zookeeper! She creates the
+DataFrames <code>first_5</code> and <code>first_7</code> using the code
+below.</p>
+<div class="sourceCode" id="cb77"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>first_5 <span class="op">=</span> zoo.take(np.arange(<span class="dv">5</span>))</span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>first_7 <span class="op">=</span> zoo.take(np.arange(<span class="dv">7</span>))</span></code></pre></div>
+<p><br></p>
+<h3 id="problem-51.1">Problem 51.1</h3>
+<p><strong>(a)</strong> Kate’s first merge call is shown below.</p>
+<div class="sourceCode" id="cb78"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>merged_a <span class="op">=</span> first_7.merge(first_7, on<span class="op">=</span><span class="st">&#39;species&#39;</span>)</span></code></pre></div>
+<p>How many rows does <code>merged_a</code> have? Write your answer as a
+single number.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading51_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse51_1" aria-expanded="true" aria-controls="collapse51_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse51_1" class="accordion-collapse collapse"
+aria-labelledby="heading51_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer:</strong> <code>17</code></p>
+<p>In <code>first_7</code>, there are 2 giant pandas, 3 African
+elephants, and 2 polar bears. Merging <code>first_7</code> with itself
+on <code>species</code> creates (2^2 + 3^2 + 2^2 = 17) rows.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-51.2">Problem 51.2</h3>
+<p><strong>(b)</strong> Kate’s second merge call is shown below.</p>
+<div class="sourceCode" id="cb79"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>merged_b <span class="op">=</span> merged_a.merge(first_5, on<span class="op">=</span><span class="st">&#39;species&#39;</span>)</span></code></pre></div>
+<p>How many rows does <code>merged_b</code> have? Write your answer as a
+single number in the box.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading51_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse51_2" aria-expanded="true" aria-controls="collapse51_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse51_2" class="accordion-collapse collapse"
+aria-labelledby="heading51_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer:</strong> <code>35</code></p>
+<p>The merge from part (a) has 17 rows. Merging that result with
+<code>first_5</code> keeps only the pandas and elephants, giving (2^3 +
+3^3 = 8 + 27 = 35) rows.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<p class="meta"><em>Source:</em> wi26-midterm — Q8</p>
+<h2 id="problem-52">Problem 52</h2>
+<p>A student at UCSD runs a food Instagram account, <span
+class="citation" data-cites="ucsdfoodeater">@ucsdfoodeater</span>. They
+go around San Diego trying pizza at different restaurants and keep notes
+on what kinds of pizza they have tried and where.</p>
+<p>They keep their notes in a DataFrame called <code>notes</code>; in
+the <code>notes</code> DataFrame, the <strong>index</strong> is the
+pizza kind, and the <code>restaurants_tried</code> column is a list of
+the restaurants where they’ve tried that kind.</p>
+<pre><code>notes = bpd.DataFrame().assign(
+    kind=[&quot;Cheese&quot;, &quot;Pepperoni&quot;, &quot;Veggie&quot;, &quot;Margherita&quot;,
+          &quot;Hawaiian&quot;, &quot;Supreme&quot;, &quot;BBQ Chicken&quot;, &quot;White&quot;],
+    restaurants_tried=[
+        [&quot;Jeffrey&#39;s Pizza&quot;, &quot;Pizza Pandas&quot;],
+        [&quot;Jeffrey&#39;s Pizza&quot;, &quot;Pizza by Peter&quot;],
+        [&quot;Pizza Pandas&quot;],
+        [&quot;Pizza by Peter&quot;],
+        [&quot;Jeffrey&#39;s Pizza&quot;],
+        [&quot;Jeffrey&#39;s Pizza&quot;],
+        [&quot;Regents Pizzeria&quot;],
+        [&quot;Pizza on Pearl&quot;]
+    ]
+).set_index(&quot;kind&quot;)</code></pre>
+<p>The <code>notes</code> DataFrame has 8 rows. Note that some pizza
+kinds in <code>notes</code> do not appear in <code>pizza</code>, and
+some kinds in <code>pizza</code> do not appear in
+<code>notes</code>.</p>
+<p><br></p>
+<h3 id="problem-52.1">Problem 52.1</h3>
+<p>Recall again that <code>pizza10</code> was created in Question 3,
+containing exactly the 10 rows shown on the Data Description page. What
+would the following expression evaluate to?</p>
+<pre><code>pizza10.merge(notes, left_on=&quot;kind&quot;, right_index=True).shape[0]</code></pre>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> 0</p></li>
+<li><p><input type="radio" disabled="" /> 6</p></li>
+<li><p><input type="radio" disabled="" /> 9</p></li>
+<li><p><input type="radio" disabled="" /> 10</p></li>
+<li><p><input type="radio" disabled="" /> Cannot be determined</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading52_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse52_1" aria-expanded="true" aria-controls="collapse52_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse52_1" class="accordion-collapse collapse"
+aria-labelledby="heading52_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer:</strong> 9.</p>
+<p><strong>Explanation:</strong></p>
+<p>Each row of <code>pizza10</code> merges with <code>notes</code> on
+<code>kind</code>. Every kind except <code>"Bamboo"</code> appears in
+<code>notes</code>, so 9 rows match; <code>"Bamboo"</code> has no match
+in <code>notes</code>.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 65%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-52.2">Problem 52.2</h3>
+<p>Which of the following expressions evaluate to the same value as part
+(a)? <strong>Select all that apply.</strong></p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> <code>pizza10.merge(notes.reset_index(), on="kind").shape[0]</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>pizza10.merge(notes, on="kind").shape[0]</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>notes.merge(pizza10, left_index=True, right_on="kind").shape[0]</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>notes.merge(pizza10, left_index=True, right_on="store").shape[0]</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>notes.merge(pizza10.reset_index(), on="kind").shape[0]</code></p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading52_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse52_2" aria-expanded="true" aria-controls="collapse52_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse52_2" class="accordion-collapse collapse"
+aria-labelledby="heading52_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer:</strong><br/>
+<code>pizza10.merge(notes.reset_index(), on="kind").shape[0]</code>
+and<br/>
+<code>notes.merge(pizza10, left_index=True, right_on="kind").shape[0]</code>
+(select all that apply).</p>
+<p><strong>Select:</strong></p>
+<ul>
+<li><p><code>pizza10.merge(notes.reset_index(), on="kind").shape[0]</code>
+— <code>reset_index()</code> puts <code>kind</code> in the columns so
+merging on <code>"kind"</code> matches part (a).</p></li>
+<li><p><code>notes.merge(pizza10, left_index=True, right_on="kind").shape[0]</code>
+— merge <code>notes</code>’s index (<code>kind</code>) to
+<code>pizza10</code>’s <code>"kind"</code> column.</p></li>
+</ul>
+<p><strong>Do not select:</strong></p>
+<ul>
+<li><p><code>pizza10.merge(notes, on="kind")</code> — <code>kind</code>
+is the <strong>index</strong> of <code>notes</code>, not a column; this
+merge is not set up correctly.</p></li>
+<li><p><code>notes.merge(pizza10, left_index=True, right_on="store")</code>
+— wrong join key.</p></li>
+<li><p><code>notes.merge(pizza10.reset_index(), on="kind")</code> —
+after <code>reset_index()</code> on <code>pizza10</code>, the merge key
+is not set up the same way as in the working patterns above (per the
+official key, do not select this).</p></li>
+</ul>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 80%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+<p class="meta"><em>Source:</em> wi26-quiz2 — Q4</p>
+<h2 id="problem-53">Problem 53</h2>
 <p>The cafe wants to know the average price of drinks on each day of the
 week. Write a Python expression to produce an appropriate bar chart to
 answer this question.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading51">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse51" aria-expanded="true" aria-controls="collapse51">
+<h2 class="accordion-header" id="heading53">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse53" aria-expanded="true" aria-controls="collapse53">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse51" class="accordion-collapse collapse"
-aria-labelledby="heading51" data-bs-parent="#accordionExample">
+<div id="collapse53" class="accordion-collapse collapse"
+aria-labelledby="heading53" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -6816,7 +6986,7 @@ bar chart (<code>kind='barh'</code>) is also fine if you prefer.</p>
 </div>
 <hr />
 <p class="meta"><em>Source:</em> wi26-quiz2 — Q5</p>
-<h2 id="problem-52">Problem 52</h2>
+<h2 id="problem-54">Problem 54</h2>
 <p>A new cafe has opened across the street, and it only offers two drink
 sizes: <code>'small'</code> and <code>'large'</code>. It decides to
 compile its own DataFrame of drink orders called <code>drinks</code>,
@@ -6829,17 +6999,17 @@ the following Python expression is <code>True</code>, how many
 Fill in the blank with an integer answer, or bubble in “Not enough
 information” if you believe there is insufficient data given to answer
 this question.</p>
-<div class="sourceCode" id="cb77"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>orders.merge(drinks, on<span class="op">=</span><span class="st">&#39;size&#39;</span>).shape[<span class="dv">0</span>] <span class="op">==</span> <span class="dv">5000</span></span></code></pre></div>
+<div class="sourceCode" id="cb82"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a>orders.merge(drinks, on<span class="op">=</span><span class="st">&#39;size&#39;</span>).shape[<span class="dv">0</span>] <span class="op">==</span> <span class="dv">5000</span></span></code></pre></div>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading52">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse52" aria-expanded="true" aria-controls="collapse52">
+<h2 class="accordion-header" id="heading54">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse54" aria-expanded="true" aria-controls="collapse54">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse52" class="accordion-collapse collapse"
-aria-labelledby="heading52" data-bs-parent="#accordionExample">
+<div id="collapse54" class="accordion-collapse collapse"
+aria-labelledby="heading54" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -6869,5 +7039,107 @@ the number of large drinks in <code>orders</code>, there are <span class="math i
 </div>
 </div>
 <hr />
+
+
+<p class="meta"><em>Source:</em> <a href="../../fa26-quiz2/index.html#problem-2">fa26-quiz2 — Q2</a> (shared data and original quiz)</p>
+<h2 id="problem-53">Problem 53</h2>
+<p>For this question, assume <code>oct3_cat</code> was correctly created in Question 1.</p>
+<p><br/></p>
+<h3 id="problem-53.1">Problem 53.1</h3>
+<p>Write one line of code that evaluates to a DataFrame containing the average temperature associated with each combination of values in the <code>"Elevation_Category"</code> and <code>"Coastal"</code> columns.</p>
+<div class="accordion" id="accordionExample">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading53_1">
+<button aria-controls="collapse53_1" aria-expanded="true" class="accordion-button" data-bs-target="#collapse53_1" data-bs-toggle="collapse" type="button">
+Click to view the solution.
+</button>
+</h2>
+<div aria-labelledby="heading53_1" class="accordion-collapse collapse collapse" data-bs-parent="#accordionExample" id="collapse53_1">
+<div class="accordion-body">
+
+<p><strong>Answer:</strong></p>
+<div class="sourceCode" id="cb1">
+<pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a>oct3_cat.groupby([<span class="st">"Coastal"</span>, <span class="st">"Elevation_Category"</span>]).mean().get([<span class="st">"Temp"</span>])</span></code></pre>
+</div>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 82%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br/></p>
+<h3 id="problem-53.2">Problem 53.2</h3>
+<p>Determine the output of the code cell below.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a>legend <span class="op">=</span> bpd.DataFrame().assign(</span>
+<span id="cb1-2"><a aria-hidden="true" href="#cb1-2" tabindex="-1"></a>         Elevation_Category<span class="op">=</span>[<span class="st">"low"</span>, <span class="st">"medium"</span>, <span class="st">"high"</span>],</span>
+<span id="cb1-3"><a aria-hidden="true" href="#cb1-3" tabindex="-1"></a>         Color<span class="op">=</span>[<span class="st">"yellow"</span>, <span class="st">"orange"</span>, <span class="st">"red"</span>])</span>
+<span id="cb1-4"><a aria-hidden="true" href="#cb1-4" tabindex="-1"></a>oct3_cat.merge(legend, on<span class="op">=</span><span class="st">"Elevation_Category"</span>).shape[<span class="dv">0</span>]</span></code></pre></div>
+<ul class="task-list">
+<li><p><input disabled="" type="radio"/> 3</p></li>
+<li><p><input disabled="" type="radio"/> 9</p></li>
+<li><p><input disabled="" type="radio"/> 10</p></li>
+<li><p><input disabled="" type="radio"/> 13</p></li>
+<li><p><input disabled="" type="radio"/> 30</p></li>
+</ul>
+<div class="accordion" id="accordionExample">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading53_2">
+<button aria-controls="collapse53_2" aria-expanded="true" class="accordion-button" data-bs-target="#collapse53_2" data-bs-toggle="collapse" type="button">
+Click to view the solution.
+</button>
+</h2>
+<div aria-labelledby="heading53_2" class="accordion-collapse collapse collapse" data-bs-parent="#accordionExample" id="collapse53_2">
+<div class="accordion-body">
+
+<p><strong>Answer:</strong> <code>10</code></p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 70%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br/></p>
+<h3 id="problem-53.3">Problem 53.3</h3>
+<p>Determine the output of the code cell below.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" href="#cb2-1" tabindex="-1"></a>legend2 <span class="op">=</span> bpd.DataFrame().assign(</span>
+<span id="cb2-2"><a aria-hidden="true" href="#cb2-2" tabindex="-1"></a>         Elevation_Category<span class="op">=</span>[<span class="st">"low"</span>, <span class="st">"medium"</span>, <span class="st">"medium"</span>, <span class="st">"high"</span>],</span>
+<span id="cb2-3"><a aria-hidden="true" href="#cb2-3" tabindex="-1"></a>         Color<span class="op">=</span>[<span class="st">"yellow"</span>, <span class="st">"orange"</span>, <span class="st">"red"</span>, <span class="st">"maroon"</span>])</span>
+<span id="cb2-4"><a aria-hidden="true" href="#cb2-4" tabindex="-1"></a>oct3_cat.merge(legend2, on<span class="op">=</span><span class="st">"Elevation_Category"</span>).shape[<span class="dv">0</span>]</span></code></pre></div>
+<ul class="task-list">
+<li><p><input disabled="" type="radio"/> 10</p></li>
+<li><p><input disabled="" type="radio"/> 12</p></li>
+<li><p><input disabled="" type="radio"/> 14</p></li>
+<li><p><input disabled="" type="radio"/> 16</p></li>
+<li><p><input disabled="" type="radio"/> 20</p></li>
+</ul>
+<div class="accordion" id="accordionExample">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading53_3">
+<button aria-controls="collapse53_3" aria-expanded="true" class="accordion-button" data-bs-target="#collapse53_3" data-bs-toggle="collapse" type="button">
+Click to view the solution.
+</button>
+</h2>
+<div aria-labelledby="heading53_3" class="accordion-collapse collapse collapse" data-bs-parent="#accordionExample" id="collapse53_3">
+<div class="accordion-body">
+
+<p><strong>Answer:</strong> <code>14</code></p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 64%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br/></p>
+<hr/>
+
 </body>
 </html>

@@ -6,6 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>Summer 2024 Final Exam</title>
   <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -21,8 +24,9 @@
       vertical-align: middle;
     }
     /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -33,7 +37,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -135,16 +139,6 @@ except students were provided a copy of the
 10 Reference Sheet</a>. No calculators were allowed. Students had
 <strong>3 hours</strong> to take this exam.</p>
 <hr />
-<p><strong>Note (groupby / pandas 2.0):</strong> Pandas 2.0+ no longer
-silently drops columns that can’t be aggregated after a
-<code>groupby</code>, so code written for older pandas may behave
-differently or raise errors. In these practice materials we use
-<code>.get()</code> to select the column(s) we want after
-<code>.groupby(...).mean()</code> (or other aggregations) so that our
-solutions run on current pandas. On real exams you will not be penalized
-for omitting <code>.get()</code> when the old behavior would have
-produced the same answer.</p>
-<hr />
 <p>In this exam, you’ll work with a data set representing the results of
 the Tour de France, a multi-stage, weeks-long cycling race. The Tour de
 France takes place over many days each year, and on each day, the riders
@@ -182,7 +176,7 @@ repeatedly. Assume that we have already run
 <code>import numpy as np</code>.</p>
 <hr />
 <h2 id="problem-1">Problem 1</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture 5,
 9</span></div></p>
 <p><br></p>
@@ -395,7 +389,7 @@ before Stage 12.</p></li>
 <p><br></p>
 <hr />
 <h2 id="problem-2">Problem 2</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 12</span></div></p>
 <p>Suppose we run the following code to simulate the winners of the Tour
@@ -499,7 +493,7 @@ then: <span class="math inline">1 - 0.7 ^ 4</span></li>
 <p><br></p>
 <hr />
 <h2 id="problem-3">Problem 3</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 14</span></div></p>
 <p>We want to estimate the mean distance of Tour de France stages by
@@ -582,7 +576,7 @@ upper bound should be the 95th percentile.</li>
 </div>
 <hr />
 <h2 id="problem-4">Problem 4</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 16</span></div></p>
 <p>Below is a density histogram representing the distribution of
@@ -952,7 +946,7 @@ distribution.</li>
 <p><br></p>
 <hr />
 <h2 id="problem-5">Problem 5</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 17</span></div></p>
 <p>In this question, suppose <code>random_stages</code> is a random
@@ -1256,7 +1250,7 @@ reject the null hypothesis.</p>
 <p><br></p>
 <hr />
 <h2 id="problem-6">Problem 6</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 22</span></div></p>
 <p>You want to use the data in <code>stages</code> to test the following
@@ -1310,9 +1304,10 @@ test statistic. The alternative hypothesis indicates “less than” so our
 test statistic needs to summarize both the magnitude and direction of
 the difference in the categories.</p>
 <ul>
-<li>Option 1 is correct. The mean number of flat stages divided by the
-mean distance of flat stages is essentially a ratio which is a valid
-test statistic.</li>
+<li>Option 1 is correct. The mean distance of flat stages divided by the
+mean distance of mountain stages is a valid test statistic. Smaller
+ratios support the alternative that flat stages are shorter on
+average.</li>
 <li>Option 2 is correct. The difference between the mean distance of
 mountain stages and the mean distance of flat stages gives direction and
 magnitude of the difference between the categories so its a valid test
@@ -1351,13 +1346,13 @@ hypothesis test of the given hypotheses and returns the p-value.</p>
 <div class="sourceCode" id="cb10"><pre
 class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> hypothesis_test(stages):</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    means <span class="op">=</span> stages.groupby(<span class="st">&quot;class&quot;</span>).mean().get(<span class="st">&quot;Distance&quot;</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    means <span class="op">=</span> stages.get([<span class="st">&quot;class&quot;</span>, <span class="st">&quot;Distance&quot;</span>]).groupby(<span class="st">&quot;class&quot;</span>).mean().get(<span class="st">&quot;Distance&quot;</span>)</span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    observed_stat <span class="op">=</span> means.loc[<span class="st">&quot;flat&quot;</span>] <span class="op">-</span> means.loc[<span class="st">&quot;mountain&quot;</span>]</span>
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    simulated_stats <span class="op">=</span> np.array([])</span>
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
 <span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>        shuffled <span class="op">=</span> stages.assign(shuffled <span class="op">=</span> np.random.__(i)__(stages.get(<span class="st">&quot;Distance&quot;</span>)))</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>        shuffled_means <span class="op">=</span> shuffled.groupby(<span class="st">&quot;class&quot;</span>).mean().get(<span class="st">&quot;Distance&quot;</span>)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>        shuffled_means <span class="op">=</span> shuffled.get([<span class="st">&quot;class&quot;</span>, <span class="st">&quot;shuffled&quot;</span>]).groupby(<span class="st">&quot;class&quot;</span>).mean().get(<span class="st">&quot;shuffled&quot;</span>)</span>
 <span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>        simulated_stat <span class="op">=</span> (shuffled_means.loc[<span class="st">&quot;flat&quot;</span>] <span class="op">-</span> shuffled_means.loc[<span class="st">&quot;mountain&quot;</span>])</span>
 <span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>        simulated_stats <span class="op">=</span> __(ii)__(simulated_stats, simulated_stat)</span>
 <span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    </span>
@@ -1385,21 +1380,21 @@ aria-labelledby="heading6_2" data-bs-parent="#accordionExample">
 <p>The first step in a permutation test simulation is to shuffle the
 labels or the values. So since this first line in the for loop is
 assigning a column called ‘shuffled’, we know we need to use
-<code>np.random.permutation()</code> on the <code>"Distances"</code>
-column. The next line gets the new means for each group after shuffling
-the values and <code>simulated_stat</code> is the simulated difference
-in means. Now we know we want to save this simulated statistic and we
-have the <code>simulated_stats</code> array, so we want to use an
-<code>np.append</code> in (ii) to save this statistic in the array.
-Finally after the simulation is complete, we calculate the p-value using
-the array of simulated statistics. The p-value is the probability of
-seeing the observed result under the null hypothesis.
-<code>simulated_stats &lt;= observed_stat</code> returns an array of 0’s
-and 1’s depending on whether each simulated statistic is less than or
-equal to the observed statistic. Now, to get the probability of seeing a
-result equal to or less than the observed, we can simply take the mean
-of this array since the mean of an array of 0’s and 1’s is equivalent to
-the probability.</p>
+<code>np.random.permutation()</code> on the <code>"Distance"</code>
+column. The next line averages the <code>"shuffled"</code> distances
+within each <code>"class"</code> group and <code>simulated_stat</code>
+is the simulated difference in means. Now we know we want to save this
+simulated statistic and we have the <code>simulated_stats</code> array,
+so we want to use an <code>np.append</code> in (ii) to save this
+statistic in the array. Finally after the simulation is complete, we
+calculate the p-value using the array of simulated statistics. The
+p-value is the probability of seeing the observed result under the null
+hypothesis. <code>simulated_stats &lt;= observed_stat</code> returns an
+array of 0’s and 1’s depending on whether each simulated statistic is
+less than or equal to the observed statistic. Now, to get the
+probability of seeing a result equal to or less than the observed, we
+can simply take the mean of this array since the mean of an array of 0’s
+and 1’s is equivalent to the probability.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -1437,7 +1432,7 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb12-1"><a href=
 </ul>
 <div class="sourceCode" id="cb13"><pre
 class="sourceCode py"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>shuffled <span class="op">=</span> stages.assign(shuffled <span class="op">=</span> np.random.__(i)__(stages.get(<span class="st">&quot;Distance&quot;</span>)))</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>shuffled_means <span class="op">=</span> shuffled.groupby(<span class="st">&quot;class&quot;</span>).mean()</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>shuffled_means <span class="op">=</span> shuffled.get([<span class="st">&quot;class&quot;</span>, <span class="st">&quot;Distance&quot;</span>]).groupby(<span class="st">&quot;class&quot;</span>).mean()</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>simulated_stat <span class="op">=</span> (shuffled_means.get(<span class="st">&quot;Distance&quot;</span>).iloc[<span class="st">&quot;flat&quot;</span>] <span class="op">-</span></span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>                  shuffled_means.get(<span class="st">&quot;Distance&quot;</span>).iloc[<span class="st">&quot;mountain&quot;</span>])</span></code></pre></div>
 <p>(iii):</p>
@@ -1482,11 +1477,13 @@ two categories.</li>
 <ul>
 <li><code>shuffled</code> shuffles the distances and assigns these
 shuffled distances to the column <code>‘shuffled’</code>.
-<code>shuffled_means</code> groups by the label and calculates the means
-for each column. However, <code>simulated_stat</code> takes the original
-distance columns when calculating the difference in means rather than
-the shuffled distances which is located in the <code>‘shuffled’</code>
-column making this answer incorrect.</li>
+<code>.get(["class", "Distance"])</code> keeps the grouping column and
+<code>"Distance"</code>, so <code>.mean()</code> can run.
+<code>shuffled_means</code> then groups by the label and averages
+<code>"Distance"</code>. However, <code>simulated_stat</code> uses that
+original <code>"Distance"</code> column rather than the shuffled
+distances, which are in the <code>‘shuffled’</code> column. That makes
+this answer incorrect.</li>
 </ul></li>
 </ul>
 <hr/>
@@ -1581,7 +1578,7 @@ equal to or less than -22.5km.</p>
 <p><br></p>
 <hr />
 <h2 id="problem-7">Problem 7</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 20</span></div></p>
 <p>You are analyzing the data in <code>stages</code> to see which
@@ -1788,7 +1785,7 @@ statistic.</p>
 <p><br></p>
 <hr />
 <h2 id="problem-8">Problem 8</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 22</span></div></p>
 <p>Choose the best tool to answer each of the following questions. Note
@@ -1955,7 +1952,7 @@ permutation test.</p>
 <p><br></p>
 <hr />
 <h2 id="problem-9">Problem 9</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 24</span></div></p>
 <p>Suppose the <strong>distance</strong> of a Tour de France stage and
@@ -2150,5 +2147,14 @@ Feedback: Find an error? Still confused? Have a suggestion?
 <a href="https://forms.gle/WZ71FchnXU1K154d7">Let us know
 here</u></a>.</h4>
 <hr />
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </body>
 </html>

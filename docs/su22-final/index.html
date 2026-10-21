@@ -6,6 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>Summer 2022 Final Exam</title>
   <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -21,8 +24,9 @@
       vertical-align: middle;
     }
     /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -33,7 +37,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -136,16 +140,6 @@ provided a copy of the
 10 Reference Sheet<a>. No calculators were allowed. Students had
 <strong>3 hours</strong> to take this exam.</p>
 <hr />
-<p><strong>Note (groupby / pandas 2.0):</strong> Pandas 2.0+ no longer
-silently drops columns that can’t be aggregated after a
-<code>groupby</code>, so code written for older pandas may behave
-differently or raise errors. In these practice materials we use
-<code>.get()</code> to select the column(s) we want after
-<code>.groupby(...).mean()</code> (or other aggregations) so that our
-solutions run on current pandas. On real exams you will not be penalized
-for omitting <code>.get()</code> when the old behavior would have
-produced the same answer.</p>
-<hr />
 <p>The American Kennel Club (AKC) organizes information about dog
 breeds. We’ve loaded their dataset into a DataFrame called
 <code>df</code>. The index of <code>df</code> contains the dog breed
@@ -175,7 +169,7 @@ and <code>import numpy as np</code>.</p>
 <code>df</code> <strong>repeatedly.</strong></p>
 <hr />
 <h2 id="problem-1">Problem 1</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 6</span></div></p>
 <p>Choose the best visualization to answer each of the following
@@ -336,7 +330,7 @@ against another quantitative variable.</p>
 <p><br></p>
 <hr />
 <h2 id="problem-2">Problem 2</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 5</span></div></p>
 <p>The following code computes the breed of the cheapest toy dog.</p>
@@ -460,14 +454,14 @@ smallest value on a series not a dataframe.</li>
 <p><br></p>
 <hr />
 <h2 id="problem-3">Problem 3</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 5</span></div></p>
 <p>The following code computes an array containing the unique kinds of
 dogs that are heavier than 20 kg <strong>or</strong> taller than 40 cm
 on average.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>foo <span class="op">=</span> df.__(a)__.__(b)__</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>np.array(foo[__(c)__].__d__)</span></code></pre></div>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>np.array(foo[__(c)__].__(d)__)</span></code></pre></div>
 <p><br></p>
 <h3 id="problem-3.1">Problem 3.1</h3>
 <p>Fill in blank (a).</p>
@@ -484,14 +478,18 @@ aria-labelledby="heading3_1" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer: </strong> <code>groupby('kind')</code></p>
-<p>We start this problem by grouping the dataframe by
-<code>'kind'</code> since we’re only interested in whether each unique
-<code>'kind'</code> of dog fits some sort of constraint. We don’t quite
-perform querying yet since we need to group the DataFrame first. In
-other words, we first need to group the DataFrame into each
-<code>'kind'</code> before we could apply any sort of boolean
-conditionals.</p>
+<p><strong>Answer: </strong>
+<code>get(['kind', 'weight', 'height']).groupby('kind')</code></p>
+<p>We start by selecting the columns this aggregation needs.
+<code>'kind'</code> is the column we group by, and <code>'weight'</code>
+and <code>'height'</code> are the columns we will average and then
+filter on. The string column <code>'size'</code> cannot be averaged. The
+other numeric columns are not needed for this calculation, so
+<code>.get()</code> keeps only the relevant columns before grouping.</p>
+<p>We then group by <code>'kind'</code>, since we’re only interested in
+whether each unique <code>'kind'</code> of dog fits some sort of
+constraint. We don’t query yet, because we need one row per
+<code>'kind'</code> before we can apply the condition.</p>
 <hr/>
 <h5>Difficulty: ⭐️</h5>
 <p>
@@ -517,7 +515,7 @@ aria-labelledby="heading3_2" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer: </strong> <code>.mean()</code></p>
+<p><strong>Answer: </strong> <code>mean()</code></p>
 <p>After we do <code>.groupby('kind')</code>, we need to apply
 <code>.mean()</code> since the problem asks if each unique
 <code>'kind'</code> of dog satisfies certain constraints <strong>on
@@ -571,10 +569,10 @@ either condition.</p>
 <h3 id="problem-3.4">Problem 3.4</h3>
 <p>Which of the following should fill in blank (d)?</p>
 <ul class="task-list">
-<li><p><input type="radio" disabled="" /> <code>.index</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>.unique()</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>.get('kind')</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>.get(['kind'])</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>index</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>unique()</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>get('kind')</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>get(['kind'])</code></p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
@@ -589,7 +587,7 @@ aria-labelledby="heading3_4" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer: </strong> <code>.index</code></p>
+<p><strong>Answer: </strong> <code>index</code></p>
 <p>Note that earlier, we did <code>groupby('kind')</code>, which
 automatically sets each unique <code>'kind'</code> as the index. Since
 this is what we want anyways, simply doing <code>.index</code> will give
@@ -609,10 +607,10 @@ us all the kinds of dogs that satisfy the given conditions.</p>
 <code>reset_index()</code>. Now, which of the following should fill in
 blank (d)?</p>
 <ul class="task-list">
-<li><p><input type="radio" disabled="" /> <code>.index</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>.unique()</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>.get('kind')</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>.get(['kind'])</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>index</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>unique()</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>get('kind')</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>get(['kind'])</code></p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
@@ -627,7 +625,7 @@ aria-labelledby="heading3_5" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer: </strong> <code>.get('kind')</code></p>
+<p><strong>Answer: </strong> <code>get('kind')</code></p>
 <p>Now that we have reset the index of the dataframe,
 <code>'kind'</code> is once again its own column so we could simply do
 <code>.get('kind')</code>.</p>
@@ -643,7 +641,7 @@ aria-labelledby="heading3_5" data-bs-parent="#accordionExample">
 <p><br></p>
 <hr />
 <h2 id="problem-4">Problem 4</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 10</span></div></p>
 <p>The <code>sums</code> function takes in an array of numbers and
@@ -772,7 +770,7 @@ with <code>sum(arr[:i + 1])</code></p>
 <p><br></p>
 <hr />
 <h2 id="problem-5">Problem 5</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 13</span></div></p>
 <p>Shivani wrote a function called <code>doggos</code> defined as
@@ -922,7 +920,7 @@ Finally, subtracting this from 1 gives us our desired answer or <span class="mat
 <p><br></p>
 <hr />
 <h2 id="problem-6">Problem 6</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 20</span></div></p>
 <p>Every year, the American Kennel Club holds a Photo Contest for dogs.
@@ -1322,7 +1320,7 @@ than our cutoff.</p></li>
 <p><br></p>
 <hr />
 <h2 id="problem-7">Problem 7</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 22</span></div></p>
 <p>Suppose Tiffany has a random sample of dogs. Select the most
@@ -1478,7 +1476,7 @@ sense in this context.</p>
 <p><br></p>
 <hr />
 <h2 id="problem-8">Problem 8</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 17</span></div></p>
 <p>Oren has a random sample of 200 dog prices in an array called
@@ -1799,7 +1797,7 @@ problem.</p>
 <p><br></p>
 <hr />
 <h2 id="problem-9">Problem 9</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 18</span></div></p>
 <p>Suppose you want to estimate the proportion of UCSD students that
@@ -1859,7 +1857,7 @@ single 0.</p>
 </div>
 <hr />
 <h2 id="problem-10">Problem 10</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 25</span></div></p>
 <p>Sam wants to fit a linear model to predict a dog’s height using its
@@ -2039,7 +2037,7 @@ most likely be shorter than 50cm)</p></li>
 <p><br></p>
 <hr />
 <h2 id="problem-11">Problem 11</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 22</span></div></p>
 <p>Answer the following true/false questions.</p>
@@ -2138,11 +2136,13 @@ aria-labelledby="heading11_3" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer: </strong> True</p>
-<p>Referring to <code>df</code> at the beginning of the exam, we could
-see that 5 of the columns have numerical values as inputs, and thus
-<code>df.groupby("kind").mean()</code> will return the mean of these 5
-numerical columns</p>
+<p><strong>Answer: </strong> False</p>
+<p><code>df</code> has five numeric columns, but it also has the string
+column <code>'size'</code>. Grouping by <code>'kind'</code> moves
+<code>'kind'</code> into the index and leaves <code>'size'</code> in the
+table. <code>.mean()</code> tries to average every remaining column,
+including <code>'size'</code>, and raises an error. It does not return a
+DataFrame with 5 columns.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -2410,5 +2410,16 @@ Feedback: Find an error? Still confused? Have a suggestion?
 <a href="https://forms.gle/WZ71FchnXU1K154d7">Let us know
 here</u></a>.</h4>
 <hr />
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </body>
 </html>

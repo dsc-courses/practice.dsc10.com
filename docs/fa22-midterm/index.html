@@ -6,6 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>Fall 2022 Midterm Exam</title>
   <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -21,8 +24,9 @@
       vertical-align: middle;
     }
     /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -33,7 +37,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -136,16 +140,6 @@ href="https://drive.google.com/file/d/1ky0Np67HS2O4LO913P-ing97SJG0j27n/view">DS
 10 Reference Sheet</a>. No calculators were allowed. Students had
 <strong>50 minutes</strong> to take this exam.</p>
 <hr />
-<p><strong>Note (groupby / pandas 2.0):</strong> Pandas 2.0+ no longer
-silently drops columns that can’t be aggregated after a
-<code>groupby</code>, so code written for older pandas may behave
-differently or raise errors. In these practice materials we use
-<code>.get()</code> to select the column(s) we want after
-<code>.groupby(...).mean()</code> (or other aggregations) so that our
-solutions run on current pandas. On real exams you will not be penalized
-for omitting <code>.get()</code> when the old behavior would have
-produced the same answer.</p>
-<hr />
 <h4 id="video">Video 🎥</h4>
 <p><b><a href="https://podcast.ucsd.edu/watch/sp23/dsc10_a00/14">Here’s
 a walkthrough video</a> of some of the problems on the exam.</b></p>
@@ -229,7 +223,7 @@ cars or better, we’d expect to see more repairs of EVs now.</p>
 </div>
 <hr />
 <h2 id="problem-2">Problem 2</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 6</span></div></p>
 <p><br></p>
@@ -386,7 +380,7 @@ place numerical variables into “bins” doesn’t make them categorical.</p>
 <p><br></p>
 <hr />
 <h2 id="problem-3">Problem 3</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 8</span></div></p>
 <p>Suppose we’ve run the following two lines of code. ​</p>
@@ -505,7 +499,7 @@ a length of 5.</p>
 <p><br></p>
 <hr />
 <h2 id="problem-4">Problem 4</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 5</span></div></p>
 <p>Suppose we’ve run the following line of code. ​</p>
@@ -583,7 +577,7 @@ will be the array-like sequence
 <p><br></p>
 <hr />
 <h2 id="problem-5">Problem 5</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 8</span></div></p>
 <p>Consider the following incomplete assignment statement.</p>
@@ -609,24 +603,14 @@ aria-labelledby="heading5_1" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer:</strong> <code>.groupby("Brand")</code></p>
-<p>When we group by a column, the resulting DataFrame contains one row
-for every unique value in that column. The question specified that we
-wanted some information <em>per</em> <code>"Brand"</code>, which implies
-that grouping by <code>"Brand"</code> is necessary.</p>
-<p>After grouping, we need to use an aggregation method. Here, we wanted
-the resulting DataFrame to be such that the <code>"Seats"</code> column
-contained the average number of <code>"Seats"</code> per
-<code>"Brand"</code>; this is accomplished by using
-<code>.mean()</code>, which is already done for us.</p>
-<p>Note: With the provided solution, the resulting DataFrame also has
-other columns. For instance, it has a <code>"Range"</code> column that
-contains the average <code>"Range"</code> for each <code>"Brand"</code>.
-That’s fine, since we were told that the resulting DataFrame may have
-other columns in it as well. If we wanted to ensure that the only column
-in the resulting DataFrame was <code>"Seats"</code>, we could have used
-<code>.get(["Brand", "Seats"])</code> before grouping, though this was
-not necessary.</p>
+<p><strong>Answer:</strong>
+<code>.get(["Brand", "Seats"]).groupby("Brand")</code></p>
+<p>We select <code>"Brand"</code> and <code>"Seats"</code>, then group
+by <code>"Brand"</code> to get one row per brand. The
+<code>.mean()</code> already provided in the prompt calculates the
+average number of seats for each brand. Selecting these columns leaves
+out <code>"Model"</code> and <code>"BodyStyle"</code>, which are strings
+and cannot be averaged.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -732,7 +716,7 @@ was already done for us.</p>
 <p><br></p>
 <hr />
 <h2 id="problem-6">Problem 6</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 11</span></div></p>
 <p>The DataFrame below shows the distribution of
@@ -883,7 +867,7 @@ randomly selected SUV is made by Tesla is <span class="math inline">\frac{4}{13}
 <p><br></p>
 <hr />
 <h2 id="problem-7">Problem 7</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 9</span></div></p>
 <p>Below, we provide the same DataFrame as shown at the start of the
@@ -972,7 +956,7 @@ Midterm</a>.</p>
 </div>
 <hr />
 <h2 id="problem-8">Problem 8</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 12</span></div></p>
 <p>TritonTrucks is an EV startup run by UCSD alumni. Their signature EV,
@@ -1085,7 +1069,7 @@ above. There are other valid answers too, including
 </div>
 <hr />
 <h2 id="problem-9">Problem 9</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 7</span></div></p>
 <p>Histograms A and B below both display the distribution of the
@@ -1245,5 +1229,13 @@ Feedback: Find an error? Still confused? Have a suggestion?
 <a href="https://forms.gle/WZ71FchnXU1K154d7">Let us know
 here</u></a>.</h4>
 <hr />
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </body>
 </html>

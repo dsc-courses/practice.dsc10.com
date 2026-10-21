@@ -6,6 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>Spring 2023 Final Exam</title>
   <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -21,8 +24,9 @@
       vertical-align: middle;
     }
     /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -33,7 +37,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -135,16 +139,6 @@ except students were provided a copy of the
 10 Reference Sheet<a>. No calculators were allowed. Students had
 <strong>3 hours</strong> to take this exam.</p>
 <hr />
-<p><strong>Note (groupby / pandas 2.0):</strong> Pandas 2.0+ no longer
-silently drops columns that can’t be aggregated after a
-<code>groupby</code>, so code written for older pandas may behave
-differently or raise errors. In these practice materials we use
-<code>.get()</code> to select the column(s) we want after
-<code>.groupby(...).mean()</code> (or other aggregations) so that our
-solutions run on current pandas. On real exams you will not be penalized
-for omitting <code>.get()</code> when the old behavior would have
-produced the same answer.</p>
-<hr />
 <h4 id="video">Video 🎥</h4>
 <p><b><a href="https://podcast.ucsd.edu/watch/fa23/dsc10_c00/28">Here’s
 a walkthrough video</a> of Problems 3, 5, and 6, and
@@ -177,7 +171,7 @@ hours in March.</p>
 <code>import numpy as np</code>.</p>
 <hr />
 <h2 id="problem-1">Problem 1</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 9</span></div></p>
 <p><br></p>
@@ -264,12 +258,13 @@ hours in the specified month.</p>
 <p>In this part only, assume that all <code>"City"</code> names in
 <code>sun</code> are unique.</p>
 <p>Consider the DataFrame <code>cities</code> defined below.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>cities <span class="op">=</span> sun.groupby(<span class="st">&quot;City&quot;</span>).mean().reset_index()</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>cities <span class="op">=</span> sun.drop(columns<span class="op">=</span>[<span class="st">&quot;Country&quot;</span>]).groupby(<span class="st">&quot;City&quot;</span>).mean().reset_index()</span></code></pre></div>
 <p>Fill in the blanks so that the DataFrame that results from the
 sequence of steps described below is identical to
 <code>cities</code>.</p>
-<p>“Sort <code>sun</code> by <strong>(c)</strong> in
-<strong>(d)</strong> order <strong>(e)</strong>.”</p>
+<p>“Sort <code>sun.drop(columns=["Country"])</code> by
+<strong>(c)</strong> in <strong>(d)</strong> order
+<strong>(e)</strong>.”</p>
 <p>What goes in blank (c)?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> <code>"Country"</code></p></li>
@@ -309,12 +304,13 @@ aria-labelledby="heading1_2" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: (c): <code>"City"</code>, (d): ascending,
-(e): drop the <code>"Country"</code> column, and reset the index</p>
+(e): and reset the index</p>
 <p>Let’s start by understanding the code provided in the question:<br/>
-The <code>.groupby("City")</code> method groups the data in the
-<code>sun</code> DataFrame by unique city names. Since every city name
-in the DataFrame is unique, this means that each group will consist of
-just one row corresponding to that city.</p>
+<code>.drop(columns=["Country"])</code> removes the only string column
+that is not the grouping column, so <code>.mean()</code> can run. The
+<code>.groupby("City")</code> method then groups the remaining rows by
+unique city names. Since every city name is unique, each group is one
+row.</p>
 <p>After grouping by city, the <code>.mean()</code> method computes the
 average of each column for each group. Again, as each city name is
 unique, this operation doesn’t aggregate multiple rows but merely
@@ -332,12 +328,11 @@ index to 0, 1, 2, 3, …</p>
 When we group on <code>"City"</code>, the index of the DataFrame is set
 to <code>"City"</code> names, sorted in ascending alphabetical order
 (this is always the behavior of <code>groupby</code>). Since all city
-names are unique, the number of rows in
-<code>sun.groupby("City").mean()</code> is the same as the number of
-rows in <code>sun</code>, and so grouping on <code>"City"</code>
-effectively sorts the DataFrame by <code>"City"</code> and sets the
-index to <code>"City"</code>. To replicate the order in
-<code>cities</code>, then, we must sort <code>sun</code> by the
+names are unique, the number of rows after grouping is the same as the
+number of rows in <code>sun</code>, and so grouping on
+<code>"City"</code> effectively sorts the DataFrame by
+<code>"City"</code> and sets the index to <code>"City"</code>. To
+replicate the order in <code>cities</code>, then, we must sort by the
 <code>"City"</code> column in ascending order.</p>
 <hr/>
 <h5>Difficulty: ⭐️</h5>
@@ -353,18 +348,12 @@ Addressed above.</p>
 </p>
 <p>The average score on this problem was 77%.</p>
 <p><br/><br/></p>
-<p><strong>What goes in blank (e)?</strong> , drop the
-<code>"Country"</code> column, and reset the index<br/>
-In the provided code, after grouping by <code>"City"</code> and
-computing the mean, we reset the index. This means the
-<code>"City"</code> column is no longer the index but a regular column,
-and the DataFrame gets a fresh integer index. To replicate this
-structure, we need to reset the index in our sorted DataFrame.
-Additionally, when we applied the <code>.mean()</code> method after
-grouping, any non-numeric columns (like <code>"Country"</code>) that we
-can’t take the mean of are automatically excluded from the resulting
-DataFrame. To match the structure of <code>cities</code>, then, we must
-drop the <code>"Country"</code> column from our sorted DataFrame.</p>
+<p><strong>What goes in blank (e)?</strong> and reset the index<br/>
+<code>"Country"</code> is already removed in the DataFrame we are
+sorting. After grouping by <code>"City"</code>, <code>"City"</code> is
+the index, and <code>.reset_index()</code> makes it a regular column
+again with a fresh integer index. Sorting does not do that, so we still
+reset the index.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
 <p>
@@ -379,8 +368,8 @@ drop the <code>"Country"</code> column from our sorted DataFrame.</p>
 <h3 id="problem-1.3">Problem 1.3</h3>
 <p>True or False: In the code below, <code>Z</code> is guaranteed to
 evaluate to <code>True</code>.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> sun.groupby([<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Year&quot;</span>]).mean().shape[<span class="dv">0</span>]</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> sun.groupby(<span class="st">&quot;Country&quot;</span>).mean().shape[<span class="dv">0</span>]</span>
+<div class="sourceCode" id="cb3"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> sun.groupby([<span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Year&quot;</span>]).count().shape[<span class="dv">0</span>]</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> sun.groupby(<span class="st">&quot;Country&quot;</span>).count().shape[<span class="dv">0</span>]</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> (x <span class="op">&gt;=</span> y)</span></code></pre></div>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> True</p></li>
@@ -402,18 +391,19 @@ aria-labelledby="heading1_3" data-bs-parent="#accordionExample">
 <p><strong>Answer</strong>: True<br/>
 Let’s us look at each line of code separately:</p>
 <ul>
-<li><p><code>x = sun.groupby(["Country", "Year"]).mean().shape[0]</code>:
+<li><p><code>x = sun.groupby(["Country", "Year"]).count().shape[0]</code>:
 This line groups the <code>sun</code> DataFrame by both
-<code>"Country"</code> and <code>"Year"</code>, then computes the mean.
-As a result, each unique combination of <code>"Country"</code> and
-<code>"Year"</code> will have its own row. For instance, if there are
-three different values in the <code>"Year"</code> column for a
-particular country, that country will appear three times in the
-DataFrame <code>sun.groupby(["Country", "Year"]).mean()</code>.</p></li>
-<li><p><code>y = sun.groupby("Country").mean().shape[0]</code>: When
+<code>"Country"</code> and <code>"Year"</code>, then counts the rows in
+each group. Each unique combination of <code>"Country"</code> and
+<code>"Year"</code> has its own row. For instance, if there are three
+different values in the <code>"Year"</code> column for a particular
+country, that country will appear three times in the result.</p></li>
+<li><p><code>y = sun.groupby("Country").count().shape[0]</code>: When
 grouping by <code>"Country"</code> alone, each unique country in the
 <code>sun</code> DataFrame is represented by one row, independent of the
-information in other columns.</p></li>
+information in other columns. <code>.count()</code> is used here because
+we only need the number of groups, and <code>.count()</code> still runs
+when <code>"City"</code> is in the table.</p></li>
 <li><p><code>z = (x &gt;= y)</code>: This comparison checks whether the
 number of rows produced by grouping by both <code>"Country"</code> and
 <code>"Year"</code> (which is <code>x</code>) is greater than or equal
@@ -527,7 +517,7 @@ alphabetically.</p></li>
 <p><br></p>
 <h3 id="problem-1.5">Problem 1.5</h3>
 <p>What does the following expression evaluate to?</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>sun.groupby(<span class="st">&quot;Country&quot;</span>).<span class="bu">sum</span>().get(<span class="st">&quot;City&quot;</span>).iloc[<span class="dv">0</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>sun.groupby(<span class="st">&quot;Country&quot;</span>).mean().get(<span class="st">&quot;City&quot;</span>).iloc[<span class="dv">0</span>]</span></code></pre></div>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> A</p></li>
 <li><p><input type="radio" disabled="" /> B</p></li>
@@ -554,15 +544,12 @@ aria-labelledby="heading1_5" data-bs-parent="#accordionExample">
 </p>
 <p>Let’s break down the code:</p>
 <ul>
-<li><p><code>sun.groupby("Country").sum()</code>: This groups the
-<code>sun</code> DataFrame by the <code>"Country"</code> column and
-computes the sum for each numeric column within each country group.
-Since <code>"City"</code> is non-numeric, it will be dropped.</p></li>
-<li><p><code>.get("City")</code>: This operation attempts to retrieve
-the <code>"City"</code> column from the resulting DataFrame. However,
-since the <code>"City"</code> column was dropped in the previous step,
-this will raise a KeyError, indicating that the column is not present in
-the DataFrame.</p></li>
+<li><p><code>sun.groupby("Country").mean()</code>: This groups the
+<code>sun</code> DataFrame by the <code>"Country"</code> column.
+<code>"City"</code> contains strings, so <code>.mean()</code> cannot
+average it and raises an error.</p></li>
+<li><p><code>.get("City")</code>: This line is never reached. The error
+happens at <code>.mean()</code>.</p></li>
 </ul>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
@@ -696,7 +683,7 @@ the country with the most cities.</p></li>
 <p><br></p>
 <hr />
 <h2 id="problem-2">Problem 2</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 9</span></div></p>
 <p>Vanessa is a big Formula 1 racing fan, and wants to plan a trip to
@@ -817,7 +804,7 @@ October for all the identified city-states.</p></li>
 <p><br></p>
 <hr />
 <h2 id="problem-3">Problem 3</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 16</span></div></p>
 <p>This summer, Zoe wants to explore parts of the United States that she
@@ -1132,7 +1119,7 @@ standardized data will also be right-skewed.</p>
 <p><br></p>
 <hr />
 <h2 id="problem-4">Problem 4</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 10</span></div></p>
 <p>For each city in <code>sun</code>, we have 12 numbers, corresponding
@@ -1389,7 +1376,7 @@ aria-labelledby="heading4_5" data-bs-parent="#accordionExample">
 <p><br></p>
 <hr />
 <h2 id="problem-5">Problem 5</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 20</span></div></p>
 <p>In some cities, the number of sunshine hours per month is relatively
@@ -1676,7 +1663,7 @@ proportions.</p>
 <p><br></p>
 <hr />
 <h2 id="problem-6">Problem 6</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 21</span></div></p>
 <p>Oren’s favorite bakery in San Diego is Wayfarer. After visiting
@@ -2089,7 +2076,7 @@ significance level is 5%.</p>
 <p><br></p>
 <hr />
 <h2 id="problem-7">Problem 7</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 22</span></div></p>
 <p>Gabriel is originally from Texas and is trying to convince his
@@ -2314,7 +2301,7 @@ hours is 0. (They created a confidence interval for the true value of
 <p><br></p>
 <hr />
 <h2 id="problem-8">Problem 8</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 16</span></div></p>
 <p>Australia is in the southern hemisphere, meaning that its summer
@@ -2506,7 +2493,7 @@ within <span class="math inline">z</span> SDs of the mean is at least
 <p><br></p>
 <hr />
 <h2 id="problem-9">Problem 9</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 12</span></div></p>
 <p>Suhani’s passport is currently being renewed, and so she can’t join
@@ -2758,7 +2745,7 @@ on a given Monday.</p>
 <p><br></p>
 <hr />
 <h2 id="problem-10">Problem 10</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 20</span></div></p>
 <p>Costin, a San Francisco native, will be back in San Francisco over
@@ -3048,7 +3035,7 @@ the absolute difference between the proportion of sunny days and <span class="ma
 <p><br></p>
 <hr />
 <h2 id="problem-11">Problem 11</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 24</span></div></p>
 <p>Raine is helping settle a debate between two friends on the
@@ -3380,5 +3367,16 @@ Feedback: Find an error? Still confused? Have a suggestion?
 <a href="https://forms.gle/WZ71FchnXU1K154d7">Let us know
 here</u></a>.</h4>
 <hr />
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </body>
 </html>

@@ -8,7 +8,7 @@ Consider the definition of the function `diff_in_group_means`:
 
 ```py
 def diff_in_group_means(df, group_col, num_col):
-    s = df.groupby(group_col).mean().get(num_col)
+    s = df.get([group_col, num_col]).groupby(group_col).mean().get(num_col)
     return s.loc[False] - s.loc[True]
 ```
 
@@ -34,8 +34,8 @@ Which of the following options **does not** compute a valid simulated test stati
 
 ( ) `diff_in_group_means(shuffled, 'Won', 'AST')`
 ( ) `diff_in_group_means(shuffled, 'Won', 'AST_shuffled')`
-( ) `diff_in_group_means(shuffled, 'Won_shuffled, 'AST')`
-( ) `diff_in_group_means(shuffled, 'Won_shuffled, 'AST_shuffled')`
+( ) `diff_in_group_means(shuffled, 'Won_shuffled', 'AST')`
+( ) `diff_in_group_means(shuffled, 'Won_shuffled', 'AST_shuffled')`
 ( ) More than one of these options do not compute a valid simulated test statistic for this permutation test
 
 # BEGIN SOLN

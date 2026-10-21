@@ -6,6 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>Fall 2024 Midterm Exam</title>
   <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -21,8 +24,9 @@
       vertical-align: middle;
     }
     /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -33,7 +37,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -139,16 +143,6 @@ style="background:#e8eaff;border-left:3px solid #4a90d9;border-radius:0 3px 3px 
 <a href="../pdfs/fa-24-midterm.pdf">here</a> </strong>.</p>
 </div>
 <hr />
-<p><strong>Note (groupby / pandas 2.0):</strong> Pandas 2.0+ no longer
-silently drops columns that can’t be aggregated after a
-<code>groupby</code>, so code written for older pandas may behave
-differently or raise errors. In these practice materials we use
-<code>.get()</code> to select the column(s) we want after
-<code>.groupby(...).mean()</code> (or other aggregations) so that our
-solutions run on current pandas. On real exams you will not be penalized
-for omitting <code>.get()</code> when the old behavior would have
-produced the same answer.</p>
-<hr />
 <p>Trick-or-treating is a Halloween tradition, where children wear
 costumes and walk around their neighborhood from house to house to
 collect candy. In this exam, you’ll work with a data set representing
@@ -174,7 +168,7 @@ Assume that we have already run <code>import babypandas as bpd</code>
 and <code>import numpy as np</code>.</p>
 <hr />
 <h2 id="problem-1">Problem 1</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 4</span></div></p>
 <p>Which of the following columns would be an appropriate index for the
@@ -221,7 +215,7 @@ them can be the index for <code>treat</code>.</p>
 </div>
 <hr />
 <h2 id="problem-2">Problem 2</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 4</span></div></p>
 <p>Which of the following expressions evaluate to
@@ -292,7 +286,7 @@ selected.</p></li>
 </div>
 <hr />
 <h2 id="problem-3">Problem 3</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 12</span></div></p>
 <p>Consider the code below.</p>
@@ -377,7 +371,7 @@ Therefore, it’s impossible for
 <p><br></p>
 <hr />
 <h2 id="problem-4">Problem 4</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 8</span></div></p>
 <p>The <code>"address"</code> column contains quite a bit of
@@ -473,7 +467,7 @@ aria-labelledby="heading4_2" data-bs-parent="#accordionExample">
 <p><br></p>
 <hr />
 <h2 id="problem-5">Problem 5</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 5</span></div></p>
 <p>Write a Python expression that evaluates to the address of the house
@@ -495,24 +489,26 @@ aria-labelledby="heading5" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>:
-<code>treat.groupby("address").sum().sort_values(by="how_many", ascending = False).index[0]</code>
+<code>treat.get(["address", "how_many"]).groupby("address").sum().sort_values(by="how_many", ascending = False).index[0]</code>
 or
-<code>treat.groupby("address").sum().sort_values(by="how_many").index[-1]</code></p>
+<code>treat.get(["address", "how_many"]).groupby("address").sum().sort_values(by="how_many").index[-1]</code></p>
 <p>In the <code>treat</code> DataFrame, there are multiple rows for each
 address, one for each candy they are giving out with their quantity.
-Since we want the address with the most pieces of candy available, we
-need to combine this information, so we start by grouping by address:
-<code>treat.groupby(“address”)</code>. Now, since we want to add the
-number of candy available per address, we use the <code>sum()</code>
-aggregate function. So now we have a DataFrame with one row per address
-where there value in each column is the sum of all the values. To get
-the address with the most pieces of candy available, we can simply sort
-by the <code>“how_many”</code> column since this stores the total amount
-of candy per house. Setting <code>ascending=False</code> means that the
-address with the greatest amount of candy will be the first row. Since
-the addresses are located in the index as a result of the
-<code>groupby</code>, we can access this value by using
-<code>index[0]</code>.</p>
+<code>"candy"</code> and <code>"neighborhood"</code> are strings, so we
+keep only <code>"address"</code> and <code>"how_many"</code> before
+summing. Since we want the address with the most pieces of candy
+available, we then group by address:
+<code>treat.get(["address", "how_many"]).groupby("address")</code>. Now,
+since we want to add the number of candy available per address, we use
+the <code>sum()</code> aggregate function. So now we have a DataFrame
+with one row per address where there value in each column is the sum of
+all the values. To get the address with the most pieces of candy
+available, we can simply sort by the <code>“how_many”</code> column
+since this stores the total amount of candy per house. Setting
+<code>ascending=False</code> means that the address with the greatest
+amount of candy will be the first row. Since the addresses are located
+in the index as a result of the <code>groupby</code>, we can access this
+value by using <code>index[0]</code>.</p>
 <p>Note: If you do not set <code>ascending=False</code>, then the
 address with the most amount of candy available will be the last row
 which you can access by <code>index[-1]</code>.</p>
@@ -527,7 +523,7 @@ which you can access by <code>index[-1]</code>.</p>
 </div>
 <hr />
 <h2 id="problem-6">Problem 6</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 11</span></div></p>
 <p>Suppose you visit a house that has 40 Twix, 50 M&amp;Ms, and 10
@@ -694,7 +690,7 @@ answer is <span class="math inline">1 - (a + b)</span>.</p>
 <p><br></p>
 <hr />
 <h2 id="problem-7">Problem 7</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 12</span></div></p>
 <p>Suppose you visit another house and their candy bowl is composed of 2
@@ -871,12 +867,12 @@ estimate.</p>
 <p><br></p>
 <hr />
 <h2 id="problem-8">Problem 8</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 9</span></div></p>
 <p>Select the correct way to fill in the blank such that the code below
 evaluates to <code>True</code>.</p>
-<pre><code>treat.groupby(______).mean().shape[0] == treat.shape[0]</code></pre>
+<pre><code>treat.groupby(______).count().shape[0] == treat.shape[0]</code></pre>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> <code>"address"</code></p></li>
 <li><p><input type="radio" disabled="" /> <code>"candy"</code></p></li>
@@ -937,7 +933,7 @@ itself.</p>
 </div>
 <hr />
 <h2 id="problem-9">Problem 9</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 9</span></div></p>
 <p>Assume that all houses in <code>treat</code> give out the same size
@@ -1003,7 +999,7 @@ multipled by one and they sum up to 200, the number of rows will be
 </div>
 <hr />
 <h2 id="problem-10">Problem 10</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 7</span></div></p>
 <p>Recall from the last problem that the DataFrame
@@ -1251,7 +1247,7 @@ the height of the tallest bar accurately.</li>
 <p><br></p>
 <hr />
 <h2 id="problem-11">Problem 11</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 5</span></div></p>
 <p>As in the last problem, we’ll continue working with the
@@ -1271,25 +1267,25 @@ indexed by <code>"address"</code> with a column called
 <code>"avg_cost"</code> that contains the average cost per piece of
 Halloween candy at each address? Select all that apply.</p>
 <p>Way 1:</p>
-<pre><code>ac = tot.groupby(&quot;address&quot;).sum()
+<pre><code>ac = tot.get([&quot;address&quot;, &quot;price&quot;, &quot;how_many&quot;]).groupby(&quot;address&quot;).sum()
 ac = ac.assign(avg_cost = ac.get(&quot;price&quot;) / 
                           ac.get(&quot;how_many&quot;)).get([&quot;avg_cost&quot;])</code></pre>
 <p>Way 2:</p>
 <pre><code>ac = tot.assign(x = tot.get(&quot;price&quot;) / tot.get(&quot;how_many&quot;))
-ac = ac.groupby(&quot;address&quot;).sum()
+ac = ac.get([&quot;address&quot;, &quot;x&quot;]).groupby(&quot;address&quot;).sum()
 ac = ac.assign(avg_cost = ac.get(&quot;x&quot;).mean()).get([&quot;avg_cost&quot;])</code></pre>
 <p>Way 3:</p>
 <pre><code>ac = tot.assign(x = tot.get(&quot;price&quot;) / tot.get(&quot;how_many&quot;))
-ac = ac.groupby(&quot;address&quot;).sum()
+ac = ac.get([&quot;address&quot;, &quot;x&quot;, &quot;how_many&quot;]).groupby(&quot;address&quot;).sum()
 ac = ac.assign(avg_cost = ac.get(&quot;x&quot;) / 
                           ac.get(&quot;how_many&quot;)).get([&quot;avg_cost&quot;])</code></pre>
 <p>Way 4:</p>
 <pre><code>ac = tot.assign(x = tot.get(&quot;how_many&quot;) * tot.get(&quot;price&quot;))
-ac = ac.groupby(&quot;address&quot;).sum()
+ac = ac.get([&quot;address&quot;, &quot;x&quot;]).groupby(&quot;address&quot;).sum()
 ac = ac.assign(avg_cost = ac.get(&quot;x&quot;).mean()).get([&quot;avg_cost&quot;])</code></pre>
 <p>Way 5:</p>
 <pre><code>ac = tot.assign(x = tot.get(&quot;how_many&quot;) * tot.get(&quot;price&quot;))
-ac = ac.groupby(&quot;address&quot;).sum()
+ac = ac.get([&quot;address&quot;, &quot;x&quot;, &quot;how_many&quot;]).groupby(&quot;address&quot;).sum()
 ac = ac.assign(avg_cost = ac.get(&quot;x&quot;) / 
                           ac.get(&quot;how_many&quot;)).get([&quot;avg_cost&quot;])</code></pre>
 <ul class="task-list">
@@ -1321,16 +1317,13 @@ of candy)</p>
 we’re summing the per-piece prices, not the total spent. This gives
 wrong totals. For example, if a house has 30 pieces at $0.20 and 20 at
 $0.10, summing prices gives $0.30 instead of $8.00.</p>
-<p><strong>Way 2</strong>: This first calculates price/quantity for each
-candy type, then takes the mean of these ratios. This is mathematically
-incorrect for finding average cost per piece.</p>
-<ul>
-<li>For Twix: $0.20/30 = $0.00667 per piece</li>
-<li>For Laffy Taffy: $0.10/20 = $0.005 per piece</li>
-<li>Takes mean: ($0.00667 + $0.005)/2 = $0.00583</li>
-<li>This is wrong because it’s taking mean of ratios instead of ratio of
-totals</li>
-</ul>
+<p><strong>Way 2</strong>: This divides each per-piece price by its
+quantity, then sums those ratios for each house. The subsequent
+<code>.mean()</code> is a single mean across houses, not an average cost
+per piece for each house. For the example house, the grouped
+<code>x</code> would be <span class="math inline">0.20/30 + 0.10/20
+\approx 0.01167</span>, which does not represent the total spent or the
+average cost per piece.</p>
 <p><strong>Way 3</strong>: Similar to Way 2, but even more problematic
 as it divides by quantity twice.</p>
 <ul>
@@ -1339,16 +1332,12 @@ as it divides by quantity twice.</p>
 <li>Sums these: $0.00667 + $0.005 = $0.01167</li>
 <li>Divides by total quantity again: $0.01167/50 = $0.000233</li>
 </ul>
-<p><strong>Way 4</strong>: Correctly calculates total spent (x =
-quantity * price) but then takes the mean of the totals instead of
-dividing by total quantity.</p>
-<ul>
-<li>For Twix: 30 × $0.20 = $6.00</li>
-<li>For Laffy Taffy: 20 × $0.10 = $2.00</li>
-<li>Takes mean of these totals: ($6.00 + $2.00)/2 = $4.00 (wrong)</li>
-<li>This is wrong because it takes mean of totals instead of dividing by
-total quantity</li>
-</ul>
+<p><strong>Way 4</strong>: This correctly computes total expenditure for
+each house, but then takes one mean across those house totals instead of
+dividing each house’s total by its number of pieces. For the example
+house, the grouped <code>x</code> is <span class="math inline">6 + 2 =
+8</span>, not the required <span class="math inline">8/50 =
+0.16</span>.</p>
 <p><strong>Way 5</strong>: This is correct because:</p>
 <ul>
 <li>First calculates total spent on each candy type (quantity * price
@@ -1377,7 +1366,7 @@ piece</li>
 </div>
 <hr />
 <h2 id="problem-12">Problem 12</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 6</span></div></p>
 <p><br></p>
@@ -1452,7 +1441,7 @@ aria-labelledby="heading12_2" data-bs-parent="#accordionExample">
 <p><br></p>
 <hr />
 <h2 id="problem-13">Problem 13</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 5</span></div></p>
 <p><strong>Extra Credit</strong></p>
@@ -1556,5 +1545,18 @@ Feedback: Find an error? Still confused? Have a suggestion?
 <a href="https://forms.gle/WZ71FchnXU1K154d7">Let us know
 here</u></a>.</h4>
 <hr />
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </body>
 </html>

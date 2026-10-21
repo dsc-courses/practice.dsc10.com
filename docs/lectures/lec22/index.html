@@ -6,6 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>Lecture 22 — Practice</title>
   <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -21,8 +24,9 @@
       vertical-align: middle;
     }
     /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -33,7 +37,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -522,7 +526,7 @@ card applications, we decide to perform a permutation test.</p>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df.assign(status<span class="op">=</span>shuffled_status).get([<span class="st">&quot;status&quot;</span>, <span class="st">&quot;dependents&quot;</span>])</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_stat(df):</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    grouped <span class="op">=</span> df.groupby(<span class="st">&quot;status&quot;</span>).mean().get(<span class="st">&quot;dependents&quot;</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    grouped <span class="op">=</span> df.get([<span class="st">&quot;status&quot;</span>, <span class="st">&quot;dependents&quot;</span>]).groupby(<span class="st">&quot;status&quot;</span>).mean().get(<span class="st">&quot;dependents&quot;</span>)</span>
 <span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    approved <span class="op">=</span> grouped.loc[<span class="st">&quot;approved&quot;</span>]</span>
 <span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    denied <span class="op">=</span> grouped.loc[<span class="st">&quot;denied&quot;</span>]</span>
 <span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> __(a)__</span>
@@ -1226,14 +1230,14 @@ aria-labelledby="heading4_3" data-bs-parent="#accordionExample">
 
 </header>
 <p><strong>Answer:</strong>
-<code>top_two = merged.groupby("genre").mean().sort_values(by="rating", ascending=False).drop(columns="pages").take([0, 1])</code></p>
-<p>We first groupby the <code>merged</code> DataFrame by
-<code>"genre"</code> and calculates the mean rating for each genre. Then
-we sort these genres by their average rating in descending order so the
-higest rated are at the top. Then, <code>"pages"</code> is dropped since
-it’s not needed in our output. Finally, we select the top two genres
-with the highest average ratings using <code>.take([0, 1])</code>, which
-keeps only the first two rows.</p>
+<code>top_two = merged.groupby("genre").mean().sort_values(by="rating", ascending=False).take([0, 1])</code></p>
+<p><code>merged</code> already contains only <code>"genre"</code> and
+<code>"rating"</code>. We group by <code>"genre"</code> and calculate
+the mean rating for each genre. Then we sort these genres by their
+average rating in descending order so the highest rated are at the top.
+Finally, we select the top two genres with the highest average ratings
+using <code>.take([0, 1])</code>, which keeps only the first two
+rows.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -1409,7 +1413,7 @@ permutation test.</p>
 rating_stats = np.array([])
 for i in np.arange(10000):
     shuffled = just_two.assign(shuffled = __(a)__)
-    grouped = shuffled.groupby(&quot;genre&quot;).mean().get(&quot;shuffled&quot;)
+    grouped = shuffled.get([&quot;genre&quot;, &quot;shuffled&quot;]).groupby(&quot;genre&quot;).mean().get(&quot;shuffled&quot;)
     mystery_mean = grouped.iloc[__(b)__]
     fantasy_mean = grouped.iloc[__(c)__]
     rating_stats = np.append(rating_stats, mystery_mean - fantasy_mean)</code></pre>
@@ -1521,8 +1525,8 @@ movies have a higher rating <code>"Horror"</code> movies.</p></li>
 <p>Fill in the blanks so the code below generates 5000 simulated values
 of this test statistic and calculates the p-value of our test.</p>
 <pre><code>def one_stat(df):
-    group_means = df.groupby(&quot;New&quot;).mean().get(&quot;Rating&quot;)
-    return group_means.loc[__(a)__] - group_mean.loc[__(b)__]
+    group_means = df.get([&quot;New&quot;, &quot;Rating&quot;]).groupby(&quot;New&quot;).mean().get(&quot;Rating&quot;)
+    return group_means.loc[__(a)__] - group_means.loc[__(b)__]
 
 action_horror = movies[(movies.get(&quot;Genre&quot;) == &quot;Action&quot;) | 
                        (movies.get(&quot;Genre&quot;) == &quot;Horror&quot;)]
@@ -1549,8 +1553,8 @@ aria-labelledby="heading5_1" data-bs-parent="#accordionExample">
 <li>(a): <code>"Action"</code></li>
 <li>(b): <code>"Horror"</code></li>
 <li>(c):
-<code>np.random.permutation(action horror.get("Genre"))</code></li>
-<li>(d): <code>one stat(new df)</code></li>
+<code>np.random.permutation(action_horror.get("Genre"))</code></li>
+<li>(d): <code>one_stat(new_df)</code></li>
 <li>(e): <code>diffs &gt;= 0.2</code></li>
 </ul>
 <hr/>
@@ -2267,7 +2271,7 @@ your test statistic, fill in the blanks so the code below generates
 10,000 simulated statistics for the permutation test.</p>
 <div class="sourceCode" id="cb16"><pre
 class="sourceCode py"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> find_diff(df):</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    group_means <span class="op">=</span> df.groupby(<span class="st">&quot;shuffled&quot;</span>).mean().get(<span class="st">&quot;price&quot;</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    group_means <span class="op">=</span> df.get([<span class="st">&quot;shuffled&quot;</span>, <span class="st">&quot;price&quot;</span>]).groupby(<span class="st">&quot;shuffled&quot;</span>).mean().get(<span class="st">&quot;price&quot;</span>)</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> group_means.loc[<span class="st">&quot;road&quot;</span>] <span class="op">-</span> group_means.loc[<span class="st">&quot;hybrid&quot;</span>]</span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>some_bikes <span class="op">=</span> __(x)__</span>
@@ -2291,7 +2295,7 @@ aria-labelledby="heading9_1" data-bs-parent="#accordionExample">
 <p><strong>Answer</strong>:</p>
 <p>(x):
 <code>bikes[(bikes.get("style") == "road") | (bikes.get("style") == "hybrid")]</code><br/>
-(y): <code>np.random.permutation(some bikes.get("style"))</code></p>
+(y): <code>np.random.permutation(some_bikes.get("style"))</code></p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -2631,11 +2635,13 @@ aria-labelledby="heading11_3" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 
 </header>
-<p><strong>Answer: </strong> True</p>
-<p>Referring to <code>df</code> at the beginning of the exam, we could
-see that 5 of the columns have numerical values as inputs, and thus
-<code>df.groupby("kind").mean()</code> will return the mean of these 5
-numerical columns</p>
+<p><strong>Answer: </strong> False</p>
+<p><code>df</code> has five numeric columns, but it also has the string
+column <code>'size'</code>. Grouping by <code>'kind'</code> moves
+<code>'kind'</code> into the index and leaves <code>'size'</code> in the
+table. <code>.mean()</code> tries to average every remaining column,
+including <code>'size'</code>, and raises an error. It does not return a
+DataFrame with 5 columns.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -3102,9 +3108,10 @@ test statistic. The alternative hypothesis indicates “less than” so our
 test statistic needs to summarize both the magnitude and direction of
 the difference in the categories.</p>
 <ul>
-<li>Option 1 is correct. The mean number of flat stages divided by the
-mean distance of flat stages is essentially a ratio which is a valid
-test statistic.</li>
+<li>Option 1 is correct. The mean distance of flat stages divided by the
+mean distance of mountain stages is a valid test statistic. Smaller
+ratios support the alternative that flat stages are shorter on
+average.</li>
 <li>Option 2 is correct. The difference between the mean distance of
 mountain stages and the mean distance of flat stages gives direction and
 magnitude of the difference between the categories so its a valid test
@@ -3143,13 +3150,13 @@ hypothesis test of the given hypotheses and returns the p-value.</p>
 <div class="sourceCode" id="cb18"><pre
 class="sourceCode py"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> hypothesis_test(stages):</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    means <span class="op">=</span> stages.groupby(<span class="st">&quot;class&quot;</span>).mean().get(<span class="st">&quot;Distance&quot;</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    means <span class="op">=</span> stages.get([<span class="st">&quot;class&quot;</span>, <span class="st">&quot;Distance&quot;</span>]).groupby(<span class="st">&quot;class&quot;</span>).mean().get(<span class="st">&quot;Distance&quot;</span>)</span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    observed_stat <span class="op">=</span> means.loc[<span class="st">&quot;flat&quot;</span>] <span class="op">-</span> means.loc[<span class="st">&quot;mountain&quot;</span>]</span>
 <span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    simulated_stats <span class="op">=</span> np.array([])</span>
 <span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
 <span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>        shuffled <span class="op">=</span> stages.assign(shuffled <span class="op">=</span> np.random.__(i)__(stages.get(<span class="st">&quot;Distance&quot;</span>)))</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>        shuffled_means <span class="op">=</span> shuffled.groupby(<span class="st">&quot;class&quot;</span>).mean().get(<span class="st">&quot;Distance&quot;</span>)</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>        shuffled_means <span class="op">=</span> shuffled.get([<span class="st">&quot;class&quot;</span>, <span class="st">&quot;shuffled&quot;</span>]).groupby(<span class="st">&quot;class&quot;</span>).mean().get(<span class="st">&quot;shuffled&quot;</span>)</span>
 <span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>        simulated_stat <span class="op">=</span> (shuffled_means.loc[<span class="st">&quot;flat&quot;</span>] <span class="op">-</span> shuffled_means.loc[<span class="st">&quot;mountain&quot;</span>])</span>
 <span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>        simulated_stats <span class="op">=</span> __(ii)__(simulated_stats, simulated_stat)</span>
 <span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>    </span>
@@ -3177,21 +3184,21 @@ aria-labelledby="heading13_2" data-bs-parent="#accordionExample">
 <p>The first step in a permutation test simulation is to shuffle the
 labels or the values. So since this first line in the for loop is
 assigning a column called ‘shuffled’, we know we need to use
-<code>np.random.permutation()</code> on the <code>"Distances"</code>
-column. The next line gets the new means for each group after shuffling
-the values and <code>simulated_stat</code> is the simulated difference
-in means. Now we know we want to save this simulated statistic and we
-have the <code>simulated_stats</code> array, so we want to use an
-<code>np.append</code> in (ii) to save this statistic in the array.
-Finally after the simulation is complete, we calculate the p-value using
-the array of simulated statistics. The p-value is the probability of
-seeing the observed result under the null hypothesis.
-<code>simulated_stats &lt;= observed_stat</code> returns an array of 0’s
-and 1’s depending on whether each simulated statistic is less than or
-equal to the observed statistic. Now, to get the probability of seeing a
-result equal to or less than the observed, we can simply take the mean
-of this array since the mean of an array of 0’s and 1’s is equivalent to
-the probability.</p>
+<code>np.random.permutation()</code> on the <code>"Distance"</code>
+column. The next line averages the <code>"shuffled"</code> distances
+within each <code>"class"</code> group and <code>simulated_stat</code>
+is the simulated difference in means. Now we know we want to save this
+simulated statistic and we have the <code>simulated_stats</code> array,
+so we want to use an <code>np.append</code> in (ii) to save this
+statistic in the array. Finally after the simulation is complete, we
+calculate the p-value using the array of simulated statistics. The
+p-value is the probability of seeing the observed result under the null
+hypothesis. <code>simulated_stats &lt;= observed_stat</code> returns an
+array of 0’s and 1’s depending on whether each simulated statistic is
+less than or equal to the observed statistic. Now, to get the
+probability of seeing a result equal to or less than the observed, we
+can simply take the mean of this array since the mean of an array of 0’s
+and 1’s is equivalent to the probability.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -3229,7 +3236,7 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb20-1"><a href=
 </ul>
 <div class="sourceCode" id="cb21"><pre
 class="sourceCode py"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>shuffled <span class="op">=</span> stages.assign(shuffled <span class="op">=</span> np.random.__(i)__(stages.get(<span class="st">&quot;Distance&quot;</span>)))</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>shuffled_means <span class="op">=</span> shuffled.groupby(<span class="st">&quot;class&quot;</span>).mean()</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>shuffled_means <span class="op">=</span> shuffled.get([<span class="st">&quot;class&quot;</span>, <span class="st">&quot;Distance&quot;</span>]).groupby(<span class="st">&quot;class&quot;</span>).mean()</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>simulated_stat <span class="op">=</span> (shuffled_means.get(<span class="st">&quot;Distance&quot;</span>).iloc[<span class="st">&quot;flat&quot;</span>] <span class="op">-</span></span>
 <span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>                  shuffled_means.get(<span class="st">&quot;Distance&quot;</span>).iloc[<span class="st">&quot;mountain&quot;</span>])</span></code></pre></div>
 <p>(iii):</p>
@@ -3274,11 +3281,13 @@ two categories.</li>
 <ul>
 <li><code>shuffled</code> shuffles the distances and assigns these
 shuffled distances to the column <code>‘shuffled’</code>.
-<code>shuffled_means</code> groups by the label and calculates the means
-for each column. However, <code>simulated_stat</code> takes the original
-distance columns when calculating the difference in means rather than
-the shuffled distances which is located in the <code>‘shuffled’</code>
-column making this answer incorrect.</li>
+<code>.get(["class", "Distance"])</code> keeps the grouping column and
+<code>"Distance"</code>, so <code>.mean()</code> can run.
+<code>shuffled_means</code> then groups by the label and averages
+<code>"Distance"</code>. However, <code>simulated_stat</code> uses that
+original <code>"Distance"</code> column rather than the shuffled
+distances, which are in the <code>‘shuffled’</code> column. That makes
+this answer incorrect.</li>
 </ul></li>
 </ul>
 <hr/>
@@ -3578,7 +3587,7 @@ shorter sentence times.</p>
 <code>diff_in_group_means</code>:</p>
 <div class="sourceCode" id="cb22"><pre
 class="sourceCode py"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> diff_in_group_means(df, group_col, num_col):</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    s <span class="op">=</span> df.groupby(group_col).mean().get(num_col)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    s <span class="op">=</span> df.get([group_col, num_col]).groupby(group_col).mean().get(num_col)</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> s.loc[<span class="va">False</span>] <span class="op">-</span> s.loc[<span class="va">True</span>]</span></code></pre></div>
 <p><br></p>
 <h3 id="problem-16.1">Problem 16.1</h3>
@@ -3657,8 +3666,8 @@ valid simulated test statistic for this permutation test?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> <code>diff_in_group_means(shuffled, 'Won', 'AST')</code></p></li>
 <li><p><input type="radio" disabled="" /> <code>diff_in_group_means(shuffled, 'Won', 'AST_shuffled')</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>diff_in_group_means(shuffled, 'Won_shuffled, 'AST')</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>diff_in_group_means(shuffled, 'Won_shuffled, 'AST_shuffled')</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>diff_in_group_means(shuffled, 'Won_shuffled', 'AST')</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>diff_in_group_means(shuffled, 'Won_shuffled', 'AST_shuffled')</code></p></li>
 <li><p><input type="radio" disabled="" /> More than one of these options do not compute a valid simulated test
 statistic for this permutation test</p></li>
 </ul>
@@ -4119,7 +4128,7 @@ below.</p>
 class="sourceCode py"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="kw">def</span> perm_test(df, labels, data):</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>   diffs <span class="op">=</span> np.array([])</span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>   <span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">1000</span>):</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span>       df.assign(shuffled<span class="op">=</span>np.random permutation(df.get(data)))</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span>       df.assign(shuffled<span class="op">=</span>np.random.permutation(df.get(data)))</span>
 <span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span>       means <span class="op">=</span> df.groupby(labels).mean().get(data)</span>
 <span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span>       diff <span class="op">=</span> means.iloc[<span class="dv">0</span>] <span class="op">-</span> means.iloc[<span class="dv">1</span>]</span>
 <span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span>       diffs <span class="op">=</span> np.append(diffs, diff)</span>
@@ -4178,13 +4187,14 @@ aria-labelledby="heading19_2" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 
 </header>
-<p><strong>Answer:</strong> Line 5; We need to get
-<code>"shuffled"</code> instead of <code>data</code>.</p>
-<p>Recall a permutation test is simulating if samples come from the same
-population. This means we need to shuffle the data and use it to see if
-that would change our result/view. This means in line 5 we want to use
-the shuffled data, so we need to do <code>.get(“shuffled”)</code>
-instead of <code>.get(“data”)</code>.</p>
+<p><strong>Answer:</strong> Line 5; Select only the grouping column
+named by <code>labels</code> and the <code>"shuffled"</code> column
+before grouping, then average and get <code>"shuffled"</code> instead of
+<code>data</code>.</p>
+<p>A simulated statistic must use the shuffled values. Keeping only the
+group labels and shuffled numeric values also prevents
+<code>.mean()</code> from trying to average unrelated string
+columns.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -4270,7 +4280,7 @@ aria-labelledby="heading19_4" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer:</strong></p>
 <div id="cb1" class="sourceCode">
-<pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a>simulated diffs <span class="op">=</span> perm_test(<span class="cf">with</span> dice[<span class="cf">with</span> dice.get(<span class="st">"Domains"</span>).<span class="bu">str</span>.contains(<span class="st">"Children’s Games"</span>)], <span class="st">"isDice"</span>, <span class="st">"Play Time"</span>)</span></code></pre>
+<pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a>simulated_diffs <span class="op">=</span> perm_test(with_dice[with_dice.get(<span class="st">"Domains"</span>).<span class="bu">str</span>.contains(<span class="st">"Children’s Games"</span>)], <span class="st">"isDice"</span>, <span class="st">"Play Time"</span>)</span></code></pre>
 </div>
 <p>The inputs to <code>perm_test</code>, in order, are:</p>
 <ul>

@@ -6,6 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>Spring 2023 Midterm Exam</title>
   <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -21,8 +24,9 @@
       vertical-align: middle;
     }
     /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -33,7 +37,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -135,16 +139,6 @@ except students were provided a copy of the
 10 Reference Sheet<a>. No calculators were allowed. Students had
 <strong>50 minutes</strong> to take this exam.</p>
 <hr />
-<p><strong>Note (groupby / pandas 2.0):</strong> Pandas 2.0+ no longer
-silently drops columns that can’t be aggregated after a
-<code>groupby</code>, so code written for older pandas may behave
-differently or raise errors. In these practice materials we use
-<code>.get()</code> to select the column(s) we want after
-<code>.groupby(...).mean()</code> (or other aggregations) so that our
-solutions run on current pandas. On real exams you will not be penalized
-for omitting <code>.get()</code> when the old behavior would have
-produced the same answer.</p>
-<hr />
 <h4 id="video">Video 🎥</h4>
 <p><b>Here are two walkthrough videos of Problems 4 through 8 on this
 exam: one by
@@ -194,7 +188,7 @@ repeatedly.</strong></p>
 and <code>import numpy as np</code>.</p>
 <hr />
 <h2 id="problem-1">Problem 1</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 5</span></div></p>
 <p><br></p>
@@ -563,7 +557,7 @@ no value whose index is <code>0</code>, so this throws an error.</p>
 <p><br></p>
 <hr />
 <h2 id="problem-2">Problem 2</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 8</span></div></p>
 <p>Fill in the blanks below so that the expression evaluates to the most
@@ -811,7 +805,7 @@ instead of <code>"HI25"</code>.</p>
 <p><br></p>
 <hr />
 <h2 id="problem-3">Problem 3</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 10</span></div></p>
 <p>Currently, the <code>"Section"</code> column of <code>survey</code>
@@ -1068,7 +1062,7 @@ instead of the actual variable, leading to an error.</p>
 <p><br></p>
 <hr />
 <h2 id="problem-4">Problem 4</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 5</span></div></p>
 <p><br></p>
@@ -1150,10 +1144,10 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb17-1"><a href=
 below.</p>
 <div class="sourceCode" id="cb18"><pre
 class="sourceCode py"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Possible method 1.</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    mean_2 <span class="op">=</span> survey.groupby(<span class="st">&quot;Section&quot;</span>).mean().get(<span class="st">&quot;IG Followers&quot;</span>).mean()</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    mean_2 <span class="op">=</span> survey.get([<span class="st">&quot;Section&quot;</span>, <span class="st">&quot;IG Followers&quot;</span>]).groupby(<span class="st">&quot;Section&quot;</span>).mean().get(<span class="st">&quot;IG Followers&quot;</span>).mean()</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Possible method 2.</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    X <span class="op">=</span> survey.groupby(<span class="st">&quot;Section&quot;</span>).<span class="bu">sum</span>().get(<span class="st">&quot;IG Followers&quot;</span>).<span class="bu">sum</span>()</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    X <span class="op">=</span> survey.get([<span class="st">&quot;Section&quot;</span>, <span class="st">&quot;IG Followers&quot;</span>]).groupby(<span class="st">&quot;Section&quot;</span>).<span class="bu">sum</span>().get(<span class="st">&quot;IG Followers&quot;</span>).<span class="bu">sum</span>()</span>
 <span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    Y <span class="op">=</span> survey.groupby(<span class="st">&quot;Section&quot;</span>).count().get(<span class="st">&quot;IG Followers&quot;</span>).<span class="bu">sum</span>()</span>
 <span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    mean_3 <span class="op">=</span> X <span class="op">/</span> Y</span></code></pre></div>
 <p>Is <code>mean_2</code> equal to <code>mean_1</code>?</p>
@@ -1232,7 +1226,7 @@ Yes.</strong></p>
 <p>Let’s break down the calculations:</p>
 <ul>
 <li>For <code>X</code>:
-<code>survey.groupby("Section").sum().get("IG Followers")</code>
+<code>survey.get(["Section", "IG Followers"]).groupby("Section").sum().get("IG Followers")</code>
 calculates the total number of followers for each section separately.
 The subsequent <code>.sum()</code> then adds these totals together,
 providing the total number of followers in the entire class.</li>
@@ -1260,7 +1254,7 @@ answer is “Yes.”</p>
 <p><br></p>
 <hr />
 <h2 id="problem-5">Problem 5</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 9</span></div></p>
 <p>Teresa and Sophia are bored while waiting in line at Bistro and
@@ -1405,7 +1399,7 @@ the total number of rows in the new merged DataFrame will be <span class="math i
 <p><br></p>
 <hr />
 <h2 id="problem-6">Problem 6</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 7</span></div></p>
 <p>The histogram below displays the distribution of the number of
@@ -1514,7 +1508,7 @@ bar takes up about half of the area of the 2-8 range.</p>
 <p><br></p>
 <hr />
 <h2 id="problem-7">Problem 7</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 11</span></div></p>
 <p>The four most common majors among students in DSC 10 this quarter are
@@ -1745,7 +1739,7 @@ selecting at least one <code>"CG35"</code> major in <strong><span class="math in
 <p><br></p>
 <hr />
 <h2 id="problem-8">Problem 8</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 12</span></div></p>
 <p>We’d like to select three students at random from the entire class to
@@ -1979,5 +1973,13 @@ Feedback: Find an error? Still confused? Have a suggestion?
 <a href="https://forms.gle/WZ71FchnXU1K154d7">Let us know
 here</u></a>.</h4>
 <hr />
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </body>
 </html>

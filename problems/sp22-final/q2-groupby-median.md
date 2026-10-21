@@ -7,7 +7,7 @@ lecture: 5
 Complete the expression below so that it evaluates to a DataFrame indexed by `'category'` with one column called `'price'` containing the median cost of the products in each category.
 
 ```py
-ikea.___(a)___.get(___(b)___)
+ikea.drop(columns=['product']).___(a)___.get(___(b)___)
 ```
 
 # BEGIN SUBPROB
@@ -18,7 +18,7 @@ What goes in blank (a)?
 
 **Answer: ** `groupby('category').median()`
 
-The question prompt says that the resulting DataFrame should be indexed by `'category'`, so this is a hint that we may want to group by `'category'`. When using `groupby`, we need to specify an aggregation function, and since we're looking for the median cost of all products in a category, we use the `.median()` aggregation function. 
+The string column `'product'` has already been dropped, leaving the grouping column and numeric columns. The question prompt says that the resulting DataFrame should be indexed by `'category'`, so this is a hint that we may want to group by `'category'`. When using `groupby`, we need to specify an aggregation function, and since we're looking for the median cost of all products in a category, we use the `.median()` aggregation function.
 
 <average>90</average>
 # END SOLUTION

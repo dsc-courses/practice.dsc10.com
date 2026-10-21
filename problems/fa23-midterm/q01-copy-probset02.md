@@ -8,7 +8,7 @@ lecture: 6
 
 Suppose we run the three lines of code below.
 
-    families = living_cost.groupby("family_type").median()
+    families = living_cost.get(["family_type", "avg_housing_cost", "avg_childcare_cost"]).groupby("family_type").median()
     sorted_families = families.sort_values(by="avg_housing_cost")
     result = sorted_families.get("avg_childcare_cost").iloc[0]
 
@@ -27,7 +27,7 @@ When we grouped `living_cost` by `"family_type"`, `families` is a DataFrame with
 
 `sorted_families` is the `families` DataFrame, but sorted in ascending order based on the  `"avg_housing_cost"` column. The first row of `sorted_families` is the `"family_type"` with the lowest median  `"avg_housing_cost"`, and the last row of `sorted_families` is the `"family_type"` with the highest median  `"avg_housing_cost"`.
 
-In the last line of code, we’re getting the `"avg_childcare_cost"` column from the `sorted_families` DataFrame. We then use `iloc` to get the first entry in the `"avg_childcare_cost"` column. Since `sorted_families` is sorted in ascending order, this means that we’re getting the lowest median in the column. Therefore, `result` evaluates to the median `"avg_childcare_cost"` of the `"family_type"` with the lowest median `"avg_housing_cost"`.
+In the last line of code, we’re getting the `"avg_childcare_cost"` column from the `sorted_families` DataFrame. We then use `iloc` to get the first entry in the `"avg_childcare_cost"` column. Since `sorted_families` is sorted by `"avg_housing_cost"`, this entry belongs to the family type with the lowest median housing cost; it is not necessarily the lowest median childcare cost. Therefore, `result` evaluates to the median `"avg_childcare_cost"` of the `"family_type"` with the lowest median `"avg_housing_cost"`.
 
 <average>82</average>
 
@@ -77,11 +77,13 @@ Which of the following DataFrames has exactly four columns?
 
 # BEGIN SOLUTION
 
-**Answer:** `living_cost.groupby("family_type").sum()`\
+**Answer:** None of the above.
 
-Since we can’t take the sum of columns with categorical data, all of the columns in `living_cost` that contain non-numerical data are dropped after we use the `.sum()` aggregation method. There are four columns in `living_cost` that have numerical data (`"is_metro"`, `"avg_housing_cost"`, `"avg_childcare_cost"`, and `"median_income"`). Since Python can take the sum of these numerical columns, these four columns are kept. Therefore, the resulting DataFrame has exactly four columns.
+None of these DataFrames has exactly four columns.
 
-Although `"is_metro"` contains Boolean values, Python can still calculate the sum of this column. The Boolean value `True` corresponds to 1 and `False` corresponds to 0.
+- `.min()` runs on strings, so `"state"` and `"county"` stay. After grouping by `"family_type"`, six columns remain.
+- `.sum()` concatenates the strings in `"state"` and `"county"` and sums the numeric columns, so it also has six columns.
+- `.count()` also keeps every remaining column, so it has six columns too.
 
 <average>35</average>
 

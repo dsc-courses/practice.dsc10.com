@@ -6,6 +6,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>Spring 2024 Quiz 5</title>
   <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -21,8 +24,9 @@
       vertical-align: middle;
     }
     /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -33,7 +37,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -135,16 +139,6 @@ the quiz.<br><br>This quiz covered Lectures 20-23 of the <a
 href="https://dsc-courses.github.io/dsc10-2024-sp">Spring 2024 offering
 of DSC 10</a>.</p>
 <hr />
-<p><strong>Note (groupby / pandas 2.0):</strong> Pandas 2.0+ no longer
-silently drops columns that can’t be aggregated after a
-<code>groupby</code>, so code written for older pandas may behave
-differently or raise errors. In these practice materials we use
-<code>.get()</code> to select the column(s) we want after
-<code>.groupby(...).mean()</code> (or other aggregations) so that our
-solutions run on current pandas. On real exams you will not be penalized
-for omitting <code>.get()</code> when the old behavior would have
-produced the same answer.</p>
-<hr />
 <p>The DataFrame <code>bikes</code> contains a sample of 500 bikes for
 sale locally. Columns are:</p>
 <ul>
@@ -157,7 +151,7 @@ identifies the bicycle.</li>
 </ul>
 <hr />
 <h2 id="problem-1">Problem 1</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 22</span></div></p>
 <p>You want to know if there is a significant difference in the sale
@@ -176,7 +170,7 @@ means (in the order <code>"road"</code> minus <code>"hybrid"</code>) as
 your test statistic, fill in the blanks so the code below generates
 10,000 simulated statistics for the permutation test.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> find_diff(df):</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    group_means <span class="op">=</span> df.groupby(<span class="st">&quot;shuffled&quot;</span>).mean().get(<span class="st">&quot;price&quot;</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    group_means <span class="op">=</span> df.get([<span class="st">&quot;shuffled&quot;</span>, <span class="st">&quot;price&quot;</span>]).groupby(<span class="st">&quot;shuffled&quot;</span>).mean().get(<span class="st">&quot;price&quot;</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> group_means.loc[<span class="st">&quot;road&quot;</span>] <span class="op">-</span> group_means.loc[<span class="st">&quot;hybrid&quot;</span>]</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>some_bikes <span class="op">=</span> __(x)__</span>
@@ -200,7 +194,7 @@ aria-labelledby="heading1_1" data-bs-parent="#accordionExample">
 <p><strong>Answer</strong>:</p>
 <p>(x):
 <code>bikes[(bikes.get("style") == "road") | (bikes.get("style") == "hybrid")]</code><br/>
-(y): <code>np.random.permutation(some bikes.get("style"))</code></p>
+(y): <code>np.random.permutation(some_bikes.get("style"))</code></p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -282,7 +276,7 @@ level of 0.05.</p>
 <p><br></p>
 <hr />
 <h2 id="problem-2">Problem 2</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 21</span></div></p>
 <p>You want to determine if the bikes for sale locally have the
@@ -418,5 +412,7 @@ Feedback: Find an error? Still confused? Have a suggestion?
 <a href="https://forms.gle/WZ71FchnXU1K154d7">Let us know
 here</u></a>.</h4>
 <hr />
+</div>
+</div>
 </body>
 </html>
