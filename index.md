@@ -126,7 +126,7 @@ Each exam linked here lists the conditions under which the exam was given, inclu
   <tbody>
     <tr>
       <th scope="row">Summer 2026</th>
-      <td>Janine Tiefenbruck</td>
+      <td>Vrinda Desai</td>
       <td>
         <a href='su26-midterm/index.html'>Midterm</a>
       </td>
@@ -159,14 +159,14 @@ Each exam linked here lists the conditions under which the exam was given, inclu
     </tr>
     <tr>
       <th scope="row">Fall 2025</th>
-      <td>Janine Tiefenbruck, Peter Chi</td>
+      <td>Peter Chi, Janine Tiefenbruck</td>
       <td><a href='fa25-midterm/index.html'>Midterm</a>
       <br>
       <a href='fa25-final/index.html'>Final</a>
       </td>
       <td>
         English language<br>
-        Snow, cities
+        Snow
       </td>
     </tr>
     <tr>
@@ -189,7 +189,7 @@ Each exam linked here lists the conditions under which the exam was given, inclu
       <a href='wi25-final/index.html'>Final</a>
       </td>
       <td>
-        Dining Halls<br>
+        Dining halls<br>
         Harry Potter
       </td>
     </tr>
@@ -202,7 +202,7 @@ Each exam linked here lists the conditions under which the exam was given, inclu
       </td>
       <td>
         Halloween<br>
-        Bookstore, genres
+        Bookstore
       </td>
     </tr>
     <tr>
@@ -226,7 +226,7 @@ Each exam linked here lists the conditions under which the exam was given, inclu
       </td>
       <td>
         Phone numbers<br>
-        Apartments, rent
+        Apartments
       </td>
     </tr>
     <tr>
@@ -260,7 +260,7 @@ Each exam linked here lists the conditions under which the exam was given, inclu
           <a href='sp23-final/index.html'>Final</a></b>
       </td>
       <td>
-        UCSD, DSC10<br>
+        Welcome survey<br>
         Sunshine in cities
       </td>
     </tr>
@@ -285,7 +285,7 @@ Each exam linked here lists the conditions under which the exam was given, inclu
       </td>
       <td>
         Electric vehicles<br>
-        Board games
+        Credit card applications
       </td>
     </tr>
     <tr>
@@ -330,7 +330,7 @@ Each exam linked here lists the conditions under which the exam was given, inclu
       </td>
       <td>
         King Triton's flights<br>
-        Art musuems
+        Museums
       </td>
     </tr>
     <tr>
@@ -374,7 +374,7 @@ We've provided answers to all quiz questions, but you won't find detailed explan
   <tbody>
     <tr>
       <th scope="row">Fall 2026</th>
-      <td>Janine Tiefenbruck, Peter Chi</td>
+      <td>Peter Chi, Janine Tiefenbruck</td>
       <td>
         <a href='fa26-quiz1/index.html'>Quiz 1</a>
         <br>
@@ -382,7 +382,7 @@ We've provided answers to all quiz questions, but you won't find detailed explan
       </td>
       <td>
         Coleman's Catch<br>
-        San Diego temperatures
+        San Diego weather
       </td>
     </tr>
     <tr>
@@ -420,12 +420,12 @@ We've provided answers to all quiz questions, but you won't find detailed explan
         Course enrollment<br>
         Coffee shop<br>
         Playlist<br>
-        Evil Tutor
+        Evil tutor
       </td>
     </tr>
     <tr>
       <th scope="row">Fall 2025</th>
-      <td>Janine Tiefenbruck, Peter Chi</td>
+      <td>Peter Chi, Janine Tiefenbruck</td>
       <td>
         <a href='fa25-quiz1/index.html'>Quiz 1</a>
         <br>
