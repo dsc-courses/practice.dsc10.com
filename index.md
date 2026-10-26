@@ -125,6 +125,16 @@ Each exam linked here lists the conditions under which the exam was given, inclu
   </thead>
   <tbody>
     <tr>
+      <th scope="row">Fall 2026</th>
+      <td>Peter Chi, Janine Tiefenbruck</td>
+      <td>
+        <a href='fa26-midterm/index.html'>Midterm</a>
+      </td>
+      <td>
+        Campuswire
+      </td>
+    </tr>
+    <tr>
       <th scope="row">Summer 2026</th>
       <td>Vrinda Desai</td>
       <td>
