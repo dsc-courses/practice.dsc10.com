@@ -1103,6 +1103,11 @@ Click to view the solution.
 
 </header>
 <p><strong>Answer:</strong> <code>25</code></p>
+<hr/>
+<h5>Difficulty: ⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 90%.</p>
 </div>
 </div>
 </div>
@@ -1123,6 +1128,11 @@ Click to view the solution.
 
 </header>
 <p><strong>Answer:</strong> <code>65</code></p>
+<hr/>
+<h5>Difficulty: ⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 92%.</p>
 </div>
 </div>
 </div>
@@ -1143,6 +1153,11 @@ Click to view the solution.
 
 </header>
 <p><strong>Answer:</strong> <code>2</code></p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 25%.</p>
 </div>
 </div>
 </div>
@@ -1174,11 +1189,17 @@ Click to view the solution.
 <header id="title-block-header">
 
 </header>
-<p><strong>Answer:</strong></p>
-<ul>
-<li><code>posts[posts.get("is_question") == True].get(["title", "num_views"]).set_index("title").sort_values("num_views", ascending=False).index[2]</code></li>
-<li><code>posts[posts.get("is_question") == True].sort_values("num_views", ascending=False).get("title").iloc[2]</code></li>
-</ul>
+<p><strong>Answer:</strong> Option 2, 4</p>
+<p>Option 1: <code>posts.sort_values("num_views", ascending=False).get("title").iloc[2]</code> This never filters to questions. It returns the title of the post with the third-highest views among <em>all</em> posts, which may not be a question.</p>
+<p>Option 2: <code>posts[posts.get("is_question") == True].get(["title", "num_views"]).set_index("title").sort_values("num_views", ascending=False).index[2]</code> This keeps only the questions and the two needed columns, makes <code>"title"</code> the index, and sorts by views in descending order. <code>.index[2]</code> takes the third element of the index, which is the title of the third-most-viewed question. The titles are in the index, not a column, so <code>.index</code> is the right way to get to them.</p>
+<p>Option 3: <code>posts[posts.get("is_question")].sort_values("num_views", ascending=False).get("title").loc[2]</code> The filter <code>posts[posts.get("is_question")]</code> is fine. <code>"is_question"</code> is already a Boolean column, so it works the same as <code>== True</code>. The problem is <code>.loc[2]</code>. <code>.loc</code> looks up the row with index <em>label</em> 2, and sorting rearranges rows without changing their labels. So this returns the title of whichever post was originally in row 2, not the post in third place after sorting. If row 2 isn’t a question, it was filtered out, and this raises a <code>KeyError</code>.</p>
+<p>Option 4: <code>posts[posts.get("is_question") == True].sort_values("num_views", ascending=False).get("title").iloc[2]</code> This keeps only questions, sorts them from most to fewest views, and gets the titles. <code>.iloc[2]</code> takes the item at <em>position</em> 2, which is the third item. That is the third-most-viewed question.</p>
+<p>Option 5: <code>posts[posts.get("is_question")].sort_values("num_views", ascending=False).get("title").iloc[-3]</code> The filtering and sorting are correct. However, <code>.iloc[-3]</code> counts from the end, so with a descending sort it gives the question with the third-<em>lowest</em> number of views.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 88%.</p>
 </div>
 </div>
 </div>
@@ -1208,14 +1229,19 @@ Click to view the solution.
 <header id="title-block-header">
 
 </header>
-<p><strong>Answer:</strong></p>
-<ul>
-<li><code>posts.get("num_views").loc[3]</code></li>
-<li><code>posts.get("num_views").iloc[3]</code></li>
-<li><code>posts.set_index("post_id").get("num_views").loc[104]</code></li>
-<li><code>posts.sort_values("num_views").get("num_views").loc[3]</code></li>
-<li><code>posts[posts.get("post_id") == 104].get("num_views").iloc[0]</code></li>
-</ul>
+<p><strong>Answer:</strong> Option 1, 2, 3, 6, 7</p>
+<p>Option 1: <code>posts.get("num_views").loc[3]</code>   Post <code>104</code> is in the row with index label 3, so <code>.loc[3]</code> returns its number of views.</p>
+<p>Option 2: <code>posts.get("num_views").iloc[3]</code>   <code>posts</code> has the default index, so label 3 and position 3 are the same row. <code>.iloc[3]</code> returns the same value as <code>.loc[3]</code>.</p>
+<p>Option 3: <code>posts.set_index("post_id").get("num_views").loc[104]</code>   After <code>"post_id"</code> becomes the index, the post IDs are the labels. <code>.loc[104]</code> looks up the label <code>104</code> directly. This is the most robust option, because it doesn’t depend on where the post sits in the table.</p>
+<p>Option 4: <code>posts.set_index("post_id").get("num_views").iloc[104]</code>   <code>.iloc</code> uses positions, not labels. <code>.iloc[104]</code> asks for the 105th row, which either doesn’t exist (<code>IndexError</code>) or is a different post. Use <code>.loc</code> to look up by post ID.</p>
+<p>Option 5: <code>posts.sort_values("num_views").get("num_views").iloc[3]</code>   After sorting, position 3 holds the post with the fourth-smallest number of views. That is not necessarily post <code>104</code>.</p>
+<p>Option 6: <code>posts.sort_values("num_views").get("num_views").loc[3]</code>   Sorting reorders the rows, but each row keeps its original index label. <code>.loc[3]</code> finds the row labeled 3, which is still post <code>104</code>, wherever it ended up after sorting.</p>
+<p>Option 7: <code>posts[posts.get("post_id") == 104].get("num_views").iloc[0]</code>   The query keeps only the row where <code>"post_id"</code> is <code>104</code>, which gives a one-element Series. <code>.iloc[0]</code> pulls out that one value. Note that <code>.loc[0]</code> would <em>not</em> work here: the remaining row still has label 3, so there is no label 0.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 70%.</p>
 </div>
 </div>
 </div>
