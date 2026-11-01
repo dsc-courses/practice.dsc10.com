@@ -67,17 +67,18 @@ We will later release solutions to the pretest. You are highly encouraged to che
       <td>Monday, October 19</td>
       <td><a href="disc04/index.html">Functions, DataFrames, and Control Flow</a></td>
     </tr>
-    <!--tr>
+    <tr>
       <th scope="row">5</th>
-      <td>Monday, April 27th</td>
-      <td><a href="disc05/index.html">Probability and Simulation</a></td>
+      <td>Monday, October 26th</td>
+      <td><a>Midterm Review</a></td>
+      <!-- Note: Discussion 5 is typically Probability and Simulation -->
     </tr> 
     <tr>
       <th scope="row">6</th>
-      <td>Monday, May 4th</td>
+      <td>Monday, November 2nd</td>
       <td><a href="disc06/index.html">Sampling, Bootstrapping, and Confidence Intervals</a></td>
     </tr>
-    <tr>
+    <!--tr>
       <th scope="row">7</th>
       <td>Monday, May 11th</td>
       <td><a href="disc07/index.html">Standardization and the Normal Distribution</a></td>
