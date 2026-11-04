@@ -1449,12 +1449,22 @@ def write_page(path, called_from_write_all_pages=False):
 
     # Copy over the images for just that page, but only if called individually
     if not called_from_write_all_pages:
-        src_path = os.path.join('assets', 'images', assignment_name)
-        dst_path = os.path.join(DST_FOLDER, src_path)
-        if os.path.exists(src_path):
-            if os.path.exists(dst_path):
-                shutil.rmtree(dst_path)
-            shutil.copytree(src_path, dst_path)
+        image_folders = [assignment_name]
+        # Quiz pages (e.g. sp26-quiz3) keep their images in a per-term folder (sp26-quizzes)
+        quiz_match = re.match(r'(\w+)-quiz\d+$', assignment_name)
+        if quiz_match:
+            image_folders.append(f'{quiz_match.group(1)}-quizzes')
+        for folder in image_folders:
+            src_path = os.path.join('assets', 'images', folder)
+            dst_path = os.path.join(DST_FOLDER, src_path)
+            if os.path.exists(src_path):
+                if os.path.exists(dst_path):
+                    shutil.rmtree(dst_path)
+                shutil.copytree(src_path, dst_path)
+
+        # Copy over exam PDFs; only adds/overwrites, never deletes
+        if os.path.exists('pdfs'):
+            shutil.copytree('pdfs', os.path.join(DST_FOLDER, 'pdfs'), dirs_exist_ok=True)
 
 def update_page(path):
     '''Doesn't work for discussion files, yet.'''
