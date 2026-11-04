@@ -1152,15 +1152,21 @@ def rewrite_paths_for_lecture(md_or_html: str) -> str:
 
 
 
-LECTURE_SORT_BUTTONS = '''<div class="lec-sort">
-<label for="lec-sort-select">Sort by:</label>
+LECTURE_SORT_BUTTONS = '''<style>
+.lec-sort { display: flex; justify-content: flex-start; margin: 4px 0 12px; }
+.lec-sort-box { display: inline-flex; align-items: center; gap: 8px; background: #e7f1ff; border: 1px solid rgba(0, 0, 0, 0.125); border-radius: 6px; padding: 6px 6px 6px 12px; }
+.lec-sort-box p { margin: 0; }
+.lec-sort-box label { font-size: 0.9em; font-weight: 600; color: #0c63e4; margin-right: 6px; }
+</style>
+<div class="lec-sort"><div class="lec-sort-box">
+<label for="lec-sort-select">Sort by</label>
 <select id="lec-sort-select" class="form-select form-select-sm" autocomplete="off" style="display: inline-block; width: auto;">
 <option value="easiest" selected>Easiest to hardest</option>
 <option value="hardest">Hardest to easiest</option>
 <option value="newest">Newest to oldest</option>
 <option value="oldest">Oldest to newest</option>
 </select>
-</div>
+</div></div>
 '''
 
 # Reorders the .lec-problem divs and renumbers their "Problem N" / "Problem N.k" headings.
