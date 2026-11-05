@@ -6,7 +6,7 @@ BAD = "problems/fa99-midterm/q01.md"
 
 
 def combined(result):
-    return result.stdout + result.stderr
+    return (result.stdout + result.stderr).replace("\\", "/")  # Same paths on Windows
 
 
 def test_running_without_the_uv_environment_explains_what_to_do(site, tmp_path):

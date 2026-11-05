@@ -627,17 +627,26 @@
 #             write_page(page)
 
 
-import yaml
 import os
 import glob
-import regex as re
-from bs4 import BeautifulSoup
-import lxml
+import shlex
 import shutil
 import stat
 import sys
 import warnings
 import time
+
+try:
+    import yaml
+    import regex as re
+    from bs4 import BeautifulSoup
+    import lxml
+    import pypandoc
+except ModuleNotFoundError as err:
+    sys.exit(f"Missing package '{err.name}'. Run the site with uv, for example: uv run run.py")
+
+from utils.pandoc_tool import PandocError, check_pandoc_version, run_pandoc
+
 from collections import defaultdict
 warnings.simplefilter('ignore')
 
@@ -646,7 +655,25 @@ DST_FOLDER = 'docs'
 # Bare `--katex` uses local paths on Ubuntu CI; CDN keeps GitHub Pages math working.
 PANDOC_KATEX = '--katex=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/'
 
+# Every pandoc call that renders page content starts with these.
+PANDOC_PAGE_ARGS = [
+    '-s', '--standalone', PANDOC_KATEX,
+    '--from', 'markdown-markdown_in_html_blocks+raw_html',
+]
+
 GAUGE_COUNT = 0
+
+
+class ProblemError(Exception):
+    """A problem file couldn't be processed. The message names the file."""
+
+
+def process_problem_file(path, **kwargs):
+    """Run process_problem, and make any failure name the problem file at fault."""
+    try:
+        return process_problem(**kwargs)
+    except (AssertionError, PandocError) as err:
+        raise ProblemError(f"{path}: {err}") from err
 
 def get_stars_from_average(avg):
     if avg >= 90:
@@ -776,7 +803,7 @@ def stitch(files, show_solution, toc=False):
         )
 
         # Pass body (content without front matter) so it renders cleanly
-        q_out = process_problem(problem_str=body, problem_num=i+1, show_solution=show_solution, lecture_html=lecture_html)
+        q_out = process_problem_file(path, problem_str=body, problem_num=i+1, show_solution=show_solution, lecture_html=lecture_html)
         q_out += '\n\n\n---\n\n\n'
 
         out += q_out
@@ -799,7 +826,7 @@ def pandoc(s, kind='md', flags=''):
 
     src_path = os.path.join('temp', f'temp.{kind}')
     dst_path = os.path.join('temp', 'temp.html')
-    os.system(f'pandoc -s --standalone {PANDOC_KATEX} --from markdown-markdown_in_html_blocks+raw_html --metadata title=" " -s {src_path} {flags} -o {dst_path}')
+    run_pandoc([*PANDOC_PAGE_ARGS, '--metadata', 'title= ', '-s', src_path, *shlex.split(flags), '-o', dst_path], source='a Markdown snippet')
 
     out_path = os.path.join('temp', 'temp.html')
     out_file = open(out_path, 'r', encoding='UTF-8') # CHANGED
@@ -1287,7 +1314,7 @@ def write_lecture_pages():
         # Each problem is wrapped in a fenced div so the sort buttons can reorder it.
         for i, item in enumerate(items, start=1):
             body_fixed = rewrite_paths_for_lecture(item['body'])
-            q_html = process_problem(problem_str=body_fixed, problem_num=i, show_solution=True)
+            q_html = process_problem_file(item['path'], problem_str=body_fixed, problem_num=i, show_solution=True)
 
             src_line = (
                 f'<p class="meta"><em>Source:</em> '
@@ -1312,12 +1339,9 @@ def write_lecture_pages():
 
         dst_html = os.path.join(lec_dir, 'index.html')
         css_path = os.path.join('..','..','assets','theme.css')
-        os.system(
-            f'pandoc -s --standalone {PANDOC_KATEX} '
-            f'--from markdown-markdown_in_html_blocks+raw_html '
-            f'-c {css_path} '
-            f'--metadata title="Lecture {L} — Practice" '
-            f'{md_tmp} -o {dst_html}'
+        run_pandoc(
+            [*PANDOC_PAGE_ARGS, '-c', css_path, '--metadata', f'title=Lecture {L} — Practice', md_tmp, '-o', dst_html],
+            source=f'the Lecture {L} page',
         )
         os.remove(md_tmp)
 
@@ -1478,7 +1502,7 @@ def write_page(path, called_from_write_all_pages=False):
     src_path = os.path.join(DST_FOLDER, f'{assignment_name}.md')
     dst_path = os.path.join(DST_FOLDER, assignment_name, 'index.html')
     css_path = os.path.join('..', 'assets', 'theme.css')
-    os.system(f'pandoc -s --standalone {PANDOC_KATEX} --from markdown-markdown_in_html_blocks+raw_html -c {css_path} --metadata title="{title}" {src_path} -o {dst_path}')
+    run_pandoc([*PANDOC_PAGE_ARGS, '-c', css_path, '--metadata', f'title={title}', src_path, '-o', dst_path], source=f'the {assignment_name} page')
 
     # Delete the intermediate Markdown
     os.remove(src_path)
@@ -1525,7 +1549,7 @@ def update_page(path):
     tmp_path = os.path.join(DST_FOLDER, assignment_name, 'temp.html')
     dst_path = os.path.join(DST_FOLDER, assignment_name, 'index.html')
     css_path = os.path.join('..', 'assets', 'theme.css')
-    os.system(f'pandoc -s --standalone {PANDOC_KATEX} --from markdown-markdown_in_html_blocks+raw_html -c {css_path} --metadata title="{title}" {src_path} -o {tmp_path}')
+    run_pandoc([*PANDOC_PAGE_ARGS, '-c', css_path, '--metadata', f'title={title}', src_path, '-o', tmp_path], source=f'the {assignment_name} page')
 
     # Delete the intermediate Markdown
     os.remove(src_path)
@@ -1598,7 +1622,7 @@ def create_index():
 
     css_path = os.path.join('assets', 'theme.css')
     dst_path = os.path.join(DST_FOLDER, 'index.html')
-    os.system(f'pandoc -c {css_path} -s {src_path} -o {dst_path}')
+    run_pandoc(['-c', css_path, '-s', src_path, '-o', dst_path], source='index.md')
     os.remove(src_path)
 
     # Strip Pandoc's auto H1 title (unchanged)
@@ -1610,7 +1634,7 @@ def create_index():
 
 
 
-if __name__ == '__main__':
+def main():
     # No arguments: run all
     if len(sys.argv) == 1:
         write_all_pages()
@@ -1677,3 +1701,26 @@ if __name__ == '__main__':
     else:
         for page in sys.argv[1:]:
             write_page(page)
+
+
+def run_build():
+    """Check the setup, then build, turning failures into clear messages and a non-zero exit."""
+    # Checked first because a full build deletes docs/ before rebuilding it.
+    try:
+        check_pandoc_version()
+    except PandocError as err:
+        sys.exit(f"Build failed: {err}")
+
+    full_build = len(sys.argv) == 1
+    hint = "\ndocs/ may be incomplete. To get it back, run: git restore docs" if full_build else ""
+    try:
+        main()
+    except (PandocError, ProblemError, FileNotFoundError) as err:
+        sys.exit(f"Build failed: {err}{hint}")
+    except Exception:
+        print(f"Build failed unexpectedly.{hint}", file=sys.stderr)
+        raise
+
+
+if __name__ == '__main__':
+    run_build()
