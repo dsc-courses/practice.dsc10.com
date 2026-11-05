@@ -114,6 +114,7 @@
 <p><a href="../../index.html">← return to practice.dsc10.com</a></p>
 <hr />
 <h1 id="lecture-19-collected-practice-questions">Lecture 19 — Collected Practice Questions</h1>
+<p><strong>Topics:</strong> Hypothesis testing.</p>
 <p>Below are practice problems tagged for Lecture <strong>19</strong> (rendered directly from the original exam/quiz sources). By default, problems are sorted from easiest to hardest by average score; problems without a score are listed last.</p>
 <style>
 .lec-sort { display: flex; justify-content: flex-start; margin: 4px 0 12px; }
@@ -392,14 +393,30 @@ Click to view the solution.
 <p><br></p>
 <hr />
 </div>
-<div class="lec-problem" data-avg="47.67" data-term="20211">
-<p class="meta"><em>Source:</em> <a href="../../wi21-final/index.html#problem-20">Question 20 from Winter 2021 Final Exam</a></p>
+<div class="lec-problem" data-avg="59.00" data-term="20254">
+<p class="meta"><em>Source:</em> <a href="../../fa25-final/index.html#problem-9">Question 9 from Fall 2025 Final Exam</a></p>
 <h2 id="problem-4">Problem 4</h2>
-<p>You order 25 large pizzas from your local pizzeria. The pizzeria claims that these pizzas are 16 inches in diameter, but you’re not so sure. You measure each pizza’s diameter and collect a dataset of 25 actual pizza diameters. You want to run a hypothesis test to determine whether the pizzeria’s claim is accurate.</p>
+<p>As a resident of New York City, you suspect that your local news channel tends to overestimate the percent chance of snow in its daily weather forecast. To investigate this, you look at historical weather forecasts, and decide to focus specifically on days in which your local news channel had predicted a 40% chance of snow. With the benefit of hindsight, you can now see whether it actually snowed on 40% on those days.</p>
+<p>The DataFrame <code>snow</code> has been queried to contain only those days that had a 40% predicted chance of snow, for New York City, stored in a new DataFrame called <code>snow_nyc40</code>. A few rows of <code>snow_nyc40</code> are shown below, but there are more rows not pictured.</p>
+<center><img src="../../assets/images/fa25-final/snow_nyc40.jpeg" width=800></center>
+<p>You set out to test the following hypotheses:</p>
+<ul>
+<li><strong>Null:</strong> It actually snows on 40% of days for which the local news channel predicts a 40% chance of snow.</li>
+<li><strong>Alternative:</strong> It actually snows on less than 40% of days for which the local news channel predicts a 40% chance of snow.</li>
+</ul>
 <p><br></p>
 <h3 id="problem-4.1">Problem 4.1</h3>
-<p>What would your Null Hypothesis be?</p>
-<p>What would your Alternative Hypothesis be?</p>
+<!-- **(5 pts)** -->
+<p>Fill in the blanks in the code below, which should calculate an observed test statistic, generate an empirical distribution of this test statistic under the null hypothesis, and calculate a p-value for the hypothesis test.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>obs_stat <span class="op">=</span> np.count_nonzero(snow_nyc40.get(<span class="st">&quot;snowfall&quot;</span>))</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>counts <span class="op">=</span> np.array([])</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    new_count <span class="op">=</span> __(a)__</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    counts <span class="op">=</span> np.append(counts, new_count)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>p_value <span class="op">=</span> np.count_nonzero(counts __(b)__ obs_stat) <span class="op">/</span> <span class="bu">len</span>(counts)</span></code></pre></div>
+<!-- **(a):**
+
+**(b):** Select one: `>` `>=` `<` `<=` `==` `!=` -->
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading4_1">
@@ -408,6 +425,113 @@ Click to view the solution.
 </button>
 </h2>
 <div id="collapse4_1" class="accordion-collapse collapse collapse" aria-labelledby="heading4_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer (a):</strong> <code>np.random.multinomial(snow_nyc40.shape[0], [0.4, 0.6])[0]</code></p>
+<p><strong>Answer (b):</strong> <code>&lt;=</code></p>
+<p>If it snows on a day, the corresponding entry in <code>"snowfall"</code> will be greater than 0. We have a proposed distribution under the null hypothesis, which can be described as 40% days with more than zero snowfall, and 60% days with zero snowfall. To simulate counts, according to this null hypothesis, we can use <code>np.random.multinomial()</code>. Note that since we are comparing counts, we must use the same total as our original sample, <code>snow_nyc40</code> which is given by <code>snow_nyc40.shape[0]</code>.</p>
+<p>Our alternative states that less than 40% of days are snow days. Note that <code>obs_stat</code> is computing the number of days in <code>snow_nyc40</code> that experienced more than zero snowfall. So, test statistics that are smaller than or equal to the observed will be in favor of the alternative hypothesis.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 49%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-4.2">Problem 4.2</h3>
+<!-- **(4 pts)** -->
+<p>You want to test the same pair of hypotheses another way, using a different test statistic and rewriting the code in part (a). Which of the following could be the observed statistic for a new hypothesis test for the same pair of hypotheses? <strong>Select all that apply.</strong></p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> <code>np.count_nonzero(snow_nyc40.get("snowfall") == 0)</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>(snow_nyc40.get("snowfall") &gt; 0).sum() / snow_nyc40.shape[0]</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>(snow_nyc40.get("snowfall") &gt; 0).mean() - 0.40</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>(snow_nyc40.get("snowfall")).sum() / snow_nyc40.shape[0]</code></p></li>
+<li><p><input type="checkbox" disabled="" /> None of the above.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading4_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_2" aria-expanded="true" aria-controls="collapse4_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse4_2" class="accordion-collapse collapse collapse" aria-labelledby="heading4_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer:</strong> <code>np.count_nonzero(snow_nyc40.get("snowfall") == 0)</code>, <code>(snow_nyc40.get("snowfall") &gt; 0).sum() / snow_nyc40.shape[0]</code>, and <code>(snow_nyc40.get("snowfall") &gt; 0).mean() - 0.40</code></p>
+<p>The first choice can be used to test the following alternative: “There is no snowfall on more than 60% of the days for which the news predicts a 40% chance of snow.” This is equivalent to our original alternative hypothesis.</p>
+<p>The second choice simply converts the original test statistic (a count) into its corresponding proportion, which isn’t going to affect our hypotheses.</p>
+<p>The third choice also converts the test statistic into a proportion (using <code>mean()</code>). It additionally subtracts a constant. Since 0.40 is subtracted from all test statistics, however, the conclusion we make will not change and thus the corresponding hypotheses remain the same.</p>
+<p>Note that <code>snow_nyc40.get("snowfall")</code> is not a Boolean series, therefore <code>snow_nyc40.get("snowfall").sum()</code> will not help us determine whether (fewer than) 40% of days are snow days.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 64%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-4.3">Problem 4.3</h3>
+<!-- **(3 pts)** -->
+<p>You also calculate a 95% CLT-based confidence interval for the proportion of days on which it actually snowed in New York City, among those for which a 40% chance of snow was predicted. Your confidence interval comes out to <span class="math inline">[0.17, 0.32]</span>. Which of the following conclusions is correct?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Because this confidence interval does not contain the value of 0.50, it indicates that the p-value from the hypothesis test above should be below 0.05.</p></li>
+<li><p><input type="radio" disabled="" /> Because this confidence interval does not contain the value of 0.40, it indicates that the p-value from the hypothesis test above should be below 0.05.</p></li>
+<li><p><input type="radio" disabled="" /> Because this entire interval is above 0, it indicates that the p-value from the hypothesis test above should be above 0.05.</p></li>
+<li><p><input type="radio" disabled="" /> There is no connection between this confidence interval and the hypothesis test because the Central Limit Theorem does not apply in this situation.</p></li>
+<li><p><input type="radio" disabled="" /> There is no connection between this confidence interval and the hypothesis test because this confidence interval is for a proportion and the hypothesis test was performed with counts.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading4_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_3" aria-expanded="true" aria-controls="collapse4_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse4_3" class="accordion-collapse collapse collapse" aria-labelledby="heading4_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer:</strong> Because this confidence interval does not contain the value of 0.40, it indicates that the p-value from the hypothesis test above should be below 0.05.</p>
+<p>We can use CLT since we are working with proportions. Hence, the 95% CLT-based confidence interval for the population parameter (the true proportion) can be used to reject/fail to reject the null hypothesis. Since 0.4 (the proposed proportion under the null) does not belong in our CLT-based confidence interval for the true proportion, it lies in the <span class="math inline">(100 - 95)\% = 5\%</span> region not contained by the confidence interval. The p-value of the hypothesis test must therefore be smaller than 0.05.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 64%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+</div>
+<div class="lec-problem" data-avg="47.67" data-term="20211">
+<p class="meta"><em>Source:</em> <a href="../../wi21-final/index.html#problem-20">Question 20 from Winter 2021 Final Exam</a></p>
+<h2 id="problem-5">Problem 5</h2>
+<p>You order 25 large pizzas from your local pizzeria. The pizzeria claims that these pizzas are 16 inches in diameter, but you’re not so sure. You measure each pizza’s diameter and collect a dataset of 25 actual pizza diameters. You want to run a hypothesis test to determine whether the pizzeria’s claim is accurate.</p>
+<p><br></p>
+<h3 id="problem-5.1">Problem 5.1</h3>
+<p>What would your Null Hypothesis be?</p>
+<p>What would your Alternative Hypothesis be?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading5_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_1" aria-expanded="true" aria-controls="collapse5_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse5_1" class="accordion-collapse collapse collapse" aria-labelledby="heading5_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -425,16 +549,16 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-4.2">Problem 4.2</h3>
+<h3 id="problem-5.2">Problem 5.2</h3>
 <p>What test statistic would you use?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading4_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_2" aria-expanded="true" aria-controls="collapse4_2">
+<h2 class="accordion-header" id="heading5_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_2" aria-expanded="true" aria-controls="collapse5_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse4_2" class="accordion-collapse collapse collapse" aria-labelledby="heading4_2" data-bs-parent="#accordionExample">
+<div id="collapse5_2" class="accordion-collapse collapse collapse" aria-labelledby="heading5_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -451,16 +575,16 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-4.3">Problem 4.3</h3>
+<h3 id="problem-5.3">Problem 5.3</h3>
 <p>Explain how you would do your hypothesis test and how you would draw a conclusion from your results.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading4_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4_3" aria-expanded="true" aria-controls="collapse4_3">
+<h2 class="accordion-header" id="heading5_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5_3" aria-expanded="true" aria-controls="collapse5_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse4_3" class="accordion-collapse collapse collapse" aria-labelledby="heading4_3" data-bs-parent="#accordionExample">
+<div id="collapse5_3" class="accordion-collapse collapse collapse" aria-labelledby="heading5_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 

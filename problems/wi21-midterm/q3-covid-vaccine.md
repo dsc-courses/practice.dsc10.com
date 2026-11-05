@@ -1,5 +1,7 @@
 # BEGIN PROB
 
+<span style="color:red"><b>Note: This problem is out of scope; it covers material no longer included in the course.</b></span>
+
 The following is a quote from The New York Times' *The Morning* newsletter.
 
 <i>As Dr. Ashish Jha, the dean of the Brown University School of Public Health, told me this weekend: “I don’t actually care about infections. I care about hospitalizations and deaths and long-term complications.” </i>

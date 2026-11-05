@@ -114,6 +114,7 @@
 <p><a href="../../index.html">← return to practice.dsc10.com</a></p>
 <hr />
 <h1 id="lecture-6-collected-practice-questions">Lecture 6 — Collected Practice Questions</h1>
+<p><strong>Topics:</strong> Grouping and data visualization.</p>
 <p>Below are practice problems tagged for Lecture <strong>6</strong> (rendered directly from the original exam/quiz sources). By default, problems are sorted from easiest to hardest by average score; problems without a score are listed last.</p>
 <style>
 .lec-sort { display: flex; justify-content: flex-start; margin: 4px 0 12px; }
@@ -1263,17 +1264,259 @@ Click to view the solution.
 <p><br></p>
 <hr />
 </div>
+<div class="lec-problem" data-avg="68.00" data-term="20263">
+<p class="meta"><em>Source:</em> <a href="../../su26-midterm/index.html#problem-3">Question 3 from Summer 2026 Midterm Exam</a></p>
+<h2 id="problem-15">Problem 15</h2>
+<p>The <code>"time"</code> column in <code>ufo</code> describes the time at which a UFO was initially sighted. The times are formatted in 24-hour time which uses hours <code>00</code> through <code>23</code>. For example, <code>13:51</code> is the same as 1:51 PM.</p>
+<p>We want to create a function named <code>time_of_day</code> which takes in a time and returns the corresponding category, defined by the table below.</p>
+<table>
+<thead>
+<tr class="header">
+<th>hour range</th>
+<th>category</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>00:00–04:59</td>
+<td><code>"night"</code></td>
+</tr>
+<tr class="even">
+<td>05:00–11:59</td>
+<td><code>"morning"</code></td>
+</tr>
+<tr class="odd">
+<td>12:00–16:59</td>
+<td><code>"afternoon"</code></td>
+</tr>
+<tr class="even">
+<td>17:00–23:59</td>
+<td><code>"evening"</code></td>
+</tr>
+</tbody>
+</table>
+<p>Example inputs and outputs are given below.</p>
+<pre><code>&gt;&gt;&gt; time_of_day(&quot;00:00&quot;)
+&quot;night&quot;
+
+&gt;&gt;&gt; time_of_day(&quot;13:37&quot;)
+&quot;afternoon&quot;
+
+&gt;&gt;&gt; time_of_day(&quot;23:59&quot;)
+&quot;evening&quot;</code></pre>
+<p><br></p>
+<h3 id="problem-15.1">Problem 15.1</h3>
+<p>Consider the following implementations for <code>time_of_day</code>. Which of the following implementations are correct? <strong>Select all that apply.</strong></p>
+<p><strong>Implementation 1:</strong></p>
+<pre><code>def time_of_day(time):
+    hour_part = int(time.split(&quot;:&quot;)[0])
+    if hour_part &gt;= 17 or hour_part &lt; 24:
+        return &quot;evening&quot;
+    elif hour_part &gt;= 12 or hour_part &lt; 17:
+        return &quot;afternoon&quot;
+    elif hour_part &gt;= 5 or hour_part &lt; 12:
+        return &quot;morning&quot;
+    else:
+        return &quot;night&quot;</code></pre>
+<p><strong>Implementation 2:</strong></p>
+<pre><code>def time_of_day(time):
+    hour_part = int(time.split(&quot;:&quot;)[0])
+    if hour_part &lt; 5:
+        return &quot;night&quot;
+    if hour_part &lt; 12:
+        return &quot;morning&quot;
+    if hour_part &lt; 17:
+        return &quot;afternoon&quot;
+    if hour_part &gt;= 0:
+        return &quot;evening&quot;</code></pre>
+<p><strong>Implementation 3:</strong></p>
+<pre><code>def time_of_day(time):
+    hour_part = int(time.split(&quot;:&quot;)[0])
+    if hour_part &gt;= 17:
+        return &quot;morning&quot;
+    elif hour_part &gt;= 12:
+        return &quot;night&quot;
+    elif hour_part &gt;= 5:
+        return &quot;afternoon&quot;
+    else:
+        return &quot;evening&quot;</code></pre>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> Implementation 1</p></li>
+<li><p><input type="checkbox" disabled="" /> Implementation 2</p></li>
+<li><p><input type="checkbox" disabled="" /> Implementation 3</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading15_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15_1" aria-expanded="true" aria-controls="collapse15_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse15_1" class="accordion-collapse collapse collapse" aria-labelledby="heading15_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer:</strong> Implementation 2 only.</p>
+<p>All three implementations extract the hour correctly with <code>int(time.split(":")[0])</code>; the difference is in the conditions.</p>
+<ul>
+<li><strong>Implementation 1:</strong> The conditions use <code>or</code> where they should use <code>and</code>. Every valid hour satisfies <code>hour_part &lt; 24</code>, so the very first condition <code>hour_part &gt;= 17 or hour_part &lt; 24</code> is <code>True</code> for <em>every</em> time, and the function always returns <code>"evening"</code>.</li>
+<li><strong>Implementation 2:</strong> Correct. Because each <code>if</code> returns immediately, reaching the second <code>if</code> already guarantees <code>hour_part &gt;= 5</code>, reaching the third guarantees <code>hour_part &gt;= 12</code>, and reaching the fourth guarantees <code>hour_part &gt;= 17</code>. So the one-sided comparisons are enough, and the categories come out exactly as specified. (The final <code>if hour_part &gt;= 0</code> is always <code>True</code> at that point, so it behaves like an <code>else</code>.)</li>
+<li><strong>Implementation 3:</strong> The structure is right, but the returned labels are shuffled. Hours <span class="math inline">17</span> and later should be <code>"evening"</code>, not <code>"morning"</code>.</li>
+</ul>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 71%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-15.2">Problem 15.2</h3>
+<p>Suppose we use a correct implementation of <code>time_of_day</code> to add another column called <code>"time_of_day"</code> to the <code>ufo</code> DataFrame. Every entry in the <code>"time"</code> column has a converted value in the <code>"time_of_day"</code> column.</p>
+<center><img src='../../assets/images/su26-midterm/time_of_day.png' width=600></center>
+<p><br></p>
+<p>Which type of data visualization should be used to compare <strong>average duration</strong> to the original <code>"time"</code> column? <strong>Select only one of the options.</strong></p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> line plot</p></li>
+<li><p><input type="radio" disabled="" /> scatter plot</p></li>
+<li><p><input type="radio" disabled="" /> bar chart</p></li>
+<li><p><input type="radio" disabled="" /> histogram</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading15_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15_2" aria-expanded="true" aria-controls="collapse15_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse15_2" class="accordion-collapse collapse collapse" aria-labelledby="heading15_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer:</strong> Line plot.</p>
+<p>The <code>"time"</code> column is a sequence of times running from <code>00:00</code> to <code>23:59</code>, so it behaves like a numerical variable with a natural order. Here we’re plotting one average duration per time, so we have one variable (average duration) measured across a sequence — exactly the situation a line plot is designed for. Line plots are the standard choice for showing how a quantity changes over time.</p>
+<p>A scatter plot would be used for two numerical variables measured on each individual, a bar chart for a categorical variable, and a histogram for the distribution of a single numerical variable.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 45%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-15.3">Problem 15.3</h3>
+<p>Which type of data visualization should be used to compare <strong>average duration</strong> to the new <code>"time_of_day"</code> column? <strong>Select only one of the options.</strong></p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> line plot</p></li>
+<li><p><input type="radio" disabled="" /> scatter plot</p></li>
+<li><p><input type="radio" disabled="" /> bar chart</p></li>
+<li><p><input type="radio" disabled="" /> histogram</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading15_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15_3" aria-expanded="true" aria-controls="collapse15_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse15_3" class="accordion-collapse collapse collapse" aria-labelledby="heading15_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer:</strong> Bar chart.</p>
+<p>Unlike <code>"time"</code>, the <code>"time_of_day"</code> column is <strong>categorical</strong> — it takes only the four values <code>"night"</code>, <code>"morning"</code>, <code>"afternoon"</code>, and <code>"evening"</code>. Bar charts are used to show a numerical quantity (here, average duration) for each category of a categorical variable.</p>
+<p>A line plot would incorrectly suggest a continuous trend between categories, while scatter plots and histograms both require numerical data.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 88%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+</div>
+<div class="lec-problem" data-avg="65.00" data-term="20262">
+<p class="meta"><em>Source:</em> <a href="../../sp26-quiz1/index.html#problem-3">Question 3 from Spring 2026 Quiz 1</a></p>
+<h2 id="problem-16">Problem 16</h2>
+<p><br></p>
+<h3 id="problem-16.1">Problem 16.1</h3>
+<p>Kate wants to determine how often championships are won in penalty shoot-outs versus won in regular time. Which plot type would best allow her to visualize this information?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> scatter plot</p></li>
+<li><p><input type="radio" disabled="" /> bar chart</p></li>
+<li><p><input type="radio" disabled="" /> line plot</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading16_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16_1" aria-expanded="true" aria-controls="collapse16_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse16_1" class="accordion-collapse collapse collapse" aria-labelledby="heading16_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer</strong>: bar chart</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 82%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-16.2">Problem 16.2</h3>
+<p>Bianca creates a horizontal bar chart to show how times a World Cup was won by a team wearing each jersey color. Based on the provided information, what is the maximum possible length of the <code>"blue"</code> bar? Give your answer as an <strong>integer</strong>.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading16_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16_2" aria-expanded="true" aria-controls="collapse16_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse16_2" class="accordion-collapse collapse collapse" aria-labelledby="heading16_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer</strong>: <span class="math inline">20</span></p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 48%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+</div>
 <div class="lec-problem" data-avg="65.00" data-term="20222">
 <p class="meta"><em>Source:</em> <a href="../../sp22-midterm/index.html#problem-9">Question 9 from Spring 2022 Midterm Exam</a></p>
-<h2 id="problem-15">Problem 15</h2>
+<h2 id="problem-17">Problem 17</h2>
 <p>The expression below evaluates to <code>True</code>.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>(</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>classify_artist(<span class="st">&#39;Michelle Branch&#39;</span>)<span class="op">==</span><span class="st">&#39;outdated&#39;</span> </span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="kw">and</span> </span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>classify_artist(<span class="st">&#39;Drake&#39;</span>)<span class="op">==</span><span class="st">&#39;trending&#39;</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>classify_artist(<span class="st">&#39;Michelle Branch&#39;</span>)<span class="op">==</span><span class="st">&#39;outdated&#39;</span> </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="kw">and</span> </span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>classify_artist(<span class="st">&#39;Drake&#39;</span>)<span class="op">==</span><span class="st">&#39;trending&#39;</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <p>Consider the scatterplot created by the code below.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>merged.plot(kind<span class="op">=</span><span class="st">&#39;scatter&#39;</span>, x<span class="op">=</span><span class="st">&#39;Year&#39;</span>, y<span class="op">=</span><span class="st">&#39;Top_Hit_Year&#39;</span>)<span class="op">;</span></span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>merged.plot(kind<span class="op">=</span><span class="st">&#39;scatter&#39;</span>, x<span class="op">=</span><span class="st">&#39;Year&#39;</span>, y<span class="op">=</span><span class="st">&#39;Top_Hit_Year&#39;</span>)<span class="op">;</span></span></code></pre></div>
 <p>The point for Drake is somewhere in this scatterplot. Relative to the point for Drake, there are four quadrants of the scatterplot, as shown below.</p>
 <center><img src='../../assets/images/sp22-midterm/drake-quadrants.png' width=200></center>
 <p><br></p>
@@ -1286,12 +1529,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading15">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15" aria-expanded="true" aria-controls="collapse15">
+<h2 class="accordion-header" id="heading17">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse17" aria-expanded="true" aria-controls="collapse17">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse15" class="accordion-collapse collapse collapse" aria-labelledby="heading15" data-bs-parent="#accordionExample">
+<div id="collapse17" class="accordion-collapse collapse collapse" aria-labelledby="heading17" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1318,10 +1561,10 @@ Click to view the solution.
 </div>
 <div class="lec-problem" data-avg="63.75" data-term="20223">
 <p class="meta"><em>Source:</em> <a href="../../su22-final/index.html#problem-1">Question 1 from Summer 2022 Final Exam</a></p>
-<h2 id="problem-16">Problem 16</h2>
+<h2 id="problem-18">Problem 18</h2>
 <p>Choose the best visualization to answer each of the following questions.</p>
 <p><br></p>
-<h3 id="problem-16.1">Problem 16.1</h3>
+<h3 id="problem-18.1">Problem 18.1</h3>
 <p>What kinds of dogs cost the most?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> Bar plot</p></li>
@@ -1331,12 +1574,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading16_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16_1" aria-expanded="true" aria-controls="collapse16_1">
+<h2 class="accordion-header" id="heading18_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse18_1" aria-expanded="true" aria-controls="collapse18_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse16_1" class="accordion-collapse collapse collapse" aria-labelledby="heading16_1" data-bs-parent="#accordionExample">
+<div id="collapse18_1" class="accordion-collapse collapse collapse" aria-labelledby="heading18_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1353,7 +1596,7 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-16.2">Problem 16.2</h3>
+<h3 id="problem-18.2">Problem 18.2</h3>
 <p>Do toy dogs have smaller <code>'size'</code> values than other dogs?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> Bar plot</p></li>
@@ -1363,12 +1606,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading16_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16_2" aria-expanded="true" aria-controls="collapse16_2">
+<h2 class="accordion-header" id="heading18_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse18_2" aria-expanded="true" aria-controls="collapse18_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse16_2" class="accordion-collapse collapse collapse" aria-labelledby="heading16_2" data-bs-parent="#accordionExample">
+<div id="collapse18_2" class="accordion-collapse collapse collapse" aria-labelledby="heading18_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1385,7 +1628,7 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-16.3">Problem 16.3</h3>
+<h3 id="problem-18.3">Problem 18.3</h3>
 <p>Is there a linear relationship between weight and height?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> Bar plot</p></li>
@@ -1395,12 +1638,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading16_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16_3" aria-expanded="true" aria-controls="collapse16_3">
+<h2 class="accordion-header" id="heading18_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse18_3" aria-expanded="true" aria-controls="collapse18_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse16_3" class="accordion-collapse collapse collapse" aria-labelledby="heading16_3" data-bs-parent="#accordionExample">
+<div id="collapse18_3" class="accordion-collapse collapse collapse" aria-labelledby="heading18_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1417,7 +1660,7 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-16.4">Problem 16.4</h3>
+<h3 id="problem-18.4">Problem 18.4</h3>
 <p>Do dogs that are highly suitable for children weigh more?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> Bar plot</p></li>
@@ -1427,12 +1670,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading16_4">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16_4" aria-expanded="true" aria-controls="collapse16_4">
+<h2 class="accordion-header" id="heading18_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse18_4" aria-expanded="true" aria-controls="collapse18_4">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse16_4" class="accordion-collapse collapse collapse" aria-labelledby="heading16_4" data-bs-parent="#accordionExample">
+<div id="collapse18_4" class="accordion-collapse collapse collapse" aria-labelledby="heading18_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1451,20 +1694,114 @@ Click to view the solution.
 <p><br></p>
 <hr />
 </div>
-<div class="lec-problem" data-avg="51.75" data-term="20251">
-<p class="meta"><em>Source:</em> <a href="../../wi25-quiz1/index.html#problem-3">Question 3 from Winter 2025 Quiz 1</a></p>
-<h2 id="problem-17">Problem 17</h2>
+<div class="lec-problem" data-avg="54.00" data-term="20262">
+<p class="meta"><em>Source:</em> <a href="../../sp26-midterm/index.html#problem-7">Question 7 from Spring 2026 Midterm Exam</a></p>
+<h2 id="problem-19">Problem 19</h2>
+<p>The bar chart below was produced from the data in <code>mascots</code>. It shows how many schools use each color.</p>
+<center><img src="https://raw.githubusercontent.com/dsc-courses/practice.dsc10.com/refs/heads/master/assets/images/sp26-midterm/bar.png" width="400"></center>
 <p><br></p>
-<h3 id="problem-17.1">Problem 17.1</h3>
-<p>One of the clubs in the <code>clubs</code> DataFrame is the <code>"Surf Club"</code>. <strong>Without</strong> querying, write an expression that evaluates to the rating of this club.</p>
+<h3 id="problem-19.1">Problem 19.1</h3>
+<p>If you knew the exact heights of each bar, how could you determine the total number of schools in <code>mascots</code>?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Sum the heights of all bars.</p></li>
+<li><p><input type="radio" disabled="" /> Sum the heights of all bars and divide by the number of colors (9).</p></li>
+<li><p><input type="radio" disabled="" /> You could not determine the total number of schools from this information.</p></li>
+</ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading17_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse17_1" aria-expanded="true" aria-controls="collapse17_1">
+<h2 class="accordion-header" id="heading19_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse19_1" aria-expanded="true" aria-controls="collapse19_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse17_1" class="accordion-collapse collapse collapse" aria-labelledby="heading17_1" data-bs-parent="#accordionExample">
+<div id="collapse19_1" class="accordion-collapse collapse collapse" aria-labelledby="heading19_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer</strong>: Option 3</p>
+<p>Each school can have multiple colors, and any school with more than one color is counted in multiple bars. For example, a school with school colors blue and gold contributes <span class="math inline">1</span> to both the blue bar and the gold bar. This means that summing the bar heights overcounts schools, and we have no way to know how many schools were double or triple-counted (more…) just from the bar chart. Therefore, we cannot recover the total number of schools.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 87%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-19.2">Problem 19.2</h3>
+<p>In the bar chart, the height of the blue bar is 2100 and the height of the gold bar is 1500. Use this information and the first five rows of <code>mascots</code> (provided with the data description) to determine the <strong>maximum possible</strong> number of schools in <code>mascots</code> whose school colors are blue and gold <strong>only</strong>. Give your answer as an <strong>integer</strong>.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading19_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse19_2" aria-expanded="true" aria-controls="collapse19_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse19_2" class="accordion-collapse collapse collapse" aria-labelledby="heading19_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer</strong>: <span class="math inline">1498</span></p>
+<p>A school whose colors are “blue and gold only” must appear in <strong>both</strong> the blue bar (height <span class="math inline">2100</span>) and the gold bar (height <span class="math inline">1500</span>), so the answer is at most <span class="math inline">\min(2100, 1500) = 1500</span>.</p>
+<p>To <strong>maximize</strong> the count, we want as many of the <span class="math inline">1500</span> gold-using schools as possible to also use blue, and to use <strong>no other color</strong>. However, the first five rows of <code>mascots</code> show specific schools that use gold along with a color other than blue (or use gold without blue at all). Each such school is one of the <span class="math inline">1500</span> gold schools but cannot be counted in our group.</p>
+<p>From the first five rows, exactly <span class="math inline">2</span> schools using gold are disqualified in this way, so the maximum possible number of “blue and gold only” schools is <span class="math inline">1500 - 2 = 1498</span>.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 44%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-19.3">Problem 19.3</h3>
+<p>Write one line of code that uses the <code>mascots</code> DataFrame to calculate the sum of the heights of all bars in the bar chart above.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading19_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse19_3" aria-expanded="true" aria-controls="collapse19_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse19_3" class="accordion-collapse collapse collapse" aria-labelledby="heading19_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer</strong>: <code>mascots.get("colors").apply(len).sum()</code></p>
+<p>The sum of the bar heights counts each school <strong>once for every color it has</strong> (a school with <span class="math inline">3</span> colors contributes <span class="math inline">1</span> to each of <span class="math inline">3</span> bars, for a total of <span class="math inline">3</span>). This means that the total bar height equals the total number of (school, color) pairs across the dataset.</p>
+<p>The <code>"colors"</code> column contains a list for each school, and the length of that list is the number of colors the school has. Applying <code>len</code> to each list and then summing it all gives exactly the total count of (school, color) pairs, which equals the sum of bar heights.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 31%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+</div>
+<div class="lec-problem" data-avg="51.75" data-term="20251">
+<p class="meta"><em>Source:</em> <a href="../../wi25-quiz1/index.html#problem-3">Question 3 from Winter 2025 Quiz 1</a></p>
+<h2 id="problem-20">Problem 20</h2>
+<p><br></p>
+<h3 id="problem-20.1">Problem 20.1</h3>
+<p>One of the clubs in the <code>clubs</code> DataFrame is the <code>"Surf Club"</code>. <strong>Without</strong> querying, write an expression that evaluates to the rating of this club.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading20_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse20_1" aria-expanded="true" aria-controls="collapse20_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse20_1" class="accordion-collapse collapse collapse" aria-labelledby="heading20_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1480,16 +1817,16 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-17.2">Problem 17.2</h3>
+<h3 id="problem-20.2">Problem 20.2</h3>
 <p>Now, using a query, write an expression that evaluates to the rating of the <code>"Surf Club"</code>.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading17_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse17_2" aria-expanded="true" aria-controls="collapse17_2">
+<h2 class="accordion-header" id="heading20_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse20_2" aria-expanded="true" aria-controls="collapse20_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse17_2" class="accordion-collapse collapse collapse" aria-labelledby="heading17_2" data-bs-parent="#accordionExample">
+<div id="collapse20_2" class="accordion-collapse collapse collapse" aria-labelledby="heading20_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1505,17 +1842,17 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-17.3">Problem 17.3</h3>
+<h3 id="problem-20.3">Problem 20.3</h3>
 <p>Fill in the blanks so the expression below evaluates to the name of the category (e.g. <code>"Social"</code>) with the largest number of members, on average.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>(clubs.groupby(__(a)__).__(b)__.sort_values(by<span class="op">=</span><span class="st">&quot;Members&quot;</span>, ascending<span class="op">=</span>__(c)__).__(d)__)</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>(clubs.groupby(__(a)__).__(b)__.sort_values(by<span class="op">=</span><span class="st">&quot;Members&quot;</span>, ascending<span class="op">=</span>__(c)__).__(d)__)</span></code></pre></div>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading17_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse17_3" aria-expanded="true" aria-controls="collapse17_3">
+<h2 class="accordion-header" id="heading20_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse20_3" aria-expanded="true" aria-controls="collapse20_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse17_3" class="accordion-collapse collapse collapse" aria-labelledby="heading17_3" data-bs-parent="#accordionExample">
+<div id="collapse20_3" class="accordion-collapse collapse collapse" aria-labelledby="heading20_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1535,16 +1872,16 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-17.4">Problem 17.4</h3>
+<h3 id="problem-20.4">Problem 20.4</h3>
 <p>In each category, what is the largest budget for a club? Write one line of code that would produce an appropriate <strong>data visualization</strong> to answer this question.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading17_4">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse17_4" aria-expanded="true" aria-controls="collapse17_4">
+<h2 class="accordion-header" id="heading20_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse20_4" aria-expanded="true" aria-controls="collapse20_4">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse17_4" class="accordion-collapse collapse collapse" aria-labelledby="heading17_4" data-bs-parent="#accordionExample">
+<div id="collapse20_4" class="accordion-collapse collapse collapse" aria-labelledby="heading20_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 

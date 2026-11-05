@@ -114,6 +114,7 @@
 <p><a href="../../index.html">← return to practice.dsc10.com</a></p>
 <hr />
 <h1 id="lecture-7-collected-practice-questions">Lecture 7 — Collected Practice Questions</h1>
+<p><strong>Topics:</strong> Distributions and histograms.</p>
 <p>Below are practice problems tagged for Lecture <strong>7</strong> (rendered directly from the original exam/quiz sources). By default, problems are sorted from easiest to hardest by average score; problems without a score are listed last.</p>
 <style>
 .lec-sort { display: flex; justify-content: flex-start; margin: 4px 0 12px; }
@@ -537,23 +538,15 @@ Click to view the solution.
 <p><br></p>
 <hr />
 </div>
-<div class="lec-problem" data-avg="75.86" data-term="20224">
-<p class="meta"><em>Source:</em> <a href="../../fa22-final/index.html#problem-1">Question 1 from Fall 2022 Final Exam</a></p>
+<div class="lec-problem" data-avg="78.00" data-term="20263">
+<p class="meta"><em>Source:</em> <a href="../../su26-midterm/index.html#problem-5">Question 5 from Summer 2026 Midterm Exam</a></p>
 <h2 id="problem-8">Problem 8</h2>
-<p>In this question, we’ll explore the number of dependents of each applicant. To begin, let’s define the variable dep_counts as follows.</p>
-<p><code>dep_counts = apps.groupby("dependents").count().get(["status"])</code></p>
-<p>The visualization below shows the distribution of the numbers of dependents per applicant. Note that every applicant has 6 or fewer dependents.</p>
-<center><img src='../../assets/images/fa22-final/dep_hist_B.jpg' width=30%></center>
-<p><br></p>
-<p>Use <code>dep_counts</code> and the visualization above to answer the following questions.</p>
+<p>The density histogram below was created using data in the <code>"duration"</code> column of <code>ufo</code>.</p>
+<center><img src='../../assets/images/su26-midterm/histogram.png' width=550></center>
 <p><br></p>
 <h3 id="problem-8.1">Problem 8.1</h3>
-<p>What is the type of the variable <code>dep_counts</code>?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> array</p></li>
-<li><p><input type="radio" disabled="" /> Series</p></li>
-<li><p><input type="radio" disabled="" /> DataFrame</p></li>
-</ul>
+<p>Use the histogram above to determine the result of the following expression. You do <strong>not</strong> have to simplify your answer. <strong>Show your work.</strong></p>
+<pre><code>ufo[(ufo.get(&quot;duration&quot;) &gt;= 50) &amp; (ufo.get(&quot;duration&quot;) &lt; 150)].shape[0] / ufo.shape[0]</code></pre>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading8_1">
@@ -562,6 +555,98 @@ Click to view the solution.
 </button>
 </h2>
 <div id="collapse8_1" class="accordion-collapse collapse collapse" aria-labelledby="heading8_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer:</strong> <span class="math inline">(0.004 \cdot 50) + (0.002 \cdot 50) = 0.30</span></p>
+<p>The expression counts the sightings whose duration is at least <span class="math inline">50</span> minutes and less than <span class="math inline">150</span> minutes, then divides by the total number of sightings. That’s the <strong>proportion</strong> of sightings in the interval <span class="math inline">[50, 150)</span>.</p>
+<p>In a density histogram, the <em>area</em> of a bar equals the proportion of values that fall in that bin. The interval <span class="math inline">[50, 150)</span> is covered exactly by two bins:</p>
+<ul>
+<li>The bin <span class="math inline">[50, 100)</span> has height <span class="math inline">0.004</span> and width <span class="math inline">50</span>, so its area is <span class="math inline">0.004 \cdot 50 = 0.2</span>.</li>
+<li>The bin <span class="math inline">[100, 150)</span> has height <span class="math inline">0.002</span> and width <span class="math inline">50</span>, so its area is <span class="math inline">0.002 \cdot 50 = 0.1</span>.</li>
+</ul>
+<p>Adding the two areas gives <span class="math inline">0.2 + 0.1 = 0.30</span>, so <span class="math inline">30\%</span> of sightings fall in this range.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 67%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-8.2">Problem 8.2</h3>
+<p>We want a better look at shorter duration sightings. Consider a DataFrame <code>short</code> which only includes sightings that lasted less than an hour. We plot <code>short</code> with the following command:</p>
+<pre><code>short.plot(kind=&quot;hist&quot;, y=&quot;duration&quot;, bins=np.arange(0, 70, 10))</code></pre>
+<p>What can we conclude using <strong>only</strong> the new histogram and the number of rows in <code>short</code>? <strong>Select all that apply.</strong></p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> The duration in minutes of the shortest recorded sighting.</p></li>
+<li><p><input type="checkbox" disabled="" /> The number of sightings that were exactly 20 minutes long.</p></li>
+<li><p><input type="checkbox" disabled="" /> The number of sightings that were strictly less than 30 minutes long.</p></li>
+<li><p><input type="checkbox" disabled="" /> The number of sightings that were at least 40 minutes long and strictly less than 50 minutes long.</p></li>
+<li><p><input type="checkbox" disabled="" /> The number of sightings that were over an hour.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading8_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_2" aria-expanded="true" aria-controls="collapse8_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse8_2" class="accordion-collapse collapse collapse" aria-labelledby="heading8_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer:</strong> Options 3 and 4.</p>
+<p>The bins are <code>np.arange(0, 70, 10)</code>, which gives the edges <span class="math inline">0, 10, 20, 30, 40, 50, 60</span> — that is, the bins <span class="math inline">[0, 10)</span>, <span class="math inline">[10, 20)</span>, <span class="math inline">[20, 30)</span>, <span class="math inline">[30, 40)</span>, <span class="math inline">[40, 50)</span>, and <span class="math inline">[50, 60]</span>. A histogram tells us the proportion of values in each bin, and nothing about how the values are spread out <em>within</em> a bin. Multiplying a proportion by the number of rows in <code>short</code> converts it into a count.</p>
+<ul>
+<li><strong>Option 1:</strong> The shortest sighting falls somewhere in the leftmost non-empty bin, but the histogram doesn’t tell us where in that bin, so we can’t recover its exact duration.</li>
+<li><strong>Option 2:</strong> A single value like exactly <span class="math inline">20</span> minutes sits inside the bin <span class="math inline">[20, 30)</span>, and the histogram doesn’t break that bin down any further.</li>
+<li><strong>Option 3:</strong> “Strictly less than 30 minutes” is exactly the first three bins, <span class="math inline">[0, 10)</span>, <span class="math inline">[10, 20)</span>, and <span class="math inline">[20, 30)</span>. Add their areas and multiply by the number of rows in <code>short</code>.</li>
+<li><strong>Option 4:</strong> “At least 40 and strictly less than 50” is precisely the bin <span class="math inline">[40, 50)</span>, so its area times the number of rows in <code>short</code> gives the count.</li>
+<li><strong>Option 5:</strong> <code>short</code> only contains sightings that lasted less than an hour, so sightings over an hour aren’t in this histogram at all. We’d need information about the full <code>ufo</code> DataFrame to answer this.</li>
+</ul>
+<p>The general rule: a histogram can answer a question only when the interval in the question lines up exactly with bin boundaries.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 89%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+</div>
+<div class="lec-problem" data-avg="75.86" data-term="20224">
+<p class="meta"><em>Source:</em> <a href="../../fa22-final/index.html#problem-1">Question 1 from Fall 2022 Final Exam</a></p>
+<h2 id="problem-9">Problem 9</h2>
+<p>In this question, we’ll explore the number of dependents of each applicant. To begin, let’s define the variable dep_counts as follows.</p>
+<p><code>dep_counts = apps.groupby("dependents").count().get(["status"])</code></p>
+<p>The visualization below shows the distribution of the numbers of dependents per applicant. Note that every applicant has 6 or fewer dependents.</p>
+<center><img src='../../assets/images/fa22-final/dep_hist_B.jpg' width=30%></center>
+<p><br></p>
+<p>Use <code>dep_counts</code> and the visualization above to answer the following questions.</p>
+<p><br></p>
+<h3 id="problem-9.1">Problem 9.1</h3>
+<p>What is the type of the variable <code>dep_counts</code>?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> array</p></li>
+<li><p><input type="radio" disabled="" /> Series</p></li>
+<li><p><input type="radio" disabled="" /> DataFrame</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading9_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_1" aria-expanded="true" aria-controls="collapse9_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse9_1" class="accordion-collapse collapse collapse" aria-labelledby="heading9_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -578,7 +663,7 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-8.2">Problem 8.2</h3>
+<h3 id="problem-9.2">Problem 9.2</h3>
 <p>What type of data visualization is shown above?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> line plot</p></li>
@@ -588,12 +673,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading8_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_2" aria-expanded="true" aria-controls="collapse8_2">
+<h2 class="accordion-header" id="heading9_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_2" aria-expanded="true" aria-controls="collapse9_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse8_2" class="accordion-collapse collapse collapse" aria-labelledby="heading8_2" data-bs-parent="#accordionExample">
+<div id="collapse9_2" class="accordion-collapse collapse collapse" aria-labelledby="heading9_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -610,16 +695,16 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-8.3">Problem 8.3</h3>
+<h3 id="problem-9.3">Problem 9.3</h3>
 <p>How many of the 1,000 applicants in <code>apps</code> have 2 or more dependents? Give your answer as an <strong>integer</strong>.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading8_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_3" aria-expanded="true" aria-controls="collapse8_3">
+<h2 class="accordion-header" id="heading9_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_3" aria-expanded="true" aria-controls="collapse9_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse8_3" class="accordion-collapse collapse collapse" aria-labelledby="heading8_3" data-bs-parent="#accordionExample">
+<div id="collapse9_3" class="accordion-collapse collapse collapse" aria-labelledby="heading9_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -643,18 +728,18 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-8.4">Problem 8.4</h3>
+<h3 id="problem-9.4">Problem 9.4</h3>
 <p>Define the DataFrame <code>dependents_status</code> as follows.</p>
 <p><code>dependents_status = apps.groupby(["dependents", "status"]).count()</code></p>
 <p>What is the maximum number of rows that <code>dependents_status</code> could have? Give your answer as an <strong>integer</strong>.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading8_4">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_4" aria-expanded="true" aria-controls="collapse8_4">
+<h2 class="accordion-header" id="heading9_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_4" aria-expanded="true" aria-controls="collapse9_4">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse8_4" class="accordion-collapse collapse collapse" aria-labelledby="heading8_4" data-bs-parent="#accordionExample">
+<div id="collapse9_4" class="accordion-collapse collapse collapse" aria-labelledby="heading9_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -671,22 +756,22 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-8.5">Problem 8.5</h3>
+<h3 id="problem-9.5">Problem 9.5</h3>
 <p>Recall that <code>dep_counts</code> is defined as follows.</p>
 <p><code>dep_counts = apps.groupby("dependents").count().get(["status"])</code></p>
 <p>Below, we define several more variables.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>variable1 <span class="op">=</span> dep_counts[dep_counts.get(<span class="st">&quot;status&quot;</span>) <span class="op">&gt;=</span> <span class="dv">2</span>].<span class="bu">sum</span>()</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>variable2 <span class="op">=</span> dep_counts[dep_counts.index <span class="op">&gt;</span> <span class="dv">2</span>].get(<span class="st">&quot;status&quot;</span>).<span class="bu">sum</span>() </span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>variable3 <span class="op">=</span> (dep_counts.get(<span class="st">&quot;status&quot;</span>).<span class="bu">sum</span>() </span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>            <span class="op">-</span> dep_counts[dep_counts.index <span class="op">&lt;</span> <span class="dv">2</span>].get(<span class="st">&quot;status&quot;</span>).<span class="bu">sum</span>())</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>variable4 <span class="op">=</span> dep_counts.take(np.arange(<span class="dv">2</span>, <span class="dv">7</span>)).get(<span class="st">&quot;status&quot;</span>).<span class="bu">sum</span>()</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>variable5 <span class="op">=</span> (dep_counts.get(<span class="st">&quot;status&quot;</span>).<span class="bu">sum</span>() </span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>            <span class="op">-</span> dep_counts.get(<span class="st">&quot;status&quot;</span>).loc[<span class="dv">1</span>] </span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>            <span class="op">-</span> dep_counts.get(<span class="st">&quot;status&quot;</span>).loc[<span class="dv">2</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>variable1 <span class="op">=</span> dep_counts[dep_counts.get(<span class="st">&quot;status&quot;</span>) <span class="op">&gt;=</span> <span class="dv">2</span>].<span class="bu">sum</span>()</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>variable2 <span class="op">=</span> dep_counts[dep_counts.index <span class="op">&gt;</span> <span class="dv">2</span>].get(<span class="st">&quot;status&quot;</span>).<span class="bu">sum</span>() </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>variable3 <span class="op">=</span> (dep_counts.get(<span class="st">&quot;status&quot;</span>).<span class="bu">sum</span>() </span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>            <span class="op">-</span> dep_counts[dep_counts.index <span class="op">&lt;</span> <span class="dv">2</span>].get(<span class="st">&quot;status&quot;</span>).<span class="bu">sum</span>())</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>variable4 <span class="op">=</span> dep_counts.take(np.arange(<span class="dv">2</span>, <span class="dv">7</span>)).get(<span class="st">&quot;status&quot;</span>).<span class="bu">sum</span>()</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>variable5 <span class="op">=</span> (dep_counts.get(<span class="st">&quot;status&quot;</span>).<span class="bu">sum</span>() </span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>            <span class="op">-</span> dep_counts.get(<span class="st">&quot;status&quot;</span>).loc[<span class="dv">1</span>] </span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>            <span class="op">-</span> dep_counts.get(<span class="st">&quot;status&quot;</span>).loc[<span class="dv">2</span>])</span></code></pre></div>
 <p>Which of these variables are equal to your answer from part (c)? Select all that apply.</p>
 <ul class="task-list">
 <li><p><input type="checkbox" disabled="" /> <code>variable1</code></p></li>
@@ -698,12 +783,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading8_5">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_5" aria-expanded="true" aria-controls="collapse8_5">
+<h2 class="accordion-header" id="heading9_5">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_5" aria-expanded="true" aria-controls="collapse9_5">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse8_5" class="accordion-collapse collapse collapse" aria-labelledby="heading8_5" data-bs-parent="#accordionExample">
+<div id="collapse9_5" class="accordion-collapse collapse collapse" aria-labelledby="heading9_5" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -728,10 +813,10 @@ Click to view the solution.
 </div>
 <p><br></p>
 <p><br></p>
-<h3 id="problem-8.6">Problem 8.6</h3>
+<h3 id="problem-9.6">Problem 9.6</h3>
 <p>Next, we define variables <code>x</code> and <code>y</code> as follows.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> dep_counts.index.values</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> dep_counts.get(<span class="st">&quot;status&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> dep_counts.index.values</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> dep_counts.get(<span class="st">&quot;status&quot;</span>)</span></code></pre></div>
 <p><em>Note</em>: If <code>idx</code> is the index of a Series or DataFrame, <code>idx.values</code> gives the values in <code>idx</code> <strong>as an array</strong>.</p>
 <p>Which of the following expressions evaluate to the mean number of dependents? Select all that apply.</p>
 <ul class="task-list">
@@ -744,12 +829,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading8_6">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_6" aria-expanded="true" aria-controls="collapse8_6">
+<h2 class="accordion-header" id="heading9_6">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_6" aria-expanded="true" aria-controls="collapse9_6">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse8_6" class="accordion-collapse collapse collapse" aria-labelledby="heading8_6" data-bs-parent="#accordionExample">
+<div id="collapse9_6" class="accordion-collapse collapse collapse" aria-labelledby="heading9_6" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -771,16 +856,16 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-8.7">Problem 8.7</h3>
+<h3 id="problem-9.7">Problem 9.7</h3>
 <p>What does the expression <code>y.iloc[0] / y.sum()</code> evaluate to? Give your answer as a <strong>fully simplified fraction</strong>.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading8_7">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_7" aria-expanded="true" aria-controls="collapse8_7">
+<h2 class="accordion-header" id="heading9_7">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_7" aria-expanded="true" aria-controls="collapse9_7">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse8_7" class="accordion-collapse collapse collapse" aria-labelledby="heading8_7" data-bs-parent="#accordionExample">
+<div id="collapse9_7" class="accordion-collapse collapse collapse" aria-labelledby="heading9_7" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -801,13 +886,13 @@ Click to view the solution.
 </div>
 <div class="lec-problem" data-avg="75.33" data-term="20221">
 <p class="meta"><em>Source:</em> <a href="../../wi22-midterm/index.html#problem-6">Question 6 from Winter 2022 Midterm Exam</a></p>
-<h2 id="problem-9">Problem 9</h2>
+<h2 id="problem-10">Problem 10</h2>
 <p>Consider the following line plot, which depicts the number of skyscrapers built per year.</p>
 <center><img src='../../assets/images/wi22-midterm/sky-per-year.png' width=40%></center>
 <p><br></p>
-<h3 id="problem-9.1">Problem 9.1</h3>
+<h3 id="problem-10.1">Problem 10.1</h3>
 <p>We created the line plot above using the following line of code:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>sky.groupby(<span class="st">&#39;year&#39;</span>).count().plot(kind<span class="op">=</span><span class="st">&#39;line&#39;</span>, y<span class="op">=</span><span class="st">&#39;height&#39;</span>)<span class="op">;</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>sky.groupby(<span class="st">&#39;year&#39;</span>).count().plot(kind<span class="op">=</span><span class="st">&#39;line&#39;</span>, y<span class="op">=</span><span class="st">&#39;height&#39;</span>)<span class="op">;</span></span></code></pre></div>
 <p>Which of the following could we replace <code>'height'</code> with in the line of code above, such that the resulting line of code creates the same line plot? <strong>Select all that apply.</strong></p>
 <ul class="task-list">
 <li><p><input type="checkbox" disabled="" /> <code>'name'</code></p></li>
@@ -819,12 +904,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading9_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_1" aria-expanded="true" aria-controls="collapse9_1">
+<h2 class="accordion-header" id="heading10_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10_1" aria-expanded="true" aria-controls="collapse10_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse9_1" class="accordion-collapse collapse collapse" aria-labelledby="heading9_1" data-bs-parent="#accordionExample">
+<div id="collapse10_1" class="accordion-collapse collapse collapse" aria-labelledby="heading10_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -842,7 +927,7 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-9.2">Problem 9.2</h3>
+<h3 id="problem-10.2">Problem 10.2</h3>
 <p><span style="color:red"><b>Note: This problem is out of scope; it covers material no longer included in the course.</b></span></p>
 <p>Now let’s look at the number of skyscrapers built each year since 1975 in New York City 🗽.</p>
 <center><img src='../../assets/images/wi22-midterm/ny-per-year.png' width=40%></center>
@@ -856,12 +941,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading9_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_2" aria-expanded="true" aria-controls="collapse9_2">
+<h2 class="accordion-header" id="heading10_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10_2" aria-expanded="true" aria-controls="collapse10_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse9_2" class="accordion-collapse collapse collapse" aria-labelledby="heading9_2" data-bs-parent="#accordionExample">
+<div id="collapse10_2" class="accordion-collapse collapse collapse" aria-labelledby="heading10_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -885,7 +970,7 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-9.3">Problem 9.3</h3>
+<h3 id="problem-10.3">Problem 10.3</h3>
 <p>In which of the following scenarios would it make sense to draw a overlaid histogram?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> To visualize the number of skyscrapers of each material type, separately for New York City and Chicago.</p></li>
@@ -895,12 +980,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading9_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_3" aria-expanded="true" aria-controls="collapse9_3">
+<h2 class="accordion-header" id="heading10_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10_3" aria-expanded="true" aria-controls="collapse10_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse9_3" class="accordion-collapse collapse collapse" aria-labelledby="heading9_3" data-bs-parent="#accordionExample">
+<div id="collapse10_3" class="accordion-collapse collapse collapse" aria-labelledby="heading10_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -927,20 +1012,20 @@ Click to view the solution.
 </div>
 <div class="lec-problem" data-avg="73.00" data-term="20254">
 <p class="meta"><em>Source:</em> <a href="../../fa25-quiz2/index.html#problem-2">Question 2 from Fall 2025 Quiz 2</a></p>
-<h2 id="problem-10">Problem 10</h2>
+<h2 id="problem-11">Problem 11</h2>
 <p>Below is a density histogram showing the distribution of calories for all 30 ingredients in <code>chipotle</code>.</p>
 <center><img src="https://raw.githubusercontent.com/dsc-courses/practice.dsc10.com/refs/heads/master/assets/images/fa25-quizzes/hist.png" width=400></center>
 <p><br></p>
-<h3 id="problem-10.1">Problem 10.1</h3>
+<h3 id="problem-11.1">Problem 11.1</h3>
 <p>How many ingredients have less than 160 calories?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading10_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10_1" aria-expanded="true" aria-controls="collapse10_1">
+<h2 class="accordion-header" id="heading11_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11_1" aria-expanded="true" aria-controls="collapse11_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse10_1" class="accordion-collapse collapse collapse" aria-labelledby="heading10_1" data-bs-parent="#accordionExample">
+<div id="collapse11_1" class="accordion-collapse collapse collapse" aria-labelledby="heading11_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -956,7 +1041,7 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-10.2">Problem 10.2</h3>
+<h3 id="problem-11.2">Problem 11.2</h3>
 <p>Suppose we had plotted the histogram with the argument <code>bins=[120, 160, 190, 210]</code>.</p>
 <ol type="i">
 <li>How many bars would the histogram have?<br />
@@ -965,12 +1050,12 @@ Click to view the solution.
 </ol>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading10_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10_2" aria-expanded="true" aria-controls="collapse10_2">
+<h2 class="accordion-header" id="heading11_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11_2" aria-expanded="true" aria-controls="collapse11_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse10_2" class="accordion-collapse collapse collapse" aria-labelledby="heading10_2" data-bs-parent="#accordionExample">
+<div id="collapse11_2" class="accordion-collapse collapse collapse" aria-labelledby="heading11_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -991,18 +1076,18 @@ Click to view the solution.
 </div>
 <div class="lec-problem" data-avg="73.00" data-term="20234">
 <p class="meta"><em>Source:</em> <a href="../../fa23-quiz2/index.html#problem-4">Question 4 from Fall 2023 Quiz 2</a></p>
-<h2 id="problem-11">Problem 11</h2>
+<h2 id="problem-12">Problem 12</h2>
 <p>Nintendo collected data on the heights of a sample of <em>Animal Crossing: New Horizons</em> players. A histogram of the heights in their sample is given below.</p>
 <center><img src="../../assets/images/fa23-quizzes/histogram.png" width=400></center>
 <p>What <strong>percentage</strong> of players in Nintendo’s sample are at least 62.5 inches tall? Give your answer as an integer rounded to the <strong>nearest multiple of 5</strong>.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading11">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11" aria-expanded="true" aria-controls="collapse11">
+<h2 class="accordion-header" id="heading12">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12" aria-expanded="true" aria-controls="collapse12">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse11" class="accordion-collapse collapse collapse" aria-labelledby="heading11" data-bs-parent="#accordionExample">
+<div id="collapse12" class="accordion-collapse collapse collapse" aria-labelledby="heading12" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1021,10 +1106,10 @@ Click to view the solution.
 </div>
 <div class="lec-problem" data-avg="72.17" data-term="20211">
 <p class="meta"><em>Source:</em> <a href="../../wi21-midterm/index.html#problem-10">Question 10 from Winter 2021 Midterm Exam</a></p>
-<h2 id="problem-12">Problem 12</h2>
+<h2 id="problem-13">Problem 13</h2>
 <p>You have a DataFrame called <code>prices</code> that contains information about food prices at 18 different grocery stores. There is column called <code>'broccoli'</code> that contains the price in dollars for one pound of broccoli at each grocery store. There is also a column called <code>'ice_cream'</code> that contains the price in dollars for a pint of store-brand ice cream.</p>
 <p><br></p>
-<h3 id="problem-12.1">Problem 12.1</h3>
+<h3 id="problem-13.1">Problem 13.1</h3>
 <p>What should <code>type(prices.get('broccoli').iloc[0])</code> output?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> int</p></li>
@@ -1034,12 +1119,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading12_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12_1" aria-expanded="true" aria-controls="collapse12_1">
+<h2 class="accordion-header" id="heading13_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13_1" aria-expanded="true" aria-controls="collapse13_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse12_1" class="accordion-collapse collapse collapse" aria-labelledby="heading12_1" data-bs-parent="#accordionExample">
+<div id="collapse13_1" class="accordion-collapse collapse collapse" aria-labelledby="heading13_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1056,20 +1141,20 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-12.2">Problem 12.2</h3>
+<h3 id="problem-13.2">Problem 13.2</h3>
 <p>Using the code,</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>prices.plot(kind<span class="op">=</span><span class="st">&#39;hist&#39;</span>, y<span class="op">=</span><span class="st">&#39;broccoli&#39;</span>, bins<span class="op">=</span>np.arange(<span class="fl">0.8</span>, <span class="fl">2.11</span>, <span class="fl">0.1</span>), density<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>prices.plot(kind<span class="op">=</span><span class="st">&#39;hist&#39;</span>, y<span class="op">=</span><span class="st">&#39;broccoli&#39;</span>, bins<span class="op">=</span>np.arange(<span class="fl">0.8</span>, <span class="fl">2.11</span>, <span class="fl">0.1</span>), density<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
 <p>we produced the histogram below:</p>
 <center><img src='../../assets/images/wi21-midterm/broccoli.png' width=40%></center>
 <p>How many grocery stores sold broccoli for a price greater than or equal to $1.30 per pound, but less than $1.40 per pound (the tallest bar)?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading12_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12_2" aria-expanded="true" aria-controls="collapse12_2">
+<h2 class="accordion-header" id="heading13_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13_2" aria-expanded="true" aria-controls="collapse13_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse12_2" class="accordion-collapse collapse collapse" aria-labelledby="heading12_2" data-bs-parent="#accordionExample">
+<div id="collapse13_2" class="accordion-collapse collapse collapse" aria-labelledby="heading13_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1088,18 +1173,18 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-12.3">Problem 12.3</h3>
+<h3 id="problem-13.3">Problem 13.3</h3>
 <p>Suppose we now plot the same data with different bins, using the following line of code:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>prices.plot(kind<span class="op">=</span><span class="st">&#39;hist&#39;</span>, y<span class="op">=</span><span class="st">&#39;broccoli&#39;</span>, bins<span class="op">=</span>[<span class="fl">0.8</span>, <span class="dv">1</span>, <span class="fl">1.1</span>, <span class="fl">1.5</span>, <span class="fl">1.8</span>, <span class="fl">1.9</span>, <span class="fl">2.5</span>], density<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>prices.plot(kind<span class="op">=</span><span class="st">&#39;hist&#39;</span>, y<span class="op">=</span><span class="st">&#39;broccoli&#39;</span>, bins<span class="op">=</span>[<span class="fl">0.8</span>, <span class="dv">1</span>, <span class="fl">1.1</span>, <span class="fl">1.5</span>, <span class="fl">1.8</span>, <span class="fl">1.9</span>, <span class="fl">2.5</span>], density<span class="op">=</span><span class="va">True</span>)</span></code></pre></div>
 <p>What would be the height on the y-axis for the bin corresponding to the interval <span class="math inline">[\$1.10, \$1.50)</span>? Input your answer below.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading12_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12_3" aria-expanded="true" aria-controls="collapse12_3">
+<h2 class="accordion-header" id="heading13_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13_3" aria-expanded="true" aria-controls="collapse13_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse12_3" class="accordion-collapse collapse collapse" aria-labelledby="heading12_3" data-bs-parent="#accordionExample">
+<div id="collapse13_3" class="accordion-collapse collapse collapse" aria-labelledby="heading13_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1130,21 +1215,21 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-12.4">Problem 12.4</h3>
+<h3 id="problem-13.4">Problem 13.4</h3>
 <p>You are interested in finding out the number of stores in which a pint of ice cream was cheaper than a pound of broccoli. Will you be able to determine the answer to this question by looking at the plot produced by the code below?</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>prices.get([<span class="st">&#39;broccoli&#39;</span>, <span class="st">&#39;ice_cream&#39;</span>]).plot(kind<span class="op">=</span><span class="st">&#39;barh&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>prices.get([<span class="st">&#39;broccoli&#39;</span>, <span class="st">&#39;ice_cream&#39;</span>]).plot(kind<span class="op">=</span><span class="st">&#39;barh&#39;</span>)</span></code></pre></div>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> Yes</p></li>
 <li><p><input type="radio" disabled="" /> No</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading12_4">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12_4" aria-expanded="true" aria-controls="collapse12_4">
+<h2 class="accordion-header" id="heading13_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13_4" aria-expanded="true" aria-controls="collapse13_4">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse12_4" class="accordion-collapse collapse collapse" aria-labelledby="heading12_4" data-bs-parent="#accordionExample">
+<div id="collapse13_4" class="accordion-collapse collapse collapse" aria-labelledby="heading13_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1163,21 +1248,21 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-12.5">Problem 12.5</h3>
+<h3 id="problem-13.5">Problem 13.5</h3>
 <p>You are interested in finding out the number of stores in which a pint of ice cream was cheaper than a pound of broccoli. Will you be able to determine the answer to this question by looking at the plot produced by the code below?</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>prices.get([<span class="st">&#39;broccoli&#39;</span>, <span class="st">&#39;ice_cream&#39;</span>]).plot(kind<span class="op">=</span><span class="st">&#39;hist&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>prices.get([<span class="st">&#39;broccoli&#39;</span>, <span class="st">&#39;ice_cream&#39;</span>]).plot(kind<span class="op">=</span><span class="st">&#39;hist&#39;</span>)</span></code></pre></div>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> Yes</p></li>
 <li><p><input type="radio" disabled="" /> No</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading12_5">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12_5" aria-expanded="true" aria-controls="collapse12_5">
+<h2 class="accordion-header" id="heading13_5">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13_5" aria-expanded="true" aria-controls="collapse13_5">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse12_5" class="accordion-collapse collapse collapse" aria-labelledby="heading12_5" data-bs-parent="#accordionExample">
+<div id="collapse13_5" class="accordion-collapse collapse collapse" aria-labelledby="heading13_5" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1196,21 +1281,21 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-12.6">Problem 12.6</h3>
+<h3 id="problem-13.6">Problem 13.6</h3>
 <p>Some code and the scatterplot that produced it is shown below:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>(prices.get([<span class="st">&#39;broccoli&#39;</span>, <span class="st">&#39;ice_cream&#39;</span>]).plot(kind<span class="op">=</span><span class="st">&#39;scatter&#39;</span>, x<span class="op">=</span><span class="st">&#39;broccoli&#39;</span>, y<span class="op">=</span><span class="st">&#39;ice_cream&#39;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>(prices.get([<span class="st">&#39;broccoli&#39;</span>, <span class="st">&#39;ice_cream&#39;</span>]).plot(kind<span class="op">=</span><span class="st">&#39;scatter&#39;</span>, x<span class="op">=</span><span class="st">&#39;broccoli&#39;</span>, y<span class="op">=</span><span class="st">&#39;ice_cream&#39;</span>))</span></code></pre></div>
 <center><img src='../../assets/images/wi21-midterm/broc_ice_cream.png' width=40%></center>
 <p>Can you use this plot to figure out the number of stores in which a pint of ice cream was cheaper than a pound of broccoli?</p>
 <p>If so, say how many such stores there are and explain how you came to that conclusion.</p>
 <p>If not, explain why this scatterplot cannot be used to answer the question.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading12_6">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12_6" aria-expanded="true" aria-controls="collapse12_6">
+<h2 class="accordion-header" id="heading13_6">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13_6" aria-expanded="true" aria-controls="collapse13_6">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse12_6" class="accordion-collapse collapse collapse" aria-labelledby="heading12_6" data-bs-parent="#accordionExample">
+<div id="collapse13_6" class="accordion-collapse collapse collapse" aria-labelledby="heading13_6" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1232,18 +1317,18 @@ Click to view the solution.
 </div>
 <div class="lec-problem" data-avg="72.00" data-term="20241">
 <p class="meta"><em>Source:</em> <a href="../../wi24-quiz2/index.html#problem-4">Question 4 from Winter 2024 Quiz 2</a></p>
-<h2 id="problem-13">Problem 13</h2>
+<h2 id="problem-14">Problem 14</h2>
 <p>A density histogram of <code>"Screen Size"</code> is shown below.</p>
 <center><img src="../../assets/images/wi24-quizzes/histogram.png" width=400></center>
 <p>What <strong>percentage</strong> of computer models have a <code>"Screen Size"</code> of at least 16 inches but less than 18 inches? Give your answer as an integer rounded to the <strong>nearest multiple of 5</strong>.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading13">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13" aria-expanded="true" aria-controls="collapse13">
+<h2 class="accordion-header" id="heading14">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse14" aria-expanded="true" aria-controls="collapse14">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse13" class="accordion-collapse collapse collapse" aria-labelledby="heading13" data-bs-parent="#accordionExample">
+<div id="collapse14" class="accordion-collapse collapse collapse" aria-labelledby="heading14" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1260,24 +1345,133 @@ Click to view the solution.
 </div>
 <hr />
 </div>
+<div class="lec-problem" data-avg="70.67" data-term="20262">
+<p class="meta"><em>Source:</em> <a href="../../sp26-midterm/index.html#problem-4">Question 4 from Spring 2026 Midterm Exam</a></p>
+<h2 id="problem-15">Problem 15</h2>
+<p>Ella creates two histograms as follows.</p>
+<ul>
+<li>Histogram A:</li>
+</ul>
+<!-- -->
+<pre><code>mascots.plot(kind=&quot;hist&quot;, y=&quot;max&quot;, density=True, 
+             bins=np.arange(48, 85, 8))</code></pre>
+<ul>
+<li>Histogram B:</li>
+</ul>
+<!-- -->
+<pre><code>mascots.plot(kind=&quot;hist&quot;, y=&quot;max&quot;, density=True, 
+             bins=np.arange(48, 85, 4))</code></pre>
+<p><br></p>
+<h3 id="problem-15.1">Problem 15.1</h3>
+<p>How many bars are in Histogram A? Give your answer as an <strong>integer</strong>.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading15_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15_1" aria-expanded="true" aria-controls="collapse15_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse15_1" class="accordion-collapse collapse collapse" aria-labelledby="heading15_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer</strong>: <span class="math inline">4</span></p>
+<p><code>np.arange(48, 85, 8)</code> produces the bin edges <code>[48, 56, 64, 72, 80]</code>. With 5 edges, we get <span class="math inline">5 - 1 = 4</span> bins, so Histogram A has <span class="math inline">4</span> bars. Note that <span class="math inline">85</span> is not included because <code>np.arange</code> stops before its endpoint, and the next value <span class="math inline">88</span> would exceed it.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 63%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-15.2">Problem 15.2</h3>
+<p>What is the largest value that can be displayed in Histogram B? Give your answer as an <strong>integer</strong>.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading15_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15_2" aria-expanded="true" aria-controls="collapse15_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse15_2" class="accordion-collapse collapse collapse" aria-labelledby="heading15_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer</strong>: <span class="math inline">84</span></p>
+<p><code>np.arange(48, 85, 4)</code> produces the bin edges <code>[48, 52, 56, 60, 64, 68, 72, 76, 80, 84]</code>. The largest edge is <span class="math inline">84</span>, which is the right edge of the rightmost bin and therefore the largest value Histogram B can display.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 71%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-15.3">Problem 15.3</h3>
+<p>Which of the following statements <strong>must</strong> be true? <strong>Select all that apply.</strong></p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> The total area of Histogram A equals the total area of Histogram B.</p></li>
+<li><p><input type="checkbox" disabled="" /> If no mascot has a maximum height of 70 or 71 inches, then in both histograms, the height of the bar that includes the interval [70, 71] is 0.</p></li>
+<li><p><input type="checkbox" disabled="" /> The proportion of mascots with maximum height between 65 and 70 inches (inclusive) can be found by adding the areas of all bars that cover any part of the interval [65, 70].</p></li>
+<li><p><input type="checkbox" disabled="" /> The tallest bar in Histogram B is the same height as the tallest bar in Histogram A.</p></li>
+<li><p><input type="checkbox" disabled="" /> None of the above.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading15_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15_3" aria-expanded="true" aria-controls="collapse15_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse15_3" class="accordion-collapse collapse collapse" aria-labelledby="heading15_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer</strong>: Option 1</p>
+<ul>
+<li><strong>Option 1 (TRUE):</strong> Both are density histograms, so the total area under each equals <span class="math inline">1</span>, regardless of the bin width chosen.</li>
+<li><strong>Option 2 (FALSE):</strong> A bar’s height represents the density across its <strong>entire</strong> bin, not just the interval <span class="math inline">[70, 71]</span>. In Histogram A, the bin <span class="math inline">[64, 72)</span> contains <span class="math inline">[70, 71]</span>, and there could still be mascots in <span class="math inline">[64, 70)</span> or <span class="math inline">[71, 72)</span> contributing to that bar. The same logic applies to the bin <span class="math inline">[68, 72)</span> in Histogram B.</li>
+<li><strong>Option 3 (FALSE):</strong> Bars that “cover any part of” <span class="math inline">[65, 70]</span> extend beyond that interval (e.g., the bin <span class="math inline">[64, 72)</span> in Histogram A also covers <span class="math inline">[64, 65)</span> and <span class="math inline">[70, 72)</span>). Adding the full areas of these bars overcounts.</li>
+<li><strong>Option 4 (FALSE):</strong> Changing bin widths changes the heights. A wide bin in Histogram A may merge two narrow bins from Histogram B, so the tallest bar heights are not guaranteed to match.</li>
+</ul>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 78%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+</div>
 <div class="lec-problem" data-avg="70.00" data-term="20241">
 <p class="meta"><em>Source:</em> <a href="../../wi24-final/index.html#problem-16">Question 16 from Winter 2024 Final Exam</a></p>
-<h2 id="problem-14">Problem 14</h2>
+<h2 id="problem-16">Problem 16</h2>
 <p>Suppose <code>males</code> is a DataFrame of all male Olympic weightlifting medalists with a column called <code>"Weight"</code> containing their body weight. Similarly, <code>females</code> is a DataFrame of all female Olympic weightlifting medalists. It also has a <code>"Weight"</code> column with body weights.</p>
 <p>The <code>males</code> DataFrame has <strong>425 rows</strong> and the <code>females</code> DataFrame has <strong>105 rows</strong>, since women’s weightlifting became an Olympic sport much later than men’s.</p>
 <p>Below, density histograms of the distributions of <code>"Weight"</code> in <code>males</code> and <code>females</code> are shown on the same axes:</p>
 <center><img src='../../assets/images/wi24-final/density_hist.png' width=400></center>
 <p><br></p>
-<h3 id="problem-14.1">Problem 14.1</h3>
+<h3 id="problem-16.1">Problem 16.1</h3>
 <p>Estimate the number of males included in the third bin (from <span class="math inline">80</span> to <span class="math inline">100</span>). Give your answer as an integer, rounded to the nearest multiple of <span class="math inline">10</span>.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading14_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse14_1" aria-expanded="true" aria-controls="collapse14_1">
+<h2 class="accordion-header" id="heading16_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16_1" aria-expanded="true" aria-controls="collapse16_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse14_1" class="accordion-collapse collapse collapse" aria-labelledby="heading14_1" data-bs-parent="#accordionExample">
+<div id="collapse16_1" class="accordion-collapse collapse collapse" aria-labelledby="heading16_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1294,16 +1488,16 @@ Click to view the solution.
 </div>
 </div>
 <p><br> <br></p>
-<h3 id="problem-14.2">Problem 14.2</h3>
+<h3 id="problem-16.2">Problem 16.2</h3>
 <p>Using the <code>males</code> DataFrame, write one line of code that evaluates to the exact number of males included in the third bin (from <span class="math inline">80</span> to <span class="math inline">100</span>).</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading14_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse14_2" aria-expanded="true" aria-controls="collapse14_2">
+<h2 class="accordion-header" id="heading16_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16_2" aria-expanded="true" aria-controls="collapse16_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse14_2" class="accordion-collapse collapse collapse" aria-labelledby="heading14_2" data-bs-parent="#accordionExample">
+<div id="collapse16_2" class="accordion-collapse collapse collapse" aria-labelledby="heading16_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1320,7 +1514,7 @@ Click to view the solution.
 </div>
 </div>
 <p><br> <br></p>
-<h3 id="problem-14.3">Problem 14.3</h3>
+<h3 id="problem-16.3">Problem 16.3</h3>
 <p>Among Olympic weightlifting medalists who weigh less than <span class="math inline">60</span> kilograms, what proportion are male?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> less than <span class="math inline">0.25</span></p></li>
@@ -1330,12 +1524,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading14_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse14_3" aria-expanded="true" aria-controls="collapse14_3">
+<h2 class="accordion-header" id="heading16_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16_3" aria-expanded="true" aria-controls="collapse16_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse14_3" class="accordion-collapse collapse collapse" aria-labelledby="heading14_3" data-bs-parent="#accordionExample">
+<div id="collapse16_3" class="accordion-collapse collapse collapse" aria-labelledby="heading16_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1356,14 +1550,14 @@ Click to view the solution.
 </div>
 <div class="lec-problem" data-avg="70.00" data-term="20234">
 <p class="meta"><em>Source:</em> <a href="../../fa23-final/index.html#problem-13">Question 13 from Fall 2023 Final Exam</a></p>
-<h2 id="problem-15">Problem 15</h2>
+<h2 id="problem-17">Problem 17</h2>
 <p>Ashley doesn’t have access to the entire <code>txn</code> DataFrame; instead, she has access to a simple random sample of <strong>400</strong> rows of <code>txn</code>.</p>
 <p>She draws two histograms, each of which depicts the distribution of the <code>"amount"</code> column in her sample, using different bins.</p>
 <center><img src='../../assets/images/fa23-final/hist-final.png' width=800></center>
 <p><br></p>
 <p>Unfortunately, DataHub is being finicky and so two of the bars in Histogram A are deleted after it is created.</p>
 <p><br></p>
-<h3 id="problem-15.1">Problem 15.1</h3>
+<h3 id="problem-17.1">Problem 17.1</h3>
 <p>In Histogram A, which of the following bins contains approximately 60 transactions?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> <span class="math inline">[30, 60)</span></p></li>
@@ -1373,12 +1567,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading15_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15_1" aria-expanded="true" aria-controls="collapse15_1">
+<h2 class="accordion-header" id="heading17_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse17_1" aria-expanded="true" aria-controls="collapse17_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse15_1" class="accordion-collapse collapse collapse" aria-labelledby="heading15_1" data-bs-parent="#accordionExample">
+<div id="collapse17_1" class="accordion-collapse collapse collapse" aria-labelledby="heading17_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1396,7 +1590,7 @@ Click to view the solution.
 </div>
 <p><br></p>
 <p><br></p>
-<h3 id="problem-15.2">Problem 15.2</h3>
+<h3 id="problem-17.2">Problem 17.2</h3>
 <p>Let <span class="math inline">w</span>, <span class="math inline">x</span>, <span class="math inline">y</span>, and <span class="math inline">z</span> be the heights of bars <span class="math inline">W</span>, <span class="math inline">X</span>, <span class="math inline">Y</span>, and <span class="math inline">Z</span>, respectively. For instance, <span class="math inline">y</span> is about 0.01.</p>
 <p>Which of the following expressions gives the height of the bar corresponding to the <span class="math inline">[60, 90)</span> bin in Histogram A?</p>
 <ul class="task-list">
@@ -1410,19 +1604,26 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading15_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15_2" aria-expanded="true" aria-controls="collapse15_2">
+<h2 class="accordion-header" id="heading17_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse17_2" aria-expanded="true" aria-controls="collapse17_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse15_2" class="accordion-collapse collapse collapse" aria-labelledby="heading15_2" data-bs-parent="#accordionExample">
+<div id="collapse17_2" class="accordion-collapse collapse collapse" aria-labelledby="heading17_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
 </header>
 <p><strong>Answer:</strong> <span class="math inline">\frac{3}{2}( y + z ) - ( w + x )</span></p>
 <p>The idea is that the first three bars in Histogram A represent the same set of transactions as the first three bars of Histogram B. Setting these areas equals gives <span class="math inline">30w+30x+30u= 45y+45z</span>, where <span class="math inline">u</span> is the unknown height of the bar corresponding to the <span class="math inline">[60, 90)</span> bin. Solving this equation for <span class="math inline">u</span> gives the result.</p>
-<p></p>
+<p><span class="math display">
+\begin{align*}
+30w+30x+30u &amp;= 45y+45z \\
+30u &amp;= 45y+45z-30w-30x \\
+u &amp;= \frac{45y + 45z - 30w - 30x}{30} \\
+u &amp;= \frac{3}{2}(y+z) - (w+x)
+\end{align*}
+</span></p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -1437,9 +1638,9 @@ Click to view the solution.
 </div>
 <div class="lec-problem" data-avg="69.00" data-term="20242">
 <p class="meta"><em>Source:</em> <a href="../../sp24-quiz2/index.html#problem-3">Question 3 from Spring 2024 Quiz 2</a></p>
-<h2 id="problem-16">Problem 16</h2>
+<h2 id="problem-18">Problem 18</h2>
 <p><br></p>
-<h3 id="problem-16.1">Problem 16.1</h3>
+<h3 id="problem-18.1">Problem 18.1</h3>
 <p>Which of the following correctly plots a density histogram showing the distribution of <code>"price"</code> in <code>art</code>? Select all that apply.</p>
 <ul class="task-list">
 <li><p><input type="checkbox" disabled="" /> <code>art.get(["price"]).plot(kind="hist", density=True)</code></p></li>
@@ -1451,12 +1652,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading16_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16_1" aria-expanded="true" aria-controls="collapse16_1">
+<h2 class="accordion-header" id="heading18_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse18_1" aria-expanded="true" aria-controls="collapse18_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse16_1" class="accordion-collapse collapse collapse" aria-labelledby="heading16_1" data-bs-parent="#accordionExample">
+<div id="collapse18_1" class="accordion-collapse collapse collapse" aria-labelledby="heading18_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1472,17 +1673,17 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-16.2">Problem 16.2</h3>
+<h3 id="problem-18.2">Problem 18.2</h3>
 <p>The density histogram below shows the distribution of <code>"price"</code> in <code>art</code>. If the museum has 100 art pieces in total, how many pieces cost at least $3,000 but less than $4,500?</p>
 <center><img src="../../assets/images/sp24-quizzes/prices.png" width=400></center>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading16_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16_2" aria-expanded="true" aria-controls="collapse16_2">
+<h2 class="accordion-header" id="heading18_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse18_2" aria-expanded="true" aria-controls="collapse18_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse16_2" class="accordion-collapse collapse collapse" aria-labelledby="heading16_2" data-bs-parent="#accordionExample">
+<div id="collapse18_2" class="accordion-collapse collapse collapse" aria-labelledby="heading18_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1502,20 +1703,20 @@ Click to view the solution.
 </div>
 <div class="lec-problem" data-avg="68.50" data-term="20252">
 <p class="meta"><em>Source:</em> <a href="../../sp25-quiz2/index.html#problem-2">Question 2 from Spring 2025 Quiz 2</a></p>
-<h2 id="problem-17">Problem 17</h2>
+<h2 id="problem-19">Problem 19</h2>
 <p>Below is a density histogram showing the distribution of <code>"Runtime"</code>, in minutes, for all <span class="math inline">25</span> films in <code>ghibli</code>.</p>
 <center><img src="../../assets/images/sp25-quizzes/quiz2_hist.png" width=400></center>
 <p><br></p>
-<h3 id="problem-17.1">Problem 17.1</h3>
+<h3 id="problem-19.1">Problem 19.1</h3>
 <p>How many Studio Ghibli films are at least <span class="math inline">90</span> minutes long?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading17_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse17_1" aria-expanded="true" aria-controls="collapse17_1">
+<h2 class="accordion-header" id="heading19_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse19_1" aria-expanded="true" aria-controls="collapse19_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse17_1" class="accordion-collapse collapse collapse" aria-labelledby="heading17_1" data-bs-parent="#accordionExample">
+<div id="collapse19_1" class="accordion-collapse collapse collapse" aria-labelledby="heading19_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1531,16 +1732,16 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-17.2">Problem 17.2</h3>
+<h3 id="problem-19.2">Problem 19.2</h3>
 <p>Imagine we changed our histogram to have just one bin, from <span class="math inline">70</span> to <span class="math inline">140</span> minutes. What would the height of this bin be? Give your answer as an exact fraction or decimal.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading17_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse17_2" aria-expanded="true" aria-controls="collapse17_2">
+<h2 class="accordion-header" id="heading19_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse19_2" aria-expanded="true" aria-controls="collapse19_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse17_2" class="accordion-collapse collapse collapse" aria-labelledby="heading17_2" data-bs-parent="#accordionExample">
+<div id="collapse19_2" class="accordion-collapse collapse collapse" aria-labelledby="heading19_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1560,22 +1761,22 @@ Click to view the solution.
 </div>
 <div class="lec-problem" data-avg="68.00" data-term="20221">
 <p class="meta"><em>Source:</em> <a href="../../wi22-midterm/index.html#problem-5">Question 5 from Winter 2022 Midterm Exam</a></p>
-<h2 id="problem-18">Problem 18</h2>
+<h2 id="problem-20">Problem 20</h2>
 <p>Recall, the interval <span class="math inline">[a, b)</span> refers to numbers greater than or equal to <span class="math inline">a</span> and less than <span class="math inline">b</span>, and the interval <span class="math inline">[a, b]</span> refers to numbers greater than or equal to <span class="math inline">a</span> and less than or equal to <span class="math inline">b</span>.</p>
 <p>Suppose we created a DataFrame, <code>medium_sky</code>, containing only the skyscrapers in <code>sky</code> whose number of floors are in the interval <span class="math inline">[20, 60]</span>. Below, we’ve drawn a histogram of the number of floors of all skyscrapers in <code>medium_sky</code>.</p>
 <center><img src='../../assets/images/wi22-midterm/floors-hist.png' width=40%></center>
 <p><br></p>
-<h3 id="problem-18.1">Problem 18.1</h3>
+<h3 id="problem-20.1">Problem 20.1</h3>
 <p>Suppose that there are 160 skyscrapers whose number of floors are in the interval <span class="math inline">[30, 35)</span>.</p>
 <p>Given this information and the histogram above, how many skyscrapers are there in <code>medium_sky</code>?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading18_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse18_1" aria-expanded="true" aria-controls="collapse18_1">
+<h2 class="accordion-header" id="heading20_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse20_1" aria-expanded="true" aria-controls="collapse20_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse18_1" class="accordion-collapse collapse collapse" aria-labelledby="heading18_1" data-bs-parent="#accordionExample">
+<div id="collapse20_1" class="accordion-collapse collapse collapse" aria-labelledby="heading20_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1602,7 +1803,7 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-18.2">Problem 18.2</h3>
+<h3 id="problem-20.2">Problem 20.2</h3>
 <p>Again, suppose that there are 160 skyscrapers whose number of floors are in the interval <span class="math inline">[30, 35)</span>.</p>
 <p>Now suppose that there is a typo in the <code>medium_sky</code> DataFrame, and 20 skyscrapers were accidentally listed as having 53 floors each when instead they actually only have 35 floors each. The histogram drawn above contains the incorrect version of the data.</p>
 <p>Suppose we re-draw the above histogram using the correct data. What will be the new heights of both the <span class="math inline">[35, 40)</span> bar and <span class="math inline">[50, 55)</span> bar? Select the closest answer.</p>
@@ -1614,12 +1815,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading18_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse18_2" aria-expanded="true" aria-controls="collapse18_2">
+<h2 class="accordion-header" id="heading20_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse20_2" aria-expanded="true" aria-controls="collapse20_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse18_2" class="accordion-collapse collapse collapse" aria-labelledby="heading18_2" data-bs-parent="#accordionExample">
+<div id="collapse20_2" class="accordion-collapse collapse collapse" aria-labelledby="heading20_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1643,12 +1844,12 @@ Click to view the solution.
 </div>
 <div class="lec-problem" data-avg="64.00" data-term="20244">
 <p class="meta"><em>Source:</em> <a href="../../fa24-midterm/index.html#problem-10">Question 10 from Fall 2024 Midterm Exam</a></p>
-<h2 id="problem-19">Problem 19</h2>
+<h2 id="problem-21">Problem 21</h2>
 <p>Recall from the last problem that the DataFrame <code>trick_or_treat</code> includes a column called <code>"price"</code> with the cost in dollars of a <strong>single piece</strong> of fun-sized candy, as a <code>float</code>.</p>
 <p>Assume we have run the line of code <code>tot = trick_or_treat</code> to reassign <code>trick_or_treat</code> to the shorter variable name <code>tot</code>.</p>
 <p>In this problem, we’ll use <code>tot</code> to calculate the total amount of money that each house spent on Halloween candy. This number is always less than <span class="math inline">\$80</span> for the houses in our data set.</p>
 <p><br></p>
-<h3 id="problem-19.1">Problem 19.1</h3>
+<h3 id="problem-21.1">Problem 21.1</h3>
 <p>Fill in the blanks below so that the following block of code plots a histogram that displays the distribution of the total amount of money that houses spent on Halloween candy, in dollars.</p>
 <pre><code>total = (tot.assign(total_spent = ___(a)___)
             .groupby(___(b)___).___(c)___)
@@ -1657,12 +1858,12 @@ total.plot(kind = &quot;hist&quot;,  y = &quot;total_spent&quot;, density = True
             </code></pre>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading19_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse19_1" aria-expanded="true" aria-controls="collapse19_1">
+<h2 class="accordion-header" id="heading21_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21_1" aria-expanded="true" aria-controls="collapse21_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse19_1" class="accordion-collapse collapse collapse" aria-labelledby="heading19_1" data-bs-parent="#accordionExample">
+<div id="collapse21_1" class="accordion-collapse collapse collapse" aria-labelledby="heading21_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1702,7 +1903,7 @@ Click to view the solution.
 <p>The histogram below displays the distribution of the total amount of money that houses spent on Halloween candy; it is the histogram that would be generated from the code snippet above, assuming the blanks were filled in correctly.</p>
 <center><img src='../../assets/images/fa24-midterm/halloween_dist.png' width=500></center>
 <p><br></p>
-<h3 id="problem-19.2">Problem 19.2</h3>
+<h3 id="problem-21.2">Problem 21.2</h3>
 <p>Which two adjacent bins in the histogram represent about <span class="math inline">50\%</span> of the houses?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> <code>[10, 20)</code> and <code>[20, 30)</code></p></li>
@@ -1714,12 +1915,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading19_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse19_2" aria-expanded="true" aria-controls="collapse19_2">
+<h2 class="accordion-header" id="heading21_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21_2" aria-expanded="true" aria-controls="collapse21_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse19_2" class="accordion-collapse collapse collapse" aria-labelledby="heading19_2" data-bs-parent="#accordionExample">
+<div id="collapse21_2" class="accordion-collapse collapse collapse" aria-labelledby="heading21_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1744,16 +1945,16 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-19.3">Problem 19.3</h3>
+<h3 id="problem-21.3">Problem 21.3</h3>
 <p>Suppose we create a new histogram, using the same code as above but with <code>bins = np.arange(0, 90, 20)</code> instead of <code>bins = np.arange(0, 90, 10)</code>. Approximate the height of the tallest bar in this new histogram. If this is not possible, write "Not possible to determine."</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading19_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse19_3" aria-expanded="true" aria-controls="collapse19_3">
+<h2 class="accordion-header" id="heading21_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21_3" aria-expanded="true" aria-controls="collapse21_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse19_3" class="accordion-collapse collapse collapse" aria-labelledby="heading19_3" data-bs-parent="#accordionExample">
+<div id="collapse21_3" class="accordion-collapse collapse collapse" aria-labelledby="heading21_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1784,16 +1985,16 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-19.4">Problem 19.4</h3>
+<h3 id="problem-21.4">Problem 21.4</h3>
 <p>Suppose we create a new histogram, using the same code as above but substituting <code>bins = np.arange(0, 90, 5)</code> for <code>bins = np.arange(0, 90, 10)</code>. Approximate the height of the tallest bar in this new histogram. If this is not possible, write "Not possible to determine."</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading19_4">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse19_4" aria-expanded="true" aria-controls="collapse19_4">
+<h2 class="accordion-header" id="heading21_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21_4" aria-expanded="true" aria-controls="collapse21_4">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse19_4" class="accordion-collapse collapse collapse" aria-labelledby="heading19_4" data-bs-parent="#accordionExample">
+<div id="collapse21_4" class="accordion-collapse collapse collapse" aria-labelledby="heading21_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1818,20 +2019,20 @@ Click to view the solution.
 </div>
 <div class="lec-problem" data-avg="63.00" data-term="20222">
 <p class="meta"><em>Source:</em> <a href="../../sp22-final/index.html#problem-11">Question 11 from Spring 2022 Final Exam</a></p>
-<h2 id="problem-20">Problem 20</h2>
+<h2 id="problem-22">Problem 22</h2>
 <p>The histogram below shows the distribution of the number of products sold per day throughout the last 30 days, for two different IKEA products: the KURA reversible bed, and the ANTILOP highchair.</p>
 <center><img src='../../assets/images/sp22-final/overlaidhist.png' width=40%></center>
 <p><br></p>
-<h3 id="problem-20.1">Problem 20.1</h3>
+<h3 id="problem-22.1">Problem 22.1</h3>
 <p>For how many days did IKEA sell between 20 (inclusive) and 30 (exclusive) KURA reversible beds per? Give an <strong>integer</strong> answer or write “not enough information”, but <strong>not both</strong>.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading20_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse20_1" aria-expanded="true" aria-controls="collapse20_1">
+<h2 class="accordion-header" id="heading22_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse22_1" aria-expanded="true" aria-controls="collapse22_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse20_1" class="accordion-collapse collapse collapse" aria-labelledby="heading20_1" data-bs-parent="#accordionExample">
+<div id="collapse22_1" class="accordion-collapse collapse collapse" aria-labelledby="heading22_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1856,16 +2057,16 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-20.2">Problem 20.2</h3>
+<h3 id="problem-22.2">Problem 22.2</h3>
 <p>For how many days did IKEA sell more KURA reversible beds than ANTILOP highchairs? Give an <strong>integer</strong> answer or write “not enough information”, but <strong>not both</strong>.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading20_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse20_2" aria-expanded="true" aria-controls="collapse20_2">
+<h2 class="accordion-header" id="heading22_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse22_2" aria-expanded="true" aria-controls="collapse22_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse20_2" class="accordion-collapse collapse collapse" aria-labelledby="heading20_2" data-bs-parent="#accordionExample">
+<div id="collapse22_2" class="accordion-collapse collapse collapse" aria-labelledby="heading22_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1882,7 +2083,7 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-20.3">Problem 20.3</h3>
+<h3 id="problem-22.3">Problem 22.3</h3>
 <p>Determine the relative order of the three quantities below.</p>
 <ol type="1">
 <li>The number of days for which IKEA sold at least 35 ANTILOP highchairs.</li>
@@ -1899,12 +2100,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading20_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse20_3" aria-expanded="true" aria-controls="collapse20_3">
+<h2 class="accordion-header" id="heading22_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse22_3" aria-expanded="true" aria-controls="collapse22_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse20_3" class="accordion-collapse collapse collapse" aria-labelledby="heading20_3" data-bs-parent="#accordionExample">
+<div id="collapse22_3" class="accordion-collapse collapse collapse" aria-labelledby="heading22_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1933,15 +2134,72 @@ Click to view the solution.
 <p><br></p>
 <hr />
 </div>
+<div class="lec-problem" data-avg="61.50" data-term="20262">
+<p class="meta"><em>Source:</em> <a href="../../sp26-quiz2/index.html#problem-1">Question 1 from Spring 2026 Quiz 2</a></p>
+<h2 id="problem-23">Problem 23</h2>
+<p><br></p>
+<h3 id="problem-23.1">Problem 23.1</h3>
+<p>Using the density histogram above, how many cards have an<br />
+<code>"arena_unlocked"</code> that is <strong>strictly less than 6</strong>?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading23_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse23_1" aria-expanded="true" aria-controls="collapse23_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse23_1" class="accordion-collapse collapse collapse" aria-labelledby="heading23_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer</strong>: <span class="math inline">24</span></p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 62%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-23.2">Problem 23.2</h3>
+<p>Give a <strong>mathematical expression</strong> that evaluates to the exact height of the rightmost bin in the histogram above. You do not need to simplify.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading23_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse23_2" aria-expanded="true" aria-controls="collapse23_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse23_2" class="accordion-collapse collapse collapse" aria-labelledby="heading23_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer</strong>: <span class="math inline">\frac{1 - \left(0.10\cdot(4-1) + 0.15\cdot(6-4) + 0.08\cdot(9-6)\right)}{15 - 9} = \frac{0.16}{6} = \frac{0.08}{3}</span></p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 61%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+</div>
 <div class="lec-problem" data-avg="60.33" data-term="20243">
 <p class="meta"><em>Source:</em> <a href="../../su24-midterm/index.html#problem-6">Question 6 from Summer 2024 Midterm Exam</a></p>
-<h2 id="problem-21">Problem 21</h2>
+<h2 id="problem-24">Problem 24</h2>
 <p>Below are two density histograms representing the distribution of <strong>Total Points</strong> for Division 1 and the distribution of <strong>Total Points</strong> for Division 2 teams (remember, there are six teams in each division):</p>
 <div style="display: flex; justify-content: center;">
 <p><img src="../../assets/images/su24-midterm/d1_histogram.png" width="400"> <img src="../../assets/images/su24-midterm/d2_histogram.png" width="400"></p>
 </div>
 <p><br></p>
-<h3 id="problem-21.1">Problem 21.1</h3>
+<h3 id="problem-24.1">Problem 24.1</h3>
 <p>Assuming we know the bin values for each histogram, what can we conclude from these two histograms? Select all that apply:</p>
 <ul class="task-list">
 <li><p><input type="checkbox" disabled="" /> The number of teams in the rightmost bin on the histogram that displays the distribution of total points for Division 2 teams.</p></li>
@@ -1951,12 +2209,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading21_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21_1" aria-expanded="true" aria-controls="collapse21_1">
+<h2 class="accordion-header" id="heading24_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse24_1" aria-expanded="true" aria-controls="collapse24_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse21_1" class="accordion-collapse collapse collapse" aria-labelledby="heading21_1" data-bs-parent="#accordionExample">
+<div id="collapse24_1" class="accordion-collapse collapse collapse" aria-labelledby="heading24_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1997,16 +2255,16 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-21.2">Problem 21.2</h3>
+<h3 id="problem-24.2">Problem 24.2</h3>
 <p>Suppose that we changed the histogram of total points for Division 2 teams so that the bins were <code>[2000, 4000), [4000, 6000), [6000, 8000)</code>. If the bin defined by <code>[2000, 4000)</code> contained one team, as it does in the original graph, what would the height of the middle bar (with bin <code>[4000, 6000)</code>) be? Do not simplify your answer.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading21_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21_2" aria-expanded="true" aria-controls="collapse21_2">
+<h2 class="accordion-header" id="heading24_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse24_2" aria-expanded="true" aria-controls="collapse24_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse21_2" class="accordion-collapse collapse collapse" aria-labelledby="heading21_2" data-bs-parent="#accordionExample">
+<div id="collapse24_2" class="accordion-collapse collapse collapse" aria-labelledby="heading24_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2029,16 +2287,16 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-21.3">Problem 21.3</h3>
+<h3 id="problem-24.3">Problem 24.3</h3>
 <p>Suppose we drew different bins for the histogram of total points for Division 2 teams. If the bin defined by <code>[2000, 4000)</code> contained one team, as it does in the original graph, and the bin defined by <code>[4000, 4500)</code> contained two teams, what would the height of the bar with bin <code>[4500, 5000)</code> be? Do not simplify your answer.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading21_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21_3" aria-expanded="true" aria-controls="collapse21_3">
+<h2 class="accordion-header" id="heading24_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse24_3" aria-expanded="true" aria-controls="collapse24_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse21_3" class="accordion-collapse collapse collapse" aria-labelledby="heading21_3" data-bs-parent="#accordionExample">
+<div id="collapse24_3" class="accordion-collapse collapse collapse" aria-labelledby="heading24_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2063,21 +2321,21 @@ Click to view the solution.
 </div>
 <div class="lec-problem" data-avg="59.00" data-term="20251">
 <p class="meta"><em>Source:</em> <a href="../../wi25-midterm/index.html#problem-4">Question 4 from Winter 2025 Midterm Exam</a></p>
-<h2 id="problem-22">Problem 22</h2>
+<h2 id="problem-25">Problem 25</h2>
 <p>Below is a density histogram displaying the distribution of wait times for orders from UCSD dining halls.</p>
 <center><img src="../../assets/images/wi25-midterm/bistro.png" width=600></center>
 <p><br></p>
-<h3 id="problem-22.1">Problem 22.1</h3>
+<h3 id="problem-25.1">Problem 25.1</h3>
 <p>Fill in the blanks to define a variable <code>bins</code> that could have been used as the <code>bins</code> argument in the call to <code>.plot</code> that generated the histogram above.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>    bins <span class="op">=</span> <span class="fl">0.5</span> <span class="op">*</span> (<span class="dv">2</span> <span class="op">+</span> np.arange(__(a)__, __(b)__, __(c)__))</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>    bins <span class="op">=</span> <span class="fl">0.5</span> <span class="op">*</span> (<span class="dv">2</span> <span class="op">+</span> np.arange(__(a)__, __(b)__, __(c)__))</span></code></pre></div>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading22_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse22_1" aria-expanded="true" aria-controls="collapse22_1">
+<h2 class="accordion-header" id="heading25_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse25_1" aria-expanded="true" aria-controls="collapse25_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse22_1" class="accordion-collapse collapse collapse" aria-labelledby="heading22_1" data-bs-parent="#accordionExample">
+<div id="collapse25_1" class="accordion-collapse collapse collapse" aria-labelledby="heading25_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2112,16 +2370,16 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-22.2">Problem 22.2</h3>
+<h3 id="problem-25.2">Problem 25.2</h3>
 <p>What proportion of orders took at least <span class="math inline">7</span> minutes but less than <span class="math inline">12</span> minutes to complete?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading22_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse22_2" aria-expanded="true" aria-controls="collapse22_2">
+<h2 class="accordion-header" id="heading25_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse25_2" aria-expanded="true" aria-controls="collapse25_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse22_2" class="accordion-collapse collapse collapse" aria-labelledby="heading22_2" data-bs-parent="#accordionExample">
+<div id="collapse25_2" class="accordion-collapse collapse collapse" aria-labelledby="heading25_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2140,18 +2398,18 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-22.3">Problem 22.3</h3>
+<h3 id="problem-25.3">Problem 25.3</h3>
 <p>After some investigation, HDH discovers that every order that took longer than <span class="math inline">12</span> minutes to complete was ordered from The Bistro. As a result, they fire all the employees at The Bistro and permanently close the dining hall. With this update, we generate a new density histogram displaying the distribution of wait times for orders from the other UCSD dining halls.</p>
 <center><img src="../../assets/images/wi25-midterm/nobistro.png" width=600></center>
 <p>What are the values of X and Y along the <span class="math inline">y</span>-axis of this histogram?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading22_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse22_3" aria-expanded="true" aria-controls="collapse22_3">
+<h2 class="accordion-header" id="heading25_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse25_3" aria-expanded="true" aria-controls="collapse25_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse22_3" class="accordion-collapse collapse collapse" aria-labelledby="heading22_3" data-bs-parent="#accordionExample">
+<div id="collapse25_3" class="accordion-collapse collapse collapse" aria-labelledby="heading25_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2185,20 +2443,20 @@ Click to view the solution.
 </div>
 <div class="lec-problem" data-avg="58.50" data-term="20241">
 <p class="meta"><em>Source:</em> <a href="../../wi24-midterm/index.html#problem-8">Question 8 from Winter 2024 Midterm Exam</a></p>
-<h2 id="problem-23">Problem 23</h2>
+<h2 id="problem-26">Problem 26</h2>
 <p>The histogram below shows the distribution of game times in minutes for both two-player and three-player games of <em>Clue</em>, with each distribution representing 1000 games played.</p>
 <center><img src='../../assets/images/wi24-midterm/hist_clue_1.png' width=70%></center>
 <p><br></p>
-<h3 id="problem-23.1">Problem 23.1</h3>
+<h3 id="problem-26.1">Problem 26.1</h3>
 <p>How many <strong>more</strong> three-player games than two-player games took at least 50 minutes to play? Give your answer as an <strong>integer, rounded to the nearest multiple of 10</strong>.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading23_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse23_1" aria-expanded="true" aria-controls="collapse23_1">
+<h2 class="accordion-header" id="heading26_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse26_1" aria-expanded="true" aria-controls="collapse26_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse23_1" class="accordion-collapse collapse collapse" aria-labelledby="heading23_1" data-bs-parent="#accordionExample">
+<div id="collapse26_1" class="accordion-collapse collapse collapse" aria-labelledby="heading26_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2219,16 +2477,16 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-23.2">Problem 23.2</h3>
+<h3 id="problem-26.2">Problem 26.2</h3>
 <p>Calculate the approximate area of overlap of the two histograms. Give your answer as a <strong>proportion between 0 and 1, rounded to two decimal places</strong>.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading23_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse23_2" aria-expanded="true" aria-controls="collapse23_2">
+<h2 class="accordion-header" id="heading26_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse26_2" aria-expanded="true" aria-controls="collapse26_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse23_2" class="accordion-collapse collapse collapse" aria-labelledby="heading23_2" data-bs-parent="#accordionExample">
+<div id="collapse26_2" class="accordion-collapse collapse collapse" aria-labelledby="heading26_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2259,9 +2517,9 @@ Click to view the solution.
 <p><br></p>
 <hr />
 </div>
-<div class="lec-problem" data-avg="57.00" data-term="20254">
+<div class="lec-problem" data-avg="57.50" data-term="20254">
 <p class="meta"><em>Source:</em> <a href="../../fa25-midterm/index.html#problem-6">Question 6 from Fall 2025 Midterm Exam</a></p>
-<h2 id="problem-24">Problem 24</h2>
+<h2 id="problem-27">Problem 27</h2>
 <p>The DataFrame <code>long</code> was created by taking the <span class="math inline">500</span> rows of <code>words</code> corresponding to words whose <code>"length"</code> is more than <span class="math inline">10</span>. Of the <span class="math inline">500</span> words in <code>long</code>,</p>
 <ul>
 <li><span class="math inline">100</span> words were marked difficult by <span class="math inline">5</span> or more students, and</li>
@@ -2270,16 +2528,16 @@ Click to view the solution.
 <p>The density histogram below was created using the data in the <code>"diff"</code> column of <code>long</code>. The <code>bins</code> argument was set as <code>bins=np.arange(5, 30, 5)</code> so the histogram <strong>does not include</strong> words that fewer than 5 students marked difficult.</p>
 <center><img src="https://raw.githubusercontent.com/dsc-courses/practice.dsc10.com/refs/heads/master/assets/images/fa25-midterm/hist.png" width=400></center>
 <p><br></p>
-<h3 id="problem-24.1">Problem 24.1</h3>
+<h3 id="problem-27.1">Problem 27.1</h3>
 <p>How many words were marked difficult by <span class="math inline">10</span> or more students? Give your answer as an integer.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading24_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse24_1" aria-expanded="true" aria-controls="collapse24_1">
+<h2 class="accordion-header" id="heading27_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse27_1" aria-expanded="true" aria-controls="collapse27_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse24_1" class="accordion-collapse collapse collapse" aria-labelledby="heading24_1" data-bs-parent="#accordionExample">
+<div id="collapse27_1" class="accordion-collapse collapse collapse" aria-labelledby="heading27_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2292,13 +2550,18 @@ Click to view the solution.
 <p><span class="math inline">100 - 50 = 50</span> words marked difficult by at least 10 students.<br/>
 </p>
 <p>We can also use <span class="math inline">1 \; -</span> {proportion of total words in bin <span class="math inline">[5,10)</span>}, then multiply by 100. Similarly, we can directly calculate the necessary proportion of students by using the area of 3 rightmost bins.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 74%.</p>
 </div>
 </div>
 </div>
 </div>
 <p><br></p>
 <p><br></p>
-<h3 id="problem-24.2">Problem 24.2</h3>
+<h3 id="problem-27.2">Problem 27.2</h3>
 <p>Suppose we regenerated the histogram using the same data, but setting the <code>bins</code> argument as <code>bins=np.arange(0, 30, 5)</code>.</p>
 <ol type="1">
 <li><p>What would be the height of the bar <span class="math inline">[5, 10)</span>? Give your answer as a decimal number.</p></li>
@@ -2306,12 +2569,12 @@ Click to view the solution.
 </ol>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading24_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse24_2" aria-expanded="true" aria-controls="collapse24_2">
+<h2 class="accordion-header" id="heading27_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse27_2" aria-expanded="true" aria-controls="collapse27_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse24_2" class="accordion-collapse collapse collapse" aria-labelledby="heading24_2" data-bs-parent="#accordionExample">
+<div id="collapse27_2" class="accordion-collapse collapse collapse" aria-labelledby="heading27_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2332,10 +2595,10 @@ So <span class="math inline">\frac{400}{500} = 0.8 =</span><br/>
 <p><span class="math inline">5 \cdot {h} = 0.8</span><br/>
 <span class="math inline">h = \frac{0.8}{5} = 0.16</span></p>
 <hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
 <p>
 </p>
-<p>The average score on this problem was 57%.</p>
+<p>The average score on this problem was 41%.</p>
 </div>
 </div>
 </div>
@@ -2345,22 +2608,22 @@ So <span class="math inline">\frac{400}{500} = 0.8 =</span><br/>
 </div>
 <div class="lec-problem" data-avg="56.67" data-term="20242">
 <p class="meta"><em>Source:</em> <a href="../../sp24-final/index.html#problem-1">Question 1 from Spring 2024 Final Exam</a></p>
-<h2 id="problem-25">Problem 25</h2>
+<h2 id="problem-28">Problem 28</h2>
 <p>Yutian wants to rent a one-bedroom apartment, so she decides to learn about the housing market by plotting a density histogram of the monthly rent for all one-bedroom apartments in the <code>apts</code> DataFrame. In her call to the DataFrame method <code>.plot</code>, she sets the bins using the parameter</p>
 <div style="text-align: center;">
 <p><pre><code class="python"> bins = np.arange(0, 10000, 100) </code></pre></p>
 </div>
 <p><br></p>
-<h3 id="problem-25.1">Problem 25.1</h3>
+<h3 id="problem-28.1">Problem 28.1</h3>
 <p>How many bins will this histogram have?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading25_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse25_1" aria-expanded="true" aria-controls="collapse25_1">
+<h2 class="accordion-header" id="heading28_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse28_1" aria-expanded="true" aria-controls="collapse28_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse25_1" class="accordion-collapse collapse collapse" aria-labelledby="heading25_1" data-bs-parent="#accordionExample">
+<div id="collapse28_1" class="accordion-collapse collapse collapse" aria-labelledby="heading28_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2385,16 +2648,16 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-25.2">Problem 25.2</h3>
+<h3 id="problem-28.2">Problem 28.2</h3>
 <p>Suppose there are 300 one-bedroom apartments in the <code>apts</code> DataFrame, and 15 of them cost between $2,300 (inclusive) and $2,400 (exclusive). How tall should the bar for the bin <span class="math inline">[2300, 2400)</span> be in the density histogram? Give your answer as a simplified fraction or exact decimal.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading25_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse25_2" aria-expanded="true" aria-controls="collapse25_2">
+<h2 class="accordion-header" id="heading28_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse28_2" aria-expanded="true" aria-controls="collapse28_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse25_2" class="accordion-collapse collapse collapse" aria-labelledby="heading25_2" data-bs-parent="#accordionExample">
+<div id="collapse28_2" class="accordion-collapse collapse collapse" aria-labelledby="heading28_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2420,7 +2683,7 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-25.3">Problem 25.3</h3>
+<h3 id="problem-28.3">Problem 28.3</h3>
 <p>Suppose some of the one-bedroom apartments in the <code>apts</code> DataFrame cost more than $5,000. Next, Yutian plots another density histogram with</p>
 <div style="text-align: center;">
 <p><pre><code class="python"> bins = np.arange(0, 5000, 100) </code></pre></p>
@@ -2434,12 +2697,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading25_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse25_3" aria-expanded="true" aria-controls="collapse25_3">
+<h2 class="accordion-header" id="heading28_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse28_3" aria-expanded="true" aria-controls="collapse28_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse25_3" class="accordion-collapse collapse collapse" aria-labelledby="heading25_3" data-bs-parent="#accordionExample">
+<div id="collapse28_3" class="accordion-collapse collapse collapse" aria-labelledby="heading28_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2461,22 +2724,22 @@ Click to view the solution.
 </div>
 <div class="lec-problem" data-avg="56.00" data-term="20244">
 <p class="meta"><em>Source:</em> <a href="../../fa24-final/index.html#problem-8">Question 8 from Fall 2024 Final Exam</a></p>
-<h2 id="problem-26">Problem 26</h2>
+<h2 id="problem-29">Problem 29</h2>
 <p>Suppose we are told that <code>sales</code> contains 1000 rows, 500 of which represent cash transactions and 500 of which represent non-cash transactions. We are given two density histograms representing the distribution of <code>"price"</code> separately for the cash and non-cash transactions.</p>
 <center><img src='../../assets/images/fa24-final/cash.png' width=800></center>
 <center><img src='../../assets/images/fa24-final/non-cash.png' width=800></center>
 <p>From these two histograms, we’d like to create a single combined histogram that shows the overall distribution of <code>"price"</code> for all 1000 rows in <code>sales</code>.</p>
 <p><br></p>
-<h3 id="problem-26.1">Problem 26.1</h3>
+<h3 id="problem-29.1">Problem 29.1</h3>
 <p>How many cash transactions had a <code>"price"</code> of <span class="math inline">\$26</span> or more?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading26_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse26_1" aria-expanded="true" aria-controls="collapse26_1">
+<h2 class="accordion-header" id="heading29_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse29_1" aria-expanded="true" aria-controls="collapse29_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse26_1" class="accordion-collapse collapse collapse" aria-labelledby="heading26_1" data-bs-parent="#accordionExample">
+<div id="collapse29_1" class="accordion-collapse collapse collapse" aria-labelledby="heading29_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2497,16 +2760,16 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-26.2">Problem 26.2</h3>
+<h3 id="problem-29.2">Problem 29.2</h3>
 <p>Say our combined histogram has a bin <span class="math inline">[4, 6)</span>. What will the height of this bar be in the combined histogram? Fill in the answer box or select “Not enough information.”</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading26_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse26_2" aria-expanded="true" aria-controls="collapse26_2">
+<h2 class="accordion-header" id="heading29_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse29_2" aria-expanded="true" aria-controls="collapse29_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse26_2" class="accordion-collapse collapse collapse" aria-labelledby="heading26_2" data-bs-parent="#accordionExample">
+<div id="collapse29_2" class="accordion-collapse collapse collapse" aria-labelledby="heading29_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2523,16 +2786,16 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-26.3">Problem 26.3</h3>
+<h3 id="problem-29.3">Problem 29.3</h3>
 <p>Say our combined histogram has a bin <span class="math inline">[24, 28)</span>. What will the height of this bar be in the combined histogram? Fill in the answer box or select “Not enough information.”</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading26_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse26_3" aria-expanded="true" aria-controls="collapse26_3">
+<h2 class="accordion-header" id="heading29_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse29_3" aria-expanded="true" aria-controls="collapse29_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse26_3" class="accordion-collapse collapse collapse" aria-labelledby="heading26_3" data-bs-parent="#accordionExample">
+<div id="collapse29_3" class="accordion-collapse collapse collapse" aria-labelledby="heading29_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2556,16 +2819,16 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-26.4">Problem 26.4</h3>
+<h3 id="problem-29.4">Problem 29.4</h3>
 <p>Suppose now that the histograms for cash and non-cash transactions are the same as pictured, but they now represent 600 cash transactions and 400 non-cash transactions. In this situation, say our combined histogram has a bin <span class="math inline">[12, 16)</span>. What will the height of this bar be in the combined histogram? Fill in the answer box or select “Not enough information.”</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading26_4">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse26_4" aria-expanded="true" aria-controls="collapse26_4">
+<h2 class="accordion-header" id="heading29_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse29_4" aria-expanded="true" aria-controls="collapse29_4">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse26_4" class="accordion-collapse collapse collapse" aria-labelledby="heading26_4" data-bs-parent="#accordionExample">
+<div id="collapse29_4" class="accordion-collapse collapse collapse" aria-labelledby="heading29_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2593,20 +2856,20 @@ Click to view the solution.
 </div>
 <div class="lec-problem" data-avg="54.67" data-term="20224">
 <p class="meta"><em>Source:</em> <a href="../../fa22-midterm/index.html#problem-9">Question 9 from Fall 2022 Midterm Exam</a></p>
-<h2 id="problem-27">Problem 27</h2>
+<h2 id="problem-30">Problem 30</h2>
 <p>Histograms A and B below both display the distribution of the <code>"Seats"</code> column, using different bins. Each histogram includes all 32 rows of <code>evs</code>.</p>
 <center><img src='../../assets/images/fa22-midterm/midq9.png' width=60%></center>
 <p><br></p>
-<h3 id="problem-27.1">Problem 27.1</h3>
+<h3 id="problem-30.1">Problem 30.1</h3>
 <p>How many EVs in evs have exactly 6 seats?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading27_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse27_1" aria-expanded="true" aria-controls="collapse27_1">
+<h2 class="accordion-header" id="heading30_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse30_1" aria-expanded="true" aria-controls="collapse30_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse27_1" class="accordion-collapse collapse collapse" aria-labelledby="heading27_1" data-bs-parent="#accordionExample">
+<div id="collapse30_1" class="accordion-collapse collapse collapse" aria-labelledby="heading30_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2627,16 +2890,16 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-27.2">Problem 27.2</h3>
+<h3 id="problem-30.2">Problem 30.2</h3>
 <p>How many EVs in evs have exactly 5 seats?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading27_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse27_2" aria-expanded="true" aria-controls="collapse27_2">
+<h2 class="accordion-header" id="heading30_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse30_2" aria-expanded="true" aria-controls="collapse30_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse27_2" class="accordion-collapse collapse collapse" aria-labelledby="heading27_2" data-bs-parent="#accordionExample">
+<div id="collapse30_2" class="accordion-collapse collapse collapse" aria-labelledby="heading30_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2659,16 +2922,16 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-27.3">Problem 27.3</h3>
+<h3 id="problem-30.3">Problem 30.3</h3>
 <p>Histogram C also displays the distribution of the <code>"Seats"</code> column, but uses just a single bin, [4, 9]. What is the height of the sole bar in Histogram C?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading27_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse27_3" aria-expanded="true" aria-controls="collapse27_3">
+<h2 class="accordion-header" id="heading30_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse30_3" aria-expanded="true" aria-controls="collapse30_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse27_3" class="accordion-collapse collapse collapse" aria-labelledby="heading27_3" data-bs-parent="#accordionExample">
+<div id="collapse30_3" class="accordion-collapse collapse collapse" aria-labelledby="heading30_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2694,22 +2957,22 @@ Click to view the solution.
 </div>
 <div class="lec-problem" data-avg="52.67" data-term="20264">
 <p class="meta"><em>Source:</em> <a href="../../fa26-midterm/index.html#problem-10">Question 10 from Fall 2026 Midterm Exam</a></p>
-<h2 id="problem-28">Problem 28</h2>
+<h2 id="problem-31">Problem 31</h2>
 <p>The density histograms below show response times for <strong>300 public</strong> and <strong>100 private</strong> student questions. All values are exact.</p>
 <center><img src="../../assets/images/fa26-midterm/public_vs_private_response_times.png" width=800></center>
 <p><br />
 </p>
 <p><br></p>
-<h3 id="problem-28.1">Problem 28.1</h3>
+<h3 id="problem-31.1">Problem 31.1</h3>
 <p>How many <strong>private</strong> questions took <strong>at least 40 minutes</strong> to receive a response? Give your answer as an <strong>integer</strong>.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading28_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse28_1" aria-expanded="true" aria-controls="collapse28_1">
+<h2 class="accordion-header" id="heading31_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse31_1" aria-expanded="true" aria-controls="collapse31_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse28_1" class="accordion-collapse collapse collapse" aria-labelledby="heading28_1" data-bs-parent="#accordionExample">
+<div id="collapse31_1" class="accordion-collapse collapse collapse" aria-labelledby="heading31_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2727,7 +2990,7 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-28.2">Problem 28.2</h3>
+<h3 id="problem-31.2">Problem 31.2</h3>
 <p>Suppose we make a single density histogram for all 400 questions, with one bin being <strong>[0, 10)</strong>. What would the height of this bar be?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> <span class="math inline">\dfrac{3}{200} = 0.015</span></p></li>
@@ -2739,12 +3002,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading28_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse28_2" aria-expanded="true" aria-controls="collapse28_2">
+<h2 class="accordion-header" id="heading31_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse31_2" aria-expanded="true" aria-controls="collapse31_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse28_2" class="accordion-collapse collapse collapse" aria-labelledby="heading28_2" data-bs-parent="#accordionExample">
+<div id="collapse31_2" class="accordion-collapse collapse collapse" aria-labelledby="heading31_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2761,7 +3024,7 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-28.3">Problem 28.3</h3>
+<h3 id="problem-31.3">Problem 31.3</h3>
 <p>Suppose we make a single density histogram for all 400 questions, with one bin being <strong>[20, 40)</strong>. What would the height of this bar be?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> <span class="math inline">\dfrac{1}{80} = 0.0125</span></p></li>
@@ -2773,12 +3036,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading28_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse28_3" aria-expanded="true" aria-controls="collapse28_3">
+<h2 class="accordion-header" id="heading31_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse31_3" aria-expanded="true" aria-controls="collapse31_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse28_3" class="accordion-collapse collapse collapse" aria-labelledby="heading28_3" data-bs-parent="#accordionExample">
+<div id="collapse31_3" class="accordion-collapse collapse collapse" aria-labelledby="heading31_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2799,18 +3062,18 @@ Click to view the solution.
 </div>
 <div class="lec-problem" data-avg="52.00" data-term="20264">
 <p class="meta"><em>Source:</em> <a href="../../fa26-quiz2/index.html#problem-3">Question 3 from Fall 2026 Quiz 2</a></p>
-<h2 id="problem-29">Problem 29</h2>
+<h2 id="problem-32">Problem 32</h2>
 <p><br></p>
-<h3 id="problem-29.1">Problem 29.1</h3>
+<h3 id="problem-32.1">Problem 32.1</h3>
 <p>Rishika makes a density histogram of the 10 values in the <code>"Temp"</code> column of <code>oct3</code>, shown above. She uses the argument <code>bins = np.arange(90, 110, 5)</code>. What is the <strong>height of the tallest bar</strong>?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading29_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse29_1" aria-expanded="true" aria-controls="collapse29_1">
+<h2 class="accordion-header" id="heading32_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse32_1" aria-expanded="true" aria-controls="collapse32_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse29_1" class="accordion-collapse collapse collapse" aria-labelledby="heading29_1" data-bs-parent="#accordionExample">
+<div id="collapse32_1" class="accordion-collapse collapse collapse" aria-labelledby="heading32_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2826,7 +3089,7 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-29.2">Problem 29.2</h3>
+<h3 id="problem-32.2">Problem 32.2</h3>
 <p>Rishika then obtains a larger DataFrame of 200 locations. A density histogram of temperatures from this larger DataFrame of 200 locations has bins and heights given below. Assume all locations’ temperatures fall between 80°F and 110°F, inclusive.</p>
 <table>
 <thead>
@@ -2857,12 +3120,12 @@ Click to view the solution.
 <p>What is the <strong>value of <span class="math inline">X</span></strong>?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading29_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse29_2" aria-expanded="true" aria-controls="collapse29_2">
+<h2 class="accordion-header" id="heading32_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse32_2" aria-expanded="true" aria-controls="collapse32_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse29_2" class="accordion-collapse collapse collapse" aria-labelledby="heading29_2" data-bs-parent="#accordionExample">
+<div id="collapse32_2" class="accordion-collapse collapse collapse" aria-labelledby="heading32_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2878,16 +3141,16 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-29.3">Problem 29.3</h3>
+<h3 id="problem-32.3">Problem 32.3</h3>
 <p><strong>How many</strong> of the 200 locations have a <code>"Temp"</code> in <span class="math inline">[90,100)</span>?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading29_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse29_3" aria-expanded="true" aria-controls="collapse29_3">
+<h2 class="accordion-header" id="heading32_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse32_3" aria-expanded="true" aria-controls="collapse32_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse29_3" class="accordion-collapse collapse collapse" aria-labelledby="heading29_3" data-bs-parent="#accordionExample">
+<div id="collapse32_3" class="accordion-collapse collapse collapse" aria-labelledby="heading32_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2907,21 +3170,21 @@ Click to view the solution.
 </div>
 <div class="lec-problem" data-avg="51.00" data-term="20252">
 <p class="meta"><em>Source:</em> <a href="../../sp25-midterm/index.html#problem-4">Question 4 from Spring 2025 Midterm Exam</a></p>
-<h2 id="problem-30">Problem 30</h2>
+<h2 id="problem-33">Problem 33</h2>
 <p>Below is a density histogram displaying the distribution of reciprocal tariffs for each of the 50 countries on Trump’s chart. It was plotted with the argument <code>bins=[10, 11, 15, 20, 40, 50]</code>.</p>
 <p>Note that while the European Union is actually a group of many countries, it is counted as one country here.</p>
 <center><img src="../../assets/images/sp25-midterm/tariffs.png" width=700></center>
 <p><br></p>
-<h3 id="problem-30.1">Problem 30.1</h3>
+<h3 id="problem-33.1">Problem 33.1</h3>
 <p>How many countries have a reciprocal tariff of 10%?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading30_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse30_1" aria-expanded="true" aria-controls="collapse30_1">
+<h2 class="accordion-header" id="heading33_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse33_1" aria-expanded="true" aria-controls="collapse33_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse30_1" class="accordion-collapse collapse collapse" aria-labelledby="heading30_1" data-bs-parent="#accordionExample">
+<div id="collapse33_1" class="accordion-collapse collapse collapse" aria-labelledby="heading33_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2953,16 +3216,16 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-30.2">Problem 30.2</h3>
+<h3 id="problem-33.2">Problem 33.2</h3>
 <p>Suppose we plotted the same histogram, except we changed the <code>bins</code> argument to <code>bins = [8, 15, 22, 30, 40, 50]</code>. What would be the height of the <strong>leftmost</strong> bar in this histogram? Give your answer as a number to two decimal places.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading30_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse30_2" aria-expanded="true" aria-controls="collapse30_2">
+<h2 class="accordion-header" id="heading33_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse33_2" aria-expanded="true" aria-controls="collapse33_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse30_2" class="accordion-collapse collapse collapse" aria-labelledby="heading30_2" data-bs-parent="#accordionExample">
+<div id="collapse33_2" class="accordion-collapse collapse collapse" aria-labelledby="heading33_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2982,17 +3245,17 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-30.3">Problem 30.3</h3>
+<h3 id="problem-33.3">Problem 33.3</h3>
 <p>The European Union is not actually one country, but a group of 27 countries. Imagine we were to replace the row of <code>tariffs</code> corresponding to the European Union with 27 rows representing each of the member countries (all with a <span class="math inline">20\%</span> reciprocal tariff), then plot a histogram of the reciprocal tariffs using <code>bins = [10, 11, 15, 20, 40, 50]</code>.</p>
 <p>Let <span class="math inline">h_{\text{new}}</span> be the height of the <strong>rightmost</strong> bar in this histogram, and let <span class="math inline">h_{\text{old}}</span> be the height of the rightmost bar in the original histogram shown above. Express <span class="math inline">h_{\text{new}}</span> in terms of <span class="math inline">h_{\text{old}}</span>.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading30_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse30_3" aria-expanded="true" aria-controls="collapse30_3">
+<h2 class="accordion-header" id="heading33_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse33_3" aria-expanded="true" aria-controls="collapse33_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse30_3" class="accordion-collapse collapse collapse" aria-labelledby="heading30_3" data-bs-parent="#accordionExample">
+<div id="collapse33_3" class="accordion-collapse collapse collapse" aria-labelledby="heading33_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3023,22 +3286,22 @@ Click to view the solution.
 </div>
 <div class="lec-problem" data-avg="47.67" data-term="20234">
 <p class="meta"><em>Source:</em> <a href="../../fa23-midterm/index.html#problem-5">Question 5 from Fall 2023 Midterm Exam</a></p>
-<h2 id="problem-31">Problem 31</h2>
+<h2 id="problem-34">Problem 34</h2>
 <p>The rows in <code>living_cost</code> with a <code>"family_type"</code> value of <code>"1a0c"</code> correspond to families that consist of individuals living on their own. We’ll call such families "solo families." Below, we’ve visualized the distribution of the <code>"median_income"</code> column, but only for rows corresponding to solo families. Instead of visualizing median incomes in dollars, we’ve visualized them in thousands of dollars.</p>
 <center><img src='../../assets/images/fa23-midterm/hist.png' width=500></center>
 <p>Suppose we’re interested in splitting the <span class="math inline">[50, 80)</span> bin into two separate bins — a <span class="math inline">[50, 70)</span> bin and a <span class="math inline">[70, 80)</span> bin.</p>
 <p>Let <span class="math inline">h_1</span> be the height of the new bar corresponding to the <span class="math inline">[50, 70)</span> bin and let <span class="math inline">h_2</span> be the height of the new bar corresponding to the <span class="math inline">[70, 80)</span> bin.</p>
 <p><br></p>
-<h3 id="problem-31.1">Problem 31.1</h3>
+<h3 id="problem-34.1">Problem 34.1</h3>
 <p>What are the minimum and maximum possible values of <span class="math inline">h_2</span>? Give your answers as <strong>decimals rounded to three decimal places</strong>.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading31_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse31_1" aria-expanded="true" aria-controls="collapse31_1">
+<h2 class="accordion-header" id="heading34_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse34_1" aria-expanded="true" aria-controls="collapse34_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse31_1" class="accordion-collapse collapse collapse" aria-labelledby="heading31_1" data-bs-parent="#accordionExample">
+<div id="collapse34_1" class="accordion-collapse collapse collapse" aria-labelledby="heading34_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3063,7 +3326,7 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-31.2">Problem 31.2</h3>
+<h3 id="problem-34.2">Problem 34.2</h3>
 <p>Suppose that the number of counties in which the median income of solo families is in the interval <span class="math inline">[50, 70)</span> is <span class="math inline">r</span> times the number of counties in which the median income of solo families is in the interval <span class="math inline">[70, 80)</span>. Given this fact, what is the value of <span class="math display">\frac{h_1}{h_2},</span> the ratio of the heights of the two new bars?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> <span class="math inline">\frac{1}{r}</span></p></li>
@@ -3076,12 +3339,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading31_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse31_2" aria-expanded="true" aria-controls="collapse31_2">
+<h2 class="accordion-header" id="heading34_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse34_2" aria-expanded="true" aria-controls="collapse34_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse31_2" class="accordion-collapse collapse collapse" aria-labelledby="heading31_2" data-bs-parent="#accordionExample">
+<div id="collapse34_2" class="accordion-collapse collapse collapse" aria-labelledby="heading34_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3115,23 +3378,23 @@ h_1 \cdot 20 = r \cdot h_2 \cdot 10.
 </div>
 <div class="lec-problem" data-avg="45.00" data-term="20222">
 <p class="meta"><em>Source:</em> <a href="../../sp22-midterm/index.html#problem-2">Question 2 from Spring 2022 Midterm Exam</a></p>
-<h2 id="problem-32">Problem 32</h2>
+<h2 id="problem-35">Problem 35</h2>
 <p>On the graph paper below, draw the histogram that would be produced by this code.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>(</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>sungod.take(np.arange(<span class="dv">5</span>))</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>      .plot(kind<span class="op">=</span><span class="st">&#39;hist&#39;</span>, density<span class="op">=</span><span class="va">True</span>, </span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>      bins<span class="op">=</span>np.arange(<span class="dv">0</span>, <span class="dv">7</span>, <span class="dv">2</span>), y<span class="op">=</span><span class="st">&#39;Appearance_Order&#39;</span>)<span class="op">;</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>(</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>sungod.take(np.arange(<span class="dv">5</span>))</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>      .plot(kind<span class="op">=</span><span class="st">&#39;hist&#39;</span>, density<span class="op">=</span><span class="va">True</span>, </span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>      bins<span class="op">=</span>np.arange(<span class="dv">0</span>, <span class="dv">7</span>, <span class="dv">2</span>), y<span class="op">=</span><span class="st">&#39;Appearance_Order&#39;</span>)<span class="op">;</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <p>In your drawing, make sure to label the height of each bar in the histogram on the vertical axis. You can scale the axes however you like, and the two axes don’t need to be on the same scale.</p>
 <center><img src='../../assets/images/sp22-midterm/graph-paper.png' width=250></center>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading32">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse32" aria-expanded="true" aria-controls="collapse32">
+<h2 class="accordion-header" id="heading35">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse35" aria-expanded="true" aria-controls="collapse35">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse32" class="accordion-collapse collapse collapse" aria-labelledby="heading32" data-bs-parent="#accordionExample">
+<div id="collapse35" class="accordion-collapse collapse collapse" aria-labelledby="heading35" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3158,22 +3421,22 @@ Click to view the solution.
 </div>
 <div class="lec-problem" data-avg="42.50" data-term="20232">
 <p class="meta"><em>Source:</em> <a href="../../sp23-midterm/index.html#problem-6">Question 6 from Spring 2023 Midterm Exam</a></p>
-<h2 id="problem-33">Problem 33</h2>
+<h2 id="problem-36">Problem 36</h2>
 <p>The histogram below displays the distribution of the number of Instagram followers each student has, measured in 100s. That is, if a student is represented in the first bin, they have between 0 and 200 Instagram followers.</p>
 <center><img src='../../assets/images/sp23-midterm/histogram.png' width=60%></center>
 <p><br></p>
 <p>For this question only, assume that there are exactly 200 students in DSC 10.</p>
 <p><br></p>
-<h3 id="problem-33.1">Problem 33.1</h3>
+<h3 id="problem-36.1">Problem 36.1</h3>
 <p>How many students in DSC 10 have between 200 and 800 Instagram followers? Give your answer as an integer.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading33_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse33_1" aria-expanded="true" aria-controls="collapse33_1">
+<h2 class="accordion-header" id="heading36_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse36_1" aria-expanded="true" aria-controls="collapse36_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse33_1" class="accordion-collapse collapse collapse" aria-labelledby="heading33_1" data-bs-parent="#accordionExample">
+<div id="collapse36_1" class="accordion-collapse collapse collapse" aria-labelledby="heading36_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3194,7 +3457,7 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-33.2">Problem 33.2</h3>
+<h3 id="problem-36.2">Problem 36.2</h3>
 <p>Suppose the height of a bar in the above histogram is <span class="math inline">h</span>. How many students are represented in the corresponding bin, in terms of <span class="math inline">h</span>?</p>
 <p><em>Hint: Just as in the first subpart, you’ll need to use the assumption from the start of the problem.</em></p>
 <ul class="task-list">
@@ -3206,12 +3469,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading33_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse33_2" aria-expanded="true" aria-controls="collapse33_2">
+<h2 class="accordion-header" id="heading36_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse36_2" aria-expanded="true" aria-controls="collapse36_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse33_2" class="accordion-collapse collapse collapse" aria-labelledby="heading33_2" data-bs-parent="#accordionExample">
+<div id="collapse36_2" class="accordion-collapse collapse collapse" aria-labelledby="heading36_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3234,14 +3497,14 @@ Click to view the solution.
 </div>
 <div class="lec-problem" data-avg="40.50" data-term="20242">
 <p class="meta"><em>Source:</em> <a href="../../sp24-midterm/index.html#problem-10">Question 10 from Spring 2024 Midterm Exam</a></p>
-<h2 id="problem-34">Problem 34</h2>
+<h2 id="problem-37">Problem 37</h2>
 <p>After looking at the distribution of <code>"Day"</code> for your contacts, you wonder how that distribution might look for other groups of people.</p>
 <p>In this problem, we will consider the distribution of day of birth (just the day of the month, not the month or year) for all babies born in the year 2023, under the assumption that all babies born in 2023 were equally likely to be born on each of the 365 days of the year.</p>
 <p>The density histogram below shows this distribution.</p>
 <p><strong>Note:</strong> 2023 was not a leap year, so February had 28 days.</p>
 <center><img src="../../assets/images/sp24-midterm/baby_hist.png" width=600></center>
 <p><br></p>
-<h3 id="problem-34.1">Problem 34.1</h3>
+<h3 id="problem-37.1">Problem 37.1</h3>
 <p>What is height <code>(a)</code>?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> <span class="math inline">\dfrac{1}{28}</span></p></li>
@@ -3253,12 +3516,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading34_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse34_1" aria-expanded="true" aria-controls="collapse34_1">
+<h2 class="accordion-header" id="heading37_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse37_1" aria-expanded="true" aria-controls="collapse37_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse34_1" class="accordion-collapse collapse collapse" aria-labelledby="heading34_1" data-bs-parent="#accordionExample">
+<div id="collapse37_1" class="accordion-collapse collapse collapse" aria-labelledby="heading37_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3276,7 +3539,7 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-34.2">Problem 34.2</h3>
+<h3 id="problem-37.2">Problem 37.2</h3>
 <p>Express height <code>(b)</code> in terms of height <code>(a)</code>.</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> <span class="math inline">\text{(b)} = \dfrac{7}{12} \cdot \text{(a)}</span></p></li>
@@ -3288,12 +3551,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading34_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse34_2" aria-expanded="true" aria-controls="collapse34_2">
+<h2 class="accordion-header" id="heading37_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse37_2" aria-expanded="true" aria-controls="collapse37_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse34_2" class="accordion-collapse collapse collapse" aria-labelledby="heading34_2" data-bs-parent="#accordionExample">
+<div id="collapse37_2" class="accordion-collapse collapse collapse" aria-labelledby="heading37_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3314,7 +3577,7 @@ Click to view the solution.
 </div>
 <div class="lec-problem" data-avg="33.00" data-term="20244">
 <p class="meta"><em>Source:</em> <a href="../../fa24-quiz2/index.html#problem-3">Question 3 from Fall 2024 Quiz 2</a></p>
-<h2 id="problem-35">Problem 35</h2>
+<h2 id="problem-38">Problem 38</h2>
 <p>Suppose we plot a density histogram showing the distribution of the <code>"Degrees"</code> column in <code>uc</code>, using the argument <code>bins=np.arange(0, uc.get("Degrees").max() + 3000, 2000)</code> .</p>
 <p>Suppose there are 12 rows of <code>uc</code> corresponding to campuses and years in which fewer than 2000 degrees were awarded. How tall will the first bar in the histogram be? Give your answer as an <strong>exact decimal or simplified fraction</strong>.</p>
 <div class="center">
@@ -3322,12 +3585,12 @@ Click to view the solution.
 </div>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading35">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse35" aria-expanded="true" aria-controls="collapse35">
+<h2 class="accordion-header" id="heading38">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse38" aria-expanded="true" aria-controls="collapse38">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse35" class="accordion-collapse collapse collapse" aria-labelledby="heading35" data-bs-parent="#accordionExample">
+<div id="collapse38" class="accordion-collapse collapse collapse" aria-labelledby="heading38" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 

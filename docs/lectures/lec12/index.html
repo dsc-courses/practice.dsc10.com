@@ -114,6 +114,7 @@
 <p><a href="../../index.html">← return to practice.dsc10.com</a></p>
 <hr />
 <h1 id="lecture-12-collected-practice-questions">Lecture 12 — Collected Practice Questions</h1>
+<p><strong>Topics:</strong> Simulation.</p>
 <p>Below are practice problems tagged for Lecture <strong>12</strong> (rendered directly from the original exam/quiz sources). By default, problems are sorted from easiest to hardest by average score; problems without a score are listed last.</p>
 <style>
 .lec-sort { display: flex; justify-content: flex-start; margin: 4px 0 12px; }
@@ -600,20 +601,198 @@ Click to view the solution.
 <p><br></p>
 <hr />
 </div>
-<div class="lec-problem" data-avg="73.00" data-term="20264">
-<p class="meta"><em>Source:</em> <a href="../../fa26-midterm/index.html#problem-9">Question 9 from Fall 2026 Midterm Exam</a></p>
+<div class="lec-problem" data-avg="76.50" data-term="20251">
+<p class="meta"><em>Source:</em> <a href="../../wi25-midterm/index.html#problem-5">Question 5 from Winter 2025 Midterm Exam</a></p>
 <h2 id="problem-6">Problem 6</h2>
-<p>The course tutors are constantly competing to give the best, most thoughtful answers on Campuswire. To determine who is the nicest tutor, the course staff run a weekly <strong>Kindness Check</strong>: they select <strong>4 posts at random, without replacement</strong>, from <code>posts</code> and read every tutor reply on them. Since only questions receive replies, Jeffrey is hoping that the Kindness Check lands on more questions than notes. That way, he has more chances to show everyone just how nice he can be.</p>
-<p>Fill in the blanks below so that <code>prob_more_questions</code> is an estimate of the probability that a Kindness Check contains <strong>more questions than notes</strong>.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>repetitions <span class="op">=</span> <span class="dv">10000</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>count <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(repetitions):</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    check <span class="op">=</span> np.random.choice(__(a)__)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> __(b)__:</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        count <span class="op">=</span> count <span class="op">+</span> <span class="dv">1</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>prob_more_questions <span class="op">=</span> count <span class="op">/</span> repetitions</span></code></pre></div>
+<p>It’s the grand opening of UCSD’s newest dining attraction: The Bread Basket! As a hardcore bread enthusiast, you celebrate by eating as much bread as possible. There are only a few menu items at The Bread Basket, shown with their costs in the table below:</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;"><strong>Bread</strong></th>
+<th style="text-align: center;"><strong>Cost</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">Sourdough</td>
+<td style="text-align: center;">2</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Whole Wheat</td>
+<td style="text-align: center;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Multigrain</td>
+<td style="text-align: center;">4</td>
+</tr>
+</tbody>
+</table>
+<p>Suppose you are given an array <code>eaten</code> containing the names of each type of bread you ate.</p>
+<p>For example, <code>eaten</code> could be defined as follows:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>    eaten <span class="op">=</span> np.array([<span class="st">&quot;Whole Wheat&quot;</span>, <span class="st">&quot;Sourdough&quot;</span>, <span class="st">&quot;Whole Wheat&quot;</span>, </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                      <span class="st">&quot;Sourdough&quot;</span>, <span class="st">&quot;Sourdough&quot;</span>])</span></code></pre></div>
+<p>In this example, <code>eaten</code> represents five slices of bread that you ate, for a total cost of <span class="math inline">\$12</span>. Pricey!</p>
+<p>In this problem, you’ll calculate the total cost of your bread-eating extravaganza in various ways. Unless otherwise instructed, your code must calculate the total cost for an arbitrary <code>eaten</code> array, which might not be exactly the same as the example shown above.</p>
 <p><br></p>
 <h3 id="problem-6.1">Problem 6.1</h3>
+<p>Fill in the blanks below to calculate the total cost of the bread in the <code>eaten</code> array. For this part only, you should assume that <code>eaten</code> contains at least one of each of the the three types of bread.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>grouped <span class="op">=</span> (bpd.DataFrame().assign(Eaten <span class="op">=</span> eaten)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    .assign(Count <span class="op">=</span> eaten).groupby(<span class="st">&quot;Eaten&quot;</span>).count())</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>total_cost <span class="op">=</span> (grouped.get(<span class="st">&quot;Count&quot;</span>) <span class="op">*</span> __(a)__).__(b)__</span></code></pre></div>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_1" aria-expanded="true" aria-controls="collapse6_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_1" class="accordion-collapse collapse collapse" aria-labelledby="heading6_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer (a):</strong> <code>np.array([4, 2, 3])</code> or <code>[4, 2, 3]</code> or equivalent</p>
+<p>For our solution, we need to consider a few things. First, since we’re grouping by <code>"Eaten"</code>, we need to consider that groupby, when grouping by strings (like “Whole Wheat” and “Sourdough”), sorts them alphabetically by default. That means that if we have a DataFrame containing “Sourdough”, “Whole Wheat”, and “Multigrain”, the grouped DataFrame will be indexed by <code>"Eaten"</code> in the order of “Multigrain”, then “Sourdough”, then “Whole Wheat”.</p>
+<p>Then, when we are getting the counts of each of those types, we want to multiply how many of each type there are by their respective price. If we know they’ll be sorted in alphabetical order, we want our price array or list to match that; in other words, it should have “Multigrain”’s price first, then “Sourdough”, then “Whole Wheat”. So that is why we need the array to be 4, 3, then 2.</p>
+<hr/>
+<h5>Difficulty: ⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 100%.</p>
+<p><strong>Answer (b):</strong> <code>.sum()</code></p>
+<p>We want to get the respective cost for each loaf; how much we spent on Multigrain, Sourdough, and Whole Wheat, but we then need to add those individual totals together to get our total cost. <code>.sum()</code> allows us to do this.</p>
+<hr/>
+<h5>Difficulty: ⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 100%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-6.2">Problem 6.2</h3>
+<p>One way to calculate the total cost of the bread in the <code>eaten</code> array is outlined below. Fill in the missing code.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>    breads <span class="op">=</span> [<span class="st">&quot;Sourdough&quot;</span>, <span class="st">&quot;Whole Wheat&quot;</span>, <span class="st">&quot;Multigrain&quot;</span>]</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    prices <span class="op">=</span> [<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    total_cost <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> __(a)__:</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>        total_cost <span class="op">=</span> (total_cost <span class="op">+</span> </span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>                     np.count_nonzero(eaten <span class="op">==</span> __(b)__) <span class="op">*</span> __(c)__)</span></code></pre></div>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_2" aria-expanded="true" aria-controls="collapse6_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_2" class="accordion-collapse collapse collapse" aria-labelledby="heading6_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer (a):</strong> <code>[0, 1, 2]</code> or <code>np.arange(len(bread))</code> or <code>range(3)</code> or equivalent</p>
+<p>Let’s read through the code skeleton and develop the answers from intuition. First, we notice a <code>for</code> loop, but we don’t yet know what sequence we’ll be looping through.</p>
+<p>Then we notice a variable <code>total_cost</code> that is initalized to <code>0</code>. This suggests we’ll use the accumulator pattern to keep a running total.</p>
+<p>Inside the loop, we see that we are indeed adding onto the running total. The amount by which we increase <code>total_cost</code> is <code>np.count_nonzero(eaten == __(b)__) * __(c)__</code>. Let’s remember what this does. It first compares the <code>eaten</code> array to some value and then counts how many <code>True</code> values are in resulting Boolean array. In other words, it counts how many times the entries in the <code>eaten</code> array equal some particular value. This is a big clue about how to fill in the code. There are only three possible values in the <code>eaten</code> array, and they are <code>"Sourdough"</code>, <code>"Whole Wheat"</code>, and <code>"Multigrain"</code>. For example, if blank (b) were filled with <code>"Sourdough"</code>, we would be counting how many of the slices in the <code>eaten</code> array were <code>"Sourdough"</code>. Since each such slice costs 2 dollars, we could find the total cost of all <code>"Sourdough"</code> slices by multiplying this count by 2.</p>
+<p>Understanding this helps us understand what the code is doing: it is separately computing the cost of each type of bread (<code>"Sourdough"</code>, <code>"Whole Wheat"</code>, <code>"Multigrain"</code>) and adding this onto the running total. Once we understand what the code is doing, we can figure out how to fill in the blanks.</p>
+<p>We just discussed filling in blank (b) with <code>"Sourdough"</code>, in which case we would have to fill in blank (c) with <code>2</code>. But that just gives the contribution of <code>"Sourdough"</code> to the overall cost. We also need the contributions from <code>"Whole Wheat"</code> and <code>"Multigrain"</code>. Somehow, blank (b) needs to take on the values in the provided <code>breads</code> array. Similarly, blank (c) needs to take on the values in the <code>prices</code> array, and we need to make sure that we iterate through both of these arrays simultaneously. This means we should access <code>breads[0]</code> when we access <code>prices[0]</code>, for example. We can use the loop variable <code>i</code> to help us, and fill in blank (b) with <code>breads[i]</code> and blank (c) with <code>prices[i]</code>. This means <code>i</code> needs to take on the values <code>0</code>, <code>1</code>, <code>2</code>, so we can loop through the sequence <code>[0, 1, 2]</code> in blank (a). This is also the same as <code>range(len(bread))</code> and <code>range(len(price))</code>.</p>
+<p>Bravo! We have everything we want, and the code block is now complete.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 58%.</p>
+<p><strong>Answer (b):</strong> <code>breads[i]</code></p>
+<p>See explanation above.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 61%.</p>
+<p><strong>Answer (c):</strong> <code>prices[i]</code></p>
+<p>See explanation above.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 61%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-6.3">Problem 6.3</h3>
+<p>Another way to calculate the total cost of the bread in the <code>eaten</code> array uses the <code>merge</code> method. Fill in the missing code below.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>    available <span class="op">=</span> bpd.DataFrame().assign(Type <span class="op">=</span> [<span class="st">&quot;Sourdough&quot;</span>, </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>                <span class="st">&quot;Whole Wheat&quot;</span>, <span class="st">&quot;Multigrain&quot;</span>]).assign(Cost <span class="op">=</span> [<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>])</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    consumed <span class="op">=</span> bpd.DataFrame().assign(Eaten <span class="op">=</span> eaten)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    combined <span class="op">=</span> available.merge(consumed, left_on <span class="op">=</span> __(d)__, </span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>                               right_on <span class="op">=</span> __(e)__)   </span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    total_cost <span class="op">=</span> combined.__(f)__</span></code></pre></div>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading6_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_3" aria-expanded="true" aria-controls="collapse6_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse6_3" class="accordion-collapse collapse collapse" aria-labelledby="heading6_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer (d):</strong> <code>"Type"</code></p>
+<p>It always helps to sketch out the DataFrames. </p>
+<center><img src="../../assets/images/wi25-midterm/q5-2.png" width="300"/></center>
+<p>Let’s first develop some intuition based on the keywords.</p>
+<ol type="1">
+<li><p>We create two DataFrames as seen above, and we perform a <a href="https://dsc-courses.github.io/bpd-reference/docs/documentation/building-organizing/df.merge()">merge</a>) operation. We want to fill in what columns to merge on. It should be easy to see that blank (e) would be the <code>"Eaten"</code> column in <code>consumed</code>, so let’s fill that in.</p></li>
+<li><p>We are getting <code>total_cost</code> from the <code>combined</code> DataFrame in some way. If we want the total amount of something, which aggregation function might we use?</p></li>
+</ol>
+<p>In general, if we have <code>df_left.merge(df_right, left_on=col_left, right_on=col_right)</code>, assuming all entries are non-empty, the merge process looks at individual entries from the specified column in <code>df_left</code> and grabs all entries from the specified column in <code>df_right</code> that matches the entry content. Based on this, we know that the <code>combined</code> DataFrame will contain a column of all the breads we have eaten and their corresponding prices. Blank (d) is also settled: we can get the list of all breads by merging on the <code>"Type"</code> column in <code>available</code> to match with <code>"Eaten"</code>.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 81%.</p>
+<p><strong>Answer (e):</strong> <code>"Eaten"</code></p>
+<p>See explanation above.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 80%.</p>
+<p><strong>Answer (f):</strong> <code>get("Cost").sum()</code></p>
+<p>The <code>combined</code> DataFrame would look something like this: </p>
+<center><img src="../../assets/images/wi25-midterm/q5-2-f.png" width="200"/></center>
+<p>To get the total cost of the bread in <code>"Eaten"</code>, we can take the sum of the <code>"Cost"</code> column.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 71%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+</div>
+<div class="lec-problem" data-avg="73.00" data-term="20264">
+<p class="meta"><em>Source:</em> <a href="../../fa26-midterm/index.html#problem-9">Question 9 from Fall 2026 Midterm Exam</a></p>
+<h2 id="problem-7">Problem 7</h2>
+<p>The course tutors are constantly competing to give the best, most thoughtful answers on Campuswire. To determine who is the nicest tutor, the course staff run a weekly <strong>Kindness Check</strong>: they select <strong>4 posts at random, without replacement</strong>, from <code>posts</code> and read every tutor reply on them. Since only questions receive replies, Jeffrey is hoping that the Kindness Check lands on more questions than notes. That way, he has more chances to show everyone just how nice he can be.</p>
+<p>Fill in the blanks below so that <code>prob_more_questions</code> is an estimate of the probability that a Kindness Check contains <strong>more questions than notes</strong>.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>repetitions <span class="op">=</span> <span class="dv">10000</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>count <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(repetitions):</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    check <span class="op">=</span> np.random.choice(__(a)__)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> __(b)__:</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        count <span class="op">=</span> count <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>prob_more_questions <span class="op">=</span> count <span class="op">/</span> repetitions</span></code></pre></div>
+<p><br></p>
+<h3 id="problem-7.1">Problem 7.1</h3>
 <p>Which of the following correctly fills in blank (a)? <strong>Select one.</strong></p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> <code>posts, 4, replace=True</code></p></li>
@@ -625,12 +804,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading6_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_1" aria-expanded="true" aria-controls="collapse6_1">
+<h2 class="accordion-header" id="heading7_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_1" aria-expanded="true" aria-controls="collapse7_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse6_1" class="accordion-collapse collapse collapse" aria-labelledby="heading6_1" data-bs-parent="#accordionExample">
+<div id="collapse7_1" class="accordion-collapse collapse collapse" aria-labelledby="heading7_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -646,7 +825,7 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-6.2">Problem 6.2</h3>
+<h3 id="problem-7.2">Problem 7.2</h3>
 <p>Which of the following <strong>could</strong> go in blank (b)? <strong>Select all that apply.</strong></p>
 <ul class="task-list">
 <li><p><input type="checkbox" disabled="" /> <code>np.count_nonzero(check) &gt;= 3</code></p></li>
@@ -658,12 +837,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading6_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_2" aria-expanded="true" aria-controls="collapse6_2">
+<h2 class="accordion-header" id="heading7_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_2" aria-expanded="true" aria-controls="collapse7_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse6_2" class="accordion-collapse collapse collapse" aria-labelledby="heading6_2" data-bs-parent="#accordionExample">
+<div id="collapse7_2" class="accordion-collapse collapse collapse" aria-labelledby="heading7_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -684,15 +863,15 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-6.3">Problem 6.3</h3>
+<h3 id="problem-7.3">Problem 7.3</h3>
 <p>Jeffrey copies the correct simulation into his own notebook, but in his excitement, he accidentally moves the line <code>count = 0</code> to the inside of the <code>for</code>-loop:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>repetitions <span class="op">=</span> <span class="dv">10000</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(repetitions):</span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    count <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    check <span class="op">=</span> np.random.choice(__(a)__)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> __(b)__:</span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>        count <span class="op">=</span> count <span class="op">+</span> <span class="dv">1</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>prob_more_questions <span class="op">=</span> count <span class="op">/</span> repetitions</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>repetitions <span class="op">=</span> <span class="dv">10000</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(repetitions):</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    count <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    check <span class="op">=</span> np.random.choice(__(a)__)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> __(b)__:</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>        count <span class="op">=</span> count <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>prob_more_questions <span class="op">=</span> count <span class="op">/</span> repetitions</span></code></pre></div>
 <p>Assuming that blanks (a) and (b) are filled in correctly, which of the following <strong>could</strong> <code>prob_more_questions</code> evaluate to after Jeffrey’s code finishes running? <strong>Select all that apply.</strong></p>
 <ul class="task-list">
 <li><p><input type="checkbox" disabled="" /> <code>0.0</code></p></li>
@@ -703,12 +882,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading6_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6_3" aria-expanded="true" aria-controls="collapse6_3">
+<h2 class="accordion-header" id="heading7_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_3" aria-expanded="true" aria-controls="collapse7_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse6_3" class="accordion-collapse collapse collapse" aria-labelledby="heading6_3" data-bs-parent="#accordionExample">
+<div id="collapse7_3" class="accordion-collapse collapse collapse" aria-labelledby="heading7_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -732,19 +911,19 @@ Click to view the solution.
 </div>
 <div class="lec-problem" data-avg="72.17" data-term="20251">
 <p class="meta"><em>Source:</em> <a href="../../wi25-midterm/index.html#problem-6">Question 6 from Winter 2025 Midterm Exam</a></p>
-<h2 id="problem-7">Problem 7</h2>
+<h2 id="problem-8">Problem 8</h2>
 <p>At OceanView Terrace, you can make a custom pizza. There are <span class="math inline">6</span> toppings available. Suppose you include each topping with a probability of <span class="math inline">0.5</span>, independently of all other toppings.</p>
 <p><br></p>
-<h3 id="problem-7.1">Problem 7.1</h3>
+<h3 id="problem-8.1">Problem 8.1</h3>
 <p>What is the probability you create a pizza with no toppings at all? Give your answer as a <strong>fully simplified fraction</strong>.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading7_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_1" aria-expanded="true" aria-controls="collapse7_1">
+<h2 class="accordion-header" id="heading8_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_1" aria-expanded="true" aria-controls="collapse8_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse7_1" class="accordion-collapse collapse collapse" aria-labelledby="heading7_1" data-bs-parent="#accordionExample">
+<div id="collapse8_1" class="accordion-collapse collapse collapse" aria-labelledby="heading8_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -770,25 +949,25 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-7.2">Problem 7.2</h3>
+<h3 id="problem-8.2">Problem 8.2</h3>
 <p>What is the probability that you create a pizza with exactly three toppings? Fill in the blanks in the code below so that <code>toppa</code> evaluates to an estimate of this probability.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>        tiptop <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>        num_trials <span class="op">=</span> <span class="dv">10000</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> np.arange(num_trials):</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>            pizza <span class="op">=</span> np.random.choice([<span class="dv">0</span>,<span class="dv">1</span>], __(a)__)</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> np.__(b)__ <span class="op">==</span> <span class="dv">3</span>:</span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>                tiptop <span class="op">=</span> __(c)__</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>        toppa <span class="op">=</span> __(d)__</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>        tiptop <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>        num_trials <span class="op">=</span> <span class="dv">10000</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> np.arange(num_trials):</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>            pizza <span class="op">=</span> np.random.choice([<span class="dv">0</span>,<span class="dv">1</span>], __(a)__)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> np.__(b)__ <span class="op">==</span> <span class="dv">3</span>:</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>                tiptop <span class="op">=</span> __(c)__</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>        toppa <span class="op">=</span> __(d)__</span></code></pre></div>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading7_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_2" aria-expanded="true" aria-controls="collapse7_2">
+<h2 class="accordion-header" id="heading8_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_2" aria-expanded="true" aria-controls="collapse8_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse7_2" class="accordion-collapse collapse collapse" aria-labelledby="heading7_2" data-bs-parent="#accordionExample">
+<div id="collapse8_2" class="accordion-collapse collapse collapse" aria-labelledby="heading8_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -829,7 +1008,7 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-7.3">Problem 7.3</h3>
+<h3 id="problem-8.3">Problem 8.3</h3>
 <p>What is the meaning of <code>tiptop</code> after the code has finished running?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> The number of repetitions in our simulation.</p></li>
@@ -841,12 +1020,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading7_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7_3" aria-expanded="true" aria-controls="collapse7_3">
+<h2 class="accordion-header" id="heading8_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_3" aria-expanded="true" aria-controls="collapse8_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse7_3" class="accordion-collapse collapse collapse" aria-labelledby="heading7_3" data-bs-parent="#accordionExample">
+<div id="collapse8_3" class="accordion-collapse collapse collapse" aria-labelledby="heading8_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -867,7 +1046,7 @@ Click to view the solution.
 </div>
 <div class="lec-problem" data-avg="70.33" data-term="20234">
 <p class="meta"><em>Source:</em> <a href="../../fa23-midterm/index.html#problem-8">Question 8 from Fall 2023 Midterm Exam</a></p>
-<h2 id="problem-8">Problem 8</h2>
+<h2 id="problem-9">Problem 9</h2>
 <p>After the family reunion, Family Y gets together with nine other families to play a game. All ten families (which we’ll number 1 through 10) have a composition of <code>"2a3c"</code>. Within each family, the three children are labeled <code>"oldest"</code>, <code>"middle"</code>, or <code>"youngest"</code>.</p>
 <p>In this game, the numbers 1 through 10, representing the ten families, are placed into a hat. Then, <strong>five times</strong>, they draw a number from the hat, write it down on a piece of paper, and place it back into the hat. If a family’s number is written down on the paper at least twice, then two of the three children in that family are randomly selected to win a prize. The same child cannot be selected to win a prize twice.</p>
 <p>Chiachan is the middle child in Family 4. He writes a simulation, which is partially provided on the next page. Fill in the blanks so that after running the simulation,</p>
@@ -891,7 +1070,7 @@ for i in np.arange(repetitions):
     else:
         outcomes = np.append(outcomes, ____(f)____)</code></pre>
 <p><br></p>
-<h3 id="problem-8.1">Problem 8.1</h3>
+<h3 id="problem-9.1">Problem 9.1</h3>
 <p>What goes in blank (a)?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> <code>replace=True</code></p></li>
@@ -899,12 +1078,12 @@ for i in np.arange(repetitions):
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading8_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_1" aria-expanded="true" aria-controls="collapse8_1">
+<h2 class="accordion-header" id="heading9_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_1" aria-expanded="true" aria-controls="collapse9_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse8_1" class="accordion-collapse collapse collapse" aria-labelledby="heading8_1" data-bs-parent="#accordionExample">
+<div id="collapse9_1" class="accordion-collapse collapse collapse" aria-labelledby="heading9_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -921,16 +1100,16 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-8.2">Problem 8.2</h3>
+<h3 id="problem-9.2">Problem 9.2</h3>
 <p>What goes in blank (b)?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading8_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_2" aria-expanded="true" aria-controls="collapse8_2">
+<h2 class="accordion-header" id="heading9_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_2" aria-expanded="true" aria-controls="collapse9_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse8_2" class="accordion-collapse collapse collapse" aria-labelledby="heading8_2" data-bs-parent="#accordionExample">
+<div id="collapse9_2" class="accordion-collapse collapse collapse" aria-labelledby="heading9_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -949,7 +1128,7 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-8.3">Problem 8.3</h3>
+<h3 id="problem-9.3">Problem 9.3</h3>
 <p>What goes in blank (c)?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> <code>replace=True</code></p></li>
@@ -957,12 +1136,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading8_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_3" aria-expanded="true" aria-controls="collapse8_3">
+<h2 class="accordion-header" id="heading9_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_3" aria-expanded="true" aria-controls="collapse9_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse8_3" class="accordion-collapse collapse collapse" aria-labelledby="heading8_3" data-bs-parent="#accordionExample">
+<div id="collapse9_3" class="accordion-collapse collapse collapse" aria-labelledby="heading9_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -979,7 +1158,7 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-8.4">Problem 8.4</h3>
+<h3 id="problem-9.4">Problem 9.4</h3>
 <p>What goes in blank (d)?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> <code>"Outcome Q"</code></p></li>
@@ -988,12 +1167,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading8_4">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_4" aria-expanded="true" aria-controls="collapse8_4">
+<h2 class="accordion-header" id="heading9_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_4" aria-expanded="true" aria-controls="collapse9_4">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse8_4" class="accordion-collapse collapse collapse" aria-labelledby="heading8_4" data-bs-parent="#accordionExample">
+<div id="collapse9_4" class="accordion-collapse collapse collapse" aria-labelledby="heading9_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1011,7 +1190,7 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-8.5">Problem 8.5</h3>
+<h3 id="problem-9.5">Problem 9.5</h3>
 <p>What goes in blank (e)?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> <code>"Outcome Q"</code></p></li>
@@ -1020,12 +1199,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading8_5">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_5" aria-expanded="true" aria-controls="collapse8_5">
+<h2 class="accordion-header" id="heading9_5">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_5" aria-expanded="true" aria-controls="collapse9_5">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse8_5" class="accordion-collapse collapse collapse" aria-labelledby="heading8_5" data-bs-parent="#accordionExample">
+<div id="collapse9_5" class="accordion-collapse collapse collapse" aria-labelledby="heading9_5" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1041,7 +1220,7 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-8.6">Problem 8.6</h3>
+<h3 id="problem-9.6">Problem 9.6</h3>
 <p>What goes in blank (f)?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> <code>"Outcome Q"</code></p></li>
@@ -1050,12 +1229,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading8_6">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8_6" aria-expanded="true" aria-controls="collapse8_6">
+<h2 class="accordion-header" id="heading9_6">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_6" aria-expanded="true" aria-controls="collapse9_6">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse8_6" class="accordion-collapse collapse collapse" aria-labelledby="heading8_6" data-bs-parent="#accordionExample">
+<div id="collapse9_6" class="accordion-collapse collapse collapse" aria-labelledby="heading9_6" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1075,167 +1254,147 @@ Click to view the solution.
 <p><br></p>
 <hr />
 </div>
-<div class="lec-problem" data-avg="68.50" data-term="20251">
-<p class="meta"><em>Source:</em> <a href="../../wi25-midterm/index.html#problem-5">Question 5 from Winter 2025 Midterm Exam</a></p>
-<h2 id="problem-9">Problem 9</h2>
-<p>It’s the grand opening of UCSD’s newest dining attraction: The Bread Basket! As a hardcore bread enthusiast, you celebrate by eating as much bread as possible. There are only a few menu items at The Bread Basket, shown with their costs in the table below:</p>
-<table>
-<thead>
-<tr class="header">
-<th style="text-align: center;"><strong>Bread</strong></th>
-<th style="text-align: center;"><strong>Cost</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">Sourdough</td>
-<td style="text-align: center;">2</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">Whole Wheat</td>
-<td style="text-align: center;">3</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Multigrain</td>
-<td style="text-align: center;">4</td>
-</tr>
-</tbody>
-</table>
-<p>Suppose you are given an array <code>eaten</code> containing the names of each type of bread you ate.</p>
-<p>For example, <code>eaten</code> could be defined as follows:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>    eaten <span class="op">=</span> np.array([<span class="st">&quot;Whole Wheat&quot;</span>, <span class="st">&quot;Sourdough&quot;</span>, <span class="st">&quot;Whole Wheat&quot;</span>, </span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>                      <span class="st">&quot;Sourdough&quot;</span>, <span class="st">&quot;Sourdough&quot;</span>])</span></code></pre></div>
-<p>In this example, <code>eaten</code> represents five slices of bread that you ate, for a total cost of <span class="math inline">\$12</span>. Pricey!</p>
-<p>In this problem, you’ll calculate the total cost of your bread-eating extravaganza in various ways. Unless otherwise instructed, your code must calculate the total cost for an arbitrary <code>eaten</code> array, which might not be exactly the same as the example shown above.</p>
+<div class="lec-problem" data-avg="67.75" data-term="20262">
+<p class="meta"><em>Source:</em> <a href="../../sp26-midterm/index.html#problem-6">Question 6 from Spring 2026 Midterm Exam</a></p>
+<h2 id="problem-10">Problem 10</h2>
+<p>Suppose Pranav randomly selects 4 different schools from among those included in <code>mascots</code>. Fill in the blanks below to implement a simulation that estimates the probability that <strong>at least two</strong> of the schools Pranav selected have a mascot of type <code>"animal"</code>.</p>
+<pre><code>mascot_types = np.array(mascots.get(&quot;type&quot;))
+
+repetitions = 10000
+count_event = 0
+
+for i in np.arange(repetitions):
+    sample = np.random.choice(__(a)__)
+
+    num_animals = np.count_nonzero(__(b)__)
+
+    if __(c)__:
+        count_event += 1
+
+prob = __(d)__</code></pre>
 <p><br></p>
-<h3 id="problem-9.1">Problem 9.1</h3>
-<p>Fill in the blanks below to calculate the total cost of the bread in the <code>eaten</code> array. For this part only, you should assume that <code>eaten</code> contains at least one of each of the the three types of bread.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>grouped <span class="op">=</span> (bpd.DataFrame().assign(Eaten <span class="op">=</span> eaten)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    .assign(Count <span class="op">=</span> eaten).groupby(<span class="st">&quot;Eaten&quot;</span>).count())</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>total_cost <span class="op">=</span> (grouped.get(<span class="st">&quot;Count&quot;</span>) <span class="op">*</span> __(a)__).__(b)__</span></code></pre></div>
+<h3 id="problem-10.1">Problem 10.1</h3>
+<p>What goes in blank <code>(a)</code>?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>mascot_types, repetitions, replace=True</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>mascot_types, repetitions, replace=False</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>mascot_types, 4, replace=True</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>mascot_types, 4, replace=False</code></p></li>
+</ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading9_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_1" aria-expanded="true" aria-controls="collapse9_1">
+<h2 class="accordion-header" id="heading10_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10_1" aria-expanded="true" aria-controls="collapse10_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse9_1" class="accordion-collapse collapse collapse" aria-labelledby="heading9_1" data-bs-parent="#accordionExample">
+<div id="collapse10_1" class="accordion-collapse collapse collapse" aria-labelledby="heading10_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
 </header>
-<p><strong>Answer (a):</strong> <code>np.array([4, 2, 3])</code> or <code>[4, 2, 3]</code> or equivalent</p>
-<p>For our solution, we need to consider a few things. First, since we’re grouping by <code>"Eaten"</code>, we need to consider that groupby, when grouping by strings (like “Whole Wheat” and “Sourdough”), sorts them alphabetically by default. That means that if we have a DataFrame containing “Sourdough”, “Whole Wheat”, and “Multigrain”, the grouped DataFrame will be indexed by <code>"Eaten"</code> in the order of “Multigrain”, then “Sourdough”, then “Whole Wheat”.</p>
-<p>Then, when we are getting the counts of each of those types, we want to multiply how many of each type there are by their respective price. If we know they’ll be sorted in alphabetical order, we want our price array or list to match that; in other words, it should have “Multigrain”’s price first, then “Sourdough”, then “Whole Wheat”. So that is why we need the array to be 4, 3, then 2.</p>
-<p><strong>Answer (b):</strong> <code>.sum()</code></p>
-<p>We want to get the respective cost for each loaf; how much we spent on Multigrain, Sourdough, and Whole Wheat, but we then need to add those individual totals together to get our total cost. <code>.sum()</code> allows us to do this.</p>
+<p><strong>Answer:</strong> Option 4 (<code>mascot_types, 4, replace=False</code>)</p>
+<p>Pranav selects <strong>4 different schools</strong>, so each simulation draw should be a sample of size <span class="math inline">4</span> <strong>without replacement</strong> from the array of mascot types.</p>
+<ul>
+<li><code>np.random.choice(mascot_types, 4, replace=False)</code> draws <span class="math inline">4</span> types from <code>mascot_types</code> without putting them back.</li>
+<li><code>replace=True</code> would allow the same school/type to be chosen more than once, which does not match “4 different schools.”</li>
+<li>Using <code>repetitions</code> as the sample size would draw <span class="math inline">10{,}000</span> values per trial, not <span class="math inline">4</span>.</li>
+</ul>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 73%.</p>
 </div>
 </div>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-9.2">Problem 9.2</h3>
-<p>One way to calculate the total cost of the bread in the <code>eaten</code> array is outlined below. Fill in the missing code.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>    breads <span class="op">=</span> [<span class="st">&quot;Sourdough&quot;</span>, <span class="st">&quot;Whole Wheat&quot;</span>, <span class="st">&quot;Multigrain&quot;</span>]</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    prices <span class="op">=</span> [<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>]</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    total_cost <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> __(a)__:</span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>        total_cost <span class="op">=</span> (total_cost <span class="op">+</span> </span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>                     np.count_nonzero(eaten <span class="op">==</span> __(b)__) <span class="op">*</span> __(c)__)</span></code></pre></div>
+<h3 id="problem-10.2">Problem 10.2</h3>
+<p>What goes in blank <code>(b)</code>?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading9_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_2" aria-expanded="true" aria-controls="collapse9_2">
+<h2 class="accordion-header" id="heading10_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10_2" aria-expanded="true" aria-controls="collapse10_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse9_2" class="accordion-collapse collapse collapse" aria-labelledby="heading9_2" data-bs-parent="#accordionExample">
+<div id="collapse10_2" class="accordion-collapse collapse collapse" aria-labelledby="heading10_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
 </header>
-<p><strong>Answer (a):</strong> <code>[0, 1, 2]</code> or <code>np.arange(len(bread))</code> or <code>range(3)</code> or equivalent</p>
-<p>Let’s read through the code skeleton and develop the answers from intuition. First, we notice a <code>for</code> loop, but we don’t yet know what sequence we’ll be looping through.</p>
-<p>Then we notice a variable <code>total_cost</code> that is initalized to <code>0</code>. This suggests we’ll use the accumulator pattern to keep a running total.</p>
-<p>Inside the loop, we see that we are indeed adding onto the running total. The amount by which we increase <code>total_cost</code> is <code>np.count_nonzero(eaten == __(b)__) * __(c)__</code>. Let’s remember what this does. It first compares the <code>eaten</code> array to some value and then counts how many <code>True</code> values are in resulting Boolean array. In other words, it counts how many times the entries in the <code>eaten</code> array equal some particular value. This is a big clue about how to fill in the code. There are only three possible values in the <code>eaten</code> array, and they are <code>"Sourdough"</code>, <code>"Whole Wheat"</code>, and <code>"Multigrain"</code>. For example, if blank (b) were filled with <code>"Sourdough"</code>, we would be counting how many of the slices in the <code>eaten</code> array were <code>"Sourdough"</code>. Since each such slice costs 2 dollars, we could find the total cost of all <code>"Sourdough"</code> slices by multiplying this count by 2.</p>
-<p>Understanding this helps us understand what the code is doing: it is separately computing the cost of each type of bread (<code>"Sourdough"</code>, <code>"Whole Wheat"</code>, <code>"Multigrain"</code>) and adding this onto the running total. Once we understand what the code is doing, we can figure out how to fill in the blanks.</p>
-<p>We just discussed filling in blank (b) with <code>"Sourdough"</code>, in which case we would have to fill in blank (c) with <code>2</code>. But that just gives the contribution of <code>"Sourdough"</code> to the overall cost. We also need the contributions from <code>"Whole Wheat"</code> and <code>"Multigrain"</code>. Somehow, blank (b) needs to take on the values in the provided <code>breads</code> array. Similarly, blank (c) needs to take on the values in the <code>prices</code> array, and we need to make sure that we iterate through both of these arrays simultaneously. This means we should access <code>breads[0]</code> when we access <code>prices[0]</code>, for example. We can use the loop variable <code>i</code> to help us, and fill in blank (b) with <code>breads[i]</code> and blank (c) with <code>prices[i]</code>. This means <code>i</code> needs to take on the values <code>0</code>, <code>1</code>, <code>2</code>, so we can loop through the sequence <code>[0, 1, 2]</code> in blank (a). This is also the same as <code>range(len(bread))</code> and <code>range(len(price))</code>.</p>
-<p>Bravo! We have everything we want, and the code block is now complete.</p>
+<p><strong>Answer:</strong> <code>sample == "animal"</code></p>
+<p><code>sample</code> is an array of <span class="math inline">4</span> mascot types from one simulated selection. The expression <code>sample == "animal"</code> compares each entry to <code>"animal"</code> and returns a boolean array. <code>np.count_nonzero</code> then counts how many of the <span class="math inline">4</span> schools in this sample have an animal mascot. Keep in mind that adding up a sequence of booleans results in the total number of <code>True</code>’s.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
 </p>
-<p>The average score on this problem was 58%.</p>
-<p><strong>Answer (b):</strong> <code>breads[i]</code></p>
-<p>See explanation above.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 61%.</p>
-<p><strong>Answer (c):</strong> <code>prices[i]</code></p>
-<p>See explanation above.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 61%.</p>
+<p>The average score on this problem was 53%.</p>
 </div>
 </div>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-9.3">Problem 9.3</h3>
-<p>Another way to calculate the total cost of the bread in the <code>eaten</code> array uses the <code>merge</code> method. Fill in the missing code below.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>    available <span class="op">=</span> bpd.DataFrame().assign(Type <span class="op">=</span> [<span class="st">&quot;Sourdough&quot;</span>, </span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>                <span class="st">&quot;Whole Wheat&quot;</span>, <span class="st">&quot;Multigrain&quot;</span>]).assign(Cost <span class="op">=</span> [<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>])</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    consumed <span class="op">=</span> bpd.DataFrame().assign(Eaten <span class="op">=</span> eaten)</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    combined <span class="op">=</span> available.merge(consumed, left_on <span class="op">=</span> __(d)__, </span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>                               right_on <span class="op">=</span> __(e)__)   </span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    total_cost <span class="op">=</span> combined.__(f)__</span></code></pre></div>
+<h3 id="problem-10.3">Problem 10.3</h3>
+<p>What goes in blank <code>(c)</code>?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading9_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse9_3" aria-expanded="true" aria-controls="collapse9_3">
+<h2 class="accordion-header" id="heading10_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10_3" aria-expanded="true" aria-controls="collapse10_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse9_3" class="accordion-collapse collapse collapse" aria-labelledby="heading9_3" data-bs-parent="#accordionExample">
+<div id="collapse10_3" class="accordion-collapse collapse collapse" aria-labelledby="heading10_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
 </header>
-<p><strong>Answer (d):</strong> <code>"Type"</code></p>
-<p>It always helps to sketch out the DataFrames. </p>
-<center><img src="../../assets/images/wi25-midterm/q5-2.png" width="300"/></center>
-<p>Let’s first develop some intuition based on the keywords.</p>
-<ol type="1">
-<li><p>We create two DataFrames as seen above, and we perform a <a href="https://dsc-courses.github.io/bpd-reference/docs/documentation/building-organizing/df.merge()">merge</a>) operation. We want to fill in what columns to merge on. It should be easy to see that blank (e) would be the <code>"Eaten"</code> column in <code>consumed</code>, so let’s fill that in.</p></li>
-<li><p>We are getting <code>total_cost</code> from the <code>combined</code> DataFrame in some way. If we want the total amount of something, which aggregation function might we use?</p></li>
-</ol>
-<p>In general, if we have <code>df_left.merge(df_right, left_on=col_left, right_on=col_right)</code>, assuming all entries are non-empty, the merge process looks at individual entries from the specified column in <code>df_left</code> and grabs all entries from the specified column in <code>df_right</code> that matches the entry content. Based on this, we know that the <code>combined</code> DataFrame will contain a column of all the breads we have eaten and their corresponding prices. Blank (d) is also settled: we can get the list of all breads by merging on the <code>"Type"</code> column in <code>available</code> to match with <code>"Eaten"</code>.</p>
+<p><strong>Answer:</strong> <code>num_animals &gt;= 2</code></p>
+<p>The simulation counts how often the event “at least two of the four selected schools have an animal mascot” happens. After counting the number of animals in the sample stored in <code>num_animals</code>, we check whether that count is <span class="math inline">2</span> or more.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 66%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-10.4">Problem 10.4</h3>
+<p>What goes in blank <code>(d)</code>?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>count_event</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>count_event / repetitions</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>count_event / 4</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>np.mean(count_event)</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>count_event.sum() / repetitions</code></p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading10_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10_4" aria-expanded="true" aria-controls="collapse10_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse10_4" class="accordion-collapse collapse collapse" aria-labelledby="heading10_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer:</strong> Option 2 (<code>count_event / repetitions</code>)</p>
+<p>After <span class="math inline">10{,}000</span> repetitions, <code>count_event</code> is the number of simulations where at least two animal mascots were selected. Dividing by <code>repetitions</code> gives the simulated proportion: <span class="math display">\hat{p} = \frac{\text{number of successes}}{10{,}000},</span> which estimates the probability of interest.</p>
+<ul>
+<li><code>count_event</code> alone is a count, not a probability.</li>
+<li><code>count_event / 4</code> would divide by the sample size within one trial, not the number of simulations.</li>
+<li><code>np.mean(count_event)</code> does not apply here because <code>count_event</code> is a single integer, and taking of the mean would not result in a probability.</li>
+</ul>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
 </p>
-<p>The average score on this problem was 81%.</p>
-<p><strong>Answer (e):</strong> <code>"Eaten"</code></p>
-<p>See explanation above.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 80%.</p>
-<p><strong>Answer (f):</strong> <code>get("Cost").sum()</code></p>
-<p>The <code>combined</code> DataFrame would look something like this: </p>
-<center><img src="../../assets/images/wi25-midterm/q5-2-f.png" width="200"/></center>
-<p>To get the total cost of the bread in <code>"Eaten"</code>, we can take the sum of the <code>"Cost"</code> column.</p>
-<hr/>
-<h5>Difficulty: ⭐️⭐️⭐️</h5>
-<p>
-</p>
-<p>The average score on this problem was 70%.</p>
+<p>The average score on this problem was 79%.</p>
 </div>
 </div>
 </div>
@@ -1245,12 +1404,12 @@ Click to view the solution.
 </div>
 <div class="lec-problem" data-avg="67.00" data-term="20244">
 <p class="meta"><em>Source:</em> <a href="../../fa24-midterm/index.html#problem-3">Question 3 from Fall 2024 Midterm Exam</a></p>
-<h2 id="problem-10">Problem 10</h2>
+<h2 id="problem-11">Problem 11</h2>
 <p>Consider the code below.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>street <span class="op">=</span> treat.get(<span class="st">&quot;address&quot;</span>).<span class="bu">str</span>.contains(<span class="st">&quot;Street&quot;</span>)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>sour <span class="op">=</span> treat.get(<span class="st">&quot;candy&quot;</span>).<span class="bu">str</span>.contains(<span class="st">&quot;Sour&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>street <span class="op">=</span> treat.get(<span class="st">&quot;address&quot;</span>).<span class="bu">str</span>.contains(<span class="st">&quot;Street&quot;</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>sour <span class="op">=</span> treat.get(<span class="st">&quot;candy&quot;</span>).<span class="bu">str</span>.contains(<span class="st">&quot;Sour&quot;</span>)</span></code></pre></div>
 <p><br></p>
-<h3 id="problem-10.1">Problem 10.1</h3>
+<h3 id="problem-11.1">Problem 11.1</h3>
 <p>What is the data type of <code>street</code>?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> <code>int</code></p></li>
@@ -1261,12 +1420,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading10_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10_1" aria-expanded="true" aria-controls="collapse10_1">
+<h2 class="accordion-header" id="heading11_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11_1" aria-expanded="true" aria-controls="collapse11_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse10_1" class="accordion-collapse collapse collapse" aria-labelledby="heading10_1" data-bs-parent="#accordionExample">
+<div id="collapse11_1" class="accordion-collapse collapse collapse" aria-labelledby="heading11_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1281,17 +1440,17 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-10.2">Problem 10.2</h3>
+<h3 id="problem-11.2">Problem 11.2</h3>
 <p>What does the following expression evaluate to? Write your answer <strong>exactly</strong> how the output would appear in Python.</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>np.count_nonzero(street <span class="op">&amp;</span> sour) <span class="op">&gt;</span> sour.<span class="bu">sum</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>np.count_nonzero(street <span class="op">&amp;</span> sour) <span class="op">&gt;</span> sour.<span class="bu">sum</span>()</span></code></pre></div>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading10_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse10_2" aria-expanded="true" aria-controls="collapse10_2">
+<h2 class="accordion-header" id="heading11_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11_2" aria-expanded="true" aria-controls="collapse11_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse10_2" class="accordion-collapse collapse collapse" aria-labelledby="heading10_2" data-bs-parent="#accordionExample">
+<div id="collapse11_2" class="accordion-collapse collapse collapse" aria-labelledby="heading11_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1312,7 +1471,7 @@ Click to view the solution.
 </div>
 <div class="lec-problem" data-avg="65.00" data-term="20254">
 <p class="meta"><em>Source:</em> <a href="../../fa25-midterm/index.html#problem-7">Question 7 from Fall 2025 Midterm Exam</a></p>
-<h2 id="problem-11">Problem 11</h2>
+<h2 id="problem-12">Problem 12</h2>
 <p>Fill in the blanks below to estimate the probability that a randomly generated three-letter lowercase sequence forms a real English word represented in the <code>words</code> DataFrame.</p>
 <pre><code>letters = __(a)__
 for letter in &quot;abcdefghijklmnopqrstuvwxyz&quot;:
@@ -1330,12 +1489,12 @@ prob_real_word = __(d)__
 prob_real_word</code></pre>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading11">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse11" aria-expanded="true" aria-controls="collapse11">
+<h2 class="accordion-header" id="heading12">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12" aria-expanded="true" aria-controls="collapse12">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse11" class="accordion-collapse collapse collapse" aria-labelledby="heading11" data-bs-parent="#accordionExample">
+<div id="collapse12" class="accordion-collapse collapse collapse" aria-labelledby="heading12" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1361,18 +1520,18 @@ Click to view the solution.
 </div>
 <div class="lec-problem" data-avg="65.00" data-term="20243">
 <p class="meta"><em>Source:</em> <a href="../../su24-midterm/index.html#problem-9">Question 9 from Summer 2024 Midterm Exam</a></p>
-<h2 id="problem-12">Problem 12</h2>
+<h2 id="problem-13">Problem 13</h2>
 <p>We want to estimate the probability that the University of Michigan is among the four teams selected when schools are selected <strong>without replacement</strong>.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>schools <span class="op">=</span> np.array(kart.get(<span class="st">&quot;University&quot;</span>))</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>mystery_one <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>num_trials <span class="op">=</span> <span class="dv">10000</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(num_trials):</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    bracket <span class="op">=</span> __(i)__</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="st">&quot;Michigan&quot;</span> <span class="kw">in</span> bracket:</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>        mystery_one <span class="op">=</span> __(ii)__</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>mystery_two <span class="op">=</span> mystery_one <span class="op">/</span> num_trials</span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>schools <span class="op">=</span> np.array(kart.get(<span class="st">&quot;University&quot;</span>))</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>mystery_one <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>num_trials <span class="op">=</span> <span class="dv">10000</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(num_trials):</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    bracket <span class="op">=</span> __(i)__</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="st">&quot;Michigan&quot;</span> <span class="kw">in</span> bracket:</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>        mystery_one <span class="op">=</span> __(ii)__</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>mystery_two <span class="op">=</span> mystery_one <span class="op">/</span> num_trials</span></code></pre></div>
 <p><br></p>
-<h3 id="problem-12.1">Problem 12.1</h3>
+<h3 id="problem-13.1">Problem 13.1</h3>
 <p>Fill in the blanks to complete a simulation.</p>
 <ul>
 <li><p>(i): ________________________________________</p></li>
@@ -1380,12 +1539,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading12_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12_1" aria-expanded="true" aria-controls="collapse12_1">
+<h2 class="accordion-header" id="heading13_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13_1" aria-expanded="true" aria-controls="collapse13_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse12_1" class="accordion-collapse collapse collapse" aria-labelledby="heading12_1" data-bs-parent="#accordionExample">
+<div id="collapse13_1" class="accordion-collapse collapse collapse" aria-labelledby="heading13_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1423,16 +1582,16 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-12.2">Problem 12.2</h3>
+<h3 id="problem-13.2">Problem 13.2</h3>
 <p>What is the meaning of <code>mystery_two</code> after the code has finished running? ( ) The number of times Michigan was in the tournament ( ) The number of trials we ran ( ) The proportion of times Michigan was in the tournament ( ) None of these answers is what <code>mystery_two</code> represents</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading12_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12_2" aria-expanded="true" aria-controls="collapse12_2">
+<h2 class="accordion-header" id="heading13_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13_2" aria-expanded="true" aria-controls="collapse13_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse12_2" class="accordion-collapse collapse collapse" aria-labelledby="heading12_2" data-bs-parent="#accordionExample">
+<div id="collapse13_2" class="accordion-collapse collapse collapse" aria-labelledby="heading13_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1450,7 +1609,7 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-12.3">Problem 12.3</h3>
+<h3 id="problem-13.3">Problem 13.3</h3>
 <p>For the next two parts only, imagine we wanted to simulate a 16-team tournament, where teams are selected <strong>with replacement</strong>. Which blank should be filled in?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> blank (i)</p></li>
@@ -1458,12 +1617,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading12_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12_3" aria-expanded="true" aria-controls="collapse12_3">
+<h2 class="accordion-header" id="heading13_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13_3" aria-expanded="true" aria-controls="collapse13_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse12_3" class="accordion-collapse collapse collapse" aria-labelledby="heading12_3" data-bs-parent="#accordionExample">
+<div id="collapse13_3" class="accordion-collapse collapse collapse" aria-labelledby="heading13_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1480,16 +1639,16 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-12.4">Problem 12.4</h3>
+<h3 id="problem-13.4">Problem 13.4</h3>
 <p>What code should be used to fill in the blank you selected above?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading12_4">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12_4" aria-expanded="true" aria-controls="collapse12_4">
+<h2 class="accordion-header" id="heading13_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13_4" aria-expanded="true" aria-controls="collapse13_4">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse12_4" class="accordion-collapse collapse collapse" aria-labelledby="heading12_4" data-bs-parent="#accordionExample">
+<div id="collapse13_4" class="accordion-collapse collapse collapse" aria-labelledby="heading13_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1510,20 +1669,20 @@ Click to view the solution.
 </div>
 <div class="lec-problem" data-avg="64.67" data-term="20222">
 <p class="meta"><em>Source:</em> <a href="../../sp22-midterm/index.html#problem-11">Question 11 from Spring 2022 Midterm Exam</a></p>
-<h2 id="problem-13">Problem 13</h2>
+<h2 id="problem-14">Problem 14</h2>
 <p>The fine print of the Sun God festival website says “Ticket does not guarantee entry. Venue subject to capacity restrictions.” RIMAC field, where the 2022 festival will be held, has a capacity of 20,000 people. Let’s say that UCSD distributes 21,000 tickets to Sun God 2022 because prior data shows that 5% of tickets distributed are never actually redeemed. Let’s suppose that each person with a ticket this year has a 5% chance of not attending (independently of all others). What is the probability that at least one student who has a ticket cannot get in due to the capacity restriction? Fill in the blanks in the code below so that <code>prob_angry_student</code> evaluates to an approximation of this probability.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>num_angry <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> rep <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># randomly choose 21000 elements from [True, False] such that </span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># True has probability 0.95, False has probability 0.05</span></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    attending <span class="op">=</span> np.random.choice([<span class="va">True</span>, <span class="va">False</span>], <span class="dv">21000</span>, p<span class="op">=</span>[<span class="fl">0.95</span>, <span class="fl">0.05</span>])</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> __(a)__:</span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>        __(b)__</span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>prob_angry_student <span class="op">=</span> __(c)__</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>num_angry <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> rep <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># randomly choose 21000 elements from [True, False] such that </span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># True has probability 0.95, False has probability 0.05</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    attending <span class="op">=</span> np.random.choice([<span class="va">True</span>, <span class="va">False</span>], <span class="dv">21000</span>, p<span class="op">=</span>[<span class="fl">0.95</span>, <span class="fl">0.05</span>])</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> __(a)__:</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>        __(b)__</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>prob_angry_student <span class="op">=</span> __(c)__</span></code></pre></div>
 <p><br></p>
-<h3 id="problem-13.1">Problem 13.1</h3>
+<h3 id="problem-14.1">Problem 14.1</h3>
 <p>What goes in the <strong>first</strong> blank?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> <code>np.count_nonzero(attending) == 20001</code></p></li>
@@ -1533,12 +1692,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading13_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13_1" aria-expanded="true" aria-controls="collapse13_1">
+<h2 class="accordion-header" id="heading14_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse14_1" aria-expanded="true" aria-controls="collapse14_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse13_1" class="accordion-collapse collapse collapse" aria-labelledby="heading13_1" data-bs-parent="#accordionExample">
+<div id="collapse14_1" class="accordion-collapse collapse collapse" aria-labelledby="heading14_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1557,16 +1716,16 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-13.2">Problem 13.2</h3>
+<h3 id="problem-14.2">Problem 14.2</h3>
 <p>What goes in the <strong>second</strong> blank?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading13_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13_2" aria-expanded="true" aria-controls="collapse13_2">
+<h2 class="accordion-header" id="heading14_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse14_2" aria-expanded="true" aria-controls="collapse14_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse13_2" class="accordion-collapse collapse collapse" aria-labelledby="heading13_2" data-bs-parent="#accordionExample">
+<div id="collapse14_2" class="accordion-collapse collapse collapse" aria-labelledby="heading14_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1584,16 +1743,16 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-13.3">Problem 13.3</h3>
+<h3 id="problem-14.3">Problem 14.3</h3>
 <p>What goes in the <strong>third</strong> blank?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading13_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13_3" aria-expanded="true" aria-controls="collapse13_3">
+<h2 class="accordion-header" id="heading14_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse14_3" aria-expanded="true" aria-controls="collapse14_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse13_3" class="accordion-collapse collapse collapse" aria-labelledby="heading13_3" data-bs-parent="#accordionExample">
+<div id="collapse14_3" class="accordion-collapse collapse collapse" aria-labelledby="heading14_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1614,7 +1773,7 @@ Click to view the solution.
 </div>
 <div class="lec-problem" data-avg="62.75" data-term="20251">
 <p class="meta"><em>Source:</em> <a href="../../wi25-final/index.html#problem-5">Question 5 from Winter 2025 Final Exam</a></p>
-<h2 id="problem-14">Problem 14</h2>
+<h2 id="problem-15">Problem 15</h2>
 <p>Among Hogwarts students, Chocolate Frogs are a popular enchanted treat. Chocolate Frogs are individually packaged, and every Chocolate Frog comes with a collectible card of a famous wizard (ex."Albus Dumbledore"). There are 80 unique cards, and each package contains <strong>one card selected uniformly at random from these 80</strong>.</p>
 <p>Neville would love to get a complete collection with all 80 cards, and he wants to know how many Chocolate Frogs he should expect to buy to make this happen.</p>
 <center><img src='../../assets/images/wi25-final/frog.jpg' width=400></center>
@@ -1626,16 +1785,16 @@ Click to view the solution.
     
     avg_frog_count = __(b)__</code></pre>
 <p><br></p>
-<h3 id="problem-14.1">Problem 14.1</h3>
+<h3 id="problem-15.1">Problem 15.1</h3>
 <p>What goes in blank (a)?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading14_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse14_1" aria-expanded="true" aria-controls="collapse14_1">
+<h2 class="accordion-header" id="heading15_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15_1" aria-expanded="true" aria-controls="collapse15_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse14_1" class="accordion-collapse collapse collapse" aria-labelledby="heading14_1" data-bs-parent="#accordionExample">
+<div id="collapse15_1" class="accordion-collapse collapse collapse" aria-labelledby="heading15_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1652,16 +1811,16 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-14.2">Problem 14.2</h3>
+<h3 id="problem-15.2">Problem 15.2</h3>
 <p>What goes in blank (b)?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading14_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse14_2" aria-expanded="true" aria-controls="collapse14_2">
+<h2 class="accordion-header" id="heading15_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15_2" aria-expanded="true" aria-controls="collapse15_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse14_2" class="accordion-collapse collapse collapse" aria-labelledby="heading14_2" data-bs-parent="#accordionExample">
+<div id="collapse15_2" class="accordion-collapse collapse collapse" aria-labelledby="heading15_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1678,16 +1837,16 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-14.3">Problem 14.3</h3>
+<h3 id="problem-15.3">Problem 15.3</h3>
 <p>Realistically, Neville can only afford to buy 300 Chocolate Frog cards. Using the simulated data in <code>frog_counts</code>, write a Python expression that evaluates to an approximation of the probability that Neville will be able to complete his collection.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading14_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse14_3" aria-expanded="true" aria-controls="collapse14_3">
+<h2 class="accordion-header" id="heading15_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15_3" aria-expanded="true" aria-controls="collapse15_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse14_3" class="accordion-collapse collapse collapse" aria-labelledby="heading14_3" data-bs-parent="#accordionExample">
+<div id="collapse15_3" class="accordion-collapse collapse collapse" aria-labelledby="heading15_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1707,7 +1866,7 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-14.4">Problem 14.4</h3>
+<h3 id="problem-15.4">Problem 15.4</h3>
 <p><strong>True or False</strong>: The Central Limit Theorem states that the data in <code>frog_counts</code> is roughly normally distributed.</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> True</p></li>
@@ -1715,12 +1874,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading14_4">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse14_4" aria-expanded="true" aria-controls="collapse14_4">
+<h2 class="accordion-header" id="heading15_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15_4" aria-expanded="true" aria-controls="collapse15_4">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse14_4" class="accordion-collapse collapse collapse" aria-labelledby="heading14_4" data-bs-parent="#accordionExample">
+<div id="collapse15_4" class="accordion-collapse collapse collapse" aria-labelledby="heading15_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1743,18 +1902,18 @@ Click to view the solution.
 </div>
 <div class="lec-problem" data-avg="60.75" data-term="20232">
 <p class="meta"><em>Source:</em> <a href="../../sp23-midterm/index.html#problem-8">Question 8 from Spring 2023 Midterm Exam</a></p>
-<h2 id="problem-15">Problem 15</h2>
+<h2 id="problem-16">Problem 16</h2>
 <p>We’d like to select three students at random from the entire class to win extra credit (not really). When doing so, we want to guarantee that the same student cannot be selected twice, since it wouldn’t really be fair to give a student double extra credit.</p>
 <p>Fill in the blanks below so that <code>prob_all_unique</code> is an estimate of the probability that all three students selected are in different majors.</p>
 <p><em>Hint: The function <code>np.unique</code>, when called on an array, returns an array with just one copy of each unique element in the input. For example, if <code>vals</code> contains the values <code>1, 2, 2, 3, 3, 4</code>, <code>np.unique(vals)</code> contains the values <code>1, 2, 3, 4</code>.</em></p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>    unique_majors <span class="op">=</span> np.array([])</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>        group <span class="op">=</span> np.random.choice(survey.get(<span class="st">&quot;Major&quot;</span>), <span class="dv">3</span>, __(a)__)</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>        __(b)__ <span class="op">=</span> np.append(unique_majors, <span class="bu">len</span>(__(c)__))</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    prob_all_unique <span class="op">=</span> __(d)__</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>    unique_majors <span class="op">=</span> np.array([])</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>        group <span class="op">=</span> np.random.choice(survey.get(<span class="st">&quot;Major&quot;</span>), <span class="dv">3</span>, __(a)__)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>        __(b)__ <span class="op">=</span> np.append(unique_majors, <span class="bu">len</span>(__(c)__))</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    prob_all_unique <span class="op">=</span> __(d)__</span></code></pre></div>
 <p><br></p>
-<h3 id="problem-15.1">Problem 15.1</h3>
+<h3 id="problem-16.1">Problem 16.1</h3>
 <p>What goes in blank (a)?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> <code>replace=True</code></p></li>
@@ -1762,12 +1921,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading15_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15_1" aria-expanded="true" aria-controls="collapse15_1">
+<h2 class="accordion-header" id="heading16_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16_1" aria-expanded="true" aria-controls="collapse16_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse15_1" class="accordion-collapse collapse collapse" aria-labelledby="heading15_1" data-bs-parent="#accordionExample">
+<div id="collapse16_1" class="accordion-collapse collapse collapse" aria-labelledby="heading16_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1785,16 +1944,16 @@ Click to view the solution.
 </div>
 <p><br></p>
 <p><br></p>
-<h3 id="problem-15.2">Problem 15.2</h3>
+<h3 id="problem-16.2">Problem 16.2</h3>
 <p>What goes in blank (b)?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading15_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15_2" aria-expanded="true" aria-controls="collapse15_2">
+<h2 class="accordion-header" id="heading16_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16_2" aria-expanded="true" aria-controls="collapse16_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse15_2" class="accordion-collapse collapse collapse" aria-labelledby="heading15_2" data-bs-parent="#accordionExample">
+<div id="collapse16_2" class="accordion-collapse collapse collapse" aria-labelledby="heading16_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1812,16 +1971,16 @@ Click to view the solution.
 </div>
 <p><br></p>
 <p><br></p>
-<h3 id="problem-15.3">Problem 15.3</h3>
+<h3 id="problem-16.3">Problem 16.3</h3>
 <p>What goes in blank (c)?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading15_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15_3" aria-expanded="true" aria-controls="collapse15_3">
+<h2 class="accordion-header" id="heading16_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16_3" aria-expanded="true" aria-controls="collapse16_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse15_3" class="accordion-collapse collapse collapse" aria-labelledby="heading15_3" data-bs-parent="#accordionExample">
+<div id="collapse16_3" class="accordion-collapse collapse collapse" aria-labelledby="heading16_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1839,7 +1998,7 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-15.4">Problem 15.4</h3>
+<h3 id="problem-16.4">Problem 16.4</h3>
 <p>What could go in blank (d)? Select all that apply. At least one option is correct; blank answers will receive no credit.</p>
 <ul class="task-list">
 <li><p><input type="checkbox" disabled="" /> <code>(unique_majors &gt; 2).mean()</code></p></li>
@@ -1850,12 +2009,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading15_4">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15_4" aria-expanded="true" aria-controls="collapse15_4">
+<h2 class="accordion-header" id="heading16_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16_4" aria-expanded="true" aria-controls="collapse16_4">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse15_4" class="accordion-collapse collapse collapse" aria-labelledby="heading15_4" data-bs-parent="#accordionExample">
+<div id="collapse16_4" class="accordion-collapse collapse collapse" aria-labelledby="heading16_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1889,7 +2048,7 @@ Click to view the solution.
 </div>
 <div class="lec-problem" data-avg="58.40" data-term="20261">
 <p class="meta"><em>Source:</em> <a href="../../wi26-midterm/index.html#problem-9">Question 9 from Winter 2026 Midterm Exam</a></p>
-<h2 id="problem-16">Problem 16</h2>
+<h2 id="problem-17">Problem 17</h2>
 <p>DoorDash is having a special promotion! This promotion allows Ray to order four random pizza slices from the <code>pizza</code> DataFrame, but he only wants to eat the best slices—according to the ratings. He decides to pick the first two of those random slices and compare their ratings to the other two slices. He will eat only if the sum of the ratings of his two slices is greater than the sum of the ratings of the other two slices.</p>
 <p>Fill in the blanks in the code below so that <code>prob_eats</code> evaluates to an estimate of the probability that Ray gets to eat.</p>
 <pre><code>repetitions = 1000
@@ -1903,16 +2062,16 @@ for i in np.arange(repetitions):
         count_eats = ____(d)____
 prob_eats = _____(e)_____</code></pre>
 <p><br></p>
-<h3 id="problem-16.1">Problem 16.1</h3>
+<h3 id="problem-17.1">Problem 17.1</h3>
 <p><strong>(a)</strong></p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading16_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16_1" aria-expanded="true" aria-controls="collapse16_1">
+<h2 class="accordion-header" id="heading17_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse17_1" aria-expanded="true" aria-controls="collapse17_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse16_1" class="accordion-collapse collapse collapse" aria-labelledby="heading16_1" data-bs-parent="#accordionExample">
+<div id="collapse17_1" class="accordion-collapse collapse collapse" aria-labelledby="heading17_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1929,16 +2088,16 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-16.2">Problem 16.2</h3>
+<h3 id="problem-17.2">Problem 17.2</h3>
 <p><strong>(b)</strong></p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading16_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16_2" aria-expanded="true" aria-controls="collapse16_2">
+<h2 class="accordion-header" id="heading17_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse17_2" aria-expanded="true" aria-controls="collapse17_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse16_2" class="accordion-collapse collapse collapse" aria-labelledby="heading16_2" data-bs-parent="#accordionExample">
+<div id="collapse17_2" class="accordion-collapse collapse collapse" aria-labelledby="heading17_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1955,16 +2114,16 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-16.3">Problem 16.3</h3>
+<h3 id="problem-17.3">Problem 17.3</h3>
 <p><strong>(c)</strong></p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading16_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16_3" aria-expanded="true" aria-controls="collapse16_3">
+<h2 class="accordion-header" id="heading17_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse17_3" aria-expanded="true" aria-controls="collapse17_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse16_3" class="accordion-collapse collapse collapse" aria-labelledby="heading16_3" data-bs-parent="#accordionExample">
+<div id="collapse17_3" class="accordion-collapse collapse collapse" aria-labelledby="heading17_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -1981,16 +2140,16 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-16.4">Problem 16.4</h3>
+<h3 id="problem-17.4">Problem 17.4</h3>
 <p><strong>(d)</strong></p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading16_4">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16_4" aria-expanded="true" aria-controls="collapse16_4">
+<h2 class="accordion-header" id="heading17_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse17_4" aria-expanded="true" aria-controls="collapse17_4">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse16_4" class="accordion-collapse collapse collapse" aria-labelledby="heading16_4" data-bs-parent="#accordionExample">
+<div id="collapse17_4" class="accordion-collapse collapse collapse" aria-labelledby="heading17_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2007,16 +2166,16 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-16.5">Problem 16.5</h3>
+<h3 id="problem-17.5">Problem 17.5</h3>
 <p><strong>(e)</strong></p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading16_5">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16_5" aria-expanded="true" aria-controls="collapse16_5">
+<h2 class="accordion-header" id="heading17_5">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse17_5" aria-expanded="true" aria-controls="collapse17_5">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse16_5" class="accordion-collapse collapse collapse" aria-labelledby="heading16_5" data-bs-parent="#accordionExample">
+<div id="collapse17_5" class="accordion-collapse collapse collapse" aria-labelledby="heading17_5" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2037,21 +2196,21 @@ Click to view the solution.
 </div>
 <div class="lec-problem" data-avg="58.40" data-term="20232">
 <p class="meta"><em>Source:</em> <a href="../../sp23-final/index.html#problem-9">Question 9 from Spring 2023 Final Exam</a></p>
-<h2 id="problem-17">Problem 17</h2>
+<h2 id="problem-18">Problem 18</h2>
 <p>Suhani’s passport is currently being renewed, and so she can’t join those on international summer vacations. However, her last final exam is today, and so she decides to road trip through California this week while everyone else takes their finals.</p>
 <p>The chances that it is sunny this Monday and Tuesday, in various cities in California, are given below. The event that it is sunny on Tuesday in Los Angeles depends on the event that it is sunny on Monday in Los Angeles, but other than that, all other events in the table are independent of one another.</p>
 <center><img src='../../assets/images/sp23-final/probs-table.png' width=500></center>
 <p><br></p>
-<h3 id="problem-17.1">Problem 17.1</h3>
+<h3 id="problem-18.1">Problem 18.1</h3>
 <p>What is the probability that it is not sunny in San Diego on Monday and not sunny in San Diego on Tuesday? Give your answer as a <strong>positive integer percentage</strong> between 0% and 100%.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading17_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse17_1" aria-expanded="true" aria-controls="collapse17_1">
+<h2 class="accordion-header" id="heading18_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse18_1" aria-expanded="true" aria-controls="collapse18_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse17_1" class="accordion-collapse collapse collapse" aria-labelledby="heading17_1" data-bs-parent="#accordionExample">
+<div id="collapse18_1" class="accordion-collapse collapse collapse" aria-labelledby="heading18_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2074,7 +2233,7 @@ Click to view the solution.
 </div>
 <p><br></p>
 <p><br></p>
-<h3 id="problem-17.2">Problem 17.2</h3>
+<h3 id="problem-18.2">Problem 18.2</h3>
 <p>What is the probability that it is sunny in at least one of the three cities on Monday?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> <span class="math inline">3\%</span></p></li>
@@ -2086,12 +2245,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading17_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse17_2" aria-expanded="true" aria-controls="collapse17_2">
+<h2 class="accordion-header" id="heading18_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse18_2" aria-expanded="true" aria-controls="collapse18_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse17_2" class="accordion-collapse collapse collapse" aria-labelledby="heading17_2" data-bs-parent="#accordionExample">
+<div id="collapse18_2" class="accordion-collapse collapse collapse" aria-labelledby="heading18_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2112,7 +2271,7 @@ Click to view the solution.
 </div>
 <p><br></p>
 <p><br></p>
-<h3 id="problem-17.3">Problem 17.3</h3>
+<h3 id="problem-18.3">Problem 18.3</h3>
 <p>What is the probability that it is sunny in Los Angeles on Tuesday?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> <span class="math inline">15\%</span></p></li>
@@ -2124,12 +2283,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading17_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse17_3" aria-expanded="true" aria-controls="collapse17_3">
+<h2 class="accordion-header" id="heading18_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse18_3" aria-expanded="true" aria-controls="collapse18_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse17_3" class="accordion-collapse collapse collapse" aria-labelledby="heading17_3" data-bs-parent="#accordionExample">
+<div id="collapse18_3" class="accordion-collapse collapse collapse" aria-labelledby="heading18_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2154,13 +2313,13 @@ Click to view the solution.
 </div>
 <p><br></p>
 <p><br></p>
-<h3 id="problem-17.4">Problem 17.4</h3>
+<h3 id="problem-18.4">Problem 18.4</h3>
 <p>Fill in the blanks so that <code>exactly_two</code> evaluates to the probability that exactly two of San Diego, Los Angeles, and San Francisco are sunny on Monday.</p>
 <p><em>Hint: If <code>arr</code> is an array, then <code>np.prod(arr)</code> is the product of the elements in <code>arr</code>.</em></p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>    monday <span class="op">=</span> np.array([<span class="dv">7</span> <span class="op">/</span> <span class="dv">10</span>, <span class="dv">3</span> <span class="op">/</span> <span class="dv">5</span>, <span class="dv">3</span> <span class="op">/</span> <span class="dv">4</span>]) <span class="co"># Taken from the table.</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    exactly_two <span class="op">=</span> __(a)__</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">3</span>):</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>        exactly_two <span class="op">=</span> exactly_two <span class="op">+</span> np.prod(monday) <span class="op">*</span> __(b)__</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>    monday <span class="op">=</span> np.array([<span class="dv">7</span> <span class="op">/</span> <span class="dv">10</span>, <span class="dv">3</span> <span class="op">/</span> <span class="dv">5</span>, <span class="dv">3</span> <span class="op">/</span> <span class="dv">4</span>]) <span class="co"># Taken from the table.</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    exactly_two <span class="op">=</span> __(a)__</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">3</span>):</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>        exactly_two <span class="op">=</span> exactly_two <span class="op">+</span> np.prod(monday) <span class="op">*</span> __(b)__</span></code></pre></div>
 <p>What goes in blank (a)?</p>
 <p>What goes in blank (b)?</p>
 <ul class="task-list">
@@ -2173,12 +2332,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading17_4">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse17_4" aria-expanded="true" aria-controls="collapse17_4">
+<h2 class="accordion-header" id="heading18_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse18_4" aria-expanded="true" aria-controls="collapse18_4">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse17_4" class="accordion-collapse collapse collapse" aria-labelledby="heading17_4" data-bs-parent="#accordionExample">
+<div id="collapse18_4" class="accordion-collapse collapse collapse" aria-labelledby="heading18_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2215,36 +2374,36 @@ Click to view the solution.
 </div>
 <div class="lec-problem" data-avg="56.00" data-term="20224">
 <p class="meta"><em>Source:</em> <a href="../../fa22-midterm/index.html#problem-8">Question 8 from Fall 2022 Midterm Exam</a></p>
-<h2 id="problem-18">Problem 18</h2>
+<h2 id="problem-19">Problem 19</h2>
 <p>TritonTrucks is an EV startup run by UCSD alumni. Their signature EV, the TritonTruck, has a subpar battery (the engineers didn’t pay attention in their Chemistry courses).</p>
 <p>A new TritonTruck’s battery needs to be replaced after 500 days, unless it fails first, in which case it needs to be replaced immediately. On any given day, the probability that a given TritonTruck’s battery fails is 0.02, independent of all other days.</p>
 <p>Fill in the blanks so that <code>average_days_until_replacement</code> is an estimate of the <strong>average number of days a new TritonTruck’s battery lasts without needing to be replaced</strong>.</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> days_until_replacement(daily_conditions):</span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>    days <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> __(a)__:</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> daily_conditions[i] <span class="op">==</span> <span class="va">True</span>:</span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>            __(b)__</span>
-<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
-<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> days</span>
-<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> days</span>
-<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>total <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>repetitions <span class="op">=</span> <span class="dv">10000</span></span>
-<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(repetitions):</span>
-<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># The first element of the first argument to np.random.choice is</span></span>
-<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># chosen with probability 0.98</span></span>
-<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>    daily_conditions <span class="op">=</span> np.random.choice(__(c)__, <span class="dv">500</span>, p<span class="op">=</span>[<span class="fl">0.98</span>, <span class="fl">0.02</span>])</span>
-<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>    total <span class="op">=</span> total <span class="op">+</span> days_until_replacement(daily_conditions)</span>
-<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a>average_days_until_replacement <span class="op">=</span> total <span class="op">/</span> repetitions</span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> days_until_replacement(daily_conditions):</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    days <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> __(a)__:</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> daily_conditions[i] <span class="op">==</span> <span class="va">True</span>:</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>            __(b)__</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> days</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> days</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>total <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>repetitions <span class="op">=</span> <span class="dv">10000</span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(repetitions):</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># The first element of the first argument to np.random.choice is</span></span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># chosen with probability 0.98</span></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>    daily_conditions <span class="op">=</span> np.random.choice(__(c)__, <span class="dv">500</span>, p<span class="op">=</span>[<span class="fl">0.98</span>, <span class="fl">0.02</span>])</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>    total <span class="op">=</span> total <span class="op">+</span> days_until_replacement(daily_conditions)</span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>average_days_until_replacement <span class="op">=</span> total <span class="op">/</span> repetitions</span></code></pre></div>
 <p>What goes in blanks (a), (b), and (c)?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading18">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse18" aria-expanded="true" aria-controls="collapse18">
+<h2 class="accordion-header" id="heading19">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse19" aria-expanded="true" aria-controls="collapse19">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse18" class="accordion-collapse collapse collapse" aria-labelledby="heading18" data-bs-parent="#accordionExample">
+<div id="collapse19" class="accordion-collapse collapse collapse" aria-labelledby="heading19" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2277,9 +2436,63 @@ Click to view the solution.
 </div>
 <hr />
 </div>
+<div class="lec-problem" data-avg="53.00" data-term="20263">
+<p class="meta"><em>Source:</em> <a href="../../su26-midterm/index.html#problem-8">Question 8 from Summer 2026 Midterm Exam</a></p>
+<h2 id="problem-20">Problem 20</h2>
+<p>Lauren is a rancher in a small town. She observes that every time a UFO is sighted, 5 different cows go missing (however, they always eventually reappear). There are 100 cows in town, and Lauren owns 23 of the 100 cows.</p>
+<p>Complete the simulation below to estimate the probability that exactly two of Lauren’s cows are abducted after a UFO sighting. Assume the missing cows are selected at random from the set of all cows.</p>
+<p>Fill in blanks (i), (ii), (iii), and (iv).</p>
+<pre><code>all_cows = np.arange(100)
+
+repetitions = 10000
+count_event = 0
+
+for i in np.arange(repetitions):
+    abducted = np.random.choice(__(i)__)
+
+    laurens_cows = abducted &lt;= __(ii)__
+    n = np.count_nonzero(laurens_cows)
+
+    if __(iii)__:
+        count_event = count_event + 1
+
+prob = __(iv)__</code></pre>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading20">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse20" aria-expanded="true" aria-controls="collapse20">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse20" class="accordion-collapse collapse collapse" aria-labelledby="heading20" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer (i):</strong> <code>all_cows, 5, replace=False</code></p>
+<p><strong>Answer (ii):</strong> <code>22</code></p>
+<p><strong>Answer (iii):</strong> <code>n == 2</code></p>
+<p><strong>Answer (iv):</strong> <code>count_event / repetitions</code></p>
+<ul>
+<li><strong>Blank (i):</strong> Each sighting takes <span class="math inline">5</span> cows from the town’s <span class="math inline">100</span> cows, so we draw <span class="math inline">5</span> elements from <code>all_cows</code>. Since the problem says 5 <strong>different</strong> cows go missing, we must sample <strong>without</strong> replacement, hence <code>replace=False</code>.</li>
+<li><strong>Blank (ii):</strong> <code>all_cows</code> is <code>np.arange(100)</code>, i.e. the numbers <span class="math inline">0</span> through <span class="math inline">99</span>. Lauren owns <span class="math inline">23</span> of them, and the natural way to label her cows is as the first <span class="math inline">23</span> numbers, <span class="math inline">0</span> through <span class="math inline">22</span>. So a cow belongs to Lauren exactly when its number is less than or equal to <span class="math inline">22</span>. The comparison <code>abducted &lt;= 22</code> produces a Boolean array, and <code>np.count_nonzero</code> counts the <code>True</code> values, so <code>n</code> is the number of Lauren’s cows that were abducted. Note that writing <code>23</code> here would incorrectly give Lauren <span class="math inline">24</span> cows.</li>
+<li><strong>Blank (iii):</strong> We’re estimating the probability that <strong>exactly</strong> two of Lauren’s cows are taken, so the condition is <code>n == 2</code>. Writing <code>n &gt;= 2</code> would answer a different question.</li>
+<li><strong>Blank (iv):</strong> An empirical probability is the number of repetitions in which the event happened divided by the total number of repetitions.</li>
+</ul>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 53%.</p>
+</div>
+</div>
+</div>
+</div>
+<hr />
+</div>
 <div class="lec-problem" data-avg="53.00" data-term="20231">
 <p class="meta"><em>Source:</em> <a href="../../wi23-final/index.html#problem-13">Question 13 from Winter 2023 Final Exam</a></p>
-<h2 id="problem-19">Problem 19</h2>
+<h2 id="problem-21">Problem 21</h2>
 <p>Dylan, Harshi, and Selim are playing a variant of a dice game called <em>Left, Center, Right</em> (<em>LCR</em>) in which there are 9 chips (tokens) and 9 dice. Each player starts off with 3 chips. Each die has the following six sides: L, C, R, Dot, Dot, Dot.</p>
 <p>During a given player’s turn, they must roll a number of dice equal to the number of chips they currently have. Each die determines what to do with one chip:</p>
 <ol type="1">
@@ -2294,51 +2507,51 @@ Click to view the solution.
 <p>Note that if someone has no chips when it’s their turn, they are still in the game and they still take their turn, they just roll 0 dice because they have 0 chips. The game ends when only one person is holding chips, and that person is the winner. If 300 turns have been taken (100 turns each), the game will end and we’ll declare it a tie.</p>
 <p>The function <code>simulate_lcr</code> below simulates one full game of <em>Left, Center, Right</em> and returns the number of turns taken in that game. Some parts of the code are not provided. You will need to fill in the code for the parts marked with a blank. The parts marked with <code>...</code> are not provided, but you don’t need to fill them in because they are very similar to other parts that you do need to complete.</p>
 <p><strong>Hint:</strong> Recall that in Python, the % operator gives the remainder upon division. For example 12 % 5 is 2.</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> simulate_lcr():</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># stores the number of chips for players 0, 1, 2 (in that order)</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>    player_chips <span class="op">=</span> np.array([<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>])</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># maximum of 300 turns allotted for the game</span></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">300</span>):</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>        <span class="co"># which player&#39;s turn it is currently (0, 1, or 2)</span></span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>        current_player <span class="op">=</span> __(a)__</span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>        <span class="co"># stores what the player rolled on their turn</span></span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>        roll <span class="op">=</span> np.random.choice([<span class="st">&quot;L&quot;</span>, <span class="st">&quot;C&quot;</span>, <span class="st">&quot;R&quot;</span>, <span class="st">&quot;Dot&quot;</span>, <span class="st">&quot;Dot&quot;</span>, <span class="st">&quot;Dot&quot;</span>], __(b)__)</span>
-<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>        <span class="co"># count the number of instances of L, C, and R</span></span>
-<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>        L_count <span class="op">=</span> __(c)__</span>
-<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>        C_count <span class="op">=</span> ...</span>
-<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>        R_count <span class="op">=</span> ...</span>
-<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> current_player <span class="op">==</span> <span class="dv">0</span>:</span>
-<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>            <span class="co"># update player_chips based on what player 0 rolled</span></span>
-<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a>            player_chips <span class="op">=</span> player_chips <span class="op">+</span> np.array(__(d)__)</span>
-<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> current_player <span class="op">==</span> <span class="dv">1</span>:</span>
-<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a>            <span class="co"># update player_chips based on what player 1 rolled</span></span>
-<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a>            player_chips <span class="op">=</span> player_chips <span class="op">+</span> ...</span>
-<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
-<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a>            <span class="co"># update player_chips based on what player 2 rolled</span></span>
-<span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a>            player_chips <span class="op">=</span> player_chips <span class="op">+</span> ...</span>
-<span id="cb23-28"><a href="#cb23-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-29"><a href="#cb23-29" aria-hidden="true" tabindex="-1"></a>        <span class="co"># if the game is over, return the number of turns played</span></span>
-<span id="cb23-30"><a href="#cb23-30" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> __(e)__:</span>
-<span id="cb23-31"><a href="#cb23-31" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> __(f)__</span>
-<span id="cb23-32"><a href="#cb23-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-33"><a href="#cb23-33" aria-hidden="true" tabindex="-1"></a>    <span class="co"># if no one wins after 300 turns, return 300</span></span>
-<span id="cb23-34"><a href="#cb23-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">300</span></span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> simulate_lcr():</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># stores the number of chips for players 0, 1, 2 (in that order)</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    player_chips <span class="op">=</span> np.array([<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>])</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># maximum of 300 turns allotted for the game</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">300</span>):</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>        <span class="co"># which player&#39;s turn it is currently (0, 1, or 2)</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>        current_player <span class="op">=</span> __(a)__</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>        <span class="co"># stores what the player rolled on their turn</span></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>        roll <span class="op">=</span> np.random.choice([<span class="st">&quot;L&quot;</span>, <span class="st">&quot;C&quot;</span>, <span class="st">&quot;R&quot;</span>, <span class="st">&quot;Dot&quot;</span>, <span class="st">&quot;Dot&quot;</span>, <span class="st">&quot;Dot&quot;</span>], __(b)__)</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>        <span class="co"># count the number of instances of L, C, and R</span></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>        L_count <span class="op">=</span> __(c)__</span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>        C_count <span class="op">=</span> ...</span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>        R_count <span class="op">=</span> ...</span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> current_player <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a>            <span class="co"># update player_chips based on what player 0 rolled</span></span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a>            player_chips <span class="op">=</span> player_chips <span class="op">+</span> np.array(__(d)__)</span>
+<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> current_player <span class="op">==</span> <span class="dv">1</span>:</span>
+<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a>            <span class="co"># update player_chips based on what player 1 rolled</span></span>
+<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a>            player_chips <span class="op">=</span> player_chips <span class="op">+</span> ...</span>
+<span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb25-26"><a href="#cb25-26" aria-hidden="true" tabindex="-1"></a>            <span class="co"># update player_chips based on what player 2 rolled</span></span>
+<span id="cb25-27"><a href="#cb25-27" aria-hidden="true" tabindex="-1"></a>            player_chips <span class="op">=</span> player_chips <span class="op">+</span> ...</span>
+<span id="cb25-28"><a href="#cb25-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-29"><a href="#cb25-29" aria-hidden="true" tabindex="-1"></a>        <span class="co"># if the game is over, return the number of turns played</span></span>
+<span id="cb25-30"><a href="#cb25-30" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> __(e)__:</span>
+<span id="cb25-31"><a href="#cb25-31" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> __(f)__</span>
+<span id="cb25-32"><a href="#cb25-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-33"><a href="#cb25-33" aria-hidden="true" tabindex="-1"></a>    <span class="co"># if no one wins after 300 turns, return 300</span></span>
+<span id="cb25-34"><a href="#cb25-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="dv">300</span></span></code></pre></div>
 <p><br></p>
-<h3 id="problem-19.1">Problem 19.1</h3>
+<h3 id="problem-21.1">Problem 21.1</h3>
 <p>What goes in blank (a)?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading19_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse19_1" aria-expanded="true" aria-controls="collapse19_1">
+<h2 class="accordion-header" id="heading21_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21_1" aria-expanded="true" aria-controls="collapse21_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse19_1" class="accordion-collapse collapse collapse" aria-labelledby="heading19_1" data-bs-parent="#accordionExample">
+<div id="collapse21_1" class="accordion-collapse collapse collapse" aria-labelledby="heading21_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2355,16 +2568,16 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-19.2">Problem 19.2</h3>
+<h3 id="problem-21.2">Problem 21.2</h3>
 <p>What goes in blank (b)?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading19_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse19_2" aria-expanded="true" aria-controls="collapse19_2">
+<h2 class="accordion-header" id="heading21_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21_2" aria-expanded="true" aria-controls="collapse21_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse19_2" class="accordion-collapse collapse collapse" aria-labelledby="heading19_2" data-bs-parent="#accordionExample">
+<div id="collapse21_2" class="accordion-collapse collapse collapse" aria-labelledby="heading21_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2381,16 +2594,16 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-19.3">Problem 19.3</h3>
+<h3 id="problem-21.3">Problem 21.3</h3>
 <p>What goes in blank (c)?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading19_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse19_3" aria-expanded="true" aria-controls="collapse19_3">
+<h2 class="accordion-header" id="heading21_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21_3" aria-expanded="true" aria-controls="collapse21_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse19_3" class="accordion-collapse collapse collapse" aria-labelledby="heading19_3" data-bs-parent="#accordionExample">
+<div id="collapse21_3" class="accordion-collapse collapse collapse" aria-labelledby="heading21_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2407,16 +2620,16 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-19.4">Problem 19.4</h3>
+<h3 id="problem-21.4">Problem 21.4</h3>
 <p>What goes in blank (d)?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading19_4">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse19_4" aria-expanded="true" aria-controls="collapse19_4">
+<h2 class="accordion-header" id="heading21_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21_4" aria-expanded="true" aria-controls="collapse21_4">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse19_4" class="accordion-collapse collapse collapse" aria-labelledby="heading19_4" data-bs-parent="#accordionExample">
+<div id="collapse21_4" class="accordion-collapse collapse collapse" aria-labelledby="heading21_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2440,16 +2653,16 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-19.5">Problem 19.5</h3>
+<h3 id="problem-21.5">Problem 21.5</h3>
 <p>What goes in blank (e)?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading19_5">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse19_5" aria-expanded="true" aria-controls="collapse19_5">
+<h2 class="accordion-header" id="heading21_5">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21_5" aria-expanded="true" aria-controls="collapse21_5">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse19_5" class="accordion-collapse collapse collapse" aria-labelledby="heading19_5" data-bs-parent="#accordionExample">
+<div id="collapse21_5" class="accordion-collapse collapse collapse" aria-labelledby="heading21_5" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2466,16 +2679,16 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-19.6">Problem 19.6</h3>
+<h3 id="problem-21.6">Problem 21.6</h3>
 <p>What goes in blank (f)?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading19_6">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse19_6" aria-expanded="true" aria-controls="collapse19_6">
+<h2 class="accordion-header" id="heading21_6">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21_6" aria-expanded="true" aria-controls="collapse21_6">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse19_6" class="accordion-collapse collapse collapse" aria-labelledby="heading19_6" data-bs-parent="#accordionExample">
+<div id="collapse21_6" class="accordion-collapse collapse collapse" aria-labelledby="heading21_6" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2496,27 +2709,27 @@ Click to view the solution.
 </div>
 <div class="lec-problem" data-avg="52.00" data-term="20252">
 <p class="meta"><em>Source:</em> <a href="../../sp25-midterm/index.html#problem-7">Question 7 from Spring 2025 Midterm Exam</a></p>
-<h2 id="problem-20">Problem 20</h2>
+<h2 id="problem-22">Problem 22</h2>
 <p>The announcement of the tariffs affected many products, one of which was the Nintendo Switch 2, a new video game console. Due to the tariffs, preorders of the Nintendo Switch 2 were put on hold so pricing could be reconsidered. In this problem, we’ll imagine a scenario in which Nintendo used this delay period to drum up excitement for their new product.</p>
 <p>Suppose Nintendo arranges a contest to give away <code>k</code> of their new Switch 2 consoles. The contest is open to anyone and <code>n</code> people participate, with <code>n &gt; k</code>. Everyone has an equal chance of winning, and nobody can win more than once. Jason and Ray both enter the contest, and they want to estimate the probability that they <strong>both win</strong>.</p>
 <p><br></p>
-<h3 id="problem-20.1">Problem 20.1</h3>
+<h3 id="problem-22.1">Problem 22.1</h3>
 <p>Fill in the blanks in the function <code>giveaway</code> so that it returns an estimate of the probability that Jason and Ray both win a Switch 2, when there are <code>n</code> participants and <code>k</code> prizes.</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span> <span class="kw">def</span> giveaway(n, k):</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    <span class="dv">2</span>     count <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    <span class="dv">3</span>     <span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    <span class="dv">4</span>         winners <span class="op">=</span> np.random.choice(___(a)___)</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    <span class="dv">5</span>         <span class="cf">if</span> ___(b)___:</span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    <span class="dv">6</span>             count <span class="op">=</span> count <span class="op">+</span> <span class="dv">1</span></span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    <span class="dv">7</span>     <span class="cf">return</span> ___(c)___</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span> <span class="kw">def</span> giveaway(n, k):</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    <span class="dv">2</span>     count <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    <span class="dv">3</span>     <span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    <span class="dv">4</span>         winners <span class="op">=</span> np.random.choice(___(a)___)</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    <span class="dv">5</span>         <span class="cf">if</span> ___(b)___:</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    <span class="dv">6</span>             count <span class="op">=</span> count <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>    <span class="dv">7</span>     <span class="cf">return</span> ___(c)___</span></code></pre></div>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading20_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse20_1" aria-expanded="true" aria-controls="collapse20_1">
+<h2 class="accordion-header" id="heading22_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse22_1" aria-expanded="true" aria-controls="collapse22_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse20_1" class="accordion-collapse collapse collapse" aria-labelledby="heading20_1" data-bs-parent="#accordionExample">
+<div id="collapse22_1" class="accordion-collapse collapse collapse" aria-labelledby="heading22_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2537,16 +2750,16 @@ Click to view the solution.
 </div>
 </div>
 <p><br> <br></p>
-<h3 id="problem-20.2">Problem 20.2</h3>
+<h3 id="problem-22.2">Problem 22.2</h3>
 <p>If you implement <code>giveaway</code> correctly, what should <code>giveaway(100, 100)</code> evaluate to?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading20_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse20_2" aria-expanded="true" aria-controls="collapse20_2">
+<h2 class="accordion-header" id="heading22_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse22_2" aria-expanded="true" aria-controls="collapse22_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse20_2" class="accordion-collapse collapse collapse" aria-labelledby="heading20_2" data-bs-parent="#accordionExample">
+<div id="collapse22_2" class="accordion-collapse collapse collapse" aria-labelledby="heading22_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2563,7 +2776,7 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-20.3">Problem 20.3</h3>
+<h3 id="problem-22.3">Problem 22.3</h3>
 <p>Suppose you modify the <code>giveaway</code> function as follows:</p>
 <ul>
 <li><p>Change line 2 to <code>results = np.array([])</code>.</p></li>
@@ -2581,12 +2794,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading20_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse20_3" aria-expanded="true" aria-controls="collapse20_3">
+<h2 class="accordion-header" id="heading22_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse22_3" aria-expanded="true" aria-controls="collapse22_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse20_3" class="accordion-collapse collapse collapse" aria-labelledby="heading20_3" data-bs-parent="#accordionExample">
+<div id="collapse22_3" class="accordion-collapse collapse collapse" aria-labelledby="heading22_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2613,30 +2826,30 @@ Click to view the solution.
 </div>
 <div class="lec-problem" data-avg="51.75" data-term="20242">
 <p class="meta"><em>Source:</em> <a href="../../sp24-midterm/index.html#problem-5">Question 5 from Spring 2024 Midterm Exam</a></p>
-<h2 id="problem-21">Problem 21</h2>
+<h2 id="problem-23">Problem 23</h2>
 <p>Arya’s phone number has an interesting property: after the area code (the first three digits), the remaining seven numbers of his phone number consist of only two distinct digits.</p>
 <p>Recall from the previous question that when the monkey dials a phone number, each digit it selects is equally likely to be any of the digits <span class="math inline">0</span> through <span class="math inline">9</span>. Further, when the cat is dialing a phone number, it makes sure to only use each digit once.</p>
 <p>You’re interested in estimating the probability that a phone number dialed by the monkey or the cat has exactly two distinct digits after the area code, like Arya’s phone number. You write the following code, which you plan to use for both the monkey and cat scenarios.</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>    digits <span class="op">=</span> np.arange(<span class="dv">10</span>)</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    property_count <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    num_trials <span class="op">=</span> <span class="dv">10000</span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> np.arange(num_trials):</span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>        after_area_code <span class="op">=</span> __(x)__</span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>        num_distinct <span class="op">=</span> <span class="bu">len</span>(np.unique(after_area_code))</span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> __(y)__:</span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>            property_count <span class="op">=</span> property_count <span class="op">+</span> <span class="dv">1</span></span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>    probability_estimate <span class="op">=</span> property_count <span class="op">/</span> num_trials</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>    digits <span class="op">=</span> np.arange(<span class="dv">10</span>)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    property_count <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    num_trials <span class="op">=</span> <span class="dv">10000</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> np.arange(num_trials):</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>        after_area_code <span class="op">=</span> __(x)__</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>        num_distinct <span class="op">=</span> <span class="bu">len</span>(np.unique(after_area_code))</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> __(y)__:</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>            property_count <span class="op">=</span> property_count <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>    probability_estimate <span class="op">=</span> property_count <span class="op">/</span> num_trials</span></code></pre></div>
 <p><br></p>
-<h3 id="problem-21.1">Problem 21.1</h3>
+<h3 id="problem-23.1">Problem 23.1</h3>
 <p>First, you want to estimate the probability that the <strong>monkey</strong> randomly generates a number with only 2 distinct digits after the area code. What code should be used to fill in blank <code>(x)</code>?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading21_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21_1" aria-expanded="true" aria-controls="collapse21_1">
+<h2 class="accordion-header" id="heading23_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse23_1" aria-expanded="true" aria-controls="collapse23_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse21_1" class="accordion-collapse collapse collapse" aria-labelledby="heading21_1" data-bs-parent="#accordionExample">
+<div id="collapse23_1" class="accordion-collapse collapse collapse" aria-labelledby="heading23_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2651,16 +2864,16 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-21.2">Problem 21.2</h3>
+<h3 id="problem-23.2">Problem 23.2</h3>
 <p>Next, you want to estimate the probability that the <strong>cat</strong> randomly generates a number with only 2 distinct digits after the area code. What code should be used to fill in blank <code>(x)</code>?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading21_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21_2" aria-expanded="true" aria-controls="collapse21_2">
+<h2 class="accordion-header" id="heading23_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse23_2" aria-expanded="true" aria-controls="collapse23_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse21_2" class="accordion-collapse collapse collapse" aria-labelledby="heading21_2" data-bs-parent="#accordionExample">
+<div id="collapse23_2" class="accordion-collapse collapse collapse" aria-labelledby="heading23_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2675,16 +2888,16 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-21.3">Problem 21.3</h3>
+<h3 id="problem-23.3">Problem 23.3</h3>
 <p>In either case, whether you’re simulating the monkey or the cat, what should be used to fill in blank <code>(y)</code>?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading21_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21_3" aria-expanded="true" aria-controls="collapse21_3">
+<h2 class="accordion-header" id="heading23_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse23_3" aria-expanded="true" aria-controls="collapse23_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse21_3" class="accordion-collapse collapse collapse" aria-labelledby="heading21_3" data-bs-parent="#accordionExample">
+<div id="collapse23_3" class="accordion-collapse collapse collapse" aria-labelledby="heading23_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2699,16 +2912,16 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-21.4">Problem 21.4</h3>
+<h3 id="problem-23.4">Problem 23.4</h3>
 <p>When you are simulating the <strong>cat</strong>, what will the value of <code>probability_estimate</code> be after the code executes?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading21_4">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21_4" aria-expanded="true" aria-controls="collapse21_4">
+<h2 class="accordion-header" id="heading23_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse23_4" aria-expanded="true" aria-controls="collapse23_4">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse21_4" class="accordion-collapse collapse collapse" aria-labelledby="heading21_4" data-bs-parent="#accordionExample">
+<div id="collapse23_4" class="accordion-collapse collapse collapse" aria-labelledby="heading23_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 

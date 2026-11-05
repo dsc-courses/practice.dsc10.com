@@ -1152,6 +1152,34 @@ def rewrite_paths_for_lecture(md_or_html: str) -> str:
 
 
 
+# Shown at the top of each lecture page. Lectures not listed don't get a topics line.
+LECTURE_TOPICS = {
+    2: "Expressions and data types.",
+    3: "Strings and arrays.",
+    4: "Arrays and DataFrames.",
+    5: "Querying and grouping.",
+    6: "Grouping and data visualization.",
+    7: "Distributions and histograms.",
+    8: "Functions and applying.",
+    9: "Grouping on multiple columns, merging.",
+    10: "Conditional statements and iteration.",
+    11: "Probability.",
+    12: "Simulation.",
+    13: "Distributions and sampling.",
+    14: "Bootstrapping and confidence intervals.",
+    15: "Confidence intervals, center, and spread.",
+    16: "Standardization and the normal distribution.",
+    17: "The Central Limit Theorem.",
+    18: "Choosing sample sizes, statistical models.",
+    19: "Hypothesis testing.",
+    20: "Hypothesis testing and total variation distance.",
+    21: "TVD, hypothesis testing, and permutation testing.",
+    22: "Permutation testing.",
+    23: "Correlation.",
+    24: "Regression and least squares.",
+    25: "Residuals and inference.",
+}
+
 LECTURE_SORT_BUTTONS = '''<style>
 .lec-sort { display: flex; justify-content: flex-start; margin: 4px 0 12px; }
 .lec-sort-box { display: inline-flex; align-items: center; gap: 8px; background: #e7f1ff; border: 1px solid rgba(0, 0, 0, 0.125); border-radius: 6px; padding: 6px 6px 6px 12px; }
@@ -1245,6 +1273,8 @@ def write_lecture_pages():
 
 """
         page_md += f"# Lecture {L} — Collected Practice Questions\n\n"
+        if L in LECTURE_TOPICS:
+            page_md += f"**Topics:** {LECTURE_TOPICS[L]}\n\n"
         page_md += (
             f"Below are practice problems tagged for Lecture **{L}** "
             f"(rendered directly from the original exam/quiz sources). "

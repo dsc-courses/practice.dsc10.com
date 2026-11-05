@@ -114,6 +114,7 @@
 <p><a href="../../index.html">← return to practice.dsc10.com</a></p>
 <hr />
 <h1 id="lecture-20-collected-practice-questions">Lecture 20 — Collected Practice Questions</h1>
+<p><strong>Topics:</strong> Hypothesis testing and total variation distance.</p>
 <p>Below are practice problems tagged for Lecture <strong>20</strong> (rendered directly from the original exam/quiz sources). By default, problems are sorted from easiest to hardest by average score; problems without a score are listed last.</p>
 <style>
 .lec-sort { display: flex; justify-content: flex-start; margin: 4px 0 12px; }
@@ -2640,12 +2641,191 @@ Click to view the solution.
 </div>
 <hr />
 </div>
-<div class="lec-problem" data-avg="65.25" data-term="20231">
-<p class="meta"><em>Source:</em> <a href="../../wi23-final/index.html#problem-16">Question 16 from Winter 2023 Final Exam</a></p>
+<div class="lec-problem" data-avg="65.40" data-term="20261">
+<p class="meta"><em>Source:</em> <a href="../../wi26-final/index.html#problem-9">Question 9 from Winter 2026 Final Exam</a></p>
 <h2 id="problem-18">Problem 18</h2>
-<p>We collect data on the play times of 100 games of <em>Chutes and Ladders</em> (sometimes known as <em>Snakes and Ladders</em>) and want to use this data to perform a hypothesis test.</p>
+<p>Punch is a baby Japanese macaque; zookeepers recorded his last <strong>50</strong> interactions (<strong>20</strong> friendly). For a typical macaque, <strong>50%</strong> of interactions are friendly. Minchan tests whether Punch is treated <strong>worse</strong> (fewer friendly) using:</p>
+<ul>
+<li><strong>Null:</strong> (P() = 0.5) for each interaction.</li>
+<li><strong>Alternative:</strong> (P() &lt; 0.5).</li>
+</ul>
+<p>Assume <code>total_variation_distance(dist1, dist2)</code> computes TVD as in class. Code skeleton:</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>A. expected <span class="op">=</span> <span class="dv">50</span> <span class="op">*</span> <span class="fl">0.5</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>B. obs <span class="op">=</span> <span class="bu">abs</span>(<span class="dv">20</span> <span class="op">-</span> expected)</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>C. stats <span class="op">=</span> np.array([])</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>D. <span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">1000</span>):</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>E.     n <span class="op">=</span> np.random.multinomial(<span class="dv">50</span>, [<span class="fl">0.5</span>, <span class="fl">0.5</span>])[<span class="dv">0</span>]</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>F.     stat <span class="op">=</span> <span class="bu">abs</span>(n <span class="op">-</span> expected)</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>G.     stats <span class="op">=</span> np.append(stats, stat)</span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>H. p_value <span class="op">=</span> np.count_nonzero(stats <span class="op">&gt;=</span> obs) <span class="op">/</span> <span class="dv">1000</span></span></code></pre></div>
 <p><br></p>
 <h3 id="problem-18.1">Problem 18.1</h3>
+<p><strong>(a)</strong> If Minchan runs the code <strong>unchanged</strong>, <strong>select all</strong> true statements.</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> A histogram of <code>stats</code> would be centered at 0.</p></li>
+<li><p><input type="checkbox" disabled="" /> A histogram of <code>stats</code> would have a peak at 5.</p></li>
+<li><p><input type="checkbox" disabled="" /> <code>p_value</code> is approximately <strong>twice</strong> what it should be for the stated one-sided alternative.</p></li>
+<li><p><input type="checkbox" disabled="" /> <code>p_value</code> is <strong>more than</strong> twice what it should be.</p></li>
+<li><p><input type="checkbox" disabled="" /> None of the above</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading18_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse18_1" aria-expanded="true" aria-controls="collapse18_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse18_1" class="accordion-collapse collapse collapse" aria-labelledby="heading18_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer:</strong> Only the <strong>third</strong> statement — using <code>abs</code> makes the test effectively two-sided, roughly doubling the one-sided (p)-value.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 69%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-18.2">Problem 18.2</h3>
+<p><strong>(b)</strong> Line <strong>B</strong> should be:</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Left as-is</p></li>
+<li><p><input type="radio" disabled="" /> <code>obs = 20 - expected</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>obs = 20 / 50 - expected</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>obs = abs(20 / 50 - expected / 50)</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>obs = total_variation_distance([0.4, 0.6], [0.5, 0.5])</code></p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading18_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse18_2" aria-expanded="true" aria-controls="collapse18_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse18_2" class="accordion-collapse collapse collapse" aria-labelledby="heading18_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer:</strong> <code>obs = 20 - expected</code> (one-sided: count friendly minus expected under null; no <code>abs</code>).</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 54%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-18.3">Problem 18.3</h3>
+<p><strong>(c)</strong> Line <strong>E</strong> should be:</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Left as-is</p></li>
+<li><p><input type="radio" disabled="" /> <code>n = np.random.choice(['Friendly', 'Unfriendly'], 50)</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>n = np.random.multinomial(20, [0.5, 0.5])[0]</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>n = np.random.multinomial(50, [0.4, 0.6])[0]</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>n = np.random.multinomial(50, [0.5, 0.5])</code></p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading18_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse18_3" aria-expanded="true" aria-controls="collapse18_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse18_3" class="accordion-collapse collapse collapse" aria-labelledby="heading18_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer:</strong> Left as-is — multinomial ((50, [0.5, 0.5])) and take <code>[0]</code> for count of friendlies under the null.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 80%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-18.4">Problem 18.4</h3>
+<p><strong>(d)</strong> Line <strong>F</strong> should be:</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Left as-is</p></li>
+<li><p><input type="radio" disabled="" /> <code>stat = obs</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>stat = abs(n - 20)</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>stat = total_variation_distance([n/50, 1 - n/50], [0.5, 0.5])</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>stat = n - expected</code></p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading18_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse18_4" aria-expanded="true" aria-controls="collapse18_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse18_4" class="accordion-collapse collapse collapse" aria-labelledby="heading18_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer:</strong> <code>stat = n - expected</code> (match the observed statistic without <code>abs</code>).</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 57%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-18.5">Problem 18.5</h3>
+<p><strong>(e)</strong> Line <strong>H</strong> should be:</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Left as-is</p></li>
+<li><p><input type="radio" disabled="" /> <code>np.count_nonzero(stats &gt;= obs) / 50</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>np.count_nonzero(stats &lt;= obs) / 50</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>np.count_nonzero(stats &lt;= obs) / 1000</code></p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading18_5">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse18_5" aria-expanded="true" aria-controls="collapse18_5">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse18_5" class="accordion-collapse collapse collapse" aria-labelledby="heading18_5" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer:</strong> <code>np.count_nonzero(stats &lt;= obs) / 1000</code> — one-sided alternative “less than 0.5” means more extreme = smaller or equal <code>stat</code>; divide by number of simulations.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 67%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+</div>
+<div class="lec-problem" data-avg="65.25" data-term="20231">
+<p class="meta"><em>Source:</em> <a href="../../wi23-final/index.html#problem-16">Question 16 from Winter 2023 Final Exam</a></p>
+<h2 id="problem-19">Problem 19</h2>
+<p>We collect data on the play times of 100 games of <em>Chutes and Ladders</em> (sometimes known as <em>Snakes and Ladders</em>) and want to use this data to perform a hypothesis test.</p>
+<p><br></p>
+<h3 id="problem-19.1">Problem 19.1</h3>
 <p>Which of the following pairs of hypotheses can we test using this data?</p>
 <p>Option 1: <strong>Null Hypothesis:</strong> In a random sample of Chutes and Ladders games, the average play time is 30 minutes. <strong>Alternative Hypothesis:</strong> In a random sample of Chutes and Ladders games, the average play time is not 30 minutes.</p>
 <p>Option 2: <strong>Null Hypothesis:</strong> In a random sample of Chutes and Ladders games, the average play time is not 30 minutes. <strong>Alternative Hypothesis:</strong> In a random sample of Chutes and Ladders games, the average play time is 30 minutes</p>
@@ -2659,12 +2839,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading18_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse18_1" aria-expanded="true" aria-controls="collapse18_1">
+<h2 class="accordion-header" id="heading19_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse19_1" aria-expanded="true" aria-controls="collapse19_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse18_1" class="accordion-collapse collapse collapse" aria-labelledby="heading18_1" data-bs-parent="#accordionExample">
+<div id="collapse19_1" class="accordion-collapse collapse collapse" aria-labelledby="heading19_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2684,16 +2864,16 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-18.2">Problem 18.2</h3>
+<h3 id="problem-19.2">Problem 19.2</h3>
 <p>We use our collected data to construct a 95% CLT-based confidence interval for the average play time of a game of <em>Chutes and Ladders</em>. This 95% confidence interval is [26.47, 28.47]. For the 100 games for which we collected data, what is the mean and standard deviation of the play times?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading18_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse18_2" aria-expanded="true" aria-controls="collapse18_2">
+<h2 class="accordion-header" id="heading19_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse19_2" aria-expanded="true" aria-controls="collapse19_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse18_2" class="accordion-collapse collapse collapse" aria-labelledby="heading18_2" data-bs-parent="#accordionExample">
+<div id="collapse19_2" class="accordion-collapse collapse collapse" aria-labelledby="heading19_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2719,7 +2899,7 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-18.3">Problem 18.3</h3>
+<h3 id="problem-19.3">Problem 19.3</h3>
 <p>Does the CLT say that the distribution of play times of the 100 games is roughly normal?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> Yes</p></li>
@@ -2727,12 +2907,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading18_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse18_3" aria-expanded="true" aria-controls="collapse18_3">
+<h2 class="accordion-header" id="heading19_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse19_3" aria-expanded="true" aria-controls="collapse19_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse18_3" class="accordion-collapse collapse collapse" aria-labelledby="heading18_3" data-bs-parent="#accordionExample">
+<div id="collapse19_3" class="accordion-collapse collapse collapse" aria-labelledby="heading19_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2749,7 +2929,7 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-18.4">Problem 18.4</h3>
+<h3 id="problem-19.4">Problem 19.4</h3>
 <p>Of the two hypotheses you selected in part (a), which one is better supported by the data?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> Null Hypothesis</p></li>
@@ -2757,12 +2937,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading18_4">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse18_4" aria-expanded="true" aria-controls="collapse18_4">
+<h2 class="accordion-header" id="heading19_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse19_4" aria-expanded="true" aria-controls="collapse19_4">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse18_4" class="accordion-collapse collapse collapse" aria-labelledby="heading18_4" data-bs-parent="#accordionExample">
+<div id="collapse19_4" class="accordion-collapse collapse collapse" aria-labelledby="heading19_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2781,9 +2961,208 @@ Click to view the solution.
 <p><br></p>
 <hr />
 </div>
+<div class="lec-problem" data-avg="64.00" data-term="20254">
+<p class="meta"><em>Source:</em> <a href="../../fa25-final/index.html#problem-4">Question 4 from Fall 2025 Final Exam</a></p>
+<h2 id="problem-20">Problem 20</h2>
+<p>Define the DataFrames <code>snow1</code> and <code>snow2</code> as follows.</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>snow1 <span class="op">=</span> snow.take(np.arange(<span class="dv">5</span>))</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>snow2 <span class="op">=</span> snow.take(np.arange(<span class="dv">5</span>, <span class="dv">10</span>))</span></code></pre></div>
+<p><br></p>
+<h3 id="problem-20.1">Problem 20.1</h3>
+<!-- **(3 pts)** -->
+<p>Calculate the TVD between the distribution of <code>"continent"</code> in <code>snow1</code> and the distribution of <code>"continent"</code> in <code>snow2</code>. Give your answer as a <strong>simplified fraction</strong>.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading20_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse20_1" aria-expanded="true" aria-controls="collapse20_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse20_1" class="accordion-collapse collapse collapse" aria-labelledby="heading20_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer:</strong> <span class="math inline">\frac{1}{5}</span></p>
+<p>The TVD is the sum of absolute differences in proportions, all divided by 2. We are essentially comparing categorical distributions of <code>"continent"</code> in the first five rows of <code>snow</code> (<code>snow1</code>) against the next five rows of <code>snow</code> (<code>snow2</code>).</p>
+<p>We refer to the preview of <code>snow</code> in the data description. The counts and corresponding proportions of continents in the first five rows are as follows:</p>
+<ol type="1">
+<li>North America: <span class="math inline">2 \Rightarrow 2/5</span></li>
+<li>Europe: <span class="math inline">1 \Rightarrow 1/5</span></li>
+<li>Asia: <span class="math inline">1 \Rightarrow 1/5</span></li>
+<li>Africa: <span class="math inline">1 \Rightarrow 1/5</span></li>
+</ol>
+<p>In the next five rows, the counts and corresponding proportions of continents are:</p>
+<ol type="1">
+<li>North America: <span class="math inline">2 \Rightarrow 2/5</span></li>
+<li>Europe: <span class="math inline">2 \Rightarrow 2/5</span></li>
+<li>Asia: <span class="math inline">1 \Rightarrow 1/5</span></li>
+<li>Africa: <span class="math inline">0 \Rightarrow 0</span></li>
+</ol>
+<p>Let <span class="math inline">p_k^{(1)}</span> be the proportion associated with continent <span class="math inline">k</span> in <code>snow1</code>. Similarly let <span class="math inline">p_k^{(2)}</span> be the proportion associated with continent <span class="math inline">k</span> in <code>snow2</code>. Computing the TVD by its definition, we get:</p>
+<p><span class="math display">\frac{1}{2} \sum_{k=1}^{4} \left|p_k^{(1)} - p_k^{(2)}\right| = \frac{1}{2}\left(\left|\frac{2}{5} - \frac{2}{5}\right| + \left|\frac{1}{5} - \frac{2}{5}\right| + \left|\frac{1}{5} - \frac{1}{5}\right| + \left|\frac{1}{5} - 0\right|\right) = \frac{1}{2}\left(0 + \frac{1}{5} + 0 + \frac{1}{5}\right) = \frac{1}{2} \cdot \frac{2}{5} = \frac{1}{5}</span></p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 69%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-20.2">Problem 20.2</h3>
+<!-- **(3 pts)** -->
+<p>Suppose we add a new row to <code>snow1</code> and we also add this same row to <code>snow2</code>. What will the TVD between the <code>"continent"</code> distributions be after this change? Give your answer as a <strong>simplified fraction</strong>.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading20_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse20_2" aria-expanded="true" aria-controls="collapse20_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse20_2" class="accordion-collapse collapse collapse" aria-labelledby="heading20_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer:</strong> <span class="math inline">\frac{1}{6}</span></p>
+<p>If we add a new row to <code>snow1</code> and an identical new row to <code>snow2</code>, there will be 6 total rows instead of 5. Hence, our proportions will be out of 6, instead of 5. However, the numerator from the TVD computation will not change. Suppose <span class="math inline">c_1</span> and <span class="math inline">c_2</span> are counts for the original <code>snow1</code> and <code>snow2</code> respectively, corresponding to the new continent we’ve added. In the new <code>snow1</code> and <code>snow2</code>, these counts become:</p>
+<p><span class="math display">c_1 + 1 \quad \text{and} \quad c_2 + 1</span></p>
+<p>and the corresponding proportions are</p>
+<p><span class="math display">\frac{c_1 + 1}{6} \quad \text{and} \quad \frac{c_2 + 1}{6}.</span></p>
+<p>When computing TVD, we must then compute:</p>
+<p><span class="math display">\left|\left(\frac{c_1 + 1}{6}\right) - \left(\frac{c_2 + 1}{6}\right)\right| = \left|\frac{c_1}{6} - \frac{c_2}{6}\right| = \frac{5}{6}\left|\frac{c_1}{5} - \frac{c_2}{5}\right|</span></p>
+<p>Since <span class="math inline">|c_1/5 - c_2/5|</span> is the absolute difference between original proportions in part (a), the above would suggest that the only difference in TVD is the denominator changing from 5 to 6.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 42%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-20.3">Problem 20.3</h3>
+<!-- **(3 pts)** -->
+<p>Determine the number of rows in the merged DataFrame below. Give your answer as an <strong>integer</strong>.</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>snow1.merge(snow2, on<span class="op">=</span><span class="st">&quot;continent&quot;</span>)</span></code></pre></div>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading20_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse20_3" aria-expanded="true" aria-controls="collapse20_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse20_3" class="accordion-collapse collapse collapse" aria-labelledby="heading20_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer:</strong> 7</p>
+<p>Recall our continent counts for <code>snow1</code> and <code>snow2</code> from part (a).</p>
+<p><code>snow1</code>:</p>
+<ol type="1">
+<li>North America: 2</li>
+<li>Europe: 1</li>
+<li>Asia: 1</li>
+<li>Africa: 1</li>
+</ol>
+<p><code>snow2</code>:</p>
+<ol type="1">
+<li>North America: 2</li>
+<li>Europe: 2</li>
+<li>Asia: 1</li>
+<li>Africa: 0</li>
+</ol>
+<p>For each entry in <code>snow1</code>, merging adds an amount of rows that describes the number of “matches” that entry has with entries in <code>snow2</code>. For example, the first North America entry in <code>snow1</code> will have 2 matches with North America entries in <code>snow2</code>. Since there are 2 North America entries in <code>snow1</code> and 2 North America entries in <code>snow2</code>, there are a total of <span class="math inline">2 \cdot 2 = 4</span> row matches for North America across <code>snow1</code> and <code>snow2</code>. Following this logic, the resulting number of rows is:</p>
+<p><span class="math display">(2 \cdot 2) + (1 \cdot 2) + (1 \cdot 1) + (1 \cdot 0) = 4 + 2 + 1 = 7 \text{ rows}</span></p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 72%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-20.4">Problem 20.4</h3>
+<!-- **(3 pts)** -->
+<p>Determine the number of rows in the merged DataFrame below. Give your answer as an <strong>integer</strong>.</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>snow1.merge(snow2, on<span class="op">=</span><span class="st">&quot;coastal&quot;</span>)</span></code></pre></div>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading20_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse20_4" aria-expanded="true" aria-controls="collapse20_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse20_4" class="accordion-collapse collapse collapse" aria-labelledby="heading20_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer:</strong> 12</p>
+<p>Instead of continents, we are now matching values in the <code>"coastal"</code> column. The counts are as follows:</p>
+<p><code>snow1</code>:</p>
+<ol type="1">
+<li>True: 2</li>
+<li>False: 3</li>
+</ol>
+<p><code>snow2</code>:</p>
+<ol type="1">
+<li>True: 3</li>
+<li>False: 2</li>
+</ol>
+<p>The logic is the same as in the previous part, and computing accordingly, we get:</p>
+<p><span class="math display">(2 \cdot 3) + (3 \cdot 2) = 6 + 6 = 12 \text{ rows}</span></p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 76%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-20.5">Problem 20.5</h3>
+<!-- **(3 pts)** -->
+<p>Suppose that the full <code>snow</code> DataFrame has <span class="math inline">n</span> rows, and <span class="math inline">t</span> of these rows have a value of <code>True</code> in the <code>"coastal"</code> column. Give a <strong>mathematical expression</strong>, in terms of <span class="math inline">n</span> and <span class="math inline">t</span>, for the number of rows in the DataFrame <code>snow.merge(snow, on="coastal")</code>.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading20_5">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse20_5" aria-expanded="true" aria-controls="collapse20_5">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse20_5" class="accordion-collapse collapse collapse" aria-labelledby="heading20_5" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer:</strong> <span class="math inline">t^2 + (n-t)^2 = n^2 - 2nt + 2t^2</span></p>
+<p>If there are <span class="math inline">t</span> rows that contain <code>True</code> and there are <span class="math inline">n</span> total rows, we know that there must be <span class="math inline">n - t</span> rows that contain <code>False</code>.</p>
+<p>If we merge <code>snow</code> with itself on the <code>"coastal"</code> column, each <code>True</code> entry in <code>snow</code> will have <span class="math inline">t</span> matches with <code>True</code> entries in the “other” <code>snow</code> DataFrame (since we are working with the same DataFrame). Similarly, each <code>False</code> entry will have <span class="math inline">n - t</span> matches with other <code>False</code> entries. Since there are <span class="math inline">t</span> <code>True</code> entries and <span class="math inline">n - t</span> <code>False</code> entries, this results in</p>
+<p><span class="math display">(t \cdot t) + \Big((n-t) \cdot (n-t)\Big) = t^2 + (n-t)^2</span></p>
+<p>rows in the resulting DataFrame.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 61%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+</div>
 <div class="lec-problem" data-avg="63.67" data-term="20252">
 <p class="meta"><em>Source:</em> <a href="../../sp25-final/index.html#problem-8">Question 8 from Spring 2025 Final Exam</a></p>
-<h2 id="problem-19">Problem 19</h2>
+<h2 id="problem-21">Problem 21</h2>
 <p>[(13 pts)]</p>
 <p>In certain districts (<span class="math inline">1</span>, <span class="math inline">2</span>, and <span class="math inline">4</span>), children spend years training for the Hunger Games and frequently volunteer to participate in them. Tributes that come from these districts are known as <strong>Career tributes</strong>. Many residents of Panem believe that Career tributes generally fare better in the Hunger Games because of their extensive training.</p>
 <p>We’ll test this claim using historical data. The DataFrame <code>survival</code> has a row for each tribute who participated in one of the first <span class="math inline">74</span> Hunger Games. The columns are as follows:</p>
@@ -2803,16 +3182,16 @@ Click to view the solution.
 </ul>
 <p>Our test statistic will be the mean survival time of Career tributes minus the mean survival time of non-Career tributes</p>
 <p><br></p>
-<h3 id="problem-19.1">Problem 19.1</h3>
+<h3 id="problem-21.1">Problem 21.1</h3>
 <p>Write code to create a DataFrame called <code>tributes</code> that has all the data in <code>survival</code> plus an additional column called <code>"Career"</code>. This column should contain boolean values indicating whether each tribute is considered a Career tribute. Feel free to define intermediate variables and functions as needed, and to do this in multiple lines of code.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading19_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse19_1" aria-expanded="true" aria-controls="collapse19_1">
+<h2 class="accordion-header" id="heading21_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21_1" aria-expanded="true" aria-controls="collapse21_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse19_1" class="accordion-collapse collapse collapse" aria-labelledby="heading19_1" data-bs-parent="#accordionExample">
+<div id="collapse21_1" class="accordion-collapse collapse collapse" aria-labelledby="heading21_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2837,23 +3216,23 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-19.2">Problem 19.2</h3>
+<h3 id="problem-21.2">Problem 21.2</h3>
 <p>Fill in the blanks in the code below so that <code>statistics</code> evaluates to an array with 10000 simulated values of the test statistic under the null hypothesis.</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>statistics <span class="op">=</span> np.array([])</span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>    shuffled <span class="op">=</span> tributes.assign(__(a)__)</span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>    means <span class="op">=</span> shuffled.get([<span class="st">&quot;Career&quot;</span>, <span class="st">&quot;Days&quot;</span>]).groupby(<span class="st">&quot;Career&quot;</span>).mean().get(<span class="st">&quot;Days&quot;</span>)</span>
-<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>    stat <span class="op">=</span> __(b)__</span>
-<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>    statistics <span class="op">=</span> np.append(statistics, stat)</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>statistics <span class="op">=</span> np.array([])</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>    shuffled <span class="op">=</span> tributes.assign(__(a)__)</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>    means <span class="op">=</span> shuffled.get([<span class="st">&quot;Career&quot;</span>, <span class="st">&quot;Days&quot;</span>]).groupby(<span class="st">&quot;Career&quot;</span>).mean().get(<span class="st">&quot;Days&quot;</span>)</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>    stat <span class="op">=</span> __(b)__</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>    statistics <span class="op">=</span> np.append(statistics, stat)</span></code></pre></div>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading19_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse19_2" aria-expanded="true" aria-controls="collapse19_2">
+<h2 class="accordion-header" id="heading21_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21_2" aria-expanded="true" aria-controls="collapse21_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse19_2" class="accordion-collapse collapse collapse" aria-labelledby="heading19_2" data-bs-parent="#accordionExample">
+<div id="collapse21_2" class="accordion-collapse collapse collapse" aria-labelledby="heading21_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2872,19 +3251,19 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-19.3">Problem 19.3</h3>
+<h3 id="problem-21.3">Problem 21.3</h3>
 <p>The output of <code>tributes.get(["Career", "Days"]).groupby("Career").mean()</code> is shown below.</p>
 <center><img src="../../assets/images/sp25-final/grouped.jpg" width=500></center>
 <p>Fill in the blank below to compute the p-value of this test.</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>p_value <span class="op">=</span> (__(a)__).mean()</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>p_value <span class="op">=</span> (__(a)__).mean()</span></code></pre></div>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading19_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse19_3" aria-expanded="true" aria-controls="collapse19_3">
+<h2 class="accordion-header" id="heading21_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21_3" aria-expanded="true" aria-controls="collapse21_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse19_3" class="accordion-collapse collapse collapse" aria-labelledby="heading19_3" data-bs-parent="#accordionExample">
+<div id="collapse21_3" class="accordion-collapse collapse collapse" aria-labelledby="heading21_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2906,7 +3285,7 @@ Click to view the solution.
 </div>
 <div class="lec-problem" data-avg="62.00" data-term="20242">
 <p class="meta"><em>Source:</em> <a href="../../sp24-final/index.html#problem-16">Question 16 from Spring 2024 Final Exam</a></p>
-<h2 id="problem-20">Problem 20</h2>
+<h2 id="problem-22">Problem 22</h2>
 <p>The table below shows the proportion of apartments of each type in each of three neighborhoods. Note that each column sums to 1.</p>
 <table>
 <thead>
@@ -2945,16 +3324,16 @@ Click to view the solution.
 </tbody>
 </table>
 <p><br></p>
-<h3 id="problem-20.1">Problem 20.1</h3>
+<h3 id="problem-22.1">Problem 22.1</h3>
 <p>Find the total variation distance (TVD) between North Park and Chula Vista. Give your answer as an exact decimal.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading20_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse20_1" aria-expanded="true" aria-controls="collapse20_1">
+<h2 class="accordion-header" id="heading22_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse22_1" aria-expanded="true" aria-controls="collapse22_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse20_1" class="accordion-collapse collapse collapse" aria-labelledby="heading20_1" data-bs-parent="#accordionExample">
+<div id="collapse22_1" class="accordion-collapse collapse collapse" aria-labelledby="heading22_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2972,7 +3351,7 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-20.2">Problem 20.2</h3>
+<h3 id="problem-22.2">Problem 22.2</h3>
 <p>Which pair of neighborhoods is most similar in terms of types of housing, as measured by TVD?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> North Park and Chula Vista</p></li>
@@ -2981,12 +3360,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading20_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse20_2" aria-expanded="true" aria-controls="collapse20_2">
+<h2 class="accordion-header" id="heading22_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse22_2" aria-expanded="true" aria-controls="collapse22_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse20_2" class="accordion-collapse collapse collapse" aria-labelledby="heading20_2" data-bs-parent="#accordionExample">
+<div id="collapse22_2" class="accordion-collapse collapse collapse" aria-labelledby="heading22_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3028,18 +3407,18 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-20.3">Problem 20.3</h3>
+<h3 id="problem-22.3">Problem 22.3</h3>
 <p>25% of apartments in Little Italy are one bedroom apartments. Based on this information, what is the minimum and maximum possible TVD between North Park and Little Italy? Give your answers as exact decimals.</p>
 <center>Minimum: ______ Maximum: ______</center>
 <p><br></p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading20_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse20_3" aria-expanded="true" aria-controls="collapse20_3">
+<h2 class="accordion-header" id="heading22_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse22_3" aria-expanded="true" aria-controls="collapse22_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse20_3" class="accordion-collapse collapse collapse" aria-labelledby="heading20_3" data-bs-parent="#accordionExample">
+<div id="collapse22_3" class="accordion-collapse collapse collapse" aria-labelledby="heading22_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3078,7 +3457,7 @@ Click to view the solution.
 </div>
 <div class="lec-problem" data-avg="61.22" data-term="20244">
 <p class="meta"><em>Source:</em> <a href="../../fa24-final/index.html#problem-7">Question 7 from Fall 2024 Final Exam</a></p>
-<h2 id="problem-21">Problem 21</h2>
+<h2 id="problem-23">Problem 23</h2>
 <p>Hargen is an employee at Bill’s Book Bonanza who tends to work weekend shifts. He thinks that Fridays, Saturdays, and Sundays are busier than other days, and he proposes the following probability distribution of sales by day:</p>
 <div class="center">
 <table>
@@ -3112,7 +3491,7 @@ Click to view the solution.
 <li><p><strong>Alternative Hypothesis</strong>: Sales at the bookstore are not randomly drawn from Hargen’s proposed distribution of days.</p></li>
 </ul>
 <p><br></p>
-<h3 id="problem-21.1">Problem 21.1</h3>
+<h3 id="problem-23.1">Problem 23.1</h3>
 <p>Which of the following test statistics could be used to test the given hypothesis? <strong>Select all that apply.</strong></p>
 <ul class="task-list">
 <li><p><input type="checkbox" disabled="" /> The absolute difference between the proportion of books sold on Saturday and the proposed proportion of books sold on Saturday (<span class="math inline">0.2</span>).</p></li>
@@ -3122,12 +3501,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading21_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21_1" aria-expanded="true" aria-controls="collapse21_1">
+<h2 class="accordion-header" id="heading23_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse23_1" aria-expanded="true" aria-controls="collapse23_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse21_1" class="accordion-collapse collapse collapse" aria-labelledby="heading21_1" data-bs-parent="#accordionExample">
+<div id="collapse23_1" class="accordion-collapse collapse collapse" aria-labelledby="heading23_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3156,7 +3535,7 @@ Click to view the solution.
 <p><br></p>
 <p>We will use as our test statistic <strong>the mean of the absolute differences in proportions between the distribution of books sold by day and Hargen’s proposed distribution.</strong></p>
 <p><br></p>
-<h3 id="problem-21.2">Problem 21.2</h3>
+<h3 id="problem-23.2">Problem 23.2</h3>
 <p>Suppose the observed distribution of books sold by day was as follows. Calculate the observed statistic in this case.</p>
 <div class="center">
 <table>
@@ -3186,18 +3565,25 @@ Click to view the solution.
 </div>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading21_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21_2" aria-expanded="true" aria-controls="collapse21_2">
+<h2 class="accordion-header" id="heading23_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse23_2" aria-expanded="true" aria-controls="collapse23_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse21_2" class="accordion-collapse collapse collapse" aria-labelledby="heading21_2" data-bs-parent="#accordionExample">
+<div id="collapse23_2" class="accordion-collapse collapse collapse" aria-labelledby="heading23_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
 </header>
 <p><strong>Answer</strong>: 0.06</p>
-<p></p>
+<p><span class="math display">
+\begin{align*}
+\text{mean abs diff} &amp;= \frac{|0.34 - 0.2| + |0.13 - 0.1| + |0.06 - 0.1| + |0.07 - 0.1| + |0.08 - 0.1| + |0.08 - 0.2| + |0.24 - 0.2|}{7}\\
+&amp;= \frac{0.14 + 0.03 + 0.04 + 0.03 + 0.02 + 0.12 + 0.04}{7}\\
+&amp;= \frac{0.42}{7} \\
+&amp;= 0.06
+\end{align*}
+</span></p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -3208,7 +3594,7 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-21.3">Problem 21.3</h3>
+<h3 id="problem-23.3">Problem 23.3</h3>
 <p>Let’s determine the actual value of the observed statistic based on the data in <code>sales</code>. Assume that we have already defined a function called <code>find_day</code> that returns the day of the week for a given <code>"date"</code>. For example, <code>find_day("Saturday, December 7, 2024")</code> evaluates to <code>"Saturday"</code>. Fill in the blanks below so that the variable <code>obs</code> evaluates to the observed statistic.</p>
 <pre><code># in alphabetical order: Fri, Mon, Sat, Sun, Thurs, Tues, Wed
 hargen = np.array([0.2, 0.1, 0.2, 0.2, 0.1, 0.1, 0.1]) 
@@ -3217,12 +3603,12 @@ prop = (sales.assign(day_of_week = __(a)__)
 obs = __(d)__</code></pre>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading21_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21_3" aria-expanded="true" aria-controls="collapse21_3">
+<h2 class="accordion-header" id="heading23_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse23_3" aria-expanded="true" aria-controls="collapse23_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse21_3" class="accordion-collapse collapse collapse" aria-labelledby="heading21_3" data-bs-parent="#accordionExample">
+<div id="collapse23_3" class="accordion-collapse collapse collapse" aria-labelledby="heading23_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3260,7 +3646,7 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-21.4">Problem 21.4</h3>
+<h3 id="problem-23.4">Problem 23.4</h3>
 <p>To conduct the hypothesis test, we’ll need to generate thousands of simulated day-of-the-week distributions. What will we do with all these simulated distributions?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> Use them to determine whether Hargen’s proposed distribution looks like a typical simulated distribution.</p></li>
@@ -3269,12 +3655,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading21_4">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21_4" aria-expanded="true" aria-controls="collapse21_4">
+<h2 class="accordion-header" id="heading23_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse23_4" aria-expanded="true" aria-controls="collapse23_4">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse21_4" class="accordion-collapse collapse collapse" aria-labelledby="heading21_4" data-bs-parent="#accordionExample">
+<div id="collapse23_4" class="accordion-collapse collapse collapse" aria-labelledby="heading23_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3291,7 +3677,7 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-21.5">Problem 21.5</h3>
+<h3 id="problem-23.5">Problem 23.5</h3>
 <p>In each iteration of the simulation, we need to collect a sample of size <code>sales.shape[0]</code> from which distribution?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> Hargen’s proposed distribution.</p></li>
@@ -3301,12 +3687,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading21_5">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21_5" aria-expanded="true" aria-controls="collapse21_5">
+<h2 class="accordion-header" id="heading23_5">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse23_5" aria-expanded="true" aria-controls="collapse23_5">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse21_5" class="accordion-collapse collapse collapse" aria-labelledby="heading21_5" data-bs-parent="#accordionExample">
+<div id="collapse23_5" class="accordion-collapse collapse collapse" aria-labelledby="heading23_5" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3323,7 +3709,7 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-21.6">Problem 21.6</h3>
+<h3 id="problem-23.6">Problem 23.6</h3>
 <p>Suppose that <code>obs</code> comes out to be in the 98th percentile of simulated test statistics. Using the standard p-value cutoff of 0.05, what would Hargen conclude about his original model?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> It is likely correct.</p></li>
@@ -3332,12 +3718,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading21_6">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21_6" aria-expanded="true" aria-controls="collapse21_6">
+<h2 class="accordion-header" id="heading23_6">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse23_6" aria-expanded="true" aria-controls="collapse23_6">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse21_6" class="accordion-collapse collapse collapse" aria-labelledby="heading21_6" data-bs-parent="#accordionExample">
+<div id="collapse23_6" class="accordion-collapse collapse collapse" aria-labelledby="heading23_6" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3358,7 +3744,7 @@ Click to view the solution.
 </div>
 <div class="lec-problem" data-avg="59.60" data-term="20234">
 <p class="meta"><em>Source:</em> <a href="../../fa23-final/index.html#problem-6">Question 6 from Fall 2023 Final Exam</a></p>
-<h2 id="problem-22">Problem 22</h2>
+<h2 id="problem-24">Problem 24</h2>
 <p>Aaron wants to explore the discrepancy in fraud rates between <code>"discover"</code> transactions and <code>"mastercard"</code> transactions. To do so, he creates the DataFrame <code>ds_mc</code>, which only contains the rows in <code>txn</code> corresponding to <code>"mastercard"</code> or <code>"discover"</code> transactions.</p>
 <p>After he creates <code>ds_mc</code>, Aaron groups <code>ds_mc</code> on the <code>"card"</code> column using two different aggregation methods. The relevant columns in the resulting DataFrames are shown below.</p>
 <center><img src='../../assets/images/fa23-final/ds_mc.png' width=800></center>
@@ -3370,7 +3756,7 @@ Click to view the solution.
 </ul>
 <p>As his test statistic, Aaron chooses the <strong>difference in proportion of transactions that are fraudulent</strong>, in the order <code>"mastercard"</code> minus <code>"discover"</code>.</p>
 <p><br></p>
-<h3 id="problem-22.1">Problem 22.1</h3>
+<h3 id="problem-24.1">Problem 24.1</h3>
 <p>What type of statistical test is Aaron performing?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> Standard hypothesis test</p></li>
@@ -3378,12 +3764,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading22_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse22_1" aria-expanded="true" aria-controls="collapse22_1">
+<h2 class="accordion-header" id="heading24_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse24_1" aria-expanded="true" aria-controls="collapse24_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse22_1" class="accordion-collapse collapse collapse" aria-labelledby="heading22_1" data-bs-parent="#accordionExample">
+<div id="collapse24_1" class="accordion-collapse collapse collapse" aria-labelledby="heading24_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3400,16 +3786,16 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-22.2">Problem 22.2</h3>
+<h3 id="problem-24.2">Problem 24.2</h3>
 <p>What is the value of the observed statistic? Give your answer either as an exact decimal or simplified fraction.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading22_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse22_2" aria-expanded="true" aria-controls="collapse22_2">
+<h2 class="accordion-header" id="heading24_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse24_2" aria-expanded="true" aria-controls="collapse24_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse22_2" class="accordion-collapse collapse collapse" aria-labelledby="heading22_2" data-bs-parent="#accordionExample">
+<div id="collapse24_2" class="accordion-collapse collapse collapse" aria-labelledby="heading24_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3429,7 +3815,7 @@ Click to view the solution.
 <p>The empirical distribution of Aaron’s chosen test statistic is shown below.</p>
 <center><img src='../../assets/images/fa23-final/null-hyp-dist.png' width=800></center>
 <p><br></p>
-<h3 id="problem-22.3">Problem 22.3</h3>
+<h3 id="problem-24.3">Problem 24.3</h3>
 <p>Which of the following is closest to the p-value of Aaron’s test?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> 0.001</p></li>
@@ -3440,12 +3826,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading22_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse22_3" aria-expanded="true" aria-controls="collapse22_3">
+<h2 class="accordion-header" id="heading24_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse24_3" aria-expanded="true" aria-controls="collapse24_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse22_3" class="accordion-collapse collapse collapse" aria-labelledby="heading22_3" data-bs-parent="#accordionExample">
+<div id="collapse24_3" class="accordion-collapse collapse collapse" aria-labelledby="heading24_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3462,7 +3848,7 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-22.4">Problem 22.4</h3>
+<h3 id="problem-24.4">Problem 24.4</h3>
 <p>What is the conclusion of Aaron’s test?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> The proportion of fraudulent <code>"mastercard"</code> transactions is <strong>less than</strong> the proportion of fraudulent <code>"discover"</code> transactions.</p></li>
@@ -3472,12 +3858,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading22_4">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse22_4" aria-expanded="true" aria-controls="collapse22_4">
+<h2 class="accordion-header" id="heading24_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse24_4" aria-expanded="true" aria-controls="collapse24_4">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse22_4" class="accordion-collapse collapse collapse" aria-labelledby="heading22_4" data-bs-parent="#accordionExample">
+<div id="collapse24_4" class="accordion-collapse collapse collapse" aria-labelledby="heading24_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3505,7 +3891,7 @@ Click to view the solution.
 </ul>
 <p>He uses the same test statistic as before.</p>
 <p><br></p>
-<h3 id="problem-22.5">Problem 22.5</h3>
+<h3 id="problem-24.5">Problem 24.5</h3>
 <p>Which of the following is closest to the p-value of Aaron’s new test?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> 0.001</p></li>
@@ -3517,12 +3903,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading22_5">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse22_5" aria-expanded="true" aria-controls="collapse22_5">
+<h2 class="accordion-header" id="heading24_5">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse24_5" aria-expanded="true" aria-controls="collapse24_5">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse22_5" class="accordion-collapse collapse collapse" aria-labelledby="heading22_5" data-bs-parent="#accordionExample">
+<div id="collapse24_5" class="accordion-collapse collapse collapse" aria-labelledby="heading24_5" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3543,18 +3929,18 @@ Click to view the solution.
 </div>
 <div class="lec-problem" data-avg="56.00" data-term="20244">
 <p class="meta"><em>Source:</em> <a href="../../fa24-final/index.html#problem-10">Question 10 from Fall 2024 Final Exam</a></p>
-<h2 id="problem-23">Problem 23</h2>
+<h2 id="problem-25">Problem 25</h2>
 <p><br></p>
-<h3 id="problem-23.1">Problem 23.1</h3>
+<h3 id="problem-25.1">Problem 25.1</h3>
 <p>Suppose the <code>bookstore</code> DataFrame has <span class="math inline">10</span> unique genres, and we are given a sample of <span class="math inline">350</span> books from that DataFrame. Determine the maximum possible total variation distance (TVD) that could occur between our sample’s genre distribution and the uniform distribution where each genre occurs with equal probability. Your answer should be a single number.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading23_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse23_1" aria-expanded="true" aria-controls="collapse23_1">
+<h2 class="accordion-header" id="heading25_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse25_1" aria-expanded="true" aria-controls="collapse25_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse23_1" class="accordion-collapse collapse collapse" aria-labelledby="heading23_1" data-bs-parent="#accordionExample">
+<div id="collapse25_1" class="accordion-collapse collapse collapse" aria-labelledby="heading25_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3578,7 +3964,7 @@ TVD = \frac{1}{2} \left( |1 - 0.1| + 9 \times |0 - 0.1| \right) = \frac{1}{2} (0
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-23.2">Problem 23.2</h3>
+<h3 id="problem-25.2">Problem 25.2</h3>
 <p>True or False: If the sample instead had 700 books, then the maximum possible TVD would <strong>increase</strong>.</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> True</p></li>
@@ -3586,12 +3972,12 @@ TVD = \frac{1}{2} \left( |1 - 0.1| + 9 \times |0 - 0.1| \right) = \frac{1}{2} (0
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading23_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse23_2" aria-expanded="true" aria-controls="collapse23_2">
+<h2 class="accordion-header" id="heading25_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse25_2" aria-expanded="true" aria-controls="collapse25_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse23_2" class="accordion-collapse collapse collapse" aria-labelledby="heading23_2" data-bs-parent="#accordionExample">
+<div id="collapse25_2" class="accordion-collapse collapse collapse" aria-labelledby="heading25_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3608,7 +3994,7 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-23.3">Problem 23.3</h3>
+<h3 id="problem-25.3">Problem 25.3</h3>
 <p>True or False: If the <code>bookstore</code> DataFrame had 11 genres instead of 10, the maximum possible TVD would <strong>increase</strong>.</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> True</p></li>
@@ -3616,12 +4002,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading23_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse23_3" aria-expanded="true" aria-controls="collapse23_3">
+<h2 class="accordion-header" id="heading25_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse25_3" aria-expanded="true" aria-controls="collapse25_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse23_3" class="accordion-collapse collapse collapse" aria-labelledby="heading23_3" data-bs-parent="#accordionExample">
+<div id="collapse25_3" class="accordion-collapse collapse collapse" aria-labelledby="heading25_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3643,9 +4029,37 @@ TVD = \frac{1}{2} \left( |1 - \frac{1}{11}| + 10 \times |0 - \frac{1}{11}| \righ
 <p><br></p>
 <hr />
 </div>
+<div class="lec-problem" data-avg="45.00" data-term="20262">
+<p class="meta"><em>Source:</em> <a href="../../sp26-quiz4/index.html#problem-2">Question 2 from Spring 2026 Quiz 4</a></p>
+<h2 id="problem-26">Problem 26</h2>
+<p>Pranav is doing a hypothesis test with the following null hypothesis: in the population of reservations, each reservation has a <span class="math inline">30\%</span> chance of being <code>"early_bird"</code>. His test statistic is the <strong>percentage</strong> of <code>"early_bird"</code> reservations, and his observed data is <strong>all</strong> of the data in <code>res</code>. Write one line of code to calculate one simulated value of the test statistic under the assumptions of the null. Your code should produce an <strong>integer between 0 and 100</strong>.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading26">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse26" aria-expanded="true" aria-controls="collapse26">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse26" class="accordion-collapse collapse collapse" aria-labelledby="heading26" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer</strong>: <code>np.random.multinomial(50, [0.3, 0.7])[0] / 50 * 100</code></p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 45%.</p>
+</div>
+</div>
+</div>
+</div>
+<hr />
+</div>
 <div class="lec-problem" data-avg="43.67" data-term="20232">
 <p class="meta"><em>Source:</em> <a href="../../sp23-final/index.html#problem-5">Question 5 from Spring 2023 Final Exam</a></p>
-<h2 id="problem-24">Problem 24</h2>
+<h2 id="problem-27">Problem 27</h2>
 <p>In some cities, the number of sunshine hours per month is relatively consistent throughout the year. São Paulo, Brazil is one such city; in all months of the year, the number of sunshine hours per month is somewhere between 139 and 173. New York City’s, on the other hand, ranges from 139 to 268.</p>
 <p>Gina and Abel, both San Diego natives, are interested in assessing how "consistent" the number of sunshine hours per month in San Diego appear to be. Specifically, they’d like to test the following hypotheses:</p>
 <ul>
@@ -3654,10 +4068,10 @@ TVD = \frac{1}{2} \left( |1 - \frac{1}{11}| + 10 \times |0 - \frac{1}{11}| \righ
 </ul>
 <p>As their test statistic, Gina and Abel choose the total variation distance. To simulate samples under the null, they will sample from a categorical distribution with 12 categories — January, February, and so on, through December — each of which have an equal probability of being chosen.</p>
 <p><br></p>
-<h3 id="problem-24.1">Problem 24.1</h3>
+<h3 id="problem-27.1">Problem 27.1</h3>
 <p>In order to run their hypothesis test, Gina and Abel need a way to calculate their test statistic. Below is an incomplete implementation of a function that computes the TVD between two arrays of length 12, each of which represent a categorical distribution.</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> calculate_tvd(dist1, dist2):</span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> np.mean(np.<span class="bu">abs</span>(dist1 <span class="op">-</span> dist2)) <span class="op">*</span> ____</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> calculate_tvd(dist1, dist2):</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> np.mean(np.<span class="bu">abs</span>(dist1 <span class="op">-</span> dist2)) <span class="op">*</span> ____</span></code></pre></div>
 <p>Fill in the blank so that <code>calculate_tvd</code> works as intended.</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> <code>1 / 6</code></p></li>
@@ -3669,12 +4083,12 @@ TVD = \frac{1}{2} \left( |1 - \frac{1}{11}| + 10 \times |0 - \frac{1}{11}| \righ
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading24_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse24_1" aria-expanded="true" aria-controls="collapse24_1">
+<h2 class="accordion-header" id="heading27_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse27_1" aria-expanded="true" aria-controls="collapse27_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse24_1" class="accordion-collapse collapse collapse" aria-labelledby="heading24_1" data-bs-parent="#accordionExample">
+<div id="collapse27_1" class="accordion-collapse collapse collapse" aria-labelledby="heading27_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3693,27 +4107,27 @@ Click to view the solution.
 <p><br></p>
 <p><strong>Moving forward, assume that <code>calculate_tvd</code> works correctly.</strong></p>
 <p>Now, complete the implementation of the function <code>uniform_test</code>, which takes in an array <code>observed_counts</code> of length 12 containing the number of sunshine hours each month in a city and returns the p-value for the hypothesis test stated at the start of the question.</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> uniform_test(observed_counts):</span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>        <span class="co"># The values in observed_counts are counts, not proportions!</span></span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>        total_count <span class="op">=</span> observed_counts.<span class="bu">sum</span>()</span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>        uniform_dist <span class="op">=</span> __(b)__</span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>        tvds <span class="op">=</span> np.array([])</span>
-<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
-<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>            simulated <span class="op">=</span> __(c)__</span>
-<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>            tvd <span class="op">=</span> calculate_tvd(simulated, __(d)__)</span>
-<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>            tvds <span class="op">=</span> np.append(tvds, tvd)</span>
-<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> np.mean(tvds __(e)__ calculate_tvd(uniform_dist, __(f)__))</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> uniform_test(observed_counts):</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>        <span class="co"># The values in observed_counts are counts, not proportions!</span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>        total_count <span class="op">=</span> observed_counts.<span class="bu">sum</span>()</span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>        uniform_dist <span class="op">=</span> __(b)__</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>        tvds <span class="op">=</span> np.array([])</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>            simulated <span class="op">=</span> __(c)__</span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>            tvd <span class="op">=</span> calculate_tvd(simulated, __(d)__)</span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a>            tvds <span class="op">=</span> np.append(tvds, tvd)</span>
+<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> np.mean(tvds __(e)__ calculate_tvd(uniform_dist, __(f)__))</span></code></pre></div>
 <p><br></p>
-<h3 id="problem-24.2">Problem 24.2</h3>
+<h3 id="problem-27.2">Problem 27.2</h3>
 <p>What goes in blank (b)? <em>(Hint: The function <code>np.ones(k)</code> returns an array of length <code>k</code> in which all elements are <code>1</code>.)</em></p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading24_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse24_2" aria-expanded="true" aria-controls="collapse24_2">
+<h2 class="accordion-header" id="heading27_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse27_2" aria-expanded="true" aria-controls="collapse27_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse24_2" class="accordion-collapse collapse collapse" aria-labelledby="heading24_2" data-bs-parent="#accordionExample">
+<div id="collapse27_2" class="accordion-collapse collapse collapse" aria-labelledby="heading27_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3732,7 +4146,7 @@ Click to view the solution.
 </div>
 <p><br></p>
 <p><br></p>
-<h3 id="problem-24.3">Problem 24.3</h3>
+<h3 id="problem-27.3">Problem 27.3</h3>
 <p>What goes in blank (c)?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> <code>np.random.multinomial(12, uniform_dist)</code></p></li>
@@ -3744,12 +4158,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading24_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse24_3" aria-expanded="true" aria-controls="collapse24_3">
+<h2 class="accordion-header" id="heading27_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse27_3" aria-expanded="true" aria-controls="collapse27_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse24_3" class="accordion-collapse collapse collapse" aria-labelledby="heading24_3" data-bs-parent="#accordionExample">
+<div id="collapse27_3" class="accordion-collapse collapse collapse" aria-labelledby="heading27_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3767,16 +4181,16 @@ Click to view the solution.
 </div>
 <p><br></p>
 <p><br></p>
-<h3 id="problem-24.4">Problem 24.4</h3>
+<h3 id="problem-27.4">Problem 27.4</h3>
 <p>What goes in blank (d)?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading24_4">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse24_4" aria-expanded="true" aria-controls="collapse24_4">
+<h2 class="accordion-header" id="heading27_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse27_4" aria-expanded="true" aria-controls="collapse27_4">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse24_4" class="accordion-collapse collapse collapse" aria-labelledby="heading24_4" data-bs-parent="#accordionExample">
+<div id="collapse27_4" class="accordion-collapse collapse collapse" aria-labelledby="heading27_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3797,7 +4211,7 @@ Click to view the solution.
 </div>
 <p><br></p>
 <p><br></p>
-<h3 id="problem-24.5">Problem 24.5</h3>
+<h3 id="problem-27.5">Problem 27.5</h3>
 <p>What goes in blank (e)?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> <code>&gt;</code></p></li>
@@ -3809,12 +4223,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading24_5">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse24_5" aria-expanded="true" aria-controls="collapse24_5">
+<h2 class="accordion-header" id="heading27_5">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse27_5" aria-expanded="true" aria-controls="collapse27_5">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse24_5" class="accordion-collapse collapse collapse" aria-labelledby="heading24_5" data-bs-parent="#accordionExample">
+<div id="collapse27_5" class="accordion-collapse collapse collapse" aria-labelledby="heading27_5" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3831,16 +4245,16 @@ Click to view the solution.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-24.6">Problem 24.6</h3>
+<h3 id="problem-27.6">Problem 27.6</h3>
 <p>What goes in blank (f)?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading24_6">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse24_6" aria-expanded="true" aria-controls="collapse24_6">
+<h2 class="accordion-header" id="heading27_6">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse27_6" aria-expanded="true" aria-controls="collapse27_6">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse24_6" class="accordion-collapse collapse collapse" aria-labelledby="heading24_6" data-bs-parent="#accordionExample">
+<div id="collapse27_6" class="accordion-collapse collapse collapse" aria-labelledby="heading27_6" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3861,7 +4275,7 @@ Click to view the solution.
 </div>
 <div class="lec-problem" data-avg="30.75" data-term="20232">
 <p class="meta"><em>Source:</em> <a href="../../sp23-final/index.html#problem-10">Question 10 from Spring 2023 Final Exam</a></p>
-<h2 id="problem-25">Problem 25</h2>
+<h2 id="problem-28">Problem 28</h2>
 <p>Costin, a San Francisco native, will be back in San Francisco over the summer, and is curious as to whether it is true that about <span class="math inline">\frac{3}{4}</span> of days in San Francisco are sunny.</p>
 <p>Fast forward to the end of September: Costin counted that of the 30 days in September, 27 were sunny in San Francisco. To test his theory, Costin came up with two pairs of hypotheses.</p>
 <p>Pair 1:</p>
@@ -3876,7 +4290,7 @@ Click to view the solution.
 </ul>
 <p>For each test statistic below, choose whether the test statistic could be used to test Pair 1, Pair 2, both, or neither. Assume that all days are either sunny or cloudy, and that we cannot perform two-tailed hypothesis tests. (If you don’t know what those are, you don’t need to!)</p>
 <p><br></p>
-<h3 id="problem-25.1">Problem 25.1</h3>
+<h3 id="problem-28.1">Problem 28.1</h3>
 <p>The difference between the number of sunny days and number of cloudy days</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> Pair 1</p></li>
@@ -3886,12 +4300,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading25_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse25_1" aria-expanded="true" aria-controls="collapse25_1">
+<h2 class="accordion-header" id="heading28_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse28_1" aria-expanded="true" aria-controls="collapse28_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse25_1" class="accordion-collapse collapse collapse" aria-labelledby="heading25_1" data-bs-parent="#accordionExample">
+<div id="collapse28_1" class="accordion-collapse collapse collapse" aria-labelledby="heading28_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3923,7 +4337,7 @@ Click to view the solution.
 </div>
 <p><br></p>
 <p><br></p>
-<h3 id="problem-25.2">Problem 25.2</h3>
+<h3 id="problem-28.2">Problem 28.2</h3>
 <p>The absolute difference between the number of sunny days and number of cloudy days</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> Pair 1</p></li>
@@ -3933,12 +4347,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading25_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse25_2" aria-expanded="true" aria-controls="collapse25_2">
+<h2 class="accordion-header" id="heading28_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse28_2" aria-expanded="true" aria-controls="collapse28_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse25_2" class="accordion-collapse collapse collapse" aria-labelledby="heading25_2" data-bs-parent="#accordionExample">
+<div id="collapse28_2" class="accordion-collapse collapse collapse" aria-labelledby="heading28_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3960,7 +4374,7 @@ Click to view the solution.
 </div>
 <p><br></p>
 <p><br></p>
-<h3 id="problem-25.3">Problem 25.3</h3>
+<h3 id="problem-28.3">Problem 28.3</h3>
 <p>The difference between the proportion of sunny days and <span class="math inline">\frac{1}{4}</span></p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> Pair 1</p></li>
@@ -3970,12 +4384,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading25_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse25_3" aria-expanded="true" aria-controls="collapse25_3">
+<h2 class="accordion-header" id="heading28_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse28_3" aria-expanded="true" aria-controls="collapse28_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse25_3" class="accordion-collapse collapse collapse" aria-labelledby="heading25_3" data-bs-parent="#accordionExample">
+<div id="collapse28_3" class="accordion-collapse collapse collapse" aria-labelledby="heading28_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3994,7 +4408,7 @@ Click to view the solution.
 </div>
 <p><br></p>
 <p><br></p>
-<h3 id="problem-25.4">Problem 25.4</h3>
+<h3 id="problem-28.4">Problem 28.4</h3>
 <p>The absolute difference between the proportion of cloudy days and <span class="math inline">\frac{1}{4}</span></p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> Pair 1</p></li>
@@ -4004,12 +4418,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading25_4">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse25_4" aria-expanded="true" aria-controls="collapse25_4">
+<h2 class="accordion-header" id="heading28_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse28_4" aria-expanded="true" aria-controls="collapse28_4">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse25_4" class="accordion-collapse collapse collapse" aria-labelledby="heading25_4" data-bs-parent="#accordionExample">
+<div id="collapse28_4" class="accordion-collapse collapse collapse" aria-labelledby="heading28_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -4035,7 +4449,7 @@ Click to view the solution.
 </div>
 <div class="lec-problem" data-avg="30.00" data-term="20222">
 <p class="meta"><em>Source:</em> <a href="../../sp22-final/index.html#problem-15">Question 15 from Spring 2022 Final Exam</a></p>
-<h2 id="problem-26">Problem 26</h2>
+<h2 id="problem-29">Problem 29</h2>
 <p>There are 52 IKEA locations in the United States, and there are 50 states.</p>
 <p>Which of the following describes how to calculate the total variation distance between the distribution of IKEA locations by state and the uniform distribution?</p>
 <ul class="task-list">
@@ -4047,12 +4461,12 @@ Click to view the solution.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading26">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse26" aria-expanded="true" aria-controls="collapse26">
+<h2 class="accordion-header" id="heading29">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse29" aria-expanded="true" aria-controls="collapse29">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse26" class="accordion-collapse collapse collapse" aria-labelledby="heading26" data-bs-parent="#accordionExample">
+<div id="collapse29" class="accordion-collapse collapse collapse" aria-labelledby="heading29" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -4072,153 +4486,67 @@ Click to view the solution.
 </div>
 <hr />
 </div>
-<div class="lec-problem" data-term="20261">
-<p class="meta"><em>Source:</em> <a href="../../wi26-final/index.html#problem-9">Question 9 from Winter 2026 Final Exam</a></p>
-<h2 id="problem-27">Problem 27</h2>
-<p>Punch is a baby Japanese macaque; zookeepers recorded his last <strong>50</strong> interactions (<strong>20</strong> friendly). For a typical macaque, <strong>50%</strong> of interactions are friendly. Minchan tests whether Punch is treated <strong>worse</strong> (fewer friendly) using:</p>
-<ul>
-<li><strong>Null:</strong> (P() = 0.5) for each interaction.</li>
-<li><strong>Alternative:</strong> (P() &lt; 0.5).</li>
-</ul>
-<p>Assume <code>total_variation_distance(dist1, dist2)</code> computes TVD as in class. Code skeleton:</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode py"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>A. expected <span class="op">=</span> <span class="dv">50</span> <span class="op">*</span> <span class="fl">0.5</span></span>
-<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>B. obs <span class="op">=</span> <span class="bu">abs</span>(<span class="dv">20</span> <span class="op">-</span> expected)</span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>C. stats <span class="op">=</span> np.array([])</span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>D. <span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">1000</span>):</span>
-<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>E.     n <span class="op">=</span> np.random.multinomial(<span class="dv">50</span>, [<span class="fl">0.5</span>, <span class="fl">0.5</span>])[<span class="dv">0</span>]</span>
-<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>F.     stat <span class="op">=</span> <span class="bu">abs</span>(n <span class="op">-</span> expected)</span>
-<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>G.     stats <span class="op">=</span> np.append(stats, stat)</span>
-<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>H. p_value <span class="op">=</span> np.count_nonzero(stats <span class="op">&gt;=</span> obs) <span class="op">/</span> <span class="dv">1000</span></span></code></pre></div>
+<div class="lec-problem" data-avg="25.50" data-term="20262">
+<p class="meta"><em>Source:</em> <a href="../../sp26-quiz4/index.html#problem-1">Question 1 from Spring 2026 Quiz 4</a></p>
+<h2 id="problem-30">Problem 30</h2>
 <p><br></p>
-<h3 id="problem-27.1">Problem 27.1</h3>
-<p><strong>(a)</strong> If Minchan runs the code <strong>unchanged</strong>, <strong>select all</strong> true statements.</p>
-<ul class="task-list">
-<li><p><input type="checkbox" disabled="" /> A histogram of <code>stats</code> would be centered at 0.</p></li>
-<li><p><input type="checkbox" disabled="" /> A histogram of <code>stats</code> would have a peak at 5.</p></li>
-<li><p><input type="checkbox" disabled="" /> <code>p_value</code> is approximately <strong>twice</strong> what it should be for the stated one-sided alternative.</p></li>
-<li><p><input type="checkbox" disabled="" /> <code>p_value</code> is <strong>more than</strong> twice what it should be.</p></li>
-<li><p><input type="checkbox" disabled="" /> None of the above</p></li>
-</ul>
+<h3 id="problem-30.1">Problem 30.1</h3>
+<p>The number of reservations for each of the <code>"dates"</code> processed by each coordinator are given in the table to the right.</p>
+<center><img src="https://raw.githubusercontent.com/dsc-courses/practice.dsc10.com/refs/heads/master/assets/images/sp26-quizzes/reservedates.png" width=400></center>
+<p>Compute the total variation distance (TVD) between Pranav’s distribution of <code>"dates"</code> and Ray’s distribution of <code>"dates"</code>. Give your answer as an <strong>exact decimal or simplified fraction</strong>.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading27_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse27_1" aria-expanded="true" aria-controls="collapse27_1">
+<h2 class="accordion-header" id="heading30_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse30_1" aria-expanded="true" aria-controls="collapse30_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse27_1" class="accordion-collapse collapse collapse" aria-labelledby="heading27_1" data-bs-parent="#accordionExample">
+<div id="collapse30_1" class="accordion-collapse collapse collapse" aria-labelledby="heading30_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
 </header>
-<p><strong>Answer:</strong> Only the <strong>third</strong> statement — using <code>abs</code> makes the test effectively two-sided, roughly doubling the one-sided (p)-value.</p>
+<p><strong>Answer</strong>: <span class="math inline">0.08</span></p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 37%.</p>
 </div>
 </div>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-27.2">Problem 27.2</h3>
-<p><strong>(b)</strong> Line <strong>B</strong> should be:</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> Left as-is</p></li>
-<li><p><input type="radio" disabled="" /> <code>obs = 20 - expected</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>obs = 20 / 50 - expected</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>obs = abs(20 / 50 - expected / 50)</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>obs = total_variation_distance([0.4, 0.6], [0.5, 0.5])</code></p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading27_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse27_2" aria-expanded="true" aria-controls="collapse27_2">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse27_2" class="accordion-collapse collapse collapse" aria-labelledby="heading27_2" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-
-</header>
-<p><strong>Answer:</strong> <code>obs = 20 - expected</code> (one-sided: count friendly minus expected under null; no <code>abs</code>).</p>
-</div>
-</div>
-</div>
-</div>
 <p><br></p>
-<h3 id="problem-27.3">Problem 27.3</h3>
-<p><strong>(c)</strong> Line <strong>E</strong> should be:</p>
+<h3 id="problem-30.2">Problem 30.2</h3>
+<p>The table to the right shows how many reservations of each <code>"package"</code> type were processed by each coordinator.</p>
+<center><img src="https://raw.githubusercontent.com/dsc-courses/practice.dsc10.com/refs/heads/master/assets/images/sp26-quizzes/earlybird.png" width=400></center>
+<p>Which of the following expressions correctly computes the TVD between Pranav’s distribution of <code>"package"</code> type and Ray’s distribution of <code>"package"</code> type?</p>
 <ul class="task-list">
-<li><p><input type="radio" disabled="" /> Left as-is</p></li>
-<li><p><input type="radio" disabled="" /> <code>n = np.random.choice(['Friendly', 'Unfriendly'], 50)</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>n = np.random.multinomial(20, [0.5, 0.5])[0]</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>n = np.random.multinomial(50, [0.4, 0.6])[0]</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>n = np.random.multinomial(50, [0.5, 0.5])</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>(p - r) / 25</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>abs(p - r) / 25</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>0.5 * abs(p - r) / 25</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>0.5 * sum(abs(p / 25 - r / 25))</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>0.5 * (abs(p - r) + abs((25 - p) - (25 - r)))</code></p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading27_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse27_3" aria-expanded="true" aria-controls="collapse27_3">
+<h2 class="accordion-header" id="heading30_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse30_2" aria-expanded="true" aria-controls="collapse30_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse27_3" class="accordion-collapse collapse collapse" aria-labelledby="heading27_3" data-bs-parent="#accordionExample">
+<div id="collapse30_2" class="accordion-collapse collapse collapse" aria-labelledby="heading30_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
 </header>
-<p><strong>Answer:</strong> Left as-is — multinomial ((50, [0.5, 0.5])) and take <code>[0]</code> for count of friendlies under the null.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-27.4">Problem 27.4</h3>
-<p><strong>(d)</strong> Line <strong>F</strong> should be:</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> Left as-is</p></li>
-<li><p><input type="radio" disabled="" /> <code>stat = obs</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>stat = abs(n - 20)</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>stat = total_variation_distance([n/50, 1 - n/50], [0.5, 0.5])</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>stat = n - expected</code></p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading27_4">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse27_4" aria-expanded="true" aria-controls="collapse27_4">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse27_4" class="accordion-collapse collapse collapse" aria-labelledby="heading27_4" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-
-</header>
-<p><strong>Answer:</strong> <code>stat = n - expected</code> (match the observed statistic without <code>abs</code>).</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-27.5">Problem 27.5</h3>
-<p><strong>(e)</strong> Line <strong>H</strong> should be:</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> Left as-is</p></li>
-<li><p><input type="radio" disabled="" /> <code>np.count_nonzero(stats &gt;= obs) / 50</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>np.count_nonzero(stats &lt;= obs) / 50</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>np.count_nonzero(stats &lt;= obs) / 1000</code></p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading27_5">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse27_5" aria-expanded="true" aria-controls="collapse27_5">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse27_5" class="accordion-collapse collapse collapse" aria-labelledby="heading27_5" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-
-</header>
-<p><strong>Answer:</strong> <code>np.count_nonzero(stats &lt;= obs) / 1000</code> — one-sided alternative “less than 0.5” means more extreme = smaller or equal <code>stat</code>; divide by number of simulations.</p>
+<p><strong>Answer</strong>: Option B</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 14%.</p>
 </div>
 </div>
 </div>
