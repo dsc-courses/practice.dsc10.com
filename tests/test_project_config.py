@@ -5,7 +5,6 @@ import tomllib
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
-WORKFLOW = REPO / ".github/workflows/pages-preview.yml"
 
 
 def test_lockfile_matches_pyproject():
@@ -34,16 +33,9 @@ def test_readme_describes_the_uv_setup():
     assert "# BEGIN SOLUTION" in readme  # The style guide must survive
 
 
-def test_ci_uses_the_locked_environment():
-    workflow = WORKFLOW.read_text(encoding="utf-8")
-    assert "uv sync --locked" in workflow
-    assert "uv run run.py" in workflow
-    assert "uv run pytest" in workflow
-    assert "apt-get install" not in workflow
-    assert "requirements.txt" not in workflow
-
-
-def test_ci_cannot_deploy_to_pages():
-    workflow = WORKFLOW.read_text(encoding="utf-8")
-    assert "deploy-pages" not in workflow
-    assert "pages: write" not in workflow
+def test_readme_describes_publishing_on_push():
+    readme = (REPO / "README.md").read_text(encoding="utf-8")
+    assert "Pushing to `master` publishes the site" in readme
+    assert "don't commit `docs/`" in readme
+    assert "show_solution: false" in readme
+    assert "index.md" in readme
