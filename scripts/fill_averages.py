@@ -200,7 +200,7 @@ def main():
     if args.apply:
         print(f"\nWrote {changed} file(s). Rebuild to update the site:")
         page_path = next((ROOT / "pages").glob(f"*/{args.page}.yml")).relative_to(ROOT)
-        print(f"  python run.py {page_path}")
+        print(f"  uv run run.py {page_path}")
         print('  python -c "import run; run.write_lecture_pages()"')
     else:
         print(f"\nPreview only: {changed} file(s) would change. Re-run with --apply to write them.")
