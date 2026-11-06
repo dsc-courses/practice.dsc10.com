@@ -1,12 +1,14 @@
 # latex-to-md.py
 # Converts an exam .tex file to a set of .md files, one for each problem
-# Usage: python latex-to-md.py exam.tex out_folder
+# Usage: uv run utils/latex-to-md.py exam.tex out_folder
 # After running, out_folder will contain one .md file per problem in exam.tex
 # NOTE: This script normalizes MC options to avoid wrapped/spaced options that break run.py parsing.
 
 import os
 import sys
 import re
+
+from pandoc_tool import run_pandoc
 
 def replace_tags(prob_str):
     tags = {'probset': '', 
@@ -47,7 +49,7 @@ def replace_tags(prob_str):
 def pandoc_tex_to_md(prob_str_tex):
     with open('temp.tex', 'w') as f:
         f.write(prob_str_tex)
-    os.system('pandoc -s --wrap=none temp.tex -o temp.md')
+    run_pandoc(['-s', '--wrap=none', 'temp.tex', '-o', 'temp.md'], source='the LaTeX problem')
     with open('temp.md', 'r') as f:
         text = f.read()
     os.remove('temp.tex')

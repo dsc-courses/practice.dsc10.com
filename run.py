@@ -627,17 +627,26 @@
 #             write_page(page)
 
 
-import yaml
 import os
 import glob
-import regex as re
-from bs4 import BeautifulSoup
-import lxml
+import shlex
 import shutil
 import stat
 import sys
 import warnings
 import time
+
+try:
+    import yaml
+    import regex as re
+    from bs4 import BeautifulSoup
+    import lxml
+    import pypandoc
+except ModuleNotFoundError as err:
+    sys.exit(f"Missing package '{err.name}'. Run the site with uv, for example: uv run run.py")
+
+from utils.pandoc_tool import PandocError, check_pandoc_version, run_pandoc
+
 from collections import defaultdict
 warnings.simplefilter('ignore')
 
@@ -646,7 +655,25 @@ DST_FOLDER = 'docs'
 # Bare `--katex` uses local paths on Ubuntu CI; CDN keeps GitHub Pages math working.
 PANDOC_KATEX = '--katex=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/'
 
+# Every pandoc call that renders page content starts with these.
+PANDOC_PAGE_ARGS = [
+    '-s', '--standalone', PANDOC_KATEX,
+    '--from', 'markdown-markdown_in_html_blocks+raw_html',
+]
+
 GAUGE_COUNT = 0
+
+
+class ProblemError(Exception):
+    """A problem file couldn't be processed. The message names the file."""
+
+
+def process_problem_file(path, **kwargs):
+    """Run process_problem, and make any failure name the problem file at fault."""
+    try:
+        return process_problem(**kwargs)
+    except (AssertionError, PandocError) as err:
+        raise ProblemError(f"{path}: {err}") from err
 
 def get_stars_from_average(avg):
     if avg >= 90:
@@ -776,7 +803,7 @@ def stitch(files, show_solution, toc=False):
         )
 
         # Pass body (content without front matter) so it renders cleanly
-        q_out = process_problem(problem_str=body, problem_num=i+1, show_solution=show_solution, lecture_html=lecture_html)
+        q_out = process_problem_file(path, problem_str=body, problem_num=i+1, show_solution=show_solution, lecture_html=lecture_html)
         q_out += '\n\n\n---\n\n\n'
 
         out += q_out
@@ -799,7 +826,7 @@ def pandoc(s, kind='md', flags=''):
 
     src_path = os.path.join('temp', f'temp.{kind}')
     dst_path = os.path.join('temp', 'temp.html')
-    os.system(f'pandoc -s --standalone {PANDOC_KATEX} --from markdown-markdown_in_html_blocks+raw_html --metadata title=" " -s {src_path} {flags} -o {dst_path}')
+    run_pandoc([*PANDOC_PAGE_ARGS, '--metadata', 'title= ', '-s', src_path, *shlex.split(flags), '-o', dst_path], source='a Markdown snippet')
 
     out_path = os.path.join('temp', 'temp.html')
     out_file = open(out_path, 'r', encoding='UTF-8') # CHANGED
@@ -1024,22 +1051,18 @@ def _normalize_lecture_tag(value):
                 pass
     return sorted(set(out))
 
-def _slug_and_qnum_from_path(md_path: str):
-    """
-    problems/<slug>/qNN*.md -> (slug, NN)
-    """
-    parts = md_path.replace("\\", "/").split("/")
-    if len(parts) < 3:
-        return None, None
-    slug = parts[1]  # 'sp24-final' etc.
-    if len(parts) >= 4 and slug.endswith('-quizzes'):
-        quarter = slug.replace('-quizzes', '')
-        slug = f"{quarter}-{parts[2]}"  # e.g. problems/sp25-quizzes/quiz1/q01.md -> sp25-quiz1
-    elif slug == 'disc':
-        slug = parts[2].split('-')[0]  # e.g. disc01-expressions_math -> disc01
-    fname = parts[-1]
-    m = re.match(r"q0*([0-9]+)\.md\Z", fname)
-    return slug, (int(m.group(1)) if m else None)
+def _term_sort_key(page_name):
+    """'fa24-quiz1' -> 20244, so later terms sort higher. Non-term pages (disc01) -> 0."""
+    m = re.match(r"(wi|sp|su|fa)(\d\d)-", page_name)
+    if not m:
+        return 0
+    season = {'wi': 1, 'sp': 2, 'su': 3, 'fa': 4}[m.group(1)]
+    return int('20' + m.group(2)) * 10 + season
+
+def _average_of_problem(body):
+    """Mean of all <average> scores in a problem, or None if it has none."""
+    avgs = [int(a) for a in re.findall(AVG_REGEXP, body)]
+    return sum(avgs) / len(avgs) if avgs else None
 
 def _problem_path_from_page_entry(entry):
     """Return the question/problem path for a pages/*.yml problem entry."""
@@ -1052,24 +1075,30 @@ def _lecture_source_paths():
 
     Discussion pages mostly reuse exam/quiz problems, so include only exams,
     quizzes, and Discussion 1's own page to avoid duplicated practice problems.
+
+    Returns a sorted list of (problem_path, page_name, page_title, position),
+    where position is the problem's number on that page. A problem used on
+    several pages is attributed to its exam or quiz before Discussion 1.
     """
     page_paths = []
-    page_paths.extend(glob.glob(os.path.join('pages', 'exams', '*.yml')))
-    page_paths.extend(glob.glob(os.path.join('pages', 'quizzes', '*.yml')))
+    page_paths.extend(sorted(glob.glob(os.path.join('pages', 'exams', '*.yml'))))
+    page_paths.extend(sorted(glob.glob(os.path.join('pages', 'quizzes', '*.yml'))))
     page_paths.append(os.path.join('pages', 'disc', 'disc01.yml'))
 
-    out = []
+    out = {}
     for page_path in page_paths:
         if not os.path.exists(page_path):
             continue
         with open(page_path, 'r', encoding='UTF-8') as f:
             params = yaml.safe_load(f) or {}
-        for entry in params.get('problems', []):
+        page_name = os.path.basename(page_path).replace('.yml', '')
+        page_title = params.get('title') or format_assignment_name(page_name)
+        for position, entry in enumerate(params.get('problems', []), start=1):
             problem_path = _problem_path_from_page_entry(entry)
-            if os.path.exists(problem_path):
-                out.append(problem_path)
+            if os.path.exists(problem_path) and problem_path not in out:
+                out[problem_path] = (problem_path, page_name, page_title, position)
 
-    return sorted(set(out))
+    return sorted(out.values())
 
 def _dedupe_key_for_lecture(body):
     """Normalize a problem body enough to identify repeated copies."""
@@ -1081,27 +1110,28 @@ def collect_problems_by_lecture():
     """
     Scan canonical exam, quiz, and Discussion 1 problems; group by lecture number.
     Returns: dict[int, list[dict]] with keys like 1..25 and items:
-      {'path', 'slug', 'q', 'body'}
+      {'path', 'page', 'title', 'q', 'body', 'avg', 'term'}
+    Each list is sorted easiest first (highest average score), with problems
+    that have no average last; ties go to the newest term.
     """
     out = defaultdict(list)
     seen_by_lecture = defaultdict(set)
-    for md in _lecture_source_paths():
+    for md, page, title, q in _lecture_source_paths():
         with open(md, 'r', encoding='UTF-8') as f:
             raw = f.read()
         fm, body = _parse_frontmatter(raw)
         lecs = _normalize_lecture_tag(fm.get('lecture'))
         if not lecs:
             continue
-        slug, q = _slug_and_qnum_from_path(md)
         dedupe_key = _dedupe_key_for_lecture(body)
         for L in lecs:
             if dedupe_key in seen_by_lecture[L]:
                 continue
             seen_by_lecture[L].add(dedupe_key)
-            out[L].append({'path': md, 'slug': slug, 'q': q, 'body': body})
-    # sort each list nicely
+            out[L].append({'path': md, 'page': page, 'title': title, 'q': q, 'body': body,
+                           'avg': _average_of_problem(body), 'term': _term_sort_key(page)})
     for L in out:
-        out[L].sort(key=lambda d: (d['slug'] or '', d['q'] or 0))
+        out[L].sort(key=lambda d: (d['avg'] is None, -(d['avg'] or 0), -d['term']))
     return out
 
 # --- Fix asset paths for lecture pages (depth: docs/lectures/lecN/) ---
@@ -1149,6 +1179,94 @@ def rewrite_paths_for_lecture(md_or_html: str) -> str:
 
 
 
+# Shown at the top of each lecture page. Lectures not listed don't get a topics line.
+LECTURE_TOPICS = {
+    2: "Expressions and data types.",
+    3: "Strings and arrays.",
+    4: "Arrays and DataFrames.",
+    5: "Querying and grouping.",
+    6: "Grouping and data visualization.",
+    7: "Distributions and histograms.",
+    8: "Functions and applying.",
+    9: "Grouping on multiple columns, merging.",
+    10: "Conditional statements and iteration.",
+    11: "Probability.",
+    12: "Simulation.",
+    13: "Distributions and sampling.",
+    14: "Bootstrapping and confidence intervals.",
+    15: "Confidence intervals, center, and spread.",
+    16: "Standardization and the normal distribution.",
+    17: "The Central Limit Theorem.",
+    18: "Choosing sample sizes, statistical models.",
+    19: "Hypothesis testing.",
+    20: "Hypothesis testing and total variation distance.",
+    21: "TVD, hypothesis testing, and permutation testing.",
+    22: "Permutation testing.",
+    23: "Correlation.",
+    24: "Regression and least squares.",
+    25: "Residuals and inference.",
+}
+
+LECTURE_SORT_BUTTONS = '''<style>
+.lec-sort { display: flex; justify-content: flex-start; margin: 4px 0 12px; }
+.lec-sort-box { display: inline-flex; align-items: center; gap: 8px; background: #e7f1ff; border: 1px solid rgba(0, 0, 0, 0.125); border-radius: 6px; padding: 6px 6px 6px 12px; }
+.lec-sort-box p { margin: 0; }
+.lec-sort-box label { font-size: 0.9em; font-weight: 600; color: #0c63e4; margin-right: 6px; }
+</style>
+<div class="lec-sort"><div class="lec-sort-box">
+<label for="lec-sort-select">Sort by</label>
+<select id="lec-sort-select" class="form-select form-select-sm" autocomplete="off" style="display: inline-block; width: auto;">
+<option value="easiest" selected>Easiest to hardest</option>
+<option value="hardest">Hardest to easiest</option>
+<option value="newest">Newest to oldest</option>
+<option value="oldest">Oldest to newest</option>
+</select>
+</div></div>
+'''
+
+# Reorders the .lec-problem divs and renumbers their "Problem N" / "Problem N.k" headings.
+# Problems without a score (difficulty orders) or a term (date orders) always stay last.
+LECTURE_SORT_SCRIPT = '''
+<script>
+(function () {
+  var select = document.getElementById('lec-sort-select');
+  if (!select) return;
+  var avg = function (el) { return el.dataset.avg === undefined ? null : parseFloat(el.dataset.avg); };
+  var term = function (el) { var t = parseInt(el.dataset.term, 10); return t ? t : null; };
+  var by = function (key, dir) {
+    return function (a, b) {
+      var x = key(a), y = key(b);
+      if (x === null || y === null) return (x === null) - (y === null);
+      return dir * (x - y);
+    };
+  };
+  // Note: avoid writing "](" in this script; rewrite_paths_for_lecture would treat it as a Markdown link.
+  var then = function (first, second) {
+    return function (a, b) { return first(a, b) || second(a, b); };
+  };
+  var orders = {
+    easiest: then(by(avg, -1), by(term, -1)),
+    hardest: then(by(avg, 1), by(term, -1)),
+    newest: then(by(term, -1), by(avg, -1)),
+    oldest: then(by(term, 1), by(avg, -1))
+  };
+  select.addEventListener('change', function () {
+    var problems = Array.from(document.querySelectorAll('.lec-problem'));
+    if (!problems.length) return;
+    var parent = problems[0].parentNode;
+    problems.sort(orders[select.value]).forEach(function (el, i) {
+      parent.appendChild(el);
+      el.querySelectorAll('h2, h3').forEach(function (h) {
+        if (/^Problem \\d+/.test(h.textContent)) {
+          h.textContent = h.textContent.replace(/^Problem \\d+/, 'Problem ' + (i + 1));
+        }
+      });
+    });
+  });
+})();
+</script>
+'''
+
 def write_lecture_pages():
     """
     Create docs/lectures/lec{N}/index.html for each lecture N.
@@ -1182,21 +1300,35 @@ def write_lecture_pages():
 
 """
         page_md += f"# Lecture {L} — Collected Practice Questions\n\n"
+        if L in LECTURE_TOPICS:
+            page_md += f"**Topics:** {LECTURE_TOPICS[L]}\n\n"
         page_md += (
             f"Below are practice problems tagged for Lecture **{L}** "
-            f"(rendered directly from the original exam/quiz sources).\n\n---\n\n"
+            f"(rendered directly from the original exam/quiz sources). "
+            f"By default, problems are sorted from easiest to hardest by average score; "
+            f"problems without a score are listed last.\n\n"
         )
+        page_md += LECTURE_SORT_BUTTONS + "\n---\n\n"
 
         # Append problems (rewrite asset paths so images/pdfs work from /lectures/lecN/)
+        # Each problem is wrapped in a fenced div so the sort buttons can reorder it.
         for i, item in enumerate(items, start=1):
             body_fixed = rewrite_paths_for_lecture(item['body'])
-            q_html = process_problem(problem_str=body_fixed, problem_num=i, show_solution=True)
+            q_html = process_problem_file(item['path'], problem_str=body_fixed, problem_num=i, show_solution=True)
 
-            src_line = ""
-            if item['slug'] and item['q'] is not None:
-                src_line = f'<p class="meta"><em>Source:</em> {item["slug"]} — Q{item["q"]}</p>\n'
+            src_line = (
+                f'<p class="meta"><em>Source:</em> '
+                f'<a href="../../{item["page"]}/index.html#problem-{item["q"]}">'
+                f'Question {item["q"]} from {item["title"]}</a></p>\n'
+            )
 
-            page_md += src_line + q_html + "\n\n---\n\n"
+            avg_attr = f' data-avg="{item["avg"]:.2f}"' if item['avg'] is not None else ''
+            page_md += (
+                f'::: {{.lec-problem{avg_attr} data-term="{item["term"]}"}}\n'
+                + src_line + q_html + "\n\n---\n\n:::\n\n"
+            )
+
+        page_md += LECTURE_SORT_SCRIPT
 
         # Write temp MD -> HTML (mirror exams: keep pandoc simple and strip auto title)
         lec_dir = os.path.join(base, f'lec{L}')
@@ -1207,12 +1339,9 @@ def write_lecture_pages():
 
         dst_html = os.path.join(lec_dir, 'index.html')
         css_path = os.path.join('..','..','assets','theme.css')
-        os.system(
-            f'pandoc -s --standalone {PANDOC_KATEX} '
-            f'--from markdown-markdown_in_html_blocks+raw_html '
-            f'-c {css_path} '
-            f'--metadata title="Lecture {L} — Practice" '
-            f'{md_tmp} -o {dst_html}'
+        run_pandoc(
+            [*PANDOC_PAGE_ARGS, '-c', css_path, '--metadata', f'title=Lecture {L} — Practice', md_tmp, '-o', dst_html],
+            source=f'the Lecture {L} page',
         )
         os.remove(md_tmp)
 
@@ -1373,19 +1502,29 @@ def write_page(path, called_from_write_all_pages=False):
     src_path = os.path.join(DST_FOLDER, f'{assignment_name}.md')
     dst_path = os.path.join(DST_FOLDER, assignment_name, 'index.html')
     css_path = os.path.join('..', 'assets', 'theme.css')
-    os.system(f'pandoc -s --standalone {PANDOC_KATEX} --from markdown-markdown_in_html_blocks+raw_html -c {css_path} --metadata title="{title}" {src_path} -o {dst_path}')
+    run_pandoc([*PANDOC_PAGE_ARGS, '-c', css_path, '--metadata', f'title={title}', src_path, '-o', dst_path], source=f'the {assignment_name} page')
 
     # Delete the intermediate Markdown
     os.remove(src_path)
 
     # Copy over the images for just that page, but only if called individually
     if not called_from_write_all_pages:
-        src_path = os.path.join('assets', 'images', assignment_name)
-        dst_path = os.path.join(DST_FOLDER, src_path)
-        if os.path.exists(src_path):
-            if os.path.exists(dst_path):
-                shutil.rmtree(dst_path)
-            shutil.copytree(src_path, dst_path)
+        image_folders = [assignment_name]
+        # Quiz pages (e.g. sp26-quiz3) keep their images in a per-term folder (sp26-quizzes)
+        quiz_match = re.match(r'(\w+)-quiz\d+$', assignment_name)
+        if quiz_match:
+            image_folders.append(f'{quiz_match.group(1)}-quizzes')
+        for folder in image_folders:
+            src_path = os.path.join('assets', 'images', folder)
+            dst_path = os.path.join(DST_FOLDER, src_path)
+            if os.path.exists(src_path):
+                if os.path.exists(dst_path):
+                    shutil.rmtree(dst_path)
+                shutil.copytree(src_path, dst_path)
+
+        # Copy over exam PDFs; only adds/overwrites, never deletes
+        if os.path.exists('pdfs'):
+            shutil.copytree('pdfs', os.path.join(DST_FOLDER, 'pdfs'), dirs_exist_ok=True)
 
 def update_page(path):
     '''Doesn't work for discussion files, yet.'''
@@ -1410,7 +1549,7 @@ def update_page(path):
     tmp_path = os.path.join(DST_FOLDER, assignment_name, 'temp.html')
     dst_path = os.path.join(DST_FOLDER, assignment_name, 'index.html')
     css_path = os.path.join('..', 'assets', 'theme.css')
-    os.system(f'pandoc -s --standalone {PANDOC_KATEX} --from markdown-markdown_in_html_blocks+raw_html -c {css_path} --metadata title="{title}" {src_path} -o {tmp_path}')
+    run_pandoc([*PANDOC_PAGE_ARGS, '-c', css_path, '--metadata', f'title={title}', src_path, '-o', tmp_path], source=f'the {assignment_name} page')
 
     # Delete the intermediate Markdown
     os.remove(src_path)
@@ -1440,6 +1579,10 @@ def write_all_pages(dir='pages'):
     # Copy over assets (scripts, css, images)
     dst_path = os.path.join(DST_FOLDER, 'assets')
     shutil.copytree('assets', dst_path)
+
+    # Copy over exam PDFs (linked from pages as ../pdfs/...)
+    if os.path.exists('pdfs'):
+        shutil.copytree('pdfs', os.path.join(DST_FOLDER, 'pdfs'))
 
     # Build lecture pages based on 'lecture' tags
     write_lecture_pages()
@@ -1479,7 +1622,7 @@ def create_index():
 
     css_path = os.path.join('assets', 'theme.css')
     dst_path = os.path.join(DST_FOLDER, 'index.html')
-    os.system(f'pandoc -c {css_path} -s {src_path} -o {dst_path}')
+    run_pandoc(['-c', css_path, '-s', src_path, '-o', dst_path], source='index.md')
     os.remove(src_path)
 
     # Strip Pandoc's auto H1 title (unchanged)
@@ -1491,7 +1634,7 @@ def create_index():
 
 
 
-if __name__ == '__main__':
+def main():
     # No arguments: run all
     if len(sys.argv) == 1:
         write_all_pages()
@@ -1558,3 +1701,26 @@ if __name__ == '__main__':
     else:
         for page in sys.argv[1:]:
             write_page(page)
+
+
+def run_build():
+    """Check the setup, then build, turning failures into clear messages and a non-zero exit."""
+    # Checked first because a full build deletes docs/ before rebuilding it.
+    try:
+        check_pandoc_version()
+    except PandocError as err:
+        sys.exit(f"Build failed: {err}")
+
+    full_build = len(sys.argv) == 1
+    hint = "\ndocs/ may be incomplete. To get it back, run: git restore docs" if full_build else ""
+    try:
+        main()
+    except (PandocError, ProblemError, FileNotFoundError) as err:
+        sys.exit(f"Build failed: {err}{hint}")
+    except Exception:
+        print(f"Build failed unexpectedly.{hint}", file=sys.stderr)
+        raise
+
+
+if __name__ == '__main__':
+    run_build()

@@ -1,16 +1,30 @@
 # practice.dsc10.com
 
-Repository containing practice problems for DSC 10 (past exams and discussion). Hosted at practice.dsc10.com. Before using the repo, make sure you have the following packages installed (install them all via `pip install`):
+Repository containing practice problems for DSC 10 (past exams and discussion). Hosted at practice.dsc10.com.
+
+## Setup
+
+Install [uv](https://docs.astral.sh/uv/getting-started/installation/). That's the only thing you need to install: uv sets up the right versions of Python, the Python packages and pandoc for this project the first time you run a command.
+
+## Building the site
+
+Run these from the root of the repo. The output goes in `docs/`.
 
 ```
-- BeautifulSoup4
-- pandoc
-- lxml
-- pyyaml
-- regex
+uv run run.py pages/exams/fa24-final.yml   # one page (faster)
+uv run run.py                              # the whole site
+uv run run.py index                        # just the homepage
 ```
 
-**Also, make sure you install [pandoc](https://pandoc.org/installing.html) as a standalone program on your computer.**
+If a build fails, the error names the file to fix. A failed whole-site build can leave `docs/` incomplete, and `git restore docs` brings it back.
+
+## Changing the setup
+
+- Run the tests with `uv run pytest`.
+- Package versions are locked in `uv.lock`, so use `uv add` and `uv remove` instead of editing it, and commit it along with `pyproject.toml`.
+- The pandoc version comes from `pypandoc_binary`. To change it, update that package and `PINNED_PANDOC_VERSION` in `utils/pandoc_tool.py` together, then rebuild and compare the output.
+
+## Writing problems
 
 Style guide for writing up problems:
 
