@@ -2,20 +2,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="utf-8" />
-  <meta name="generator" content="pandoc 3.12" />
+  <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>Fall 2025 Quiz 1</title>
   <style>
     /* Default styles provided by pandoc.
     ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
     */
+    code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: 1.5em;}
-    div.column{flex: auto;}
-    @media screen {
-    div.columns{gap: min(4vw, 1.5em);}
-    div.column{overflow-x: auto;}
-    }
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     /* The extra [class] is a hack that increases specificity enough to
        override a similar rule in reveal.js */
@@ -53,12 +50,8 @@
 </header>
 <p><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-<!-- add after bootstrap.min.css -->
-<link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css"/>
-<!-- add after bootstrap.min.js or bootstrap.bundle.min.js -->
-<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script></p>
 <!-- for difficulty gauges-->
-<script src="https://cdn.plot.ly/plotly-2.16.1.min.js"></script>
+<script src="https://cdn.plot.ly/plotly-2.16.1.min.js"></script></p>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-B947E6J6H4"></script>
 <script>
@@ -125,6 +118,9 @@ aria-labelledby="heading1_1" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: float</p>
+<p>smash.shape[0] is the number of rows, which is an int. In Python, /
+always returns a float, even when the division comes out evenly, so n /
+1 is a float like 60.0.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -159,6 +155,10 @@ aria-labelledby="heading1_2" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: error</p>
+<p>len(smash) returns the number of rows in the DataFrame, as an int.
+str(…) turns it into a string like “60”. You can multiply a string by an
+int to repeat it (“60” * 2 is “6060”), but not by a float. “60” * 2.0
+raises a TypeError, even though 2.0 is a whole number.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -194,6 +194,12 @@ aria-labelledby="heading1_3" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: bool</p>
+<p>smash.get(“Year”) is a Series of ints, and .iloc[0] pulls out the
+first value, which is a single int. Comparing an int to the string
+“1981” doesn’t raise an error. == just returns False, because an int and
+a string are never equal. A comparison always gives a bool, so the type
+is bool. If the quiz had used &lt; instead of ==, this would have been
+an error.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -228,6 +234,9 @@ aria-labelledby="heading1_4" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: DataFrame</p>
+<p>take returns a DataFrame with the rows at the given positions. Even
+though [0] selects only one row, the result is still a DataFrame (with
+one row), not a single value.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -262,7 +271,19 @@ aria-labelledby="heading2" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><code>(a):</code> <code>count</code><br/>
-<code>(b):</code> <code>index[-1]</code></p>
+</p>
+<p>smash.groupby(“Species”).count() gives one row per species. Every
+other column holds the number of rows in that group, so the “Year”
+column now contains the number of fighters of each species. The column’s
+name is a leftover from the original data, but the values are
+counts.</p>
+<p><code>(b):</code> <code>index[-1]</code></p>
+<p>.sort_values(by=“Year”) sorts these counts from smallest to largest,
+so the species with the most fighters ends up in the last row. The
+species names are in the index, so index[-1] gives the name of the last
+row, which is the most common species.</p>
+<p>If you wrote .index[0], you would get the species with the fewest
+fighters.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -303,6 +324,27 @@ aria-labelledby="heading3" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: Options 1 and 5.</p>
+<p>Option 1: smash[smash.get(“Weapon”) == “Sword”].shape[0] The
+comparison makes a Boolean Series, and querying it using brackets keeps
+only the Sword rows. .shape[0] is the number of rows left, which is the
+number of sword fighters.</p>
+<p>Option 5:
+smash.groupby(“Weapon”).count().get(“Franchise”).loc[“Sword”] Grouping
+by “Weapon” and counting gives the number of rows in each group in every
+column. Using the “Franchise” column, then looking up the “Sword” row
+with .loc, gives the number of sword fighters. Any other column would
+give the same number.</p>
+<p>Options 2, 3, and 4 are wrong. Option 2:
+smash.get(“Weapon”).count(“Sword”) count on a Series doesn’t take an
+argument, so this raises an error. (String count does take an argument,
+but this is a Series, not a string.)</p>
+<p>Option 3: (smash.get(“Weapon”) == “Sword”).shape[0] The Boolean
+Series has one entry for every fighter, True or False. Its shape[0] is
+the length of the whole Series, which is the total number of fighters.
+Nothing was filtered. To count the True values you would use .sum().</p>
+<p>Option 4: smash[smash.get(“Weapon”) == “Sword”].sum() The filter is
+fine, but .sum() on a DataFrame adds up each column separately. It does
+not count rows, so it doesn’t give a single number of fighters.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -342,6 +384,16 @@ aria-labelledby="heading4" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: <code>"Luigitluigit"</code></p>
+<p>dk.replace(“k”, “kong”) creates a new string, “dkong”, but the result
+is never assigned to anything. Strings can’t be changed in place, so dk
+is still “dk”.</p>
+<p>len(dk) is 2, because dk is still “dk”.</p>
+<p>lu + “t” is “luigit”.</p>
+<p>“luigit” * 2 repeats it, giving “luigitluigit”.</p>
+<p>.title() capitalizes the first letter of each word. There are no
+spaces, so the whole thing counts as one word and only the first letter
+changes, giving “Luigitluigit”.</p>
+<p>new = new does nothing.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
 <p>
@@ -377,6 +429,8 @@ aria-labelledby="heading5_1" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer</strong>: <code>smash.get("Year").median()</code></p>
+<p>This gets the “Year” column as a Series, then call .median() on
+it.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -407,6 +461,16 @@ aria-labelledby="heading5_2" data-bs-parent="#accordionExample">
 <p><strong>Answer</strong>:
 <code>smash.sort_values(by = "Year").get("Name").iloc[0]</code> OR
 <code>smash.set_index("Name").sort_values(by = "Year").index[0]</code></p>
+<p>Sort the table by “Year”, which goes from smallest to largest by
+default, so the earliest fighter ends up in the first row. Then grab the
+name at position 0.</p>
+<p>In the first version, .get(“Name”) gets the Name column and .iloc[0]
+takes the first value. In the second version, set_index(“Name”) moves
+the names into the index, so .index[0] gives the first name after
+sorting.</p>
+<p>You can’t use .loc[0] for this. Sorting rearranges the rows but keeps
+their original labels, so .loc[0] would find whichever fighter was
+originally in row 0, not the earliest one.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
