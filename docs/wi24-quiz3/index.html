@@ -180,6 +180,12 @@ aria-labelledby="heading1" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer:</strong>
 <code>flights.get("flight_num").apply(first_two)</code></p>
+<p><code>flights.get("flight_num")</code> selects the
+<code>"flight_num"</code> column as a Series, with values like
+<code>"UA1989"</code>. Calling <code>.apply(first_two)</code> runs the
+<code>first_two</code> function on every value in that Series, replacing
+each flight number with just its first two characters — the airline
+designator.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -214,12 +220,24 @@ aria-labelledby="heading2_1" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer (x):</strong> <code>["departure", "airline"]</code> or
 <code>["airline", "departure"]</code></p>
+<p>“How many flights on each airline departed from each airport” asks
+for a count for every <strong>combination</strong> of departure airport
+and airline. Grouping by a list of both columns creates one group — one
+row in the output — for each distinct (departure, airline) pair that
+appears in <code>flights</code>. The order of the two columns in the
+list doesn’t change which pairs exist, only how the resulting index is
+arranged.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
 </p>
 <p>The average score on this problem was 82%.</p>
 <p><strong>Answer (y):</strong> <code>count()</code></p>
+<p><code>.count()</code> counts the number of flights that fall into
+each group. <code>.get(["flight_num"])</code> then keeps just the
+<code>"flight_num"</code> column (wrapped in a list so the result stays
+a DataFrame), which holds that count for every (departure, airline)
+pair.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -257,6 +275,28 @@ aria-labelledby="heading2_2" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer:</strong> Option 3 and Option 4</p>
+<p><code>grouped</code> has one row per distinct (departure, airline)
+pair, and <code>grouped.shape[0] == flights.shape[0]</code> means there
+are exactly as many such pairs as there are flights. Since no row can be
+grouped twice, this means <strong>every flight has a unique (departure,
+airline) pair</strong> — no two flights share both the same departure
+airport and the same airline.</p>
+<p><strong>Option 1: False.</strong> This would mean every flight is on
+a different airline, which is much stronger than what we’re told. Two
+flights can share an airline, as long as they don’t also share a
+departure airport.</p>
+<p><strong>Option 2: False.</strong> Arrival airport isn’t one of the
+columns we grouped by, so this condition doesn’t follow from
+<code>grouped.shape[0] == flights.shape[0]</code> at all.</p>
+<p><strong>Option 3: True.</strong> If two flights were on the same
+airline <em>and</em> had the same departure airport, they’d share the
+same (departure, airline) pair, which we just said can’t happen. So
+within a single airline, every flight departs from a different
+airport.</p>
+<p><strong>Option 4: True.</strong> This is the same fact, viewed the
+other way: if two flights departed from the same airport <em>and</em>
+were on the same airline, they’d again share a pair. So among flights
+from the same airport, every flight is on a different airline.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -296,6 +336,23 @@ aria-labelledby="heading3" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer:</strong> 6</p>
+<p>When we merge on <code>"airline"</code>, every <code>"United"</code>
+row in <code>flights</code> is paired with every <code>"United"</code>
+row in <code>more_flights</code>. So the number of <code>"United"</code>
+rows in <code>merged</code> is</p>
+<p><span class="math display">(\text{\# United rows in }
+\texttt{flights}) \times (\text{\# United rows in }
+\texttt{more\_flights}).</span></p>
+<p>We’re told this product is <span class="math inline">108</span>, and
+that <code>more_flights</code> has <span class="math inline">12</span>
+<code>"United"</code> rows, so</p>
+<p><span class="math display">(\text{\# United rows in }
+\texttt{flights}) \times 12 = 108 \implies \text{\# United rows in }
+\texttt{flights} = 9.</span></p>
+<p>Since <code>flights</code> has <span class="math inline">15</span>
+rows in total, the number that are <strong>not</strong>
+<code>"United"</code> flights is</p>
+<p><span class="math display">15 - 9 = \boxed{6}.</span></p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -333,12 +390,25 @@ aria-labelledby="heading4_1" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer (x):</strong> <code>&amp;</code></p>
+<p>The probability of arriving at <code>"SAN"</code>
+<strong>given</strong> departure from <code>"LAX"</code> is the fraction
+of LAX departures that go to SAN — that is, flights where
+<strong>both</strong> <code>san</code> and <code>lax</code> are
+<code>True</code>. Since <code>san</code> and <code>lax</code> are
+Boolean Series, we combine them element-wise with <code>&amp;</code> to
+find flights satisfying both conditions at once.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
 </p>
 <p>The average score on this problem was 66%.</p>
 <p><strong>Answer (y):</strong> <code>flights[lax].shape[0]</code></p>
+<p>A conditional probability is (# satisfying both conditions) / (#
+satisfying the condition we’re given). The numerator,
+<code>flights[san &amp; lax].shape[0]</code>, counts flights that both
+depart from LAX and arrive at SAN. The denominator should be the number
+of flights departing from LAX — the event we’re conditioning on — which
+is <code>flights[lax].shape[0]</code>.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -371,6 +441,20 @@ aria-labelledby="heading4_2" data-bs-parent="#accordionExample">
 or
 <code>flights[flights.get("airline") != "Delta"].shape[0] / flights.shape[0]</code>
 or <code>(flights.get("airline") != "Delta").mean()</code></p>
+<p><code>flights[flights.get("airline") == "Delta"].shape[0] / flights.shape[0]</code>
+is the probability that a random flight <strong>is</strong> on Delta. By
+the complement rule, the probability it’s <strong>not</strong> on Delta
+is <span class="math inline">1</span> minus that.</p>
+<p>Alternatively, we can count the “not Delta” flights directly:
+<code>flights.get("airline") != "Delta"</code> is a Boolean Series
+that’s <code>True</code> for every non-Delta flight, so
+<code>flights[flights.get("airline") != "Delta"].shape[0] / flights.shape[0]</code>
+divides that count by the total number of flights.</p>
+<p>The last expression uses a shortcut: taking <code>.mean()</code> of a
+Boolean Series gives the proportion of <code>True</code> values (since
+<code>True</code> and <code>False</code> act as <span class="math inline">1</span> and <span class="math inline">0</span>),
+which here is exactly the proportion of flights that are not on
+Delta.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -422,6 +506,22 @@ aria-labelledby="heading5_1" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer:</strong> Option 2</p>
+<p><code>discount</code> has <strong>two separate conditional
+blocks</strong>, not one long chain — the second
+<code>if</code>/<code>elif</code>/<code>else</code> is independent of
+the first <code>if</code>. Calling <code>discount(7, 100)</code> runs
+both blocks:</p>
+<ul>
+<li>First block: <code>duration &gt; 6</code> is <code>7 &gt; 6</code>,
+which is <code>True</code>, so <code>price = 100 * 0.9</code>.</li>
+<li>Second block: <code>duration &gt; 4</code> is <code>7 &gt; 4</code>,
+which is <code>True</code>, so this branch runs (and the
+<code>elif</code>/<code>else</code> are skipped):
+<code>price = (100 * 0.9) * 0.95</code>.</li>
+<li>Finally, <code>price = price - 5</code>.</li>
+</ul>
+<p>So the output is <code>100 * 0.9 * 0.95 - 5</code>, which is Option
+2.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -450,15 +550,32 @@ aria-labelledby="heading5_2" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer (x):</strong> anything greater than <code>3</code> and
 less than or equal to <code>4</code></p>
+<p>The target expression <code>97 * 0.98 - 5</code> only has
+<strong>one</strong> multiplier, <code>0.98</code>, before the
+<code>- 5</code>. That <code>0.98</code> only comes from the
+<code>elif duration &gt; 3</code> branch of the second block, so the
+first <code>if duration &gt; 6</code> block must <strong>not</strong>
+have multiplied <code>price</code> by anything — meaning it didn’t run,
+so <code>duration</code> must be <code>6</code> or less. The
+<code>elif duration &gt; 3</code> branch running (instead of the
+<code>if duration &gt; 4</code> branch before it, or the
+<code>else</code>) means <code>duration</code> is greater than
+<code>3</code> but not greater than <code>4</code>. Together, that’s
+<code>3 &lt; duration &lt;= 4</code>.</p>
 <hr/>
 <h5>Difficulty: ⭐️</h5>
 <p>
 </p>
 <p>The average score on this problem was 95%.</p>
-<p><strong>Answer (y):</strong> <code>97</code> </p>
+<p><strong>Answer (y):</strong> <code>97</code></p>
+<p>Since the first block never runs, <code>price</code> enters the
+second block unchanged, so the <code>0.98</code> multiplies the original
+input <code>price</code> directly: <code>price * 0.98 - 5</code> must
+equal <code>97 * 0.98 - 5</code>, so <code>price = 97</code>.</p>
 <hr/>
-<h5>Difficulty:
-⭐️</h5>
+<h5>Difficulty: ⭐️</h5>
+<p>
+</p>
 <p>The average score on this problem was 95%.</p>
 </div>
 </div>
