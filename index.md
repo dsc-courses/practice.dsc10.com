@@ -78,12 +78,12 @@ We will later release solutions to the pretest. You are highly encouraged to che
       <td>Monday, November 2nd</td>
       <td><a href="disc06/index.html">Sampling, Bootstrapping, and Confidence Intervals</a></td>
     </tr>
-    <!--tr>
+    <tr>
       <th scope="row">7</th>
-      <td>Monday, May 11th</td>
+      <td>Monday, November 9th</td>
       <td><a href="disc07/index.html">Standardization and the Normal Distribution</a></td>
     </tr>
-    <tr>
+    <!--tr>
       <th scope="row">8</th>
       <td>Monday, May 18th</td>
       <td><a href="disc08/index.html">The Central Limit Theorem and Hypothesis Testing</a></td>
