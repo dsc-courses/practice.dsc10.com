@@ -390,10 +390,13 @@ We've provided answers to all quiz questions, but you won't find detailed explan
         <a href='fa26-quiz1/index.html'>Quiz 1</a>
         <br>
         <a href='fa26-quiz2/index.html'>Quiz 2</a>
+        <br>
+        <a href='fa26-quiz3/index.html'>Quiz 3</a>
       </td>
       <td>
         Coleman's Catch<br>
-        San Diego weather
+        San Diego weather<br>
+        Monsters Inc
       </td>
     </tr>
     <tr>
