@@ -1,0 +1,1272 @@
+\documentclass[twoside,12pt]{article}
+
+\usepackage{dsctemplate}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb,amsthm}
+\usepackage{fancyhdr}
+\usepackage{nicefrac}
+\usepackage{minted}
+\usetikzlibrary{quotes,angles,positioning,arrows.meta}
+\usetikzlibrary{calc}
+\usepackage{enumitem}
+\usepackage{fancyvrb}
+\usepackage{dirtytalk}
+\usepackage{comment}
+\usepackage{adjustbox}
+\usepackage{booktabs}
+\usepackage{array}
+
+\DefineVerbatimEnvironment{verbatim}{Verbatim}{xleftmargin=.5in}
+\newlist{multiplechoice}{itemize}{2}
+\setlist[multiplechoice]{label=$\square$}
+
+% configuration
+% ------------------------------------------------------------------------------
+
+\showsolntrue
+
+\pagestyle{fancy}
+\fancyhead{}
+\fancyhead[RO]{PID: \rule{3in}{.5pt}}
+\renewcommand{\headrulewidth}{0pt}
+
+% ------------------------------------------------------------------------------
+
+\begin{document}
+
+\thispagestyle{empty}
+
+\vspace{-5.5in}
+
+\pstitle{%
+    Final Exam
+}{DSC 10, Spring 2026}
+
+\vspace{-.3in}
+
+\begin{tabular}{rl}
+    Full Name: & \inlineresponsebox[3.7in]{Solutions}\\
+    PID: & \inlineresponsebox[3.7in]{A12345678}\vspace{.1in}\\
+\end{tabular}
+
+\vspace{.1in}
+
+\hline
+
+\vspace{.1in}
+
+\textbf{Instructions:}
+\begin{itemize}
+    \item This exam consists of 13 questions, worth a total of 165 points.
+    \item Write your PID in the top right corner of each page in the space provided.
+    \item Please write \textbf{clearly} in the provided answer boxes; we will not grade work
+    that appears elsewhere. Completely fill in bubbles and square boxes; if we cannot tell
+    which option(s) you selected, you may lose points.
+
+        \bubble{A bubble means that you should only \textbf{select one choice}.}
+
+        \squarebubble{A square box means you should \textbf{select all that apply}.}
+
+    \item For full credit, your solutions must use methods of the course.
+    \item You may use one page of double-sided handwritten notes. Aside from this, you may not refer to any other resources or technology during the exam. No calculators!
+    \item Throughout this exam, assume we have already run \texttt{import babypandas as bpd}, \texttt{import numpy as np}, and \texttt{import scipy}.
+    \item At any point, feel free to use functions and variables you defined in earlier parts of the same question.
+\end{itemize}
+
+\vspace{.1in}
+
+\hline
+
+\vspace{0.5in}
+
+\noindent By signing below, you are agreeing that you will behave honestly and fairly during
+and after this exam.
+
+\begin{tabular}{rl}
+    \: \: \: \: \: Signature: & \inlineresponsebox[4in]{}\\
+\end{tabular}
+
+\vfill
+
+\begin{center}
+{\huge Version A} \vspace{.2in}
+
+Please do not open your exam until instructed to do so.
+\end{center}
+
+\newpage
+
+\noindent \fbox{\parbox{\linewidth}{\textbf{Important: Before proceeding, make sure to tear off the last page of this exam packet and read the data description.}}}
+
+
+\vspace{.5em}
+
+\begin{probset}
+
+\begin{prob}[(14 pts)]
+The column \verb|"member_names"| is formatted in a specific way. If a band has two members, the string is of the form \texttt{"A and B"} with no commas. If the band has three or more members, names are comma-separated like \texttt{"A, B, and C"} for a three-person band or \texttt{"A, B, C, and D"} for a four-person band. Take a look at the first few rows of the DataFrame to make sure you understand how this column is formatted!
+
+\begin{subprobset}
+    \begin{subprob}(6 pts)
+Define the Series \texttt{names} and the function \texttt{f} as follows.
+
+\begin{verbatim}
+names = bands.get("member_names")
+
+def f(x):
+    return max(x, 2)
+\end{verbatim}
+
+\textbf{Select all} expressions below that evaluate to a Series containing the number of members in each band. Assume that no band member has a comma (\texttt{","}) in their name, but don't make any other assumptions about band members' names.
+
+\smallskip
+\squarebubble{\texttt{names.str.replace(", ", "").str.split(" ").apply(len) - 1}} 
+
+\smallskip
+\correctsquarebubble{\texttt{names.str.split(", ").apply(len).apply(f)}} 
+
+\smallskip
+\correctsquarebubble{\texttt{(names.str.count(", ") + 1).apply(f)}} 
+
+\smallskip
+\squarebubble{\texttt{names.str.replace("and", ", ").str.count(", ").apply(f)}} 
+
+\smallskip
+\squarebubble{None of the above.} 
+
+    \end{subprob}
+
+\bigskip
+
+\begin{subprob}(4 pts) Suppose a function \texttt{g} is defined such that \texttt{bands.get("member\_names").apply(g)} evaluates to a Series containing the number of members in each band. What are the data types of the input and output to \texttt{g}?
+
+\smallskip
+
+\begin{center}    
+input data type: \inlineresponsebox[1.5in]{\texttt{str}}
+\qquad
+output data type:
+\inlineresponsebox[1.5in]{\texttt{int}}
+\end{center}
+\end{subprob}
+
+\begin{subprob} (4 pts) 
+Fill in the \texttt{return} statement of the function \texttt{g} as described above.
+\begin{verbatim}
+def g(x):
+    return __(a)__
+\end{verbatim}
+
+\texttt{(a):} \inlineresponsebox[5.7in]{\texttt{max(x.count(",") + 1, 2)} or
+\texttt{max(len(x.split(",")), 2)}
+}
+\end{subprob}
+
+\end{subprobset}
+
+\fbox{\parbox{\linewidth}{\textbf{Note:} For the remainder of the exam, assume that we have added to \texttt{bands} a new column called \texttt{"members"} containing the number of members in each band.
+}}
+
+\end{prob}
+
+\newpage
+\begin{prob}[(10 pts)]
+
+Recall that we have added to \texttt{bands} a new column called \texttt{"members"} containing the number of members in each band.
+
+\begin{subprobset}
+\begin{subprob}(4 pts)
+Ella is curious if bands with more members tend to make more albums. Write one line of code to add a new column to \texttt{bands} called \texttt{"albums\_per\_member"},
+containing the ratio of albums to members for each band.
+
+\smallskip
+\begin{responsebox}{1in}
+\texttt{bands = bands.assign(albums\_per\_member = bands.get("albums") / bands.get("members"))}
+\end{responsebox}
+\end{subprob}
+
+\bigskip
+
+\begin{subprob} (6 pts) 
+Find the year in which the band with the highest \texttt{"albums\_per\_member"} ratio was formed. \textbf{Select all} options that correctly evaluate to this year (or any such year in the case of a tie).
+
+\bigskip
+\squarebubble{{\texttt{bands.groupby("albums\_per\_member").min().sort\_values(by=index, \gap ascending=True).iloc[-1]}}}
+
+\smallskip
+\correctsquarebubble{{\texttt{bands.groupby("albums\_per\_member").min().reset\_index().sort\_values(\gap by="albums\_per\_member", ascending=False).get("formed").iloc[0]}}}
+
+\smallskip
+\squarebubble{{\texttt{bands.groupby("formed").max().sort\_values(by="albums\_per\_member", \gap ascending=False).get("formed").iloc[0]}}}
+
+\small
+\correctsquarebubble{{\texttt{bands.groupby("formed").max().sort\_values(by="albums\_per\_member", \gap ascending=False).index[0]}}}
+
+
+\smallskip
+\correctsquarebubble{{\texttt{bands.sort\_values(by="albums\_per\_member", \gap ascending=True).get("formed").iloc[-1]}}}
+
+\smallskip
+\squarebubble{{\texttt{bands.sort\_values(by="formed", \gap ascending=False).groupby("albums\_per\_member").max().index[0]}}}
+
+\smallskip
+\squarebubble{None of the above.}
+
+\end{subprob}
+\end{subprobset}
+\end{prob}
+
+\newpage
+
+\begin{prob}[(10 pts)]
+
+For each goal below, determine the most appropriate plot type.
+
+\begin{subprobset}
+
+\begin{subprob}(2 pts)
+Show the relationship between each band's formation year and \texttt{"top\_album\_sales"} to see if older bands tend to have higher sales.
+
+\smallskip
+\bubble{Scatter plot} \bubble{Line plot} \bubble{Bar chart}
+
+\end{subprob}
+\begin{subprob}(2 pts)
+Compare the total number of albums released by bands from each country, with countries sorted from most albums to fewest albums.
+
+\smallskip
+\bubble{Scatter plot} \bubble{Line plot} \bubble{Bar chart}
+
+\end{subprob}
+\begin{subprob}(2 pts)
+Display how the average number of members in a band has changed over time.
+
+\smallskip
+\bubble{Scatter plot} \bubble{Line plot} \bubble{Bar chart}
+\end{subprob}
+\begin{subprob}(2 pts)
+Compare \texttt{"top\_album\_sales"} across different genres to identify which genre has the highest median sales.
+
+\smallskip
+\bubble{Scatter plot} \bubble{Line plot} \bubble{Bar chart}
+
+\end{subprob}
+\begin{subprob}(2 pts)
+Show the relationship between number of albums released and \texttt{"top\_album\_sales"} to see if one variable can be predicted from the other.
+
+\smallskip
+\bubble{Scatter plot} \bubble{Line plot} \bubble{Bar chart}
+\end{subprob}
+
+\end{subprobset}
+
+\end{prob}
+
+\newpage
+
+\begin{prob}[(8 pts)]
+
+Austin is analyzing the \texttt{"top\_album\_sales"} column of the \texttt{bands} DataFrame, which records each band's best-selling album sales in millions. 
+
+\begin{subprobset}
+
+\begin{subprob}(4 pts)
+Fill in the blanks so that \texttt{[lower, upper]} is the interval that contains all values of \texttt{"top\_album\_sales"} that fall within 2 standard deviations of the mean.
+
+\begin{verbatim}
+sales = bands.get("top_album_sales")
+lower = __(a)__
+upper = __(b)__
+\end{verbatim}
+
+\texttt{(a):} \inlineresponsebox[5.7in]{\texttt{sales.mean() - 2 * np.std(sales)}}
+
+\smallskip
+\texttt{(b):} \inlineresponsebox[5.7in]{\texttt{sales.mean() + 2 * np.std(sales)}}
+
+\begin{soln}
+
+\end{soln}
+
+\end{subprob}
+
+\bigskip
+
+\begin{subprob}(4 pts)
+What proportion of \texttt{"top\_album\_sales"} fall in the interval \texttt{[lower, upper]}? Choose the best answer below.
+
+\medskip
+
+\bubble{Approximately 0.68.}
+
+\smallskip
+
+\bubble{Approximately 0.95.}
+
+\smallskip
+
+\correctbubble{At least 0.75, but we don't know exactly.}
+
+\smallskip
+
+\bubble{At least 0.88, but we don't know exactly.}
+
+\smallskip
+
+\bubble{We cannot determine anything about this proportion.}
+
+\begin{soln}
+$1 - \dfrac{1}{2^2} = 0.75$, by Chebyshev. The distribution is not necessarily normal so this is the most information we have.
+\end{soln}
+
+\end{subprob}
+
+\end{subprobset}
+
+\end{prob}
+
+\newpage
+
+\begin{prob}[(17 pts)]
+
+Bianca standardizes the \texttt{"albums"} column, which has a mean of 7 and a standard deviation of 2 before standardization. 
+
+\begin{subprobset}
+
+
+
+\begin{subprob}(4 pts)
+What are the mean and standard deviation of the \texttt{"albums"} column after standardization?
+
+\smallskip
+\begin{center}
+    mean: \inlineresponsebox[1.5in]{$0$} \qquad
+    SD: \inlineresponsebox[1.5in]{$1$}
+\end{center}
+
+\begin{soln}
+Standardization always produces mean 0 and standard deviation 1 by definition.
+\end{soln}
+
+\end{subprob}
+
+\bigskip
+
+\begin{subprob}(4 pts)
+The band \textit{Joy Division} has an \texttt{"albums"} value that is $-2.5$ standard units. How many albums did this band release?
+
+\smallskip
+\begin{center}
+    \inlineresponsebox[1.5in]{$2$}
+\end{center}
+
+\begin{soln}
+Converting back from standard units: $x = \text{mean} - 2.5 \cdot \text{SD} = 7 - 2.5 \cdot 2 = 2$.
+\end{soln}
+
+\end{subprob}
+
+\bigskip
+
+\begin{subprob}(4 pts)
+What proportion of bands have an \texttt{"albums"} value in the interval \texttt{[5, 9]}? Choose the best answer below.
+
+\medskip
+
+\bubble{Approximately 0.68.}
+
+\smallskip
+
+\bubble{Approximately 0.95.}
+
+\smallskip
+
+\bubble{At least 0.75, but we don't know exactly.}
+
+\smallskip
+
+\bubble{At least 0.88, but we don't know exactly.}
+
+\smallskip
+
+\correctbubble{We cannot determine anything about this proportion.}
+
+\begin{soln}
+Chebyshev's inequality does not guarantee anything within one standard deviation of the mean.
+\end{soln}
+
+\end{subprob}
+
+\bigskip
+
+\begin{subprob}(5 pts)
+Which of the following \textbf{could not} be the value of a band's \texttt{"albums"} in standard units? \textbf{Select all} that apply.
+
+\medskip
+
+\correctsquarebubble{$-4$}
+
+\smallskip
+
+\squarebubble{$-0.5$}
+
+\smallskip
+
+\squarebubble{$0$}
+
+\smallskip
+
+\correctsquarebubble{$1.75$}
+
+\smallskip
+
+\squarebubble{$8.5$}
+
+\smallskip
+
+\squarebubble{None of the above.}
+\end{subprob}
+
+\end{subprobset}
+
+\end{prob}
+
+
+\newpage
+
+\begin{prob}[(8 pts)]
+Histograms A, B, and C all display the distribution of \texttt{"top\_album\_sales"} for the 400 bands in \texttt{bands}, but they use different bins.
+
+\smallskip
+
+Histogram A uses \texttt{bins = [0, 10, 20, 30, 40, 50]}, with bar heights as follows:
+
+\smallskip
+
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{cc}
+\toprule
+Bin & Height \\
+\midrule
+$[0, 10)$ & 0.03 \\
+$[10, 20)$ & 0.02 \\
+$[20, 30)$ & 0.01 \\
+$[30, 40)$ & 0.03 \\
+$[40, 50]$ & 0.01 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\smallskip
+
+
+
+\begin{subprobset}
+
+\begin{subprob}(4 pts)
+Histogram B uses \texttt{bins = [0, 20, 40, 50]}. Note that not all bins have the same width. What is the height of the \textbf{tallest} bar in Histogram B? Give your answer as an \textbf{exact decimal}.
+
+\smallskip
+\begin{center}
+\inlineresponsebox[1.5in]{0.025}
+\end{center}
+
+\begin{soln}
+
+\smallskip
+Computing all three heights in Histogram B:
+
+\smallskip
+\begin{center}
+\begin{tabular}{cccc}
+\toprule
+Bin & Proportion & Width & Height \\
+\midrule
+$[0, 20)$  & 0.50 & 20 & 0.025 \\
+$[20, 40)$ & 0.40 & 20 & 0.020 \\
+$[40, 50]$ & 0.10 & 10 & 0.010 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\smallskip
+The $[0, 20)$ bar has the highest density (0.025) and is therefore the tallest.
+\end{soln}
+
+\end{subprob}
+
+\bigskip
+
+\begin{subprob}(4 pts)
+Histogram C uses \texttt{bins = [0, 5, 10, 50]}, again of varying widths. Let $h_1$ be the height of the leftmost bar, $[0, 5)$. What are the minimum and maximum possible values of $h_1$? Give your answers as \textbf{exact decimals}.
+
+\smallskip
+\begin{center}
+    minimum $h_1$: \inlineresponsebox[1.5in]{0}
+\qquad
+maximum $h_1$: \inlineresponsebox[1.5in]{0.06}
+\end{center}
+
+
+\begin{soln}
+
+From Histogram A, the $[0, 10)$ bin has proportion 0.30 (area $= 0.03 \times 10 = 0.30$). When we split this bin, all of that 0.30 proportion must be distributed between $[0, 5)$ and $[5, 10)$. We don't know how it is split --- a histogram does not show us the distribution \textit{within} a bin.
+
+\smallskip
+\textbf{Minimum $h_1$:} It is possible that \textit{none} of the data in $[0, 10)$ actually falls in $[0, 5)$ --- all of it falls in $[5, 10)$. In that case, proportion in $[0, 5) = 0$, so $h_1 = 0/5 = \mathbf{0}$.
+
+\smallskip
+\textbf{Maximum $h_1$:} It is possible that all of the data in $[0, 10)$ falls in $[0, 5)$. In that case, proportion in $[0, 5) = 0.30$, so:
+$$h_1 = \frac{0.30}{5} = 0.06$$
+\end{soln}
+
+\end{subprob}
+
+\end{subprobset}
+
+\end{prob}
+
+\newpage
+
+\begin{prob}[(18 pts)]
+
+Zeyu is wondering whether active bands are more successful than inactive bands, in the sense that they have greater \texttt{"top\_album\_sales"}. To find out, he runs a permutation test on the \texttt{bands} DataFrame by comparing the average \texttt{"top\_album\_sales"} for active versus inactive bands using 10,000 shuffles of the \texttt{"active"} labels.
+
+\begin{subprobset}
+
+\begin{subprob}(4 pts)
+Which of the following best describes the \textbf{null hypothesis} for Zeyu's test?
+
+\smallskip
+\bubble{Active bands have higher top album sales than inactive bands, on average.}
+
+\smallskip
+\correctbubble{Active bands and inactive bands have the same distribution of top album sales.}
+
+\smallskip
+\bubble{In the full population of all bands, the average top album sales for active bands is \gap higher than that for inactive bands.}
+
+\smallskip
+\bubble{In the sample of data in \texttt{bands}, the average top album sales for active bands equals \gap the average top album sales for inactive bands.}
+
+\begin{soln}
+The permutation test's null hypothesis is that the two groups share the same distribution of top album sales, and any observed difference is due to chance label assignment. The first option is the alternative hypothesis; the third and fourth options are not the null.
+\end{soln}
+
+\end{subprob}
+
+\bigskip
+
+\begin{subprob}(6 pts)
+Complete the code below to run Zeyu's permutation test.
+
+\begin{Verbatim}
+active = bands[bands.get("active") == True].get("top_album_sales")
+inactive = bands[bands.get("active") == False].get("top_album_sales")
+obs_diff = active.mean() - inactive.mean()
+
+sim_diffs = np.array([])
+
+for i in np.arange(10000):
+    shuffled_labels = __(a)__
+    shuffled = bands.assign(active=shuffled_labels)
+    sim_active = shuffled[shuffled.get("active") == True]
+    sim_inactive = shuffled[shuffled.get("active") == False]
+    sim_diff = (sim_active.get("top_album_sales").mean()
+                - sim_inactive.get("top_album_sales").mean())
+    sim_diffs = np.append(sim_diffs, sim_diff)
+
+p_value = __(b)__ / 10000
+\end{Verbatim}
+
+\smallskip
+\texttt{(a):} \inlineresponsebox[5.7in]{\texttt{np.random.permutation(bands.get("active"))}}
+
+\smallskip
+\texttt{(b):} \inlineresponsebox[5.7in]{\texttt{np.count\_nonzero(sim\_diffs >= obs\_diff)}}
+
+\begin{soln}
+For (a), we shuffle the \texttt{"active"} labels to break any association with \texttt{"top\_album\_sales"} under the null. For (b), the p-value is the proportion of simulated differences at least as large as the observed difference, matching the one-sided alternative that active bands have higher sales.
+\end{soln}
+
+\end{subprob}
+
+\newpage
+
+\begin{subprob}(4 pts)
+Suppose Zeyu's p-value turns out to be $0.03$. Which of the following is the correct conclusion of the test at the $0.05$ significance level?
+
+\smallskip
+\bubble{We accept the null hypothesis; active and inactive bands have the same distribution \gap of top album sales.}
+
+\smallskip
+\bubble{We fail to reject the null hypothesis; we cannot determine whether the groups \gap differ.}
+
+\smallskip
+\correctbubble{We reject the null hypothesis; active bands have significantly higher top album \gap sales.}
+
+\smallskip
+\bubble{We reject the null hypothesis; active and inactive bands have different distributions \gap of top album sales but we can't say which is greater.}
+
+
+
+\begin{soln}
+Since $p = 0.03 < 0.05$, we reject the null. We never ``accept'' the null. Because the test was one-sided (\texttt{>= observed\_diff}), rejecting it supports the specific alternative that active bands have higher sales.
+\end{soln}
+
+\end{subprob}
+
+\bigskip
+
+\begin{subprob}(4 pts)
+In Zeyu's permutation test, suppose we change the code to instead shuffle the values in the \texttt{"top\_album\_sales"} column, and rerun the simulation. How would this affect the resulting null distribution?
+
+\smallskip
+\bubble{All 10,000 simulated values would be exactly the same as before.}
+
+\smallskip
+\correctbubble{There would be slight variations in the null distribution but the histogram would \gap look nearly identical.}
+
+\smallskip
+\bubble{There would be substantial differences in the null distribution if we were to make \gap this change. The histograms would be noticeably different.}
+
+\smallskip
+\bubble{Without the full \texttt{bands} DataFrame available, we cannot predict how this change\gap would affect the null distribution.}
+
+\begin{soln}
+With fixed group sizes, shuffling the \texttt{"active"} labels and shuffling the \texttt{"top\_album\_sales"} values are statistically equivalent --- both break the association between group and outcome. The two null distributions would look essentially the same, with only small differences from the randomness in the new run.
+\end{soln}
+
+\end{subprob}
+
+\end{subprobset}
+
+\end{prob}
+
+\newpage
+
+\begin{prob}[(16 pts)]
+\begin{subprobset}
+
+\begin{subprob}(6 pts)
+Sofia is doing research on bands in the UK. She writes the code below to estimate the mean number of members in UK bands using a bootstrapped 85\% confidence interval. Fill in the blanks to complete the code.
+
+\bigskip
+
+\begin{verbatim}
+uk = bands[bands.get("origin") == "UK"]
+means = np.array([])
+
+for i in np.arange(5000):
+    resample = uk.sample(__(a)__, replace=True)
+    means = np.append(means, resample.get("members").mean())
+
+ci_low = np.percentile(means, __(b)__)
+ci_high = np.percentile(means, __(c)__)
+\end{verbatim}
+
+\bigskip
+\texttt{(a):} \inlineresponsebox[5.7in]{\texttt{uk.shape[0]}}
+
+\begin{soln}
+The bootstrap resample should have the same size as the original sample \texttt{uk}, so the correct choice is \texttt{uk.shape[0]}.
+\end{soln}
+
+\texttt{(b):} \inlineresponsebox[5.7in]{\texttt{7.5}}
+
+\smallskip
+\texttt{(c):} \inlineresponsebox[5.7in]{\texttt{92.5}}
+
+\begin{soln}
+For a 85\% confidence interval, we leave 15\% in the tails, with 12.5\% in each tail. Therefore the endpoints are the 7.5th and 82.5th percentiles.
+\end{soln}
+
+\end{subprob}
+
+\bigskip
+
+\begin{subprob}(6 pts)
+Sofia decides to generalize her code in a function called \texttt{bootstrap\_ci(df, confidence)} which takes as input the queried DataFrame and the confidence level, and returns a two-element list with the endpoints of the resulting confidence interval for the mean number of band members. For example, \texttt{bootstrap\_ci(uk, 85)} corresponds to the procedure in part (a). Sofia defines some DataFrames and makes calls to the function as follows:
+
+\bigskip
+
+\begin{verbatim}
+uk = bands[bands.get("origin") == "UK"]
+uk_90 = bootstrap_ci(uk, 90)
+uk_width = uk_90[1] - uk_90[0]
+
+uk_sweden = bands[(bands.get("origin") == "UK") |
+                  (bands.get("origin") == "Sweden")]
+uk_sweden_90 = bootstrap_ci(uk_sweden, 90)
+uk_sweden_width = uk_sweden_90[1] - uk_sweden_90[0]
+\end{verbatim}
+
+\newpage
+
+\begin{enumerate}
+
+    \item [(i)] Suppose you know that the following expression evaluates to \texttt{True}.
+
+    \medskip
+    
+    \verb|np.std(uk.get("members")) > np.std(uk_sweden.get("members"))|
+
+    \medskip
+    
+    What would you expect the relationship between \texttt{uk\_width} and \texttt{uk\_sweden\_width} to be in this case?
+
+\medskip
+
+\bubble{\texttt{uk\_width < uk\_sweden\_width}}
+
+\smallskip
+\bubble{\texttt{uk\_width == uk\_sweden\_width}}
+
+\smallskip
+\correctbubble{\texttt{uk\_width > uk\_sweden\_width}}
+
+\smallskip
+\bubble{We do not have enough information to determine the relationship.}
+
+\begin{soln}
+Adding Sweden decreases the sample standard deviation and increases the sample size, both of which make the confidence interval narrower. Therefore \texttt{uk\_sweden\_width} should be smaller.
+\end{soln}
+
+\medskip
+
+
+    \item [(ii)]  Suppose you know that the following expression evaluates to \texttt{True}.
+
+    \medskip
+    
+    \verb|np.std(uk.get("members")) < np.std(uk_sweden.get("members"))|
+
+    \medskip
+    
+    What would you expect the relationship between \texttt{uk\_width} and \texttt{uk\_sweden\_width} to be in this case?
+
+\medskip
+\bubble{\texttt{uk\_width < uk\_sweden\_width}}
+
+\smallskip
+\bubble{\texttt{uk\_width == uk\_sweden\_width}}
+
+\smallskip
+\bubble{\texttt{uk\_width > uk\_sweden\_width}}
+
+\smallskip
+\correctbubble{We do not have enough information to determine the relationship.}
+
+\begin{soln}
+Increasing the sample standard deviation tends to widen the confidence interval, while increasing the sample size tends to narrow it. Since these effects compete, we cannot determine which interval is wider from the given information alone.
+\end{soln}
+
+\end{enumerate}
+
+\end{subprob}
+
+\bigskip
+
+\begin{subprob}(4 pts)
+Suppose \texttt{uk\_90} comes out to be $[3.8,\ 5.2]$. Sofia's friend Elise says:
+
+\smallskip
+
+\textit{``There is a 90\% probability that the true mean number of members in UK bands is between 3.8 and 5.2.''}
+
+\smallskip
+
+Which of the following is the most accurate criticism of Elise's statement? 
+ 
+\medskip
+ 
+\bubble{The statement should refer to individual bands, not the mean of all UK bands.}
+
+\smallskip
+ 
+\bubble{The statement should say 95\%, not 90\%.}
+ 
+\smallskip
+ 
+\correctbubble{The true mean is a fixed number and the confidence interval is also fixed, so the \gap true mean either is or isn't in the interval $[3.8, 5.2]$.}
+ 
+
+\smallskip
+ 
+\bubble{The interval is too wide to be useful. We need to lower the confidence level to get\gap a more precise interval.}
+ 
+\begin{soln}
+The correct answer is the second choice. Once an interval has been computed, it is a fixed interval and the parameter is a fixed value---there is no randomness left. It does not make sense to assign a probability to whether a fixed number falls in a fixed interval. The correct interpretation is that the \emph{procedure} that produced the interval (repeated bootstrap sampling + taking the middle 90\%) captures the true parameter approximately 90\% of the time if we were to repeat the whole process many times with new samples from the same population.
+\end{soln}
+
+\end{subprob}
+\end{subprobset}
+\end{prob}
+
+\newpage
+
+\begin{prob}[(17 pts)]
+Recall our assumption that \texttt{bands} is a \textbf{simple random sample of 400 bands} from the population of all bands.
+
+\begin{subprobset}
+
+\begin{subprob}(4 pts) You want to use the data in \texttt{bands} to create a 95\% CLT-based confidence interval for the mean \texttt{"top\_album\_sales"} of all bands in the population. The data in \texttt{bands} was drawn \textbf{without replacement} but the CLT is a statement about samples drawn with replacement. What makes it reasonable to still use the CLT despite this discrepancy?
+
+\smallskip
+\bubble{The sample standard deviation is a good approximation of the population standard \gap deviation.}
+
+\smallskip
+\bubble{The statistic of interest is a sample mean.}
+
+\smallskip
+\bubble{The population distribution of \texttt{"top\_album\_sales"} is likely normal.}
+
+\smallskip
+\correctbubble{The sample is much smaller than the population.}
+
+\smallskip
+\bubble{The CLT is less computational than bootstrapping, so we do not need to resample\gap with replacement.}
+
+
+
+\end{subprob}
+
+\bigskip
+
+\begin{subprob}(4 pts) Your 95\% CLT-based confidence interval comes out to be $[20.0,\ 22.0]$. Based on this information, estimate \texttt{np.std(bands.get("top\_album\_sales"))} to the \textbf{nearest integer}.
+
+\begin{center}
+\inlineresponsebox[2in]{$10.0$}
+\end{center}
+
+\end{subprob}
+
+\bigskip
+
+\begin{subprob}(4 pts) You now want to use the same data to generate another 95\% CLT-based confidence interval for a new parameter: the proportion of bands with four or more members. What is the \textbf{maximum possible width} of this new confidence interval? Give your answer as an \textbf{exact decimal or simplified fraction}.
+
+\begin{center}
+\inlineresponsebox[2in]{$0.1$ or $\frac{1}{10}$}
+\end{center}
+
+\end{subprob}
+
+\newpage
+
+\begin{subprob}(5 pts) You want to estimate several parameters using only the data in \texttt{bands}. Which of the statements are true? \textbf{Select all} that apply.
+
+\smallskip
+\correctsquarebubble{A CLT-based 95\% confidence interval for the mean \texttt{"top\_album\_sales"} of all bands\gap can be constructed if you don't have access to all of \texttt{bands} but you do know the \gap mean, standard deviation, and length of the \texttt{"top\_album\_sales"} column.}
+
+\smallskip
+\correctsquarebubble{To create a 95\% confidence interval for the median \texttt{"top\_album\_sales"} of all bands,\gap you would need to resample rows of \texttt{bands}; the CLT could not be used.}
+
+\smallskip
+\squarebubble{A bootstrapped 95\% confidence interval for the mean number of band \texttt{"members"} \gap can be constructed if you don't have access to all of \texttt{bands} but you do know the \gap mean, standard deviation, and length of the \texttt{"members"} column.}
+
+\smallskip
+\correctsquarebubble{A 95\% confidence interval for the proportion of \texttt{"active"} bands in the population\gap can be calculated using either the CLT or bootstrapping.}
+
+\smallskip
+\squarebubble{A 95\% confidence interval for the largest value of \texttt{"members"} in the population can \gap be calculated using at least one of the following methods: CLT, bootstrapping.}
+
+\smallskip
+\squarebubble{None of the above.}
+
+\end{subprob}
+
+\end{subprobset}
+
+\end{prob}
+
+
+
+
+
+\newpage
+
+\begin{prob}[(12 pts)]
+We asked each DSC 10 tutor for their \textbf{top ten} favorite bands, and then counted how many had a \texttt{"genre"} of \texttt{"Rock"} and how many had a \texttt{"genre"} of \texttt{"Pop"}. Here are those counts for Michelle, Pranav, and Kate:
+
+        \begin{center}
+            \begin{tabular}{lll}
+                \toprule
+                 & Rock & Pop \\
+                \midrule
+                Michelle & $4$ & $3$ \\
+                Pranav & $2$ & $4$ \\
+                Kate & $x$ & $y$ \\
+                \bottomrule
+            \end{tabular}
+        \end{center}
+
+For each tutor, we created a ten-row DataFrame containing just their top ten bands. Each was queried directly from \texttt{bands}, so each tutor's DataFrame has the same columns as \texttt{bands}, just with fewer rows.
+
+\begin{subprobset}
+\begin{subprob}(4 pts)
+Suppose we merge Michelle's ten-row DataFrame with Pranav's ten-row DataFrame, on the column \texttt{"genre"}. What are the minimum and maximum possible number of rows in the result?
+    
+    \begin{center}
+        min: \inlineresponsebox[2in]{$4*2+3*4=20$} \qquad
+        max: \inlineresponsebox[2in]{$4*2+3*4+3*4=32$}
+    \end{center}
+    
+\end{subprob}
+\begin{subprob}(4 pts)
+    Now, suppose we again merge Michelle and Pranav's DataFrame, but this time on the column \texttt{"band"}. What are the minimum and maximum possible number of rows in the result?
+
+    \begin{center}
+        min: \inlineresponsebox[2in]{$0$} \qquad
+        max: \inlineresponsebox[2in]{$2+3+3=8$}
+    \end{center}
+    
+\end{subprob}
+\begin{subprob}(4 pts)
+    Finally, suppose we merge Michelle's ten-row DataFrame with Kate's ten-row DataFrame, on the column \texttt{"genre"}. What are the minimum and maximum possible number of rows in the result? Give your answers as \textbf{unsimplified algebraic expressions} involving $x$ and $y$.
+
+    \begin{center}
+        min: \inlineresponsebox[2in]{$4x+3y$} \qquad
+        max: \inlineresponsebox[2in]{$4x+3y+3(10-x-y) = x + 30$}
+    \end{center}
+    
+\end{subprob}
+\end{subprobset}
+
+\end{prob}
+
+\newpage
+
+\begin{prob}[(8 pts)]
+
+Ray recently got into K-Pop and he wants to estimate the median number of albums among all K-Pop bands. Consider what would happen if he could somehow \textbf{repeat the following process 500 times}:
+
+\begin{enumerate}
+    \item Take a simple random sample of K-Pop bands from the population.
+    \item Bootstrap resample from that sample 10{,}000 times, computing the median number of albums each time.
+    \item Construct an 80\% confidence interval from the bootstrapped medians.
+\end{enumerate}
+
+\begin{subprobset}
+
+\begin{subprob}(4 pts) \textbf{How many} of Ray's confidence intervals would we expect to contain the true median number of albums among all K-Pop bands? Give your answer as an \textbf{integer}.
+
+\smallskip
+
+\begin{center}
+   \inlineresponsebox[1.5in]{400} 
+\end{center}
+
+\begin{soln}
+An 80\% confidence interval procedure should capture the true parameter approximately 80\% of the time. Since Ray repeats the process 500 times, we expect $0.8 \times 500 = 400$ intervals to contain the true median.
+\end{soln}
+
+\end{subprob}
+
+\bigskip
+
+\begin{subprob}(4 pts)
+Which of the following is the most significant barrier to Ray actually completing this procedure?
+
+\smallskip
+\bubble{The computation time required to bootstrap so many times.}
+
+\smallskip
+\bubble{The fact that his parameter of interest is a median and not a mean so the CLT does\gap not apply.}
+
+\smallskip
+\correctbubble{The logistics of obtaining new random samples from the population.}
+
+\smallskip
+\bubble{The fact that he wants an 80\% confidence interval instead of a standard 95\%\gap confidence interval which is easier to compute.}
+
+\begin{soln}
+The biggest challenge is obtaining many new random samples from the population. Bootstrapping itself is computationally feasible (for any confidence level), and bootstrapped confidence intervals can still be constructed for medians.
+\end{soln}
+
+\end{subprob}
+
+\end{subprobset}
+
+\end{prob}
+
+\newpage
+
+\begin{prob}[(19 pts)]
+
+If a band has released a large number of studio albums, is their best-selling album more likely to be successful? To answer this question, you decide to use linear regression. Suppose:
+\begin{itemize}
+    \item \texttt{"albums"} has mean $7$ and standard deviation $2$,
+    \item \texttt{"top\_album\_sales"} has mean $21$ and standard deviation $S$, and
+    \item the correlation coefficient between \texttt{"albums"} and \texttt{"top\_album\_sales"} is $0.6$.
+\end{itemize}
+
+\begin{subprobset}
+
+\begin{subprob} (4 pts) 
+The band \textit{Coldplay} has released 10 albums. How many standard deviations above the mean is \textit{Coldplay}'s \textbf{predicted} top album sale, using our regression line? Give your answer as an \textbf{exact decimal or simplified fraction}.
+
+\begin{center}
+    \inlineresponsebox[1.5in]{$\dfrac{9}{10} = 0.9$}
+\end{center}
+
+\end{subprob}
+
+\bigskip
+
+\begin{subprob} (4 pts) 
+If a band has $0$ albums, its top album sale should \textit{also} be $0$. Suppose our regression line predicts that a band with $0$ albums will have a top album sale of exactly $0$. What is the standard deviation $S$ of \texttt{"top\_album\_sales"}? Give your answer as an \textbf{exact decimal or simplified fraction}.
+
+\begin{center}
+    \inlineresponsebox[1.5in]{$10$}
+\end{center}
+
+\end{subprob}
+
+\bigskip
+
+\begin{subprob} (7 pts) 
+Imagine for this question only that we've just discovered a mistake in our data: each studio album also has a companion live album, so the true album count for each band is \textbf{double} what's recorded. To address this, you multiply all values in the \texttt{"albums"} column by 2 and re-fit the regression line predicting \texttt{"top\_album\_sales"} from the new (doubled) \texttt{"albums"} variable. Which of the following statements about the \textbf{new} regression line are true? \textbf{Select all} that apply.
+
+\vspace{0.5em}
+
+\squarebubble{The new slope will be exactly double the old slope.}
+
+\smallskip
+
+\correctsquarebubble{The new slope will be exactly half the old slope.}
+
+\smallskip
+
+\squarebubble{The new intercept will be less than the old intercept.}
+
+
+\smallskip
+
+\squarebubble{The new intercept will be greater than the old intercept.}
+
+\smallskip
+
+\correctsquarebubble{The correlation coefficient $r$ will stay the same.}
+
+\smallskip
+
+\correctsquarebubble{The RMSE of the new line is the same as the RMSE of the original line.}
+
+\smallskip
+
+\squarebubble{The predicted value for a band with a new (after doubling) album count of 30 \gap equals \textbf{twice} the original line's prediction for a band with 15 albums.}
+
+
+\smallskip
+
+\squarebubble{None of the above.}
+
+\end{subprob}
+
+\newpage
+
+\begin{subprob} (4 pts) 
+The DSC 10 tutors split in half and form two bands, \textit{The Null Hypotheticals} and \textit{P-Value and the Rejects}. They track the number of albums each band produces, as well as the sales of each band's top albums, storing this information in a two-row DataFrame called \texttt{tutors}. Instead of using the data in \texttt{bands}, they create a regression line predicting top album sales from the number of albums using \textbf{only} the data in \texttt{tutors}.
+
+\bigskip
+
+\begin{enumerate}
+    \item [(i)] \textbf{True or False:} The regression line formed using the data in \texttt{bands} \textbf{cannot} have the same RMSE as the regression line formed using only the bands in \texttt{tutors}.
+
+    \smallskip
+        \begin{center}
+            \bubble{True} \qquad \bubble{False}
+        \end{center}
+    
+    \medskip
+    
+    \item [(ii)] \textbf{True or False:} If both the \texttt{tutors} and \texttt{bands} regression lines are exactly the same line, then the \texttt{bands} DataFrame \textbf{must} include bands with the same number of albums and top album sales as the two bands in the \texttt{tutors} DataFrame.
+
+    \smallskip
+        \begin{center}
+            \bubble{True} \qquad \bubble{False}
+        \end{center}
+    
+\end{enumerate}
+
+
+\end{subprob}
+
+\end{subprobset}
+    
+\end{prob}
+
+\newpage
+
+\begin{prob}[(8 pts)]
+Below is one line of code and the DataFrame it produces.
+
+\begin{Verbatim}
+bands.get(["active", "genre", "members"]).groupby(["active", "genre"]).count()
+\end{Verbatim}
+
+\begin{center}
+    \includegraphics[scale=0.7]{Final/tvd.jpg}
+\end{center}
+
+\begin{subprobset}
+    \begin{subprob}(4 pts) 
+        Using this DataFrame, calculate the total variation distance (TVD) between the \texttt{"genre"} distribution of active bands and the \texttt{"genre"} distribution of inactive bands. Give your answer as an \textbf{exact decimal or simplified fraction}.
+
+\begin{center}
+    \inlineresponsebox[1.5in]{$0.3 = \frac{3}{10}$}
+\end{center}
+    \end{subprob}
+    \begin{subprob}(4 pts)
+        Suppose you randomly draw one band uniformly from \texttt{bands}. You are told that this band is \textbf{not} a rock band. What is the conditional probability that the band is active? Give your answer as an \textbf{exact decimal or simplified fraction}.
+
+    \begin{center}
+    \inlineresponsebox[1.5in]{$\frac{70}{310} = \frac{7}{31}$}
+    \end{center}
+    \end{subprob}
+\end{subprobset}
+\end{prob}
+
+\end{probset}
+
+\newpage
+
+
+\noindent Feel free to draw us a picture or tell us about your fondest memory from DSC 10 this
+quarter.
+
+\begin{responsebox}{7in}
+\end{responsebox}
+
+\noindent \textbf{Before turning in your exam, please make sure that your PID is on every page.}
+
+\bigskip
+
+\noindent \textbf{Congratulations on finishing DSC 10!}
+
+
+\end{document}
+
+
+%UNUSED
+
+\begin{prob}[(x pts)]
+
+\medskip
+
+\begin{subprobset}
+
+\begin{subprob}(3 pts)
+Let $p$ be the proportion of bands in \texttt{bands} that are currently active. Suppose you draw \textbf{three} bands from \texttt{bands} uniformly at random \textbf{with replacement}. What is the probability that \textbf{exactly two} of the three selected bands are active? Give your answer as an unsimplified expression in terms of $p$.
+
+\begin{responsebox}{1in}
+There are $3$ cases: the inactive band is first, second, or third. Each such case has probability $p^2(1-p)$ and since the cases are disjoint, the total probability is
+$3p^2(1-p)$.
+\end{responsebox}
+
+\end{subprob}
+
+\bigskip
+
+\begin{subprob}(3 pts)
+Now define the following code:
+
+\begin{verbatim}
+def counter(x, y):
+    return bands[bands.get(x) == y].shape[0]
+
+a = counter("active", True)
+b = counter("active", False)
+c = counter("genre", "Rock")
+\end{verbatim}
+
+Suppose you randomly draw one band uniformly from \texttt{bands}. You are told that this band is \textbf{not} a rock band. What is the conditional probability that the band is active? Choose the correct answer below or select ``Not enough information'' if it cannot be determined.
+
+\medskip
+
+\bubble{$\dfrac{\mathtt{a}}{\mathtt{a} + \mathtt{b}}$}
+\correctbubble{$\dfrac{\mathtt{a}}{\mathtt{a} + \mathtt{b} - \mathtt{c}}$}
+\bubble{$\dfrac{\mathtt{a} - \mathtt{c}}{\mathtt{a} + \mathtt{b} - \mathtt{c}}$}
+\bubble{Not enough information.} 
+
+\end{subprob}
+
+\end{subprobset}
+\end{prob}
+
+
+\begin{subprob}(x pts)
+Write one line of code that creates a horizontal or vertical bar chart showing the average number of \texttt{"members"} for bands of each \texttt{genre}.
+
+\smallskip
+\inlineresponsebox[5.9in]{\texttt{bands.get(["genre", "members"]).groupby("genre").mean().plot(kind="bar");}}
+
+\begin{soln}
+We select the relevant columns, group by \texttt{"genre"}, take the mean, 
+and call \texttt{.plot(kind="bar")} for a vertical bar chart 
+(or \texttt{kind="barh"} for horizontal).
+\end{soln}
+
+\end{subprob}
+
+
+
+\newpage
+\begin{prob}[(x pts)]
+\bigskip
+Bianca's favorite genre of music is pop, and she wants to write code to find out how many pop bands there are from the USA in \texttt{bands}. For each option below, determine whether the provided code may error, may produce an incorrect answer, or always produces the correct answer.
+
+\smallskip
+\textbf{Hint:} In order to always evaluate to the correct answer, the expression must evaluate to 0 if there are no pop bands from the USA in \verb|bands|.
+
+\begin{subprobset}
+\medskip
+\begin{subprob}
+\texttt{bands[(bands.get("genre") == "Pop") \& \\ \hspace*{3em}(bands.get("origin") == "USA")].shape[0]}
+\medskip
+\newline
+\bubble{This code may produce an error, depending on the data in \texttt{bands}.} \\
+\bubble{This code may produce an incorrect answer, depending on the data in \texttt{bands}.}\\
+\correctbubble{This code always produces the correct answer, regardless of what the data in \texttt{bands}\gap looks like.}
+\end{subprob}
+
+\begin{subprob}
+\texttt{grouped = (bands[bands.get("origin") == "USA"].get(["genre", "formed"])\\ \hspace*{5em} .groupby("genre").sum()) \\ len(grouped[grouped.index=="Pop"].get("formed"))}
+\medskip
+\newline
+\bubble{This code may produce an error, depending on the data in \texttt{bands}.} \\
+\correctbubble{This code may produce an incorrect answer, depending on the data in \texttt{bands}.}\\
+\bubble{This code always produces the correct answer, regardless of what the data in \texttt{bands}\gap looks like.}
+\end{subprob}
+
+\begin{subprob}
+\texttt{grouped = bands.groupby(["origin", "genre"]).count().reset\_index() \\
+grouped[(grouped.get("genre") == "Pop") \& \\ \hspace*{3.5em} (grouped.get("origin") == "USA")].get("formed").iloc[0]}
+\medskip
+\newline
+\correctbubble{This code may produce an error, depending on the data in \texttt{bands}.} \\
+\bubble{This code may produce an incorrect answer, depending on the data in \texttt{bands}.}\\
+\bubble{This code always produces the correct answer, regardless of what the data in \texttt{bands}\gap looks like.}
+\end{subprob}
+
+\begin{subprob}
+\texttt{((bands.get("genre") == "Pop") \& (bands.get("origin") == "USA")).sum()}
+\medskip
+\newline
+\bubble{This code may produce an error, depending on the data in \texttt{bands}.} \\
+\bubble{This code may produce an incorrect answer, depending on the data in \texttt{bands}.}\\
+\correctbubble{This code always produces the correct answer, regardless of what the data in \texttt{bands}\gap looks like.}
+\end{subprob}
+
+\begin{subprob}
+\texttt{(np.count\_nonzero(bands.get("genre") == "Pop") + \\ \hspace*{0.5em}np.count\_nonzero(bands.get("origin") == "USA"))}
+\medskip
+\newline
+\bubble{This code may produce an error, depending on the data in \texttt{bands}.} \\
+\correctbubble{This code may produce an incorrect answer, depending on the data in \texttt{bands}.}\\
+\bubble{This code always produces the correct answer, regardless of what the data in \texttt{bands}\gap looks like.}
+\end{subprob}
+\end{subprobset}
+\end{prob}
