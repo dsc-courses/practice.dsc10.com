@@ -5,8 +5,9 @@ Fill in <average> tags for one exam or quiz from a Gradescope scores export.
     uv run scripts/fill_averages.py scores.csv fa25-final          # preview only
     uv run scripts/fill_averages.py scores.csv fa25-final --apply  # write the .md files
 
-Score columns look like '3.2: 3a blank b (3.0 pts)' (question 3, subpart a) or
-'3.2 (3.0 pts)' (question 3, second subpart). Columns for the same subpart are
+Score columns look like '3.2: 3a blank b (3.0 pts)' (question 3, subpart a),
+'3.2 (3.0 pts)' or '3.2: part b (3.0 pts)' (question 3, second subpart), or
+'3: Question 3 (3.0 pts)' (all of question 3). Columns for the same subpart are
 combined, blank cells are skipped, and 0-point columns are ignored.
 
 Score exports identify students, so this script only reads the score columns
@@ -18,7 +19,7 @@ import argparse, csv, pathlib, re, string, sys, yaml
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 
 COLUMN_RE = re.compile(r"^(\d+)\.\d+:\s*(\d+)\s*([a-z])?\b.*\(([\d.]+) pts?\)\s*$")
-NUMBERED_RE = re.compile(r"^(\d+)\.(\d+)\s*\(([\d.]+) pts?\)\s*$")
+NUMBERED_RE = re.compile(r"^(\d+)\.(\d+)(?::.*?)?\s*\(([\d.]+) pts?\)\s*$")
 WHOLE_QUESTION_RE = re.compile(r"^(\d+)(?::.*?)?\s*\(([\d.]+) pts?\)\s*$")
 HAS_POINTS_RE = re.compile(r"\([\d.]+ pts?\)")
 SUBPROB_RE = re.compile(r"^# BEGIN SUBPROB.*?^# END SUBPROB", re.DOTALL | re.MULTILINE)
