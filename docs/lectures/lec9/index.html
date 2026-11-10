@@ -628,12 +628,24 @@ aria-labelledby="heading7_1" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer (x):</strong> <code>["departure", "airline"]</code> or
 <code>["airline", "departure"]</code></p>
+<p>“How many flights on each airline departed from each airport” asks
+for a count for every <strong>combination</strong> of departure airport
+and airline. Grouping by a list of both columns creates one group — one
+row in the output — for each distinct (departure, airline) pair that
+appears in <code>flights</code>. The order of the two columns in the
+list doesn’t change which pairs exist, only how the resulting index is
+arranged.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
 </p>
 <p>The average score on this problem was 82%.</p>
 <p><strong>Answer (y):</strong> <code>count()</code></p>
+<p><code>.count()</code> counts the number of flights that fall into
+each group. <code>.get(["flight_num"])</code> then keeps just the
+<code>"flight_num"</code> column (wrapped in a list so the result stays
+a DataFrame), which holds that count for every (departure, airline)
+pair.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -671,6 +683,28 @@ aria-labelledby="heading7_2" data-bs-parent="#accordionExample">
 
 </header>
 <p><strong>Answer:</strong> Option 3 and Option 4</p>
+<p><code>grouped</code> has one row per distinct (departure, airline)
+pair, and <code>grouped.shape[0] == flights.shape[0]</code> means there
+are exactly as many such pairs as there are flights. Since no row can be
+grouped twice, this means <strong>every flight has a unique (departure,
+airline) pair</strong> — no two flights share both the same departure
+airport and the same airline.</p>
+<p><strong>Option 1: False.</strong> This would mean every flight is on
+a different airline, which is much stronger than what we’re told. Two
+flights can share an airline, as long as they don’t also share a
+departure airport.</p>
+<p><strong>Option 2: False.</strong> Arrival airport isn’t one of the
+columns we grouped by, so this condition doesn’t follow from
+<code>grouped.shape[0] == flights.shape[0]</code> at all.</p>
+<p><strong>Option 3: True.</strong> If two flights were on the same
+airline <em>and</em> had the same departure airport, they’d share the
+same (departure, airline) pair, which we just said can’t happen. So
+within a single airline, every flight departs from a different
+airport.</p>
+<p><strong>Option 4: True.</strong> This is the same fact, viewed the
+other way: if two flights departed from the same airport <em>and</em>
+were on the same airline, they’d again share a pair. So among flights
+from the same airport, every flight is on a different airline.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -2066,6 +2100,16 @@ aria-labelledby="heading14_1" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer</strong>: (x): <code>"artist"</code>, (y):
 <code>mean()</code></p>
+<p>Grouping by <code>"artist"</code> gives one row per artist.
+<code>.mean()</code> finds each artist’s average price. Sorting by
+<code>"price"</code> puts the lowest average first. After a groupby, the
+index is the artist names, so <code>.index[0]</code> is the artist with
+the lowest mean price.</p>
+<p><strong>Note:</strong> In newer versions of babypandas,
+<code>.mean()</code> raises an error if the DataFrame has a column that
+isn’t numeric, like <code>"title"</code>. To run this code today, first
+keep only the columns you need:
+<code>art.get(["artist", "price"]).groupby("artist").mean()</code>.</p>
 <hr/>
 <h5>Difficulty: ⭐️</h5>
 <p>
@@ -2099,6 +2143,15 @@ aria-labelledby="heading14_2" data-bs-parent="#accordionExample">
 <p><strong>Answer</strong>: (x):
 <code>["artist", "year"] or ["year", "artist"]</code>, (y):
 <code>count()</code></p>
+<p>We need the number of pieces each artist made in each year, so we
+group by both columns. That gives one row for each artist and year.
+<code>.count()</code> counts the pieces in each group, so every column,
+including <code>"title"</code>, holds that count. Sorting by
+<code>"title"</code> in descending order puts the biggest count first.
+<code>.reset_index()</code> turns <code>"artist"</code> back into a
+column, so <code>.get("artist")</code> works. If we grouped by
+<code>"artist"</code> alone, we would count each artist’s pieces across
+all years, not in a single year.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -4374,6 +4427,12 @@ aria-labelledby="heading32" data-bs-parent="#accordionExample">
 
 </header>
 <p><strong>Answer:</strong> <code>60</code></p>
+<p>The <code>uc</code> DataFrame has 60 rows, with six rows for each of
+the 10 UC campuses (one for each academic year). The
+<code>mascots</code> DataFrame has exactly one row for each campus.</p>
+<p>Since the merge matches each row in <code>uc</code> with the
+corresponding single row in <code>mascots</code>, no rows are added or
+removed. Therefore, the merged DataFrame has 60 rows.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -5449,6 +5508,23 @@ aria-labelledby="heading36" data-bs-parent="#accordionExample">
 
 </header>
 <p><strong>Answer:</strong> 6</p>
+<p>When we merge on <code>"airline"</code>, every <code>"United"</code>
+row in <code>flights</code> is paired with every <code>"United"</code>
+row in <code>more_flights</code>. So the number of <code>"United"</code>
+rows in <code>merged</code> is</p>
+<p><span class="math display">(\text{\# United rows in }
+\texttt{flights}) \times (\text{\# United rows in }
+\texttt{more\_flights}).</span></p>
+<p>We’re told this product is <span class="math inline">108</span>, and
+that <code>more_flights</code> has <span class="math inline">12</span>
+<code>"United"</code> rows, so</p>
+<p><span class="math display">(\text{\# United rows in }
+\texttt{flights}) \times 12 = 108 \implies \text{\# United rows in }
+\texttt{flights} = 9.</span></p>
+<p>Since <code>flights</code> has <span class="math inline">15</span>
+rows in total, the number that are <strong>not</strong>
+<code>"United"</code> flights is</p>
+<p><span class="math display">15 - 9 = \boxed{6}.</span></p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -6404,6 +6480,10 @@ aria-labelledby="heading46_1" data-bs-parent="#accordionExample">
 
 </header>
 <p><strong>Answer</strong>: <code>price &gt; 20_000_000</code></p>
+<p>A comparison like <code>price &gt; 20_000_000</code> is already
+<code>True</code> or <code>False</code>, so we can return it directly.
+The underscores just make the number easier to read.
+<code>20000000</code> works too.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -6436,6 +6516,11 @@ aria-labelledby="heading46_2" data-bs-parent="#accordionExample">
 </header>
 <p><strong>Answer</strong>:
 <code>art = art.assign(exp = art.get("price").apply(is_expensive))</code></p>
+<p><code>.apply(is_expensive)</code> calls the function on every price
+and gives back a Series of <code>True</code>/<code>False</code> values.
+<code>.assign</code> adds that Series as a new column called
+<code>exp</code>. <code>.assign</code> doesn’t change <code>art</code>
+by itself, so we save the result back into <code>art</code>.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -6450,7 +6535,7 @@ aria-labelledby="heading46_2" data-bs-parent="#accordionExample">
 <p>Next, we make a new DataFrame called <code>expensive</code> as
 follows.</p>
 <div class="sourceCode" id="cb74"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>expensive <span class="op">=</span> art[art.get(exp)]</span>
+class="sourceCode py"><code class="sourceCode python"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a>expensive <span class="op">=</span> art[art.get(<span class="st">&quot;exp&quot;</span>)]</span>
 <span id="cb74-2"><a href="#cb74-2" aria-hidden="true" tabindex="-1"></a>merged <span class="op">=</span> art.merge(expensive, on<span class="op">=</span><span class="st">&quot;artist&quot;</span>)</span></code></pre></div>
 <p>Van Gogh is one artist represented in <code>art</code> and exactly
 half of his pieces in <code>art</code> are worth over 20 million
@@ -6471,6 +6556,13 @@ aria-labelledby="heading46_3" data-bs-parent="#accordionExample">
 
 </header>
 <p><strong>Answer</strong>: 12</p>
+<p>Say Van Gogh has <code>n</code> pieces in <code>art</code>. Half are
+expensive, so he has <code>n / 2</code> pieces in
+<code>expensive</code>. When we merge on <code>"artist"</code>, each of
+his <code>n</code> rows in <code>art</code> pairs with each of his
+<code>n / 2</code> rows in <code>expensive</code>. That gives
+<code>n * n / 2</code> rows. Setting <code>n * n / 2 = 72</code> gives
+<code>n * n = 144</code>, so <code>n = 12</code>.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️⭐️⭐️</h5>
 <p>
@@ -6512,6 +6604,36 @@ aria-labelledby="heading47" data-bs-parent="#accordionExample">
 
 </header>
 <p><strong>Answer</strong>: 10</p>
+<p>This code merges <code>keepers</code> (left) with
+<code>items.take(np.arange(6))</code> (right), which is the first 6 rows
+of <code>items</code>. A row from <code>keepers</code> and a row from
+<code>items</code> are combined whenever the <code>"Store"</code> value
+in <code>keepers</code> is the same as the <code>"Location"</code> value
+in <code>items</code>.</p>
+<p><code>keepers</code> has:</p>
+<ul>
+<li>1 row of “Able Sisters Shop”</li>
+<li>3 rows of “Nook’s Cranny”</li>
+<li>1 row of “Kicks Shoe Store”</li>
+</ul>
+<p>The first 6 rows of <code>items</code> have:</p>
+<ul>
+<li>1 row of “Able Sisters Shop”</li>
+<li>3 rows of “Nook’s Cranny”</li>
+<li>1 row of “Crafting”</li>
+<li>1 row of “Birthday Gift”</li>
+</ul>
+<p>For each value that appears in both DataFrames, we multiply the
+number of matching rows in each, then add up the products:</p>
+<ul>
+<li>“Able Sisters Shop”: <span class="math inline">1 \times 1 = 1</span>
+row</li>
+<li>“Nook’s Cranny”: <span class="math inline">3 \times 3 = 9</span>
+rows</li>
+</ul>
+<p>“Kicks Shoe Store”, “Crafting” and “Birthday Gift” each appear in
+only one DataFrame, so they produce no rows.</p>
+<p><span class="math display">1 + 9 = \boxed{10} \text{ rows}</span></p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>

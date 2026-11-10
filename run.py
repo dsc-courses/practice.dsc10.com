@@ -1181,6 +1181,7 @@ def rewrite_paths_for_lecture(md_or_html: str) -> str:
 
 # Shown at the top of each lecture page. Lectures not listed don't get a topics line.
 LECTURE_TOPICS = {
+    1: "Introduction.",
     2: "Expressions and data types.",
     3: "Strings and arrays.",
     4: "Arrays and DataFrames.",
@@ -1370,18 +1371,26 @@ def build_lecture_links_block(lec_numbers):
     # NOTE: no leading '---' (which pandoc turns into an <hr />)
     html.append("\n### 🔎 Find Problems by Lecture\n")
     html.append("<p>Jump to a page that collects all questions tagged for a given lecture.</p>\n")
+    html.append('<p>🆕 <strong>New: sort problems by difficulty.</strong> Each lecture page can now sort its problems from easiest to hardest, or from newest to oldest. Start with the easy ones, then work up to exam-level problems.</p>\n')
 
     # A single centered grid: no flex shrink, fills up to 1100px, wraps nicely.
     html.append(
         '<div style="max-width:1100px;width:100%;margin:0 auto 24px;'
-        'display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));'
+        'display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));'
         'gap:14px;">'
     )
     for L in sorted(lec_numbers):
+        # Show the lecture's topics (from LECTURE_TOPICS) under its number, if it has any.
+        topic = LECTURE_TOPICS.get(L, "").rstrip(".")
+        topic_html = (
+            f'<span style="display:block;font-size:.8em;color:#5c636a;white-space:normal;text-wrap:balance;'
+            f'line-height:1.25;margin-top:.2rem;">{topic}</span>' if topic else ''
+        )
         html.append(
             f'<a class="btn btn-light" '
-            f'style="display:block;width:100%;text-align:center;white-space:nowrap;padding:.55rem .8rem;" '
-            f'href="lectures/lec{L}/index.html">Lecture {L}</a>'
+            f'style="display:flex;flex-direction:column;justify-content:center;width:100%;'
+            f'text-align:center;white-space:nowrap;padding:.55rem .8rem;" '
+            f'href="lectures/lec{L}/index.html">Lecture {L}{topic_html}</a>'
         )
     html.append('</div>\n')
 
