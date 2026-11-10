@@ -2,8 +2,8 @@
 """
 Fill in <average> tags for one exam or quiz from a Gradescope scores export.
 
-    python scripts/fill_averages.py scores.csv fa25-final          # preview only
-    python scripts/fill_averages.py scores.csv fa25-final --apply  # write the .md files
+    uv run scripts/fill_averages.py scores.csv fa25-final          # preview only
+    uv run scripts/fill_averages.py scores.csv fa25-final --apply  # write the .md files
 
 Score columns look like '3.2: 3a blank b (3.0 pts)' (question 3, subpart a) or
 '3.2 (3.0 pts)' (question 3, second subpart). Columns for the same subpart are
@@ -201,7 +201,7 @@ def main():
         print(f"\nWrote {changed} file(s). Rebuild to update the site:")
         page_path = next((ROOT / "pages").glob(f"*/{args.page}.yml")).relative_to(ROOT)
         print(f"  uv run run.py {page_path}")
-        print('  python -c "import run; run.write_lecture_pages()"')
+        print('  uv run python -c "import run; run.write_lecture_pages()"')
     else:
         print(f"\nPreview only: {changed} file(s) would change. Re-run with --apply to write them.")
 
