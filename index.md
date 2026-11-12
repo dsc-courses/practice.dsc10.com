@@ -1,4 +1,3 @@
----
 title: Home – DSC 10 Practice
 ---
 
@@ -150,9 +149,12 @@ Each exam linked here lists the conditions under which the exam was given, inclu
       <td>Janine Tiefenbruck</td>
       <td>
         <a href='sp26-midterm/index.html'>Midterm</a>
+        <br>
+        <a href='sp26-final/index.html'>Final</a>
       </td>
       <td>
-        College mascots
+        College mascots<br>
+        Bands
       </td>
     </tr>
     <tr>
