@@ -1075,7 +1075,6 @@ def _lecture_source_paths():
 
     Discussion pages mostly reuse exam/quiz problems, so include only exams,
     quizzes, and Discussion 1's own page to avoid duplicated practice problems.
-    Pages with show_solution: false are skipped, so their solutions stay hidden.
 
     Returns a sorted list of (problem_path, page_name, page_title, position),
     where position is the problem's number on that page. A problem used on
@@ -1092,9 +1091,6 @@ def _lecture_source_paths():
             continue
         with open(page_path, 'r', encoding='UTF-8') as f:
             params = yaml.safe_load(f) or {}
-        # Lecture pages always show solutions, so a hidden page can't be a source.
-        if not params.get('show_solution', True):
-            continue
         page_name = os.path.basename(page_path).replace('.yml', '')
         page_title = params.get('title') or format_assignment_name(page_name)
         for position, entry in enumerate(params.get('problems', []), start=1):

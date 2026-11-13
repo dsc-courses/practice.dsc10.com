@@ -1,7 +1,5 @@
 """When the build can't succeed, run.py must stop, explain why, and protect docs/."""
-import pytest
-
-from conftest import MISMATCHED_TAGS, MISSING_SOLUTION, page_yml, stub_pypandoc
+from conftest import MISMATCHED_TAGS, MISSING_SOLUTION, TAGGED_MISSING_SOLUTION, page_yml, stub_pypandoc
 
 PAGE = "pages/exams/fa99-midterm.yml"
 BAD = "problems/fa99-midterm/q01.md"
@@ -37,15 +35,13 @@ def test_mismatched_tags_name_the_problem_file(site):
     assert "fa99-midterm/q01.md" in combined(result)
 
 
-def test_bad_problem_reached_through_a_lecture_page_names_the_file(site, monkeypatch):
-    # Pages build before lecture pages, so call the lecture step directly to reach this path.
-    import run
-
-    item = {"path": BAD, "page": "fa99-midterm", "title": "T", "q": 1, "body": MISSING_SOLUTION, "avg": None, "term": 0}
-    monkeypatch.chdir(site.root)
-    monkeypatch.setattr(run, "collect_problems_by_lecture", lambda: {1: [item]})
-    with pytest.raises(run.ProblemError, match="fa99-midterm/q01.md"):
-        run.write_lecture_pages()
+def test_bad_problem_reached_through_a_lecture_page_names_the_file(site):
+    # Hidden solutions let the exam page build, so only the lecture page can fail.
+    site.write(BAD, TAGGED_MISSING_SOLUTION)
+    site.write(PAGE, page_yml(["fa99-midterm/q01"], show_solution=False))
+    result = site.run()
+    assert result.returncode != 0
+    assert "fa99-midterm/q01.md" in combined(result)
 
 
 def test_wrong_pandoc_version_stops_before_docs_is_deleted(site, tmp_path):
