@@ -2,13 +2,29 @@
 
 Repository containing practice problems for DSC 10 (past exams and discussion). Hosted at practice.dsc10.com.
 
-## Setup
+## Publishing a change
 
-Install [uv](https://docs.astral.sh/uv/getting-started/installation/). That's the only thing you need to install: uv sets up the right versions of Python, the Python packages and pandoc for this project the first time you run a command.
+Pushing to `master` publishes the site. You don't need to build anything or install anything:
 
-## Building the site
+1. Run `git pull`, then edit the files you need (usually in `problems/` or `pages/`).
+2. Commit and push to `master`, but don't commit `docs/`.
+3. GitHub tests, builds and publishes the whole site. It's live about 8 minutes later.
 
-Run these from the root of the repo. The output goes in `docs/`.
+If the build fails, the live site stays as it was and your commit gets a red X on GitHub. Open it to read the error, which names the file to fix, then push the fix. Nothing else publishes until the build passes, so please fix it soon.
+
+### Keeping work hidden
+
+Everything on `master` goes live, so:
+
+- **Solutions that aren't ready:** set `show_solution: false` in the page's `.yml`. This hides them on that page and keeps its problems off the lecture pages.
+- **Problems that aren't ready:** they aren't built until a page's `.yml` lists them.
+- **Pages that aren't ready:** leave them out of `index.md`. They can still be reached by URL.
+
+The repo itself is public, so don't push anything students must not see yet, like upcoming exams.
+
+## Previewing locally (optional)
+
+Install [uv](https://docs.astral.sh/uv/getting-started/installation/). uv sets up the right versions of Python, the Python packages and pandoc the first time you run a command. Then run these from the root of the repo. The output goes in `docs/`.
 
 ```
 uv run run.py pages/exams/fa24-final.yml   # one page (faster)
@@ -16,7 +32,7 @@ uv run run.py                              # the whole site
 uv run run.py index                        # just the homepage
 ```
 
-If a build fails, the error names the file to fix. A failed whole-site build can leave `docs/` incomplete, and `git restore docs` brings it back.
+When you're done, discard the preview with `git restore docs`.
 
 ## Changing the setup
 
