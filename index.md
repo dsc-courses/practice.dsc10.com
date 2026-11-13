@@ -363,7 +363,7 @@ Each exam linked here lists the conditions under which the exam was given, inclu
 
 ### 🙋‍♀️ Quizzes
 
-Below, you'll find an archive of past quizzes. Note that different quarters had a different number of quizzes, so the content of each quiz is not the same across quarters.
+Below, you'll find an archive of past quizzes. Note that different quarters had a different number of quizzes, so the content of each quiz is not the same across quarters. Lecture numbers refer to that quarter's lectures, so they may not match this quarter's.
 
 We've provided answers to all quiz questions, but you won't find detailed explanations. For quizzes, you should try to figure out why the answers are what they are on your own, and come to us in office hours if you're stuck. (Exam questions are harder, hence the detailed explanations.)
 
@@ -372,16 +372,18 @@ We've provided answers to all quiz questions, but you won't find detailed explan
 <center>
 <table class="table" style="width:60%">
   <colgroup>
-    <col span="1" style="width: 20%;">
+    <col span="1" style="width: 17%;">
     <col span="1" style="width: 25%;">
-    <col span="1" style="width: 20%;">
-    <col span="1" style="width: 35%;">
+    <col span="1" style="width: 14%;">
+    <col span="1" style="width: 16%;">
+    <col span="1" style="width: 28%;">
   </colgroup>
   <thead>
     <tr>
       <th scope="col">Quarter</th>
       <th scope="col">Instructor(s)</th>
       <th scope="col">Quiz</th>
+      <th scope="col">Lectures</th>
       <th scope="col">Theme</th>
     </tr>
   </thead>
@@ -395,6 +397,11 @@ We've provided answers to all quiz questions, but you won't find detailed explan
         <a href='fa26-quiz2/index.html'>Quiz 2</a>
         <br>
         <a href='fa26-quiz3/index.html'>Quiz 3</a>
+      </td>
+      <td>
+        1–5<br>
+        6–9<br>
+        13–16
       </td>
       <td>
         Coleman's Catch<br>
@@ -413,6 +420,12 @@ We've provided answers to all quiz questions, but you won't find detailed explan
         <a href='sp26-quiz3/index.html'>Quiz 3</a>
         <br>
         <a href='sp26-quiz4/index.html'>Quiz 4</a>
+      </td>
+      <td>
+        1–6<br>
+        7–10<br>
+        13–18<br>
+        18–21
       </td>
       <td>
         World Cup<br>
@@ -434,6 +447,12 @@ We've provided answers to all quiz questions, but you won't find detailed explan
         <a href='wi26-quiz4/index.html'>Quiz 4</a>
       </td>
       <td>
+        1–6<br>
+        7–11<br>
+        13–17<br>
+        18–21
+      </td>
+      <td>
         Course enrollment<br>
         Coffee shop<br>
         Playlist<br>
@@ -451,6 +470,12 @@ We've provided answers to all quiz questions, but you won't find detailed explan
         <a href='fa25-quiz3/index.html'>Quiz 3</a>
         <br>
         <a href='fa25-quiz4/index.html'>Quiz 4</a>
+      </td>
+      <td>
+        1–5<br>
+        6–10<br>
+        13–15<br>
+        16–18
       </td>
       <td>
         Super Smash Brothers<br>
@@ -472,6 +497,13 @@ We've provided answers to all quiz questions, but you won't find detailed explan
         <a href='sp25-quiz4/index.html'>Quiz 4</a>
         <br>
         <a href='sp25-quiz5/index.html'>Quiz 5</a>
+      </td>
+      <td>
+        1–5<br>
+        6–9<br>
+        13–16<br>
+        17–20<br>
+        21–24
       </td>
       <td>
         Minecraft<br>
@@ -496,6 +528,13 @@ We've provided answers to all quiz questions, but you won't find detailed explan
       <a href='wi25-quiz5/index.html'>Quiz 5</a>
       </td>
       <td>
+        1–6<br>
+        7–11<br>
+        13–17<br>
+        18–21<br>
+        22–25
+      </td>
+      <td>
         Student clubs<br>
         Blue Bowl<br>
         Geisel<br>
@@ -514,6 +553,12 @@ We've provided answers to all quiz questions, but you won't find detailed explan
         <a href='fa24-quiz3/index.html'>Quiz 3</a>
         <br>
         <a href='fa24-quiz4/index.html'>Quiz 4</a>
+      </td>
+      <td>
+        1–4<br>
+        5–10<br>
+        13, 15–18<br>
+        19–23
       </td>
       <td>
         Sea animals<br>
@@ -535,6 +580,13 @@ We've provided answers to all quiz questions, but you won't find detailed explan
         <a href='sp24-quiz4/index.html'>Quiz 4</a>
         <br>
         <a href='sp24-quiz5/index.html'>Quiz 5</a> 
+      </td>
+      <td>
+        1–4<br>
+        5–9<br>
+        13, 15, and 16<br>
+        17–19<br>
+        20–23
       </td>
       <td>
         Flowers<br>
@@ -561,6 +613,14 @@ We've provided answers to all quiz questions, but you won't find detailed explan
         <a href='wi24-quiz6/index.html'>Quiz 6</a> 
       </td>
       <td>
+        1–4<br>
+        5–7<br>
+        8–11<br>
+        13–17<br>
+        18–21<br>
+        21–24
+      </td>
+      <td>
         Fruits<br>
         Laptops<br>
         Flights<br>
@@ -580,6 +640,12 @@ We've provided answers to all quiz questions, but you won't find detailed explan
         <a href='fa23-quiz3/index.html'>Quiz 3</a>
         <br>
         <a href='fa23-quiz4/index.html'>Quiz 4</a>
+      </td>
+      <td>
+        1–4<br>
+        5–10<br>
+        14–17<br>
+        18–22
       </td>
       <td>
         Zoo<br>
