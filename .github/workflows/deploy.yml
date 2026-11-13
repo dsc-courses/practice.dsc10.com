@@ -1,0 +1,65 @@
+name: Build and Publish
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Test and build site
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    concurrency:
+      group: build-${{ github.ref }}
+      cancel-in-progress: true
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: astral-sh/setup-uv@v10.3.3
+        with:
+          version: "0.9.21"
+          enable-cache: true
+
+      - name: Install the locked environment
+        run: uv sync --locked
+
+      - name: Run tests
+        run: uv run pytest
+
+      - name: Build site
+        run: uv run run.py
+
+      - name: Upload the built site
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: ./docs
+
+  deploy:
+    name: Publish to GitHub Pages
+    needs: build
+    # Publishing is off until the repo variable PUBLISH_FROM_ACTIONS is 'true'
+    # (Settings > Secrets and variables > Actions > Variables). Until then the
+    # live site is served from docs/ on master, and this workflow only tests and
+    # builds. Turn it on only after edits made directly to docs/ are in the source
+    # files and the Pages source is switched to GitHub Actions.
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master' && vars.PUBLISH_FROM_ACTIONS == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5
