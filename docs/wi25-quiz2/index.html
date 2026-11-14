@@ -1,11 +1,14 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>Winter 2025 Quiz 2</title>
   <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
     div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -21,8 +24,9 @@
       vertical-align: middle;
     }
     /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -33,7 +37,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -111,12 +115,8 @@
 </header>
 <p><link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-<!-- add after bootstrap.min.css -->
-<link rel="stylesheet" href="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.css"/>
-<!-- add after bootstrap.min.js or bootstrap.bundle.min.js -->
-<script src="https://cdn.rawgit.com/afeld/bootstrap-toc/v1.0.1/dist/bootstrap-toc.min.js"></script></p>
 <!-- for difficulty gauges-->
-<script src="https://cdn.plot.ly/plotly-2.16.1.min.js"></script>
+<script src="https://cdn.plot.ly/plotly-2.16.1.min.js"></script></p>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-B947E6J6H4"></script>
 <script>
@@ -148,7 +148,7 @@ specializing in custom bowls. For each order, we have the customer’s
 <center><img src="../../assets/images/wi25-quizzes/quiz2_bluebowl.jpg" width=600></center>
 <hr />
 <h2 id="problem-1">Problem 1</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 9</span></div></p>
 <p>Fill in the blanks so that the statement below outputs a DataFrame
@@ -169,12 +169,20 @@ aria-labelledby="heading1" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer (a):</strong> <code>['base', 'fruit']</code></p>
+<p>We want combinations of base and fruit. Grouping by a list of two
+columns makes one group for each unique (base, fruit) pair. Grouping by
+only <code>base</code> or only <code>fruit</code> would count each one
+separately.</p>
 <hr/>
 <h5>Difficulty: ⭐️</h5>
 <p>
 </p>
 <p>The average score on this problem was 90%.</p>
 <p><strong>Answer (b):</strong> <code>count()</code></p>
+<p>Popularity means how many orders had each combination.
+<code>.count()</code> gives the number of rows in each group.
+<code>.sum()</code> would add up num_toppings, and <code>.mean()</code>
+would average it. Neither one measures popularity.</p>
 <hr/>
 <h5>Difficulty: ⭐️</h5>
 <p>
@@ -182,6 +190,12 @@ aria-labelledby="heading1" data-bs-parent="#accordionExample">
 <p>The average score on this problem was 90%.</p>
 <p><strong>Answer (c):</strong>
 <code>"student_id", ascending = False</code></p>
+<p>After using <code>.count()</code>, every remaining column holds the
+same number (the size of the group). So sorting by any of the columns
+work, but <code>student_id</code> is a safe choice. We need
+<code>ascending = False</code> to put the most popular combinations
+first. The default, ascending order, would put the least popular
+first.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -193,7 +207,7 @@ aria-labelledby="heading1" data-bs-parent="#accordionExample">
 </div>
 <hr />
 <h2 id="problem-2">Problem 2</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 9</span></div></p>
 <p>Let <code>five_bowls</code> be the smaller DataFrame consisting of
@@ -224,6 +238,18 @@ aria-labelledby="heading2_1" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer:</strong> 9</p>
+<p>9 is correct because a merge pairs every row in the left table with
+every row in the right table that has the same <code>base</code>. If a
+base shows up k times in five_bowls, it adds k × k rows to the result.
+In the first five rows, the bases split as 2, 2 and 1 (two bases appear
+twice and one appears once), so the result has 2² + 2² + 1² = 4 + 4 + 1
+= 9 rows.</p>
+<p>5 is incorrect because it assumes each row matches only itself. That
+would only happen if all five bases were different. 25 is incorrect
+because it assumes every row matches every other row, which would mean
+all five orders had the same base. 11 and 15 are incorrect because they
+don’t fit the 2/2/1 split of bases. 11 is the answer for
+<code>fruit</code>, which has a different split.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -259,6 +285,15 @@ aria-labelledby="heading2_2" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer:</strong> 11</p>
+<p>11 is correct by the same rule. The fruits split as 3, 1 and 1 (one
+fruit appears three times and two appear once each), so the result has
+3² + 1² + 1² = 9 + 1 + 1 = 11 rows.</p>
+<p>9 is incorrect because it’s the answer for the base split (2/2/1),
+not the fruit split. 5 and 25 are incorrect for the same reasons as in
+2.1. They would require all fruits to be different, or all to be the
+same. A common mistake is to add the counts (3 + 1 + 1 = 5) instead of
+squaring them. You have to square because each of the 3 matching rows on
+the left pairs with each of the 3 matching rows on the right.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -271,7 +306,7 @@ aria-labelledby="heading2_2" data-bs-parent="#accordionExample">
 <p><br></p>
 <hr />
 <h2 id="problem-3">Problem 3</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 11</span></div></p>
 <p>Suppose there are five available fruits: strawberries (red), bananas
@@ -293,6 +328,13 @@ aria-labelledby="heading3" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer:</strong> 2/3</p>
+<p>2/3 is correct because once we know the fruit is red, only three
+fruits are possible: strawberries, raspberries and pomegranate. Each one
+is equally likely. Two of those three are not strawberries, so
+<code>P(not strawberries | red)</code> = 2/3.</p>
+<p>4/5 is incorrect. It counts the fruits that aren’t strawberries out
+of all 5 fruits, which ignores the fact that the fruit is red. 1/3 is
+incorrect because that’s the chance he did get strawberries.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -304,7 +346,7 @@ aria-labelledby="heading3" data-bs-parent="#accordionExample">
 </div>
 <hr />
 <h2 id="problem-4">Problem 4</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 7</span></div></p>
 <p>The density histogram below shows the distribution of
@@ -338,6 +380,12 @@ aria-labelledby="heading4_1" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer:</strong> C</p>
+<p>C is correct because histogram bins include their left edge but not
+their right edge, except for the last bin. With bins one topping wide
+that start at 0 (A = [0, 1), B = [1, 2), C = [2, 3), …), an order with
+exactly 2 toppings goes in the bin that starts at 2, which is C.</p>
+<p>B is incorrect. It’s the bin [1, 2), which ends at 2 but doesn’t
+include it. The other bins cover values far from 2.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -366,6 +414,15 @@ aria-labelledby="heading4_2" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer:</strong> 25</p>
+<p>25 is correct because in a density histogram, the area of a bar is
+the proportion of data in that bin: area = height × width. Each bin is 1
+topping wide, so a bar’s height equals the proportion of orders in that
+bin. The bar for one topping (B) is about 0.1 taller than the bar for no
+toppings (A). That means 10% more of the orders had one topping, and 0.1
+× 250 orders = 25 more orders.</p>
+<p>A common mistake is to read the difference in heights (≈ 0.1) as a
+count. Heights in a density histogram are proportions per unit, so you
+have to multiply by the total number of orders, 250.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -378,7 +435,7 @@ aria-labelledby="heading4_2" data-bs-parent="#accordionExample">
 <p><br></p>
 <hr />
 <h2 id="problem-5">Problem 5</h2>
-<div class='meta'>
+<div class="meta">
 <p><span class="pill pill-lecture" title="Lecture number(s)">Lecture
 8</span></div></p>
 <p>Fill in the body of the function <code>prep_time</code> such that
@@ -403,6 +460,16 @@ aria-labelledby="heading5" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer:</strong> <code>1.2 + .2 * x</code></p>
+<p><code>1.2 + 0.2 * x</code> is correct because .apply(prep_time) calls
+prep_time once for each value in the <code>num_toppings</code> Series
+and passes that number in as <code>x</code>. The second expression
+applies 1.2 + 0.2 × (number of toppings) to every element. So the
+function has to do that same math to a single number x.</p>
+<p><code>1.2 + 0.2 * blue_bowl.get("num_toppings")</code> is incorrect
+as the function body. It would return a whole Series for every input
+instead of one number. It also ignores <code>x</code>. Using
+<code>print(...)</code> instead of return is incorrect. The function
+would return None, so the result would be a Series of None values.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -420,5 +487,10 @@ Feedback: Find an error? Still confused? Have a suggestion?
 <a href="https://forms.gle/WZ71FchnXU1K154d7">Let us know
 here</u></a>.</h4>
 <hr />
+</div>
+</div>
+</div>
+</div>
+</div>
 </body>
 </html>
