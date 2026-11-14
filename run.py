@@ -741,6 +741,10 @@ def read_html_config(path):
     f.close()
     return r + '\n\n'
 
+def tab_title(title):
+    '''Pandoc args for the browser tab's title. pagetitle sets only <title>, not the heading on the page.'''
+    return ['--metadata', f'pagetitle=💪 {title}']
+
 def read_nav(root=''):
     '''Returns the top menu bar from include-nav.html.
        root is the path from the page to docs/: '' for the homepage, '../' for pages one folder down.'''
@@ -1355,7 +1359,7 @@ def write_lecture_pages():
         dst_html = os.path.join(lec_dir, 'index.html')
         css_path = '../../assets/theme.css'  # a URL, so always forward slashes (os.path.join gives \ on Windows)
         run_pandoc(
-            [*PANDOC_PAGE_ARGS, '-c', css_path, '--metadata', f'title=Lecture {L} — Practice', md_tmp, '-o', dst_html],
+            [*PANDOC_PAGE_ARGS, '-c', css_path, '--metadata', f'title=Lecture {L} — Practice', *tab_title(f'Lecture {L} — Practice'), md_tmp, '-o', dst_html],
             source=f'the Lecture {L} page',
         )
         os.remove(md_tmp)
@@ -1528,7 +1532,7 @@ def write_page(path, called_from_write_all_pages=False):
     src_path = os.path.join(DST_FOLDER, f'{assignment_name}.md')
     dst_path = os.path.join(DST_FOLDER, assignment_name, 'index.html')
     css_path = '../assets/theme.css'  # a URL, so always forward slashes (os.path.join gives \ on Windows)
-    run_pandoc([*PANDOC_PAGE_ARGS, '-c', css_path, '--metadata', f'title={title}', src_path, '-o', dst_path], source=f'the {assignment_name} page')
+    run_pandoc([*PANDOC_PAGE_ARGS, '-c', css_path, '--metadata', f'title={title}', *tab_title(title), src_path, '-o', dst_path], source=f'the {assignment_name} page')
 
     # Delete the intermediate Markdown
     os.remove(src_path)
@@ -1577,7 +1581,7 @@ def update_page(path):
     tmp_path = os.path.join(DST_FOLDER, assignment_name, 'temp.html')
     dst_path = os.path.join(DST_FOLDER, assignment_name, 'index.html')
     css_path = '../assets/theme.css'  # a URL, so always forward slashes (os.path.join gives \ on Windows)
-    run_pandoc([*PANDOC_PAGE_ARGS, '-c', css_path, '--metadata', f'title={title}', src_path, '-o', tmp_path], source=f'the {assignment_name} page')
+    run_pandoc([*PANDOC_PAGE_ARGS, '-c', css_path, '--metadata', f'title={title}', *tab_title(title), src_path, '-o', tmp_path], source=f'the {assignment_name} page')
 
     # Delete the intermediate Markdown
     os.remove(src_path)

@@ -1,5 +1,5 @@
 ---
-title: Home – DSC 10 Practice
+title: 💪 Home – DSC 10 Practice
 ---
 
 <h1><a href=''>💪 Practice Problems</a></h1>
