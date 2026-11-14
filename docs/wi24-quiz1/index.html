@@ -126,6 +126,49 @@
 
   gtag('config', 'G-B947E6J6H4');
 </script>
+<!-- Top menu bar, styled after dsc10.com's. Plain links, no JavaScript, so Ctrl+F still finds everything. -->
+<!-- run.py fills in ../ (path from the page to docs/) and ../index.html (link to the homepage; empty on the homepage itself). -->
+<style>
+  :root { --site-nav-h: 3.5rem; }
+  .site-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    min-height: var(--site-nav-h);
+    display: flex;
+    align-items: center;
+    gap: .3rem 1.5rem;
+    padding: .5rem 7.5%;
+    background: #fff;
+    border-bottom: 1px solid #eeebee;
+    font-size: .85rem;
+  }
+  .site-nav a { white-space: nowrap; }
+  .site-nav .site-nav-brand {
+    margin-right: auto;
+    font-size: 1.25rem;
+    color: var(--color-text);
+  }
+  /* Narrow screens: drop the site name and let the links wrap to a second line. */
+  @media (max-width: 800px) {
+    :root { --site-nav-h: 4.5rem; }
+    .site-nav { flex-wrap: wrap; justify-content: center; gap: .3rem 1rem; padding: .5rem 1rem; }
+    .site-nav .site-nav-brand { display: none; }
+  }
+  /* Leave room for the bar above the title, and below it after a jump to a section. */
+  body { padding-top: max(7.5%, calc(var(--site-nav-h) + 1.5rem)); }
+  html { scroll-padding-top: calc(var(--site-nav-h) + 1rem); }
+</style>
+<nav class="site-nav" aria-label="Sections">
+<a class="site-nav-brand" href="../index.html#">DSC 10 Practice</a>
+<a href="../pretest/index.html">🧮 Pretest</a>
+<a href="../index.html#discussions">💯 Discussions</a>
+<a href="../index.html#exams">📝 Exams</a>
+<a href="../index.html#quizzes">🙋‍♀️ Quizzes</a>
+<a href="../index.html#find-problems-by-lecture">🔎 By Lecture</a>
+</nav>
 <p><a href="../index.html">← return to practice.dsc10.com</a></p>
 <hr />
 <p>This quiz was administered in-person. It was closed-book and
@@ -232,17 +275,17 @@ every string can be written as a number, so every element in this array
 is converted to a string.</p>
 <p><strong>Option 1: <code>array([6, 10.1, "pear", 13])</code>.</strong>
 Incorrect. This keeps the original types of the elements, so the array
-would hold numbers and strings together</p>
+would hold numbers and strings together.</p>
 <p><strong>Option 2: <code>array([6, 10.1, pear, 13])</code>.</strong>
 Incorrect. Without quotes, <code>pear</code> refers to the variable (the
-whole list), not the string <code>"pear"</code>, which still mixes
-types</p>
+whole list), not the string <code>"pear"</code>, so this would put a
+list inside the array alongside numbers.</p>
 <p><strong>Option 3:
 <code>array(["6", "10.1", "pear", "13"])</code>.</strong> Correct. All
-four elements become strings, so the array has a single type</p>
+four elements become strings, so the array has a single type.</p>
 <p><strong>Option 4: <code>array(["pear"])</code>.</strong> Incorrect.
 <code>np.array()</code> doesn’t throw away elements whose type doesn’t
-match. All four elements are kept</p>
+match. All four elements are kept.</p>
 <p><strong>Option 5: <code>array([pear])</code>.</strong> Incorrect.
 This would be an array containing the variable <code>pear</code> itself,
 rather than the <em>elements</em> of the list. This nests the list
@@ -295,12 +338,12 @@ the methods <code>.max()</code> and <code>.min()</code>, which return
 the largest and smallest elements of the array.</p>
 <ul>
 <li><strong>Order matters.</strong> The largest value has to come
-first</li>
+first.</li>
 <li><strong>Methods vs. functions.</strong> <code>max(peach)</code> and
 <code>np.max(peach)</code> also find the largest value, but they are
-<em>functions</em>, note the array goes inside the parentheses. A
+<em>functions</em> (note the array goes inside the parentheses). A
 <em>method</em> is called on the array with a dot, like
-<code>peach.max()</code></li>
+<code>peach.max()</code>.</li>
 <li><strong>Don’t forget the parentheses.</strong>
 <code>peach.max</code> without <code>()</code> refers to the method
 itself and doesn’t call it, so <code>peach.max - peach.min</code>
@@ -354,7 +397,7 @@ Indexing starts at 0, so the index of the last element is
 <strong><code>peach[y] - peach[x]</code></strong>. <code>y</code> is
 never in <code>peach</code> because <code>np.arange</code> stops
 <em>before</em> <code>y</code>. Also, <code>x</code> and <code>y</code>
-are values in the array, not positions in it.</li>
+are values, not positions.</li>
 </ul>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️⭐️</h5>
@@ -493,9 +536,9 @@ string, not the column, so dividing it by a number errors.</p>
 <li><strong>Forgetting the parentheses.</strong> Python does division
 and multiplication from left to right, so
 <code>fruits.get("price") / fruits.get("pounds") * 16</code> computes
-(price / pounds) × 16. That’s 16 times the price per <em>pound</em>, the
-opposite of what we want. The parentheses make Python find the number of
-ounces first.</li>
+(price / pounds) × 16. That’s 16 times the price per <em>pound</em>,
+when we wanted the price per pound divided by 16. The parentheses make
+Python find the number of ounces first.</li>
 <li><strong>Dividing by 16 instead of multiplying.</strong>
 <code>fruits.get("pounds") / 16</code> converts in the wrong
 direction.</li>
@@ -579,8 +622,8 @@ aria-labelledby="heading4_3" data-bs-parent="#accordionExample">
 <strong>first</strong> element. For the fruit with the <em>highest</em>
 price per ounce to come first, we need to sort from largest to smallest,
 which is <code>ascending = False</code>.</p>
-<p>Using <code>.iloc[0]</code> gives the fruit with the <em>lowest</em>
-price per ounce.</p>
+<p>Using <code>ascending = True</code> gives the fruit with the
+<em>lowest</em> price per ounce.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>

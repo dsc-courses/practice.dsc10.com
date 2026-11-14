@@ -741,6 +741,12 @@ def read_html_config(path):
     f.close()
     return r + '\n\n'
 
+def read_nav(root=''):
+    '''Returns the top menu bar from include-nav.html.
+       root is the path from the page to docs/: '' for the homepage, '../' for pages one folder down.'''
+    home = f'{root}index.html' if root else ''
+    return read_html_config('include-nav.html').replace('{root}', root).replace('{home}', home)
+
 def create_top_info(params, is_exam=True):
 
     inst_info = f"**Instructor(s):** {params['instructors']}" if is_exam else ''
@@ -1147,13 +1153,15 @@ def _normalize_from_lecture(url: str) -> str:
     if "://" in url or url.startswith(("data:", "#")):
         return url
 
+    # already correct for lecN page depth
+    if url.startswith("../../"):
+        return url
+    # Problems are written to sit one folder below docs/, so ../ means docs/:
+    # ../assets/..., ../pdfs/..., and links to other pages like ../fa21-midterm/index.html
+    if url.startswith("../"):
+        return f"../{url}"                    # -> ../../...
+
     for root in _ASSET_ROOTS:
-        # already correct for lecN page depth
-        if url.startswith(f"../../{root}"):
-            return url
-        # common cases we need to bump up one level
-        if url.startswith(f"../{root}"):
-            return f"../{url}"                # -> ../../root...
         if url.startswith(f"./{root}"):
             return f"../../{url[2:]}"         # ./assets/... -> ../../assets/...
         if url.startswith(root):
@@ -1172,8 +1180,9 @@ def rewrite_paths_for_lecture(md_or_html: str) -> str:
     # Markdown images/links
     md_img  = re.compile(r'(!\[[^\]]*\]\()([^)\s]+)')
     md_link = re.compile(r'(\[[^\]]*\]\()([^)\s]+)')
-    s = md_img.sub (lambda m: m.group(1) + _normalize_from_lecture(m.group(2)) + ")", s)
-    s = md_link.sub(lambda m: m.group(1) + _normalize_from_lecture(m.group(2)) + ")", s)
+    # The patterns stop before the closing ")", so it stays in place; don't add another
+    s = md_img.sub (lambda m: m.group(1) + _normalize_from_lecture(m.group(2)), s)
+    s = md_link.sub(lambda m: m.group(1) + _normalize_from_lecture(m.group(2)), s)
 
     # HTML attributes
     html_attr = re.compile(r'(\b(?:src|href)=["\'])([^"\']+)(["\'])', re.I)
@@ -1298,6 +1307,7 @@ def write_lecture_pages():
         )
 
         page_md  = head_html
+        page_md += read_nav('../../')
         page_md += """
 [&#8592; return to practice.dsc10.com](../../index.html)
 
@@ -1343,7 +1353,7 @@ def write_lecture_pages():
             f.write(page_md)
 
         dst_html = os.path.join(lec_dir, 'index.html')
-        css_path = os.path.join('..','..','assets','theme.css')
+        css_path = '../../assets/theme.css'  # a URL, so always forward slashes (os.path.join gives \ on Windows)
         run_pandoc(
             [*PANDOC_PAGE_ARGS, '-c', css_path, '--metadata', f'title=Lecture {L} — Practice', md_tmp, '-o', dst_html],
             source=f'the Lecture {L} page',
@@ -1449,6 +1459,9 @@ def process_page(path, is_exam=True):
         params['show_solution'] = True
     
     out = read_html_config('include-head.html')
+    # Every page gets the homepage's top menu bar; a page can turn it off with `nav: false`
+    if params.get('nav', True):
+        out += read_nav('../')
     out += create_top_info(params, is_exam=is_exam)
 
     # Add information for the entire exam
@@ -1514,7 +1527,7 @@ def write_page(path, called_from_write_all_pages=False):
         title = format_assignment_name(assignment_name)
     src_path = os.path.join(DST_FOLDER, f'{assignment_name}.md')
     dst_path = os.path.join(DST_FOLDER, assignment_name, 'index.html')
-    css_path = os.path.join('..', 'assets', 'theme.css')
+    css_path = '../assets/theme.css'  # a URL, so always forward slashes (os.path.join gives \ on Windows)
     run_pandoc([*PANDOC_PAGE_ARGS, '-c', css_path, '--metadata', f'title={title}', src_path, '-o', dst_path], source=f'the {assignment_name} page')
 
     # Delete the intermediate Markdown
@@ -1543,25 +1556,27 @@ def update_page(path):
     '''Doesn't work for discussion files, yet.'''
     sep = '/' if '/' in path else '\\'
     assignment_name = path.split(sep)[-1].replace('.yml', '')
+    is_exam = 'midterm' in path or 'final' in path
 
     # Generate the Markdown
-    page = process_page(path)
+    page, title = process_page(path, is_exam=is_exam)
 
     # Write the Markdown
     open_path = os.path.join(DST_FOLDER, f'{assignment_name}.md')
-    f = open(open_path, 'w')
+    f = open(open_path, 'w', encoding='UTF-8')
     f.write(page)
     f.close()
 
     dst_folder_path = os.path.join(DST_FOLDER, assignment_name)
     if not os.path.exists(dst_folder_path):
         os.mkdir(dst_folder_path) # make folder
-    
-    title = format_assignment_name(assignment_name)
+
+    if not title:
+        title = format_assignment_name(assignment_name)
     src_path = os.path.join(DST_FOLDER, f'{assignment_name}.md')
     tmp_path = os.path.join(DST_FOLDER, assignment_name, 'temp.html')
     dst_path = os.path.join(DST_FOLDER, assignment_name, 'index.html')
-    css_path = os.path.join('..', 'assets', 'theme.css')
+    css_path = '../assets/theme.css'  # a URL, so always forward slashes (os.path.join gives \ on Windows)
     run_pandoc([*PANDOC_PAGE_ARGS, '-c', css_path, '--metadata', f'title={title}', src_path, '-o', tmp_path], source=f'the {assignment_name} page')
 
     # Delete the intermediate Markdown
@@ -1583,6 +1598,9 @@ def write_all_pages(dir='pages'):
     cname = open(cname_path, 'w')
     cname.write('practice.dsc10.com')
     cname.close()
+
+    # Browsers look for the tab icon at /favicon.ico, so it goes in the site root
+    shutil.copy(os.path.join('assets', 'favicon.ico'), DST_FOLDER)
 
     page_paths = os.path.join(dir, '*', '*.yml')
     all_paths = glob.glob(page_paths)
@@ -1606,8 +1624,9 @@ def create_index():
     with open('index.md', 'r', encoding='utf-8') as f_index:
         index_src = f_index.read()
 
-    # Build <head> (bootstrap, theme, etc.)
+    # Build <head> (bootstrap, theme, etc.) and the top menu bar
     out = read_html_config('include-head.html')
+    out += read_nav()
 
     # Build the lecture links HTML
     lec_map = collect_problems_by_lecture()
@@ -1633,7 +1652,7 @@ def create_index():
     with open(src_path, 'w', encoding='utf-8') as f:
         f.write(out)
 
-    css_path = os.path.join('assets', 'theme.css')
+    css_path = 'assets/theme.css'  # a URL, so always forward slashes (os.path.join gives \ on Windows)
     dst_path = os.path.join(DST_FOLDER, 'index.html')
     run_pandoc(['-c', css_path, '-s', src_path, '-o', dst_path], source='index.md')
     os.remove(src_path)
@@ -1646,6 +1665,14 @@ def create_index():
         f.write(html)
 
 
+
+def _listen_paths(params):
+    '''The problem files (and data_info file) a page is built from, for listen mode to watch.
+       A problem entry can be "a, b", which is two files.'''
+    names = [name for entry in params.get('problems') or [] for name in entry.split(', ')]
+    if 'data_info' in params:
+        names.append(params['data_info'])
+    return [os.path.join('problems', f'{name}.md') for name in names]
 
 def main():
     # No arguments: run all
@@ -1670,7 +1697,7 @@ def main():
                 r = r_file.read()
                 r_file.close()
                 params = yaml.safe_load(r)
-                listen_files += [[path] + list(map(lambda x: os.path.join("problems",x + ".md"),params.get("problems",[])))]
+                listen_files += [[path] + _listen_paths(params)]
 
             # This uses the same format as the listen_files variable to store the timestamp info for each file.
             # Timestamps are used to check for file changes to signal updates.
@@ -1699,8 +1726,7 @@ def main():
                                     r_file = open(path, 'r', encoding='UTF-8')
                                     r = r_file.read()
                                     r_file.close()
-                                    new_problems = yaml.safe_load(r).get("problems",[])
-                                    listen_files[i] = [path] + list(map(lambda x: os.path.join("problems",x + ".md"),new_problems))
+                                    listen_files[i] = [path] + _listen_paths(yaml.safe_load(r))
                                     cached_stamp[i] = [os.stat(file).st_mtime for file in listen_files[i]]
                                 # Update cached timestamp
                                 cached_stamp[i][j] = stamp

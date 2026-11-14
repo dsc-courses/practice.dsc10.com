@@ -126,6 +126,49 @@
 
   gtag('config', 'G-B947E6J6H4');
 </script>
+<!-- Top menu bar, styled after dsc10.com's. Plain links, no JavaScript, so Ctrl+F still finds everything. -->
+<!-- run.py fills in ../../ (path from the page to docs/) and ../../index.html (link to the homepage; empty on the homepage itself). -->
+<style>
+  :root { --site-nav-h: 3.5rem; }
+  .site-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    min-height: var(--site-nav-h);
+    display: flex;
+    align-items: center;
+    gap: .3rem 1.5rem;
+    padding: .5rem 7.5%;
+    background: #fff;
+    border-bottom: 1px solid #eeebee;
+    font-size: .85rem;
+  }
+  .site-nav a { white-space: nowrap; }
+  .site-nav .site-nav-brand {
+    margin-right: auto;
+    font-size: 1.25rem;
+    color: var(--color-text);
+  }
+  /* Narrow screens: drop the site name and let the links wrap to a second line. */
+  @media (max-width: 800px) {
+    :root { --site-nav-h: 4.5rem; }
+    .site-nav { flex-wrap: wrap; justify-content: center; gap: .3rem 1rem; padding: .5rem 1rem; }
+    .site-nav .site-nav-brand { display: none; }
+  }
+  /* Leave room for the bar above the title, and below it after a jump to a section. */
+  body { padding-top: max(7.5%, calc(var(--site-nav-h) + 1.5rem)); }
+  html { scroll-padding-top: calc(var(--site-nav-h) + 1rem); }
+</style>
+<nav class="site-nav" aria-label="Sections">
+<a class="site-nav-brand" href="../../index.html#">DSC 10 Practice</a>
+<a href="../../pretest/index.html">🧮 Pretest</a>
+<a href="../../index.html#discussions">💯 Discussions</a>
+<a href="../../index.html#exams">📝 Exams</a>
+<a href="../../index.html#quizzes">🙋‍♀️ Quizzes</a>
+<a href="../../index.html#find-problems-by-lecture">🔎 By Lecture</a>
+</nav>
 <p><a href="../../index.html">← return to practice.dsc10.com</a></p>
 <hr />
 <h1 id="lecture-21-collected-practice-questions">Lecture 21 — Collected
@@ -1568,6 +1611,9 @@ at a tighter, more rigorous significance level (such as 1%).</p>
 </div>
 </div>
 <p><br></p>
+<p><strong>🎥 A <a
+href="https://podcast.ucsd.edu/watch/fa25/dsc10_c00/29#24:30">solution
+walkthrough video</a> is available for this problem.</strong></p>
 <hr />
 </div>
 <div class="lec-problem" data-avg="64.50" data-term="20261">
@@ -1941,9 +1987,31 @@ aria-labelledby="heading8_1" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 
 </header>
-<p><code>(a)</code>: <code>flowers.shape[0]</code><br/>
-<code>(b)</code>:
-<code>abs(random_choice.sum() / sample_size - 0.8)</code></p>
+<p><strong>(a): <code>flowers.shape[0]</code></strong></p>
+<p>Each simulated sample has to be the <strong>same size as the observed
+sample</strong>, the number of rows in <code>flowers</code>. If we
+simulated a different sample size, the simulated statistics wouldn’t be
+comparable to the observed one. <code>len(flowers)</code> or
+<code>flowers.shape[0]</code> both work.</p>
+<p><strong>(b):
+<code>np.abs(0.8 - random_choice.mean())</code></strong></p>
+<p>What <code>random_choice</code> looks like: say there are 5 fields.
+Then <code>np.random.choice([True, False], 5, p=[0.8, 0.2])</code> might
+give</p>
+<pre><code>array([ True,  True, False,  True,  True])</code></pre>
+<p>Each entry is one pretend flower field, fertilized
+(<code>True</code>) with probability 0.8.</p>
+<p>To get the <strong>proportion</strong> of <code>True</code>s, use the
+fact that Python treats <code>True</code> as 1 and <code>False</code> as
+0:</p>
+<ul>
+<li><p><code>random_choice.sum()</code> → 4 (the <strong>count</strong>
+of fertilized fields)</p></li>
+<li><p><code>random_choice.mean()</code> → 4/5 = 0.8 (the
+<strong>proportion</strong> of fertilized fields)</p></li>
+</ul>
+<p>Then we apply the <strong>same formula</strong> used for the observed
+statistic: <code>np.abs(0.8 - proportion)</code>.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -1975,9 +2043,29 @@ aria-labelledby="heading8_2" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 
 </header>
-<p><code>(c)</code>: <code>flowers.shape[0], [0.8, 0.2]</code><br/>
-<code>(d)</code>:
-<code>abs(multi[0] / flowers.shape[0] - 0.8)</code></p>
+<p><strong>(c): <code>flowers.shape[0], [0.8, 0.2]</code></strong></p>
+<p><code>np.random.multinomial(n, pvals)</code> takes two arguments:</p>
+<ul>
+<li><p><code>n</code>: how many items to draw (our sample size,
+<code>flowers.shape[0]</code>)</p></li>
+<li><p><code>pvals</code>: the probability of each category
+(<code>[0.8, 0.2]</code> for fertilized and not fertilized)</p></li>
+</ul>
+<p><strong>(d):
+<code>np.abs(0.8 - multi[0] / flowers.shape[0])</code></strong></p>
+<p>Unlike <code>np.random.choice</code>,
+<code>np.random.multinomial</code> <strong>doesn’t</strong> return the
+individual draws. It returns the <strong>count in each
+category</strong>. With 5 fields, <code>multi</code> might be</p>
+<p><code>array([4, 1])</code> which means “4 fields fertilized, 1 not.”
+So:</p>
+<ul>
+<li><p><code>multi[0]</code> is the <strong>count</strong> of fertilized
+fields (4).</p></li>
+<li><p><code>multi[0] / flowers.shape[0]</code> is the
+<strong>proportion</strong> of fertilized fields (0.8).</p></li>
+</ul>
+<p>Then we calculate the same test statistic as before.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -2008,8 +2096,26 @@ aria-labelledby="heading8_3" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 
 </header>
-<p><code>(e)</code>: <code>np.array([])</code><br/>
-<code>(f)</code>: <code>np.append(many_stats, one_stat())</code></p>
+<p><strong>(e): <code>np.array([])</code></strong></p>
+<p><code>np.array([])</code> is an empty array to collect the results
+in. This is the standard simulation pattern: start empty, then add one
+result each time through the loop.</p>
+<p><strong>(f):
+<code>np.append(many_stats, one_stat())</code></strong></p>
+<ul>
+<li>Each time through the loop, <code>one_stat()</code> runs a
+<strong>brand new</strong> random simulation and returns one value of
+the test statistic.</li>
+<li><code>np.append</code> returns a <strong>new array</strong> with
+that value added to the end. It <strong>doesn’t</strong> change
+<code>many_stats</code> in place, so the result has to be stored back in
+<code>many_stats</code>. That’s why the line starts with
+<code>many_stats = ...</code>.</li>
+</ul>
+<p>After the loop, <code>many_stats</code> holds 10,000 values. Together
+they show what the test statistic tends to look like <strong>when the
+null is true</strong>.</p>
+<p><code>one_stat_differently()</code> would work just as well.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -2043,6 +2149,45 @@ aria-labelledby="heading8_4" data-bs-parent="#accordionExample">
 
 </header>
 <p><strong>Answer</strong>: Not enough information.</p>
+<p><strong>Explanation:</strong> To decide, we would calculate the
+<strong>p-value</strong>:</p>
+<div id="cb1" class="sourceCode">
+<pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a>p_value <span class="op">=</span> np.count_nonzero(many_stats <span class="op">&gt;=</span> <span class="fl">0.04</span>) <span class="op">/</span> <span class="dv">10000</span></span></code></pre>
+</div>
+<p>That’s the proportion of simulated statistics <strong>at least as
+extreme</strong> as the observed one (≥, because large values favor the
+alternative). Then:</p>
+<ul>
+<li><p>If <code>p_value &lt; 0.05</code>, reject the null.</p></li>
+<li><p>If <code>p_value &gt;= 0.05</code>, fail to reject the
+null.</p></li>
+</ul>
+<p><strong>The problem:</strong> we don’t know the simulated
+distribution. Whether 0.04 is unusual depends heavily on the
+<strong>sample size</strong>, which the quiz never gives.</p>
+<ul>
+<li><strong>Small sample (say 25 fields):</strong> sample proportions
+often land 0.04 or more away from 0.8 just by chance. Even a single
+field changes the proportion by 0.04. So 0.04 would be completely
+ordinary, the p-value would be large, and we would fail to reject.</li>
+<li><strong>Large sample (say 10,000 fields):</strong> the sample
+proportion almost always lands very close to 0.8 (the SD of the sample
+proportion is about <span class="math inline">\sqrt{\frac{0.8 \cdot
+0.2}{10000}} = 0.004</span>). A difference of 0.04 would be about 10 SDs
+away, extremely unlikely. The p-value would be about 0, and we would
+reject.</li>
+</ul>
+<p>The same observed value supports opposite conclusions depending on
+information we don’t have, so the answer is <strong>Not enough
+information</strong>.</p>
+<p><strong>Why not the other options?</strong></p>
+<ul>
+<li><p><strong>Accept the null hypothesis:</strong> never correct. A
+hypothesis test can’t prove the null is true. At most, the data is
+<em>consistent</em> with it.</p></li>
+<li><p><strong>Reject / Fail to reject:</strong> either one could be
+right, but we can’t tell which without the p-value.</p></li>
+</ul>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️⭐️⭐️</h5>
 <p>
@@ -2074,6 +2219,29 @@ aria-labelledby="heading8_5" data-bs-parent="#accordionExample">
 
 </header>
 <p><strong>Answer</strong>: True</p>
+<p><strong>Explanation:</strong> A confidence interval can test a
+hypothesis when the null hypothesis says <strong>a population parameter
+equals a specific value</strong>. Here, the null says the population
+proportion of fertilized fields is 0.8, which fits.</p>
+<p>How to do it:</p>
+<ol type="1">
+<li><p><strong>Bootstrap</strong> the <code>flowers</code> sample:
+resample its rows with replacement many times, and calculate the
+proportion of fertilized fields in each resample.</p></li>
+<li><p>Take the middle 95% of those bootstrapped proportions (the 2.5th
+to 97.5th percentiles) as a <strong>95% confidence interval</strong>.
+Use 95% because the significance level is 0.05 = 1 − 0.95.</p></li>
+<li><p>Check whether 0.8 is inside:</p>
+<ul>
+<li><p><strong>0.8 is outside the interval:</strong> 0.8 isn’t a
+plausible value for the true proportion, so <strong>reject</strong> the
+null.</p></li>
+<li><p><strong>0.8 is inside the interval:</strong> 0.8 is a plausible
+value, so <strong>fail to reject</strong> the null.</p></li>
+</ul></li>
+</ol>
+<p>This works because the null hypothesis is a claim about the value of
+a population parameter.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>

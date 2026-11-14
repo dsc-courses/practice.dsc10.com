@@ -13,6 +13,7 @@ This site contains practice problems taken from old DSC 10 quizzes and exams. We
 1. As **discussions**. Each discussion problem set contains problems about a particular topic. Come to discussions to work on these problem sets in groups, with the help of our course staff.
 1. As **practice exams**. Work through these in the weeks leading up to exams.
 1. As **practice quizzes**. Work through these to practice for quizzes.
+1. By **lecture**. Each lecture page collects every problem on that lecture's topics.
 
 In all cases, you should work on these problems **on paper**, since your quizzes and exams will also be on paper. Even though you will see some multiple choice bubbles, you intentionally cannot select them.
 
@@ -23,14 +24,10 @@ In all cases, you should work on these problems **on paper**, since your quizzes
 DSC 10's only prerequisite is high school algebra.
 In order to gauge your preparedness for the type of math you'll see
 in this class, you should work through <b><a href="pretest/index.html">these practice problems</a></b> on your own. This pretest will help you identify any gaps in your background knowledge and it will teach you some useful test-taking skills.
-<br><br>
-Write your solutions on paper or a tablet, show your work, then submit to Gradescope.<br><br>
-The pretest will be graded based on honest effort, not on the correctness of your responses. You will earn participation credit for completing the pretest to the best of your ability.<br><br>
-We will later release solutions to the pretest. You are highly encouraged to check how you did and learn from the solutions.
 
 ---
 
-### 💯 Discussions for Fall 2026
+### 💯 Discussions for Fall 2026 {#discussions}
 
 <center>
 <table class="table" style="width:60%">
@@ -364,10 +361,6 @@ Each exam linked here lists the conditions under which the exam was given, inclu
 ### 🙋‍♀️ Quizzes
 
 Below, you'll find an archive of past quizzes. Note that different quarters had a different number of quizzes, so the content of each quiz is not the same across quarters. Lecture numbers refer to that quarter's lectures, so they may not match this quarter's.
-
-We've provided answers to all quiz questions, but you won't find detailed explanations. For quizzes, you should try to figure out why the answers are what they are on your own, and come to us in office hours if you're stuck. (Exam questions are harder, hence the detailed explanations.)
-
-🆕 So you can see how your quizzes will look on paper, we've provided a [PDF copy of Quiz 1](pdfs/quiz1_sp24.pdf) from Spring 2024, exactly as it was provided to students.
 
 <center>
 <table class="table" style="width:60%">
