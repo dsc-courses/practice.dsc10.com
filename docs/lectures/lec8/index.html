@@ -2015,6 +2015,22 @@ aria-labelledby="heading17_1" data-bs-parent="#accordionExample">
 <div id="cb1" class="sourceCode">
 <pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a>oct3_cat <span class="op">=</span> oct3.assign(Elevation_Category<span class="op">=</span>oct3.get(<span class="st">"Elevation"</span>).<span class="bu">apply</span>(elevation_category))</span></code></pre>
 </div>
+<p>We want to add a new column called <code>Elevation_Category</code> to
+the <code>oct3</code> DataFrame. This was covered in the functions and
+applying lecture.</p>
+<ul>
+<li><strong><code>.get("Elevation")</code></strong> retrieves the
+<code>Elevation</code> column as a Series.</li>
+<li><strong><code>.apply(elevation_category)</code></strong> applies the
+given function to every elevation value, categorizing each location as
+<code>"low"</code>, <code>"medium"</code>, or <code>"high"</code>.</li>
+<li><strong><code>.assign(Elevation_Category=...)</code></strong> adds
+the resulting Series as a new column called
+<code>Elevation_Category</code>, while keeping all existing
+columns.</li>
+</ul>
+<p>Finally, we assign the resulting DataFrame to
+<code>oct3_cat</code>.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -2057,6 +2073,109 @@ aria-labelledby="heading17_2" data-bs-parent="#accordionExample">
 
 </header>
 <p><strong>Answer:</strong> D.</p>
+<p><a href="https://youtu.be/1skXGopIKo4">Explanation Video</a></p>
+<p>We analyze the code step by step.</p>
+<p><strong>Step 1: <code>.drop(columns=["Coastal"])</code></strong></p>
+<p>Removes the <code>Coastal</code> column from the DataFrame.</p>
+<p><strong>Step 2: <code>.take(2 * np.arange(3) + 1)</code></strong></p>
+<p>First, <code>np.arange(3)</code> produces:</p>
+<div id="cb1" class="sourceCode">
+<pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a>np.array([<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>])</span></code></pre>
+</div>
+<p>We perform element-wise multiplication by 2:</p>
+<div id="cb2" class="sourceCode">
+<pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" href="#cb2-1" tabindex="-1"></a>np.array([<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">4</span>])</span></code></pre>
+</div>
+<p>Then, we add 1 to every element:</p>
+<div id="cb3" class="sourceCode">
+<pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a aria-hidden="true" href="#cb3-1" tabindex="-1"></a>np.array([<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>])</span></code></pre>
+</div>
+<p>Therefore, <code>.take([1, 3, 5])</code> selects the rows at
+positions 1, 3, and 5 (using zero-based indexing).</p>
+<p>These correspond to:</p>
+<table>
+<thead>
+<tr>
+<th>Location</th>
+<th>Temp</th>
+<th>Elevation</th>
+<th>Elevation_Category</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UCSD</td>
+<td>94</td>
+<td>390</td>
+<td>medium</td>
+</tr>
+<tr>
+<td>Mira Mesa</td>
+<td>104</td>
+<td>440</td>
+<td>high</td>
+</tr>
+<tr>
+<td>Downtown</td>
+<td>97</td>
+<td>50</td>
+<td>low</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Step 3: <code>.take(np.arange(2))</code></strong></p>
+<p><code>np.arange(2)</code> produces:</p>
+<div id="cb4" class="sourceCode">
+<pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a aria-hidden="true" href="#cb4-1" tabindex="-1"></a>np.array([<span class="dv">0</span>, <span class="dv">1</span>])</span></code></pre>
+</div>
+<p>This selects the first two rows of the <strong>current
+DataFrame</strong>, not the original DataFrame.</p>
+<p>We are left with:</p>
+<table>
+<thead>
+<tr>
+<th>Location</th>
+<th>Temp</th>
+<th>Elevation</th>
+<th>Elevation_Category</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UCSD</td>
+<td>94</td>
+<td>390</td>
+<td>medium</td>
+</tr>
+<tr>
+<td>Mira Mesa</td>
+<td>104</td>
+<td>440</td>
+<td>high</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Step 4:
+<code>.groupby("Elevation_Category")</code></strong></p>
+<p>Groups the remaining rows according to their elevation category.</p>
+<ul>
+<li>UCSD belongs to the <code>"medium"</code> category.</li>
+<li>Mira Mesa belongs to the <code>"high"</code> category.</li>
+</ul>
+<p><strong>Step 5: <code>.mean()</code></strong></p>
+<p>Calculates the average of the numerical columns for each group.</p>
+<p>Since each category contains only one location, the average
+temperature is simply that location’s temperature.</p>
+<ul>
+<li><code>high</code>: 104</li>
+<li><code>medium</code>: 94</li>
+</ul>
+<p><strong>Step 6: <code>.plot(kind="bar", y="Temp")</code></strong></p>
+<p>Creates a bar chart displaying the average temperature for each
+elevation category.</p>
+<p>The bars are labeled <code>"high"</code> and <code>"medium"</code>,
+with heights 104 and 94, respectively.</p>
+<p>Therefore, <strong>Option D</strong> is correct.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>

@@ -234,6 +234,22 @@ aria-labelledby="heading1_1" data-bs-parent="#accordionExample">
 <div id="cb1" class="sourceCode">
 <pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a>oct3_cat <span class="op">=</span> oct3.assign(Elevation_Category<span class="op">=</span>oct3.get(<span class="st">"Elevation"</span>).<span class="bu">apply</span>(elevation_category))</span></code></pre>
 </div>
+<p>We want to add a new column called <code>Elevation_Category</code> to
+the <code>oct3</code> DataFrame. This was covered in the functions and
+applying lecture.</p>
+<ul>
+<li><strong><code>.get("Elevation")</code></strong> retrieves the
+<code>Elevation</code> column as a Series.</li>
+<li><strong><code>.apply(elevation_category)</code></strong> applies the
+given function to every elevation value, categorizing each location as
+<code>"low"</code>, <code>"medium"</code>, or <code>"high"</code>.</li>
+<li><strong><code>.assign(Elevation_Category=...)</code></strong> adds
+the resulting Series as a new column called
+<code>Elevation_Category</code>, while keeping all existing
+columns.</li>
+</ul>
+<p>Finally, we assign the resulting DataFrame to
+<code>oct3_cat</code>.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️</h5>
 <p>
@@ -275,6 +291,109 @@ aria-labelledby="heading1_2" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer:</strong> D.</p>
+<p><a href="https://youtu.be/1skXGopIKo4">Explanation Video</a></p>
+<p>We analyze the code step by step.</p>
+<p><strong>Step 1: <code>.drop(columns=["Coastal"])</code></strong></p>
+<p>Removes the <code>Coastal</code> column from the DataFrame.</p>
+<p><strong>Step 2: <code>.take(2 * np.arange(3) + 1)</code></strong></p>
+<p>First, <code>np.arange(3)</code> produces:</p>
+<div id="cb1" class="sourceCode">
+<pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a>np.array([<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>])</span></code></pre>
+</div>
+<p>We perform element-wise multiplication by 2:</p>
+<div id="cb2" class="sourceCode">
+<pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" href="#cb2-1" tabindex="-1"></a>np.array([<span class="dv">0</span>, <span class="dv">2</span>, <span class="dv">4</span>])</span></code></pre>
+</div>
+<p>Then, we add 1 to every element:</p>
+<div id="cb3" class="sourceCode">
+<pre class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a aria-hidden="true" href="#cb3-1" tabindex="-1"></a>np.array([<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>])</span></code></pre>
+</div>
+<p>Therefore, <code>.take([1, 3, 5])</code> selects the rows at
+positions 1, 3, and 5 (using zero-based indexing).</p>
+<p>These correspond to:</p>
+<table>
+<thead>
+<tr>
+<th>Location</th>
+<th>Temp</th>
+<th>Elevation</th>
+<th>Elevation_Category</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UCSD</td>
+<td>94</td>
+<td>390</td>
+<td>medium</td>
+</tr>
+<tr>
+<td>Mira Mesa</td>
+<td>104</td>
+<td>440</td>
+<td>high</td>
+</tr>
+<tr>
+<td>Downtown</td>
+<td>97</td>
+<td>50</td>
+<td>low</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Step 3: <code>.take(np.arange(2))</code></strong></p>
+<p><code>np.arange(2)</code> produces:</p>
+<div id="cb4" class="sourceCode">
+<pre class="sourceCode python"><code class="sourceCode python"><span id="cb4-1"><a aria-hidden="true" href="#cb4-1" tabindex="-1"></a>np.array([<span class="dv">0</span>, <span class="dv">1</span>])</span></code></pre>
+</div>
+<p>This selects the first two rows of the <strong>current
+DataFrame</strong>, not the original DataFrame.</p>
+<p>We are left with:</p>
+<table>
+<thead>
+<tr>
+<th>Location</th>
+<th>Temp</th>
+<th>Elevation</th>
+<th>Elevation_Category</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UCSD</td>
+<td>94</td>
+<td>390</td>
+<td>medium</td>
+</tr>
+<tr>
+<td>Mira Mesa</td>
+<td>104</td>
+<td>440</td>
+<td>high</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Step 4:
+<code>.groupby("Elevation_Category")</code></strong></p>
+<p>Groups the remaining rows according to their elevation category.</p>
+<ul>
+<li>UCSD belongs to the <code>"medium"</code> category.</li>
+<li>Mira Mesa belongs to the <code>"high"</code> category.</li>
+</ul>
+<p><strong>Step 5: <code>.mean()</code></strong></p>
+<p>Calculates the average of the numerical columns for each group.</p>
+<p>Since each category contains only one location, the average
+temperature is simply that location’s temperature.</p>
+<ul>
+<li><code>high</code>: 104</li>
+<li><code>medium</code>: 94</li>
+</ul>
+<p><strong>Step 6: <code>.plot(kind="bar", y="Temp")</code></strong></p>
+<p>Creates a bar chart displaying the average temperature for each
+elevation category.</p>
+<p>The bars are labeled <code>"high"</code> and <code>"medium"</code>,
+with heights 104 and 94, respectively.</p>
+<p>Therefore, <strong>Option D</strong> is correct.</p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -352,6 +471,16 @@ aria-labelledby="heading2_2" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer:</strong> <code>10</code></p>
+<p>The <code>merge</code> matches rows from <code>oct3_cat</code> with
+rows from <code>legend</code> based on their
+<code>Elevation_Category</code>.</p>
+<p>Since <code>legend</code> contains exactly one row for each category
+(<code>"low"</code>, <code>"medium"</code>, and <code>"high"</code>),
+every row in <code>oct3_cat</code> matches exactly one row in
+<code>legend</code>.</p>
+<p>Therefore, the merged DataFrame has the same number of rows as
+<code>oct3_cat</code>, which is <strong>10</strong>.</p>
+<p><img alt="quiz2_q2b_matching_process (1)" height="1603" src="https://github.com/user-attachments/assets/26571bdb-6d81-4fda-8748-944cea11cd1a" width="2807"/></p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -389,6 +518,19 @@ aria-labelledby="heading2_3" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer:</strong> <code>14</code></p>
+<p><strong>Answer: 14</strong></p>
+<p>Unlike Q2(b), <code>legend2</code> contains two rows with
+<code>"medium"</code> as the <code>Elevation_Category</code>.</p>
+<p>When merging, each <code>"medium"</code> location in
+<code>oct3_cat</code> matches <strong>both</strong>
+<code>"medium"</code> rows in <code>legend2</code>, producing two rows
+in the merged DataFrame.</p>
+<p>There are: - 3 <code>"low"</code> locations, each matching once → 3
+rows - 4 <code>"medium"</code> locations, each matching twice → 8 rows -
+3 <code>"high"</code> locations, each matching once → 3 rows</p>
+<p>Therefore, the merged DataFrame contains <strong>3 + 8 + 3 = 14
+rows</strong>.</p>
+<p><img alt="quiz2_q2c_matching_process" height="1790" src="https://github.com/user-attachments/assets/f99655ed-3365-4cc4-aef1-a428c825ad77" width="2807"/></p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -424,6 +566,46 @@ aria-labelledby="heading3_1" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer:</strong> <code>0.08</code></p>
+<p><a href="https://youtu.be/zaNpLnikcNo">Explanation Video</a> For a
+density histogram, the height of each bar is calculated using:</p>
+<p><span class="math display">
+\text{Height} = \frac{\text{Number of values in bin}}{\text{Total
+values} \times \text{Bin width}}
+</span></p>
+<p>The bins are defined by <code>np.arange(90, 110, 5)</code>, so each
+bin has a width of 5.</p>
+<table>
+<thead>
+<tr>
+<th>Bin</th>
+<th>Temperatures</th>
+<th>Count</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[90, 95)</td>
+<td>90, 91, 94</td>
+<td>3</td>
+</tr>
+<tr>
+<td>[95, 100)</td>
+<td>97, 98, 99</td>
+<td>3</td>
+</tr>
+<tr>
+<td>[100, 105]</td>
+<td>103, 104, 104, 105</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+<p>The last bin includes 105 because the rightmost edge of the histogram
+is inclusive.</p>
+<p>The tallest bar contains 4 out of 10 values.</p>
+<p><span class="math display">
+\text{Height} = \frac{4}{10 \times 5} = \boxed{0.08}
+</span></p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️⭐️⭐️</h5>
 <p>
@@ -480,7 +662,33 @@ aria-labelledby="heading3_2" data-bs-parent="#accordionExample">
 <header id="title-block-header">
 <h1 class="title"> </h1>
 </header>
-<p><strong>Answer:</strong> <code>0.03</code></p>
+<p><strong>Answer:</strong> <code>0.03</code> In a density histogram,
+<strong>the total area of all bars must equal 1</strong>.</p>
+<p>We calculate each bar’s area using:</p>
+<p><span class="math display">
+\text{Area} = \text{Height} \times \text{Width}
+</span></p>
+<p>For the first three bins:</p>
+<ul>
+<li>[80, 90): <span class="math inline">0.02 \times 10 = 0.2</span></li>
+<li>[90, 95): <span class="math inline">0.04 \times 5 = 0.2</span></li>
+<li>[95, 100): <span class="math inline">0.06 \times 5 = 0.3</span></li>
+</ul>
+<p>The total area of these three bars is:</p>
+<p><span class="math display">
+0.2 + 0.2 + 0.3 = 0.7
+</span></p>
+<p>Therefore, the remaining bar must have an area of:</p>
+<p><span class="math display">
+1 - 0.7 = 0.3
+</span></p>
+<p>Since the final bin has a width of 10:</p>
+<p><span class="math display">
+X \times 10 = 0.3
+</span></p>
+<p><span class="math display">
+\boxed{X = 0.03}
+</span></p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
@@ -508,6 +716,24 @@ aria-labelledby="heading3_3" data-bs-parent="#accordionExample">
 <h1 class="title"> </h1>
 </header>
 <p><strong>Answer:</strong> <code>100</code></p>
+<p>We want to determine how many of the 200 locations have temperatures
+in the interval [90, 100).</p>
+<p>This interval includes two histogram bins:</p>
+<ul>
+<li>[90, 95): <span class="math inline">0.04 \times 5 = 0.2</span></li>
+<li>[95, 100): <span class="math inline">0.06 \times 5 = 0.3</span></li>
+</ul>
+<p>In a density histogram, <strong>the area of a bar represents the
+proportion of observations</strong> in that interval.</p>
+<p>Therefore, the proportion of locations with temperatures in [90, 100)
+is:</p>
+<p><span class="math display">
+0.2 + 0.3 = 0.5
+</span></p>
+<p>Multiplying by the total number of locations:</p>
+<p><span class="math display">
+0.5 \times 200 = \boxed{100 \text{ locations}}
+</span></p>
 <hr/>
 <h5>Difficulty: ⭐️⭐️⭐️</h5>
 <p>
