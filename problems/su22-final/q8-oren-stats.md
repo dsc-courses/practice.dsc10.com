@@ -3,6 +3,7 @@ lecture: 17
 ---
 
 # BEGIN PROB
+
 Oren has a random sample of 200 dog prices in an array called `oren`. He has
 also bootstrapped his sample 1,000 times and stored the mean of each
 resample in an array called `boots`.
@@ -28,7 +29,7 @@ What expression best estimates the population's standard deviation?
 
 **Answer: ** `b`
 
-The function `np.std` directly calculated the standard deviation of array `oren`. Even though `oren` is sample of the population, its standard deviation is still a pretty good estimate for the standard deviation of the population because it is a random sample. The other options don't really make sense in this context. 
+The function `np.std` directly calculated the standard deviation of array `oren`. Even though `oren` is sample of the population, its standard deviation is still a pretty good estimate for the standard deviation of the population because it is a random sample. The other options don't really make sense in this context.
 
 <average>57</average>
 
@@ -49,7 +50,7 @@ Which expression best estimates the mean of `boots`?
 
 **Answer: ** `a`
 
-Note that `a` is equal to the mean of `oren`, which is a pretty good estimator of the mean of the overall population as well as the mean of the distribution of sample means. The other options don't really make sense in this context. 
+Note that `a` is equal to the mean of `oren`, which is a pretty good estimator of the mean of the overall population as well as the mean of the distribution of sample means. The other options don't really make sense in this context.
 
 <average>89</average>
 
@@ -92,7 +93,7 @@ What is the dog price of $560 in standard units?
 
 **Answer: ** `(560 - a) / b`
 
-To convert a value to standard units, we take the value, subtract the mean from it, and divide by SD. In this case that is `(560 - a) / b`, because `a` is the mean of our dog prices sample array and `b` is the SD of the dog prices sample array. 
+To convert a value to standard units, we take the value, subtract the mean from it, and divide by SD. In this case that is `(560 - a) / b`, because `a` is the mean of our dog prices sample array and `b` is the SD of the dog prices sample array.
 
 <average>80</average>
 
@@ -179,7 +180,7 @@ stats.norm.cdf(1.4)  # => 0.92
 
 **Answer: ** `a + 1.75 * b / np.sqrt(c)`
 
-Recall that a 92% confidence interval means an interval that consists of the middle 92% of the distribution. In other words, we want to "chop" off 4% from either end of the ditribution. Thus to get the right endpoint, we want the value corresponding to the 96th percentile in the mean dog price distribution, or `mean + 1.75 * (SD of population / np.sqrt(sample size)` or `a + 1.75 * b / np.sqrt(c)` (we divide by `np.sqrt(c)` due to the central limit theorem). Note that the second line of information that was given `stats.norm.cdf(1.4)` is irrelavant to this particular problem.
+Recall that a 92% confidence interval means an interval that consists of the middle 92% of the distribution. In other words, we want to "chop" off 4% from either end of the ditribution. Thus to get the right endpoint, we want the value corresponding to the 96th percentile in the mean dog price distribution, or `mean + 1.75 * (SD of population / np.sqrt(sample size)` or `a + 1.75 * b / np.sqrt(c)` (we divide by `np.sqrt(c)` due to the central limit theorem). Note that the second line of information that was given `stats.norm.cdf(1.4)` is irrelevant to this particular problem.
 
 <average>48</average>
 
