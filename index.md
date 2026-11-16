@@ -17,6 +17,8 @@ This site contains practice problems taken from old DSC 10 quizzes and exams. We
 
 In all cases, you should work on these problems **on paper**, since your quizzes and exams will also be on paper. Even though you will see some multiple choice bubbles, you intentionally cannot select them.
 
+🆕 You can now hide solutions and set a timer when taking quizzes and exams!
+
 ---
 
 ### <a href="pretest/index.html">🧮 Pretest</a>
