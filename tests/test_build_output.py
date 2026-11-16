@@ -28,6 +28,28 @@ def test_hidden_solutions_stay_off_the_page(site):
     assert "GOOD-ANSWER-TEXT" not in html
 
 
+def test_timer_uses_the_real_time_limit(site):
+    quiz = "pages/quizzes/fa99-quiz1.yml"
+    final = "pages/exams/fa99-final.yml"
+    site.write("problems/fa99-quizzes/quiz1/q01.md", (site.root / "problems/fa99-midterm/q01.md").read_text(encoding="utf-8"))
+    site.write(quiz, page_yml(["fa99-quizzes/quiz1/q01"]).replace("Test context.", "Students had **30 minutes**."))
+    site.write(final, page_yml(["fa99-midterm/q01"]).replace("Test context.", "Students had 3 hours."))
+    build_ok(site, quiz, final, PAGE)
+    quiz_html = (site.root / "docs/fa99-quiz1/index.html").read_text(encoding="utf-8")
+    assert "var limit = 30 * 60 * 1000;" in quiz_html
+    assert "the length of the real quiz" in quiz_html
+    assert "GOOD-ANSWER-TEXT" in quiz_html  # Solutions are still on the page, just hidden while the timer runs
+    assert "var limit = 180 * 60 * 1000;" in (site.root / "docs/fa99-final/index.html").read_text(encoding="utf-8")
+    # The midterm page says nothing about time, so it gets the usual 50 minutes
+    assert "var limit = 50 * 60 * 1000;" in (site.root / "docs/fa99-midterm/index.html").read_text(encoding="utf-8")
+
+
+def test_no_timer_when_solutions_are_hidden(site):
+    site.write(PAGE, page_yml(["fa99-midterm/q01"], show_solution=False))
+    build_ok(site, PAGE)
+    assert "timed-start" not in (site.root / "docs/fa99-midterm/index.html").read_text(encoding="utf-8")
+
+
 def test_single_page_build_leaves_everything_else_alone(site):
     other = site.write("docs/other/index.html", "other page")
     build_ok(site, PAGE)
