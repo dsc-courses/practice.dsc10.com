@@ -105,6 +105,7 @@ def site(tmp_path):
     shutil.copy(REPO / "run.py", root / "run.py")
     shutil.copy(REPO / "include-head.html", root / "include-head.html")
     shutil.copy(REPO / "include-nav.html", root / "include-nav.html")
+    shutil.copy(REPO / "include-timer.html", root / "include-timer.html")
     shutil.copytree(REPO / "utils", root / "utils", ignore=shutil.ignore_patterns("__pycache__"))
 
     s = Site(root)
