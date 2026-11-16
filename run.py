@@ -1590,6 +1590,31 @@ def update_page(path):
     os.rename(tmp_path, dst_path)
 
 
+def write_exam_totals(assets_dir):
+    '''Emit docs/assets/exam-totals.json:
+        { "<slug>": { "total": N, "title": "..." }, ... }
+    for every page in pages/exams/ and pages/quizzes/. Used by the home
+    dashboard to compute accurate completion percentages and show real names.'''
+    import json
+    totals = {}
+    yml_paths = glob.glob(os.path.join('pages', 'exams', '*.yml')) + \
+                glob.glob(os.path.join('pages', 'quizzes', '*.yml'))
+    for p in yml_paths:
+        slug = os.path.splitext(os.path.basename(p))[0]
+        try:
+            with open(p, 'r', encoding='utf-8') as f:
+                data = yaml.safe_load(f)
+            probs = (data or {}).get('problems') or []
+            title = (data or {}).get('title') or ''
+            totals[slug] = { 'total': len(probs), 'title': title }
+        except Exception:
+            # Don't let a bad YAML break the whole build.
+            continue
+    with open(os.path.join(assets_dir, 'exam-totals.json'), 'w',
+              encoding='utf-8') as f:
+        json.dump(totals, f, sort_keys=True)
+
+
 def write_all_pages(dir='pages'):
     '''Assumes all pages are specified in YML'''
 
@@ -1597,13 +1622,11 @@ def write_all_pages(dir='pages'):
         delete_folder(DST_FOLDER)
     os.mkdir(DST_FOLDER)
 
-    # Add CNAME back – this is a massive hack, but whatever
     cname_path = os.path.join(DST_FOLDER, 'CNAME')
     cname = open(cname_path, 'w')
     cname.write('practice.dsc10.com')
     cname.close()
 
-    # Browsers look for the tab icon at /favicon.ico, so it goes in the site root
     shutil.copy(os.path.join('assets', 'favicon.ico'), DST_FOLDER)
 
     page_paths = os.path.join(dir, '*', '*.yml')
@@ -1611,15 +1634,14 @@ def write_all_pages(dir='pages'):
     for path in all_paths:
         write_page(path, called_from_write_all_pages=True)
 
-    # Copy over assets (scripts, css, images)
     dst_path = os.path.join(DST_FOLDER, 'assets')
     shutil.copytree('assets', dst_path)
 
-    # Copy over exam PDFs (linked from pages as ../pdfs/...)
+    write_exam_totals(dst_path)
+
     if os.path.exists('pdfs'):
         shutil.copytree('pdfs', os.path.join(DST_FOLDER, 'pdfs'))
 
-    # Build lecture pages based on 'lecture' tags
     write_lecture_pages()
 
 
