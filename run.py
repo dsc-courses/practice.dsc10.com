@@ -1468,6 +1468,21 @@ def process_page(path, is_exam=True):
         out += read_nav('../')
     out += create_top_info(params, is_exam=is_exam)
 
+    # Quiz and exam pages get a timer at the real time limit, with solutions hidden until the student finishes
+    kind = os.path.basename(os.path.dirname(path))
+    if kind in ('quizzes', 'exams') and params['show_solution']:
+        context = params.get('context') or ''
+        hours = re.search(r'(\d+(?:\.\d+)?)\s*hours?\b', context)
+        minutes = re.search(r'(\d+)\s*minutes', context)
+        if hours:
+            limit = round(float(hours.group(1)) * 60)
+        elif minutes:
+            limit = int(minutes.group(1))
+        else:
+            # A few pages don't say; use the usual length for that kind of test
+            limit = 20 if kind == 'quizzes' else 180 if 'final' in path else 50
+        out += read_html_config('include-timer.html').replace('{minutes}', str(limit)).replace('{kind}', 'quiz' if kind == 'quizzes' else 'exam')
+
     # Add information for the entire exam
     if 'data_info' in params.keys():
         info_path = os.path.join('problems', f'{params["data_info"]}.md')

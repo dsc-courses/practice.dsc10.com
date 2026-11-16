@@ -179,6 +179,172 @@ provided a copy of the
 10 Reference Sheet<a>. No calculators were allowed. Students had
 <strong>3 hours</strong> to take this exam.</p>
 <hr />
+<!-- Timed practice: hides the solutions and runs a timer at the real time limit. Students still write their answers on paper. Nothing is saved, so a reload starts over. -->
+<!-- run.py adds this to quiz and exam pages and fills in the minutes and kind placeholders. Keep it free of blank lines, and use <section>/<aside> rather than <div> (pandoc parses Markdown inside a <div>), so pandoc passes it through as raw HTML. -->
+<style>
+  .timed-bar {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: .5rem 1rem;
+    margin: 12px;
+    padding: .5rem .75rem;
+    background: #e8eaff;
+    border-left: 3px solid #4a90d9;
+    border-radius: 0 3px 3px 0;
+  }
+  .timed-bar p { margin: 0; }
+  .timed-bottom { display: none; margin-top: 2rem; }
+  .timed-button {
+    padding: 2px 10px;
+    font: inherit;
+    font-size: 15px;
+    color: #0066cc;
+    background: #fff;
+    border: 1px solid #4a90d9;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  .timed-button:hover { background: #f3f3fb; }
+  .timed-timer {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: .4rem;
+    position: fixed;
+    top: calc(var(--site-nav-h, 0px) + .75rem);
+    right: 1rem;
+    z-index: 11;
+  }
+  .timed-dial { position: relative; width: 104px; height: 104px; }
+  .timed-dial svg { display: block; width: 100%; height: 100%; transform: rotate(-90deg); }
+  .timed-track { fill: #fff; stroke: #e8eaff; stroke-width: 7; }
+  .timed-fill { fill: none; stroke: #4a90d9; stroke-width: 7; transition: stroke-dashoffset 1s linear, stroke .3s; }
+  .timed-face {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.1;
+  }
+  #timed-clock { font-size: 18px; font-weight: 500; font-variant-numeric: tabular-nums; }
+  #timed-note { font-size: 12px; color: #637282; }
+  .timed-timer.low .timed-fill { stroke: #c0392b; }
+  .timed-timer.low #timed-clock { color: #c0392b; }
+  .timed-timer.paused .timed-fill { stroke: #ccccd4; }
+  .timed-timer.paused #timed-clock { color: #637282; }
+  /* Smaller on phones, so it covers less of the problem text */
+  @media (max-width: 600px) {
+    .timed-timer { right: .5rem; gap: .25rem; }
+    .timed-dial { width: 72px; height: 72px; }
+    #timed-clock { font-size: 14px; }
+    #timed-note { font-size: 11px; }
+    #timed-pause { font-size: 13px; padding: 0 6px; }
+  }
+  body.timed-running .timed-timer { display: flex; }
+  body.timed-running .timed-bottom { display: flex; }
+  body.timed-running .accordion { display: none; }
+</style>
+<section class="timed-bar">
+<button type="button" class="timed-button timed-finish" id="timed-start"></button>
+<p id="timed-status" aria-live="polite"></p>
+</section>
+<section class="timed-bar timed-bottom" id="timed-bottom">
+<button type="button" class="timed-button timed-finish">Finish &amp; show solutions</button>
+<p>That's the end of the exam.</p>
+</section>
+<aside class="timed-timer" id="timed-timer">
+<span class="timed-dial">
+<svg width="104" height="104" viewBox="0 0 104 104" aria-hidden="true"><circle class="timed-track" cx="52" cy="52" r="47"/><circle class="timed-fill" id="timed-fill" cx="52" cy="52" r="47" pathLength="100" stroke-dasharray="100"/></svg>
+<span class="timed-face"><span id="timed-clock"></span><span id="timed-note"></span></span>
+</span>
+<button type="button" class="timed-button" id="timed-pause">Pause</button>
+</aside>
+<script>
+(function () {
+  var limit = 180 * 60 * 1000;
+  var length = limit % 3600000 === 0 ? limit / 3600000 + (limit === 3600000 ? ' hour' : ' hours') : limit / 60000 + ' minutes';
+  var start = document.getElementById('timed-start');
+  var status = document.getElementById('timed-status');
+  var timer = document.getElementById('timed-timer');
+  var clock = document.getElementById('timed-clock');
+  var pause = document.getElementById('timed-pause');
+  var fill = document.getElementById('timed-fill');
+  var note = document.getElementById('timed-note');
+  // left is the time remaining when the clock last stopped; since is when it last started (null while paused)
+  var running = false, left = 0, since = null, tick = null;
+  function fmt(s) {
+    var h = Math.floor(s / 3600), m = Math.floor(s / 60) % 60, r = s % 60;
+    return (h ? h + ':' + (m < 10 ? '0' : '') : '') + m + ':' + (r < 10 ? '0' : '') + r;
+  }
+  function remaining() {
+    return since === null ? left : left - (Date.now() - since);
+  }
+  function update() {
+    var ms = remaining();
+    if (ms <= 0) return finish(true);
+    clock.textContent = fmt(Math.ceil(ms / 1000));
+    note.textContent = since === null ? 'paused' : 'left';
+    // The ring starts full and empties as time runs out
+    fill.style.strokeDashoffset = 100 - 100 * ms / limit;
+    timer.classList.toggle('low', ms <= 60000);
+    timer.classList.toggle('paused', since === null);
+  }
+  function ready(message) {
+    start.textContent = message ? 'Start again' : 'Start timer';
+    status.textContent = message || 'Hides the solutions and starts a timer for ' + length + ', the length of the real exam. Write your answers on paper.';
+  }
+  function resume() {
+    since = Date.now();
+    tick = setInterval(update, 1000);
+    pause.textContent = 'Pause';
+    update();
+  }
+  function begin() {
+    running = true;
+    left = limit;
+    document.body.classList.add('timed-running');
+    start.textContent = 'Finish & show solutions';
+    status.textContent = 'Solutions are hidden. Write your answers on paper, then click Finish to see the solutions.';
+    resume();
+  }
+  function finish(timeUp) {
+    clearInterval(tick);
+    running = false;
+    since = null;
+    document.body.classList.remove('timed-running');
+    ready(timeUp ? "Time's up. The solutions are showing again." : 'The solutions are showing again.');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+  pause.addEventListener('click', function () {
+    if (since === null) return resume();
+    left = remaining();
+    since = null;
+    clearInterval(tick);
+    pause.textContent = 'Resume';
+    update();
+  });
+  document.querySelectorAll('.timed-finish').forEach(function (button) {
+    button.addEventListener('click', function () {
+      if (running) finish(false); else begin();
+    });
+  });
+  // While the timer is running or paused, nothing is saved, so ask before a reload or Back throws the time away
+  window.addEventListener('beforeunload', function (event) {
+    if (!running) return;
+    event.preventDefault();
+    event.returnValue = '';
+  });
+  // Once the problems below have loaded, put the bottom Finish button right after the last solution box, where students land when they're done
+  document.addEventListener('DOMContentLoaded', function () {
+    var solutions = document.querySelectorAll('.accordion');
+    if (solutions.length) solutions[solutions.length - 1].after(document.getElementById('timed-bottom'));
+  });
+  ready();
+})();
+</script>
 <p>The American Kennel Club (AKC) organizes information about dog
 breeds. We’ve loaded their dataset into a DataFrame called
 <code>df</code>. The index of <code>df</code> contains the dog breed
