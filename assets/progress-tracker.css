@@ -166,11 +166,76 @@ h2.pt-flagged, h3.pt-flagged {
   padding: 13px 16px;
   border-radius: 12px;
   min-width: 230px;
+  max-width: 260px;
   z-index: 1030;
   font-family: var(--font-family-prose, system-ui, Helvetica, Arial, sans-serif);
   transition: border-color 0.15s;
 }
 #pt-badge:hover { border-color: var(--color-border-heavy, #ccccd4); }
+
+/* Expand toggle (chevron) in the header row — opens the per-problem list. */
+.pt-expand {
+  margin-right: 2px;
+  background: transparent;
+  border: none;
+  padding: 0;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 14px;
+  /* Chevron starts pointing UP (invites expand upward); rotates when open. */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23637282'%3E%3Cpath fill-rule='evenodd' d='M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z'/%3E%3C/svg%3E");
+  transition: transform 0.2s ease, opacity 0.15s;
+  opacity: 0.65;
+}
+.pt-expand:hover { opacity: 1; }
+#pt-badge.pt-expanded .pt-expand { transform: rotate(180deg); }
+
+/* Per-problem list — hidden by default, shown above the summary when expanded. */
+.pt-badge-list {
+  display: none;
+  flex-direction: column;
+  gap: 2px;
+  max-height: 260px;
+  overflow-y: auto;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed #efe6d6;
+}
+#pt-badge.pt-expanded .pt-badge-list { display: flex; }
+
+.pt-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px;
+  font-size: 12px;
+  color: var(--color-text-secondary, #637282);
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background 0.1s;
+}
+.pt-item:hover { background: #f1efe6; color: var(--color-text, #1b2733); text-decoration: none; }
+.pt-item-label { font-variant-numeric: tabular-nums; }
+
+/* Done: muted sage green shading, like the Mark done pill in its active state. */
+.pt-item-done {
+  background: #eef5ea;
+  color: #3e6b3a;
+}
+.pt-item-done:hover { background: #e2eedd; }
+
+/* Flagged: show the inline flag icon; keep color subtle. */
+.pt-item-flag-icon {
+  width: 11px;
+  height: 11px;
+  color: #c23b22;
+  opacity: 1;
+  position: relative;
+  top: 1px;
+}
 
 .pt-badge-head {
   display: flex;
