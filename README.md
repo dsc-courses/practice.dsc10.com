@@ -7,7 +7,7 @@ Repository containing practice problems for DSC 10 (past exams and discussion). 
 Pushing to `master` publishes the site. You don't need to build anything or install anything:
 
 1. Run `git pull`, then edit the files you need (usually in `problems/` or `pages/`).
-2. Commit and push to `master`, but don't commit `docs/`.
+2. Commit and push to `master`, but don't commit `docs/`. It's rebuilt from your files on every push, so edits made there are lost, and a pull request that changes anything in `docs/` fails with instructions for undoing it.
 3. GitHub tests, builds and publishes the whole site. It's live about 8 minutes later.
 
 If the build fails, the live site stays as it was and your commit gets a red X on GitHub. Open it to read the error, which names the file to fix, then push the fix. Nothing else publishes until the build passes, so please fix it soon.
@@ -32,7 +32,7 @@ uv run run.py                              # the whole site
 uv run run.py index                        # just the homepage
 ```
 
-When you're done, discard the preview with `git restore docs`.
+A one-page build doesn't refresh the lecture pages or the homepage, so a problem you changed can look out of date there; the published site always rebuilds everything. When you're done, discard the preview with `git restore docs`.
 
 ## Changing the setup
 

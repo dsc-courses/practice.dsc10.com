@@ -98,3 +98,36 @@ def test_actions_are_pinned_to_versions():
         for step in steps(job):
             if "uses" in step:
                 assert re.search(r"@v\d+", step["uses"]), step["uses"]
+
+
+
+CHECK_DOCS = 'python3 scripts/check_docs_untouched.py $MODE "$BASE" "$HEAD"'
+
+
+def test_hand_edits_to_docs_fail_the_build_before_anything_is_uploaded():
+    build = steps("build")
+    checkout = step_using("build", "actions/checkout")
+    # The merge base with master has to be in the clone for the diff to work.
+    assert checkout["with"]["fetch-depth"] == 0
+    check = next(step for step in build if CHECK_DOCS in step.get("run", ""))
+    assert not check.get("continue-on-error")
+    env = check["env"]
+    assert env["BASE"] == "${{ github.event.pull_request.base.sha || github.event.before }}"
+    assert env["HEAD"] == "${{ github.event.pull_request.head.sha || github.sha }}"
+    # Blocks pull requests; on pushes it only warns (see check_docs_untouched.py).
+    assert env["MODE"] == "${{ github.event_name != 'pull_request' && '--warn' || '' }}"
+    # Until publishing from Actions is on, committing a rebuilt docs/ is how the
+    # site goes live, so the check must not run before then.
+    assert check["if"] == "vars.PUBLISH_FROM_ACTIONS == 'true'"
+    names = [step.get("run", step.get("uses", "")) for step in build]
+    upload = next(i for i, name in enumerate(names) if "upload-pages-artifact" in name)
+    assert build.index(check) < upload
+    # Runs before the slow tests and build, so a tutor hears about it right away.
+    assert build.index(check) < run_commands("build").index("uv run pytest")
+
+
+def test_build_no_longer_compares_against_the_committed_docs():
+    # Comparing a build to committed docs/ would fail every legitimate edit that
+    # rewords or removes something once tutors stop rebuilding docs/.
+    text = (WORKFLOWS / "deploy.yml").read_text(encoding="utf-8")
+    assert "compare_site.py" not in text
