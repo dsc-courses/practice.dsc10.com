@@ -1288,10 +1288,11 @@ LECTURE_SORT_SCRIPT = '''
       parent.appendChild(el);
       el.querySelectorAll('h2, h3').forEach(function (h) {
         // Change only the heading's text, not the whole heading, so the
-        // progress tracker's buttons inside it are kept.
+        // progress tracker's buttons inside it are kept. Pandoc can wrap a
+        // long heading line between "Problem" and the number, hence \\s+.
         var t = h.firstChild;
-        if (t && t.nodeType === 3 && /^Problem \\d+/.test(t.nodeValue)) {
-          t.nodeValue = t.nodeValue.replace(/^Problem \\d+/, 'Problem ' + (i + 1));
+        if (t && t.nodeType === 3 && /^Problem\\s+\\d+/.test(t.nodeValue)) {
+          t.nodeValue = t.nodeValue.replace(/^Problem\\s+\\d+/, 'Problem ' + (i + 1));
         }
       });
     });
@@ -1392,6 +1393,16 @@ def write_lecture_pages():
             f.write(html)
 
         written.append(L)
+
+    # Each lecture page's problems, as progress-tracker IDs in page order, so
+    # the homepage can show progress on the "Find Problems by Lecture" buttons.
+    import json
+    lecture_totals = {str(L): [problem_src(item['path']) for item in problems_by_lec[L]]
+                      for L in sorted(problems_by_lec)}
+    assets_dir = os.path.join(DST_FOLDER, 'assets')
+    os.makedirs(assets_dir, exist_ok=True)
+    with open(os.path.join(assets_dir, 'lecture-totals.json'), 'w', encoding='utf-8') as f:
+        json.dump(lecture_totals, f, sort_keys=True)
 
     return written
 

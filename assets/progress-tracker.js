@@ -284,13 +284,17 @@
       const pct = total ? Math.round((doneCount / total) * 100) : 0;
       // Per-problem list, shown above the summary when expanded. It follows
       // the headings' current order and numbers, which the sort menu on
-      // lecture pages can change.
-      const inPageOrder = trackable.slice().sort((a, b) =>
-        (a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING) ? -1 : 1);
-      const problemRows = inPageOrder.map((h) => {
+      // lecture pages can change, and leaves out problems hidden by "Hide done".
+      const inPageOrder = trackable
+        .filter((h) => !(h.closest(".lec-problem") || h).classList.contains("pt-hidden"))
+        .sort((a, b) => (a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING) ? -1 : 1);
+      const problemRows = !inPageOrder.length
+        ? '<span class="pt-item">Nothing left on this page</span>'
+        : inPageOrder.map((h) => {
         const t = h.firstChild;
-        const shown = t && t.nodeType === 3 && t.nodeValue.match(/Problem \d+/);
-        const label = shown ? shown[0] : "Problem " + ((h.id.match(/\d+/) || ["?"])[0]);
+        // \s+: pandoc can wrap the heading's line between "Problem" and the number.
+        const shown = t && t.nodeType === 3 && t.nodeValue.match(/Problem\s+(\d+)/);
+        const label = "Problem " + (shown ? shown[1] : (h.id.match(/\d+/) || ["?"])[0]);
         const isDone = !!done[srcOf(h)];
         const isFlag = !!flags[srcOf(h)];
         const cls = "pt-item" + (isDone ? " pt-item-done" : "") + (isFlag ? " pt-item-flag" : "");
@@ -366,13 +370,82 @@
 
     paint();
 
+    // Lecture pages only: a "Hide done" checkbox next to the sort menu.
+    // - The page shows only what's left: visible problems are numbered 1, 2, 3, …
+    //   in the current sort order, and the badge's dropdown lists only them.
+    //   Turning it off numbers every problem again.
+    // - The filter is applied when the box is ticked, when the page loads, when
+    //   you come back to the page, and when you change the sort (after the sort
+    //   script has reordered and numbered everything). A problem you mark done
+    //   while reading stays visible until then, so it doesn't vanish under you.
+    const sortSelect = document.getElementById("lec-sort-select");
+    const sortBox = sortSelect && sortSelect.closest(".lec-sort-box");
+    let applyHide = () => {};
+    if (sortBox) {
+      const HIDE_KEY = "pt-hide-done-lectures";
+      let hideDone = false;
+      try { hideDone = localStorage.getItem(HIDE_KEY) === "1"; } catch {}
+
+      const toggle = document.createElement("span");
+      toggle.className = "pt-hide-toggle";
+      toggle.innerHTML =
+        '<input type="checkbox" id="pt-hide-done" autocomplete="off">' +
+        '<label for="pt-hide-done">Hide done</label>' +
+        '<span class="pt-hide-count" aria-live="polite"></span>';
+      sortBox.appendChild(toggle);
+      const box = toggle.querySelector("input");
+      const count = toggle.querySelector(".pt-hide-count");
+      box.checked = hideDone;
+
+      const allHiddenNote = document.createElement("p");
+      allHiddenNote.className = "pt-all-hidden";
+      allHiddenNote.textContent = "You've marked every problem on this page as done. Untick “Hide done” to see them again.";
+      allHiddenNote.hidden = true;
+      (sortBox.closest(".lec-sort") || sortBox).insertAdjacentElement("afterend", allHiddenNote);
+
+      const wrapperOf = (h) => h.closest(".lec-problem") || h;
+      const updateCount = () => {
+        const n = trackable.filter((h) => wrapperOf(h).classList.contains("pt-hidden")).length;
+        count.textContent = n ? n + " hidden" : "";
+        allHiddenNote.hidden = !(n && n === trackable.length);
+      };
+      // Number the visible problems 1, 2, 3, … in page order, the same way the
+      // sort script numbers them ("Problem N" and subparts "Problem N.k").
+      const renumberVisible = () => {
+        let k = 0;
+        document.querySelectorAll(".lec-problem").forEach((w) => {
+          if (w.classList.contains("pt-hidden")) return;
+          k++;
+          w.querySelectorAll("h2, h3").forEach((h) => {
+            const t = h.firstChild;
+            if (t && t.nodeType === 3 && /^Problem\s+\d+/.test(t.nodeValue)) {
+              t.nodeValue = t.nodeValue.replace(/^Problem\s+\d+/, "Problem " + k);
+            }
+          });
+        });
+      };
+      applyHide = () => {
+        trackable.forEach((h) => wrapperOf(h).classList.toggle("pt-hidden", hideDone && !!done[srcOf(h)]));
+        renumberVisible();
+        updateCount();
+        renderBadge();
+      };
+      box.addEventListener("change", () => {
+        hideDone = box.checked;
+        try { localStorage.setItem(HIDE_KEY, hideDone ? "1" : "0"); } catch {}
+        applyHide();
+      });
+      applyHide();
+    }
+
     // The same problem can be marked on another page. Pressing Back shows this
     // page from the browser's back/forward cache without re-running this
     // script, and another tab can change progress at any time, so re-read.
-    window.addEventListener("pageshow", (e) => { if (e.persisted) reload(); });
-    // Lecture pages: the sort menu reorders and renumbers problems.
-    const sortSelect = document.getElementById("lec-sort-select");
-    if (sortSelect) sortSelect.addEventListener("change", () => setTimeout(renderBadge, 0));
+    window.addEventListener("pageshow", (e) => { if (e.persisted) { reload(); applyHide(); } });
+    // Lecture pages: the sort menu reorders and renumbers problems. Sorting
+    // also re-applies "Hide done", so problems marked done since the last
+    // refresh are hidden too (instead of showing up in new places).
+    if (sortSelect) sortSelect.addEventListener("change", () => setTimeout(() => { renderBadge(); applyHide(); }, 0));
     window.addEventListener("storage", (e) => {
       if (!e.key || e.key === DONE_KEY || e.key === FLAGS_KEY) reload();
     });

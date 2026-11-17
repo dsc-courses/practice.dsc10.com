@@ -410,12 +410,49 @@
     if (wasCardsOpen) setExpanded(true);
   }
 
+  // Progress on the "Find Problems by Lecture" buttons, e.g. "12 / 40".
+  // lecture-totals.json (written by run.py) lists each lecture page's problems,
+  // and a problem done on its exam page counts here too.
+  let LECTURE_TOTALS = null;
+
+  function fetchLectureTotals() {
+    return fetch("assets/lecture-totals.json", { cache: "no-store" })
+      .then((r) => r.ok ? r.json() : {})
+      .catch(() => ({}));
+  }
+
+  function renderLectureProgress() {
+    if (!LECTURE_TOTALS) return;
+    const done = loadJSON(DONE_KEY);
+    document.querySelectorAll('a[href^="lectures/lec"]').forEach((a) => {
+      const m = a.getAttribute("href").match(/^lectures\/lec(\d+)\/index\.html$/);
+      const files = m && LECTURE_TOTALS[m[1]];
+      if (!Array.isArray(files) || !files.length) return;
+      const n = files.filter((f) => done[f]).length;
+      const pct = Math.round((n / files.length) * 100);
+      let el = a.querySelector(".hp-lec-progress");
+      if (!el) {
+        el = document.createElement("span");
+        el.className = "hp-lec-progress";
+        a.appendChild(el);
+      }
+      el.classList.toggle("hp-lec-started", n > 0);
+      el.classList.toggle("hp-lec-complete", n === files.length);
+      el.title = n + " of " + files.length + " problems done";
+      el.innerHTML =
+        '<span class="hp-lec-nums">' + (n === files.length ? "✓ " : "") + n + " / " + files.length + "</span>" +
+        '<span class="hp-lec-bar"><span style="width:' + pct + '%"></span></span>';
+    });
+  }
+
   function init() {
     if (!isHomepage()) return;
-    fetchExamTotals().then((map) => {
+    Promise.all([fetchExamTotals(), fetchLectureTotals()]).then(([map, lectures]) => {
       EXAM_TOTALS = map || {};
+      LECTURE_TOTALS = lectures || {};
       migrateOldKeys();
-      render(collect());
+      const refresh = () => { render(collect()); renderLectureProgress(); };
+      refresh();
       // Easter egg (progress-tracker.js): fireworks for a category finished
       // before celebrations existed, or finished in another tab.
       if (window.ptCelebrate) window.ptCelebrate.checkCategories(EXAM_TOTALS);
@@ -424,11 +461,11 @@
       // cache, without re-running this script, so the dashboard would show
       // the numbers from before you left. Rebuild it from storage then.
       window.addEventListener("pageshow", (e) => {
-        if (e.persisted) render(collect());
+        if (e.persisted) refresh();
       });
       // Progress changed in another tab: keep this tab's dashboard current.
       window.addEventListener("storage", (e) => {
-        if (!e.key || e.key === DONE_KEY || e.key === FLAGS_KEY) render(collect());
+        if (!e.key || e.key === DONE_KEY || e.key === FLAGS_KEY) refresh();
       });
     });
   }

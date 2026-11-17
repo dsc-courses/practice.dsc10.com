@@ -130,6 +130,10 @@ def test_progress_tracker_ids_match_across_pages(site):
     # A "question, info" entry is identified by its question file.
     assert '<h2 data-src="fa99-midterm/q01" id="problem-2">' in disc
 
+    # The homepage's per-lecture progress: each lecture page's problems, by ID.
+    lectures = json.loads((docs / "assets/lecture-totals.json").read_text(encoding="utf-8"))
+    assert lectures == {"1": ["fa99-midterm/q01"]}
+
     totals = json.loads((docs / "assets/exam-totals.json").read_text(encoding="utf-8"))
     assert totals["fa99-midterm"] == {
         "problems": ["fa99-midterm/q01", "fa99-midterm/q02"],

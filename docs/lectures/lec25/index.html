@@ -2461,10 +2461,11 @@ The question asks for the <strong>smallest</strong>, so the answer is
       parent.appendChild(el);
       el.querySelectorAll('h2, h3').forEach(function (h) {
         // Change only the heading's text, not the whole heading, so the
-        // progress tracker's buttons inside it are kept.
+        // progress tracker's buttons inside it are kept. Pandoc can wrap a
+        // long heading line between "Problem" and the number, hence \s+.
         var t = h.firstChild;
-        if (t && t.nodeType === 3 && /^Problem \d+/.test(t.nodeValue)) {
-          t.nodeValue = t.nodeValue.replace(/^Problem \d+/, 'Problem ' + (i + 1));
+        if (t && t.nodeType === 3 && /^Problem\s+\d+/.test(t.nodeValue)) {
+          t.nodeValue = t.nodeValue.replace(/^Problem\s+\d+/, 'Problem ' + (i + 1));
         }
       });
     });

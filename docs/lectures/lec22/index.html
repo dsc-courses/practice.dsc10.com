@@ -5739,6 +5739,213 @@ hours is 0. (They created a confidence interval for the true value of
 <p><br></p>
 <hr />
 </div>
+<div class="lec-problem" data-term="20262">
+<p class="meta"><em>Source:</em> <a href="../../sp26-final/index.html#problem-7">Question 7 from Spring 2026 Final Exam</a></p>
+<h2 data-src="sp26-final/q07" id="problem-27">Problem 27</h2>
+<p>Zeyu is wondering whether active bands are more successful than
+inactive bands, in the sense that they have greater
+<code>"top_album_sales"</code>. To find out, he runs a permutation test
+on the <code>bands</code> DataFrame by comparing the average
+<code>"top_album_sales"</code> for active versus inactive bands using
+10,000 shuffles of the <code>"active"</code> labels.</p>
+<p><br></p>
+<h3 id="problem-27.1">Problem 27.1</h3>
+<p>Which of the following best describes the <strong>null
+hypothesis</strong> for Zeyu’s test?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Active bands have higher top album sales than inactive bands, on
+average.</p></li>
+<li><p><input type="radio" disabled="" /> Active bands and inactive bands have the same distribution of top
+album sales.</p></li>
+<li><p><input type="radio" disabled="" /> In the full population of all bands, the average top album sales for
+active bands is higher than that for inactive bands.</p></li>
+<li><p><input type="radio" disabled="" /> In the sample of data in <code>bands</code>, the average top album
+sales for active bands equals the average top album sales for inactive
+bands.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading27_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse27_1" aria-expanded="true" aria-controls="collapse27_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse27_1" class="accordion-collapse collapse"
+aria-labelledby="heading27_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer:</strong></p>
+<p>Option 2</p>
+<p><strong>Solution:</strong></p>
+<p>The null hypothesis of a permutation test states that the two groups
+come from the <strong>same underlying distribution</strong>, so the
+<code>"active"</code> labels are interchangeable under the null. Option
+1 describes the alternative hypothesis that active bands have higher
+sales, while Option 3 also describes a population-level alternative
+rather than the null. Option 4 is incorrect because the null hypothesis
+does not require the two groups to have exactly equal sample means;
+differences can occur due to random variation even when the null is
+true.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-27.2">Problem 27.2</h3>
+<p>Complete the code below to run Zeyu’s permutation test.</p>
+<div class="sourceCode" id="cb37"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>active <span class="op">=</span> bands[bands.get(<span class="st">&quot;active&quot;</span>) <span class="op">==</span> <span class="va">True</span>].get(<span class="st">&quot;top_album_sales&quot;</span>)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>inactive <span class="op">=</span> bands[bands.get(<span class="st">&quot;active&quot;</span>) <span class="op">==</span> <span class="va">False</span>].get(<span class="st">&quot;top_album_sales&quot;</span>)</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>obs_diff <span class="op">=</span> active.mean() <span class="op">-</span> inactive.mean()</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>sim_diffs <span class="op">=</span> np.array([])</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>    shuffled_labels <span class="op">=</span> __(a)__</span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>    shuffled <span class="op">=</span> bands.assign(active<span class="op">=</span>shuffled_labels)</span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>    sim_active <span class="op">=</span> shuffled[shuffled.get(<span class="st">&quot;active&quot;</span>) <span class="op">==</span> <span class="va">True</span>]</span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>    sim_inactive <span class="op">=</span> shuffled[shuffled.get(<span class="st">&quot;active&quot;</span>) <span class="op">==</span> <span class="va">False</span>]</span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>    sim_diff <span class="op">=</span> (sim_active.get(<span class="st">&quot;top_album_sales&quot;</span>).mean()</span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>                <span class="op">-</span> sim_inactive.get(<span class="st">&quot;top_album_sales&quot;</span>).mean())</span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a>    sim_diffs <span class="op">=</span> np.append(sim_diffs, sim_diff)</span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a>p_value <span class="op">=</span> __(b)__ <span class="op">/</span> <span class="dv">10000</span></span></code></pre></div>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading27_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse27_2" aria-expanded="true" aria-controls="collapse27_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse27_2" class="accordion-collapse collapse"
+aria-labelledby="heading27_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer:</strong></p>
+<ul>
+<li><strong>(a):</strong>
+<code>np.random.permutation(bands.get("active"))</code></li>
+<li><strong>(b):</strong>
+<code>np.count_nonzero(sim_diffs &gt;= obs_diff)</code></li>
+</ul>
+<p><strong>Solution:</strong></p>
+<p>For <strong>(a)</strong>,
+<code>np.random.permutation(bands.get("active"))</code> randomly
+rearranges the <code>"active"</code> labels while keeping the number of
+active and inactive bands unchanged, breaking any association between
+activity status and album sales. Each iteration then calculates the
+difference in mean sales between the shuffled active and inactive
+groups. For <strong>(b)</strong>, since the alternative hypothesis is
+that active bands have <strong>higher</strong> average sales, we count
+simulated differences that are <strong>greater than or equal to</strong>
+the observed difference using
+<code>np.count_nonzero(sim_diffs &gt;= obs_diff)</code>. Dividing by
+10,000 gives the proportion of simulated test statistics at least as
+extreme as the observed statistic in the direction of the alternative,
+which is the p-value.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-27.3">Problem 27.3</h3>
+<p>Suppose Zeyu’s p-value turns out to be <span
+class="math inline">0.03</span>. Which of the following is the correct
+conclusion of the test at the <span class="math inline">0.05</span>
+significance level?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> We accept the null hypothesis; active and inactive bands have the
+same distribution of top album sales.</p></li>
+<li><p><input type="radio" disabled="" /> We fail to reject the null hypothesis; we cannot determine whether
+the groups differ.</p></li>
+<li><p><input type="radio" disabled="" /> We reject the null hypothesis; active bands have significantly higher
+top album sales.</p></li>
+<li><p><input type="radio" disabled="" /> We reject the null hypothesis; active and inactive bands have
+different distributions of top album sales but we can’t say which is
+greater.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading27_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse27_3" aria-expanded="true" aria-controls="collapse27_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse27_3" class="accordion-collapse collapse"
+aria-labelledby="heading27_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer:</strong></p>
+<p>Option 3</p>
+<p><strong>Solution:</strong></p>
+<p>Since the p-value of <span class="math inline">0.03</span> is less
+than the significance level of <span class="math inline">0.05</span>, we
+<strong>reject the null hypothesis</strong>. Because the alternative
+hypothesis is one-sided, the test provides statistically significant
+evidence that active bands have higher average top album sales than
+inactive bands. Option 1 is incorrect because we do not “accept” the
+null hypothesis, and Option 2 is incorrect because the p-value is small
+enough to reject it. Option 4 is incorrect because the direction of the
+alternative allows us to conclude that active bands have higher average
+sales, rather than merely concluding that the groups differ.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-27.4">Problem 27.4</h3>
+<p>In Zeyu’s permutation test, suppose we change the code to instead
+shuffle the values in the <code>"top_album_sales"</code> column, and
+rerun the simulation. How would this affect the resulting null
+distribution?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> All 10,000 simulated values would be exactly the same as before.</p></li>
+<li><p><input type="radio" disabled="" /> There would be slight variations in the null distribution but the
+histogram would look nearly identical.</p></li>
+<li><p><input type="radio" disabled="" /> There would be substantial differences in the null distribution if we
+were to make this change. The histograms would be noticeably
+different.</p></li>
+<li><p><input type="radio" disabled="" /> Without the full <code>bands</code> DataFrame available, we cannot
+predict how this change would affect the null distribution.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading27_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse27_4" aria-expanded="true" aria-controls="collapse27_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse27_4" class="accordion-collapse collapse"
+aria-labelledby="heading27_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer:</strong></p>
+<p>Option 2</p>
+<p><strong>Solution:</strong></p>
+<p>Shuffling the <code>"active"</code> labels and shuffling the
+<code>"top_album_sales"</code> values are <strong>statistically
+equivalent</strong> ways of breaking the association between group
+membership and album sales while preserving the original group sizes and
+sales values. Both methods therefore generate the same theoretical null
+distribution for the difference in group means. However, because the
+10,000 simulations are random, the individual simulated differences will
+not necessarily match between runs, so the resulting histograms should
+look nearly identical with only slight random variations.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+</div>
 <script>
 (function () {
   var select = document.getElementById('lec-sort-select');
@@ -5770,10 +5977,11 @@ hours is 0. (They created a confidence interval for the true value of
       parent.appendChild(el);
       el.querySelectorAll('h2, h3').forEach(function (h) {
         // Change only the heading's text, not the whole heading, so the
-        // progress tracker's buttons inside it are kept.
+        // progress tracker's buttons inside it are kept. Pandoc can wrap a
+        // long heading line between "Problem" and the number, hence \s+.
         var t = h.firstChild;
-        if (t && t.nodeType === 3 && /^Problem \d+/.test(t.nodeValue)) {
-          t.nodeValue = t.nodeValue.replace(/^Problem \d+/, 'Problem ' + (i + 1));
+        if (t && t.nodeType === 3 && /^Problem\s+\d+/.test(t.nodeValue)) {
+          t.nodeValue = t.nodeValue.replace(/^Problem\s+\d+/, 'Problem ' + (i + 1));
         }
       });
     });

@@ -3160,6 +3160,110 @@ of them will be first in the sorted DataFrame.</p>
 </div>
 <hr />
 </div>
+<div class="lec-problem" data-term="20262">
+<p class="meta"><em>Source:</em> <a href="../../sp26-final/index.html#problem-2">Question 2 from Spring 2026 Final Exam</a></p>
+<h2 data-src="sp26-final/q02" id="problem-30">Problem 30</h2>
+<p>Recall that we have added to <code>bands</code> a new column called
+<code>"members"</code> containing the number of members in each
+band.</p>
+<p><br></p>
+<h3 id="problem-30.1">Problem 30.1</h3>
+<p>Ella is curious if bands with more members tend to make more albums.
+Write one line of code to add a new column to <code>bands</code> called
+<code>"albums_per_member"</code>, containing the ratio of albums to
+members for each band.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading30_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse30_1" aria-expanded="true" aria-controls="collapse30_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse30_1" class="accordion-collapse collapse"
+aria-labelledby="heading30_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer:</strong></p>
+<div id="cb1" class="sourceCode">
+<pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a>bands <span class="op">=</span> bands.assign(albums_per_member <span class="op">=</span> bands.get(<span class="st">"albums"</span>) <span class="op">/</span> bands.get(<span class="st">"members"</span>))</span></code></pre>
+</div>
+<p><strong>Solution:</strong></p>
+<p><code>bands.get("albums") / bands.get("members")</code> performs
+elementwise division, so each band’s album count is divided by its own
+member count, such as 12 albums and 4 members giving <span class="math inline">\frac{12}{4}=3</span>. The
+<code>.assign(albums_per_member = ...)</code> method adds these values
+as a new column, and because it returns a new DataFrame rather than
+modifying <code>bands</code> in place, we assign the result back to
+<code>bands</code>.</p>
+<div id="cb2" class="sourceCode">
+<pre class="sourceCode py"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" href="#cb2-1" tabindex="-1"></a>bands <span class="op">=</span> bands.assign(albums_per_member <span class="op">=</span> bands.get(<span class="st">"albums"</span>) <span class="op">/</span> bands.get(<span class="st">"members"</span>))</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-30.2">Problem 30.2</h3>
+<p>Find the year in which the band with the highest
+<code>"albums_per_member"</code> ratio was formed. <strong>Select
+all</strong> options that correctly evaluate to this year (or any such
+year in the case of a tie).</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> <code>bands.groupby("albums_per_member").min().sort_values(by=index, ascending=True).iloc[-1]</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>bands.groupby("albums_per_member").min().reset_index().sort_values(by="albums_per_member", ascending=False).get("formed").iloc[0]</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>bands.groupby("formed").max().sort_values(by="albums_per_member", ascending=False).get("formed").iloc[0]</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>bands.groupby("formed").max().sort_values(by="albums_per_member", ascending=False).index[0]</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>bands.sort_values(by="albums_per_member", ascending=True).get("formed").iloc[-1]</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>bands.sort_values(by="formed", ascending=False).groupby("albums_per_member").max().index[0]</code></p></li>
+<li><p><input type="checkbox" disabled="" /> None of the above.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading30_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse30_2" aria-expanded="true" aria-controls="collapse30_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse30_2" class="accordion-collapse collapse"
+aria-labelledby="heading30_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer:</strong></p>
+<p>Option 2, Option 4, and Option 5</p>
+<p><strong>Solution:</strong></p>
+<p><strong>Option 1</strong> is incorrect because <code>index</code> is
+not in quotation marks, so <code>sort_values(by=index, ...)</code>
+raises an error, and <code>.iloc[-1]</code> would return a whole row
+rather than a year.</p>
+<p><strong>Option 2</strong> is correct because grouping by
+<code>"albums_per_member"</code>, resetting the index, sorting in
+descending order, and taking <code>.get("formed").iloc[0]</code> returns
+a formation year for a band with the highest ratio.</p>
+<p><strong>Option 3</strong> is incorrect because
+<code>groupby("formed")</code> makes the years the index, so
+<code>.get("formed")</code> fails since <code>"formed"</code> is no
+longer a column.</p>
+<p><strong>Option 4</strong> is correct because after
+<code>groupby("formed").max()</code> and a descending sort, the year
+with the highest ratio comes first, and <code>.index[0]</code> retrieves
+it from the index.</p>
+<p><strong>Option 5</strong> is correct because an ascending sort puts
+the highest ratio in the last row, so
+<code>.get("formed").iloc[-1]</code> gives its year.</p>
+<p><strong>Option 6</strong> is incorrect because grouping by
+<code>"albums_per_member"</code> makes the ratios the index, so
+<code>.index[0]</code> returns a ratio rather than a year.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+</div>
 <script>
 (function () {
   var select = document.getElementById('lec-sort-select');
@@ -3191,10 +3295,11 @@ of them will be first in the sorted DataFrame.</p>
       parent.appendChild(el);
       el.querySelectorAll('h2, h3').forEach(function (h) {
         // Change only the heading's text, not the whole heading, so the
-        // progress tracker's buttons inside it are kept.
+        // progress tracker's buttons inside it are kept. Pandoc can wrap a
+        // long heading line between "Problem" and the number, hence \s+.
         var t = h.firstChild;
-        if (t && t.nodeType === 3 && /^Problem \d+/.test(t.nodeValue)) {
-          t.nodeValue = t.nodeValue.replace(/^Problem \d+/, 'Problem ' + (i + 1));
+        if (t && t.nodeType === 3 && /^Problem\s+\d+/.test(t.nodeValue)) {
+          t.nodeValue = t.nodeValue.replace(/^Problem\s+\d+/, 'Problem ' + (i + 1));
         }
       });
     });

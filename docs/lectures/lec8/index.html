@@ -4996,6 +4996,166 @@ location.</p></li>
 </div>
 <hr />
 </div>
+<div class="lec-problem" data-term="20262">
+<p class="meta"><em>Source:</em> <a href="../../sp26-final/index.html#problem-1">Question 1 from Spring 2026 Final Exam</a></p>
+<h2 data-src="sp26-final/q01" id="problem-38">Problem 38</h2>
+<p>The column <code>"member_names"</code> is formatted in a specific
+way. If a band has two members, the string is of the form
+<code>"A and B"</code> with no commas. If the band has three or more
+members, names are comma-separated like <code>"A, B, and C"</code> for a
+three-person band or <code>"A, B, C, and D"</code> for a four-person
+band. Take a look at the first few rows of the DataFrame to make sure
+you understand how this column is formatted!</p>
+<p><br></p>
+<h3 id="problem-38.1">Problem 38.1</h3>
+<p>Define the Series <code>names</code> and the function <code>f</code>
+as follows.</p>
+<div class="sourceCode" id="cb72"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a>names <span class="op">=</span> bands.get(<span class="st">&quot;member_names&quot;</span>)</span>
+<span id="cb72-2"><a href="#cb72-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-3"><a href="#cb72-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f(x):</span>
+<span id="cb72-4"><a href="#cb72-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">max</span>(x, <span class="dv">2</span>)</span></code></pre></div>
+<p><strong>Select all</strong> expressions below that evaluate to a
+Series containing the number of members in each band. Assume that no
+band member has a comma (<code>","</code>) in their name, but don’t make
+any other assumptions about band members’ names.</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> <code>names.str.replace(", ", "").str.split(" ").apply(len) - 1</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>names.str.split(", ").apply(len).apply(f)</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>(names.str.count(", ") + 1).apply(f)</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>names.str.replace("and", ", ").str.count(", ").apply(f)</code></p></li>
+<li><p><input type="checkbox" disabled="" /> None of the above.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading38_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse38_1" aria-expanded="true" aria-controls="collapse38_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse38_1" class="accordion-collapse collapse"
+aria-labelledby="heading38_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer:</strong></p>
+<p>Option 2 and Option 3</p>
+<p><strong>Solution:</strong></p>
+<p><strong>Option 1</strong> is incorrect because splitting on spaces
+counts words rather than members. Band members can have multi-word names
+such as <code>"John Smith"</code>. Subtracting 1 from the word count
+does not reliably fix this.</p>
+<p><strong>Option 2</strong> is correct because
+<code>.str.split(", ")</code> produces one list element per member for
+bands with three or more members. A two-member band has no commas, so
+its list contains only one element. Applying <code>len</code> counts the
+elements, and <code>f</code> takes the maximum of that count and 2,
+which corrects the two-member case.</p>
+<p><strong>Option 3</strong> is correct because a band with three or
+more members has exactly one fewer comma than members, so
+<code>.str.count(", ") + 1</code> gives the right count. A two-member
+band has no commas, so the expression gives 1. Applying <code>f</code>
+raises this to 2, which is the correct number of members.</p>
+<p><strong>Option 4</strong> is incorrect because
+<code>.str.replace("and", ", ")</code> replaces every occurrence of
+<code>"and"</code>, including inside names such as
+<code>"Brandon"</code>. This inserts extra commas and causes an
+overcount. We cannot make assumptions about the names themselves.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-38.2">Problem 38.2</h3>
+<p>Suppose a function <code>g</code> is defined such that
+<code>bands.get("member_names").apply(g)</code> evaluates to a Series
+containing the number of members in each band. What are the data types
+of the input and output to <code>g</code>?</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading38_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse38_2" aria-expanded="true" aria-controls="collapse38_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse38_2" class="accordion-collapse collapse"
+aria-labelledby="heading38_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer:</strong></p>
+<ul>
+<li><strong>Input data type:</strong> <code>str</code></li>
+<li><strong>Output data type:</strong> <code>int</code></li>
+</ul>
+<p><strong>Solution:</strong></p>
+<p>The function <code>g</code> is applied to the Series
+<code>bands.get("member_names")</code>, whose values are strings of band
+member names, so each input to <code>g</code> is a
+<strong>string</strong>, or <code>str</code>. The purpose of
+<code>g</code> is to count the members in each band, and a count is a
+whole number, so the output of <code>g</code> is an
+<strong>integer</strong>, or <code>int</code>. Recall that
+<code>.apply(g)</code> calls <code>g</code> separately on each value in
+the Series, and each returned integer becomes the corresponding value in
+the resulting Series.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-38.3">Problem 38.3</h3>
+<p>Fill in the <code>return</code> statement of the function
+<code>g</code> as described above.</p>
+<div class="sourceCode" id="cb73"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> g(x):</span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> __(a)__</span></code></pre></div>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading38_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse38_3" aria-expanded="true" aria-controls="collapse38_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse38_3" class="accordion-collapse collapse"
+aria-labelledby="heading38_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer:</strong></p>
+<ul>
+<li><strong>(a)</strong> <code>max(x.count(",") + 1, 2)</code></li>
+</ul>
+<p>An alternative correct answer is
+<code>max(len(x.split(",")), 2)</code>.</p>
+<p><strong>Solution:</strong></p>
+<p>For bands with three or more members, names are separated by commas,
+so the member count is <code>x.count(",") + 1</code>. Two-member bands
+are separated by <code>" and "</code> with no commas, so this expression
+would incorrectly return 1 for them. Since every band has at least two
+members, we wrap the expression in <code>max(..., 2)</code> to fix this
+case.</p>
+<div id="cb1" class="sourceCode">
+<pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a><span class="kw">def</span> g(x):</span>
+<span id="cb1-2"><a aria-hidden="true" href="#cb1-2" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">max</span>(x.count(<span class="st">","</span>) <span class="op">+</span> <span class="dv">1</span>, <span class="dv">2</span>)</span></code></pre>
+</div>
+<p>Alternatively, <code>len(x.split(","))</code> gives the same count as
+<code>x.count(",") + 1</code>, so <code>max(len(x.split(",")), 2)</code>
+also works, assuming names do not contain commas.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<p><strong>Note:</strong> For the remainder of the exam, assume that we
+have added to <code>bands</code> a new column called
+<code>"members"</code> containing the number of members in each
+band.</p>
+<hr />
+</div>
 <script>
 (function () {
   var select = document.getElementById('lec-sort-select');
@@ -5027,10 +5187,11 @@ location.</p></li>
       parent.appendChild(el);
       el.querySelectorAll('h2, h3').forEach(function (h) {
         // Change only the heading's text, not the whole heading, so the
-        // progress tracker's buttons inside it are kept.
+        // progress tracker's buttons inside it are kept. Pandoc can wrap a
+        // long heading line between "Problem" and the number, hence \s+.
         var t = h.firstChild;
-        if (t && t.nodeType === 3 && /^Problem \d+/.test(t.nodeValue)) {
-          t.nodeValue = t.nodeValue.replace(/^Problem \d+/, 'Problem ' + (i + 1));
+        if (t && t.nodeType === 3 && /^Problem\s+\d+/.test(t.nodeValue)) {
+          t.nodeValue = t.nodeValue.replace(/^Problem\s+\d+/, 'Problem ' + (i + 1));
         }
       });
     });
