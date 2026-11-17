@@ -15,7 +15,9 @@ whitespace and markup reshuffles from pandoc don't count:
   - visible text, as a sequence of words (so line wrapping doesn't matter)
   - every link, image, video, iframe, stylesheet and script URL
   - inline <script> and <style> blocks (the timer, progress tracker, etc.)
-  - the attributes those scripts hook onto (id, data-*, and the button/input type)
+  - the page <title>, and every id, class, data-*, alt, title, aria-label and
+    inline style attribute (what the timer, progress tracker, solution toggles
+    and banners hook onto), plus each button/input and its label
 Every other file (PDFs, images, CSS, JS) must exist in BUILT with the same bytes.
 Things BUILT has that REFERENCE lacks are new content and never count as a problem.
 """
@@ -62,7 +64,7 @@ def page_features(html):
     for tag, attr in URL_ATTRS.items():
         for el in soup.find_all(tag):
             value = el.get(attr)
-            if value and not value.startswith("#"):
+            if value:
                 features[("url", value.strip())] += 1
 
     for el in soup.find_all(["script", "style"]):
@@ -72,11 +74,21 @@ def page_features(html):
         if body:
             features[(f"inline-{el.name}", hashlib.sha256(body.encode()).hexdigest()[:12] + " " + body[:80])] += 1
 
+    if soup.title is not None:
+        features[("title", _norm(soup.title.get_text()))] += 1
+
     for el in soup.find_all(True):
         for name, value in el.attrs.items():
-            if name.startswith("data-") or (name == "id" and el.name in ("button", "input", "select", "details", "div", "span", "section")):
+            if name == "class":
+                # Scripts and the theme select on classes; order within the attribute doesn't matter.
+                for token in value:
+                    features[("class", token)] += 1
+                continue
+            if name.startswith("data-") or name in ("id", "alt", "title", "style", "aria-label", "open", "hidden"):
                 if isinstance(value, list):
                     value = " ".join(value)
+                if name == "style":
+                    value = _norm(value).rstrip(";")
                 features[("attr", f"{el.name}[{name}={value}]")] += 1
         if el.name in ("button", "input", "select", "textarea"):
             features[("control", f"{el.name} {el.get('type', '')} {_norm(el.get_text())}".strip())] += 1

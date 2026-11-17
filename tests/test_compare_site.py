@@ -108,3 +108,32 @@ def test_site_level_missing_and_changed_files(tmp_path):
 def test_build_keeps_everything_on_the_live_site():
     report = cs.compare_sites(os.environ["SITE_REFERENCE"], os.environ["SITE_BUILT"])
     assert not report, cs.format_report(report)
+
+
+def test_catches_a_dropped_id_on_any_tag():
+    # The timer looks up <aside id="timed-timer">; losing the id breaks timer mode.
+    problems = lost('<aside id="timed-timer">00:00</aside>', "<aside>00:00</aside>")
+    assert ("attr", "aside[id=timed-timer]", 1) in problems
+
+
+def test_catches_a_dropped_class_that_scripts_select_on():
+    # Solution toggles and the progress tracker hook onto classes, not ids.
+    ref = '<div class="accordion"><button class="accordion-button pt-done">Show</button></div>'
+    problems = lost(ref, '<div class="acc"><button class="accordion-button">Show</button></div>')
+    assert ("class", "accordion", 1) in problems
+    assert ("class", "pt-done", 1) in problems
+    assert lost(ref, ref.replace('class="accordion-button pt-done"', 'class="pt-done  accordion-button"')) == []
+
+
+def test_catches_lost_alt_text_title_and_banner_styling():
+    assert ("attr", "img[alt=A histogram]", 1) in lost('<img src="h.png" alt="A histogram">', '<img src="h.png">')
+    style = "background:#e8eaff;border-left:3px solid #4a90d9"
+    assert ("attr", f"div[style={style}]", 1) in lost(f'<div style="{style}">Note</div>', "<div>Note</div>")
+    assert ("title", "Fall 2024 Final", 1) in cs.compare_page(
+        "<html><head><title>Fall 2024 Final</title></head><body></body></html>",
+        "<html><head><title> </title></head><body></body></html>",
+    )
+
+
+def test_catches_a_dropped_same_page_link():
+    assert ("url", "#problem-1", 1) in lost('<a href="#problem-1">Jump</a>')

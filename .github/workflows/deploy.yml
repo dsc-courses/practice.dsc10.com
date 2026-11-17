@@ -21,6 +21,16 @@ jobs:
       cancel-in-progress: true
     steps:
       - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      # docs/ is build output. Edits made there by hand would be lost when the
+      # site is published from this build, so reject them up front.
+      - name: Check docs/ was not edited by hand
+        env:
+          BASE: ${{ github.event.pull_request.base.sha || github.event.before }}
+          HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: python3 scripts/check_docs_untouched.py "$BASE" "$HEAD"
 
       - uses: astral-sh/setup-uv@v10.3.3
         with:
@@ -33,17 +43,8 @@ jobs:
       - name: Run tests
         run: uv run pytest
 
-      # docs/ on master is still the live site, and tutors have sometimes edited
-      # it by hand. Fail if the build from source would lose any of that, so the
-      # edit gets moved into problems/ or pages/ before it can be overwritten.
-      - name: Save the committed docs/
-        run: cp -R docs "$RUNNER_TEMP/committed-docs"
-
       - name: Build site
         run: uv run run.py
-
-      - name: Check the build keeps everything in the committed docs/
-        run: uv run scripts/compare_site.py "$RUNNER_TEMP/committed-docs" docs
 
       - name: Upload the built site
         uses: actions/upload-pages-artifact@v5

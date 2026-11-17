@@ -100,18 +100,29 @@ def test_actions_are_pinned_to_versions():
                 assert re.search(r"@v\d+", step["uses"]), step["uses"]
 
 
-SAVE_DOCS = 'cp -R docs "$RUNNER_TEMP/committed-docs"'
-COMPARE = 'uv run scripts/compare_site.py "$RUNNER_TEMP/committed-docs" docs'
+
+CHECK_DOCS = 'python3 scripts/check_docs_untouched.py "$BASE" "$HEAD"'
 
 
-def test_build_must_keep_everything_in_the_committed_docs():
-    # While docs/ on master is still the live site, a build that would drop a
-    # hand edit made only to docs/ must fail before anything is uploaded.
-    commands = run_commands("build")
-    assert SAVE_DOCS in commands and COMPARE in commands
-    assert commands.index(SAVE_DOCS) < commands.index("uv run run.py") < commands.index(COMPARE)
-    names = [step.get("run", step.get("uses", "")) for step in steps("build")]
+def test_hand_edits_to_docs_fail_the_build_before_anything_is_uploaded():
+    build = steps("build")
+    checkout = step_using("build", "actions/checkout")
+    # The merge base with master has to be in the clone for the diff to work.
+    assert checkout["with"]["fetch-depth"] == 0
+    check = next(step for step in build if CHECK_DOCS in step.get("run", ""))
+    assert not check.get("continue-on-error")
+    env = check["env"]
+    assert env["BASE"] == "${{ github.event.pull_request.base.sha || github.event.before }}"
+    assert env["HEAD"] == "${{ github.event.pull_request.head.sha || github.sha }}"
+    names = [step.get("run", step.get("uses", "")) for step in build]
     upload = next(i for i, name in enumerate(names) if "upload-pages-artifact" in name)
-    assert commands.index(COMPARE) < upload
-    compare_step = steps("build")[commands.index(COMPARE)]
-    assert not compare_step.get("continue-on-error")
+    assert build.index(check) < upload
+    # Runs before the slow tests and build, so a tutor hears about it right away.
+    assert build.index(check) < run_commands("build").index("uv run pytest")
+
+
+def test_build_no_longer_compares_against_the_committed_docs():
+    # Comparing a build to committed docs/ would fail every legitimate edit that
+    # rewords or removes something once tutors stop rebuilding docs/.
+    text = (WORKFLOWS / "deploy.yml").read_text(encoding="utf-8")
+    assert "compare_site.py" not in text
