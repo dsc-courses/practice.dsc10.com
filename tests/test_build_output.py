@@ -1,4 +1,6 @@
 """With no pandoc installed at all, the bundled one must build the site correctly."""
+import json
+
 from conftest import page_yml
 
 PAGE = "pages/exams/fa99-midterm.yml"
@@ -81,3 +83,56 @@ def test_two_full_builds_are_byte_identical(site):
     build_ok(site)
     second = {p.relative_to(docs): p.read_bytes() for p in docs.rglob("*") if p.is_file()}
     assert first == second
+
+
+SUBPART_PROBLEM = """# BEGIN PROB
+
+A problem with parts.
+
+# BEGIN SUBPROB
+
+Part one.
+
+# BEGIN SOLUTION
+
+**Answer**: 1
+
+# END SOLUTION
+
+# END SUBPROB
+
+# END PROB
+"""
+
+
+def test_progress_tracker_ids_match_across_pages(site):
+    # The progress tracker saves progress per problem file (data-src), so the same
+    # problem must carry the same ID on its exam, lecture, and discussion pages,
+    # and exam-totals.json must list each exam's files in page order.
+    site.write("problems/fa99-midterm/q02.md", SUBPART_PROBLEM)
+    site.write(PAGE, page_yml(["fa99-midterm/q01", "fa99-midterm/q02"]))
+    site.write("problems/fa99-disc/info.md", "Some data info.\n")
+    site.write("pages/disc/disc01.yml", page_yml(["fa99-midterm/q02", "fa99-midterm/q01, fa99-disc/info"]))
+    build_ok(site)
+    docs = site.root / "docs"
+
+    exam = (docs / "fa99-midterm/index.html").read_text(encoding="utf-8")
+    assert '<h2 data-src="fa99-midterm/q01" id="problem-1">' in exam
+    assert '<h2 data-src="fa99-midterm/q02" id="problem-2">' in exam
+    assert '<h3 id="problem-2.1">' in exam  # subparts aren't tracked on their own
+    assert exam.count("data-src=") == 2
+
+    lecture = (docs / "lectures/lec1/index.html").read_text(encoding="utf-8")
+    assert 'data-src="fa99-midterm/q01"' in lecture
+
+    disc = (docs / "disc01/index.html").read_text(encoding="utf-8")
+    assert '<h2 data-src="fa99-midterm/q02" id="problem-1">' in disc
+    # A "question, info" entry is identified by its question file.
+    assert '<h2 data-src="fa99-midterm/q01" id="problem-2">' in disc
+
+    totals = json.loads((docs / "assets/exam-totals.json").read_text(encoding="utf-8"))
+    assert totals["fa99-midterm"] == {
+        "problems": ["fa99-midterm/q01", "fa99-midterm/q02"],
+        "title": "Test Page",
+        "total": 2,
+    }

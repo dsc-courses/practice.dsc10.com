@@ -668,10 +668,22 @@ class ProblemError(Exception):
     """A problem file couldn't be processed. The message names the file."""
 
 
+def problem_src(md_path):
+    '''The problem's source file, as an ID that's the same on every page it appears on.
+    >>> problem_src('problems/fa25-final/q03-snow.md')
+    'fa25-final/q03-snow'
+
+    The progress tracker saves progress under this ID, so a problem marked done on
+    a lecture or discussion page also counts for its exam, and the other way around.
+    A discussion entry "question.md, info.md" is identified by its question file.'''
+    question_path = md_path.split(', ')[0]
+    rel = os.path.relpath(question_path, 'problems')
+    return os.path.splitext(rel)[0].replace(os.sep, '/')
+
 def process_problem_file(path, **kwargs):
     """Run process_problem, and make any failure name the problem file at fault."""
     try:
-        return process_problem(**kwargs)
+        return process_problem(src=problem_src(path), **kwargs)
     except (AssertionError, PandocError) as err:
         raise ProblemError(f"{path}: {err}") from err
 
@@ -913,7 +925,7 @@ def process_MC(problem_str):
     return re.sub(extract_exp, process_MC_matches, problem_str)
 
 
-def process_problem_no_subparts(problem_str, problem_num, show_solution, heading='##', lecture_html=""):
+def process_problem_no_subparts(problem_str, problem_num, show_solution, heading='##', lecture_html="", attrs=""):
     '''Used for problems with no subparts, and to process individual subparts'''
     
     if show_solution:
@@ -973,7 +985,7 @@ def process_problem_no_subparts(problem_str, problem_num, show_solution, heading
     # Put it all together
     
     out = f'''
-{heading} Problem {problem_num}
+{heading} Problem {problem_num}{attrs}
 {lecture_html}
 
 {problem_only}
@@ -986,12 +998,12 @@ def process_problem_no_subparts(problem_str, problem_num, show_solution, heading
 
 SUBPART_REGEXP = r'# BEGIN SUBPROB([\d\D]*?)# END SUBPROB'
 
-def process_problem_with_subparts(problem_str, problem_num, show_solution, lecture_html=""):
+def process_problem_with_subparts(problem_str, problem_num, show_solution, lecture_html="", attrs=""):
     problem_str = problem_str.replace('# BEGIN PROB', '').replace('# END PROB', '') \
                              .replace('# BEGIN PROBLEM', '').replace('# END PROBLEM', '')
 
     # Add the lecture pill once at the top of the problem
-    problem_str = f'## Problem {problem_num}\n{lecture_html}{problem_str}'
+    problem_str = f'## Problem {problem_num}{attrs}\n{lecture_html}{problem_str}'
     i = 0
     while len(re.findall(SUBPART_REGEXP, problem_str)) > 0:
         top_match = re.findall(SUBPART_REGEXP, problem_str)[0]
@@ -1275,8 +1287,11 @@ LECTURE_SORT_SCRIPT = '''
     problems.sort(orders[select.value]).forEach(function (el, i) {
       parent.appendChild(el);
       el.querySelectorAll('h2, h3').forEach(function (h) {
-        if (/^Problem \\d+/.test(h.textContent)) {
-          h.textContent = h.textContent.replace(/^Problem \\d+/, 'Problem ' + (i + 1));
+        // Change only the heading's text, not the whole heading, so the
+        // progress tracker's buttons inside it are kept.
+        var t = h.firstChild;
+        if (t && t.nodeType === 3 && /^Problem \\d+/.test(t.nodeValue)) {
+          t.nodeValue = t.nodeValue.replace(/^Problem \\d+/, 'Problem ' + (i + 1));
         }
       });
     });
@@ -1437,18 +1452,22 @@ def parse_frontmatter(s: str):
         data = {}
     return data, m.group(2)
 
-def process_problem(problem_str, problem_num, show_solution, lecture_html=""):
+def process_problem(problem_str, problem_num, show_solution, lecture_html="", src=None):
 
     assert problem_str.count('# BEGIN PROB') == problem_str.count('# END PROB') == 1, 'Need exactly one # BEGIN PROB and # END PROB pair'
-    
+
     problem_str = re.sub(AVG_REGEXP, stars_repl, problem_str)
+
+    # Pandoc heading attributes: keep the usual id, and tag the heading with
+    # the problem's source file for the progress tracker (see problem_src).
+    attrs = f' {{#problem-{problem_num} data-src="{src}"}}' if src else ''
 
     if '# BEGIN SUBPROB' in problem_str:
         assert problem_str.count('# BEGIN SUBPROB') == problem_str.count('# END SUBPROB'), f'Different number of # BEGIN SUBPROB and # END SUBPROB in Problem {problem_num}'
-        return process_problem_with_subparts(problem_str, problem_num, show_solution, lecture_html)
-    
+        return process_problem_with_subparts(problem_str, problem_num, show_solution, lecture_html, attrs=attrs)
+
     else:
-        return process_problem_no_subparts(problem_str, problem_num, show_solution, lecture_html=lecture_html)
+        return process_problem_no_subparts(problem_str, problem_num, show_solution, lecture_html=lecture_html, attrs=attrs)
 
 # ---
 
@@ -1571,6 +1590,9 @@ def write_page(path, called_from_write_all_pages=False):
         if os.path.exists('pdfs'):
             shutil.copytree('pdfs', os.path.join(DST_FOLDER, 'pdfs'), dirs_exist_ok=True)
 
+        # Keep the homepage progress totals in sync with the pages/ ymls
+        refresh_exam_totals()
+
 def update_page(path):
     '''Doesn't work for discussion files, yet.'''
     sep = '/' if '/' in path else '\\'
@@ -1604,6 +1626,8 @@ def update_page(path):
         os.remove(dst_path)
     os.rename(tmp_path, dst_path)
 
+    refresh_exam_totals()
+
 
 def write_exam_totals(assets_dir):
     '''Emit docs/assets/exam-totals.json:
@@ -1621,13 +1645,23 @@ def write_exam_totals(assets_dir):
                 data = yaml.safe_load(f)
             probs = (data or {}).get('problems') or []
             title = (data or {}).get('title') or ''
-            totals[slug] = { 'total': len(probs), 'title': title }
+            # In page order, so problems[N-1] is "Problem N" on that page.
+            srcs = [problem_src(_problem_path_from_page_entry(p)) for p in probs]
+            totals[slug] = { 'total': len(probs), 'title': title, 'problems': srcs }
         except Exception:
             # Don't let a bad YAML break the whole build.
             continue
     with open(os.path.join(assets_dir, 'exam-totals.json'), 'w',
               encoding='utf-8') as f:
         json.dump(totals, f, sort_keys=True)
+
+
+def refresh_exam_totals():
+    '''Rewrite exam-totals.json after a single-page build or a listen update,
+    so the homepage totals don't go stale until the next full build.'''
+    assets_dir = os.path.join(DST_FOLDER, 'assets')
+    if os.path.isdir(assets_dir):
+        write_exam_totals(assets_dir)
 
 
 def write_all_pages(dir='pages'):

@@ -44,43 +44,85 @@
   }
 
   function loadJSON(k) {
-    try { return JSON.parse(localStorage.getItem(k) || "{}"); }
+    try { return JSON.parse(localStorage.getItem(k) || "{}") || {}; }
     catch { return {}; }
   }
 
-  function countTrue(obj) {
-    let n = 0;
-    for (const k in obj) if (obj[k]) n++;
-    return n;
+  // Progress is saved per problem file by progress-tracker.js:
+  //   pt-done / pt-flags = { "fa25-final/q03": true, ... }
+  // exam-totals.json lists each exam's problem files in page order, so a
+  // problem marked on a lecture page counts for its exam too.
+  const DONE_KEY = "pt-done";
+  const FLAGS_KEY = "pt-flags";
+
+  function categoryOf(slug) {
+    if (/-quiz\d+$/i.test(slug)) return "quiz";
+    if (/-midterm$/i.test(slug)) return "midterm";
+    if (/-final$/i.test(slug)) return "final";
+    return null;
+  }
+
+  // One-time move of exam and quiz progress saved by the old tracker, which
+  // used per-page keys ("progress:/fa25-final/index.html" = { "problem-3": true }).
+  // Problem N on an exam page is the Nth file in its exam-totals list.
+  // Old keys for lecture and discussion pages are left for progress-tracker.js
+  // to move the next time that page is opened.
+  function migrateOldKeys() {
+    try {
+      const old = [];
+      for (let i = 0; i < localStorage.length; i++) {
+        const k = localStorage.key(i);
+        const m = k && k.match(/^(progress|flags|pt-meta):(.*)$/);
+        if (!m) continue;
+        const slug = slugFromPath(m[2].replace(/index\.html$/i, ""));
+        const entry = EXAM_TOTALS && EXAM_TOTALS[slug];
+        if (entry && Array.isArray(entry.problems)) old.push([k, m[1], entry.problems]);
+      }
+      old.forEach(([k, kind, files]) => {
+        if (kind !== "pt-meta") {
+          const target = kind === "progress" ? DONE_KEY : FLAGS_KEY;
+          const saved = loadJSON(k);
+          const all = loadJSON(target);
+          Object.keys(saved).forEach((id) => {
+            const n = String(id).match(/^problem-(\d+)$/);
+            const src = n && files[parseInt(n[1], 10) - 1];
+            if (saved[id] && src) all[src] = true;
+          });
+          localStorage.setItem(target, JSON.stringify(all));
+        }
+        localStorage.removeItem(k);
+      });
+    } catch {}
   }
 
   function collect() {
+    const done = loadJSON(DONE_KEY);
+    const flags = loadJSON(FLAGS_KEY);
     const exams = [];
-    for (let i = 0; i < localStorage.length; i++) {
-      const k = localStorage.key(i);
-      if (!k || !k.startsWith("pt-meta:")) continue;
-      const meta = loadJSON(k);
-      if (!meta.path || !meta.category) continue;
-      const progress = loadJSON("progress:" + meta.path);
-      const flags = loadJSON("flags:" + meta.path);
-      const flaggedIds = Object.keys(flags).filter((id) => flags[id]);
+    Object.keys(EXAM_TOTALS || {}).forEach((slug) => {
+      const category = categoryOf(slug);
+      const raw = EXAM_TOTALS[slug];
+      const files = (raw && Array.isArray(raw.problems)) ? raw.problems : [];
+      if (!category || !files.length) return;
       exams.push({
-        path: meta.path,
-        title: meta.title || meta.path,
-        category: meta.category,
-        total: meta.total || 0,
-        done: countTrue(progress),
-        flaggedIds: flaggedIds,
+        path: "/" + slug + "/",
+        title: raw.title || "",
+        category: category,
+        total: files.length,
+        done: files.filter((f) => done[f]).length,
+        // As "problem-N" so the To review chips link to the exam page.
+        flaggedIds: files
+          .map((f, i) => (flags[f] ? "problem-" + (i + 1) : null))
+          .filter(Boolean),
       });
-    }
+    });
     return exams;
   }
 
+  // Saved paths look like "/fa25-final/" (older ones "/fa25-final/index.html").
+  // Always link relatively to "<slug>/index.html" like the rest of the homepage.
   function examHref(path) {
-    const parts = path.split("/").filter(Boolean);
-    const idx = parts.lastIndexOf("index.html");
-    if (idx >= 1) return parts[idx - 1] + "/index.html";
-    return path;
+    return slugFromPath(path) + "/index.html";
   }
 
   function examEntry(slug) {
@@ -310,16 +352,26 @@
       '<div class="hp-grid">' + cards + '</div>' +
       reviewBlock;
 
-    // Insert above the <hr> that sits directly before the Pretest section,
-    // so the intro paragraphs appear above the dashboard.
-    const pretestH3 = document.getElementById("pretest");
-    let anchor = pretestH3 ? pretestH3.previousElementSibling : null;
-    while (anchor && anchor.tagName !== "HR") anchor = anchor.previousElementSibling;
-    if (!anchor) anchor = document.querySelector("hr");
-    if (anchor && anchor.parentNode) {
-      anchor.parentNode.insertBefore(dash, anchor);
+    // On a re-render, swap out the old dashboard in place and remember which
+    // parts were open, so the page doesn't jump or collapse.
+    const old = document.getElementById("progress-tracker");
+    const wasCardsOpen = !!(old && old.querySelector(".hp-card.hp-card-open"));
+    const wasReviewOpen = !!(old && old.querySelector(".hp-review-card.hp-card-open"));
+
+    if (old) {
+      old.replaceWith(dash);
     } else {
-      document.body.appendChild(dash);
+      // Insert above the <hr> that sits directly before the Pretest section,
+      // so the intro paragraphs appear above the dashboard.
+      const pretestH3 = document.getElementById("pretest");
+      let anchor = pretestH3 ? pretestH3.previousElementSibling : null;
+      while (anchor && anchor.tagName !== "HR") anchor = anchor.previousElementSibling;
+      if (!anchor) anchor = document.querySelector("hr");
+      if (anchor && anchor.parentNode) {
+        anchor.parentNode.insertBefore(dash, anchor);
+      } else {
+        document.body.appendChild(dash);
+      }
     }
 
     const allCards = Array.from(dash.querySelectorAll(".hp-card"));
@@ -345,20 +397,36 @@
     if (reviewCard) {
       const head = reviewCard.querySelector(".hp-review-head");
       const list = reviewCard.querySelector(".hp-review-list");
-      head.addEventListener("click", () => {
-        const open = list.classList.toggle("hp-hidden") === false;
+      function setReviewOpen(open) {
+        list.classList.toggle("hp-hidden", !open);
         head.setAttribute("aria-expanded", String(open));
         reviewCard.classList.toggle("hp-card-open", open);
+      }
+      head.addEventListener("click", () => {
+        setReviewOpen(list.classList.contains("hp-hidden"));
       });
+      if (wasReviewOpen) setReviewOpen(true);
     }
+    if (wasCardsOpen) setExpanded(true);
   }
 
   function init() {
     if (!isHomepage()) return;
     fetchExamTotals().then((map) => {
       EXAM_TOTALS = map || {};
-      const exams = collect();
-      render(exams);
+      migrateOldKeys();
+      render(collect());
+
+      // Pressing Back shows the homepage from the browser's back/forward
+      // cache, without re-running this script, so the dashboard would show
+      // the numbers from before you left. Rebuild it from storage then.
+      window.addEventListener("pageshow", (e) => {
+        if (e.persisted) render(collect());
+      });
+      // Progress changed in another tab: keep this tab's dashboard current.
+      window.addEventListener("storage", (e) => {
+        if (!e.key || e.key === DONE_KEY || e.key === FLAGS_KEY) render(collect());
+      });
     });
   }
 
