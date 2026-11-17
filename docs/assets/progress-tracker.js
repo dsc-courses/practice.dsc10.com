@@ -66,6 +66,128 @@
     } catch {}
   }
 
+  // ---- Celebrations (an easter egg) ----
+  // When a page reaches 100%, the progress badge celebrates quietly (the panda
+  // hops). When a click finishes every problem in a category (all quizzes, all
+  // midterms, or all finals), full-screen fireworks. home-progress.js also
+  // calls checkCategories() on the homepage, once per category, so a category
+  // finished before this existed still gets its moment.
+  // The confetti library is only downloaded for the fireworks.
+  const CELEBRATED_KEY = "pt-celebrated"; // { "final": 233 } = celebrated when Finals had 233 problems
+  const CONFETTI_URL = "https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js";
+  const SCRIPT_SRC = (document.currentScript && document.currentScript.src) || "";
+
+  const celebrate = (function () {
+    let libPromise = null, totalsPromise = null;
+    const Z = 2000; // above the navbar and the progress badge
+
+    function lib() {
+      if (window.confetti) return Promise.resolve(window.confetti);
+      if (!libPromise) {
+        libPromise = new Promise((resolve, reject) => {
+          const s = document.createElement("script");
+          s.src = CONFETTI_URL;
+          s.onload = () => (window.confetti ? resolve(window.confetti) : reject());
+          s.onerror = reject;
+          document.head.appendChild(s);
+        }).catch(() => { libPromise = null; return null; }); // offline: try again next time
+      }
+      return libPromise;
+    }
+
+    // exam-totals.json sits next to this script in assets/.
+    function examTotals() {
+      if (!totalsPromise) {
+        let url = null;
+        try { url = new URL("exam-totals.json", SCRIPT_SRC).href; } catch {}
+        totalsPromise = url
+          ? fetch(url).then((r) => (r.ok ? r.json() : {})).catch(() => ({}))
+          : Promise.resolve({});
+      }
+      return totalsPromise;
+    }
+
+    // No confetti while the exam timer is running.
+    const timerRunning = () => document.body.classList.contains("timed-running");
+    const reducedMotion = () => !!(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches);
+
+    function categoryOf(slug) {
+      if (/-quiz\d+$/i.test(slug)) return "quiz";
+      if (/-midterm$/i.test(slug)) return "midterm";
+      if (/-final$/i.test(slug)) return "final";
+      return null;
+    }
+
+    // A quiet moment in the progress badge: the panda hops, the badge glows,
+    // and "100%" reads "All done!" for a bit (styles in progress-tracker.css).
+    let celebrateTimer = null;
+    function pageDone() {
+      if (timerRunning()) return;
+      const badge = document.getElementById("pt-badge");
+      if (!badge) return;
+      badge.classList.remove("pt-celebrate");
+      void badge.offsetWidth; // restart the animation if it's already playing
+      badge.classList.add("pt-celebrate");
+      clearTimeout(celebrateTimer);
+      celebrateTimer = setTimeout(() => badge.classList.remove("pt-celebrate"), 2500);
+    }
+
+    // About 4 seconds of bursts across the whole screen.
+    function fireworks(confetti) {
+      if (reducedMotion()) {
+        confetti({ particleCount: 80, spread: 100, startVelocity: 25, gravity: 1.5, ticks: 100, origin: { y: 0.6 }, zIndex: Z });
+        return;
+      }
+      const duration = 4000, end = Date.now() + duration;
+      const rand = (a, b) => a + Math.random() * (b - a);
+      (function burst() {
+        const left = end - Date.now();
+        if (left <= 0) return;
+        const particleCount = Math.round(50 * (left / duration)) + 10;
+        const opts = { particleCount, startVelocity: 30, spread: 360, ticks: 70, zIndex: Z };
+        confetti(Object.assign({}, opts, { origin: { x: rand(0.1, 0.3), y: rand(0.1, 0.5) } }));
+        confetti(Object.assign({}, opts, { origin: { x: rand(0.7, 0.9), y: rand(0.1, 0.5) } }));
+        setTimeout(burst, 250);
+      })();
+    }
+
+    // Fireworks when a category (all quizzes, midterms, or finals) is fully done.
+    // - After a click (newlyDone = the problems that click marked done): fire
+    //   if one of them completed a category. Unmark and re-mark to see it again.
+    // - On the homepage (no newlyDone): fire for a finished category only if it
+    //   hasn't been celebrated at its current size, so it isn't on every visit.
+    function checkCategories(knownTotals, newlyDone) {
+      if (timerRunning()) return Promise.resolve();
+      return (knownTotals ? Promise.resolve(knownTotals) : examTotals()).then((totals) => {
+        const done = loadJSON(DONE_KEY);
+        const files = {};
+        Object.keys(totals || {}).forEach((slug) => {
+          const cat = categoryOf(slug);
+          const list = totals[slug] && totals[slug].problems;
+          if (!cat || !Array.isArray(list) || !list.length) return;
+          (files[cat] = files[cat] || []).push(...list);
+        });
+        const seen = loadJSON(CELEBRATED_KEY);
+        const finished = Object.keys(files).filter((cat) => {
+          if (!files[cat].every((f) => done[f])) return false;
+          return newlyDone
+            ? newlyDone.some((f) => files[cat].includes(f))
+            : seen[cat] !== files[cat].length;
+        });
+        if (!finished.length) return;
+        return lib().then((confetti) => {
+          if (!confetti) return; // couldn't load: leave it uncelebrated, try again later
+          finished.forEach((cat) => { seen[cat] = files[cat].length; });
+          saveJSON(CELEBRATED_KEY, seen);
+          fireworks(confetti);
+        });
+      });
+    }
+
+    return { pageDone, checkCategories };
+  })();
+  window.ptCelebrate = celebrate;
+
   function init() {
     // Skip pages where tracking doesn't belong: discussions, problem sets, the pretest.
     // Lecture pages keep it, since their problems count toward the exams they came from.
@@ -137,9 +259,19 @@
       paint();
     }
 
-    bulkBtn.addEventListener("click", () => {
-      setMany(DONE_KEY, pageSrcs, !allDone());
+    // After a "done" change: confetti if this page just reached 100%, and
+    // fireworks if the problems just marked finished a whole category.
+    function afterDoneChange(wasAllDone, newlyDone) {
       reload();
+      if (!wasAllDone && allDone()) celebrate.pageDone();
+      if (newlyDone.length) celebrate.checkCategories(null, newlyDone);
+    }
+
+    bulkBtn.addEventListener("click", () => {
+      const was = allDone();
+      const newlyDone = was ? [] : pageSrcs.filter((s) => !done[s]);
+      setMany(DONE_KEY, pageSrcs, !was);
+      afterDoneChange(was, newlyDone);
     });
 
     function renderBadge() {
@@ -211,8 +343,10 @@
         '<span class="pt-check-mark">Mark done</span>';
       h.appendChild(doneBtn);
       doneBtn.addEventListener("click", () => {
-        setMany(DONE_KEY, [src], !done[src]);
-        reload();
+        const was = allDone();
+        const marking = !done[src];
+        setMany(DONE_KEY, [src], marking);
+        afterDoneChange(was, marking ? [src] : []);
       });
 
       const flagBtn = document.createElement("button");

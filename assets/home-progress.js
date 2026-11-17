@@ -416,6 +416,9 @@
       EXAM_TOTALS = map || {};
       migrateOldKeys();
       render(collect());
+      // Easter egg (progress-tracker.js): fireworks for a category finished
+      // before celebrations existed, or finished in another tab.
+      if (window.ptCelebrate) window.ptCelebrate.checkCategories(EXAM_TOTALS);
 
       // Pressing Back shows the homepage from the browser's back/forward
       // cache, without re-running this script, so the dashboard would show
