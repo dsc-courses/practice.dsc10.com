@@ -4,6 +4,7 @@
   const PAGE_KEY = "progress:" + location.pathname;
   const FLAG_KEY = "flags:" + location.pathname;
   const META_KEY = "pt-meta:" + location.pathname;
+  const EXPANDED_KEY = "pt-expanded:" + location.pathname;
 
   function detectCategory(path) {
     if (/-final\b/i.test(path)) return "final";
@@ -25,6 +26,9 @@
   const saveFlags = (f) => saveJSON(FLAG_KEY, f);
 
   function init() {
+    // Skip pages where tracking doesn't belong: discussions, problem sets, lectures.
+    if (/\/(disc\d+|probset\d+|lectures|pretest)\//.test(location.pathname)) return;
+
     const mains = Array.from(document.querySelectorAll('h2[id^="problem-"]'));
     if (!mains.length) return;
 
@@ -110,11 +114,26 @@
       });
       const total = trackable.length;
       const pct = total ? Math.round((done / total) * 100) : 0;
+      // Per-problem list, shown above the summary when expanded.
+      const problemRows = trackable.map((h) => {
+        const n = (h.id.match(/\d+/) || ["?"])[0];
+        const isDone = !!state[h.id];
+        const isFlag = !!flags[h.id];
+        const cls = "pt-item" + (isDone ? " pt-item-done" : "") + (isFlag ? " pt-item-flag" : "");
+        return (
+          '<a class="' + cls + '" href="#' + h.id + '">' +
+            '<span class="pt-item-label">Problem ' + n + '</span>' +
+            (isFlag ? '<span class="pt-flag-icon pt-item-flag-icon" aria-hidden="true"></span>' : '') +
+          '</a>'
+        );
+      }).join("");
+
       badge.innerHTML =
+        '<div class="pt-badge-list">' + problemRows + '</div>' +
         '<div class="pt-badge-head">' +
+          '<button type="button" class="pt-expand" aria-label="Show what\'s left" title="Show what\'s left"></button>' +
           '<span class="pt-badge-num">' + done + " / " + total + "</span>" +
           '<span class="pt-badge-pct">' + pct + '%</span>' +
-          '<button type="button" class="pt-reset" aria-label="Clear" title="Clear completion and flags on this page">×</button>' +
         '</div>' +
         '<div class="pt-bar-track"><div class="pt-bar-fill" style="width:' + pct + '%"></div></div>' +
         (flagged
@@ -123,13 +142,16 @@
               '<span>' + flagged + ' to review</span>' +
             '</div>'
           : '');
-      badge.querySelector(".pt-reset").addEventListener("click", () => {
-        if (confirm("Clear completion and flags on this page?")) {
-          localStorage.removeItem(PAGE_KEY);
-          localStorage.removeItem(FLAG_KEY);
-          location.reload();
-        }
+      badge.querySelector(".pt-expand").addEventListener("click", (e) => {
+        e.stopPropagation();
+        setExpanded(!badge.classList.contains("pt-expanded"));
       });
+      if (localStorage.getItem(EXPANDED_KEY) === "1") setExpanded(true);
+    }
+
+    function setExpanded(on) {
+      badge.classList.toggle("pt-expanded", on);
+      try { localStorage.setItem(EXPANDED_KEY, on ? "1" : "0"); } catch {}
     }
 
     trackable.forEach((h) => {
