@@ -98,3 +98,20 @@ def test_actions_are_pinned_to_versions():
         for step in steps(job):
             if "uses" in step:
                 assert re.search(r"@v\d+", step["uses"]), step["uses"]
+
+
+SAVE_DOCS = 'cp -R docs "$RUNNER_TEMP/committed-docs"'
+COMPARE = 'uv run scripts/compare_site.py "$RUNNER_TEMP/committed-docs" docs'
+
+
+def test_build_must_keep_everything_in_the_committed_docs():
+    # While docs/ on master is still the live site, a build that would drop a
+    # hand edit made only to docs/ must fail before anything is uploaded.
+    commands = run_commands("build")
+    assert SAVE_DOCS in commands and COMPARE in commands
+    assert commands.index(SAVE_DOCS) < commands.index("uv run run.py") < commands.index(COMPARE)
+    names = [step.get("run", step.get("uses", "")) for step in steps("build")]
+    upload = next(i for i, name in enumerate(names) if "upload-pages-artifact" in name)
+    assert commands.index(COMPARE) < upload
+    compare_step = steps("build")[commands.index(COMPARE)]
+    assert not compare_step.get("continue-on-error")
