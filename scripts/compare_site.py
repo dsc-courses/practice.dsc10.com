@@ -15,8 +15,8 @@ whitespace and markup reshuffles from pandoc don't count:
   - visible text, as a sequence of words (so line wrapping doesn't matter)
   - every link, image, video, iframe, stylesheet and script URL
   - inline <script> and <style> blocks (the timer, progress tracker, etc.)
-  - the page <title>, and every id, class, data-*, alt, title, aria-label and
-    inline style attribute (what the timer, progress tracker, solution toggles
+  - the page <title>, and every id, class, data-*, aria-*, alt, title, value, selected,
+    target and inline style attribute (what the timer, progress tracker, solution toggles
     and banners hook onto), plus each button/input and its label
 Every other file (PDFs, images, CSS, JS) must exist in BUILT with the same bytes.
 Things BUILT has that REFERENCE lacks are new content and never count as a problem.
@@ -84,7 +84,7 @@ def page_features(html):
                 for token in value:
                     features[("class", token)] += 1
                 continue
-            if name.startswith("data-") or name in ("id", "alt", "title", "style", "aria-label", "open", "hidden"):
+            if name.startswith(("data-", "aria-")) or name in ("id", "alt", "title", "style", "open", "hidden", "value", "selected", "checked", "target"):
                 if isinstance(value, list):
                     value = " ".join(value)
                 if name == "style":

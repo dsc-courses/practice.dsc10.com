@@ -25,12 +25,16 @@ jobs:
           fetch-depth: 0
 
       # docs/ is build output. Edits made there by hand would be lost when the
-      # site is published from this build, so reject them up front.
+      # site is published from this build, so pull requests that make them fail,
+      # and pushes get a warning. Off until publishing from Actions is on, since
+      # until then committing a rebuilt docs/ is how the site goes live.
       - name: Check docs/ was not edited by hand
+        if: vars.PUBLISH_FROM_ACTIONS == 'true'
         env:
           BASE: ${{ github.event.pull_request.base.sha || github.event.before }}
           HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
-        run: python3 scripts/check_docs_untouched.py "$BASE" "$HEAD"
+          MODE: ${{ github.event_name != 'pull_request' && '--warn' || '' }}
+        run: python3 scripts/check_docs_untouched.py $MODE "$BASE" "$HEAD"
 
       - uses: astral-sh/setup-uv@v10.3.3
         with:

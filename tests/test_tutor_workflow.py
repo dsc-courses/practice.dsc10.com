@@ -92,6 +92,7 @@ def test_removing_a_problem_from_a_page_removes_it_everywhere(site):
     assert "SECOND-ANSWER" not in read(site, EXAM)
     assert "SECOND-ANSWER" not in read(site, LECTURE)
     assert json.loads(read(site, "docs/assets/exam-totals.json"))["fa99-midterm"]["problems"] == ["fa99-midterm/q01"]
+    assert json.loads(read(site, "docs/assets/lecture-totals.json"))["1"] == ["fa99-midterm/q01"]
 
 
 def test_adding_a_new_quiz_page_with_a_pdf_banner(site):
@@ -154,3 +155,82 @@ def test_a_bad_edit_fails_the_build_and_names_the_file(site):
     result = site.run()
     assert result.returncode != 0
     assert "fa99-midterm/q01" in result.stdout + result.stderr
+
+
+def test_retagging_a_problem_moves_it_to_another_lecture_page(site):
+    site.write("problems/fa99-midterm/q02.md", GOOD_PROBLEM.replace("GOOD-ANSWER-TEXT", "MOVING-ANSWER"))
+    site.write(EXAM_YML, page_yml(["fa99-midterm/q01", "fa99-midterm/q02"]))
+    publish(site)
+    assert "MOVING-ANSWER" in read(site, LECTURE)
+    assert not (site.root / "docs/lectures/lec2").exists()
+
+    edit(site, "problems/fa99-midterm/q02.md", "lecture: 1", "lecture: 2")
+    publish(site)
+    assert "MOVING-ANSWER" not in read(site, LECTURE)
+    assert "MOVING-ANSWER" in read(site, "docs/lectures/lec2/index.html")
+    lectures = json.loads(read(site, "docs/assets/lecture-totals.json"))
+    assert lectures == {"1": ["fa99-midterm/q01"], "2": ["fa99-midterm/q02"]}
+    assert "lectures/lec2/index.html" in read(site, HOME)  # the new lecture gets a homepage button
+
+
+def test_adding_a_discussion_page(site):
+    publish(site)
+    site.write("pages/disc/disc01.yml", page_yml(["fa99-midterm/q01"], title="Discussion 1"))
+    edit(site, "index.md", "[Link](fa99-midterm/index.html)", "[Link](fa99-midterm/index.html)\n\n[Discussion 1](disc01/index.html)")
+    publish(site)
+    disc = read(site, "docs/disc01/index.html")
+    assert "GOOD-ANSWER-TEXT" in disc
+    assert 'data-src="fa99-midterm/q01"' in disc
+    assert "timed-start" not in disc  # timer mode is only for quizzes and exams
+    assert 'href="disc01/index.html"' in read(site, HOME)
+
+
+MULTIPART = """---
+lecture: 1
+---
+
+# BEGIN PROB
+
+A problem with parts.
+
+# BEGIN SUBPROB
+
+Part one asks PART-ONE-QUESTION.
+
+# BEGIN SOLUTION
+
+**Answer**: PART-ONE-ANSWER
+
+# END SOLUTION
+
+# END SUBPROB
+
+# BEGIN SUBPROB
+
+Part two asks PART-TWO-QUESTION.
+
+# BEGIN SOLUTION
+
+**Answer**: PART-TWO-ANSWER
+
+# END SOLUTION
+
+# END SUBPROB
+
+# END PROB
+"""
+
+
+def test_editing_one_part_of_a_multipart_problem(site):
+    site.write("problems/fa99-midterm/q02.md", MULTIPART)
+    site.write(EXAM_YML, page_yml(["fa99-midterm/q01", "fa99-midterm/q02"]))
+    publish(site)
+    edit(site, "problems/fa99-midterm/q02.md", "PART-TWO-ANSWER", "PART-TWO-FIXED")
+    publish(site)
+    for page in (EXAM, LECTURE):
+        html = read(site, page)
+        assert "PART-ONE-ANSWER" in html and "PART-TWO-FIXED" in html
+        assert "PART-TWO-ANSWER" not in html
+    exam = read(site, EXAM)
+    assert 'id="problem-2.1"' in exam and 'id="problem-2.2"' in exam
+    assert exam.count('class="accordion-button"') == 3  # one solution toggle per part, plus q01

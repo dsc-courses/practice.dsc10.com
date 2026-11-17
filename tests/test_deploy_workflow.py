@@ -101,7 +101,7 @@ def test_actions_are_pinned_to_versions():
 
 
 
-CHECK_DOCS = 'python3 scripts/check_docs_untouched.py "$BASE" "$HEAD"'
+CHECK_DOCS = 'python3 scripts/check_docs_untouched.py $MODE "$BASE" "$HEAD"'
 
 
 def test_hand_edits_to_docs_fail_the_build_before_anything_is_uploaded():
@@ -114,6 +114,11 @@ def test_hand_edits_to_docs_fail_the_build_before_anything_is_uploaded():
     env = check["env"]
     assert env["BASE"] == "${{ github.event.pull_request.base.sha || github.event.before }}"
     assert env["HEAD"] == "${{ github.event.pull_request.head.sha || github.sha }}"
+    # Blocks pull requests; on pushes it only warns (see check_docs_untouched.py).
+    assert env["MODE"] == "${{ github.event_name != 'pull_request' && '--warn' || '' }}"
+    # Until publishing from Actions is on, committing a rebuilt docs/ is how the
+    # site goes live, so the check must not run before then.
+    assert check["if"] == "vars.PUBLISH_FROM_ACTIONS == 'true'"
     names = [step.get("run", step.get("uses", "")) for step in build]
     upload = next(i for i, name in enumerate(names) if "upload-pages-artifact" in name)
     assert build.index(check) < upload

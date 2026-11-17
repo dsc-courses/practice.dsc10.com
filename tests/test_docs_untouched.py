@@ -40,9 +40,9 @@ def commit(repo, files, delete=()):
     return git(repo, "rev-parse", "HEAD")
 
 
-def check(repo, base, head):
+def check(repo, base, head, *flags):
     return subprocess.run(
-        ["python3", str(SCRIPT), base, head], cwd=repo, capture_output=True, text=True
+        ["python3", str(SCRIPT), *flags, base, head], cwd=repo, capture_output=True, text=True
     )
 
 
@@ -59,8 +59,47 @@ def test_editing_docs_by_hand_fails_and_says_what_to_do(repo):
     result = check(repo, base, head)
     assert result.returncode == 1
     assert "docs/q1/index.html" in result.stdout
-    assert "git restore" in result.stdout or "git checkout" in result.stdout
+    # The undo must work even if master's docs/ moved on since the branch started.
+    assert "git checkout $(git merge-base HEAD origin/master) -- docs" in result.stdout
     assert "problems/" in result.stdout
+
+
+def test_following_the_undo_instructions_makes_the_check_pass(repo):
+    base = git(repo, "rev-parse", "HEAD")
+    git(repo, "checkout", "-q", "-b", "tutor")
+    commit(repo, {"docs/q1/index.html": "<p>hand edit</p>", "docs/new.html": "x", "problems/q1.md": "new"})
+    git(repo, "checkout", "-q", "master")
+    master = commit(repo, {"problems/other.md": "someone else"})
+    git(repo, "checkout", "-q", "tutor")
+    merge_base = git(repo, "merge-base", "HEAD", "master")
+    git(repo, "checkout", merge_base, "--", "docs")
+    git(repo, "rm", "-q", "docs/new.html")
+    head = commit(repo, {})
+    result = check(repo, master, head)
+    assert result.returncode == 0, result.stdout
+    assert base == merge_base
+
+
+def test_on_a_push_it_only_warns(repo):
+    # On a push the edit is already on master, and the build overwrites docs/
+    # anyway. Failing would block the tutor's source changes from publishing,
+    # and an "undo" commit would itself count as editing docs/.
+    base = git(repo, "rev-parse", "HEAD")
+    head = commit(repo, {"docs/q1/index.html": "<p>hand edit</p>"})
+    result = check(repo, base, head, "--warn")
+    assert result.returncode == 0
+    assert result.stdout.startswith("::warning")
+    assert "docs/q1/index.html" in result.stdout
+    assert "problems/" in result.stdout
+
+
+def test_an_unknown_earlier_commit_is_skipped_with_an_explanation(repo):
+    # A force-push can leave github.event.before pointing at a commit that is gone.
+    head = git(repo, "rev-parse", "HEAD")
+    result = check(repo, "1234567890abcdef1234567890abcdef12345678", head)
+    assert result.returncode == 0
+    assert "Traceback" not in result.stderr
+    assert "skip" in result.stdout.lower()
 
 
 def test_adding_a_file_under_docs_fails(repo):

@@ -137,3 +137,12 @@ def test_catches_lost_alt_text_title_and_banner_styling():
 
 def test_catches_a_dropped_same_page_link():
     assert ("url", "#problem-1", 1) in lost('<a href="#problem-1">Jump</a>')
+
+
+def test_catches_a_changed_dropdown_option_and_link_target():
+    ref = '<select><option value="done" selected>Done</option></select><a href="x.pdf" target="_blank" aria-expanded="false">PDF</a>'
+    problems = lost(ref, '<select><option value="todo">Done</option></select><a href="x.pdf">PDF</a>')
+    assert ("attr", "option[value=done]", 1) in problems
+    assert ("attr", "option[selected=]", 1) in problems
+    assert ("attr", "a[target=_blank]", 1) in problems
+    assert ("attr", "a[aria-expanded=false]", 1) in problems
