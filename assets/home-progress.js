@@ -301,7 +301,7 @@
       : '';
 
     const dash = document.createElement("section");
-    dash.id = "hp-dashboard";
+    dash.id = "progress-tracker";
     dash.innerHTML =
       '<hr class="hp-divider" />' +
       '<h3 class="hp-title">📊 Progress Tracker</h3>' +
@@ -310,9 +310,14 @@
       '<div class="hp-grid">' + cards + '</div>' +
       reviewBlock;
 
-    const firstHr = document.querySelector("hr");
-    if (firstHr && firstHr.parentNode) {
-      firstHr.parentNode.insertBefore(dash, firstHr);
+    // Insert above the <hr> that sits directly before the Pretest section,
+    // so the intro paragraphs appear above the dashboard.
+    const pretestH3 = document.getElementById("pretest");
+    let anchor = pretestH3 ? pretestH3.previousElementSibling : null;
+    while (anchor && anchor.tagName !== "HR") anchor = anchor.previousElementSibling;
+    if (!anchor) anchor = document.querySelector("hr");
+    if (anchor && anchor.parentNode) {
+      anchor.parentNode.insertBefore(dash, anchor);
     } else {
       document.body.appendChild(dash);
     }
