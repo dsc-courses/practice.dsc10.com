@@ -1987,9 +1987,200 @@ interval. Thus, this answer is false.</p>
 <p><br></p>
 <hr />
 </div>
+<div class="lec-problem" data-avg="67.67" data-term="20262">
+<p class="meta"><em>Source:</em> <a href="../../sp26-final/index.html#problem-8">Question 8 from Spring 2026 Final Exam</a></p>
+<h2 data-src="sp26-final/q08" id="problem-13">Problem 13</h2>
+<p><br></p>
+<h3 id="problem-13.1">Problem 13.1</h3>
+<p>Sofia is doing research on bands in the UK. She writes the code below
+to estimate the mean number of members in UK bands using a bootstrapped
+85% confidence interval. Fill in the blanks to complete the code.</p>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>uk <span class="op">=</span> bands[bands.get(<span class="st">&quot;origin&quot;</span>) <span class="op">==</span> <span class="st">&quot;UK&quot;</span>]</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>means <span class="op">=</span> np.array([])</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">5000</span>):</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    resample <span class="op">=</span> uk.sample(__(a)__, replace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    means <span class="op">=</span> np.append(means, resample.get(<span class="st">&quot;members&quot;</span>).mean())</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>ci_low <span class="op">=</span> np.percentile(means, __(b)__)</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>ci_high <span class="op">=</span> np.percentile(means, __(c)__)</span></code></pre></div>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading13_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13_1" aria-expanded="true" aria-controls="collapse13_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse13_1" class="accordion-collapse collapse"
+aria-labelledby="heading13_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer:</strong></p>
+<ul>
+<li><strong>(a):</strong> <code>uk.shape[0]</code></li>
+<li><strong>(b):</strong> <code>7.5</code></li>
+<li><strong>(c):</strong> <code>92.5</code></li>
+</ul>
+<p><strong>Solution:</strong></p>
+<p>Each bootstrap resample must contain the same number of rows as the
+original DataFrame <code>uk</code>, so we use <code>uk.shape[0]</code>.
+For an 85% confidence interval, we want the middle 85% of the bootstrap
+means, leaving 15% outside the interval. Splitting this equally between
+the two tails gives 7.5% in each tail. Therefore, we use the
+<strong>7.5th percentile</strong> for the lower endpoint and the
+<strong>92.5th percentile</strong> for the upper endpoint.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 79%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-13.2">Problem 13.2</h3>
+<p>Sofia decides to generalize her code in a function called
+<code>bootstrap_ci(df, confidence)</code> which takes as input the
+queried DataFrame and the confidence level, and returns a two-element
+list with the endpoints of the resulting confidence interval for the
+mean number of band members. For example,
+<code>bootstrap_ci(uk, 85)</code> corresponds to the procedure in part
+(a). Sofia defines some DataFrames and makes calls to the function as
+follows:</p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>uk <span class="op">=</span> bands[bands.get(<span class="st">&quot;origin&quot;</span>) <span class="op">==</span> <span class="st">&quot;UK&quot;</span>]</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>uk_90 <span class="op">=</span> bootstrap_ci(uk, <span class="dv">90</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>uk_width <span class="op">=</span> uk_90[<span class="dv">1</span>] <span class="op">-</span> uk_90[<span class="dv">0</span>]</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>uk_sweden <span class="op">=</span> bands[(bands.get(<span class="st">&quot;origin&quot;</span>) <span class="op">==</span> <span class="st">&quot;UK&quot;</span>) <span class="op">|</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>                  (bands.get(<span class="st">&quot;origin&quot;</span>) <span class="op">==</span> <span class="st">&quot;Sweden&quot;</span>)]</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>uk_sweden_90 <span class="op">=</span> bootstrap_ci(uk_sweden, <span class="dv">90</span>)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>uk_sweden_width <span class="op">=</span> uk_sweden_90[<span class="dv">1</span>] <span class="op">-</span> uk_sweden_90[<span class="dv">0</span>]</span></code></pre></div>
+<ol type="1">
+<li>Suppose you know that the following expression evaluates to
+<code>True</code>:
+<code>np.std(uk.get("members")) &gt; np.std(uk_sweden.get("members"))</code>.
+What would you expect the relationship between <code>uk_width</code> and
+<code>uk_sweden_width</code> to be in this case?</li>
+</ol>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>uk_width &lt; uk_sweden_width</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>uk_width == uk_sweden_width</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>uk_width &gt; uk_sweden_width</code></p></li>
+<li><p><input type="radio" disabled="" /> We do not have enough information to determine the relationship.</p></li>
+</ul>
+<ol start="2" type="1">
+<li>Suppose you know that the following expression evaluates to
+<code>True</code>:
+<code>np.std(uk.get("members")) &lt; np.std(uk_sweden.get("members"))</code>.
+What would you expect the relationship between <code>uk_width</code> and
+<code>uk_sweden_width</code> to be in this case?</li>
+</ol>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> <code>uk_width &lt; uk_sweden_width</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>uk_width == uk_sweden_width</code></p></li>
+<li><p><input type="radio" disabled="" /> <code>uk_width &gt; uk_sweden_width</code></p></li>
+<li><p><input type="radio" disabled="" /> We do not have enough information to determine the relationship.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading13_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13_2" aria-expanded="true" aria-controls="collapse13_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse13_2" class="accordion-collapse collapse"
+aria-labelledby="heading13_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer:</strong></p>
+<ul>
+<li><strong>1:</strong> Option 3</li>
+<li><strong>2:</strong> Option 4</li>
+</ul>
+<p><strong>Solution:</strong></p>
+<p><strong>1.</strong> Adding Swedish bands increases the sample size,
+which tends to make a confidence interval narrower. Since the combined
+dataset also has a smaller standard deviation, both factors favor a
+narrower interval for <code>uk_sweden</code>. Therefore, we expect
+<code>uk_width &gt; uk_sweden_width</code>.</p>
+<p><strong>2.</strong> Adding Swedish bands increases the sample size,
+which tends to narrow the confidence interval, but it also increases the
+standard deviation, which tends to widen the interval. Since these
+effects work in opposite directions, we cannot determine which
+confidence interval will be wider without additional information.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 57%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-13.3">Problem 13.3</h3>
+<p>Suppose <code>uk_90</code> comes out to be <span
+class="math inline">[3.8,\ 5.2]</span>. Sofia’s friend Elise says:</p>
+<p><em>“There is a 90% probability that the true mean number of members
+in UK bands is between 3.8 and 5.2.”</em></p>
+<p>Which of the following is the most accurate criticism of Elise’s
+statement?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> The statement should refer to individual bands, not the mean of all
+UK bands.</p></li>
+<li><p><input type="radio" disabled="" /> The statement should say 95%, not 90%.</p></li>
+<li><p><input type="radio" disabled="" /> The true mean is a fixed number and the confidence interval is also
+fixed, so the true mean either is or isn’t in the interval <span class="math inline">[3.8, 5.2]</span>.</p></li>
+<li><p><input type="radio" disabled="" /> The interval is too wide to be useful. We need to lower the
+confidence level to get a more precise interval.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading13_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13_3" aria-expanded="true" aria-controls="collapse13_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse13_3" class="accordion-collapse collapse"
+aria-labelledby="heading13_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer:</strong></p>
+<p>Option 3</p>
+<p><strong>Solution:</strong></p>
+<p>The true population mean is a fixed, unknown value rather than a
+random variable. Once we calculate the confidence interval <span class="math inline">[3.8, 5.2]</span>, its endpoints are also fixed, so
+the true mean either lies inside the interval or does not. The
+<strong>90% confidence level</strong> describes the long-run success
+rate of the confidence interval procedure: if we repeatedly collected
+new samples and constructed intervals using the same method,
+approximately 90% of those intervals would contain the true population
+mean. Therefore, Option 3 correctly identifies the problem with Elise’s
+interpretation.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 67%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+</div>
 <div class="lec-problem" data-avg="67.00" data-term="20254">
 <p class="meta"><em>Source:</em> <a href="../../fa25-quiz3/index.html#problem-2">Question 2 from Fall 2025 Quiz 3</a></p>
-<h2 data-src="fa25-quizzes/quiz3/q02" id="problem-13">Problem 13</h2>
+<h2 data-src="fa25-quizzes/quiz3/q02" id="problem-14">Problem 14</h2>
 <p>Your friend’s cat, Bugatti, is not represented in <code>cats</code>.
 If Bugatti’s top speed is 27.2 miles per hour, what percentile is
 Bugatti’s top speed in, relative to all the cats in the
@@ -2004,13 +2195,13 @@ Bugatti’s top speed in, relative to all the cats in the
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading13">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13" aria-expanded="true" aria-controls="collapse13">
+<h2 class="accordion-header" id="heading14">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse14" aria-expanded="true" aria-controls="collapse14">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse13" class="accordion-collapse collapse"
-aria-labelledby="heading13" data-bs-parent="#accordionExample">
+<div id="collapse14" class="accordion-collapse collapse"
+aria-labelledby="heading14" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2029,14 +2220,14 @@ aria-labelledby="heading13" data-bs-parent="#accordionExample">
 </div>
 <div class="lec-problem" data-avg="62.00" data-term="20211">
 <p class="meta"><em>Source:</em> <a href="../../wi21-final/index.html#problem-9">Question 9 from Winter 2021 Final Exam</a></p>
-<h2 data-src="wi21-final/q9-experiment" id="problem-14">Problem 14</h2>
+<h2 data-src="wi21-final/q9-experiment" id="problem-15">Problem 15</h2>
 <p>Suppose you do an experiment in which you do some random process 500
 times and calculate the value of some statistic, which is a count of how
 many times a certain phenomenon occurred out of the 500 trials. You
 repeat the experiment 10,000 times and draw a histogram of the 10,000
 statistics.</p>
 <p><br></p>
-<h3 id="problem-14.1">Problem 14.1</h3>
+<h3 id="problem-15.1">Problem 15.1</h3>
 <p>Is this histogram a probability histogram or an empirical
 histogram?</p>
 <ul class="task-list">
@@ -2045,13 +2236,13 @@ histogram?</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading14_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse14_1" aria-expanded="true" aria-controls="collapse14_1">
+<h2 class="accordion-header" id="heading15_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15_1" aria-expanded="true" aria-controls="collapse15_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse14_1" class="accordion-collapse collapse"
-aria-labelledby="heading14_1" data-bs-parent="#accordionExample">
+<div id="collapse15_1" class="accordion-collapse collapse"
+aria-labelledby="heading15_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2071,7 +2262,7 @@ empirical histogram.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-14.2">Problem 14.2</h3>
+<h3 id="problem-15.2">Problem 15.2</h3>
 <p>If you instead repeat the experiment 100,000 times, how will the
 histogram change?</p>
 <ul class="task-list">
@@ -2081,13 +2272,13 @@ histogram change?</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading14_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse14_2" aria-expanded="true" aria-controls="collapse14_2">
+<h2 class="accordion-header" id="heading15_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15_2" aria-expanded="true" aria-controls="collapse15_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse14_2" class="accordion-collapse collapse"
-aria-labelledby="heading14_2" data-bs-parent="#accordionExample">
+<div id="collapse15_2" class="accordion-collapse collapse"
+aria-labelledby="heading15_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2108,7 +2299,7 @@ random.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-14.3">Problem 14.3</h3>
+<h3 id="problem-15.3">Problem 15.3</h3>
 <p>For each experiment, if you instead do the random process 5,000
 times, how will the histogram change?</p>
 <ul class="task-list">
@@ -2118,13 +2309,13 @@ times, how will the histogram change?</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading14_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse14_3" aria-expanded="true" aria-controls="collapse14_3">
+<h2 class="accordion-header" id="heading15_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15_3" aria-expanded="true" aria-controls="collapse15_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse14_3" class="accordion-collapse collapse"
-aria-labelledby="heading14_3" data-bs-parent="#accordionExample">
+<div id="collapse15_3" class="accordion-collapse collapse"
+aria-labelledby="heading15_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2151,7 +2342,7 @@ it can take).</p>
 </div>
 <div class="lec-problem" data-avg="61.00" data-term="20224">
 <p class="meta"><em>Source:</em> <a href="../../fa22-final/index.html#problem-3">Question 3 from Fall 2022 Final Exam</a></p>
-<h2 data-src="fa22-final/q3" id="problem-15">Problem 15</h2>
+<h2 data-src="fa22-final/q3" id="problem-16">Problem 16</h2>
 <p>In <code>apps</code>, our sample of 1,000 credit card applications,
 500 of the applications come from homeowners and 500 come from people
 who don’t own their own home. In this sample, homeowner ages have a mean
@@ -2159,7 +2350,7 @@ of 40 and standard deviation of 10. We want to use the bootstrap method
 to compute a confidence interval for the mean age of a homeowner in the
 population of all credit card applicants.</p>
 <p><br></p>
-<h3 id="problem-15.1">Problem 15.1</h3>
+<h3 id="problem-16.1">Problem 16.1</h3>
 <p><span style="color:red"><b>Note: This problem is out of scope; it
 covers material no longer included in the course.</b></span></p>
 <p>Suppose our computer is too slow to bootstrap 10,000 times, and
@@ -2174,13 +2365,13 @@ sorted in ascending order: <span class="math display">
 the mathematical definition of percentile.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading15_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15_1" aria-expanded="true" aria-controls="collapse15_1">
+<h2 class="accordion-header" id="heading16_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16_1" aria-expanded="true" aria-controls="collapse16_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse15_1" class="accordion-collapse collapse"
-aria-labelledby="heading15_1" data-bs-parent="#accordionExample">
+<div id="collapse16_1" class="accordion-collapse collapse"
+aria-labelledby="heading16_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2209,7 +2400,7 @@ endpoint of our confidence interval.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-15.2">Problem 15.2</h3>
+<h3 id="problem-16.2">Problem 16.2</h3>
 <p><span style="color:red"><b>Note: This problem is out of scope; it
 covers material no longer included in the course.</b></span></p>
 <p>True or False: Using the mathematical definition of percentile, the
@@ -2221,13 +2412,13 @@ median.</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading15_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15_2" aria-expanded="true" aria-controls="collapse15_2">
+<h2 class="accordion-header" id="heading16_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16_2" aria-expanded="true" aria-controls="collapse16_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse15_2" class="accordion-collapse collapse"
-aria-labelledby="heading15_2" data-bs-parent="#accordionExample">
+<div id="collapse16_2" class="accordion-collapse collapse"
+aria-labelledby="heading16_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2248,7 +2439,7 @@ So the median in this case is 41.5.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-15.3">Problem 15.3</h3>
+<h3 id="problem-16.3">Problem 16.3</h3>
 <p>Consider the following three quantities:</p>
 <ol type="1">
 <li><p><code>pop_mean</code>, the unknown mean age of homeowners in the
@@ -2276,13 +2467,13 @@ from <code>pop_mean</code>.</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading15_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15_3" aria-expanded="true" aria-controls="collapse15_3">
+<h2 class="accordion-header" id="heading16_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16_3" aria-expanded="true" aria-controls="collapse16_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse15_3" class="accordion-collapse collapse"
-aria-labelledby="heading15_3" data-bs-parent="#accordionExample">
+<div id="collapse16_3" class="accordion-collapse collapse"
+aria-labelledby="heading16_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2313,7 +2504,7 @@ necessarily true.</p>
 </div>
 <div class="lec-problem" data-avg="54.00" data-term="20242">
 <p class="meta"><em>Source:</em> <a href="../../sp24-final/index.html#problem-6">Question 6 from Spring 2024 Final Exam</a></p>
-<h2 data-src="sp24-final/q06" id="problem-16">Problem 16</h2>
+<h2 data-src="sp24-final/q06" id="problem-17">Problem 17</h2>
 <p>You want to use the data in <code>apts</code> to test both of the
 following pairs of hypotheses:</p>
 <p><strong>Pair 1:</strong></p>
@@ -2337,32 +2528,32 @@ to the number of two bedroom apartments available for rent.</li>
 <p>In <code>apts</code>, there are 467 apartments that are either one
 bedroom or two bedroom apartments. You perform the following simulation
 under the assumption of the null hypothesis.</p>
-<div class="sourceCode" id="cb12"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>prop_1bf <span class="op">=</span> np.array([])</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>abs_diff <span class="op">=</span> np.array([])</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    prop <span class="op">=</span> np.random.multinomial(<span class="dv">467</span>, [<span class="fl">0.5</span>, <span class="fl">0.5</span>])[<span class="dv">0</span>]<span class="op">/</span><span class="dv">467</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    prop_1br <span class="op">=</span> np.append(prop_1br, prop)</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    abs_diff <span class="op">=</span> np.append(abs_diff, np.<span class="bu">abs</span>(prop<span class="op">-</span><span class="fl">0.5</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>prop_1bf <span class="op">=</span> np.array([])</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>abs_diff <span class="op">=</span> np.array([])</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    prop <span class="op">=</span> np.random.multinomial(<span class="dv">467</span>, [<span class="fl">0.5</span>, <span class="fl">0.5</span>])[<span class="dv">0</span>]<span class="op">/</span><span class="dv">467</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    prop_1br <span class="op">=</span> np.append(prop_1br, prop)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    abs_diff <span class="op">=</span> np.append(abs_diff, np.<span class="bu">abs</span>(prop<span class="op">-</span><span class="fl">0.5</span>))</span></code></pre></div>
 <p>You then calculate some percentiles of <code>prop_1br</code>. The
 following four expressions all evaluate to True.</p>
-<div class="sourceCode" id="cb13"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>np.percentiles(prop_1br, <span class="fl">2.5</span>) <span class="op">==</span> <span class="fl">0.4</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>np.percentiles(prop_1br, <span class="dv">5</span>) <span class="op">==</span> <span class="fl">0.42</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>np.percentiles(prop_1br, <span class="dv">95</span>) <span class="op">==</span> <span class="fl">0.58</span></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>np.percentiles(prop_1br, <span class="fl">97.5</span>) <span class="op">==</span> <span class="fl">0.6</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>np.percentiles(prop_1br, <span class="fl">2.5</span>) <span class="op">==</span> <span class="fl">0.4</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>np.percentiles(prop_1br, <span class="dv">5</span>) <span class="op">==</span> <span class="fl">0.42</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>np.percentiles(prop_1br, <span class="dv">95</span>) <span class="op">==</span> <span class="fl">0.58</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>np.percentiles(prop_1br, <span class="fl">97.5</span>) <span class="op">==</span> <span class="fl">0.6</span></span></code></pre></div>
 <p><br></p>
-<h3 id="problem-16.1">Problem 16.1</h3>
+<h3 id="problem-17.1">Problem 17.1</h3>
 <p>What is <code>prop_1br.mean()</code> to two decimal places?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading16_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16_1" aria-expanded="true" aria-controls="collapse16_1">
+<h2 class="accordion-header" id="heading17_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse17_1" aria-expanded="true" aria-controls="collapse17_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse16_1" class="accordion-collapse collapse"
-aria-labelledby="heading16_1" data-bs-parent="#accordionExample">
+<div id="collapse17_1" class="accordion-collapse collapse"
+aria-labelledby="heading17_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2387,17 +2578,17 @@ most of the distribution to be from around <span class="math inline">0.5</span>.
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-16.2">Problem 16.2</h3>
+<h3 id="problem-17.2">Problem 17.2</h3>
 <p>What is <code>np.std(prop_1br)</code> to two decimal places?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading16_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16_2" aria-expanded="true" aria-controls="collapse16_2">
+<h2 class="accordion-header" id="heading17_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse17_2" aria-expanded="true" aria-controls="collapse17_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse16_2" class="accordion-collapse collapse"
-aria-labelledby="heading16_2" data-bs-parent="#accordionExample">
+<div id="collapse17_2" class="accordion-collapse collapse"
+aria-labelledby="heading17_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2421,18 +2612,18 @@ from the mean (2.5 too!). Thus,</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-16.3">Problem 16.3</h3>
+<h3 id="problem-17.3">Problem 17.3</h3>
 <p>What is <code>np.percentile(abs_diff, 95)</code> to two decimal
 places?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading16_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16_3" aria-expanded="true" aria-controls="collapse16_3">
+<h2 class="accordion-header" id="heading17_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse17_3" aria-expanded="true" aria-controls="collapse17_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse16_3" class="accordion-collapse collapse"
-aria-labelledby="heading16_3" data-bs-parent="#accordionExample">
+<div id="collapse17_3" class="accordion-collapse collapse"
+aria-labelledby="heading17_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2485,7 +2676,7 @@ the data in <code>prop_1br</code> lies within a distance of 0.1 to 0.5
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-16.4">Problem 16.4</h3>
+<h3 id="problem-17.4">Problem 17.4</h3>
 <p>Which simulated test statistics should be used to test the first pair
 of hypotheses?</p>
 <ul class="task-list">
@@ -2494,13 +2685,13 @@ of hypotheses?</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading16_4">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16_4" aria-expanded="true" aria-controls="collapse16_4">
+<h2 class="accordion-header" id="heading17_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse17_4" aria-expanded="true" aria-controls="collapse17_4">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse16_4" class="accordion-collapse collapse"
-aria-labelledby="heading16_4" data-bs-parent="#accordionExample">
+<div id="collapse17_4" class="accordion-collapse collapse"
+aria-labelledby="heading17_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2522,7 +2713,7 @@ other.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-16.5">Problem 16.5</h3>
+<h3 id="problem-17.5">Problem 17.5</h3>
 <p>Which simulated test statistics should be used to test the second
 pair of hypotheses?</p>
 <ul class="task-list">
@@ -2531,13 +2722,13 @@ pair of hypotheses?</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading16_5">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16_5" aria-expanded="true" aria-controls="collapse16_5">
+<h2 class="accordion-header" id="heading17_5">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse17_5" aria-expanded="true" aria-controls="collapse17_5">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse16_5" class="accordion-collapse collapse"
-aria-labelledby="heading16_5" data-bs-parent="#accordionExample">
+<div id="collapse17_5" class="accordion-collapse collapse"
+aria-labelledby="heading17_5" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2557,7 +2748,7 @@ in one direction. Therefore, we use the absolute value.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-16.6">Problem 16.6</h3>
+<h3 id="problem-17.6">Problem 17.6</h3>
 <p>Your observed data in <code>apts</code> is such that you reject the
 null for the first pair of hypotheses at the 5% significance level, but
 fail to reject the null for the second pair at the 5% significance
@@ -2568,13 +2759,13 @@ in \texttt{apts}}}{\text{\# of one bedroom apartments in \texttt{apts}+
 <p>Give your answer as a number to two decimal places.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading16_6">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16_6" aria-expanded="true" aria-controls="collapse16_6">
+<h2 class="accordion-header" id="heading17_6">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse17_6" aria-expanded="true" aria-controls="collapse17_6">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse16_6" class="accordion-collapse collapse"
-aria-labelledby="heading16_6" data-bs-parent="#accordionExample">
+<div id="collapse17_6" class="accordion-collapse collapse"
+aria-labelledby="heading17_6" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2597,7 +2788,7 @@ walkthrough video</a> is available for this problem.</strong></p>
 </div>
 <div class="lec-problem" data-avg="53.50" data-term="20261">
 <p class="meta"><em>Source:</em> <a href="../../wi26-final/index.html#problem-7">Question 7 from Winter 2026 Final Exam</a></p>
-<h2 data-src="wi26-final/q07" id="problem-17">Problem 17</h2>
+<h2 data-src="wi26-final/q07" id="problem-18">Problem 18</h2>
 <p>Assume Peter ran bootstrap code similar to lecture to bootstrap the
 <code>age</code> column from <code>zoo</code> <strong>5,000</strong>
 times and stored the median of each bootstrap sample in
@@ -2609,7 +2800,7 @@ array([5, 9, 12, ..., 16, 19, 12], shape=(1000,))
 &gt;&gt;&gt; ages5000
 array([12, 7, 13, ..., 11, 11, 16], shape=(5000,))</code></pre>
 <p><br></p>
-<h3 id="problem-17.1">Problem 17.1</h3>
+<h3 id="problem-18.1">Problem 18.1</h3>
 <p><strong>(a)</strong> Suppose Peter creates a <strong>95% bootstrap
 confidence interval</strong> using <code>ages5000</code>. <strong>Select
 all</strong> true statements about this interval.</p>
@@ -2627,13 +2818,13 @@ Zoo</strong>, this interval isn’t useful.</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading17_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse17_1" aria-expanded="true" aria-controls="collapse17_1">
+<h2 class="accordion-header" id="heading18_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse18_1" aria-expanded="true" aria-controls="collapse18_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse17_1" class="accordion-collapse collapse"
-aria-labelledby="heading17_1" data-bs-parent="#accordionExample">
+<div id="collapse18_1" class="accordion-collapse collapse"
+aria-labelledby="heading18_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2659,7 +2850,7 @@ median is known — no CI needed (fourth true).</li>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-17.2">Problem 17.2</h3>
+<h3 id="problem-18.2">Problem 18.2</h3>
 <p><strong>(b)</strong> <strong>Select all</strong> true statements
 about <code>ages5000</code> and <code>ages1000</code>.</p>
 <ul class="task-list">
@@ -2676,13 +2867,13 @@ bootstrap resampling is random.</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading17_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse17_2" aria-expanded="true" aria-controls="collapse17_2">
+<h2 class="accordion-header" id="heading18_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse18_2" aria-expanded="true" aria-controls="collapse18_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse17_2" class="accordion-collapse collapse"
-aria-labelledby="heading17_2" data-bs-parent="#accordionExample">
+<div id="collapse18_2" class="accordion-collapse collapse"
+aria-labelledby="heading18_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2704,9 +2895,109 @@ statistic (first and second false).</p>
 <p><br></p>
 <hr />
 </div>
+<div class="lec-problem" data-avg="49.00" data-term="20262">
+<p class="meta"><em>Source:</em> <a href="../../sp26-final/index.html#problem-11">Question 11 from Spring 2026 Final Exam</a></p>
+<h2 data-src="sp26-final/q11" id="problem-19">Problem 19</h2>
+<p>Ray recently got into K-Pop and he wants to estimate the median
+number of albums among all K-Pop bands. Consider what would happen if he
+could somehow <strong>repeat the following process 500
+times</strong>:</p>
+<ol type="1">
+<li><p>Take a simple random sample of K-Pop bands from the
+population.</p></li>
+<li><p>Bootstrap resample from that sample 10,000 times, computing the
+median number of albums each time.</p></li>
+<li><p>Construct an 80% confidence interval from the bootstrapped
+medians.</p></li>
+</ol>
+<p><br></p>
+<h3 id="problem-19.1">Problem 19.1</h3>
+<p><strong>How many</strong> of Ray’s confidence intervals would we
+expect to contain the true median number of albums among all K-Pop
+bands? Give your answer as an <strong>integer</strong>.</p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading19_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse19_1" aria-expanded="true" aria-controls="collapse19_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse19_1" class="accordion-collapse collapse"
+aria-labelledby="heading19_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer:</strong></p>
+<p>400</p>
+<p><strong>Solution:</strong></p>
+<p>An 80% confidence interval procedure is expected to capture the true
+population parameter approximately 80% of the time when repeated with
+new random samples. Since Ray repeats the entire process 500 times, the
+expected number of intervals containing the true median is <span class="math inline">0.80 \times 500 = \boxed{400}</span>.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 71%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-19.2">Problem 19.2</h3>
+<p>Which of the following is the most significant barrier to Ray
+actually completing this procedure?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> The computation time required to bootstrap so many times.</p></li>
+<li><p><input type="radio" disabled="" /> The fact that his parameter of interest is a median and not a mean so
+the CLT does not apply.</p></li>
+<li><p><input type="radio" disabled="" /> The logistics of obtaining new random samples from the
+population.</p></li>
+<li><p><input type="radio" disabled="" /> The fact that he wants an 80% confidence interval instead of a
+standard 95% confidence interval which is easier to compute.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading19_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse19_2" aria-expanded="true" aria-controls="collapse19_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse19_2" class="accordion-collapse collapse"
+aria-labelledby="heading19_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer:</strong></p>
+<p>Option 3</p>
+<p><strong>Solution:</strong></p>
+<p>The biggest challenge is obtaining <strong>500 independent random
+samples</strong> of K-Pop bands from the population, which would require
+substantial time and resources. Option 1 is incorrect because performing
+bootstrap resampling computationally is generally much easier than
+collecting new samples. Option 2 is incorrect because bootstrapping can
+be used to construct confidence intervals for medians, even though the
+introductory CLT-based method focuses on means. Option 4 is incorrect
+because constructing an 80% confidence interval is no more difficult
+than constructing a 95% confidence interval; we simply use different
+percentile cutoffs.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 27%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+</div>
 <div class="lec-problem" data-avg="45.75" data-term="20234">
 <p class="meta"><em>Source:</em> <a href="../../fa23-final/index.html#problem-12">Question 12 from Fall 2023 Final Exam</a></p>
-<h2 data-src="fa23-final/q12" id="problem-18">Problem 18</h2>
+<h2 data-src="fa23-final/q12" id="problem-20">Problem 20</h2>
 <p>On Reddit, Keenan also read that 22% of all online transactions are
 fraudulent. He decides to test the following hypotheses at the
 <strong>0.16 significance level</strong>:</p>
@@ -2726,35 +3017,35 @@ test is to <strong>reject</strong> the null hypothesis, and
 <strong>False</strong> if the conclusion is to <strong>fail to
 reject</strong> the null hypothesis, all at the <strong>0.16</strong>
 significance level.</p>
-<div class="sourceCode" id="cb15"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> reject_null():</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>        fraud_counts <span class="op">=</span> np.array([])</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>            fraud_count <span class="op">=</span> np.random.multinomial(<span class="dv">500</span>, __(a)__)[<span class="dv">0</span>] </span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>            fraud_counts <span class="op">=</span> np.append(fraud_counts, fraud_count)</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>        L <span class="op">=</span> np.percentile(fraud_counts, __(b)__)</span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>        R <span class="op">=</span> np.percentile(fraud_counts, __(c)__)</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> __(d)__ <span class="op">&lt;</span> L <span class="kw">or</span> __(d)__ <span class="op">&gt;</span> R:</span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Return True if we REJECT the null.</span></span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">True</span></span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Return False if we FAIL to reject the null.</span></span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">False</span></span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> reject_null():</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>        fraud_counts <span class="op">=</span> np.array([])</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>            fraud_count <span class="op">=</span> np.random.multinomial(<span class="dv">500</span>, __(a)__)[<span class="dv">0</span>] </span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>            fraud_counts <span class="op">=</span> np.append(fraud_counts, fraud_count)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>        L <span class="op">=</span> np.percentile(fraud_counts, __(b)__)</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>        R <span class="op">=</span> np.percentile(fraud_counts, __(c)__)</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> __(d)__ <span class="op">&lt;</span> L <span class="kw">or</span> __(d)__ <span class="op">&gt;</span> R:</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Return True if we REJECT the null.</span></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">True</span></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Return False if we FAIL to reject the null.</span></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>            <span class="cf">return</span> <span class="va">False</span></span></code></pre></div>
 <p>Fill in the blanks so that <code>reject_null</code> works as
 intended.</p>
 <p><em>Hint: Your answer to (d) should be an integer greater than
 50.</em></p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading18">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse18" aria-expanded="true" aria-controls="collapse18">
+<h2 class="accordion-header" id="heading20">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse20" aria-expanded="true" aria-controls="collapse20">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse18" class="accordion-collapse collapse"
-aria-labelledby="heading18" data-bs-parent="#accordionExample">
+<div id="collapse20" class="accordion-collapse collapse"
+aria-labelledby="heading20" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2827,272 +3118,6 @@ given the sample size of 500, which gives us <span class="math inline">500 * 0.2
 </div>
 </div>
 </div>
-<hr />
-</div>
-<div class="lec-problem" data-term="20262">
-<p class="meta"><em>Source:</em> <a href="../../sp26-final/index.html#problem-8">Question 8 from Spring 2026 Final Exam</a></p>
-<h2 data-src="sp26-final/q08" id="problem-19">Problem 19</h2>
-<p><br></p>
-<h3 id="problem-19.1">Problem 19.1</h3>
-<p>Sofia is doing research on bands in the UK. She writes the code below
-to estimate the mean number of members in UK bands using a bootstrapped
-85% confidence interval. Fill in the blanks to complete the code.</p>
-<div class="sourceCode" id="cb16"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>uk <span class="op">=</span> bands[bands.get(<span class="st">&quot;origin&quot;</span>) <span class="op">==</span> <span class="st">&quot;UK&quot;</span>]</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>means <span class="op">=</span> np.array([])</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">5000</span>):</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    resample <span class="op">=</span> uk.sample(__(a)__, replace<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    means <span class="op">=</span> np.append(means, resample.get(<span class="st">&quot;members&quot;</span>).mean())</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>ci_low <span class="op">=</span> np.percentile(means, __(b)__)</span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>ci_high <span class="op">=</span> np.percentile(means, __(c)__)</span></code></pre></div>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading19_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse19_1" aria-expanded="true" aria-controls="collapse19_1">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse19_1" class="accordion-collapse collapse"
-aria-labelledby="heading19_1" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-
-</header>
-<p><strong>Answer:</strong></p>
-<ul>
-<li><strong>(a):</strong> <code>uk.shape[0]</code></li>
-<li><strong>(b):</strong> <code>7.5</code></li>
-<li><strong>(c):</strong> <code>92.5</code></li>
-</ul>
-<p><strong>Solution:</strong></p>
-<p>Each bootstrap resample must contain the same number of rows as the
-original DataFrame <code>uk</code>, so we use <code>uk.shape[0]</code>.
-For an 85% confidence interval, we want the middle 85% of the bootstrap
-means, leaving 15% outside the interval. Splitting this equally between
-the two tails gives 7.5% in each tail. Therefore, we use the
-<strong>7.5th percentile</strong> for the lower endpoint and the
-<strong>92.5th percentile</strong> for the upper endpoint.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-19.2">Problem 19.2</h3>
-<p>Sofia decides to generalize her code in a function called
-<code>bootstrap_ci(df, confidence)</code> which takes as input the
-queried DataFrame and the confidence level, and returns a two-element
-list with the endpoints of the resulting confidence interval for the
-mean number of band members. For example,
-<code>bootstrap_ci(uk, 85)</code> corresponds to the procedure in part
-(a). Sofia defines some DataFrames and makes calls to the function as
-follows:</p>
-<div class="sourceCode" id="cb17"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>uk <span class="op">=</span> bands[bands.get(<span class="st">&quot;origin&quot;</span>) <span class="op">==</span> <span class="st">&quot;UK&quot;</span>]</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>uk_90 <span class="op">=</span> bootstrap_ci(uk, <span class="dv">90</span>)</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>uk_width <span class="op">=</span> uk_90[<span class="dv">1</span>] <span class="op">-</span> uk_90[<span class="dv">0</span>]</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>uk_sweden <span class="op">=</span> bands[(bands.get(<span class="st">&quot;origin&quot;</span>) <span class="op">==</span> <span class="st">&quot;UK&quot;</span>) <span class="op">|</span></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>                  (bands.get(<span class="st">&quot;origin&quot;</span>) <span class="op">==</span> <span class="st">&quot;Sweden&quot;</span>)]</span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>uk_sweden_90 <span class="op">=</span> bootstrap_ci(uk_sweden, <span class="dv">90</span>)</span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>uk_sweden_width <span class="op">=</span> uk_sweden_90[<span class="dv">1</span>] <span class="op">-</span> uk_sweden_90[<span class="dv">0</span>]</span></code></pre></div>
-<ol type="1">
-<li>Suppose you know that the following expression evaluates to
-<code>True</code>:
-<code>np.std(uk.get("members")) &gt; np.std(uk_sweden.get("members"))</code>.
-What would you expect the relationship between <code>uk_width</code> and
-<code>uk_sweden_width</code> to be in this case?</li>
-</ol>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> <code>uk_width &lt; uk_sweden_width</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>uk_width == uk_sweden_width</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>uk_width &gt; uk_sweden_width</code></p></li>
-<li><p><input type="radio" disabled="" /> We do not have enough information to determine the relationship.</p></li>
-</ul>
-<ol start="2" type="1">
-<li>Suppose you know that the following expression evaluates to
-<code>True</code>:
-<code>np.std(uk.get("members")) &lt; np.std(uk_sweden.get("members"))</code>.
-What would you expect the relationship between <code>uk_width</code> and
-<code>uk_sweden_width</code> to be in this case?</li>
-</ol>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> <code>uk_width &lt; uk_sweden_width</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>uk_width == uk_sweden_width</code></p></li>
-<li><p><input type="radio" disabled="" /> <code>uk_width &gt; uk_sweden_width</code></p></li>
-<li><p><input type="radio" disabled="" /> We do not have enough information to determine the relationship.</p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading19_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse19_2" aria-expanded="true" aria-controls="collapse19_2">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse19_2" class="accordion-collapse collapse"
-aria-labelledby="heading19_2" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-
-</header>
-<p><strong>Answer:</strong></p>
-<ul>
-<li><strong>1:</strong> Option 3</li>
-<li><strong>2:</strong> Option 4</li>
-</ul>
-<p><strong>Solution:</strong></p>
-<p><strong>1.</strong> Adding Swedish bands increases the sample size,
-which tends to make a confidence interval narrower. Since the combined
-dataset also has a smaller standard deviation, both factors favor a
-narrower interval for <code>uk_sweden</code>. Therefore, we expect
-<code>uk_width &gt; uk_sweden_width</code>.</p>
-<p><strong>2.</strong> Adding Swedish bands increases the sample size,
-which tends to narrow the confidence interval, but it also increases the
-standard deviation, which tends to widen the interval. Since these
-effects work in opposite directions, we cannot determine which
-confidence interval will be wider without additional information.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-19.3">Problem 19.3</h3>
-<p>Suppose <code>uk_90</code> comes out to be <span
-class="math inline">[3.8,\ 5.2]</span>. Sofia’s friend Elise says:</p>
-<p><em>“There is a 90% probability that the true mean number of members
-in UK bands is between 3.8 and 5.2.”</em></p>
-<p>Which of the following is the most accurate criticism of Elise’s
-statement?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> The statement should refer to individual bands, not the mean of all
-UK bands.</p></li>
-<li><p><input type="radio" disabled="" /> The statement should say 95%, not 90%.</p></li>
-<li><p><input type="radio" disabled="" /> The true mean is a fixed number and the confidence interval is also
-fixed, so the true mean either is or isn’t in the interval <span class="math inline">[3.8, 5.2]</span>.</p></li>
-<li><p><input type="radio" disabled="" /> The interval is too wide to be useful. We need to lower the
-confidence level to get a more precise interval.</p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading19_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse19_3" aria-expanded="true" aria-controls="collapse19_3">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse19_3" class="accordion-collapse collapse"
-aria-labelledby="heading19_3" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-
-</header>
-<p><strong>Answer:</strong></p>
-<p>Option 3</p>
-<p><strong>Solution:</strong></p>
-<p>The true population mean is a fixed, unknown value rather than a
-random variable. Once we calculate the confidence interval <span class="math inline">[3.8, 5.2]</span>, its endpoints are also fixed, so
-the true mean either lies inside the interval or does not. The
-<strong>90% confidence level</strong> describes the long-run success
-rate of the confidence interval procedure: if we repeatedly collected
-new samples and constructed intervals using the same method,
-approximately 90% of those intervals would contain the true population
-mean. Therefore, Option 3 correctly identifies the problem with Elise’s
-interpretation.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<hr />
-</div>
-<div class="lec-problem" data-term="20262">
-<p class="meta"><em>Source:</em> <a href="../../sp26-final/index.html#problem-11">Question 11 from Spring 2026 Final Exam</a></p>
-<h2 data-src="sp26-final/q11" id="problem-20">Problem 20</h2>
-<p>Ray recently got into K-Pop and he wants to estimate the median
-number of albums among all K-Pop bands. Consider what would happen if he
-could somehow <strong>repeat the following process 500
-times</strong>:</p>
-<ol type="1">
-<li><p>Take a simple random sample of K-Pop bands from the
-population.</p></li>
-<li><p>Bootstrap resample from that sample 10,000 times, computing the
-median number of albums each time.</p></li>
-<li><p>Construct an 80% confidence interval from the bootstrapped
-medians.</p></li>
-</ol>
-<p><br></p>
-<h3 id="problem-20.1">Problem 20.1</h3>
-<p><strong>How many</strong> of Ray’s confidence intervals would we
-expect to contain the true median number of albums among all K-Pop
-bands? Give your answer as an <strong>integer</strong>.</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading20_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse20_1" aria-expanded="true" aria-controls="collapse20_1">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse20_1" class="accordion-collapse collapse"
-aria-labelledby="heading20_1" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-
-</header>
-<p><strong>Answer:</strong></p>
-<p>400</p>
-<p><strong>Solution:</strong></p>
-<p>An 80% confidence interval procedure is expected to capture the true
-population parameter approximately 80% of the time when repeated with
-new random samples. Since Ray repeats the entire process 500 times, the
-expected number of intervals containing the true median is <span class="math inline">0.80 \times 500 = \boxed{400}</span>.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-20.2">Problem 20.2</h3>
-<p>Which of the following is the most significant barrier to Ray
-actually completing this procedure?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> The computation time required to bootstrap so many times.</p></li>
-<li><p><input type="radio" disabled="" /> The fact that his parameter of interest is a median and not a mean so
-the CLT does not apply.</p></li>
-<li><p><input type="radio" disabled="" /> The logistics of obtaining new random samples from the
-population.</p></li>
-<li><p><input type="radio" disabled="" /> The fact that he wants an 80% confidence interval instead of a
-standard 95% confidence interval which is easier to compute.</p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading20_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse20_2" aria-expanded="true" aria-controls="collapse20_2">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse20_2" class="accordion-collapse collapse"
-aria-labelledby="heading20_2" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-
-</header>
-<p><strong>Answer:</strong></p>
-<p>Option 3</p>
-<p><strong>Solution:</strong></p>
-<p>The biggest challenge is obtaining <strong>500 independent random
-samples</strong> of K-Pop bands from the population, which would require
-substantial time and resources. Option 1 is incorrect because performing
-bootstrap resampling computationally is generally much easier than
-collecting new samples. Option 2 is incorrect because bootstrapping can
-be used to construct confidence intervals for medians, even though the
-introductory CLT-based method focuses on means. Option 4 is incorrect
-because constructing an 80% confidence interval is no more difficult
-than constructing a 95% confidence interval; we simply use different
-percentile cutoffs.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
 <hr />
 </div>
 <script>

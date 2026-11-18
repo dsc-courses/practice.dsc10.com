@@ -2737,26 +2737,29 @@ extreme.</p></li>
 <p><br></p>
 <hr />
 </div>
-<div class="lec-problem" data-avg="65.80" data-term="20224">
-<p class="meta"><em>Source:</em> <a href="../../fa22-final/index.html#problem-5">Question 5 from Fall 2022 Final Exam</a></p>
-<h2 data-src="fa22-final/q5" id="problem-14">Problem 14</h2>
-<p>Choose the best tool to answer each of the following questions. Note
-the following:</p>
-<ul>
-<li>By “hypothesis testing”, we mean “standard” hypothesis testing,
-i.e. hypothesis testing that <strong>doesn’t</strong> involve
-permutation testing or bootstrapping.</li>
-<li>By “bootstrapping”, we mean bootstrapping that
-<strong>doesn’t</strong> involve hypothesis testing.</li>
-</ul>
+<div class="lec-problem" data-avg="66.00" data-term="20262">
+<p class="meta"><em>Source:</em> <a href="../../sp26-final/index.html#problem-7">Question 7 from Spring 2026 Final Exam</a></p>
+<h2 data-src="sp26-final/q07" id="problem-14">Problem 14</h2>
+<p>Zeyu is wondering whether active bands are more successful than
+inactive bands, in the sense that they have greater
+<code>"top_album_sales"</code>. To find out, he runs a permutation test
+on the <code>bands</code> DataFrame by comparing the average
+<code>"top_album_sales"</code> for active versus inactive bands using
+10,000 shuffles of the <code>"active"</code> labels.</p>
 <p><br></p>
 <h3 id="problem-14.1">Problem 14.1</h3>
-<p>Are incomes of applicants with 2 or fewer dependents drawn randomly
-from the distribution of incomes of all applicants?</p>
+<p>Which of the following best describes the <strong>null
+hypothesis</strong> for Zeyu’s test?</p>
 <ul class="task-list">
-<li><p><input type="radio" disabled="" /> Hypothesis Testing</p></li>
-<li><p><input type="radio" disabled="" /> Permutation Testing</p></li>
-<li><p><input type="radio" disabled="" /> Bootstrapping</p></li>
+<li><p><input type="radio" disabled="" /> Active bands have higher top album sales than inactive bands, on
+average.</p></li>
+<li><p><input type="radio" disabled="" /> Active bands and inactive bands have the same distribution of top
+album sales.</p></li>
+<li><p><input type="radio" disabled="" /> In the full population of all bands, the average top album sales for
+active bands is higher than that for inactive bands.</p></li>
+<li><p><input type="radio" disabled="" /> In the sample of data in <code>bands</code>, the average top album
+sales for active bands equals the average top album sales for inactive
+bands.</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
@@ -2767,6 +2770,230 @@ Click to view the solution.
 </h2>
 <div id="collapse14_1" class="accordion-collapse collapse"
 aria-labelledby="heading14_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer:</strong></p>
+<p>Option 2</p>
+<p><strong>Solution:</strong></p>
+<p>The null hypothesis of a permutation test states that the two groups
+come from the <strong>same underlying distribution</strong>, so the
+<code>"active"</code> labels are interchangeable under the null. Option
+1 describes the alternative hypothesis that active bands have higher
+sales, while Option 3 also describes a population-level alternative
+rather than the null. Option 4 is incorrect because the null hypothesis
+does not require the two groups to have exactly equal sample means;
+differences can occur due to random variation even when the null is
+true.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 62%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-14.2">Problem 14.2</h3>
+<p>Complete the code below to run Zeyu’s permutation test.</p>
+<div class="sourceCode" id="cb22"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>active <span class="op">=</span> bands[bands.get(<span class="st">&quot;active&quot;</span>) <span class="op">==</span> <span class="va">True</span>].get(<span class="st">&quot;top_album_sales&quot;</span>)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>inactive <span class="op">=</span> bands[bands.get(<span class="st">&quot;active&quot;</span>) <span class="op">==</span> <span class="va">False</span>].get(<span class="st">&quot;top_album_sales&quot;</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>obs_diff <span class="op">=</span> active.mean() <span class="op">-</span> inactive.mean()</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>sim_diffs <span class="op">=</span> np.array([])</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    shuffled_labels <span class="op">=</span> __(a)__</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>    shuffled <span class="op">=</span> bands.assign(active<span class="op">=</span>shuffled_labels)</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>    sim_active <span class="op">=</span> shuffled[shuffled.get(<span class="st">&quot;active&quot;</span>) <span class="op">==</span> <span class="va">True</span>]</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>    sim_inactive <span class="op">=</span> shuffled[shuffled.get(<span class="st">&quot;active&quot;</span>) <span class="op">==</span> <span class="va">False</span>]</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>    sim_diff <span class="op">=</span> (sim_active.get(<span class="st">&quot;top_album_sales&quot;</span>).mean()</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>                <span class="op">-</span> sim_inactive.get(<span class="st">&quot;top_album_sales&quot;</span>).mean())</span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>    sim_diffs <span class="op">=</span> np.append(sim_diffs, sim_diff)</span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>p_value <span class="op">=</span> __(b)__ <span class="op">/</span> <span class="dv">10000</span></span></code></pre></div>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading14_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse14_2" aria-expanded="true" aria-controls="collapse14_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse14_2" class="accordion-collapse collapse"
+aria-labelledby="heading14_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer:</strong></p>
+<ul>
+<li><strong>(a):</strong>
+<code>np.random.permutation(bands.get("active"))</code></li>
+<li><strong>(b):</strong>
+<code>np.count_nonzero(sim_diffs &gt;= obs_diff)</code></li>
+</ul>
+<p><strong>Solution:</strong></p>
+<p>For <strong>(a)</strong>,
+<code>np.random.permutation(bands.get("active"))</code> randomly
+rearranges the <code>"active"</code> labels while keeping the number of
+active and inactive bands unchanged, breaking any association between
+activity status and album sales. Each iteration then calculates the
+difference in mean sales between the shuffled active and inactive
+groups. For <strong>(b)</strong>, since the alternative hypothesis is
+that active bands have <strong>higher</strong> average sales, we count
+simulated differences that are <strong>greater than or equal to</strong>
+the observed difference using
+<code>np.count_nonzero(sim_diffs &gt;= obs_diff)</code>. Dividing by
+10,000 gives the proportion of simulated test statistics at least as
+extreme as the observed statistic in the direction of the alternative,
+which is the p-value.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 70%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-14.3">Problem 14.3</h3>
+<p>Suppose Zeyu’s p-value turns out to be <span
+class="math inline">0.03</span>. Which of the following is the correct
+conclusion of the test at the <span class="math inline">0.05</span>
+significance level?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> We accept the null hypothesis; active and inactive bands have the
+same distribution of top album sales.</p></li>
+<li><p><input type="radio" disabled="" /> We fail to reject the null hypothesis; we cannot determine whether
+the groups differ.</p></li>
+<li><p><input type="radio" disabled="" /> We reject the null hypothesis; active bands have significantly higher
+top album sales.</p></li>
+<li><p><input type="radio" disabled="" /> We reject the null hypothesis; active and inactive bands have
+different distributions of top album sales but we can’t say which is
+greater.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading14_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse14_3" aria-expanded="true" aria-controls="collapse14_3">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse14_3" class="accordion-collapse collapse"
+aria-labelledby="heading14_3" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer:</strong></p>
+<p>Option 3</p>
+<p><strong>Solution:</strong></p>
+<p>Since the p-value of <span class="math inline">0.03</span> is less
+than the significance level of <span class="math inline">0.05</span>, we
+<strong>reject the null hypothesis</strong>. Because the alternative
+hypothesis is one-sided, the test provides statistically significant
+evidence that active bands have higher average top album sales than
+inactive bands. Option 1 is incorrect because we do not “accept” the
+null hypothesis, and Option 2 is incorrect because the p-value is small
+enough to reject it. Option 4 is incorrect because the direction of the
+alternative allows us to conclude that active bands have higher average
+sales, rather than merely concluding that the groups differ.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 57%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-14.4">Problem 14.4</h3>
+<p>In Zeyu’s permutation test, suppose we change the code to instead
+shuffle the values in the <code>"top_album_sales"</code> column, and
+rerun the simulation. How would this affect the resulting null
+distribution?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> All 10,000 simulated values would be exactly the same as before.</p></li>
+<li><p><input type="radio" disabled="" /> There would be slight variations in the null distribution but the
+histogram would look nearly identical.</p></li>
+<li><p><input type="radio" disabled="" /> There would be substantial differences in the null distribution if we
+were to make this change. The histograms would be noticeably
+different.</p></li>
+<li><p><input type="radio" disabled="" /> Without the full <code>bands</code> DataFrame available, we cannot
+predict how this change would affect the null distribution.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading14_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse14_4" aria-expanded="true" aria-controls="collapse14_4">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse14_4" class="accordion-collapse collapse"
+aria-labelledby="heading14_4" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer:</strong></p>
+<p>Option 2</p>
+<p><strong>Solution:</strong></p>
+<p>Shuffling the <code>"active"</code> labels and shuffling the
+<code>"top_album_sales"</code> values are <strong>statistically
+equivalent</strong> ways of breaking the association between group
+membership and album sales while preserving the original group sizes and
+sales values. Both methods therefore generate the same theoretical null
+distribution for the difference in group means. However, because the
+10,000 simulations are random, the individual simulated differences will
+not necessarily match between runs, so the resulting histograms should
+look nearly identical with only slight random variations.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 75%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+</div>
+<div class="lec-problem" data-avg="65.80" data-term="20224">
+<p class="meta"><em>Source:</em> <a href="../../fa22-final/index.html#problem-5">Question 5 from Fall 2022 Final Exam</a></p>
+<h2 data-src="fa22-final/q5" id="problem-15">Problem 15</h2>
+<p>Choose the best tool to answer each of the following questions. Note
+the following:</p>
+<ul>
+<li>By “hypothesis testing”, we mean “standard” hypothesis testing,
+i.e. hypothesis testing that <strong>doesn’t</strong> involve
+permutation testing or bootstrapping.</li>
+<li>By “bootstrapping”, we mean bootstrapping that
+<strong>doesn’t</strong> involve hypothesis testing.</li>
+</ul>
+<p><br></p>
+<h3 id="problem-15.1">Problem 15.1</h3>
+<p>Are incomes of applicants with 2 or fewer dependents drawn randomly
+from the distribution of incomes of all applicants?</p>
+<ul class="task-list">
+<li><p><input type="radio" disabled="" /> Hypothesis Testing</p></li>
+<li><p><input type="radio" disabled="" /> Permutation Testing</p></li>
+<li><p><input type="radio" disabled="" /> Bootstrapping</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading15_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15_1" aria-expanded="true" aria-controls="collapse15_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse15_1" class="accordion-collapse collapse"
+aria-labelledby="heading15_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2787,7 +3014,7 @@ drawn from a population seems plausible.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-14.2">Problem 14.2</h3>
+<h3 id="problem-15.2">Problem 15.2</h3>
 <p>What is the median income of credit card applicants with 2 or fewer
 dependents?</p>
 <ul class="task-list">
@@ -2797,13 +3024,13 @@ dependents?</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading14_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse14_2" aria-expanded="true" aria-controls="collapse14_2">
+<h2 class="accordion-header" id="heading15_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15_2" aria-expanded="true" aria-controls="collapse15_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse14_2" class="accordion-collapse collapse"
-aria-labelledby="heading14_2" data-bs-parent="#accordionExample">
+<div id="collapse15_2" class="accordion-collapse collapse"
+aria-labelledby="heading15_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2822,7 +3049,7 @@ boostrapping is the best tool.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-14.3">Problem 14.3</h3>
+<h3 id="problem-15.3">Problem 15.3</h3>
 <p>Are credit card applications approved through a random process in
 which 50% of applications are approved?</p>
 <ul class="task-list">
@@ -2832,13 +3059,13 @@ which 50% of applications are approved?</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading14_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse14_3" aria-expanded="true" aria-controls="collapse14_3">
+<h2 class="accordion-header" id="heading15_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15_3" aria-expanded="true" aria-controls="collapse15_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse14_3" class="accordion-collapse collapse"
-aria-labelledby="heading14_3" data-bs-parent="#accordionExample">
+<div id="collapse15_3" class="accordion-collapse collapse"
+aria-labelledby="heading15_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2860,7 +3087,7 @@ consistent with our observed data.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-14.4">Problem 14.4</h3>
+<h3 id="problem-15.4">Problem 15.4</h3>
 <p>Is the median income of applicants with 2 or fewer dependents less
 than the median income of applicants with 3 or more dependents?</p>
 <ul class="task-list">
@@ -2870,13 +3097,13 @@ than the median income of applicants with 3 or more dependents?</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading14_4">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse14_4" aria-expanded="true" aria-controls="collapse14_4">
+<h2 class="accordion-header" id="heading15_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15_4" aria-expanded="true" aria-controls="collapse15_4">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse14_4" class="accordion-collapse collapse"
-aria-labelledby="heading14_4" data-bs-parent="#accordionExample">
+<div id="collapse15_4" class="accordion-collapse collapse"
+aria-labelledby="heading15_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2897,7 +3124,7 @@ incomes is less than the other.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-14.5">Problem 14.5</h3>
+<h3 id="problem-15.5">Problem 15.5</h3>
 <p>What is the difference in median income of applicants with 2 or fewer
 dependents and applicants with 3 or more dependents?</p>
 <ul class="task-list">
@@ -2907,13 +3134,13 @@ dependents and applicants with 3 or more dependents?</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading14_5">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse14_5" aria-expanded="true" aria-controls="collapse14_5">
+<h2 class="accordion-header" id="heading15_5">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15_5" aria-expanded="true" aria-controls="collapse15_5">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse14_5" class="accordion-collapse collapse"
-aria-labelledby="heading14_5" data-bs-parent="#accordionExample">
+<div id="collapse15_5" class="accordion-collapse collapse"
+aria-labelledby="heading15_5" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2937,13 +3164,13 @@ parameter, bootstrapping is the best tool.</p>
 </div>
 <div class="lec-problem" data-avg="65.67" data-term="20262">
 <p class="meta"><em>Source:</em> <a href="../../sp26-quiz4/index.html#problem-3">Question 3 from Spring 2026 Quiz 4</a></p>
-<h2 data-src="sp26-quizzes/quiz4/q03" id="problem-15">Problem 15</h2>
+<h2 data-src="sp26-quizzes/quiz4/q03" id="problem-16">Problem 16</h2>
 <p>The housing director, Ella, wants to know whether Ray’s reservations
 have significantly higher prices than Pranav’s. Ella has access to
 <code>res</code> but no knowledge of the population distribution of
 reservation prices.</p>
 <p><br></p>
-<h3 id="problem-15.1">Problem 15.1</h3>
+<h3 id="problem-16.1">Problem 16.1</h3>
 <p>Which pair of hypotheses should be used for Ella’s test? Select the
 best answer.</p>
 <ul class="task-list">
@@ -2957,13 +3184,13 @@ with a larger mean than Pranav’s.</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading15_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15_1" aria-expanded="true" aria-controls="collapse15_1">
+<h2 class="accordion-header" id="heading16_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16_1" aria-expanded="true" aria-controls="collapse16_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse15_1" class="accordion-collapse collapse"
-aria-labelledby="heading15_1" data-bs-parent="#accordionExample">
+<div id="collapse16_1" class="accordion-collapse collapse"
+aria-labelledby="heading16_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2979,7 +3206,7 @@ aria-labelledby="heading15_1" data-bs-parent="#accordionExample">
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-15.2">Problem 15.2</h3>
+<h3 id="problem-16.2">Problem 16.2</h3>
 <p>Which of the following approaches are appropriate for Ella’s goal?
 Select all that apply.</p>
 <ul class="task-list">
@@ -2996,13 +3223,13 @@ whether it is too high.</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading15_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15_2" aria-expanded="true" aria-controls="collapse15_2">
+<h2 class="accordion-header" id="heading16_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16_2" aria-expanded="true" aria-controls="collapse16_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse15_2" class="accordion-collapse collapse"
-aria-labelledby="heading15_2" data-bs-parent="#accordionExample">
+<div id="collapse16_2" class="accordion-collapse collapse"
+aria-labelledby="heading16_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3018,7 +3245,7 @@ aria-labelledby="heading15_2" data-bs-parent="#accordionExample">
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-15.3">Problem 15.3</h3>
+<h3 id="problem-16.3">Problem 16.3</h3>
 <p>Suppose Ella performs a test where the test statistic is Pranav’s
 mean price minus Ray’s mean price. The observed value of the test
 statistic is <span class="math inline">-50.7</span>. Which simulated
@@ -3033,13 +3260,13 @@ statistics should be counted when computing the p-value?</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading15_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15_3" aria-expanded="true" aria-controls="collapse15_3">
+<h2 class="accordion-header" id="heading16_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16_3" aria-expanded="true" aria-controls="collapse16_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse15_3" class="accordion-collapse collapse"
-aria-labelledby="heading15_3" data-bs-parent="#accordionExample">
+<div id="collapse16_3" class="accordion-collapse collapse"
+aria-labelledby="heading16_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3059,7 +3286,7 @@ aria-labelledby="heading15_3" data-bs-parent="#accordionExample">
 </div>
 <div class="lec-problem" data-avg="65.18" data-term="20244">
 <p class="meta"><em>Source:</em> <a href="../../fa24-final/index.html#problem-5">Question 5 from Fall 2024 Final Exam</a></p>
-<h2 data-src="fa24-final/q05" id="problem-16">Problem 16</h2>
+<h2 data-src="fa24-final/q05" id="problem-17">Problem 17</h2>
 <p>Aathi is a movie enthusiast looking to dive into book-reading. He
 visits Bill’s Book Bonanza and asks for help from the employee on duty,
 Matilda.</p>
@@ -3072,7 +3299,7 @@ not contain information about the rating or genre of the books sold. To
 fix this, she merges the two DataFrames and keeps only the columns that
 she’ll need.</p>
 <p><br></p>
-<h3 id="problem-16.1">Problem 16.1</h3>
+<h3 id="problem-17.1">Problem 17.1</h3>
 <p>Fill in the blanks in the code below so that the resulting
 <code>merged</code> DataFrame has one row for each book in
 <code>matilda</code>, and columns representing the genre and rating of
@@ -3081,13 +3308,13 @@ each such book.</p>
                  .get([&quot;genre&quot;, &quot;rating&quot;]))</code></pre>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading16_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16_1" aria-expanded="true" aria-controls="collapse16_1">
+<h2 class="accordion-header" id="heading17_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse17_1" aria-expanded="true" aria-controls="collapse17_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse16_1" class="accordion-collapse collapse"
-aria-labelledby="heading16_1" data-bs-parent="#accordionExample">
+<div id="collapse17_1" class="accordion-collapse collapse"
+aria-labelledby="heading17_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3111,7 +3338,7 @@ column. We need to match it with the <code>"ISBN"</code> column in
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-16.2">Problem 16.2</h3>
+<h3 id="problem-17.2">Problem 17.2</h3>
 <p>In this example, <code>matilda</code> and <code>merged</code> have
 the same number of rows. Why is this the case? Choose the answer which
 is sufficient alone to guarantee the same number of rows.</p>
@@ -3127,13 +3354,13 @@ in <code>bookstore</code>.</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading16_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16_2" aria-expanded="true" aria-controls="collapse16_2">
+<h2 class="accordion-header" id="heading17_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse17_2" aria-expanded="true" aria-controls="collapse17_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse16_2" class="accordion-collapse collapse"
-aria-labelledby="heading16_2" data-bs-parent="#accordionExample">
+<div id="collapse17_2" class="accordion-collapse collapse"
+aria-labelledby="heading17_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3165,19 +3392,19 @@ highest mean rating. Note that the <code>"rating"</code> column in
 <code>top_two</code> represents a mean rating across many books of the
 same genre, not the rating of any individual book.</p>
 <p><br></p>
-<h3 id="problem-16.3">Problem 16.3</h3>
+<h3 id="problem-17.3">Problem 17.3</h3>
 <p>Write one line of code to define the DataFrame <code>top_two</code>
 as described above. It’s okay if you need to write your answer on
 multiple lines, as long as it represents one line of code.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading16_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16_3" aria-expanded="true" aria-controls="collapse16_3">
+<h2 class="accordion-header" id="heading17_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse17_3" aria-expanded="true" aria-controls="collapse17_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse16_3" class="accordion-collapse collapse"
-aria-labelledby="heading16_3" data-bs-parent="#accordionExample">
+<div id="collapse17_3" class="accordion-collapse collapse"
+aria-labelledby="heading17_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3209,7 +3436,7 @@ he makes his purchase, he decides to do a permutation test to determine
 whether fantasy books have higher ratings than mystery books in this
 larger population.</p>
 <p><br></p>
-<h3 id="problem-16.4">Problem 16.4</h3>
+<h3 id="problem-17.4">Problem 17.4</h3>
 <p>Select the best statement of the null hypothesis for this permutation
 test.</p>
 <ul class="task-list">
@@ -3222,13 +3449,13 @@ same rating as mystery books, on average.</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading16_4">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16_4" aria-expanded="true" aria-controls="collapse16_4">
+<h2 class="accordion-header" id="heading17_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse17_4" aria-expanded="true" aria-controls="collapse17_4">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse16_4" class="accordion-collapse collapse"
-aria-labelledby="heading16_4" data-bs-parent="#accordionExample">
+<div id="collapse17_4" class="accordion-collapse collapse"
+aria-labelledby="heading17_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3248,7 +3475,7 @@ books have the same average ratings.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-16.5">Problem 16.5</h3>
+<h3 id="problem-17.5">Problem 17.5</h3>
 <p>Select the best statement of the alternative hypothesis for this
 permutation test.</p>
 <ul class="task-list">
@@ -3261,13 +3488,13 @@ same rating as mystery books, on average.</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading16_5">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16_5" aria-expanded="true" aria-controls="collapse16_5">
+<h2 class="accordion-header" id="heading17_5">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse17_5" aria-expanded="true" aria-controls="collapse17_5">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse16_5" class="accordion-collapse collapse"
-aria-labelledby="heading16_5" data-bs-parent="#accordionExample">
+<div id="collapse17_5" class="accordion-collapse collapse"
+aria-labelledby="heading17_5" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3287,19 +3514,19 @@ the null hypothesis.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-16.6">Problem 16.6</h3>
+<h3 id="problem-17.6">Problem 17.6</h3>
 <p>Aathi decides to use the mean rating for mystery books minus the mean
 rating for fantasy books as his test statistic. What is his observed
 value of this statistic?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading16_6">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16_6" aria-expanded="true" aria-controls="collapse16_6">
+<h2 class="accordion-header" id="heading17_6">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse17_6" aria-expanded="true" aria-controls="collapse17_6">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse16_6" class="accordion-collapse collapse"
-aria-labelledby="heading16_6" data-bs-parent="#accordionExample">
+<div id="collapse17_6" class="accordion-collapse collapse"
+aria-labelledby="heading17_6" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3317,7 +3544,7 @@ DataFrame in the order mystery minus fantasy: <span class="math inline">4.53 - 4
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-16.7">Problem 16.7</h3>
+<h3 id="problem-17.7">Problem 17.7</h3>
 <p>Which of the following best describes how Aathi will interpret the
 results of his permutation test?</p>
 <ul class="task-list">
@@ -3330,13 +3557,13 @@ towards the alternative hypothesis.</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading16_7">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16_7" aria-expanded="true" aria-controls="collapse16_7">
+<h2 class="accordion-header" id="heading17_7">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse17_7" aria-expanded="true" aria-controls="collapse17_7">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse16_7" class="accordion-collapse collapse"
-aria-labelledby="heading16_7" data-bs-parent="#accordionExample">
+<div id="collapse17_7" class="accordion-collapse collapse"
+aria-labelledby="heading17_7" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3357,7 +3584,7 @@ us to reject the null in favor of the alternative.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-16.8">Problem 16.8</h3>
+<h3 id="problem-17.8">Problem 17.8</h3>
 <p>Fill in the blanks in the following code to perform Aathi’s
 permutation test.</p>
 <pre><code>just_two = merged[(merged.get(&quot;genre&quot;) == &quot;Fantasy&quot;) |
@@ -3372,13 +3599,13 @@ for i in np.arange(10000):
     rating_stats = np.append(rating_stats, mystery_mean - fantasy_mean)</code></pre>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading16_8">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16_8" aria-expanded="true" aria-controls="collapse16_8">
+<h2 class="accordion-header" id="heading17_8">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse17_8" aria-expanded="true" aria-controls="collapse17_8">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse16_8" class="accordion-collapse collapse"
-aria-labelledby="heading16_8" data-bs-parent="#accordionExample">
+<div id="collapse17_8" class="accordion-collapse collapse"
+aria-labelledby="heading17_8" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3414,7 +3641,7 @@ on this problem was 60%.</p></li>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-16.9">Problem 16.9</h3>
+<h3 id="problem-17.9">Problem 17.9</h3>
 <p>Aathi gets a <code>p_value</code> of <span
 class="math inline">0.008</span>, and he will base his purchase on this
 result, using the standard p-value cutoff of <span
@@ -3431,13 +3658,13 @@ book.</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading16_9">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16_9" aria-expanded="true" aria-controls="collapse16_9">
+<h2 class="accordion-header" id="heading17_9">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse17_9" aria-expanded="true" aria-controls="collapse17_9">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse16_9" class="accordion-collapse collapse"
-aria-labelledby="heading16_9" data-bs-parent="#accordionExample">
+<div id="collapse17_9" class="accordion-collapse collapse"
+aria-labelledby="heading17_9" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3461,12 +3688,12 @@ assumptions of the null hypothesis.</p>
 </div>
 <div class="lec-problem" data-avg="63.50" data-term="20223">
 <p class="meta"><em>Source:</em> <a href="../../su22-final/index.html#problem-7">Question 7 from Summer 2022 Final Exam</a></p>
-<h2 data-src="su22-final/q7-which-test" id="problem-17">Problem 17</h2>
+<h2 data-src="su22-final/q7-which-test" id="problem-18">Problem 18</h2>
 <p>Suppose Tiffany has a random sample of dogs. Select the most
 appropriate technique to answer each of the following questions using
 Tiffany’s dog sample.</p>
 <p><br></p>
-<h3 id="problem-17.1">Problem 17.1</h3>
+<h3 id="problem-18.1">Problem 18.1</h3>
 <p>Do small dogs typically live longer than medium and large dogs?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> Standard hypothesis test</p></li>
@@ -3475,13 +3702,13 @@ Tiffany’s dog sample.</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading17_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse17_1" aria-expanded="true" aria-controls="collapse17_1">
+<h2 class="accordion-header" id="heading18_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse18_1" aria-expanded="true" aria-controls="collapse18_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse17_1" class="accordion-collapse collapse"
-aria-labelledby="heading17_1" data-bs-parent="#accordionExample">
+<div id="collapse18_1" class="accordion-collapse collapse"
+aria-labelledby="heading18_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3506,7 +3733,7 @@ good idea here.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-17.2">Problem 17.2</h3>
+<h3 id="problem-18.2">Problem 18.2</h3>
 <p>Does Tiffany’s sample have an even distribution of dog kinds?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> Standard hypothesis test</p></li>
@@ -3515,13 +3742,13 @@ good idea here.</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading17_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse17_2" aria-expanded="true" aria-controls="collapse17_2">
+<h2 class="accordion-header" id="heading18_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse18_2" aria-expanded="true" aria-controls="collapse18_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse17_2" class="accordion-collapse collapse"
-aria-labelledby="heading17_2" data-bs-parent="#accordionExample">
+<div id="collapse18_2" class="accordion-collapse collapse"
+aria-labelledby="heading18_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3543,7 +3770,7 @@ Distance as our test statistic.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-17.3">Problem 17.3</h3>
+<h3 id="problem-18.3">Problem 18.3</h3>
 <p>What’s the median weight for herding dogs?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> Standard hypothesis test</p></li>
@@ -3552,13 +3779,13 @@ Distance as our test statistic.</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading17_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse17_3" aria-expanded="true" aria-controls="collapse17_3">
+<h2 class="accordion-header" id="heading18_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse18_3" aria-expanded="true" aria-controls="collapse18_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse17_3" class="accordion-collapse collapse"
-aria-labelledby="heading17_3" data-bs-parent="#accordionExample">
+<div id="collapse18_3" class="accordion-collapse collapse"
+aria-labelledby="heading18_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3577,7 +3804,7 @@ sense in this context.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-17.4">Problem 17.4</h3>
+<h3 id="problem-18.4">Problem 18.4</h3>
 <p>Do dogs live longer than 12 years on average?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> Standard hypothesis test</p></li>
@@ -3586,13 +3813,13 @@ sense in this context.</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading17_4">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse17_4" aria-expanded="true" aria-controls="collapse17_4">
+<h2 class="accordion-header" id="heading18_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse18_4" aria-expanded="true" aria-controls="collapse18_4">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse17_4" class="accordion-collapse collapse"
-aria-labelledby="heading17_4" data-bs-parent="#accordionExample">
+<div id="collapse18_4" class="accordion-collapse collapse"
+aria-labelledby="heading18_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3617,7 +3844,7 @@ sense in this context.</p>
 </div>
 <div class="lec-problem" data-avg="63.00" data-term="20243">
 <p class="meta"><em>Source:</em> <a href="../../su24-final/index.html#problem-6">Question 6 from Summer 2024 Final Exam</a></p>
-<h2 data-src="su24-final/q06" id="problem-18">Problem 18</h2>
+<h2 data-src="su24-final/q06" id="problem-19">Problem 19</h2>
 <p>You want to use the data in <code>stages</code> to test the following
 hypotheses:</p>
 <ul>
@@ -3633,7 +3860,7 @@ to <code>stages</code> called <code>class</code>, which categorizes
 stages into either <code>flat</code> or <code>mountain</code>
 stages.</p>
 <p><br></p>
-<h3 id="problem-18.1">Problem 18.1</h3>
+<h3 id="problem-19.1">Problem 19.1</h3>
 <p>Which of the following test statistics could be used to test the
 given hypothesis? Select all that apply.</p>
 <ul class="task-list">
@@ -3650,13 +3877,13 @@ the mean distance of mountain stages.</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading18_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse18_1" aria-expanded="true" aria-controls="collapse18_1">
+<h2 class="accordion-header" id="heading19_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse19_1" aria-expanded="true" aria-controls="collapse19_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse18_1" class="accordion-collapse collapse"
-aria-labelledby="heading18_1" data-bs-parent="#accordionExample">
+<div id="collapse19_1" class="accordion-collapse collapse"
+aria-labelledby="heading19_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3705,33 +3932,33 @@ following test statistic: <strong>The difference between the mean
 distance of flat stages and the mean dis- tance of mountain
 stages.</strong></p>
 <p><br></p>
-<h3 id="problem-18.2">Problem 18.2</h3>
+<h3 id="problem-19.2">Problem 19.2</h3>
 <p>Fill in the blanks in the code below so that it correctly conducts a
 hypothesis test of the given hypotheses and returns the p-value.</p>
-<div class="sourceCode" id="cb24"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> hypothesis_test(stages):</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    means <span class="op">=</span> stages.get([<span class="st">&quot;class&quot;</span>, <span class="st">&quot;Distance&quot;</span>]).groupby(<span class="st">&quot;class&quot;</span>).mean().get(<span class="st">&quot;Distance&quot;</span>)</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    observed_stat <span class="op">=</span> means.loc[<span class="st">&quot;flat&quot;</span>] <span class="op">-</span> means.loc[<span class="st">&quot;mountain&quot;</span>]</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    simulated_stats <span class="op">=</span> np.array([])</span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>        shuffled <span class="op">=</span> stages.assign(shuffled <span class="op">=</span> np.random.__(i)__(stages.get(<span class="st">&quot;Distance&quot;</span>)))</span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>        shuffled_means <span class="op">=</span> shuffled.get([<span class="st">&quot;class&quot;</span>, <span class="st">&quot;shuffled&quot;</span>]).groupby(<span class="st">&quot;class&quot;</span>).mean().get(<span class="st">&quot;shuffled&quot;</span>)</span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>        simulated_stat <span class="op">=</span> (shuffled_means.loc[<span class="st">&quot;flat&quot;</span>] <span class="op">-</span> shuffled_means.loc[<span class="st">&quot;mountain&quot;</span>])</span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>        simulated_stats <span class="op">=</span> __(ii)__(simulated_stats, simulated_stat)</span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>    p_value <span class="op">=</span> np.__(iii)__(simulated_stats <span class="op">&lt;=</span> observed_stat)</span>
-<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> p_value</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> hypothesis_test(stages):</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    means <span class="op">=</span> stages.get([<span class="st">&quot;class&quot;</span>, <span class="st">&quot;Distance&quot;</span>]).groupby(<span class="st">&quot;class&quot;</span>).mean().get(<span class="st">&quot;Distance&quot;</span>)</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    observed_stat <span class="op">=</span> means.loc[<span class="st">&quot;flat&quot;</span>] <span class="op">-</span> means.loc[<span class="st">&quot;mountain&quot;</span>]</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    simulated_stats <span class="op">=</span> np.array([])</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>        shuffled <span class="op">=</span> stages.assign(shuffled <span class="op">=</span> np.random.__(i)__(stages.get(<span class="st">&quot;Distance&quot;</span>)))</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>        shuffled_means <span class="op">=</span> shuffled.get([<span class="st">&quot;class&quot;</span>, <span class="st">&quot;shuffled&quot;</span>]).groupby(<span class="st">&quot;class&quot;</span>).mean().get(<span class="st">&quot;shuffled&quot;</span>)</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>        simulated_stat <span class="op">=</span> (shuffled_means.loc[<span class="st">&quot;flat&quot;</span>] <span class="op">-</span> shuffled_means.loc[<span class="st">&quot;mountain&quot;</span>])</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>        simulated_stats <span class="op">=</span> __(ii)__(simulated_stats, simulated_stat)</span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>    p_value <span class="op">=</span> np.__(iii)__(simulated_stats <span class="op">&lt;=</span> observed_stat)</span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> p_value</span></code></pre></div>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading18_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse18_2" aria-expanded="true" aria-controls="collapse18_2">
+<h2 class="accordion-header" id="heading19_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse19_2" aria-expanded="true" aria-controls="collapse19_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse18_2" class="accordion-collapse collapse"
-aria-labelledby="heading18_2" data-bs-parent="#accordionExample">
+<div id="collapse19_2" class="accordion-collapse collapse"
+aria-labelledby="heading19_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3770,36 +3997,36 @@ and 1’s is equivalent to the probability.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-18.3">Problem 18.3</h3>
+<h3 id="problem-19.3">Problem 19.3</h3>
 <p>Indicate whether each of the following code snippets would correctly
 calculate <code>simulated_stat</code> inside the <code>for</code>-loop
 without errors. Where present, assume the blank <code>(i)</code> has
 been filled in correctly.</p>
-<div class="sourceCode" id="cb25"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>shuffled <span class="op">=</span> stages.assign(shuffled <span class="op">=</span> np.random.__(i)__(stages.get(<span class="st">&quot;Distance&quot;</span>)))</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>shuffled_flat <span class="op">=</span> (shuffled[shuffled.get(<span class="st">&quot;class&quot;</span>) <span class="op">==</span> <span class="st">&quot;flat&quot;</span>].get(<span class="st">&quot;shuffled&quot;</span>))</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>shuffled_mountain <span class="op">=</span> (shuffled[shuffled.get(<span class="st">&quot;class&quot;</span>) <span class="op">==</span> <span class="st">&quot;mountain&quot;</span>].get(<span class="st">&quot;shuffled&quot;</span>))</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>simulated_stat <span class="op">=</span> shuffled_flat.mean() <span class="op">-</span> shuffled_mountain.mean()</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>shuffled <span class="op">=</span> stages.assign(shuffled <span class="op">=</span> np.random.__(i)__(stages.get(<span class="st">&quot;Distance&quot;</span>)))</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>shuffled_flat <span class="op">=</span> (shuffled[shuffled.get(<span class="st">&quot;class&quot;</span>) <span class="op">==</span> <span class="st">&quot;flat&quot;</span>].get(<span class="st">&quot;shuffled&quot;</span>))</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>shuffled_mountain <span class="op">=</span> (shuffled[shuffled.get(<span class="st">&quot;class&quot;</span>) <span class="op">==</span> <span class="st">&quot;mountain&quot;</span>].get(<span class="st">&quot;shuffled&quot;</span>))</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>simulated_stat <span class="op">=</span> shuffled_flat.mean() <span class="op">-</span> shuffled_mountain.mean()</span></code></pre></div>
 <p>(i):</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> This code is correct.</p></li>
 <li><p><input type="radio" disabled="" /> This code is incorrect or errors.</p></li>
 </ul>
-<div class="sourceCode" id="cb26"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>shuffled <span class="op">=</span> stages.assign(shuffled <span class="op">=</span> np.random.__(i)__(stages.get(<span class="st">&quot;class&quot;</span>)))</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>shuffled_flat <span class="op">=</span> (shuffled[shuffled.get(<span class="st">&quot;shuffled&quot;</span>) <span class="op">==</span> <span class="st">&quot;flat&quot;</span>].get(<span class="st">&quot;Distance&quot;</span>))</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>shuffled_mountain <span class="op">=</span> (shuffled[shuffled.get(<span class="st">&quot;shuffled&quot;</span>) <span class="op">==</span> <span class="st">&quot;mountain&quot;</span>].get(<span class="st">&quot;Distance&quot;</span>))</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>simulated_stat <span class="op">=</span> shuffled_flat.mean() <span class="op">-</span> shuffled_mountain.mean()</span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>shuffled <span class="op">=</span> stages.assign(shuffled <span class="op">=</span> np.random.__(i)__(stages.get(<span class="st">&quot;class&quot;</span>)))</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>shuffled_flat <span class="op">=</span> (shuffled[shuffled.get(<span class="st">&quot;shuffled&quot;</span>) <span class="op">==</span> <span class="st">&quot;flat&quot;</span>].get(<span class="st">&quot;Distance&quot;</span>))</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>shuffled_mountain <span class="op">=</span> (shuffled[shuffled.get(<span class="st">&quot;shuffled&quot;</span>) <span class="op">==</span> <span class="st">&quot;mountain&quot;</span>].get(<span class="st">&quot;Distance&quot;</span>))</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>simulated_stat <span class="op">=</span> shuffled_flat.mean() <span class="op">-</span> shuffled_mountain.mean()</span></code></pre></div>
 <p>(ii):</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> This code is correct.</p></li>
 <li><p><input type="radio" disabled="" /> This code is incorrect or errors.</p></li>
 </ul>
-<div class="sourceCode" id="cb27"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>shuffled <span class="op">=</span> stages.assign(shuffled <span class="op">=</span> np.random.__(i)__(stages.get(<span class="st">&quot;Distance&quot;</span>)))</span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>shuffled_means <span class="op">=</span> shuffled.get([<span class="st">&quot;class&quot;</span>, <span class="st">&quot;Distance&quot;</span>]).groupby(<span class="st">&quot;class&quot;</span>).mean()</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>simulated_stat <span class="op">=</span> (shuffled_means.get(<span class="st">&quot;Distance&quot;</span>).iloc[<span class="st">&quot;flat&quot;</span>] <span class="op">-</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>                  shuffled_means.get(<span class="st">&quot;Distance&quot;</span>).iloc[<span class="st">&quot;mountain&quot;</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>shuffled <span class="op">=</span> stages.assign(shuffled <span class="op">=</span> np.random.__(i)__(stages.get(<span class="st">&quot;Distance&quot;</span>)))</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>shuffled_means <span class="op">=</span> shuffled.get([<span class="st">&quot;class&quot;</span>, <span class="st">&quot;Distance&quot;</span>]).groupby(<span class="st">&quot;class&quot;</span>).mean()</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>simulated_stat <span class="op">=</span> (shuffled_means.get(<span class="st">&quot;Distance&quot;</span>).iloc[<span class="st">&quot;flat&quot;</span>] <span class="op">-</span></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>                  shuffled_means.get(<span class="st">&quot;Distance&quot;</span>).iloc[<span class="st">&quot;mountain&quot;</span>])</span></code></pre></div>
 <p>(iii):</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> This code is correct.</p></li>
@@ -3807,13 +4034,13 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb27-1"><a href=
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading18_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse18_3" aria-expanded="true" aria-controls="collapse18_3">
+<h2 class="accordion-header" id="heading19_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse19_3" aria-expanded="true" aria-controls="collapse19_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse18_3" class="accordion-collapse collapse"
-aria-labelledby="heading18_3" data-bs-parent="#accordionExample">
+<div id="collapse19_3" class="accordion-collapse collapse"
+aria-labelledby="heading19_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3861,7 +4088,7 @@ this answer incorrect.</li>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-18.4">Problem 18.4</h3>
+<h3 id="problem-19.4">Problem 19.4</h3>
 <p>Assume that the observed statistic for this hypothesis test was equal
 to -22.5 km. Given that there are 10,000 simulated test statistics
 generated in the code above, at least how many of those must be equal to
@@ -3876,13 +4103,13 @@ at an 0.05 significance level?</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading18_4">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse18_4" aria-expanded="true" aria-controls="collapse18_4">
+<h2 class="accordion-header" id="heading19_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse19_4" aria-expanded="true" aria-controls="collapse19_4">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse18_4" class="accordion-collapse collapse"
-aria-labelledby="heading18_4" data-bs-parent="#accordionExample">
+<div id="collapse19_4" class="accordion-collapse collapse"
+aria-labelledby="heading19_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3905,20 +4132,20 @@ the observed value. Thus, the answer is 0.</p>
 </div>
 </div>
 <p><br> <br></p>
-<h3 id="problem-18.5">Problem 18.5</h3>
+<h3 id="problem-19.5">Problem 19.5</h3>
 <p>Assume that the code above generated a p-value of 0.03. In the space
 below, please write your interpretation of this p-value. Your answer
 should include more than simply “we reject/fail to reject the null
 hypothesis.”</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading18_5">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse18_5" aria-expanded="true" aria-controls="collapse18_5">
+<h2 class="accordion-header" id="heading19_5">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse19_5" aria-expanded="true" aria-controls="collapse19_5">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse18_5" class="accordion-collapse collapse"
-aria-labelledby="heading18_5" data-bs-parent="#accordionExample">
+<div id="collapse19_5" class="accordion-collapse collapse"
+aria-labelledby="heading19_5" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3945,7 +4172,7 @@ equal to or less than -22.5km.</p>
 </div>
 <div class="lec-problem" data-avg="58.83" data-term="20224">
 <p class="meta"><em>Source:</em> <a href="../../fa22-final/index.html#problem-4">Question 4 from Fall 2022 Final Exam</a></p>
-<h2 data-src="fa22-final/q4" id="problem-19">Problem 19</h2>
+<h2 data-src="fa22-final/q4" id="problem-20">Problem 20</h2>
 <p>In <code>apps</code>, our sample of 1,000 credit card applications,
 applicants who were approved for the credit card have fewer dependents,
 on average, than applicants who were denied. The mean number of
@@ -3956,24 +4183,24 @@ whether the distributions of the number of dependents for approved and
 denied applicants are truly different in the population of all credit
 card applications, we decide to perform a permutation test.</p>
 <p>Consider the incomplete code block below.</p>
-<div class="sourceCode" id="cb28"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> shuffle_status(df):</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>    shuffled_status <span class="op">=</span> np.random.permutation(df.get(<span class="st">&quot;status&quot;</span>))</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df.assign(status<span class="op">=</span>shuffled_status).get([<span class="st">&quot;status&quot;</span>, <span class="st">&quot;dependents&quot;</span>])</span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_stat(df):</span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>    grouped <span class="op">=</span> df.get([<span class="st">&quot;status&quot;</span>, <span class="st">&quot;dependents&quot;</span>]).groupby(<span class="st">&quot;status&quot;</span>).mean().get(<span class="st">&quot;dependents&quot;</span>)</span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    approved <span class="op">=</span> grouped.loc[<span class="st">&quot;approved&quot;</span>]</span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>    denied <span class="op">=</span> grouped.loc[<span class="st">&quot;denied&quot;</span>]</span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> __(a)__</span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>stats <span class="op">=</span> np.array([])</span>
-<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
-<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>    shuffled_apps <span class="op">=</span> shuffle_status(apps)</span>
-<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>    stat <span class="op">=</span> test_stat(shuffled_apps)</span>
-<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>    stats <span class="op">=</span> np.append(stats, stat)</span>
-<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>p_value <span class="op">=</span> np.count_nonzero(__(b)__) <span class="op">/</span> <span class="dv">10000</span></span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> shuffle_status(df):</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>    shuffled_status <span class="op">=</span> np.random.permutation(df.get(<span class="st">&quot;status&quot;</span>))</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df.assign(status<span class="op">=</span>shuffled_status).get([<span class="st">&quot;status&quot;</span>, <span class="st">&quot;dependents&quot;</span>])</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> test_stat(df):</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    grouped <span class="op">=</span> df.get([<span class="st">&quot;status&quot;</span>, <span class="st">&quot;dependents&quot;</span>]).groupby(<span class="st">&quot;status&quot;</span>).mean().get(<span class="st">&quot;dependents&quot;</span>)</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>    approved <span class="op">=</span> grouped.loc[<span class="st">&quot;approved&quot;</span>]</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>    denied <span class="op">=</span> grouped.loc[<span class="st">&quot;denied&quot;</span>]</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> __(a)__</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>stats <span class="op">=</span> np.array([])</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>    shuffled_apps <span class="op">=</span> shuffle_status(apps)</span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>    stat <span class="op">=</span> test_stat(shuffled_apps)</span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>    stats <span class="op">=</span> np.append(stats, stat)</span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>p_value <span class="op">=</span> np.count_nonzero(__(b)__) <span class="op">/</span> <span class="dv">10000</span></span></code></pre></div>
 <p>Below are six options for filling in blanks (a) and (b) in the code
 above.</p>
 <center>
@@ -4022,7 +4249,7 @@ above.</p>
 <p>The correct way to fill in the blanks depends on how we choose our
 null and alternative hypotheses.</p>
 <p><br></p>
-<h3 id="problem-19.1">Problem 19.1</h3>
+<h3 id="problem-20.1">Problem 20.1</h3>
 <p>Suppose we choose the following pair of hypotheses.</p>
 <ul>
 <li><p><strong>Null Hypothesis</strong>: In the population, the number
@@ -4045,13 +4272,13 @@ and (b) for this pair of hypotheses? Select all that apply.</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading19_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse19_1" aria-expanded="true" aria-controls="collapse19_1">
+<h2 class="accordion-header" id="heading20_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse20_1" aria-expanded="true" aria-controls="collapse20_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse19_1" class="accordion-collapse collapse"
-aria-labelledby="heading19_1" data-bs-parent="#accordionExample">
+<div id="collapse20_1" class="accordion-collapse collapse"
+aria-labelledby="heading20_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -4085,7 +4312,7 @@ blank (b) correctly. Options 4 and 6 fill in both blanks correctly.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-19.2">Problem 19.2</h3>
+<h3 id="problem-20.2">Problem 20.2</h3>
 <p>Now, suppose we choose the following pair of hypotheses.</p>
 <ul>
 <li><p><strong>Null Hypothesis</strong>: In the population, the number
@@ -4099,13 +4326,13 @@ the number of dependents of denied applicants.</p></li>
 and (b) for this pair of hypotheses? Select all that apply.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading19_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse19_2" aria-expanded="true" aria-controls="collapse19_2">
+<h2 class="accordion-header" id="heading20_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse20_2" aria-expanded="true" aria-controls="collapse20_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse19_2" class="accordion-collapse collapse"
-aria-labelledby="heading19_2" data-bs-parent="#accordionExample">
+<div id="collapse20_2" class="accordion-collapse collapse"
+aria-labelledby="heading20_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -4135,7 +4362,7 @@ statistic used in blank (a).</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-19.3">Problem 19.3</h3>
+<h3 id="problem-20.3">Problem 20.3</h3>
 <p>Option 6 from the start of this question is repeated below.</p>
 <center>
 <table class="table" style="width:50%">
@@ -4185,13 +4412,13 @@ equivalent to Option 6?</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading19_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse19_3" aria-expanded="true" aria-controls="collapse19_3">
+<h2 class="accordion-header" id="heading20_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse20_3" aria-expanded="true" aria-controls="collapse20_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse19_3" class="accordion-collapse collapse"
-aria-labelledby="heading19_3" data-bs-parent="#accordionExample">
+<div id="collapse20_3" class="accordion-collapse collapse"
+aria-labelledby="heading20_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -4228,7 +4455,7 @@ a pair of random samples is larger than the absolute value of
 </div>
 <p><br></p>
 <p><br></p>
-<h3 id="problem-19.4">Problem 19.4</h3>
+<h3 id="problem-20.4">Problem 20.4</h3>
 <p>In our implementation of this permutation test, we followed the
 procedure outlined in lecture to draw new pairs of samples under the
 null hypothesis and compute test statistics — that is, we randomly
@@ -4256,31 +4483,31 @@ dependents for denied and approved applicants, in the order
 below.</strong></p>
 <p><em>Hint:</em> <code>np.random.permutation</code> shouldn’t appear
 anywhere in your code.</p>
-<div class="sourceCode" id="cb29"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> shuffle_all(df):</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>        <span class="co">&#39;&#39;&#39;Returns a DataFrame with the same rows as df, but reordered.&#39;&#39;&#39;</span></span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> __(a)__</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> fast_stat(df):</span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>        <span class="co"># This function does not and should not contain any randomness.</span></span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>        denied <span class="op">=</span> np.count_nonzero(df.get(<span class="st">&quot;status&quot;</span>) <span class="op">==</span> <span class="st">&quot;denied&quot;</span>)</span>
-<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>        mean_denied <span class="op">=</span> __(b)__.get(<span class="st">&quot;dependents&quot;</span>).mean()</span>
-<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>        mean_approved <span class="op">=</span> __(c)__.get(<span class="st">&quot;dependents&quot;</span>).mean()</span>
-<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> mean_denied <span class="op">-</span> mean_approved</span>
-<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>    stats <span class="op">=</span> np.array([])</span>
-<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
-<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>        stat <span class="op">=</span> fast_stat(shuffle_all(apps))</span>
-<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>        stats <span class="op">=</span> np.append(stats, stat)</span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> shuffle_all(df):</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>        <span class="co">&#39;&#39;&#39;Returns a DataFrame with the same rows as df, but reordered.&#39;&#39;&#39;</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> __(a)__</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> fast_stat(df):</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>        <span class="co"># This function does not and should not contain any randomness.</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>        denied <span class="op">=</span> np.count_nonzero(df.get(<span class="st">&quot;status&quot;</span>) <span class="op">==</span> <span class="st">&quot;denied&quot;</span>)</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>        mean_denied <span class="op">=</span> __(b)__.get(<span class="st">&quot;dependents&quot;</span>).mean()</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>        mean_approved <span class="op">=</span> __(c)__.get(<span class="st">&quot;dependents&quot;</span>).mean()</span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> mean_denied <span class="op">-</span> mean_approved</span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>    stats <span class="op">=</span> np.array([])</span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>        stat <span class="op">=</span> fast_stat(shuffle_all(apps))</span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>        stats <span class="op">=</span> np.append(stats, stat)</span></code></pre></div>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading19_4">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse19_4" aria-expanded="true" aria-controls="collapse19_4">
+<h2 class="accordion-header" id="heading20_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse20_4" aria-expanded="true" aria-controls="collapse20_4">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse19_4" class="accordion-collapse collapse"
-aria-labelledby="heading19_4" data-bs-parent="#accordionExample">
+<div id="collapse20_4" class="accordion-collapse collapse"
+aria-labelledby="heading20_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -4349,7 +4576,7 @@ corresponding to denied applications, we would shuffle the rows of
 </div>
 <div class="lec-problem" data-avg="57.80" data-term="20231">
 <p class="meta"><em>Source:</em> <a href="../../wi23-final/index.html#problem-9">Question 9 from Winter 2023 Final Exam</a></p>
-<h2 data-src="wi23-final/q9" id="problem-20">Problem 20</h2>
+<h2 data-src="wi23-final/q9" id="problem-21">Problem 21</h2>
 <p>The function <code>perm_test</code> should take three inputs:</p>
 <ol type="1">
 <li><code>df</code>, a DataFrame.</li>
@@ -4373,33 +4600,33 @@ alphabetically. Note that <strong><code>groupby</code></strong> orders
 the rows in ascending order by default.</p>
 <p>An incorrect implementation of <code>perm_test</code> is provided
 below.</p>
-<div class="sourceCode" id="cb30"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="kw">def</span> perm_test(df, labels, data):</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>   diffs <span class="op">=</span> np.array([])</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>   <span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">1000</span>):</span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span>       df.assign(shuffled<span class="op">=</span>np.random.permutation(df.get(data)))</span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span>       means <span class="op">=</span> df.groupby(labels).mean().get(data)</span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span>       diff <span class="op">=</span> means.iloc[<span class="dv">0</span>] <span class="op">-</span> means.iloc[<span class="dv">1</span>]</span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span>       diffs <span class="op">=</span> np.append(diffs, diff)</span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="dv">8</span>       <span class="cf">return</span> diffs</span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="kw">def</span> perm_test(df, labels, data):</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>   diffs <span class="op">=</span> np.array([])</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>   <span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">1000</span>):</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span>       df.assign(shuffled<span class="op">=</span>np.random.permutation(df.get(data)))</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span>       means <span class="op">=</span> df.groupby(labels).mean().get(data)</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span>       diff <span class="op">=</span> means.iloc[<span class="dv">0</span>] <span class="op">-</span> means.iloc[<span class="dv">1</span>]</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a><span class="dv">7</span>       diffs <span class="op">=</span> np.append(diffs, diff)</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="dv">8</span>       <span class="cf">return</span> diffs</span></code></pre></div>
 <p>Three lines of code above are incorrect. Your job is to identify
 which lines of code are incorrect, and describe briefly in English how
 you would fix them. You don’t need to explain why the current code is
 wrong, just how to fix it.</p>
 <p><br></p>
-<h3 id="problem-20.1">Problem 20.1</h3>
+<h3 id="problem-21.1">Problem 21.1</h3>
 <p>The first line that is incorrect is line number: _______</p>
 <p>Explain in one sentence how to change this line. Do not write
 code.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading20_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse20_1" aria-expanded="true" aria-controls="collapse20_1">
+<h2 class="accordion-header" id="heading21_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21_1" aria-expanded="true" aria-controls="collapse21_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse20_1" class="accordion-collapse collapse"
-aria-labelledby="heading20_1" data-bs-parent="#accordionExample">
+<div id="collapse21_1" class="accordion-collapse collapse"
+aria-labelledby="heading21_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -4419,19 +4646,19 @@ to a variable called <code>df</code>.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-20.2">Problem 20.2</h3>
+<h3 id="problem-21.2">Problem 21.2</h3>
 <p>The second line that is incorrect is line number: _______</p>
 <p>Explain in one sentence how to change this line. Do not write
 code.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading20_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse20_2" aria-expanded="true" aria-controls="collapse20_2">
+<h2 class="accordion-header" id="heading21_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21_2" aria-expanded="true" aria-controls="collapse21_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse20_2" class="accordion-collapse collapse"
-aria-labelledby="heading20_2" data-bs-parent="#accordionExample">
+<div id="collapse21_2" class="accordion-collapse collapse"
+aria-labelledby="heading21_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -4454,19 +4681,19 @@ columns.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-20.3">Problem 20.3</h3>
+<h3 id="problem-21.3">Problem 21.3</h3>
 <p>The third line that is incorrect is line number: _______</p>
 <p>Explain in one sentence how to change this line. Do not write
 code.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading20_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse20_3" aria-expanded="true" aria-controls="collapse20_3">
+<h2 class="accordion-header" id="heading21_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21_3" aria-expanded="true" aria-controls="collapse21_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse20_3" class="accordion-collapse collapse"
-aria-labelledby="heading20_3" data-bs-parent="#accordionExample">
+<div id="collapse21_3" class="accordion-collapse collapse"
+aria-labelledby="heading21_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -4506,23 +4733,23 @@ column, and a non-dice-rolling game is one that does not have
 <code>"Dice Rolling"</code> as part of the <code>"Mechanics"</code>
 column.</p>
 <p>The DataFrame <code>with_dice</code> is defined as follows.</p>
-<div class="sourceCode" id="cb31"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>with_dice <span class="op">=</span> games.assign(isDice <span class="op">=</span> games.get(<span class="st">&quot;Mechanics&quot;</span>).<span class="bu">str</span>.contains(<span class="st">&quot;Dice Rolling&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>with_dice <span class="op">=</span> games.assign(isDice <span class="op">=</span> games.get(<span class="st">&quot;Mechanics&quot;</span>).<span class="bu">str</span>.contains(<span class="st">&quot;Dice Rolling&quot;</span>))</span></code></pre></div>
 <p><br></p>
-<h3 id="problem-20.4">Problem 20.4</h3>
+<h3 id="problem-21.4">Problem 21.4</h3>
 <p>Write one line of code that creates an array called
 <code>simulated_diffs</code> containing 1000 simulated differences in
 group means for this permutation test. You should call your
 <code>perm_test</code> function here!</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading20_4">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse20_4" aria-expanded="true" aria-controls="collapse20_4">
+<h2 class="accordion-header" id="heading21_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21_4" aria-expanded="true" aria-controls="collapse21_4">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse20_4" class="accordion-collapse collapse"
-aria-labelledby="heading20_4" data-bs-parent="#accordionExample">
+<div id="collapse21_4" class="accordion-collapse collapse"
+aria-labelledby="heading21_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -4559,7 +4786,7 @@ to us in the question), and the column with numerical information is
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-20.5">Problem 20.5</h3>
+<h3 id="problem-21.5">Problem 21.5</h3>
 <p>Suppose we’ve stored the observed value of the test statistic for
 this permutation test in the variable <code>obs_diff</code>. Fill in the
 blank below to find the p-value for this permutation test.</p>
@@ -4571,13 +4798,13 @@ blank below to find the p-value for this permutation test.</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading20_5">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse20_5" aria-expanded="true" aria-controls="collapse20_5">
+<h2 class="accordion-header" id="heading21_5">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21_5" aria-expanded="true" aria-controls="collapse21_5">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse20_5" class="accordion-collapse collapse"
-aria-labelledby="heading20_5" data-bs-parent="#accordionExample">
+<div id="collapse21_5" class="accordion-collapse collapse"
+aria-labelledby="heading21_5" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -4602,7 +4829,7 @@ the answer must be &gt;=.</p>
 </div>
 <div class="lec-problem" data-avg="55.00" data-term="20242">
 <p class="meta"><em>Source:</em> <a href="../../sp24-quiz5/index.html#problem-1">Question 1 from Spring 2024 Quiz 5</a></p>
-<h2 data-src="sp24-quizzes/quiz5/q01" id="problem-21">Problem 21</h2>
+<h2 data-src="sp24-quizzes/quiz5/q01" id="problem-22">Problem 22</h2>
 <p>You want to know if there is a significant difference in the sale
 prices of <code>"road"</code> and <code>"hybrid"</code> bikes using a
 permutation test. The hypotheses are:</p>
@@ -4613,30 +4840,30 @@ permutation test. The hypotheses are:</p>
 more expensive than <code>"road"</code> bikes.</p></li>
 </ul>
 <p><br></p>
-<h3 id="problem-21.1">Problem 21.1</h3>
+<h3 id="problem-22.1">Problem 22.1</h3>
 <p>Using the <code>bikes</code> DataFrame and the difference in group
 means (in the order <code>"road"</code> minus <code>"hybrid"</code>) as
 your test statistic, fill in the blanks so the code below generates
 10,000 simulated statistics for the permutation test.</p>
-<div class="sourceCode" id="cb32"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> find_diff(df):</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>    group_means <span class="op">=</span> df.get([<span class="st">&quot;shuffled&quot;</span>, <span class="st">&quot;price&quot;</span>]).groupby(<span class="st">&quot;shuffled&quot;</span>).mean().get(<span class="st">&quot;price&quot;</span>)</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> group_means.loc[<span class="st">&quot;road&quot;</span>] <span class="op">-</span> group_means.loc[<span class="st">&quot;hybrid&quot;</span>]</span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>some_bikes <span class="op">=</span> __(x)__</span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>diffs <span class="op">=</span> np.array([])</span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>    shuffled_df <span class="op">=</span> some_bikes.assign(shuffled <span class="op">=</span> __(y)__)  </span>
-<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>    diffs <span class="op">=</span> np.append(diffs, find_diff(shuffled_df))</span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> find_diff(df):</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>    group_means <span class="op">=</span> df.get([<span class="st">&quot;shuffled&quot;</span>, <span class="st">&quot;price&quot;</span>]).groupby(<span class="st">&quot;shuffled&quot;</span>).mean().get(<span class="st">&quot;price&quot;</span>)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> group_means.loc[<span class="st">&quot;road&quot;</span>] <span class="op">-</span> group_means.loc[<span class="st">&quot;hybrid&quot;</span>]</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>some_bikes <span class="op">=</span> __(x)__</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>diffs <span class="op">=</span> np.array([])</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>    shuffled_df <span class="op">=</span> some_bikes.assign(shuffled <span class="op">=</span> __(y)__)  </span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>    diffs <span class="op">=</span> np.append(diffs, find_diff(shuffled_df))</span></code></pre></div>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading21_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21_1" aria-expanded="true" aria-controls="collapse21_1">
+<h2 class="accordion-header" id="heading22_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse22_1" aria-expanded="true" aria-controls="collapse22_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse21_1" class="accordion-collapse collapse"
-aria-labelledby="heading21_1" data-bs-parent="#accordionExample">
+<div id="collapse22_1" class="accordion-collapse collapse"
+aria-labelledby="heading22_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -4662,7 +4889,7 @@ while keeping the group sizes the same.</li>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-21.2">Problem 21.2</h3>
+<h3 id="problem-22.2">Problem 22.2</h3>
 <p>Do large values of the observed statistic make us lean towards the
 null or alternative hypothesis?</p>
 <ul class="task-list">
@@ -4671,13 +4898,13 @@ null or alternative hypothesis?</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading21_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21_2" aria-expanded="true" aria-controls="collapse21_2">
+<h2 class="accordion-header" id="heading22_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse22_2" aria-expanded="true" aria-controls="collapse22_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse21_2" class="accordion-collapse collapse"
-aria-labelledby="heading21_2" data-bs-parent="#accordionExample">
+<div id="collapse22_2" class="accordion-collapse collapse"
+aria-labelledby="heading22_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -4699,7 +4926,7 @@ null.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-21.3">Problem 21.3</h3>
+<h3 id="problem-22.3">Problem 22.3</h3>
 <p>Suppose the p-value for this test evaluates to <span
 class="math inline">0.04</span>. What can you conclude based on this?
 Select all that apply.</p>
@@ -4713,13 +4940,13 @@ Select all that apply.</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading21_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21_3" aria-expanded="true" aria-controls="collapse21_3">
+<h2 class="accordion-header" id="heading22_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse22_3" aria-expanded="true" aria-controls="collapse22_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse21_3" class="accordion-collapse collapse"
-aria-labelledby="heading21_3" data-bs-parent="#accordionExample">
+<div id="collapse22_3" class="accordion-collapse collapse"
+aria-labelledby="heading22_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -4745,7 +4972,7 @@ correct.</p>
 </div>
 <div class="lec-problem" data-avg="53.75" data-term="20243">
 <p class="meta"><em>Source:</em> <a href="../../su24-final/index.html#problem-8">Question 8 from Summer 2024 Final Exam</a></p>
-<h2 data-src="su24-final/q08" id="problem-22">Problem 22</h2>
+<h2 data-src="su24-final/q08" id="problem-23">Problem 23</h2>
 <p>Choose the best tool to answer each of the following questions. Note
 the following:</p>
 <ul>
@@ -4756,7 +4983,7 @@ bootstrapping.</li>
 hypothesis testing.</li>
 </ul>
 <p><br></p>
-<h3 id="problem-22.1">Problem 22.1</h3>
+<h3 id="problem-23.1">Problem 23.1</h3>
 <p>What is the median distance of all Tour de France stages?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> Hypothesis Testing</p></li>
@@ -4766,13 +4993,13 @@ hypothesis testing.</li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading22_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse22_1" aria-expanded="true" aria-controls="collapse22_1">
+<h2 class="accordion-header" id="heading23_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse23_1" aria-expanded="true" aria-controls="collapse23_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse22_1" class="accordion-collapse collapse"
-aria-labelledby="heading22_1" data-bs-parent="#accordionExample">
+<div id="collapse23_1" class="accordion-collapse collapse"
+aria-labelledby="heading23_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -4794,7 +5021,7 @@ Tour de France stages.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-22.2">Problem 22.2</h3>
+<h3 id="problem-23.2">Problem 23.2</h3>
 <p>Is the distribution of Tour de France stage types from before 1960
 the same as after 1960?</p>
 <ul class="task-list">
@@ -4805,13 +5032,13 @@ the same as after 1960?</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading22_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse22_2" aria-expanded="true" aria-controls="collapse22_2">
+<h2 class="accordion-header" id="heading23_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse23_2" aria-expanded="true" aria-controls="collapse23_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse22_2" class="accordion-collapse collapse"
-aria-labelledby="heading22_2" data-bs-parent="#accordionExample">
+<div id="collapse23_2" class="accordion-collapse collapse"
+aria-labelledby="heading23_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -4830,7 +5057,7 @@ whether two samples come from the same population distribution.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-22.3">Problem 22.3</h3>
+<h3 id="problem-23.3">Problem 23.3</h3>
 <p>Are there an equal number of destinations that start with letters
 from the first half of the alphabet and destinations that start with
 letters from the second half of the alphabet?</p>
@@ -4842,13 +5069,13 @@ letters from the second half of the alphabet?</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading22_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse22_3" aria-expanded="true" aria-controls="collapse22_3">
+<h2 class="accordion-header" id="heading23_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse23_3" aria-expanded="true" aria-controls="collapse23_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse22_3" class="accordion-collapse collapse"
-aria-labelledby="heading22_3" data-bs-parent="#accordionExample">
+<div id="collapse23_3" class="accordion-collapse collapse"
+aria-labelledby="heading23_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -4869,7 +5096,7 @@ hypothesis test.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-22.4">Problem 22.4</h3>
+<h3 id="problem-23.4">Problem 23.4</h3>
 <p>Are mountain stages with destinations in France from before 1970
 longer than flat stages with destinations in Belgium from after
 2000?</p>
@@ -4881,13 +5108,13 @@ longer than flat stages with destinations in Belgium from after
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading22_4">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse22_4" aria-expanded="true" aria-controls="collapse22_4">
+<h2 class="accordion-header" id="heading23_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse23_4" aria-expanded="true" aria-controls="collapse23_4">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse22_4" class="accordion-collapse collapse"
-aria-labelledby="heading22_4" data-bs-parent="#accordionExample">
+<div id="collapse23_4" class="accordion-collapse collapse"
+aria-labelledby="heading23_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -4912,7 +5139,7 @@ permutation test.</p>
 </div>
 <div class="lec-problem" data-avg="52.33" data-term="20252">
 <p class="meta"><em>Source:</em> <a href="../../sp25-quiz5/index.html#problem-1">Question 1 from Spring 2025 Quiz 5</a></p>
-<h2 data-src="sp25-quizzes/quiz5/q01" id="problem-23">Problem 23</h2>
+<h2 data-src="sp25-quizzes/quiz5/q01" id="problem-24">Problem 24</h2>
 <p>In music theory, <strong>polyphony</strong> is a number that counts
 how many independent melodies are being played at the same time.
 Polyphony is an integer at any given moment, but the average polyphony
@@ -4936,29 +5163,29 @@ are drawn from <strong>different distributions</strong>.</p></li>
 <p>For this permutation test, we will use <strong>the absolute
 difference of medians</strong> as our test statistic.</p>
 <p><br></p>
-<h3 id="problem-23.1">Problem 23.1</h3>
+<h3 id="problem-24.1">Problem 24.1</h3>
 <p>Fill in the blanks below to complete the permutation test described
 above. Assume <code>observed</code> is the observed test statistic, and
 has already been calculated correctly.</p>
-<div class="sourceCode" id="cb33"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>total <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">5000</span>):</span>
-<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    shuffled_composer <span class="op">=</span> np.random.permutation(__(a)__)</span>
-<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>    shuffled_df <span class="op">=</span> music.assign(shuff<span class="op">=</span>shuffled_composer)</span>
-<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>    poly <span class="op">=</span> shuffled_df.groupby(__(b)__).__(c)__.get(<span class="st">&quot;polyphony&quot;</span>)</span>
-<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>    stat <span class="op">=</span> __(d)__</span>
-<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> stat __(e)__ observed:</span>
-<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>        __(f)__</span>
-<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>p_value <span class="op">=</span> total <span class="op">/</span> <span class="dv">5000</span></span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>total <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">5000</span>):</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>    shuffled_composer <span class="op">=</span> np.random.permutation(__(a)__)</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>    shuffled_df <span class="op">=</span> music.assign(shuff<span class="op">=</span>shuffled_composer)</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>    poly <span class="op">=</span> shuffled_df.groupby(__(b)__).__(c)__.get(<span class="st">&quot;polyphony&quot;</span>)</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>    stat <span class="op">=</span> __(d)__</span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> stat __(e)__ observed:</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>        __(f)__</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a>p_value <span class="op">=</span> total <span class="op">/</span> <span class="dv">5000</span></span></code></pre></div>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading23_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse23_1" aria-expanded="true" aria-controls="collapse23_1">
+<h2 class="accordion-header" id="heading24_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse24_1" aria-expanded="true" aria-controls="collapse24_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse23_1" class="accordion-collapse collapse"
-aria-labelledby="heading23_1" data-bs-parent="#accordionExample">
+<div id="collapse24_1" class="accordion-collapse collapse"
+aria-labelledby="heading24_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -4982,7 +5209,7 @@ instead<br/>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-23.2">Problem 23.2</h3>
+<h3 id="problem-24.2">Problem 24.2</h3>
 <p>The following distributions come from the <code>"polyphony"</code>
 column of <code>music</code>:</p>
 <div style="display: flex; justify-content: center; gap: 20px;">
@@ -5014,13 +5241,13 @@ class="math inline">3</span></label></p>
 </div>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading23_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse23_2" aria-expanded="true" aria-controls="collapse23_2">
+<h2 class="accordion-header" id="heading24_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse24_2" aria-expanded="true" aria-controls="collapse24_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse23_2" class="accordion-collapse collapse"
-aria-labelledby="heading23_2" data-bs-parent="#accordionExample">
+<div id="collapse24_2" class="accordion-collapse collapse"
+aria-labelledby="heading24_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -5036,7 +5263,7 @@ aria-labelledby="heading23_2" data-bs-parent="#accordionExample">
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-23.3">Problem 23.3</h3>
+<h3 id="problem-24.3">Problem 24.3</h3>
 <p>If Minchan repeats the permutation test, this time using <strong>the
 absolute difference of means</strong> as the test statistic, how will
 the observed value of the test statistic change?</p>
@@ -5050,13 +5277,13 @@ as</strong> before.</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading23_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse23_3" aria-expanded="true" aria-controls="collapse23_3">
+<h2 class="accordion-header" id="heading24_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse24_3" aria-expanded="true" aria-controls="collapse24_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse23_3" class="accordion-collapse collapse"
-aria-labelledby="heading23_3" data-bs-parent="#accordionExample">
+<div id="collapse24_3" class="accordion-collapse collapse"
+aria-labelledby="heading24_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -5076,7 +5303,7 @@ aria-labelledby="heading23_3" data-bs-parent="#accordionExample">
 </div>
 <div class="lec-problem" data-avg="44.50" data-term="20222">
 <p class="meta"><em>Source:</em> <a href="../../sp22-final/index.html#problem-9">Question 9 from Spring 2022 Final Exam</a></p>
-<h2 data-src="sp22-final/q9-perm-test" id="problem-24">Problem 24</h2>
+<h2 data-src="sp22-final/q9-perm-test" id="problem-25">Problem 25</h2>
 <p>You are browsing the IKEA showroom, deciding whether to purchase the
 BILLY bookcase or the LOMMARP bookcase. You are concerned about the
 amount of time it will take to assemble your new bookcase, so you look
@@ -5091,7 +5318,7 @@ same distribution.</p>
 BILLY bookcase and the assembly time for the LOMMARP bookcase come from
 different distributions.</p>
 <p><br></p>
-<h3 id="problem-24.1">Problem 24.1</h3>
+<h3 id="problem-25.1">Problem 25.1</h3>
 <p>Suppose we query <code>app_data</code> to keep only the BILLY
 bookcases, then average the <code>'minutes'</code> column. In addition,
 we separately query <code>app_data</code> to keep only the LOMMARP
@@ -5109,13 +5336,13 @@ significant.</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading24_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse24_1" aria-expanded="true" aria-controls="collapse24_1">
+<h2 class="accordion-header" id="heading25_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse25_1" aria-expanded="true" aria-controls="collapse25_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse24_1" class="accordion-collapse collapse"
-aria-labelledby="heading24_1" data-bs-parent="#accordionExample">
+<div id="collapse25_1" class="accordion-collapse collapse"
+aria-labelledby="heading25_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -5164,22 +5391,22 @@ hypothesis was true, we should fail to reject the null.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-24.2">Problem 24.2</h3>
+<h3 id="problem-25.2">Problem 25.2</h3>
 <p>For the permutation test, we’ll use as our test statistic the average
 assembly time for BILLY bookcases minus the average assembly time for
 LOMMARP bookcases, in minutes.</p>
 <p>Complete the code below to generate one simulated value of the test
 statistic in a new way, without using
 <code>np.random.permutation</code>.</p>
-<div class="sourceCode" id="cb34"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>billy <span class="op">=</span> (app_data.get(<span class="st">&#39;product&#39;</span>) <span class="op">==</span> </span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>        <span class="st">&#39;BILLY Bookcase, white, 31 1/2x11x79 1/2&#39;</span>)</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>lommarp <span class="op">=</span> (app_data.get(<span class="st">&#39;product&#39;</span>) <span class="op">==</span> </span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>          <span class="st">&#39;LOMMARP Bookcase, dark blue-green, 25 5/8x78 3/8&#39;</span>)</span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>billy_lommarp <span class="op">=</span> app_data[billy<span class="op">|</span>lommarp]</span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>billy_mean <span class="op">=</span> np.random.choice(billy_lommarp.get(<span class="st">&#39;minutes&#39;</span>), billy.<span class="bu">sum</span>(), replace<span class="op">=</span><span class="va">False</span>).mean()</span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>lommarp_mean <span class="op">=</span> _________</span>
-<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>billy_mean <span class="op">-</span> lommarp_mean</span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>billy <span class="op">=</span> (app_data.get(<span class="st">&#39;product&#39;</span>) <span class="op">==</span> </span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>        <span class="st">&#39;BILLY Bookcase, white, 31 1/2x11x79 1/2&#39;</span>)</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>lommarp <span class="op">=</span> (app_data.get(<span class="st">&#39;product&#39;</span>) <span class="op">==</span> </span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>          <span class="st">&#39;LOMMARP Bookcase, dark blue-green, 25 5/8x78 3/8&#39;</span>)</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>billy_lommarp <span class="op">=</span> app_data[billy<span class="op">|</span>lommarp]</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>billy_mean <span class="op">=</span> np.random.choice(billy_lommarp.get(<span class="st">&#39;minutes&#39;</span>), billy.<span class="bu">sum</span>(), replace<span class="op">=</span><span class="va">False</span>).mean()</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>lommarp_mean <span class="op">=</span> _________</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>billy_mean <span class="op">-</span> lommarp_mean</span></code></pre></div>
 <p>What goes in the blank?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> <code>billy_lommarp[lommarp].get('minutes').mean()</code></p></li>
@@ -5189,13 +5416,13 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb34-1"><a href=
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading24_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse24_2" aria-expanded="true" aria-controls="collapse24_2">
+<h2 class="accordion-header" id="heading25_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse25_2" aria-expanded="true" aria-controls="collapse25_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse24_2" class="accordion-collapse collapse"
-aria-labelledby="heading24_2" data-bs-parent="#accordionExample">
+<div id="collapse25_2" class="accordion-collapse collapse"
+aria-labelledby="heading25_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -5304,7 +5531,7 @@ desired.</p>
 </div>
 <div class="lec-problem" data-avg="40.67" data-term="20254">
 <p class="meta"><em>Source:</em> <a href="../../fa25-final/index.html#problem-8">Question 8 from Fall 2025 Final Exam</a></p>
-<h2 data-src="fa25-final/q08" id="problem-25">Problem 25</h2>
+<h2 data-src="fa25-final/q08" id="problem-26">Problem 26</h2>
 <p>Each city in <code>snow</code> is represented many times, across
 multiple days. Let the <em>maximum snowfall</em> of a city be the
 maximum snowfall on any single day recorded for that city. If we want to
@@ -5321,40 +5548,40 @@ cities is <strong>greater than</strong> the average maximum snowfall in
 North American cities.</li>
 </ul>
 <p><br></p>
-<h3 id="problem-25.1">Problem 25.1</h3>
+<h3 id="problem-26.1">Problem 26.1</h3>
 <!-- **(6 pts)** -->
 <p>You decide to write a permutation test for the above hypotheses. Fill
 in the blanks of the code below to complete the permutation test and
 calculate a p-value.</p>
-<div class="sourceCode" id="cb35"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fl">1.</span>  cities <span class="op">=</span> snow.groupby(__(a)__).__(b)__</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fl">2.</span>  asia_na <span class="op">=</span> cities[(cities.get(<span class="st">&quot;continent&quot;</span>) <span class="op">==</span> <span class="st">&quot;Asia&quot;</span>) <span class="op">|</span></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="fl">3.</span>                  (cities.get(<span class="st">&quot;continent&quot;</span>) <span class="op">==</span> <span class="st">&quot;North America&quot;</span>)]</span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="fl">4.</span></span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="fl">5.</span>  <span class="kw">def</span> test_stat(shuffled):</span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="fl">6.</span>      grouped <span class="op">=</span> shuffled.groupby(__(c)__).__(d)__</span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="fl">7.</span>      asia <span class="op">=</span> grouped.get(<span class="st">&quot;snowfall&quot;</span>).loc[<span class="st">&quot;Asia&quot;</span>]</span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a><span class="fl">8.</span>      na <span class="op">=</span> grouped.get(<span class="st">&quot;snowfall&quot;</span>).loc[<span class="st">&quot;North America&quot;</span>]</span>
-<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a><span class="fl">9.</span>      <span class="cf">return</span> __(e)__</span>
-<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a><span class="fl">10.</span></span>
-<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a><span class="fl">11.</span> stats <span class="op">=</span> np.array([])</span>
-<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a><span class="fl">12.</span> <span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
-<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a><span class="fl">13.</span>     s <span class="op">=</span> np.random.permutation(asia_na.get(<span class="st">&quot;snowfall&quot;</span>))</span>
-<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a><span class="fl">14.</span>     shuffled <span class="op">=</span> asia_na.assign(snowfall<span class="op">=</span>s)</span>
-<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a><span class="fl">15.</span>     stat <span class="op">=</span> test_stat(shuffled)</span>
-<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a><span class="fl">16.</span>     stats <span class="op">=</span> np.append(stats, stat)</span>
-<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a><span class="fl">17.</span></span>
-<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a><span class="fl">18.</span> extreme <span class="op">=</span> (stats <span class="op">&lt;=</span> test_stat(cities))</span>
-<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a><span class="fl">19.</span> p_value <span class="op">=</span> np.count_nonzero(extreme) <span class="op">/</span> <span class="dv">10000</span></span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fl">1.</span>  cities <span class="op">=</span> snow.groupby(__(a)__).__(b)__</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="fl">2.</span>  asia_na <span class="op">=</span> cities[(cities.get(<span class="st">&quot;continent&quot;</span>) <span class="op">==</span> <span class="st">&quot;Asia&quot;</span>) <span class="op">|</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="fl">3.</span>                  (cities.get(<span class="st">&quot;continent&quot;</span>) <span class="op">==</span> <span class="st">&quot;North America&quot;</span>)]</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="fl">4.</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="fl">5.</span>  <span class="kw">def</span> test_stat(shuffled):</span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="fl">6.</span>      grouped <span class="op">=</span> shuffled.groupby(__(c)__).__(d)__</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="fl">7.</span>      asia <span class="op">=</span> grouped.get(<span class="st">&quot;snowfall&quot;</span>).loc[<span class="st">&quot;Asia&quot;</span>]</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a><span class="fl">8.</span>      na <span class="op">=</span> grouped.get(<span class="st">&quot;snowfall&quot;</span>).loc[<span class="st">&quot;North America&quot;</span>]</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a><span class="fl">9.</span>      <span class="cf">return</span> __(e)__</span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a><span class="fl">10.</span></span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a><span class="fl">11.</span> stats <span class="op">=</span> np.array([])</span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a><span class="fl">12.</span> <span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a><span class="fl">13.</span>     s <span class="op">=</span> np.random.permutation(asia_na.get(<span class="st">&quot;snowfall&quot;</span>))</span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a><span class="fl">14.</span>     shuffled <span class="op">=</span> asia_na.assign(snowfall<span class="op">=</span>s)</span>
+<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a><span class="fl">15.</span>     stat <span class="op">=</span> test_stat(shuffled)</span>
+<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a><span class="fl">16.</span>     stats <span class="op">=</span> np.append(stats, stat)</span>
+<span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a><span class="fl">17.</span></span>
+<span id="cb36-18"><a href="#cb36-18" aria-hidden="true" tabindex="-1"></a><span class="fl">18.</span> extreme <span class="op">=</span> (stats <span class="op">&lt;=</span> test_stat(cities))</span>
+<span id="cb36-19"><a href="#cb36-19" aria-hidden="true" tabindex="-1"></a><span class="fl">19.</span> p_value <span class="op">=</span> np.count_nonzero(extreme) <span class="op">/</span> <span class="dv">10000</span></span></code></pre></div>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading25_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse25_1" aria-expanded="true" aria-controls="collapse25_1">
+<h2 class="accordion-header" id="heading26_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse26_1" aria-expanded="true" aria-controls="collapse26_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse25_1" class="accordion-collapse collapse"
-aria-labelledby="heading25_1" data-bs-parent="#accordionExample">
+<div id="collapse26_1" class="accordion-collapse collapse"
+aria-labelledby="heading26_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -5394,7 +5621,7 @@ North American AMS is greater than Asian AMS.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-25.2">Problem 25.2</h3>
+<h3 id="problem-26.2">Problem 26.2</h3>
 <!-- **(4 pts)** -->
 <p>You also come up with the following pair of null and alternative
 hypotheses:</p>
@@ -5411,13 +5638,13 @@ no changes to the code in part (a) are necessary, fill in the bubble
 provided and leave the boxes blank.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading25_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse25_2" aria-expanded="true" aria-controls="collapse25_2">
+<h2 class="accordion-header" id="heading26_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse26_2" aria-expanded="true" aria-controls="collapse26_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse25_2" class="accordion-collapse collapse"
-aria-labelledby="heading25_2" data-bs-parent="#accordionExample">
+<div id="collapse26_2" class="accordion-collapse collapse"
+aria-labelledby="heading26_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -5453,7 +5680,7 @@ nature of the alternative.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-25.3">Problem 25.3</h3>
+<h3 id="problem-26.3">Problem 26.3</h3>
 <!-- **(3 pts)** -->
 <p>You successfully complete a permutation test and obtain a p-value for
 the hypotheses in part (b). Call this p-value <span
@@ -5479,13 +5706,13 @@ the same in both tests.</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading25_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse25_3" aria-expanded="true" aria-controls="collapse25_3">
+<h2 class="accordion-header" id="heading26_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse26_3" aria-expanded="true" aria-controls="collapse26_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse25_3" class="accordion-collapse collapse"
-aria-labelledby="heading25_3" data-bs-parent="#accordionExample">
+<div id="collapse26_3" class="accordion-collapse collapse"
+aria-labelledby="heading26_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -5516,7 +5743,7 @@ dividing by 2 is a valid way to approximate <span class="math inline">p_a</span>
 </div>
 <div class="lec-problem" data-avg="36.50" data-term="20232">
 <p class="meta"><em>Source:</em> <a href="../../sp23-final/index.html#problem-7">Question 7 from Spring 2023 Final Exam</a></p>
-<h2 data-src="sp23-final/q07" id="problem-26">Problem 26</h2>
+<h2 data-src="sp23-final/q07" id="problem-27">Problem 27</h2>
 <p>Gabriel is originally from Texas and is trying to convince his
 friends that Texas has better weather than California. Sophia, who is
 originally from San Diego, is determined to prove Gabriel wrong.</p>
@@ -5556,7 +5783,7 @@ in <code>t_samp</code> (the California sample) and the mean of the
 values that are in <code>t_samp</code> (the Texas sample).</p></li>
 </ol>
 <p><br></p>
-<h3 id="problem-26.1">Problem 26.1</h3>
+<h3 id="problem-27.1">Problem 27.1</h3>
 <p>What type of test is this?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> Hypothesis test</p></li>
@@ -5564,13 +5791,13 @@ values that are in <code>t_samp</code> (the Texas sample).</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading26_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse26_1" aria-expanded="true" aria-controls="collapse26_1">
+<h2 class="accordion-header" id="heading27_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse27_1" aria-expanded="true" aria-controls="collapse27_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse26_1" class="accordion-collapse collapse"
-aria-labelledby="heading26_1" data-bs-parent="#accordionExample">
+<div id="collapse27_1" class="accordion-collapse collapse"
+aria-labelledby="heading27_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -5603,24 +5830,24 @@ which takes in a DataFrame <code>df</code> that has two columns —
 <code>"Texas"</code>, and <code>"Feb"</code>, which contains the number
 of sunshine hours in February for each city — and returns a single
 simulated test statistic using Sophia’s plan.</p>
-<div class="sourceCode" id="cb36"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> one_stat(df):</span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>        <span class="co"># You don&#39;t need to fill in the ...,</span></span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>        <span class="co"># assume we&#39;ve correctly filled them in so that</span></span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>        <span class="co"># texas_only has only the &quot;Texas&quot; rows from df.</span></span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>        texas_only <span class="op">=</span> ...</span>
-<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>        t <span class="op">=</span> texas_only.shape[<span class="dv">0</span>]</span>
-<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>        n <span class="op">=</span> df.shape[<span class="dv">0</span>]</span>
-<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>        total <span class="op">=</span> df.get(<span class="st">&quot;Feb&quot;</span>).<span class="bu">sum</span>()</span>
-<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>        t_samp <span class="op">=</span> np.random.choice(df.get(<span class="st">&quot;Feb&quot;</span>), t, __(b)__)</span>
-<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>        </span>
-<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>        c_mean <span class="op">=</span> __(c)__</span>
-<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a>        t_mean <span class="op">=</span> t_samp.<span class="bu">sum</span>() <span class="op">/</span> t</span>
-<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> c_mean <span class="op">-</span> t_mean</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre
+class="sourceCode py"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> one_stat(df):</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>        <span class="co"># You don&#39;t need to fill in the ...,</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>        <span class="co"># assume we&#39;ve correctly filled them in so that</span></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>        <span class="co"># texas_only has only the &quot;Texas&quot; rows from df.</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>        texas_only <span class="op">=</span> ...</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>        t <span class="op">=</span> texas_only.shape[<span class="dv">0</span>]</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>        n <span class="op">=</span> df.shape[<span class="dv">0</span>]</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>        total <span class="op">=</span> df.get(<span class="st">&quot;Feb&quot;</span>).<span class="bu">sum</span>()</span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>        t_samp <span class="op">=</span> np.random.choice(df.get(<span class="st">&quot;Feb&quot;</span>), t, __(b)__)</span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>        c_mean <span class="op">=</span> __(c)__</span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a>        t_mean <span class="op">=</span> t_samp.<span class="bu">sum</span>() <span class="op">/</span> t</span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> c_mean <span class="op">-</span> t_mean</span></code></pre></div>
 <p><br></p>
-<h3 id="problem-26.2">Problem 26.2</h3>
+<h3 id="problem-27.2">Problem 27.2</h3>
 <p>What goes in blank (b)?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> <code>replace=True</code></p></li>
@@ -5628,13 +5855,13 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb36-1"><a href=
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading26_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse26_2" aria-expanded="true" aria-controls="collapse26_2">
+<h2 class="accordion-header" id="heading27_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse27_2" aria-expanded="true" aria-controls="collapse27_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse26_2" class="accordion-collapse collapse"
-aria-labelledby="heading26_2" data-bs-parent="#accordionExample">
+<div id="collapse27_2" class="accordion-collapse collapse"
+aria-labelledby="heading27_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -5654,18 +5881,18 @@ the total collection of sunshine hours without replacement.</p>
 </div>
 <p><br></p>
 <p><br></p>
-<h3 id="problem-26.3">Problem 26.3</h3>
+<h3 id="problem-27.3">Problem 27.3</h3>
 <p>What goes in blank (c)? <em>(Hint: Our solution uses 4 of the
 variables that are defined before <code>c_mean</code>.)</em></p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading26_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse26_3" aria-expanded="true" aria-controls="collapse26_3">
+<h2 class="accordion-header" id="heading27_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse27_3" aria-expanded="true" aria-controls="collapse27_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse26_3" class="accordion-collapse collapse"
-aria-labelledby="heading26_3" data-bs-parent="#accordionExample">
+<div id="collapse27_3" class="accordion-collapse collapse"
+aria-labelledby="heading27_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -5699,17 +5926,17 @@ different tool, they could use bootstrapping to create a confidence
 interval for the true value of the test statistic they used in the above
 test and check whether __(d)__ is in the interval."</p>
 <p><br></p>
-<h3 id="problem-26.4">Problem 26.4</h3>
+<h3 id="problem-27.4">Problem 27.4</h3>
 <p>What goes in blank (d)? Your answer should be a specific number.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading26_4">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse26_4" aria-expanded="true" aria-controls="collapse26_4">
+<h2 class="accordion-header" id="heading27_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse27_4" aria-expanded="true" aria-controls="collapse27_4">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse26_4" class="accordion-collapse collapse"
-aria-labelledby="heading26_4" data-bs-parent="#accordionExample">
+<div id="collapse27_4" class="accordion-collapse collapse"
+aria-labelledby="heading27_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -5732,213 +5959,6 @@ hours is 0. (They created a confidence interval for the true value of
 <p>
 </p>
 <p>The average score on this problem was 43%.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<hr />
-</div>
-<div class="lec-problem" data-term="20262">
-<p class="meta"><em>Source:</em> <a href="../../sp26-final/index.html#problem-7">Question 7 from Spring 2026 Final Exam</a></p>
-<h2 data-src="sp26-final/q07" id="problem-27">Problem 27</h2>
-<p>Zeyu is wondering whether active bands are more successful than
-inactive bands, in the sense that they have greater
-<code>"top_album_sales"</code>. To find out, he runs a permutation test
-on the <code>bands</code> DataFrame by comparing the average
-<code>"top_album_sales"</code> for active versus inactive bands using
-10,000 shuffles of the <code>"active"</code> labels.</p>
-<p><br></p>
-<h3 id="problem-27.1">Problem 27.1</h3>
-<p>Which of the following best describes the <strong>null
-hypothesis</strong> for Zeyu’s test?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> Active bands have higher top album sales than inactive bands, on
-average.</p></li>
-<li><p><input type="radio" disabled="" /> Active bands and inactive bands have the same distribution of top
-album sales.</p></li>
-<li><p><input type="radio" disabled="" /> In the full population of all bands, the average top album sales for
-active bands is higher than that for inactive bands.</p></li>
-<li><p><input type="radio" disabled="" /> In the sample of data in <code>bands</code>, the average top album
-sales for active bands equals the average top album sales for inactive
-bands.</p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading27_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse27_1" aria-expanded="true" aria-controls="collapse27_1">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse27_1" class="accordion-collapse collapse"
-aria-labelledby="heading27_1" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-
-</header>
-<p><strong>Answer:</strong></p>
-<p>Option 2</p>
-<p><strong>Solution:</strong></p>
-<p>The null hypothesis of a permutation test states that the two groups
-come from the <strong>same underlying distribution</strong>, so the
-<code>"active"</code> labels are interchangeable under the null. Option
-1 describes the alternative hypothesis that active bands have higher
-sales, while Option 3 also describes a population-level alternative
-rather than the null. Option 4 is incorrect because the null hypothesis
-does not require the two groups to have exactly equal sample means;
-differences can occur due to random variation even when the null is
-true.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-27.2">Problem 27.2</h3>
-<p>Complete the code below to run Zeyu’s permutation test.</p>
-<div class="sourceCode" id="cb37"><pre
-class="sourceCode py"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>active <span class="op">=</span> bands[bands.get(<span class="st">&quot;active&quot;</span>) <span class="op">==</span> <span class="va">True</span>].get(<span class="st">&quot;top_album_sales&quot;</span>)</span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>inactive <span class="op">=</span> bands[bands.get(<span class="st">&quot;active&quot;</span>) <span class="op">==</span> <span class="va">False</span>].get(<span class="st">&quot;top_album_sales&quot;</span>)</span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>obs_diff <span class="op">=</span> active.mean() <span class="op">-</span> inactive.mean()</span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>sim_diffs <span class="op">=</span> np.array([])</span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> np.arange(<span class="dv">10000</span>):</span>
-<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>    shuffled_labels <span class="op">=</span> __(a)__</span>
-<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>    shuffled <span class="op">=</span> bands.assign(active<span class="op">=</span>shuffled_labels)</span>
-<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>    sim_active <span class="op">=</span> shuffled[shuffled.get(<span class="st">&quot;active&quot;</span>) <span class="op">==</span> <span class="va">True</span>]</span>
-<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>    sim_inactive <span class="op">=</span> shuffled[shuffled.get(<span class="st">&quot;active&quot;</span>) <span class="op">==</span> <span class="va">False</span>]</span>
-<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>    sim_diff <span class="op">=</span> (sim_active.get(<span class="st">&quot;top_album_sales&quot;</span>).mean()</span>
-<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>                <span class="op">-</span> sim_inactive.get(<span class="st">&quot;top_album_sales&quot;</span>).mean())</span>
-<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a>    sim_diffs <span class="op">=</span> np.append(sim_diffs, sim_diff)</span>
-<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a>p_value <span class="op">=</span> __(b)__ <span class="op">/</span> <span class="dv">10000</span></span></code></pre></div>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading27_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse27_2" aria-expanded="true" aria-controls="collapse27_2">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse27_2" class="accordion-collapse collapse"
-aria-labelledby="heading27_2" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-
-</header>
-<p><strong>Answer:</strong></p>
-<ul>
-<li><strong>(a):</strong>
-<code>np.random.permutation(bands.get("active"))</code></li>
-<li><strong>(b):</strong>
-<code>np.count_nonzero(sim_diffs &gt;= obs_diff)</code></li>
-</ul>
-<p><strong>Solution:</strong></p>
-<p>For <strong>(a)</strong>,
-<code>np.random.permutation(bands.get("active"))</code> randomly
-rearranges the <code>"active"</code> labels while keeping the number of
-active and inactive bands unchanged, breaking any association between
-activity status and album sales. Each iteration then calculates the
-difference in mean sales between the shuffled active and inactive
-groups. For <strong>(b)</strong>, since the alternative hypothesis is
-that active bands have <strong>higher</strong> average sales, we count
-simulated differences that are <strong>greater than or equal to</strong>
-the observed difference using
-<code>np.count_nonzero(sim_diffs &gt;= obs_diff)</code>. Dividing by
-10,000 gives the proportion of simulated test statistics at least as
-extreme as the observed statistic in the direction of the alternative,
-which is the p-value.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-27.3">Problem 27.3</h3>
-<p>Suppose Zeyu’s p-value turns out to be <span
-class="math inline">0.03</span>. Which of the following is the correct
-conclusion of the test at the <span class="math inline">0.05</span>
-significance level?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> We accept the null hypothesis; active and inactive bands have the
-same distribution of top album sales.</p></li>
-<li><p><input type="radio" disabled="" /> We fail to reject the null hypothesis; we cannot determine whether
-the groups differ.</p></li>
-<li><p><input type="radio" disabled="" /> We reject the null hypothesis; active bands have significantly higher
-top album sales.</p></li>
-<li><p><input type="radio" disabled="" /> We reject the null hypothesis; active and inactive bands have
-different distributions of top album sales but we can’t say which is
-greater.</p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading27_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse27_3" aria-expanded="true" aria-controls="collapse27_3">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse27_3" class="accordion-collapse collapse"
-aria-labelledby="heading27_3" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-
-</header>
-<p><strong>Answer:</strong></p>
-<p>Option 3</p>
-<p><strong>Solution:</strong></p>
-<p>Since the p-value of <span class="math inline">0.03</span> is less
-than the significance level of <span class="math inline">0.05</span>, we
-<strong>reject the null hypothesis</strong>. Because the alternative
-hypothesis is one-sided, the test provides statistically significant
-evidence that active bands have higher average top album sales than
-inactive bands. Option 1 is incorrect because we do not “accept” the
-null hypothesis, and Option 2 is incorrect because the p-value is small
-enough to reject it. Option 4 is incorrect because the direction of the
-alternative allows us to conclude that active bands have higher average
-sales, rather than merely concluding that the groups differ.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-27.4">Problem 27.4</h3>
-<p>In Zeyu’s permutation test, suppose we change the code to instead
-shuffle the values in the <code>"top_album_sales"</code> column, and
-rerun the simulation. How would this affect the resulting null
-distribution?</p>
-<ul class="task-list">
-<li><p><input type="radio" disabled="" /> All 10,000 simulated values would be exactly the same as before.</p></li>
-<li><p><input type="radio" disabled="" /> There would be slight variations in the null distribution but the
-histogram would look nearly identical.</p></li>
-<li><p><input type="radio" disabled="" /> There would be substantial differences in the null distribution if we
-were to make this change. The histograms would be noticeably
-different.</p></li>
-<li><p><input type="radio" disabled="" /> Without the full <code>bands</code> DataFrame available, we cannot
-predict how this change would affect the null distribution.</p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading27_4">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse27_4" aria-expanded="true" aria-controls="collapse27_4">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse27_4" class="accordion-collapse collapse"
-aria-labelledby="heading27_4" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-
-</header>
-<p><strong>Answer:</strong></p>
-<p>Option 2</p>
-<p><strong>Solution:</strong></p>
-<p>Shuffling the <code>"active"</code> labels and shuffling the
-<code>"top_album_sales"</code> values are <strong>statistically
-equivalent</strong> ways of breaking the association between group
-membership and album sales while preserving the original group sizes and
-sales values. Both methods therefore generate the same theoretical null
-distribution for the difference in group means. However, because the
-10,000 simulations are random, the individual simulated differences will
-not necessarily match between runs, so the resulting histograms should
-look nearly identical with only slight random variations.</p>
 </div>
 </div>
 </div>

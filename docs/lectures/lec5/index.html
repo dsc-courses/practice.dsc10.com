@@ -2559,20 +2559,18 @@ in <code>sungod.groupby('Year').max().get('Year')</code>.</p>
 </div>
 <hr />
 </div>
-<div class="lec-problem" data-avg="77.20" data-term="20261">
-<p class="meta"><em>Source:</em> <a href="../../wi26-midterm/index.html#problem-4">Question 4 from Winter 2026 Midterm Exam</a></p>
-<h2 data-src="wi26-midterm/q04" id="problem-20">Problem 20</h2>
-<p>The Best Pizza Neighborhood Contest is coming up! For this contest,
-we want to find the neighborhood with the highest average rating for a
-slice of pizza. Fill in the blanks below so that the expression
-evaluates to the <strong>name</strong> of this neighborhood (as a
-string).</p>
-<pre><code>pizza.get([___(a)___]).groupby(___(b)___)
-                      .___(c)___.sort_values(__(d)__, ascending=False)
-                      ._____(e)_____</code></pre>
+<div class="lec-problem" data-avg="77.50" data-term="20262">
+<p class="meta"><em>Source:</em> <a href="../../sp26-final/index.html#problem-2">Question 2 from Spring 2026 Final Exam</a></p>
+<h2 data-src="sp26-final/q02" id="problem-20">Problem 20</h2>
+<p>Recall that we have added to <code>bands</code> a new column called
+<code>"members"</code> containing the number of members in each
+band.</p>
 <p><br></p>
 <h3 id="problem-20.1">Problem 20.1</h3>
-<p><strong>(a)</strong></p>
+<p>Ella is curious if bands with more members tend to make more albums.
+Write one line of code to add a new column to <code>bands</code> called
+<code>"albums_per_member"</code>, containing the ratio of albums to
+members for each band.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
 <h2 class="accordion-header" id="heading20_1">
@@ -2582,6 +2580,122 @@ Click to view the solution.
 </h2>
 <div id="collapse20_1" class="accordion-collapse collapse"
 aria-labelledby="heading20_1" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer:</strong></p>
+<div id="cb1" class="sourceCode">
+<pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a>bands <span class="op">=</span> bands.assign(albums_per_member <span class="op">=</span> bands.get(<span class="st">"albums"</span>) <span class="op">/</span> bands.get(<span class="st">"members"</span>))</span></code></pre>
+</div>
+<p><strong>Solution:</strong></p>
+<p><code>bands.get("albums") / bands.get("members")</code> performs
+elementwise division, so each band’s album count is divided by its own
+member count, such as 12 albums and 4 members giving <span class="math inline">\frac{12}{4}=3</span>. The
+<code>.assign(albums_per_member = ...)</code> method adds these values
+as a new column, and because it returns a new DataFrame rather than
+modifying <code>bands</code> in place, we assign the result back to
+<code>bands</code>.</p>
+<div id="cb2" class="sourceCode">
+<pre class="sourceCode py"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" href="#cb2-1" tabindex="-1"></a>bands <span class="op">=</span> bands.assign(albums_per_member <span class="op">=</span> bands.get(<span class="st">"albums"</span>) <span class="op">/</span> bands.get(<span class="st">"members"</span>))</span></code></pre>
+</div>
+<hr/>
+<h5>Difficulty: ⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 81%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<h3 id="problem-20.2">Problem 20.2</h3>
+<p>Find the year in which the band with the highest
+<code>"albums_per_member"</code> ratio was formed. <strong>Select
+all</strong> options that correctly evaluate to this year (or any such
+year in the case of a tie).</p>
+<ul class="task-list">
+<li><p><input type="checkbox" disabled="" /> <code>bands.groupby("albums_per_member").min().sort_values(by=index, ascending=True).iloc[-1]</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>bands.groupby("albums_per_member").min().reset_index().sort_values(by="albums_per_member", ascending=False).get("formed").iloc[0]</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>bands.groupby("formed").max().sort_values(by="albums_per_member", ascending=False).get("formed").iloc[0]</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>bands.groupby("formed").max().sort_values(by="albums_per_member", ascending=False).index[0]</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>bands.sort_values(by="albums_per_member", ascending=True).get("formed").iloc[-1]</code></p></li>
+<li><p><input type="checkbox" disabled="" /> <code>bands.sort_values(by="formed", ascending=False).groupby("albums_per_member").max().index[0]</code></p></li>
+<li><p><input type="checkbox" disabled="" /> None of the above.</p></li>
+</ul>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading20_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse20_2" aria-expanded="true" aria-controls="collapse20_2">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse20_2" class="accordion-collapse collapse"
+aria-labelledby="heading20_2" data-bs-parent="#accordionExample">
+<div class="accordion-body">
+<header id="title-block-header">
+
+</header>
+<p><strong>Answer:</strong></p>
+<p>Option 2, Option 4, and Option 5</p>
+<p><strong>Solution:</strong></p>
+<p><strong>Option 1</strong> is incorrect because <code>index</code> is
+not in quotation marks, so <code>sort_values(by=index, ...)</code>
+raises an error, and <code>.iloc[-1]</code> would return a whole row
+rather than a year.</p>
+<p><strong>Option 2</strong> is correct because grouping by
+<code>"albums_per_member"</code>, resetting the index, sorting in
+descending order, and taking <code>.get("formed").iloc[0]</code> returns
+a formation year for a band with the highest ratio.</p>
+<p><strong>Option 3</strong> is incorrect because
+<code>groupby("formed")</code> makes the years the index, so
+<code>.get("formed")</code> fails since <code>"formed"</code> is no
+longer a column.</p>
+<p><strong>Option 4</strong> is correct because after
+<code>groupby("formed").max()</code> and a descending sort, the year
+with the highest ratio comes first, and <code>.index[0]</code> retrieves
+it from the index.</p>
+<p><strong>Option 5</strong> is correct because an ascending sort puts
+the highest ratio in the last row, so
+<code>.get("formed").iloc[-1]</code> gives its year.</p>
+<p><strong>Option 6</strong> is incorrect because grouping by
+<code>"albums_per_member"</code> makes the ratios the index, so
+<code>.index[0]</code> returns a ratio rather than a year.</p>
+<hr/>
+<h5>Difficulty: ⭐️⭐️⭐️</h5>
+<p>
+</p>
+<p>The average score on this problem was 74%.</p>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<hr />
+</div>
+<div class="lec-problem" data-avg="77.20" data-term="20261">
+<p class="meta"><em>Source:</em> <a href="../../wi26-midterm/index.html#problem-4">Question 4 from Winter 2026 Midterm Exam</a></p>
+<h2 data-src="wi26-midterm/q04" id="problem-21">Problem 21</h2>
+<p>The Best Pizza Neighborhood Contest is coming up! For this contest,
+we want to find the neighborhood with the highest average rating for a
+slice of pizza. Fill in the blanks below so that the expression
+evaluates to the <strong>name</strong> of this neighborhood (as a
+string).</p>
+<pre><code>pizza.get([___(a)___]).groupby(___(b)___)
+                      .___(c)___.sort_values(__(d)__, ascending=False)
+                      ._____(e)_____</code></pre>
+<p><br></p>
+<h3 id="problem-21.1">Problem 21.1</h3>
+<p><strong>(a)</strong></p>
+<div id="accordionExample" class="accordion">
+<div class="accordion-item">
+<h2 class="accordion-header" id="heading21_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21_1" aria-expanded="true" aria-controls="collapse21_1">
+Click to view the solution.
+</button>
+</h2>
+<div id="collapse21_1" class="accordion-collapse collapse"
+aria-labelledby="heading21_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2597,17 +2711,17 @@ aria-labelledby="heading20_1" data-bs-parent="#accordionExample">
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-20.2">Problem 20.2</h3>
+<h3 id="problem-21.2">Problem 21.2</h3>
 <p><strong>(b)</strong></p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading20_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse20_2" aria-expanded="true" aria-controls="collapse20_2">
+<h2 class="accordion-header" id="heading21_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21_2" aria-expanded="true" aria-controls="collapse21_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse20_2" class="accordion-collapse collapse"
-aria-labelledby="heading20_2" data-bs-parent="#accordionExample">
+<div id="collapse21_2" class="accordion-collapse collapse"
+aria-labelledby="heading21_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2623,17 +2737,17 @@ aria-labelledby="heading20_2" data-bs-parent="#accordionExample">
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-20.3">Problem 20.3</h3>
+<h3 id="problem-21.3">Problem 21.3</h3>
 <p><strong>(c)</strong></p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading20_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse20_3" aria-expanded="true" aria-controls="collapse20_3">
+<h2 class="accordion-header" id="heading21_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21_3" aria-expanded="true" aria-controls="collapse21_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse20_3" class="accordion-collapse collapse"
-aria-labelledby="heading20_3" data-bs-parent="#accordionExample">
+<div id="collapse21_3" class="accordion-collapse collapse"
+aria-labelledby="heading21_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2649,17 +2763,17 @@ aria-labelledby="heading20_3" data-bs-parent="#accordionExample">
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-20.4">Problem 20.4</h3>
+<h3 id="problem-21.4">Problem 21.4</h3>
 <p><strong>(d)</strong></p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading20_4">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse20_4" aria-expanded="true" aria-controls="collapse20_4">
+<h2 class="accordion-header" id="heading21_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21_4" aria-expanded="true" aria-controls="collapse21_4">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse20_4" class="accordion-collapse collapse"
-aria-labelledby="heading20_4" data-bs-parent="#accordionExample">
+<div id="collapse21_4" class="accordion-collapse collapse"
+aria-labelledby="heading21_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2675,17 +2789,17 @@ aria-labelledby="heading20_4" data-bs-parent="#accordionExample">
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-20.5">Problem 20.5</h3>
+<h3 id="problem-21.5">Problem 21.5</h3>
 <p><strong>(e)</strong></p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading20_5">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse20_5" aria-expanded="true" aria-controls="collapse20_5">
+<h2 class="accordion-header" id="heading21_5">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21_5" aria-expanded="true" aria-controls="collapse21_5">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse20_5" class="accordion-collapse collapse"
-aria-labelledby="heading20_5" data-bs-parent="#accordionExample">
+<div id="collapse21_5" class="accordion-collapse collapse"
+aria-labelledby="heading21_5" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2720,9 +2834,9 @@ string).</li>
 </div>
 <div class="lec-problem" data-avg="76.57" data-term="20232">
 <p class="meta"><em>Source:</em> <a href="../../sp23-midterm/index.html#problem-1">Question 1 from Spring 2023 Midterm Exam</a></p>
-<h2 data-src="sp23-midterm/q01" id="problem-21">Problem 21</h2>
+<h2 data-src="sp23-midterm/q01" id="problem-22">Problem 22</h2>
 <p><br></p>
-<h3 id="problem-21.1">Problem 21.1</h3>
+<h3 id="problem-22.1">Problem 22.1</h3>
 <p>What is the type of the following expression?</p>
 <div class="sourceCode" id="cb25"><pre
 class="sourceCode py"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>(survey</span>
@@ -2738,13 +2852,13 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb25-1"><a href=
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading21_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21_1" aria-expanded="true" aria-controls="collapse21_1">
+<h2 class="accordion-header" id="heading22_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse22_1" aria-expanded="true" aria-controls="collapse22_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse21_1" class="accordion-collapse collapse"
-aria-labelledby="heading21_1" data-bs-parent="#accordionExample">
+<div id="collapse22_1" class="accordion-collapse collapse"
+aria-labelledby="heading22_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2766,7 +2880,7 @@ order unless specified otherwise by providing the
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-21.2">Problem 21.2</h3>
+<h3 id="problem-22.2">Problem 22.2</h3>
 <p>What is the type of the following expression?</p>
 <div class="sourceCode" id="cb26"><pre
 class="sourceCode py"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>(survey</span>
@@ -2783,13 +2897,13 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb26-1"><a href=
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading21_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21_2" aria-expanded="true" aria-controls="collapse21_2">
+<h2 class="accordion-header" id="heading22_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse22_2" aria-expanded="true" aria-controls="collapse22_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse21_2" class="accordion-collapse collapse"
-aria-labelledby="heading21_2" data-bs-parent="#accordionExample">
+<div id="collapse22_2" class="accordion-collapse collapse"
+aria-labelledby="heading22_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2823,7 +2937,7 @@ rows in <code>survey</code> does not impact the number of rows in
 </div>
 <p><br></p>
 <p><br></p>
-<h3 id="problem-21.3">Problem 21.3</h3>
+<h3 id="problem-22.3">Problem 22.3</h3>
 <p>What is the type of the following expression?</p>
 <div class="sourceCode" id="cb27"><pre
 class="sourceCode py"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>(survey</span>
@@ -2841,13 +2955,13 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb27-1"><a href=
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading21_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21_3" aria-expanded="true" aria-controls="collapse21_3">
+<h2 class="accordion-header" id="heading22_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse22_3" aria-expanded="true" aria-controls="collapse22_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse21_3" class="accordion-collapse collapse"
-aria-labelledby="heading21_3" data-bs-parent="#accordionExample">
+<div id="collapse22_3" class="accordion-collapse collapse"
+aria-labelledby="heading22_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2879,7 +2993,7 @@ will have the same columns as <code>survey</code>, minus
 </div>
 <p><br></p>
 <p><br></p>
-<h3 id="problem-21.4">Problem 21.4</h3>
+<h3 id="problem-22.4">Problem 22.4</h3>
 <p>What is the type of the following expression?</p>
 <div class="sourceCode" id="cb28"><pre
 class="sourceCode py"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>(survey</span>
@@ -2898,13 +3012,13 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb28-1"><a href=
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading21_4">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21_4" aria-expanded="true" aria-controls="collapse21_4">
+<h2 class="accordion-header" id="heading22_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse22_4" aria-expanded="true" aria-controls="collapse22_4">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse21_4" class="accordion-collapse collapse"
-aria-labelledby="heading21_4" data-bs-parent="#accordionExample">
+<div id="collapse22_4" class="accordion-collapse collapse"
+aria-labelledby="heading22_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2932,7 +3046,7 @@ this Series are all numbers. As such, the answer is int or float.</p>
 </div>
 <p><br></p>
 <p><br></p>
-<h3 id="problem-21.5">Problem 21.5</h3>
+<h3 id="problem-22.5">Problem 22.5</h3>
 <p>What <strong>value</strong> does the following expression evaluate
 to? If you believe the expression errors, provide a one sentence
 explanation of why.</p>
@@ -2950,13 +3064,13 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb29-1"><a href=
 <span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading21_5">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21_5" aria-expanded="true" aria-controls="collapse21_5">
+<h2 class="accordion-header" id="heading22_5">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse22_5" aria-expanded="true" aria-controls="collapse22_5">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse21_5" class="accordion-collapse collapse"
-aria-labelledby="heading21_5" data-bs-parent="#accordionExample">
+<div id="collapse22_5" class="accordion-collapse collapse"
+aria-labelledby="heading22_5" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -2992,7 +3106,7 @@ gives us <code>"ERC"</code>.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-21.6">Problem 21.6</h3>
+<h3 id="problem-22.6">Problem 22.6</h3>
 <p>Consider again the expression from 1.5. Suppose we remove the
 piece</p>
 <div class="sourceCode" id="cb30"><pre
@@ -3005,13 +3119,13 @@ expression evaluates to?</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading21_6">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21_6" aria-expanded="true" aria-controls="collapse21_6">
+<h2 class="accordion-header" id="heading22_6">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse22_6" aria-expanded="true" aria-controls="collapse22_6">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse21_6" class="accordion-collapse collapse"
-aria-labelledby="heading21_6" data-bs-parent="#accordionExample">
+<div id="collapse22_6" class="accordion-collapse collapse"
+aria-labelledby="heading22_6" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3035,7 +3149,7 @@ DataFrame would be the same! That’s because the order of the rows in
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-21.7">Problem 21.7</h3>
+<h3 id="problem-22.7">Problem 22.7</h3>
 <p>What <strong>value</strong> does the following expression evaluate
 to? If you believe the expression errors, provide a one sentence
 explanation of why.</p>
@@ -3053,13 +3167,13 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb31-1"><a href=
 <span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading21_7">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse21_7" aria-expanded="true" aria-controls="collapse21_7">
+<h2 class="accordion-header" id="heading22_7">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse22_7" aria-expanded="true" aria-controls="collapse22_7">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse21_7" class="accordion-collapse collapse"
-aria-labelledby="heading21_7" data-bs-parent="#accordionExample">
+<div id="collapse22_7" class="accordion-collapse collapse"
+aria-labelledby="heading22_7" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3096,7 +3210,7 @@ no value whose index is <code>0</code>, so this throws an error.</p>
 </div>
 <div class="lec-problem" data-avg="76.00" data-term="20231">
 <p class="meta"><em>Source:</em> <a href="../../wi23-final/index.html#problem-2">Question 2 from Winter 2023 Final Exam</a></p>
-<h2 data-src="wi23-final/q2" id="problem-22">Problem 22</h2>
+<h2 data-src="wi23-final/q2" id="problem-23">Problem 23</h2>
 <p>You are unsure whether it would make sense to use
 <code>"BGG Rank"</code> as the index of the <code>games</code>
 DataFrame, because you are unsure whether this column has duplicate
@@ -3117,13 +3231,13 @@ to detect the presence of duplicate values.</p>
 <code>games</code>, instead we’ll leave it with the default index.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading22">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse22" aria-expanded="true" aria-controls="collapse22">
+<h2 class="accordion-header" id="heading23">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse23" aria-expanded="true" aria-controls="collapse23">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse22" class="accordion-collapse collapse"
-aria-labelledby="heading22" data-bs-parent="#accordionExample">
+<div id="collapse23" class="accordion-collapse collapse"
+aria-labelledby="heading23" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3188,7 +3302,7 @@ unique or not, so it does not detect duplicates.</p>
 </div>
 <div class="lec-problem" data-avg="75.25" data-term="20251">
 <p class="meta"><em>Source:</em> <a href="../../wi25-final/index.html#problem-2">Question 2 from Winter 2025 Final Exam</a></p>
-<h2 data-src="wi25-final/q02" id="problem-23">Problem 23</h2>
+<h2 data-src="wi25-final/q02" id="problem-24">Problem 24</h2>
 <p>The Death Eaters are a powerful group of dark wizards who oppose
 Harry Potter and his allies. Each Death Eater receives a unique
 identification number based on their order of initiation, ranging from
@@ -3199,7 +3313,7 @@ understand how many enemies you face. You have a random sample of
 identification numbers in a DataFrame named <code>death_eaters</code>
 containing a single column called <code>"ID"</code>.</p>
 <p><br></p>
-<h3 id="problem-23.1">Problem 23.1</h3>
+<h3 id="problem-24.1">Problem 24.1</h3>
 <p>Which of the options below would be an appropriate estimate for the
 total number of Death Eaters? Select all that apply.</p>
 <ul class="task-list">
@@ -3212,13 +3326,13 @@ total number of Death Eaters? Select all that apply.</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading23_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse23_1" aria-expanded="true" aria-controls="collapse23_1">
+<h2 class="accordion-header" id="heading24_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse24_1" aria-expanded="true" aria-controls="collapse24_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse23_1" class="accordion-collapse collapse"
-aria-labelledby="heading23_1" data-bs-parent="#accordionExample">
+<div id="collapse24_1" class="accordion-collapse collapse"
+aria-labelledby="heading24_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3260,7 +3374,7 @@ inappropriate estimate.</p></li>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-23.2">Problem 23.2</h3>
+<h3 id="problem-24.2">Problem 24.2</h3>
 <p>Each box that you selected in part (a) is an example of what?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> a distribution</p></li>
@@ -3270,13 +3384,13 @@ inappropriate estimate.</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading23_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse23_2" aria-expanded="true" aria-controls="collapse23_2">
+<h2 class="accordion-header" id="heading24_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse24_2" aria-expanded="true" aria-controls="collapse24_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse23_2" class="accordion-collapse collapse"
-aria-labelledby="heading23_2" data-bs-parent="#accordionExample">
+<div id="collapse24_2" class="accordion-collapse collapse"
+aria-labelledby="heading24_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3295,7 +3409,7 @@ statistic.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-23.3">Problem 23.3</h3>
+<h3 id="problem-24.3">Problem 24.3</h3>
 <p>Suppose you have access to a function called <code>estimate</code>,
 which takes in a Series of Death Eater ID numbers and returns an
 estimate for <code>N</code>. Fill in the blanks below to do the
@@ -3318,13 +3432,13 @@ a 72% confidence interval for <code>N</code>.</p></li>
 <p>What goes in blank (a)?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading23_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse23_3" aria-expanded="true" aria-controls="collapse23_3">
+<h2 class="accordion-header" id="heading24_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse24_3" aria-expanded="true" aria-controls="collapse24_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse23_3" class="accordion-collapse collapse"
-aria-labelledby="heading23_3" data-bs-parent="#accordionExample">
+<div id="collapse24_3" class="accordion-collapse collapse"
+aria-labelledby="heading24_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3361,17 +3475,17 @@ estimate of N.</p></li>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-23.4">Problem 23.4</h3>
+<h3 id="problem-24.4">Problem 24.4</h3>
 <p>What goes in blank (b)?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading23_4">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse23_4" aria-expanded="true" aria-controls="collapse23_4">
+<h2 class="accordion-header" id="heading24_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse24_4" aria-expanded="true" aria-controls="collapse24_4">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse23_4" class="accordion-collapse collapse"
-aria-labelledby="heading23_4" data-bs-parent="#accordionExample">
+<div id="collapse24_4" class="accordion-collapse collapse"
+aria-labelledby="heading24_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3400,7 +3514,7 @@ here)</a> takes as arguments the array to compute the percentile
 </div>
 <div class="lec-problem" data-avg="74.67" data-term="20214">
 <p class="meta"><em>Source:</em> <a href="../../fa21-midterm/index.html#problem-6">Question 6 from Fall 2021 Midterm Exam</a></p>
-<h2 data-src="fa21-midterm/q6-routes" id="problem-24">Problem 24</h2>
+<h2 data-src="fa21-midterm/q6-routes" id="problem-25">Problem 25</h2>
 <p>We define a “route” to be a departure and arrival airport pair. For
 example, all flights from <code>'SFO'</code> to <code>'SAN'</code> make
 up the “SFO to SAN route”. This is different from the “SAN to SFO
@@ -3414,17 +3528,17 @@ and destination airports of the route that King Triton has spent the
 class="sourceCode py"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>most_frequent <span class="op">=</span> flights.groupby(__(a)__).__(b)__</span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>most_frequent <span class="op">=</span> most_frequent.reset_index().sort_values(__(c)__)</span></code></pre></div>
 <p><br></p>
-<h3 id="problem-24.1">Problem 24.1</h3>
+<h3 id="problem-25.1">Problem 25.1</h3>
 <p>What goes in blank (a)?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading24_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse24_1" aria-expanded="true" aria-controls="collapse24_1">
+<h2 class="accordion-header" id="heading25_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse25_1" aria-expanded="true" aria-controls="collapse25_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse24_1" class="accordion-collapse collapse"
-aria-labelledby="heading24_1" data-bs-parent="#accordionExample">
+<div id="collapse25_1" class="accordion-collapse collapse"
+aria-labelledby="heading25_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3445,7 +3559,7 @@ column names, as in <code>flights.groupby(['FROM', 'TO'])</code>.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-24.2">Problem 24.2</h3>
+<h3 id="problem-25.2">Problem 25.2</h3>
 <p>What goes in blank (b)?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> <code>count()</code></p></li>
@@ -3455,13 +3569,13 @@ column names, as in <code>flights.groupby(['FROM', 'TO'])</code>.</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading24_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse24_2" aria-expanded="true" aria-controls="collapse24_2">
+<h2 class="accordion-header" id="heading25_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse25_2" aria-expanded="true" aria-controls="collapse25_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse24_2" class="accordion-collapse collapse"
-aria-labelledby="heading24_2" data-bs-parent="#accordionExample">
+<div id="collapse25_2" class="accordion-collapse collapse"
+aria-labelledby="heading25_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3485,7 +3599,7 @@ time flying on.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-24.3">Problem 24.3</h3>
+<h3 id="problem-25.3">Problem 25.3</h3>
 <p>What goes in blank (c)?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> <code>by='HOURS', ascending=True</code></p></li>
@@ -3495,13 +3609,13 @@ time flying on.</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading24_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse24_3" aria-expanded="true" aria-controls="collapse24_3">
+<h2 class="accordion-header" id="heading25_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse25_3" aria-expanded="true" aria-controls="collapse25_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse24_3" class="accordion-collapse collapse"
-aria-labelledby="heading24_3" data-bs-parent="#accordionExample">
+<div id="collapse25_3" class="accordion-collapse collapse"
+aria-labelledby="heading25_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3532,12 +3646,12 @@ we must sort by <code>'HOURS'</code> with
 </div>
 <div class="lec-problem" data-avg="74.50" data-term="20214">
 <p class="meta"><em>Source:</em> <a href="../../fa21-final/index.html#problem-2">Question 2 from Fall 2021 Final Exam</a></p>
-<h2 data-src="fa21-final/q2-around-the-world" id="problem-25">Problem
-25</h2>
+<h2 data-src="fa21-final/q2-around-the-world" id="problem-26">Problem
+26</h2>
 <p>In this question, we’ll keep working with the
 <code>art_museums</code> DataFrame.</p>
 <p><br></p>
-<h3 id="problem-25.1">Problem 25.1</h3>
+<h3 id="problem-26.1">Problem 26.1</h3>
 <p>(Remember to keep the data description from the top of the exam open
 in another tab!)</p>
 <p><code>'Tate Modern'</code> is the most popular art museum in London.
@@ -3566,13 +3680,13 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb34-1"><a href=
 </ol>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading25_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse25_1" aria-expanded="true" aria-controls="collapse25_1">
+<h2 class="accordion-header" id="heading26_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse26_1" aria-expanded="true" aria-controls="collapse26_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse25_1" class="accordion-collapse collapse"
-aria-labelledby="heading25_1" data-bs-parent="#accordionExample">
+<div id="collapse26_1" class="accordion-collapse collapse"
+aria-labelledby="heading26_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3607,7 +3721,7 @@ to fulfill the question’s requirement.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-25.2">Problem 25.2</h3>
+<h3 id="problem-26.2">Problem 26.2</h3>
 <p>Assume you’ve defined <code>best_per_city</code> correctly.</p>
 <p>Which of the following options evaluates to the number of visitors to
 the most visited art museum in Amsterdam? Select all that apply.</p>
@@ -3620,13 +3734,13 @@ the most visited art museum in Amsterdam? Select all that apply.</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading25_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse25_2" aria-expanded="true" aria-controls="collapse25_2">
+<h2 class="accordion-header" id="heading26_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse26_2" aria-expanded="true" aria-controls="collapse26_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse25_2" class="accordion-collapse collapse"
-aria-labelledby="heading25_2" data-bs-parent="#accordionExample">
+<div id="collapse26_2" class="accordion-collapse collapse"
+aria-labelledby="heading26_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3674,7 +3788,7 @@ index <code>'Amsterdam'</code>.</p>
 </div>
 <div class="lec-problem" data-avg="73.00" data-term="20261">
 <p class="meta"><em>Source:</em> <a href="../../wi26-midterm/index.html#problem-3">Question 3 from Winter 2026 Midterm Exam</a></p>
-<h2 data-src="wi26-midterm/q03" id="problem-26">Problem 26</h2>
+<h2 data-src="wi26-midterm/q03" id="problem-27">Problem 27</h2>
 <p>First, the following code takes the first 10 rows of the
 <code>pizza</code> DataFrame and stores them into <code>pizza10</code>
 (thus <code>pizza10</code> consists of exactly the 10 rows shown on the
@@ -3687,7 +3801,7 @@ result = positions[pizza10.get(&quot;rating&quot;) &gt; 4].sum()</code></pre>
 behavior of the code in the last line above is analogous to a query from
 a DataFrame.</p>
 <p><br></p>
-<h3 id="problem-26.1">Problem 26.1</h3>
+<h3 id="problem-27.1">Problem 27.1</h3>
 <p>What does <code>result</code> represent?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> The number of pizzas in <code>pizza10</code> with rating &gt; 4</p></li>
@@ -3702,13 +3816,13 @@ rating &gt; 4</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading26_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse26_1" aria-expanded="true" aria-controls="collapse26_1">
+<h2 class="accordion-header" id="heading27_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse27_1" aria-expanded="true" aria-controls="collapse27_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse26_1" class="accordion-collapse collapse"
-aria-labelledby="heading26_1" data-bs-parent="#accordionExample">
+<div id="collapse27_1" class="accordion-collapse collapse"
+aria-labelledby="heading27_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3732,7 +3846,7 @@ the ratings themselves).</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-26.2">Problem 26.2</h3>
+<h3 id="problem-27.2">Problem 27.2</h3>
 <p>What does <code>result</code> evaluate to?</p>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> 4</p></li>
@@ -3743,13 +3857,13 @@ the ratings themselves).</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading26_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse26_2" aria-expanded="true" aria-controls="collapse26_2">
+<h2 class="accordion-header" id="heading27_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse27_2" aria-expanded="true" aria-controls="collapse27_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse26_2" class="accordion-collapse collapse"
-aria-labelledby="heading26_2" data-bs-parent="#accordionExample">
+<div id="collapse27_2" class="accordion-collapse collapse"
+aria-labelledby="heading27_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3784,7 +3898,7 @@ aria-labelledby="heading26_2" data-bs-parent="#accordionExample">
 </div>
 <div class="lec-problem" data-avg="73.00" data-term="20254">
 <p class="meta"><em>Source:</em> <a href="../../fa25-quiz1/index.html#problem-3">Question 3 from Fall 2025 Quiz 1</a></p>
-<h2 data-src="fa25-quizzes/quiz1/q03" id="problem-27">Problem 27</h2>
+<h2 data-src="fa25-quizzes/quiz1/q03" id="problem-28">Problem 28</h2>
 <p>You decide to eliminate some of the fighters that have
 <code>"Sword"</code> as their <code>"Weapon"</code>. <strong>Select
 all</strong> expressions that evaluate to the total number of such
@@ -3799,13 +3913,13 @@ fighters.</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading27">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse27" aria-expanded="true" aria-controls="collapse27">
+<h2 class="accordion-header" id="heading28">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse28" aria-expanded="true" aria-controls="collapse28">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse27" class="accordion-collapse collapse"
-aria-labelledby="heading27" data-bs-parent="#accordionExample">
+<div id="collapse28" class="accordion-collapse collapse"
+aria-labelledby="heading28" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3845,18 +3959,18 @@ not count rows, so it doesn’t give a single number of fighters.</p>
 </div>
 <div class="lec-problem" data-avg="72.00" data-term="20242">
 <p class="meta"><em>Source:</em> <a href="../../sp24-quiz2/index.html#problem-1">Question 1 from Spring 2024 Quiz 2</a></p>
-<h2 data-src="sp24-quizzes/quiz2/q01" id="problem-28">Problem 28</h2>
+<h2 data-src="sp24-quizzes/quiz2/q01" id="problem-29">Problem 29</h2>
 <p>Write an expression that evaluates to the number of art pieces made
 in 1950 that cost less than $10,000.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading28">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse28" aria-expanded="true" aria-controls="collapse28">
+<h2 class="accordion-header" id="heading29">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse29" aria-expanded="true" aria-controls="collapse29">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse28" class="accordion-collapse collapse"
-aria-labelledby="heading28" data-bs-parent="#accordionExample">
+<div id="collapse29" class="accordion-collapse collapse"
+aria-labelledby="heading29" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3880,21 +3994,21 @@ counts them.</p>
 </div>
 <div class="lec-problem" data-avg="71.50" data-term="20241">
 <p class="meta"><em>Source:</em> <a href="../../wi24-quiz2/index.html#problem-5">Question 5 from Winter 2024 Quiz 2</a></p>
-<h2 data-src="wi24-quizzes/quiz2/q05" id="problem-29">Problem 29</h2>
+<h2 data-src="wi24-quizzes/quiz2/q05" id="problem-30">Problem 30</h2>
 <p><br></p>
-<h3 id="problem-29.1">Problem 29.1</h3>
+<h3 id="problem-30.1">Problem 30.1</h3>
 <p><strong>Using <code>groupby</code></strong>, write an expression that
 evaluates to the average price of laptops with the <code>"macOS"</code>
 operating system.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading29_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse29_1" aria-expanded="true" aria-controls="collapse29_1">
+<h2 class="accordion-header" id="heading30_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse30_1" aria-expanded="true" aria-controls="collapse30_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse29_1" class="accordion-collapse collapse"
-aria-labelledby="heading29_1" data-bs-parent="#accordionExample">
+<div id="collapse30_1" class="accordion-collapse collapse"
+aria-labelledby="heading30_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3920,19 +4034,19 @@ system, with the average price in each column.
 </div>
 </div>
 <p><br> <br></p>
-<h3 id="problem-29.2">Problem 29.2</h3>
+<h3 id="problem-30.2">Problem 30.2</h3>
 <p><strong>Without using <code>groupby</code></strong>, write an
 expression that evaluates to the average price of laptops with the
 <code>"macOS"</code> operating system (the same quantity as above).</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading29_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse29_2" aria-expanded="true" aria-controls="collapse29_2">
+<h2 class="accordion-header" id="heading30_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse30_2" aria-expanded="true" aria-controls="collapse30_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse29_2" class="accordion-collapse collapse"
-aria-labelledby="heading29_2" data-bs-parent="#accordionExample">
+<div id="collapse30_2" class="accordion-collapse collapse"
+aria-labelledby="heading30_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -3959,7 +4073,7 @@ laptops, without ever grouping.</p>
 </div>
 <div class="lec-problem" data-avg="71.00" data-term="20262">
 <p class="meta"><em>Source:</em> <a href="../../sp26-midterm/index.html#problem-2">Question 2 from Spring 2026 Midterm Exam</a></p>
-<h2 data-src="sp26-midterm/q02" id="problem-30">Problem 30</h2>
+<h2 data-src="sp26-midterm/q02" id="problem-31">Problem 31</h2>
 <p>Which of the following expressions evaluate to the name of the school
 with the widest height range for its mascot costume (or any such school,
 in the case of a tie)? <strong>Select all that apply.</strong></p>
@@ -3974,13 +4088,13 @@ order of the values in the index.</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading30">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse30" aria-expanded="true" aria-controls="collapse30">
+<h2 class="accordion-header" id="heading31">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse31" aria-expanded="true" aria-controls="collapse31">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse30" class="accordion-collapse collapse"
-aria-labelledby="heading30" data-bs-parent="#accordionExample">
+<div id="collapse31" class="accordion-collapse collapse"
+aria-labelledby="heading31" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -4018,7 +4132,7 @@ the alphabetically last school, which has no relation to the range.</li>
 </div>
 <div class="lec-problem" data-avg="71.00" data-term="20244">
 <p class="meta"><em>Source:</em> <a href="../../fa24-midterm/index.html#problem-11">Question 11 from Fall 2024 Midterm Exam</a></p>
-<h2 data-src="fa24-midterm/q11" id="problem-31">Problem 31</h2>
+<h2 data-src="fa24-midterm/q11" id="problem-32">Problem 32</h2>
 <p>As in the last problem, we’ll continue working with the
 <code>tot</code> DataFrame that came from merging <code>trick</code>
 with <code>treat</code>. The <code>"price"</code> column contains the
@@ -4066,13 +4180,13 @@ ac = ac.assign(avg_cost = ac.get(&quot;x&quot;) /
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading31">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse31" aria-expanded="true" aria-controls="collapse31">
+<h2 class="accordion-header" id="heading32">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse32" aria-expanded="true" aria-controls="collapse32">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse31" class="accordion-collapse collapse"
-aria-labelledby="heading31" data-bs-parent="#accordionExample">
+<div id="collapse32" class="accordion-collapse collapse"
+aria-labelledby="heading32" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -4137,7 +4251,7 @@ piece</li>
 </div>
 <div class="lec-problem" data-avg="70.25" data-term="20252">
 <p class="meta"><em>Source:</em> <a href="../../sp25-quiz1/index.html#problem-1">Question 1 from Spring 2025 Quiz 1</a></p>
-<h2 data-src="sp25-quizzes/quiz1/q01" id="problem-32">Problem 32</h2>
+<h2 data-src="sp25-quizzes/quiz1/q01" id="problem-33">Problem 33</h2>
 <p>Fill in the blanks so the expression below evaluates to the name of
 the chest that contains the most <strong>distinct</strong> items.</p>
 <div class="sourceCode" id="cb42"><pre
@@ -4146,13 +4260,13 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb42-1"><a href=
 <span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>          .sort_values(by<span class="op">=</span><span class="st">&quot;Quantity&quot;</span>, ascending<span class="op">=</span>___(c)___).___(d)___)</span></code></pre></div>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading32">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse32" aria-expanded="true" aria-controls="collapse32">
+<h2 class="accordion-header" id="heading33">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse33" aria-expanded="true" aria-controls="collapse33">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse32" class="accordion-collapse collapse"
-aria-labelledby="heading32" data-bs-parent="#accordionExample">
+<div id="collapse33" class="accordion-collapse collapse"
+aria-labelledby="heading33" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -4204,24 +4318,24 @@ The average score on this problem was 67%.</p></li>
 </div>
 <div class="lec-problem" data-avg="69.00" data-term="20264">
 <p class="meta"><em>Source:</em> <a href="../../fa26-midterm/index.html#problem-3">Question 3 from Fall 2026 Midterm Exam</a></p>
-<h2 data-src="fa26-midterm/q03" id="problem-33">Problem 33</h2>
+<h2 data-src="fa26-midterm/q03" id="problem-34">Problem 34</h2>
 <p>Define a Series containing the first five values in the
 <code>"num_comments"</code> column:</p>
 <div class="sourceCode" id="cb43"><pre
 class="sourceCode py"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>five <span class="op">=</span> posts.take(np.arange(<span class="dv">5</span>)).get(<span class="st">&quot;num_comments&quot;</span>)</span></code></pre></div>
 <p>Determine the value of each of the following expressions.</p>
 <p><br></p>
-<h3 id="problem-33.1">Problem 33.1</h3>
+<h3 id="problem-34.1">Problem 34.1</h3>
 <p><code>10 + five.sum()</code></p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading33_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse33_1" aria-expanded="true" aria-controls="collapse33_1">
+<h2 class="accordion-header" id="heading34_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse34_1" aria-expanded="true" aria-controls="collapse34_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse33_1" class="accordion-collapse collapse"
-aria-labelledby="heading33_1" data-bs-parent="#accordionExample">
+<div id="collapse34_1" class="accordion-collapse collapse"
+aria-labelledby="heading34_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -4242,17 +4356,17 @@ aria-labelledby="heading33_1" data-bs-parent="#accordionExample">
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-33.2">Problem 33.2</h3>
+<h3 id="problem-34.2">Problem 34.2</h3>
 <p><code>(10 + five).sum()</code></p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading33_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse33_2" aria-expanded="true" aria-controls="collapse33_2">
+<h2 class="accordion-header" id="heading34_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse34_2" aria-expanded="true" aria-controls="collapse34_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse33_2" class="accordion-collapse collapse"
-aria-labelledby="heading33_2" data-bs-parent="#accordionExample">
+<div id="collapse34_2" class="accordion-collapse collapse"
+aria-labelledby="heading34_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -4275,17 +4389,17 @@ after summing, or to each element before summing.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-33.3">Problem 33.3</h3>
+<h3 id="problem-34.3">Problem 34.3</h3>
 <p><code>((five + (five &gt;= 5).sum()) &gt;= 5).sum()</code></p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading33_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse33_3" aria-expanded="true" aria-controls="collapse33_3">
+<h2 class="accordion-header" id="heading34_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse34_3" aria-expanded="true" aria-controls="collapse34_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse33_3" class="accordion-collapse collapse"
-aria-labelledby="heading33_3" data-bs-parent="#accordionExample">
+<div id="collapse34_3" class="accordion-collapse collapse"
+aria-labelledby="heading34_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -4322,7 +4436,7 @@ giving 2.</li>
 </div>
 <div class="lec-problem" data-avg="69.00" data-term="20262">
 <p class="meta"><em>Source:</em> <a href="../../sp26-quiz1/index.html#problem-1">Question 1 from Spring 2026 Quiz 1</a></p>
-<h2 data-src="sp26-quizzes/quiz1/q01" id="problem-34">Problem 34</h2>
+<h2 data-src="sp26-quizzes/quiz1/q01" id="problem-35">Problem 35</h2>
 <p>Suppose we define <code>x</code> as follows.</p>
 <pre><code>x = wc.get([&quot;year&quot;, &quot;score&quot;]).groupby(&quot;year&quot;).mean().shape[0]</code></pre>
 <p>Choose the expression below that evaluates to <code>True</code>.</p>
@@ -4333,13 +4447,13 @@ giving 2.</li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading34">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse34" aria-expanded="true" aria-controls="collapse34">
+<h2 class="accordion-header" id="heading35">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse35" aria-expanded="true" aria-controls="collapse35">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse34" class="accordion-collapse collapse"
-aria-labelledby="heading34" data-bs-parent="#accordionExample">
+<div id="collapse35" class="accordion-collapse collapse"
+aria-labelledby="heading35" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -4358,7 +4472,7 @@ aria-labelledby="heading34" data-bs-parent="#accordionExample">
 </div>
 <div class="lec-problem" data-avg="69.00" data-term="20234">
 <p class="meta"><em>Source:</em> <a href="../../fa23-final/index.html#problem-3">Question 3 from Fall 2023 Final Exam</a></p>
-<h2 data-src="fa23-final/q03" id="problem-35">Problem 35</h2>
+<h2 data-src="fa23-final/q03" id="problem-36">Problem 36</h2>
 <p>Consider the variable <code>is_fraud_mean</code>, defined below.</p>
 <pre><code>is_fraud_mean = txn.get(&quot;is_fraud&quot;).mean()</code></pre>
 <p>Which of the following expressions are equivalent to
@@ -4373,13 +4487,13 @@ aria-labelledby="heading34" data-bs-parent="#accordionExample">
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading35">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse35" aria-expanded="true" aria-controls="collapse35">
+<h2 class="accordion-header" id="heading36">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse36" aria-expanded="true" aria-controls="collapse36">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse35" class="accordion-collapse collapse"
-aria-labelledby="heading35" data-bs-parent="#accordionExample">
+<div id="collapse36" class="accordion-collapse collapse"
+aria-labelledby="heading36" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -4442,14 +4556,14 @@ proportion of values in the <code>"is_fraud"</code> column that are
 </div>
 <div class="lec-problem" data-avg="68.25" data-term="20254">
 <p class="meta"><em>Source:</em> <a href="../../fa25-quiz1/index.html#problem-1">Question 1 from Fall 2025 Quiz 1</a></p>
-<h2 data-src="fa25-quizzes/quiz1/q01" id="problem-36">Problem 36</h2>
+<h2 data-src="fa25-quizzes/quiz1/q01" id="problem-37">Problem 37</h2>
 <p>Nintendo management sends you some information about your new job,
 but there seems to be an encryption puzzle blocking you from opening the
 file. To undo the encryption and open the file, <strong>determine the
 datatype</strong> of each expression below, or indicate that the
 expression produces an error.</p>
 <p><br></p>
-<h3 id="problem-36.1">Problem 36.1</h3>
+<h3 id="problem-37.1">Problem 37.1</h3>
 <pre><code>smash.shape[0] / 1</code></pre>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> int</p></li>
@@ -4461,13 +4575,13 @@ expression produces an error.</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading36_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse36_1" aria-expanded="true" aria-controls="collapse36_1">
+<h2 class="accordion-header" id="heading37_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse37_1" aria-expanded="true" aria-controls="collapse37_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse36_1" class="accordion-collapse collapse"
-aria-labelledby="heading36_1" data-bs-parent="#accordionExample">
+<div id="collapse37_1" class="accordion-collapse collapse"
+aria-labelledby="heading37_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -4486,7 +4600,7 @@ always returns a float, even when the division comes out evenly, so n /
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-36.2">Problem 36.2</h3>
+<h3 id="problem-37.2">Problem 37.2</h3>
 <pre><code>str(len(smash)) * 2.0</code></pre>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> int</p></li>
@@ -4498,13 +4612,13 @@ always returns a float, even when the division comes out evenly, so n /
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading36_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse36_2" aria-expanded="true" aria-controls="collapse36_2">
+<h2 class="accordion-header" id="heading37_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse37_2" aria-expanded="true" aria-controls="collapse37_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse36_2" class="accordion-collapse collapse"
-aria-labelledby="heading36_2" data-bs-parent="#accordionExample">
+<div id="collapse37_2" class="accordion-collapse collapse"
+aria-labelledby="heading37_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -4525,7 +4639,7 @@ raises a TypeError, even though 2.0 is a whole number.</p>
 </div>
 <p><br></p>
 <p><br></p>
-<h3 id="problem-36.3">Problem 36.3</h3>
+<h3 id="problem-37.3">Problem 37.3</h3>
 <pre><code>smash.get(&quot;Year&quot;).iloc[0] == &quot;1981&quot;</code></pre>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> int</p></li>
@@ -4537,13 +4651,13 @@ raises a TypeError, even though 2.0 is a whole number.</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading36_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse36_3" aria-expanded="true" aria-controls="collapse36_3">
+<h2 class="accordion-header" id="heading37_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse37_3" aria-expanded="true" aria-controls="collapse37_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse36_3" class="accordion-collapse collapse"
-aria-labelledby="heading36_3" data-bs-parent="#accordionExample">
+<div id="collapse37_3" class="accordion-collapse collapse"
+aria-labelledby="heading37_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -4565,7 +4679,7 @@ an error.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-36.4">Problem 36.4</h3>
+<h3 id="problem-37.4">Problem 37.4</h3>
 <pre><code>smash.take([0])</code></pre>
 <ul class="task-list">
 <li><p><input type="radio" disabled="" /> int</p></li>
@@ -4577,13 +4691,13 @@ an error.</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading36_4">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse36_4" aria-expanded="true" aria-controls="collapse36_4">
+<h2 class="accordion-header" id="heading37_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse37_4" aria-expanded="true" aria-controls="collapse37_4">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse36_4" class="accordion-collapse collapse"
-aria-labelledby="heading36_4" data-bs-parent="#accordionExample">
+<div id="collapse37_4" class="accordion-collapse collapse"
+aria-labelledby="heading37_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -4606,7 +4720,7 @@ one row), not a single value.</p>
 </div>
 <div class="lec-problem" data-avg="67.00" data-term="20244">
 <p class="meta"><em>Source:</em> <a href="../../fa24-midterm/index.html#problem-5">Question 5 from Fall 2024 Midterm Exam</a></p>
-<h2 data-src="fa24-midterm/q05" id="problem-37">Problem 37</h2>
+<h2 data-src="fa24-midterm/q05" id="problem-38">Problem 38</h2>
 <p>Write a Python expression that evaluates to the address of the house
 with the most pieces of candy available (the most
 <strong>pieces</strong>, not the most varieties).</p>
@@ -4614,13 +4728,13 @@ with the most pieces of candy available (the most
 should represent a single expression in Python.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading37">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse37" aria-expanded="true" aria-controls="collapse37">
+<h2 class="accordion-header" id="heading38">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse38" aria-expanded="true" aria-controls="collapse38">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse37" class="accordion-collapse collapse"
-aria-labelledby="heading37" data-bs-parent="#accordionExample">
+<div id="collapse38" class="accordion-collapse collapse"
+aria-labelledby="heading38" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -4662,19 +4776,19 @@ which you can access by <code>index[-1]</code>.</p>
 </div>
 <div class="lec-problem" data-avg="66.00" data-term="20262">
 <p class="meta"><em>Source:</em> <a href="../../sp26-quiz1/index.html#problem-2">Question 2 from Spring 2026 Quiz 1</a></p>
-<h2 data-src="sp26-quizzes/quiz1/q02" id="problem-38">Problem 38</h2>
+<h2 data-src="sp26-quizzes/quiz1/q02" id="problem-39">Problem 39</h2>
 <p>Fill in the blanks so the expression below evaluates to the name of
 the country with the most World Cup wins.</p>
 <pre><code>wc.groupby(__(a)__).__(b)__.sort_values(by=__(c)__, ascending=True).__(d)__</code></pre>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading38">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse38" aria-expanded="true" aria-controls="collapse38">
+<h2 class="accordion-header" id="heading39">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse39" aria-expanded="true" aria-controls="collapse39">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse38" class="accordion-collapse collapse"
-aria-labelledby="heading38" data-bs-parent="#accordionExample">
+<div id="collapse39" class="accordion-collapse collapse"
+aria-labelledby="heading39" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -4696,7 +4810,7 @@ aria-labelledby="heading38" data-bs-parent="#accordionExample">
 </div>
 <div class="lec-problem" data-avg="65.00" data-term="20261">
 <p class="meta"><em>Source:</em> <a href="../../wi26-midterm/index.html#problem-5">Question 5 from Winter 2026 Midterm Exam</a></p>
-<h2 data-src="wi26-midterm/q05" id="problem-39">Problem 39</h2>
+<h2 data-src="wi26-midterm/q05" id="problem-40">Problem 40</h2>
 <p>The DSC 10 staff is planning their quarterly pizza party, and they
 want to make sure that there are options for everyone. They’re trying to
 find the total number of gluten-free pizza slice options in the San
@@ -4713,13 +4827,13 @@ options.</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading39">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse39" aria-expanded="true" aria-controls="collapse39">
+<h2 class="accordion-header" id="heading40">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse40" aria-expanded="true" aria-controls="collapse40">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse39" class="accordion-collapse collapse"
-aria-labelledby="heading39" data-bs-parent="#accordionExample">
+<div id="collapse40" class="accordion-collapse collapse"
+aria-labelledby="heading40" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -4766,25 +4880,25 @@ integer for the whole table.</p></li>
 </div>
 <div class="lec-problem" data-avg="64.33" data-term="20241">
 <p class="meta"><em>Source:</em> <a href="../../wi24-midterm/index.html#problem-1">Question 1 from Winter 2024 Midterm Exam</a></p>
-<h2 data-src="wi24-midterm/q01" id="problem-40">Problem 40</h2>
+<h2 data-src="wi24-midterm/q01" id="problem-41">Problem 41</h2>
 <p>Each of the following expressions evaluates to an integer. Determine
 the value of that integer, if possible, or circle “not enough
 information."</p>
 <p><strong>Important</strong>: Before proceeding, make sure to read the
 page called <em>Clue</em>: The Murder Mystery Game.</p>
 <p><br></p>
-<h3 id="problem-40.1">Problem 40.1</h3>
+<h3 id="problem-41.1">Problem 41.1</h3>
 <div class="sourceCode" id="cb51"><pre
 class="sourceCode py"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>(clue.get(<span class="st">&quot;Cardholder&quot;</span>) <span class="op">==</span> <span class="st">&quot;Janine&quot;</span>).<span class="bu">sum</span>() </span></code></pre></div>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading40_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse40_1" aria-expanded="true" aria-controls="collapse40_1">
+<h2 class="accordion-header" id="heading41_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse41_1" aria-expanded="true" aria-controls="collapse41_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse40_1" class="accordion-collapse collapse"
-aria-labelledby="heading40_1" data-bs-parent="#accordionExample">
+<div id="collapse41_1" class="accordion-collapse collapse"
+aria-labelledby="heading41_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -4806,18 +4920,18 @@ cards were dealt to her, the expression evaluates to 6.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-40.2">Problem 40.2</h3>
+<h3 id="problem-41.2">Problem 41.2</h3>
 <div class="sourceCode" id="cb52"><pre
 class="sourceCode py"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>np.count_nonzero(clue.get(<span class="st">&quot;Category&quot;</span>).<span class="bu">str</span>.contains(<span class="st">&quot;p&quot;</span>)) </span></code></pre></div>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading40_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse40_2" aria-expanded="true" aria-controls="collapse40_2">
+<h2 class="accordion-header" id="heading41_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse41_2" aria-expanded="true" aria-controls="collapse41_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse40_2" class="accordion-collapse collapse"
-aria-labelledby="heading40_2" data-bs-parent="#accordionExample">
+<div id="collapse41_2" class="accordion-collapse collapse"
+aria-labelledby="heading41_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -4841,18 +4955,18 @@ respectively, the expression evaluates to 13.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-40.3">Problem 40.3</h3>
+<h3 id="problem-41.3">Problem 41.3</h3>
 <div class="sourceCode" id="cb53"><pre
 class="sourceCode py"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>clue[(clue.get(<span class="st">&quot;Category&quot;</span>) <span class="op">==</span> <span class="st">&quot;suspect&quot;</span>) <span class="op">&amp;</span> (clue.get(<span class="st">&quot;Cardholder&quot;</span>) <span class="op">==</span> <span class="st">&quot;Janine&quot;</span>)].shape[<span class="dv">0</span>] </span></code></pre></div>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading40_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse40_3" aria-expanded="true" aria-controls="collapse40_3">
+<h2 class="accordion-header" id="heading41_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse41_3" aria-expanded="true" aria-controls="collapse41_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse40_3" class="accordion-collapse collapse"
-aria-labelledby="heading40_3" data-bs-parent="#accordionExample">
+<div id="collapse41_3" class="accordion-collapse collapse"
+aria-labelledby="heading41_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -4873,18 +4987,18 @@ know how many <code>"suspect"</code> cards Janine has.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-40.4">Problem 40.4</h3>
+<h3 id="problem-41.4">Problem 41.4</h3>
 <div class="sourceCode" id="cb54"><pre
 class="sourceCode py"><code class="sourceCode python"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(clue.take(np.arange(<span class="dv">5</span>, <span class="dv">20</span>, <span class="dv">3</span>)).index) </span></code></pre></div>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading40_4">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse40_4" aria-expanded="true" aria-controls="collapse40_4">
+<h2 class="accordion-header" id="heading41_4">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse41_4" aria-expanded="true" aria-controls="collapse41_4">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse40_4" class="accordion-collapse collapse"
-aria-labelledby="heading40_4" data-bs-parent="#accordionExample">
+<div id="collapse41_4" class="accordion-collapse collapse"
+aria-labelledby="heading41_4" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -4907,18 +5021,18 @@ rows.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-40.5">Problem 40.5</h3>
+<h3 id="problem-41.5">Problem 41.5</h3>
 <div class="sourceCode" id="cb55"><pre
 class="sourceCode py"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(clue[clue.get(<span class="st">&quot;Category&quot;</span>) <span class="op">&gt;=</span> <span class="st">&quot;this&quot;</span>].index) </span></code></pre></div>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading40_5">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse40_5" aria-expanded="true" aria-controls="collapse40_5">
+<h2 class="accordion-header" id="heading41_5">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse41_5" aria-expanded="true" aria-controls="collapse41_5">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse40_5" class="accordion-collapse collapse"
-aria-labelledby="heading40_5" data-bs-parent="#accordionExample">
+<div id="collapse41_5" class="accordion-collapse collapse"
+aria-labelledby="heading41_5" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -4940,18 +5054,18 @@ when the string is <code>"weapon"</code>, which occurs 7 times.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-40.6">Problem 40.6</h3>
+<h3 id="problem-41.6">Problem 41.6</h3>
 <div class="sourceCode" id="cb56"><pre
 class="sourceCode py"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>clue.groupby(<span class="st">&quot;Cardholder&quot;</span>).count().get(<span class="st">&quot;Category&quot;</span>).<span class="bu">sum</span>() </span></code></pre></div>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading40_6">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse40_6" aria-expanded="true" aria-controls="collapse40_6">
+<h2 class="accordion-header" id="heading41_6">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse41_6" aria-expanded="true" aria-controls="collapse41_6">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse40_6" class="accordion-collapse collapse"
-aria-labelledby="heading40_6" data-bs-parent="#accordionExample">
+<div id="collapse41_6" class="accordion-collapse collapse"
+aria-labelledby="heading41_6" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -4977,7 +5091,7 @@ total number of cards in play!</p>
 </div>
 <div class="lec-problem" data-avg="64.00" data-term="20254">
 <p class="meta"><em>Source:</em> <a href="../../fa25-quiz1/index.html#problem-2">Question 2 from Fall 2025 Quiz 1</a></p>
-<h2 data-src="fa25-quizzes/quiz1/q02" id="problem-41">Problem 41</h2>
+<h2 data-src="fa25-quizzes/quiz1/q02" id="problem-42">Problem 42</h2>
 <p>For diversity, we need to cut fighters from the most common
 <code>"Species"</code>. Fill in the blanks below to find the
 <code>"Species"</code> with the most fighters (i.e. the
@@ -4985,13 +5099,13 @@ total number of cards in play!</p>
 <pre><code>smash.groupby(&quot;Species&quot;).___(a)___().sort_values(by=&quot;Year&quot;).___(b)___</code></pre>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading41">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse41" aria-expanded="true" aria-controls="collapse41">
+<h2 class="accordion-header" id="heading42">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse42" aria-expanded="true" aria-controls="collapse42">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse41" class="accordion-collapse collapse"
-aria-labelledby="heading41" data-bs-parent="#accordionExample">
+<div id="collapse42" class="accordion-collapse collapse"
+aria-labelledby="heading42" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -5023,20 +5137,20 @@ fighters.</p>
 </div>
 <div class="lec-problem" data-avg="63.00" data-term="20242">
 <p class="meta"><em>Source:</em> <a href="../../sp24-midterm/index.html#problem-3">Question 3 from Spring 2024 Midterm Exam</a></p>
-<h2 data-src="sp24-midterm/q03" id="problem-42">Problem 42</h2>
+<h2 data-src="sp24-midterm/q03" id="problem-43">Problem 43</h2>
 <p>Write a Python expression that evaluates to a DataFrame of only your
 contacts whose phone numbers end in <code>"6789"</code>.</p>
 <p><strong>Note:</strong> Do not use slicing, if you know what that is.
 You must use methods from this course.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading42">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse42" aria-expanded="true" aria-controls="collapse42">
+<h2 class="accordion-header" id="heading43">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse43" aria-expanded="true" aria-controls="collapse43">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse42" class="accordion-collapse collapse"
-aria-labelledby="heading42" data-bs-parent="#accordionExample">
+<div id="collapse43" class="accordion-collapse collapse"
+aria-labelledby="heading43" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -5069,7 +5183,7 @@ True.</li>
 </div>
 <div class="lec-problem" data-avg="61.00" data-term="20263">
 <p class="meta"><em>Source:</em> <a href="../../su26-midterm/index.html#problem-4">Question 4 from Summer 2026 Midterm Exam</a></p>
-<h2 data-src="su26-midterm/q04" id="problem-43">Problem 43</h2>
+<h2 data-src="su26-midterm/q04" id="problem-44">Problem 44</h2>
 <p>Janine was in Las Vegas last year when she spotted a UFO. She
 remembers that the UFO was either disk-shaped or cylinder-shaped, but
 she does not remember which.</p>
@@ -5089,13 +5203,13 @@ gives the same result as comparing them chronologically.</p>
 <strong>single expression</strong> in Python.</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading43">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse43" aria-expanded="true" aria-controls="collapse43">
+<h2 class="accordion-header" id="heading44">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse44" aria-expanded="true" aria-controls="collapse44">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse43" class="accordion-collapse collapse"
-aria-labelledby="heading43" data-bs-parent="#accordionExample">
+<div id="collapse44" class="accordion-collapse collapse"
+aria-labelledby="heading44" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -5143,20 +5257,20 @@ what we want.</p>
 </div>
 <div class="lec-problem" data-avg="61.00" data-term="20244">
 <p class="meta"><em>Source:</em> <a href="../../fa24-quiz2/index.html#problem-2">Question 2 from Fall 2024 Quiz 2</a></p>
-<h2 data-src="fa24-quizzes/quiz2/q02" id="problem-44">Problem 44</h2>
+<h2 data-src="fa24-quizzes/quiz2/q02" id="problem-45">Problem 45</h2>
 <p>Fill in the blank so that the expression below evaluates to the
 number of years (out of the past six years) in which UC San Diego
 awarded more than 12,000 degrees.</p>
 <pre><code>uc[______].shape[0]</code></pre>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading44">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse44" aria-expanded="true" aria-controls="collapse44">
+<h2 class="accordion-header" id="heading45">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse45" aria-expanded="true" aria-controls="collapse45">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse44" class="accordion-collapse collapse"
-aria-labelledby="heading44" data-bs-parent="#accordionExample">
+<div id="collapse45" class="accordion-collapse collapse"
+aria-labelledby="heading45" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -5181,7 +5295,7 @@ awarded more than 12,000 degrees.</p>
 </div>
 <div class="lec-problem" data-avg="60.50" data-term="20242">
 <p class="meta"><em>Source:</em> <a href="../../sp24-final/index.html#problem-15">Question 15 from Spring 2024 Final Exam</a></p>
-<h2 data-src="sp24-final/q15" id="problem-45">Problem 45</h2>
+<h2 data-src="sp24-final/q15" id="problem-46">Problem 46</h2>
 <p>Imagine a DataFrame constructed from <code>apts</code> called
 <code>bedrooms</code>, which has one row for each bedroom in an
 apartment in <code>apts</code>. More specifically, a one bedroom
@@ -5200,7 +5314,7 @@ the apartment divided by the number of bedrooms. All rows of
 <code>bedrooms</code> with a shared <code>"Apartment ID"</code> should
 therefore have the same value in the <code>"Cost"</code> column.</p>
 <p><br></p>
-<h3 id="problem-45.1">Problem 45.1</h3>
+<h3 id="problem-46.1">Problem 46.1</h3>
 <p>Recall that <code>apts</code> has 800 rows. How many rows does
 <code>bedrooms</code> have?</p>
 <ul class="task-list">
@@ -5211,13 +5325,13 @@ therefore have the same value in the <code>"Cost"</code> column.</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading45_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse45_1" aria-expanded="true" aria-controls="collapse45_1">
+<h2 class="accordion-header" id="heading46_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse46_1" aria-expanded="true" aria-controls="collapse46_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse45_1" class="accordion-collapse collapse"
-aria-labelledby="heading45_1" data-bs-parent="#accordionExample">
+<div id="collapse46_1" class="accordion-collapse collapse"
+aria-labelledby="heading46_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -5244,7 +5358,7 @@ total number of rows in <code>bedrooms</code> to more than 800.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-45.2">Problem 45.2</h3>
+<h3 id="problem-46.2">Problem 46.2</h3>
 <p>Suppose <code>no_studio</code> is defined as follows. (Remember, we
 previously converted the <code>"Beds"</code> column to integers.)</p>
 <div class="sourceCode" id="cb59"><pre
@@ -5264,13 +5378,13 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb60-1"><a href=
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading45_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse45_2" aria-expanded="true" aria-controls="collapse45_2">
+<h2 class="accordion-header" id="heading46_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse46_2" aria-expanded="true" aria-controls="collapse46_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse45_2" class="accordion-collapse collapse"
-aria-labelledby="heading45_2" data-bs-parent="#accordionExample">
+<div id="collapse46_2" class="accordion-collapse collapse"
+aria-labelledby="heading46_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -5348,9 +5462,9 @@ walkthrough video</a> is available for this problem.</strong></p>
 </div>
 <div class="lec-problem" data-avg="59.00" data-term="20231">
 <p class="meta"><em>Source:</em> <a href="../../wi23-midterm/index.html#problem-3">Question 3 from Winter 2023 Midterm Exam</a></p>
-<h2 data-src="wi23-midterm/q3" id="problem-46">Problem 46</h2>
+<h2 data-src="wi23-midterm/q3" id="problem-47">Problem 47</h2>
 <p><br></p>
-<h3 id="problem-46.1">Problem 46.1</h3>
+<h3 id="problem-47.1">Problem 47.1</h3>
 <p>The DataFrame <code>amelia</code> was created by the code below, and
 is shown in its entirety.</p>
 <div class="sourceCode" id="cb61"><pre
@@ -5370,13 +5484,13 @@ rows and columns provided.</p>
 <p><br></p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading46_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse46_1" aria-expanded="true" aria-controls="collapse46_1">
+<h2 class="accordion-header" id="heading47_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse47_1" aria-expanded="true" aria-controls="collapse47_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse46_1" class="accordion-collapse collapse"
-aria-labelledby="heading46_1" data-bs-parent="#accordionExample">
+<div id="collapse47_1" class="accordion-collapse collapse"
+aria-labelledby="heading47_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -5444,7 +5558,7 @@ columns in descending order, so the last alphabetically/numerically.</p>
 </div>
 <div class="lec-problem" data-avg="57.67" data-term="20264">
 <p class="meta"><em>Source:</em> <a href="../../fa26-quiz1/index.html#problem-4">Question 4 from Fall 2026 Quiz 1</a></p>
-<h2 data-src="fa26-quizzes/quiz1/q04" id="problem-47">Problem 47</h2>
+<h2 data-src="fa26-quizzes/quiz1/q04" id="problem-48">Problem 48</h2>
 <p>Ray, founder of Ray’s Reviews, writes that the sushi from Coleman’s
 Catch is delicious, but it may be overpriced. Fill in the blanks below
 to create a DataFrame called <code>money</code>, which is indexed by
@@ -5456,17 +5570,17 @@ individual piece of a menu item in each of the different
 class="sourceCode py"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>unit_price <span class="op">=</span> menu.assign(price_per_piece <span class="op">=</span> __(A)__)</span>
 <span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>money <span class="op">=</span> unit_price.get(__(B)__).groupby(<span class="st">&quot;Type&quot;</span>).__(C)__</span></code></pre></div>
 <p><br></p>
-<h3 id="problem-47.1">Problem 47.1</h3>
+<h3 id="problem-48.1">Problem 48.1</h3>
 <p>What goes in blank (A)?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading47_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse47_1" aria-expanded="true" aria-controls="collapse47_1">
+<h2 class="accordion-header" id="heading48_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse48_1" aria-expanded="true" aria-controls="collapse48_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse47_1" class="accordion-collapse collapse"
-aria-labelledby="heading47_1" data-bs-parent="#accordionExample">
+<div id="collapse48_1" class="accordion-collapse collapse"
+aria-labelledby="heading48_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -5487,17 +5601,17 @@ the result as the new column “price_per_piece”.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-47.2">Problem 47.2</h3>
+<h3 id="problem-48.2">Problem 48.2</h3>
 <p>What goes in blank (B)?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading47_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse47_2" aria-expanded="true" aria-controls="collapse47_2">
+<h2 class="accordion-header" id="heading48_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse48_2" aria-expanded="true" aria-controls="collapse48_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse47_2" class="accordion-collapse collapse"
-aria-labelledby="heading47_2" data-bs-parent="#accordionExample">
+<div id="collapse48_2" class="accordion-collapse collapse"
+aria-labelledby="heading48_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -5519,17 +5633,17 @@ out this step, the aggregation in blank (C) would also run on “Price”,
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-47.3">Problem 47.3</h3>
+<h3 id="problem-48.3">Problem 48.3</h3>
 <p>What goes in blank (C)?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading47_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse47_3" aria-expanded="true" aria-controls="collapse47_3">
+<h2 class="accordion-header" id="heading48_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse48_3" aria-expanded="true" aria-controls="collapse48_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse47_3" class="accordion-collapse collapse"
-aria-labelledby="heading47_3" data-bs-parent="#accordionExample">
+<div id="collapse48_3" class="accordion-collapse collapse"
+aria-labelledby="heading48_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -5552,27 +5666,27 @@ within each type. The result is indexed by “Type” with a single column
 </div>
 <div class="lec-problem" data-avg="57.00" data-term="20264">
 <p class="meta"><em>Source:</em> <a href="../../fa26-quiz1/index.html#problem-5">Question 5 from Fall 2026 Quiz 1</a></p>
-<h2 data-src="fa26-quizzes/quiz1/q05" id="problem-48">Problem 48</h2>
+<h2 data-src="fa26-quizzes/quiz1/q05" id="problem-49">Problem 49</h2>
 <p>Coleman has trouble selling certain menu items, so he creates the
 <em>Coleman’s Catch of the Day Combo</em>. All menu items with ratings
 below 4.5 are considered clunkers. The combo consists of the most
 expensive clunker of each <code>"Type"</code>, which he sells as a
 bundle for $30.</p>
 <p><br></p>
-<h3 id="problem-48.1">Problem 48.1</h3>
+<h3 id="problem-49.1">Problem 49.1</h3>
 <p>Fill in the blank so that <code>clunkers</code> is a DataFrame
 consisting of the rows of <code>menu</code> with ratings below 4.5.</p>
 <div class="sourceCode" id="cb64"><pre
 class="sourceCode py"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>clunkers <span class="op">=</span> ____</span></code></pre></div>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading48_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse48_1" aria-expanded="true" aria-controls="collapse48_1">
+<h2 class="accordion-header" id="heading49_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse49_1" aria-expanded="true" aria-controls="collapse49_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse48_1" class="accordion-collapse collapse"
-aria-labelledby="heading48_1" data-bs-parent="#accordionExample">
+<div id="collapse49_1" class="accordion-collapse collapse"
+aria-labelledby="heading49_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -5592,7 +5706,7 @@ on this problem was 63%.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-48.2">Problem 48.2</h3>
+<h3 id="problem-49.2">Problem 49.2</h3>
 <p>Which of the following evaluates to the amount of money a customer
 saves by purchasing the combo versus purchasing each item
 individually?</p>
@@ -5604,13 +5718,13 @@ individually?</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading48_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse48_2" aria-expanded="true" aria-controls="collapse48_2">
+<h2 class="accordion-header" id="heading49_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse49_2" aria-expanded="true" aria-controls="collapse49_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse48_2" class="accordion-collapse collapse"
-aria-labelledby="heading48_2" data-bs-parent="#accordionExample">
+<div id="collapse49_2" class="accordion-collapse collapse"
+aria-labelledby="heading49_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -5645,7 +5759,7 @@ minus $30.</p>
 </div>
 <div class="lec-problem" data-avg="57.00" data-term="20241">
 <p class="meta"><em>Source:</em> <a href="../../wi24-quiz2/index.html#problem-2">Question 2 from Winter 2024 Quiz 2</a></p>
-<h2 data-src="wi24-quizzes/quiz2/q02" id="problem-49">Problem 49</h2>
+<h2 data-src="wi24-quizzes/quiz2/q02" id="problem-50">Problem 50</h2>
 <p>Fill in the blanks so that <code>rotten_apple</code> evaluates to the
 number of laptops manufactured by <code>"Apple"</code> that are priced
 below the median price of all laptops.</p>
@@ -5654,13 +5768,13 @@ y = __(b)__
 rotten_apple = laptops[x __(c)__ y].__(d)__</code></pre>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading49">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse49" aria-expanded="true" aria-controls="collapse49">
+<h2 class="accordion-header" id="heading50">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse50" aria-expanded="true" aria-controls="collapse50">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse49" class="accordion-collapse collapse"
-aria-labelledby="heading49" data-bs-parent="#accordionExample">
+<div id="collapse50" class="accordion-collapse collapse"
+aria-labelledby="heading50" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -5719,7 +5833,7 @@ matching laptops we want.</p>
 </div>
 <div class="lec-problem" data-avg="56.50" data-term="20234">
 <p class="meta"><em>Source:</em> <a href="../../fa23-midterm/index.html#problem-2">Question 2 from Fall 2023 Midterm Exam</a></p>
-<h2 data-src="fa23-midterm/q02" id="problem-50">Problem 50</h2>
+<h2 data-src="fa23-midterm/q02" id="problem-51">Problem 51</h2>
 <p>Suppose we define the three variables below.</p>
 <pre><code>J = living_cost.get(&quot;county&quot;) == &quot;Benton County&quot;
 K = living_cost.get(&quot;state&quot;) == &quot;IN&quot;
@@ -5727,7 +5841,7 @@ L = living_cost.get(&quot;family_type&quot;) == &quot;1a2c&quot;</code></pre>
 <p>Feel free to use these variables in your solutions to the following
 questions.</p>
 <p><br></p>
-<h3 id="problem-50.1">Problem 50.1</h3>
+<h3 id="problem-51.1">Problem 51.1</h3>
 <p>Fill in the blanks so that the expression below evaluates to the
 average yearly childcare cost for families with one adult and two
 children in Benton County, IN.</p>
@@ -5738,13 +5852,13 @@ children in Benton County, IN.</p>
 </ol>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading50_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse50_1" aria-expanded="true" aria-controls="collapse50_1">
+<h2 class="accordion-header" id="heading51_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse51_1" aria-expanded="true" aria-controls="collapse51_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse50_1" class="accordion-collapse collapse"
-aria-labelledby="heading50_1" data-bs-parent="#accordionExample">
+<div id="collapse51_1" class="accordion-collapse collapse"
+aria-labelledby="heading51_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -5785,7 +5899,7 @@ adult and two children in Benton County, IN. </p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-50.2">Problem 50.2</h3>
+<h3 id="problem-51.2">Problem 51.2</h3>
 <p>Fill in the blanks so that the expression below evaluates to the
 number of states with a county named Benton County.</p>
 <pre><code>    __(c)__.__(d)__ / 10</code></pre>
@@ -5795,13 +5909,13 @@ number of states with a county named Benton County.</p>
 </ol>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading50_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse50_2" aria-expanded="true" aria-controls="collapse50_2">
+<h2 class="accordion-header" id="heading51_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse51_2" aria-expanded="true" aria-controls="collapse51_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse50_2" class="accordion-collapse collapse"
-aria-labelledby="heading50_2" data-bs-parent="#accordionExample">
+<div id="collapse51_2" class="accordion-collapse collapse"
+aria-labelledby="heading51_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -5851,7 +5965,7 @@ DataFrame.</p>
 </div>
 <div class="lec-problem" data-avg="56.33" data-term="20252">
 <p class="meta"><em>Source:</em> <a href="../../sp25-quiz1/index.html#problem-2">Question 2 from Spring 2025 Quiz 1</a></p>
-<h2 data-src="sp25-quizzes/quiz1/q02" id="problem-51">Problem 51</h2>
+<h2 data-src="sp25-quizzes/quiz1/q02" id="problem-52">Problem 52</h2>
 <p>Steve wants to build a village where each house is built using a
 <strong>different</strong> <code>"Item"</code> from the
 <code>"Materials"</code> chest (e.g., a cobblestone house, a wood house,
@@ -5863,13 +5977,13 @@ village will have.</p>
 class="sourceCode py"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>    items[(___(a)___) <span class="op">&amp;</span> (___(b)___)].___(c)___</span></code></pre></div>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading51">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse51" aria-expanded="true" aria-controls="collapse51">
+<h2 class="accordion-header" id="heading52">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse52" aria-expanded="true" aria-controls="collapse52">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse51" class="accordion-collapse collapse"
-aria-labelledby="heading51" data-bs-parent="#accordionExample">
+<div id="collapse52" class="accordion-collapse collapse"
+aria-labelledby="heading52" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -5916,7 +6030,7 @@ that answer (a) and (b) may be swapped.</p>
 </div>
 <div class="lec-problem" data-avg="52.00" data-term="20261">
 <p class="meta"><em>Source:</em> <a href="../../wi26-quiz1/index.html#problem-4">Question 4 from Winter 2026 Quiz 1</a></p>
-<h2 data-src="wi26-quizzes/quiz1/q04" id="problem-52">Problem 52</h2>
+<h2 data-src="wi26-quizzes/quiz1/q04" id="problem-53">Problem 53</h2>
 <p>With more students requesting online courses, the Registrar wants to
 know how many online courses are offered by the CSE department.
 <strong>Select all</strong> expressions that correctly evaluate to an
@@ -5931,13 +6045,13 @@ know how many online courses are offered by the CSE department.
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading52">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse52" aria-expanded="true" aria-controls="collapse52">
+<h2 class="accordion-header" id="heading53">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse53" aria-expanded="true" aria-controls="collapse53">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse52" class="accordion-collapse collapse"
-aria-labelledby="heading52" data-bs-parent="#accordionExample">
+<div id="collapse53" class="accordion-collapse collapse"
+aria-labelledby="heading53" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -5979,9 +6093,9 @@ how many are <code>True</code>. Incorrect.</li>
 </div>
 <div class="lec-problem" data-avg="48.33" data-term="20232">
 <p class="meta"><em>Source:</em> <a href="../../sp23-midterm/index.html#problem-4">Question 4 from Spring 2023 Midterm Exam</a></p>
-<h2 data-src="sp23-midterm/q04" id="problem-53">Problem 53</h2>
+<h2 data-src="sp23-midterm/q04" id="problem-54">Problem 54</h2>
 <p><br></p>
-<h3 id="problem-53.1">Problem 53.1</h3>
+<h3 id="problem-54.1">Problem 54.1</h3>
 <p>Consider the following block of code.</p>
 <div class="sourceCode" id="cb70"><pre
 class="sourceCode py"><code class="sourceCode python"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>    A <span class="op">=</span> survey.shape[<span class="dv">0</span>]</span>
@@ -6001,13 +6115,13 @@ unread emails and the same number of Instagram followers.</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading53_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse53_1" aria-expanded="true" aria-controls="collapse53_1">
+<h2 class="accordion-header" id="heading54_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse54_1" aria-expanded="true" aria-controls="collapse54_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse53_1" class="accordion-collapse collapse"
-aria-labelledby="heading53_1" data-bs-parent="#accordionExample">
+<div id="collapse54_1" class="accordion-collapse collapse"
+aria-labelledby="heading54_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -6049,7 +6163,7 @@ unique.</p>
 </div>
 <p><br></p>
 <p><br></p>
-<h3 id="problem-53.2">Problem 53.2</h3>
+<h3 id="problem-54.2">Problem 54.2</h3>
 <p>We’d like to find the mean number of Instagram followers of all
 students in DSC 10. One <strong>correct</strong> way to do so is given
 below.</p>
@@ -6085,13 +6199,13 @@ no.</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading53_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse53_2" aria-expanded="true" aria-controls="collapse53_2">
+<h2 class="accordion-header" id="heading54_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse54_2" aria-expanded="true" aria-controls="collapse54_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse53_2" class="accordion-collapse collapse"
-aria-labelledby="heading53_2" data-bs-parent="#accordionExample">
+<div id="collapse54_2" class="accordion-collapse collapse"
+aria-labelledby="heading54_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -6171,7 +6285,7 @@ answer is “Yes.”</p>
 </div>
 <div class="lec-problem" data-avg="45.00" data-term="20241">
 <p class="meta"><em>Source:</em> <a href="../../wi24-midterm/index.html#problem-3">Question 3 from Winter 2024 Midterm Exam</a></p>
-<h2 data-src="wi24-midterm/q03" id="problem-54">Problem 54</h2>
+<h2 data-src="wi24-midterm/q03" id="problem-55">Problem 55</h2>
 <p>An important part of the game is knowing when you’ve narrowed it down
 to just one suspect with one weapon in one room. Then you can make your
 accusation and win the game!</p>
@@ -6184,7 +6298,7 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb73-1"><a href=
 <span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a>                   .reset_index())</span>
 <span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a>    filtered <span class="op">=</span> grouped[grouped.get(<span class="st">&quot;Cardholder&quot;</span>) <span class="op">==</span> <span class="st">&quot;Unknown&quot;</span>]</span></code></pre></div>
 <p><br></p>
-<h3 id="problem-54.1">Problem 54.1</h3>
+<h3 id="problem-55.1">Problem 55.1</h3>
 <p>Fill in the blank below so that <code>"Ready to accuse"</code> is
 printed when Janine has enough information to make an accusation and win
 the game.</p>
@@ -6201,13 +6315,13 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb74-1"><a href=
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading54_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse54_1" aria-expanded="true" aria-controls="collapse54_1">
+<h2 class="accordion-header" id="heading55_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse55_1" aria-expanded="true" aria-controls="collapse55_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse54_1" class="accordion-collapse collapse"
-aria-labelledby="heading54_1" data-bs-parent="#accordionExample">
+<div id="collapse55_1" class="accordion-collapse collapse"
+aria-labelledby="heading55_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -6249,7 +6363,7 @@ cards in total. You can make an accusation now!</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-54.2">Problem 54.2</h3>
+<h3 id="problem-55.2">Problem 55.2</h3>
 <p>Now, let’s look at a different way to do the same thing. Fill in the
 blank below so that <code>"Ready to accuse"</code> is printed when
 Janine has enough information to make an accusation and win the
@@ -6267,13 +6381,13 @@ class="sourceCode py"><code class="sourceCode python"><span id="cb75-1"><a href=
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading54_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse54_2" aria-expanded="true" aria-controls="collapse54_2">
+<h2 class="accordion-header" id="heading55_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse55_2" aria-expanded="true" aria-controls="collapse55_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse54_2" class="accordion-collapse collapse"
-aria-labelledby="heading54_2" data-bs-parent="#accordionExample">
+<div id="collapse55_2" class="accordion-collapse collapse"
+aria-labelledby="heading55_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -6300,24 +6414,24 @@ column must be 1, so we can fill in the blank with
 </div>
 <div class="lec-problem" data-avg="44.67" data-term="20264">
 <p class="meta"><em>Source:</em> <a href="../../fa26-quiz1/index.html#problem-2">Question 2 from Fall 2026 Quiz 1</a></p>
-<h2 data-src="fa26-quizzes/quiz1/q02" id="problem-55">Problem 55</h2>
+<h2 data-src="fa26-quizzes/quiz1/q02" id="problem-56">Problem 56</h2>
 <p>After a few months of operation, Coleman notices that there are a few
 bugs in his restaurant data dashboard. For each expression below, help
 Coleman figure out what the expression will evaluate to, or write
 “error” if the expression produces an error.</p>
 <p><br></p>
-<h3 id="problem-55.1">Problem 55.1</h3>
+<h3 id="problem-56.1">Problem 56.1</h3>
 <div class="sourceCode" id="cb76"><pre
 class="sourceCode py"><code class="sourceCode python"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a>menu.take(np.arange(<span class="dv">3</span>, <span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span>)).shape[<span class="dv">1</span>]</span></code></pre></div>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading55_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse55_1" aria-expanded="true" aria-controls="collapse55_1">
+<h2 class="accordion-header" id="heading56_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse56_1" aria-expanded="true" aria-controls="collapse56_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse55_1" class="accordion-collapse collapse"
-aria-labelledby="heading55_1" data-bs-parent="#accordionExample">
+<div id="collapse56_1" class="accordion-collapse collapse"
+aria-labelledby="heading56_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -6340,18 +6454,18 @@ means .shape[1] called on the previosu part of the expression evaluates
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-55.2">Problem 55.2</h3>
+<h3 id="problem-56.2">Problem 56.2</h3>
 <div class="sourceCode" id="cb77"><pre
 class="sourceCode py"><code class="sourceCode python"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>np.array([<span class="dv">10</span>, menu.get(<span class="st">&quot;Type&quot;</span>).loc[<span class="st">&quot;Tuna Sashimi&quot;</span>], <span class="fl">1.5</span>])[<span class="dv">2</span>]</span></code></pre></div>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading55_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse55_2" aria-expanded="true" aria-controls="collapse55_2">
+<h2 class="accordion-header" id="heading56_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse56_2" aria-expanded="true" aria-controls="collapse56_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse55_2" class="accordion-collapse collapse"
-aria-labelledby="heading55_2" data-bs-parent="#accordionExample">
+<div id="collapse56_2" class="accordion-collapse collapse"
+aria-labelledby="heading56_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -6376,18 +6490,18 @@ at index 2 is “1.5”, and since it’s a string, it needs quotes.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-55.3">Problem 55.3</h3>
+<h3 id="problem-56.3">Problem 56.3</h3>
 <div class="sourceCode" id="cb78"><pre
 class="sourceCode py"><code class="sourceCode python"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a><span class="bu">int</span>(<span class="bu">str</span>(menu.get(<span class="st">&quot;Rating&quot;</span>).<span class="bu">max</span>()))</span></code></pre></div>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading55_3">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse55_3" aria-expanded="true" aria-controls="collapse55_3">
+<h2 class="accordion-header" id="heading56_3">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse56_3" aria-expanded="true" aria-controls="collapse56_3">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse55_3" class="accordion-collapse collapse"
-aria-labelledby="heading55_3" data-bs-parent="#accordionExample">
+<div id="collapse56_3" class="accordion-collapse collapse"
+aria-labelledby="heading56_3" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -6410,23 +6524,23 @@ string only works if the string looks like a whole number, like “5”.
 </div>
 <div class="lec-problem" data-avg="44.50" data-term="20224">
 <p class="meta"><em>Source:</em> <a href="../../fa22-midterm/index.html#problem-4">Question 4 from Fall 2022 Midterm Exam</a></p>
-<h2 data-src="fa22-midterm/q4" id="problem-56">Problem 56</h2>
+<h2 data-src="fa22-midterm/q4" id="problem-57">Problem 57</h2>
 <p>Suppose we’ve run the following line of code. ​</p>
 <div class="sourceCode" id="cb79"><pre
 class="sourceCode py"><code class="sourceCode python"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>counts <span class="op">=</span> evs.groupby(<span class="st">&quot;Brand&quot;</span>).count()</span></code></pre></div>
 <p><br></p>
-<h3 id="problem-56.1">Problem 56.1</h3>
+<h3 id="problem-57.1">Problem 57.1</h3>
 <p>What value does <code>counts.get("Range").sum()</code> evaluate
 to?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading56_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse56_1" aria-expanded="true" aria-controls="collapse56_1">
+<h2 class="accordion-header" id="heading57_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse57_1" aria-expanded="true" aria-controls="collapse57_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse56_1" class="accordion-collapse collapse"
-aria-labelledby="heading56_1" data-bs-parent="#accordionExample">
+<div id="collapse57_1" class="accordion-collapse collapse"
+aria-labelledby="heading57_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -6452,17 +6566,17 @@ in <code>evs</code>, which we know to be 32. Thus,
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-56.2">Problem 56.2</h3>
+<h3 id="problem-57.2">Problem 57.2</h3>
 <p>What value does <code>counts.index[3]</code> evaluate to?</p>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading56_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse56_2" aria-expanded="true" aria-controls="collapse56_2">
+<h2 class="accordion-header" id="heading57_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse57_2" aria-expanded="true" aria-controls="collapse57_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse56_2" class="accordion-collapse collapse"
-aria-labelledby="heading56_2" data-bs-parent="#accordionExample">
+<div id="collapse57_2" class="accordion-collapse collapse"
+aria-labelledby="heading57_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -6489,7 +6603,7 @@ will be the array-like sequence
 </div>
 <div class="lec-problem" data-avg="40.00" data-term="20244">
 <p class="meta"><em>Source:</em> <a href="../../fa24-quiz2/index.html#problem-1">Question 1 from Fall 2024 Quiz 2</a></p>
-<h2 data-src="fa24-quizzes/quiz2/q01" id="problem-57">Problem 57</h2>
+<h2 data-src="fa24-quizzes/quiz2/q01" id="problem-58">Problem 58</h2>
 <p>Select the correct way to fill in the blank such that the code below
 evaluates to a DataFrame with a single row for each UC campus, where the
 <code>"Degrees"</code> column contains the average number of degrees
@@ -6505,13 +6619,13 @@ awarded by that campus per academic year (over the past six years).</p>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading57">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse57" aria-expanded="true" aria-controls="collapse57">
+<h2 class="accordion-header" id="heading58">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse58" aria-expanded="true" aria-controls="collapse58">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse57" class="accordion-collapse collapse"
-aria-labelledby="heading57" data-bs-parent="#accordionExample">
+<div id="collapse58" class="accordion-collapse collapse"
+aria-labelledby="heading58" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -6534,26 +6648,26 @@ resulting DataFrame has one row per campus.</p>
 </div>
 <div class="lec-problem" data-avg="39.50" data-term="20263">
 <p class="meta"><em>Source:</em> <a href="../../su26-midterm/index.html#problem-2">Question 2 from Summer 2026 Midterm Exam</a></p>
-<h2 data-src="su26-midterm/q02" id="problem-58">Problem 58</h2>
+<h2 data-src="su26-midterm/q02" id="problem-59">Problem 59</h2>
 <p>Define the variables <code>once</code> and <code>twice</code> as
 follows.</p>
 <pre><code>once = ufo.groupby(&quot;zipcode&quot;).count()
 twice = once.groupby(&quot;shape&quot;).count()</code></pre>
 <p><br></p>
-<h3 id="problem-58.1">Problem 58.1</h3>
+<h3 id="problem-59.1">Problem 59.1</h3>
 <p>Determine the <strong>value</strong> resulting from the following
 expression. You may indicate that the value cannot be determined or the
 expression produces an error.</p>
 <pre><code>((once.get(&quot;duration&quot;) &lt; 2) &amp; (once.get(&quot;duration&quot;) &gt;= 2)).sum()</code></pre>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading58_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse58_1" aria-expanded="true" aria-controls="collapse58_1">
+<h2 class="accordion-header" id="heading59_1">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse59_1" aria-expanded="true" aria-controls="collapse59_1">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse58_1" class="accordion-collapse collapse"
-aria-labelledby="heading58_1" data-bs-parent="#accordionExample">
+<div id="collapse59_1" class="accordion-collapse collapse"
+aria-labelledby="heading59_1" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -6577,7 +6691,7 @@ contents of <code>ufo</code> to answer this.</p>
 </div>
 </div>
 <p><br></p>
-<h3 id="problem-58.2">Problem 58.2</h3>
+<h3 id="problem-59.2">Problem 59.2</h3>
 <p>What can we conclude using <strong>only</strong> the
 <code>twice</code> DataFrame? <strong>Select only one of the
 options</strong> and in no more than three sentences, explain your
@@ -6593,13 +6707,13 @@ reported.</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading58_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse58_2" aria-expanded="true" aria-controls="collapse58_2">
+<h2 class="accordion-header" id="heading59_2">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse59_2" aria-expanded="true" aria-controls="collapse59_2">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse58_2" class="accordion-collapse collapse"
-aria-labelledby="heading58_2" data-bs-parent="#accordionExample">
+<div id="collapse59_2" class="accordion-collapse collapse"
+aria-labelledby="heading59_2" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -6645,7 +6759,7 @@ reported:</em>
 </div>
 <div class="lec-problem" data-avg="15.00" data-term="20244">
 <p class="meta"><em>Source:</em> <a href="../../fa24-midterm/index.html#problem-13">Question 13 from Fall 2024 Midterm Exam</a></p>
-<h2 data-src="fa24-midterm/q13" id="problem-59">Problem 59</h2>
+<h2 data-src="fa24-midterm/q13" id="problem-60">Problem 60</h2>
 <p><strong>Extra Credit</strong></p>
 <p>Define the variable <code>double</code> as follows.</p>
 <p><code>double = treat.groupby("candy").count().groupby("address").count()</code></p>
@@ -6666,13 +6780,13 @@ houses.</p></li>
 </ul>
 <div id="accordionExample" class="accordion">
 <div class="accordion-item">
-<h2 class="accordion-header" id="heading59">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse59" aria-expanded="true" aria-controls="collapse59">
+<h2 class="accordion-header" id="heading60">
+<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse60" aria-expanded="true" aria-controls="collapse60">
 Click to view the solution.
 </button>
 </h2>
-<div id="collapse59" class="accordion-collapse collapse"
-aria-labelledby="heading59" data-bs-parent="#accordionExample">
+<div id="collapse60" class="accordion-collapse collapse"
+aria-labelledby="heading60" data-bs-parent="#accordionExample">
 <div class="accordion-body">
 <header id="title-block-header">
 
@@ -6739,110 +6853,6 @@ answer choices, so <strong>Option 2</strong> is the correct answer.</p>
 </div>
 </div>
 </div>
-<hr />
-</div>
-<div class="lec-problem" data-term="20262">
-<p class="meta"><em>Source:</em> <a href="../../sp26-final/index.html#problem-2">Question 2 from Spring 2026 Final Exam</a></p>
-<h2 data-src="sp26-final/q02" id="problem-60">Problem 60</h2>
-<p>Recall that we have added to <code>bands</code> a new column called
-<code>"members"</code> containing the number of members in each
-band.</p>
-<p><br></p>
-<h3 id="problem-60.1">Problem 60.1</h3>
-<p>Ella is curious if bands with more members tend to make more albums.
-Write one line of code to add a new column to <code>bands</code> called
-<code>"albums_per_member"</code>, containing the ratio of albums to
-members for each band.</p>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading60_1">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse60_1" aria-expanded="true" aria-controls="collapse60_1">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse60_1" class="accordion-collapse collapse"
-aria-labelledby="heading60_1" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-
-</header>
-<p><strong>Answer:</strong></p>
-<div id="cb1" class="sourceCode">
-<pre class="sourceCode py"><code class="sourceCode python"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a>bands <span class="op">=</span> bands.assign(albums_per_member <span class="op">=</span> bands.get(<span class="st">"albums"</span>) <span class="op">/</span> bands.get(<span class="st">"members"</span>))</span></code></pre>
-</div>
-<p><strong>Solution:</strong></p>
-<p><code>bands.get("albums") / bands.get("members")</code> performs
-elementwise division, so each band’s album count is divided by its own
-member count, such as 12 albums and 4 members giving <span class="math inline">\frac{12}{4}=3</span>. The
-<code>.assign(albums_per_member = ...)</code> method adds these values
-as a new column, and because it returns a new DataFrame rather than
-modifying <code>bands</code> in place, we assign the result back to
-<code>bands</code>.</p>
-<div id="cb2" class="sourceCode">
-<pre class="sourceCode py"><code class="sourceCode python"><span id="cb2-1"><a aria-hidden="true" href="#cb2-1" tabindex="-1"></a>bands <span class="op">=</span> bands.assign(albums_per_member <span class="op">=</span> bands.get(<span class="st">"albums"</span>) <span class="op">/</span> bands.get(<span class="st">"members"</span>))</span></code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<h3 id="problem-60.2">Problem 60.2</h3>
-<p>Find the year in which the band with the highest
-<code>"albums_per_member"</code> ratio was formed. <strong>Select
-all</strong> options that correctly evaluate to this year (or any such
-year in the case of a tie).</p>
-<ul class="task-list">
-<li><p><input type="checkbox" disabled="" /> <code>bands.groupby("albums_per_member").min().sort_values(by=index, ascending=True).iloc[-1]</code></p></li>
-<li><p><input type="checkbox" disabled="" /> <code>bands.groupby("albums_per_member").min().reset_index().sort_values(by="albums_per_member", ascending=False).get("formed").iloc[0]</code></p></li>
-<li><p><input type="checkbox" disabled="" /> <code>bands.groupby("formed").max().sort_values(by="albums_per_member", ascending=False).get("formed").iloc[0]</code></p></li>
-<li><p><input type="checkbox" disabled="" /> <code>bands.groupby("formed").max().sort_values(by="albums_per_member", ascending=False).index[0]</code></p></li>
-<li><p><input type="checkbox" disabled="" /> <code>bands.sort_values(by="albums_per_member", ascending=True).get("formed").iloc[-1]</code></p></li>
-<li><p><input type="checkbox" disabled="" /> <code>bands.sort_values(by="formed", ascending=False).groupby("albums_per_member").max().index[0]</code></p></li>
-<li><p><input type="checkbox" disabled="" /> None of the above.</p></li>
-</ul>
-<div id="accordionExample" class="accordion">
-<div class="accordion-item">
-<h2 class="accordion-header" id="heading60_2">
-<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse60_2" aria-expanded="true" aria-controls="collapse60_2">
-Click to view the solution.
-</button>
-</h2>
-<div id="collapse60_2" class="accordion-collapse collapse"
-aria-labelledby="heading60_2" data-bs-parent="#accordionExample">
-<div class="accordion-body">
-<header id="title-block-header">
-
-</header>
-<p><strong>Answer:</strong></p>
-<p>Option 2, Option 4, and Option 5</p>
-<p><strong>Solution:</strong></p>
-<p><strong>Option 1</strong> is incorrect because <code>index</code> is
-not in quotation marks, so <code>sort_values(by=index, ...)</code>
-raises an error, and <code>.iloc[-1]</code> would return a whole row
-rather than a year.</p>
-<p><strong>Option 2</strong> is correct because grouping by
-<code>"albums_per_member"</code>, resetting the index, sorting in
-descending order, and taking <code>.get("formed").iloc[0]</code> returns
-a formation year for a band with the highest ratio.</p>
-<p><strong>Option 3</strong> is incorrect because
-<code>groupby("formed")</code> makes the years the index, so
-<code>.get("formed")</code> fails since <code>"formed"</code> is no
-longer a column.</p>
-<p><strong>Option 4</strong> is correct because after
-<code>groupby("formed").max()</code> and a descending sort, the year
-with the highest ratio comes first, and <code>.index[0]</code> retrieves
-it from the index.</p>
-<p><strong>Option 5</strong> is correct because an ascending sort puts
-the highest ratio in the last row, so
-<code>.get("formed").iloc[-1]</code> gives its year.</p>
-<p><strong>Option 6</strong> is incorrect because grouping by
-<code>"albums_per_member"</code> makes the ratios the index, so
-<code>.index[0]</code> returns a ratio rather than a year.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
 <hr />
 </div>
 <script>
