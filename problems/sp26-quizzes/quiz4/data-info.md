@@ -7,4 +7,4 @@ UCSD housing coordinators Pranav and Ray each processed a random sample of 25 Co
 - `"dates"` (`str`): either `"Jul22-26"` or `"Jul23-27"`
 - `"price"` (`float`): `760.50` for `"early_bird"` and `845.00` for `"standard"`
 
-<center><img src="https://raw.githubusercontent.com/dsc-courses/practice.dsc10.com/refs/heads/master/assets/images/sp26-quizzes/res.png" width=400></center>
+<center><img src="../assets/images/sp26-quizzes/res.png" width=400></center>

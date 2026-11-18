@@ -465,18 +465,22 @@ Below, you'll find an archive of past quizzes. Note that different quarters had 
         <a href='fa25-quiz3/index.html'>Quiz 3</a>
         <br>
         <a href='fa25-quiz4/index.html'>Quiz 4</a>
+        <br>
+        <a href='fa25-quiz5/index.html'>Quiz 5</a>
       </td>
       <td>
         1–5<br>
         6–10<br>
         13–15<br>
-        16–18
+        16–18<br>
+        19–22
       </td>
       <td>
         Super Smash Brothers<br>
         Chipotle<br>
         Cats<br>
-        Seasons
+        Seasons<br>
+        Baseball
       </td>
     </tr>
     <tr>

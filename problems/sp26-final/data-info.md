@@ -13,6 +13,6 @@ In this exam, we'll study a dataset of **400 bands**, which we will treat as a *
 
 The first few rows of `bands` are shown below, but remember that `bands` has 400 rows.
 
-<center><img src="https://raw.githubusercontent.com/dsc-courses/practice.dsc10.com/refs/heads/master/assets/images/sp26-final/bands.jpg" width=650></center>
+<center><img src="../assets/images/sp26-final/bands.jpg" width=650></center>
 
 Throughout this exam, we will refer to `bands` repeatedly. Assume that we have already run `import babypandas as bpd`, `import numpy as np`, and `import scipy`.

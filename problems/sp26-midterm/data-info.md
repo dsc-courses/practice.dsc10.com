@@ -13,6 +13,6 @@ The DataFrame `mascots` has one row for every college or university in the US wi
 
 The first few rows of `mascots` are shown below, though `mascots` has many more rows than pictured.
 
-<center><img src="https://raw.githubusercontent.com/dsc-courses/practice.dsc10.com/refs/heads/master/assets/images/sp26-midterm/mascots.jpg" width=650></center>
+<center><img src="../assets/images/sp26-midterm/mascots.jpg" width=650></center>
 
 Throughout this exam, we will refer to `mascots` repeatedly. Assume that we have already run `import babypandas as bpd` and `import numpy as np`.

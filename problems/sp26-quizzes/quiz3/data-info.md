@@ -6,4 +6,4 @@ The `elise` DataFrame contains 400 rows (i.e. recorded jumps) and has the follow
 - `"time"` (`str`): the time of day during which the jump occurred—either `"morning"`, `"afternoon"`, or `"night"`
 - `"humidity"` (`int`): the percent humidity of Elise's enclosure, at the time of the jump
 
-<center><img src="https://raw.githubusercontent.com/dsc-courses/practice.dsc10.com/refs/heads/master/assets/images/sp26-quizzes/elise.png" width=400></center>
+<center><img src="../assets/images/sp26-quizzes/elise.png" width=400></center>

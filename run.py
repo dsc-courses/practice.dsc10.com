@@ -819,8 +819,11 @@ def stitch(files, show_solution, toc=False):
             if nums:
                 lec_txt = ", ".join(str(x) for x in sorted(set(nums)))
 
+        # A <p>, not a <div>: pandoc parses a line starting with <div> as its own
+        # section and misses the </div> at the end of the line, which left the
+        # section unclosed and the HTML malformed (a "Div ... unclosed" warning).
         lecture_html = (
-            f"<div class='meta'><span class='pill pill-lecture' title='Lecture number(s)'>Lecture {lec_txt}</span></div>\n"
+            f"<p class='meta'><span class='pill pill-lecture' title='Lecture number(s)'>Lecture {lec_txt}</span></p>\n"
             if lec_txt else ""
         )
 

@@ -2,8 +2,8 @@ Leander collected a simple random sample of 500 Major League Baseball players, s
 
 `mlb` \
 
-<center><img src="https://raw.githubusercontent.com/dsc-courses/practice.dsc10.com/refs/heads/master/assets/images/fa25-quizzes/mlb.jpg" width=400></center>
+<center><img src="../assets/images/fa25-quizzes/mlb.jpg" width=400></center>
 
 `soxcards` \
 
-<center><img src="https://raw.githubusercontent.com/dsc-courses/practice.dsc10.com/refs/heads/master/assets/images/fa25-quizzes/TVD_dfA.png" width=200></center>
+<center><img src="../assets/images/fa25-quizzes/TVD_dfA.png" width=200></center>
