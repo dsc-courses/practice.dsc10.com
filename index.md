@@ -467,6 +467,7 @@ Below, you'll find an archive of past quizzes. Note that different quarters had 
         <a href='fa25-quiz4/index.html'>Quiz 4</a>
         <br>
         <a href='fa25-quiz5/index.html'>Quiz 5</a>
+<<<<<<< Updated upstream
       </td>
       <td>
         1–5<br>
@@ -474,6 +475,8 @@ Below, you'll find an archive of past quizzes. Note that different quarters had 
         13–15<br>
         16–18<br>
         19–22
+=======
+>>>>>>> Stashed changes
       </td>
       <td>
         Super Smash Brothers<br>
