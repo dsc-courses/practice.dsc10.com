@@ -328,6 +328,24 @@
       );
     }).join("");
 
+    // "By lecture": which lectures the flagged problems come from, most first,
+    // so you can see which topics to go back to.
+    const lecCounts = flaggedByLecture();
+    const lecChips = Object.keys(lecCounts)
+      .sort((a, b) => lecCounts[b] - lecCounts[a] || a - b)
+      .map((L) =>
+        '<a class="hp-review-chip" href="lectures/lec' + L + '/index.html" title="' +
+          lecCounts[L] + ' flagged ' + (lecCounts[L] === 1 ? 'problem' : 'problems') + ' from Lecture ' + L + '">' +
+          'Lecture ' + L + ' · ' + lecCounts[L] +
+        '</a>'
+      ).join("");
+    const byLecture = lecChips
+      ? '<div class="hp-review-bylec">' +
+          '<span class="hp-review-col-label">By lecture</span>' +
+          '<div class="hp-review-chips">' + lecChips + '</div>' +
+        '</div>'
+      : '';
+
     const reviewBlock = totalFlagged > 0
       ? '<div class="hp-review-card">' +
           '<button type="button" class="hp-review-head" aria-expanded="false">' +
@@ -338,7 +356,7 @@
             '<span class="hp-review-count">' + totalFlagged + '</span>' +
             '<span class="hp-review-caret" aria-hidden="true"></span>' +
           '</button>' +
-          '<div class="hp-review-list hp-hidden">' + reviewRows + '</div>' +
+          '<div class="hp-review-list hp-hidden">' + byLecture + reviewRows + '</div>' +
         '</div>'
       : '';
 
@@ -421,10 +439,27 @@
       .catch(() => ({}));
   }
 
+  // Flagged problems per lecture, e.g. { "9": 5, "16": 2 }. A flag is saved per
+  // problem file, so it counts whether it was set on an exam or a lecture page,
+  // and a problem tagged with two lectures counts toward both.
+  function flaggedByLecture() {
+    const flags = loadJSON(FLAGS_KEY);
+    const counts = {};
+    Object.keys(LECTURE_TOTALS || {}).forEach((L) => {
+      const files = LECTURE_TOTALS[L];
+      const n = Array.isArray(files) ? files.filter((f) => flags[f]).length : 0;
+      if (n) counts[L] = n;
+    });
+    return counts;
+  }
+
   function renderLectureProgress() {
     if (!LECTURE_TOTALS) return;
     const done = loadJSON(DONE_KEY);
+    const flaggedCounts = flaggedByLecture();
     document.querySelectorAll('a[href^="lectures/lec"]').forEach((a) => {
+      // Only the lecture buttons, not the "By lecture" links in the dashboard.
+      if (a.closest("#progress-tracker")) return;
       const m = a.getAttribute("href").match(/^lectures\/lec(\d+)\/index\.html$/);
       const files = m && LECTURE_TOTALS[m[1]];
       if (!Array.isArray(files) || !files.length) return;
@@ -438,10 +473,14 @@
       }
       el.classList.toggle("hp-lec-started", n > 0);
       el.classList.toggle("hp-lec-complete", n === files.length);
-      el.title = n + " of " + files.length + " problems done";
+      const flagged = flaggedCounts[m[1]] || 0;
+      el.title = n + " of " + files.length + " problems done" + (flagged ? ", " + flagged + " flagged for review" : "");
       el.innerHTML =
         '<span class="hp-lec-nums">' + (n === files.length ? "✓ " : "") + n + " / " + files.length + "</span>" +
-        '<span class="hp-lec-bar"><span style="width:' + pct + '%"></span></span>';
+        '<span class="hp-lec-bar"><span style="width:' + pct + '%"></span></span>' +
+        (flagged
+          ? '<span class="hp-lec-flag"><span class="hp-flag-icon" aria-hidden="true"></span>' + flagged + '</span>'
+          : '');
     });
   }
 
