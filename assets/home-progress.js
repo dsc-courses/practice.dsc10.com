@@ -330,19 +330,30 @@
 
     // "By lecture": which lectures the flagged problems come from, most first,
     // so you can see which topics to go back to.
+    // One row per lecture with its title, a bar scaled to the most-flagged
+    // lecture, and the count.
     const lecCounts = flaggedByLecture();
-    const lecChips = Object.keys(lecCounts)
+    const maxFlagged = Math.max(0, ...Object.values(lecCounts));
+    const lecRows = Object.keys(lecCounts)
       .sort((a, b) => lecCounts[b] - lecCounts[a] || a - b)
-      .map((L) =>
-        '<a class="hp-review-chip" href="lectures/lec' + L + '/index.html" title="' +
-          lecCounts[L] + ' flagged ' + (lecCounts[L] === 1 ? 'problem' : 'problems') + ' from Lecture ' + L + '">' +
-          'Lecture ' + L + ' · ' + lecCounts[L] +
-        '</a>'
-      ).join("");
-    const byLecture = lecChips
+      .map((L) => {
+        const n = lecCounts[L];
+        const topic = lectureTopic(L);
+        return (
+          '<a class="hp-bylec-row" href="lectures/lec' + L + '/index.html">' +
+            '<span class="hp-bylec-name"><strong>Lecture ' + L + (topic ? ':' : '') + '</strong>' +
+              (topic ? ' <span class="hp-bylec-topic">' + escapeHTML(topic) + '</span>' : '') +
+            '</span>' +
+            '<span class="hp-bylec-bar" aria-hidden="true"><span style="width:' + Math.round((100 * n) / maxFlagged) + '%"></span></span>' +
+            '<span class="hp-bylec-count">' + n + ' flagged</span>' +
+          '</a>'
+        );
+      }).join("");
+    const byLecture = lecRows
       ? '<div class="hp-review-bylec">' +
-          '<span class="hp-review-col-label">By lecture</span>' +
-          '<div class="hp-review-chips">' + lecChips + '</div>' +
+          '<p class="hp-bylec-title">Lectures to review</p>' +
+          '<p class="hp-bylec-hint">Your flagged problems come from these lectures, most flagged first. Start with these when you study.</p>' +
+          '<div class="hp-bylec-list">' + lecRows + '</div>' +
         '</div>'
       : '';
 
@@ -451,6 +462,19 @@
       if (n) counts[L] = n;
     });
     return counts;
+  }
+
+  // A lecture's title, read from its "Find Problems by Lecture" button
+  // (run.py puts it in a span under the number). "" if there isn't one.
+  function lectureTopic(L) {
+    const btn = Array.from(document.querySelectorAll('a[href="lectures/lec' + L + '/index.html"]'))
+      .find((a) => !a.closest("#progress-tracker"));
+    const span = btn && btn.querySelector(":scope > span:not(.hp-lec-progress)");
+    return span ? span.textContent.replace(/\s+/g, " ").trim() : "";
+  }
+
+  function escapeHTML(s) {
+    return s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
   }
 
   function renderLectureProgress() {
