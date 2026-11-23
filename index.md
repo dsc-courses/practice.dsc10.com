@@ -87,12 +87,12 @@ in this class, you should work through <b><a href="pretest/index.html">these pra
       <td>Monday, November 16th</td>
       <td><a href="disc08/index.html">The Central Limit Theorem and Hypothesis Testing</a></td>
     </tr>
-    <!--tr>
+    <tr>
       <th scope="row">9</th>
-      <td>Monday, May 24th(skipped)</td>
+      <td>Monday, November 23rd</td>
       <td><a href="disc09/index.html">Total Variation Distance and Permutation Testing</a></td>
     </tr>
-    <tr>
+    <!--tr>
       <th scope="row">10</th>
       <td>Monday, June 1st</td>
       <td><a href="disc10/index.html">Regression</a></td>
