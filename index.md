@@ -137,12 +137,12 @@ Each exam linked here lists the conditions under which the exam was given, inclu
     <tr>
       <th scope="row">Summer 2026</th>
       <td>Vrinda Desai</td>
-      <td>
-        <a href='su26-midterm/index.html'>Midterm</a>
-      </td>
-      <td>
-        UFO sightings
-      </td>
+        <td>
+    <a href='su26-midterm/index.html'>Midterm</a>
+    <br>
+    <a href='su26-final/index.html'>Final</a>
+  </td>
+  <td>UFO sightings<br>Ice cream parlor</td>
     </tr>
     <tr>
       <th scope="row">Spring 2026</th>
