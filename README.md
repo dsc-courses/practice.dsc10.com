@@ -24,6 +24,14 @@ The repo itself is public, so don't push anything students must not see yet, lik
 
 ## Previewing locally (optional)
 
+The shared Light / Dark switch defaults to light and remembers the selected theme
+in the browser. It is added automatically to all generated pages: keep editing
+problem Markdown and page YAML as usual, with no per-page theme settings needed.
+Theme styling and behavior live in `assets/site-theme.css` and
+`assets/site-theme.js`; `include-theme*.html` supplies the shared controls.
+Instructional images and PDFs retain their original colors. Analytics is
+suppressed on localhost previews.
+
 Install [uv](https://docs.astral.sh/uv/getting-started/installation/). uv sets up the right versions of Python, the Python packages and pandoc the first time you run a command. Then run these from the root of the repo. The output goes in `docs/`.
 
 ```
