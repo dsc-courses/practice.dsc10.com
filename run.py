@@ -1395,6 +1395,8 @@ def write_lecture_pages():
         with open(dst_html, 'w', encoding='utf-8') as f:
             f.write(html)
 
+        apply_site_theme(dst_html, root='../../', copy_assets=False)
+
         written.append(L)
 
     # Each lecture page's problems, as progress-tracker IDs in page order, so
@@ -1549,6 +1551,26 @@ def process_page(path, is_exam=True):
 
     return out, title
 
+def apply_site_theme(path, root='../', copy_assets=True):
+    """Add shared appearance controls to generated pages, without changing authored content."""
+    with open(path, encoding='utf-8') as rendered:
+        html = rendered.read()
+    header = read_html_config('include-theme.html').replace('{root}', root)
+    controls = read_html_config('include-theme-controls.html')
+    html = html.replace('</head>', header + '</head>', 1)
+    # Keep the existing title/navigation order. Pages without a nav still get the switch.
+    if '</nav>' in html:
+        html = html.replace('</nav>', '</nav>' + controls, 1)
+    else:
+        html = html.replace('<body>', '<body>' + controls, 1)
+    with open(path, 'w', encoding='utf-8') as rendered:
+        rendered.write(html)
+    if copy_assets:
+        os.makedirs(os.path.join(DST_FOLDER, 'assets'), exist_ok=True)
+        for asset in ('site-theme.css', 'site-theme.js'):
+            shutil.copyfile(os.path.join('assets', asset), os.path.join(DST_FOLDER, 'assets', asset))
+
+
 def write_page(path, called_from_write_all_pages=False):
     '''Takes in a path to a YML file and writes the MD file, runs pandoc, deletes the MD file'''
 
@@ -1581,6 +1603,7 @@ def write_page(path, called_from_write_all_pages=False):
     dst_path = os.path.join(DST_FOLDER, assignment_name, 'index.html')
     css_path = '../assets/theme.css'  # a URL, so always forward slashes (os.path.join gives \ on Windows)
     run_pandoc([*PANDOC_PAGE_ARGS, '-c', css_path, '--metadata', f'title={title}', *tab_title(title), src_path, '-o', dst_path], source=f'the {assignment_name} page')
+    apply_site_theme(dst_path, copy_assets=not called_from_write_all_pages)
 
     # Delete the intermediate Markdown
     os.remove(src_path)
@@ -1633,6 +1656,7 @@ def update_page(path):
     dst_path = os.path.join(DST_FOLDER, assignment_name, 'index.html')
     css_path = '../assets/theme.css'  # a URL, so always forward slashes (os.path.join gives \ on Windows)
     run_pandoc([*PANDOC_PAGE_ARGS, '-c', css_path, '--metadata', f'title={title}', *tab_title(title), src_path, '-o', tmp_path], source=f'the {assignment_name} page')
+    apply_site_theme(tmp_path)
 
     # Delete the intermediate Markdown
     os.remove(src_path)
@@ -1744,6 +1768,7 @@ def create_index():
     css_path = 'assets/theme.css'  # a URL, so always forward slashes (os.path.join gives \ on Windows)
     dst_path = os.path.join(DST_FOLDER, 'index.html')
     run_pandoc(['-c', css_path, '-s', src_path, '-o', dst_path], source='index.md')
+    apply_site_theme(dst_path, root='')
     os.remove(src_path)
 
     # Strip Pandoc's auto H1 title (unchanged)

@@ -106,11 +106,15 @@ def site(tmp_path):
     shutil.copy(REPO / "include-head.html", root / "include-head.html")
     shutil.copy(REPO / "include-nav.html", root / "include-nav.html")
     shutil.copy(REPO / "include-timer.html", root / "include-timer.html")
+    for name in ("include-theme.html", "include-theme-controls.html"):
+        shutil.copy(REPO / name, root / name)
     shutil.copytree(REPO / "utils", root / "utils", ignore=shutil.ignore_patterns("__pycache__"))
 
     s = Site(root)
     s.write("index.md", "# Test home\n\n[Link](fa99-midterm/index.html)\n")
     s.write("assets/theme.css", "body { color: black; }\n")
+    for name in ("site-theme.css", "site-theme.js"):
+        shutil.copy(REPO / "assets" / name, root / "assets" / name)
     (root / "assets/favicon.ico").write_bytes(b"not-really-an-icon")
     (root / "assets/images/fa99-midterm").mkdir(parents=True)
     (root / "assets/images/fa99-midterm/pic.png").write_bytes(b"not-really-a-png")
